@@ -12,7 +12,7 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
+  - Damage
   - 
   - 
   - 
@@ -58,4 +58,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1596155273
+    locked: 0
+  - name: Damage
+    uniqueID: 1538842371
     locked: 0
