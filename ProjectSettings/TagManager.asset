@@ -11,6 +11,7 @@ TagManager:
   - 
   - Water
   - UI
+  - Player
   - 
   - 
   - 
@@ -24,8 +25,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - Layer 1
+  - Background
   - Layer 2
   - Layer 3
   - 
@@ -41,12 +41,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Layer 1
+  - name: Background
     uniqueID: 2425651459
     locked: 0
-  - name: Layer 2
+  - name: Level
     uniqueID: 4250941897
     locked: 0
-  - name: Layer 3
-    uniqueID: 4189426099
+  - name: Scene
+    uniqueID: 789907441
+    locked: 0
+  - name: New Layer 4
+    uniqueID: 3028873213
+    locked: 0
+  - name: New Layer 5
+    uniqueID: 217426391
+    locked: 0
+  - name: Player
+    uniqueID: 1596155273
     locked: 0
