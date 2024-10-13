@@ -14,6 +14,7 @@ namespace _Script.Character
         private PlayerCharacter _playerCharacter;
         private Vector2 _fireDirection;
 
+
         private void Awake()
         {
             AwakenInitialize();

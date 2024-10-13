@@ -13,6 +13,7 @@ TagManager:
   - UI
   - Player
   - Damage
+  - Enemy
   - 
   - 
   - 
@@ -25,7 +26,6 @@ TagManager:
   - 
   - 
   - 
-  - Background
   - Layer 2
   - Layer 3
   - 
@@ -36,11 +36,8 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Background
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: Background
     uniqueID: 2425651459
     locked: 0
@@ -61,4 +58,13 @@ TagManager:
     locked: 0
   - name: Damage
     uniqueID: 1538842371
+    locked: 0
+  - name: 
+    uniqueID: 197579771
+    locked: 0
+  - name: 
+    uniqueID: 1960661667
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0
