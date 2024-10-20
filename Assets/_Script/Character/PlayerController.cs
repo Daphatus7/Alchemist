@@ -1,25 +1,29 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace _Script.Character
 {
-    [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerController : MonoBehaviour
     {
 
-        [SerializeField] private float speed = 20f;
+        [SerializeField] private float speed = 5f;
         private Rigidbody2D _rigidbody2D;
         private Vector2 _movement;
         private PlayerInputActions _playerInputActions;
         private PlayerCharacter _playerCharacter;
         private Vector2 _fireDirection;
-
+        
+        private List<IControl> _controls = new List<IControl>();
 
         private void Awake()
         {
             AwakenInitialize();
-        }
+            //get all controls in the children
+            _controls.AddRange(GetComponents<IControl>());
 
+        }   
+        
         protected virtual void AwakenInitialize()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -50,7 +54,6 @@ namespace _Script.Character
         private void Update()
         {
             UpdateMovement();
-
             UpdateFireDirection();
         }
 
@@ -58,7 +61,6 @@ namespace _Script.Character
         {
             _movement = context.ReadValue<Vector2>();
         }
-
 
         private void UpdateMovement()
         {
@@ -68,19 +70,28 @@ namespace _Script.Character
 
         private void OnFire(InputAction.CallbackContext context)
         {
-            _playerCharacter?.Shoot(_fireDirection);
+            foreach (var control in _controls)
+            {
+                control.RightMouseButton(_fireDirection);
+            }
         }
         
         private void OnNormalAttack(InputAction.CallbackContext context)
         {
-            _playerCharacter?.NormalAttack(_fireDirection);
+            foreach (var control in _controls)
+            {
+                control.LeftMouseButton(_fireDirection);
+            }
         }
 
         private void UpdateFireDirection()
         {
             Vector3 mousePosition = Mouse.current.position.ReadValue();
-            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            _fireDirection = worldPosition - transform.position;
+            if (Camera.main != null)
+            {
+                Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+                _fireDirection = worldPosition - transform.position;
+            }
         }
         
         private void OnDrawGizmos()

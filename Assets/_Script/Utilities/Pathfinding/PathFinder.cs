@@ -1,10 +1,7 @@
-using System.Collections.Generic;
-
-namespace _Script.Utilities
+namespace _Script.Utilities.Pathfinding
 {
-    public class AStarPathfinding
+    public class PathFinder
     {
-        private PriorityQueue frontier;
         // frontier = PriorityQueue()
         // frontier.put(start, 0)
         //     came_from = dict()

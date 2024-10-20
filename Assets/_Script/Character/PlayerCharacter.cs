@@ -1,24 +1,26 @@
 using _Script.Attribute;
+using _Script.Character.Ability;
 using _Script.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace _Script.Character
 {
-    public class PlayerCharacter : PlayerAttribute
+    public class PlayerCharacter : PlayerAttribute, IControl
     {
-        
-        [SerializeField] private GameObject projectilePrefab;
-        [SerializeField] private GameObject normalAttackPrefab;
-
         [SerializeField] private GameObject LeftHand;
         [SerializeField] private GameObject RightHand;
-
+        private AttackAbility _attackAbility;
         private Vector3 _CursorPosition; public Vector3 CursorPosition => _CursorPosition;
         private float _mouseAngle; public float MouseAngle => _mouseAngle;
         private float _facingDirection; public float FacingDirection => _facingDirection;
-        
-        
+
+        private void Awake()
+        {
+            _attackAbility = GetComponent<AttackAbility>();
+        }
+
+
         private void Update()
         {
             UpdateCursorPosition();
@@ -33,24 +35,36 @@ namespace _Script.Character
         
         public void Shoot(Vector2 direction)
         {
-            Quaternion shootDirection = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-            Instantiate(projectilePrefab, transform.position, shootDirection);
+            _attackAbility.Shoot(transform, direction);
         }
 
         public void NormalAttack(Vector2 direction)
         {
-            Quaternion shootDirection = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-            //attach the normal attack prefab to the player
             var facingLeft = Helper.IsFaceLeft(_mouseAngle);
             if(facingLeft)
             {
-                Instantiate(normalAttackPrefab, LeftHand.transform.position, shootDirection, LeftHand.transform);
+                _attackAbility.NormalAttack(LeftHand.transform, direction);
             }
             else
             {
-                Instantiate(normalAttackPrefab, RightHand.transform.position, shootDirection, RightHand.transform);
+                _attackAbility.NormalAttack(RightHand.transform, direction);
             }
+        }
 
+
+        public void LeftMouseButton(Vector2 direction)
+        {
+            NormalAttack(direction);
+        }
+
+        public void RightMouseButton(Vector2 direction)
+        {
+            Shoot(direction);
+        }
+
+        public void SpaceBar(Vector2 direction)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

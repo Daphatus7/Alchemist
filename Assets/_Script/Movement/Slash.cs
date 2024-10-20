@@ -17,9 +17,9 @@ namespace _Script.Movement
                 transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(0, -90, AnimationCurve.Evaluate(time / AttackTime))) * InitialRotation;
             }
         }
-        
         protected override void UpdatePosition(float time)
         {
+            
         }
     }
 }

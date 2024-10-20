@@ -4,7 +4,7 @@ namespace _Script.Attribute
 {
     public class PawnAttribute : Attribute, IDamageable
     {
-        public float TakeDamage(float damage)
+        public float ApplyDamage(float damage)
         {
             health -= damage;
             return damage;

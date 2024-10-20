@@ -2,6 +2,6 @@ namespace _Script.Damageable
 {
     public interface IDamageable
     {
-        public float TakeDamage(float damage);
+        public float ApplyDamage(float damage);
     }
 }
