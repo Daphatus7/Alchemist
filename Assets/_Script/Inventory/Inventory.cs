@@ -5,22 +5,22 @@ namespace _Script.Items
 {
     public class Inventory : MonoBehaviour
     {
-        [SerializeField] private int capacity = 20;
-        [SerializeField] private List<InventoryItem> items = new List<InventoryItem>();
+        [SerializeField] private int capacity = 20; public int Capacity => capacity;
+        [SerializeField] private List<InventoryItem> items = new List<InventoryItem>(); public List<InventoryItem> Items => items;
 
         public bool AddItem(ItemData itemData, int quantity)
         {
             if (itemData.maxStackSize > 1)
             {
                 // Try to find an existing stack
-                InventoryItem existingItem = items.Find(item => item.itemData == itemData);
+                InventoryItem existingItem = items.Find(item => item.ItemData == itemData);
                 if (existingItem != null)
                 {
-                    existingItem.quantity += quantity;
-                    if (existingItem.quantity > itemData.maxStackSize)
+                    existingItem.Quantity += quantity;
+                    if (existingItem.Quantity > itemData.maxStackSize)
                     {
-                        int excess = existingItem.quantity - itemData.maxStackSize;
-                        existingItem.quantity = itemData.maxStackSize;
+                        int excess = existingItem.Quantity - itemData.maxStackSize;
+                        existingItem.Quantity = itemData.maxStackSize;
                         return AddItem(itemData, excess);
                     }
                     return true;
@@ -39,11 +39,11 @@ namespace _Script.Items
 
         public bool RemoveItem(ItemData itemData, int quantity)
         {
-            InventoryItem existingItem = items.Find(item => item.itemData == itemData);
+            InventoryItem existingItem = items.Find(item => item.ItemData == itemData);
             if (existingItem != null)
             {
-                existingItem.quantity -= quantity;
-                if (existingItem.quantity <= 0)
+                existingItem.Quantity -= quantity;
+                if (existingItem.Quantity <= 0)
                 {
                     items.Remove(existingItem);
                 }

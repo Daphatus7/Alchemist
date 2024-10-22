@@ -14,7 +14,6 @@ namespace _Script.Weapon
             else
             {
                 var angle = Mathf.Lerp(45, -45, AnimationCurve.Evaluate(time / AttackTime));
-                Debug.Log(angle);
                 transform.rotation = Quaternion.Euler(0, 0, angle) * InitialRotation;
             }
         }
