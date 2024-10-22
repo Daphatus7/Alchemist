@@ -6,9 +6,18 @@
             "id": "bcf7de5a-6e2a-41d2-8db8-3f2cb3c65d19",
             "actions": [
                 {
-                    "name": "Fire",
+                    "name": "RightMouseButton",
                     "type": "Button",
                     "id": "9e320ec4-4955-431c-89b2-6578242b68f1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LeftMouseButton",
+                    "type": "Button",
+                    "id": "44f4c175-14d6-4b5a-a7da-4f56db4fd3b3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -22,15 +31,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "NormalAttack",
-                    "type": "Button",
-                    "id": "44f4c175-14d6-4b5a-a7da-4f56db4fd3b3",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -41,7 +41,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Fire",
+                    "action": "RightMouseButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -107,7 +107,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "NormalAttack",
+                    "action": "LeftMouseButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

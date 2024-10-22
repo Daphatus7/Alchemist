@@ -21,23 +21,27 @@ namespace _Script.Damageable
             _targetTags = targetTags;
         }
 
-        protected void OnTriggerEnter2D(Collider2D other)
+        protected virtual bool CanDamage()
         {
+            return true;
+        }
+        
+        protected virtual void OnTriggerStay2D(Collider2D other)
+        {
+            if(!CanDamage()) return;
             if (!IsTarget(other) || !other.TryGetComponent(out IDamageable d)) return;
-            
             var actualDamage = d.ApplyDamage(damage);
-            
-            PlayDamageEffect(actualDamage);
+            PlayDamageEffect(actualDamage, other);
         }
         
         private bool IsTarget(Collider2D other)
         {
-            return _targetTags.Any(other.CompareTag);
+            return _targetTags.Contains(other.tag);
         }
         
-        protected virtual void PlayDamageEffect(float actualDamage)
+        protected virtual void PlayDamageEffect(float actualDamage, Collider2D other)
         {
-            numberPrefab.Spawn(transform.position, actualDamage);
+            numberPrefab.Spawn(other.transform.position, actualDamage);
         }
     }
 }

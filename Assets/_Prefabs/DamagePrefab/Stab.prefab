@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1832546099233689440}
   - component: {fileID: -5249513890592815804}
   - component: {fileID: 5915899871701058214}
+  - component: {fileID: -296410148552403153}
   m_Layer: 7
   m_Name: Stab
   m_TagString: Untagged
@@ -179,3 +180,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-296410148552403153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8747132177176911062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d669edb23a8c47e282ec3dd5bc8299a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  numberPrefab: {fileID: 3418554337574669511, guid: 0de677f7bca764a82945a8a9e4c3f703,
+    type: 3}

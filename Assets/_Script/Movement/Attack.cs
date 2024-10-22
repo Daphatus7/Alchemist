@@ -16,7 +16,7 @@ namespace _Script.Movement
         
         private bool _attackingLeft = false; public bool AttackingLeft => _attackingLeft;
         
-        public void OnEnable()
+        public void OnAttack()
         {
             _initialPosition = transform.position;
             _initialRotation = transform.rotation;

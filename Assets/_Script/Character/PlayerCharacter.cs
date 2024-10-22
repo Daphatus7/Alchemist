@@ -10,14 +10,14 @@ namespace _Script.Character
     {
         [SerializeField] private GameObject LeftHand;
         [SerializeField] private GameObject RightHand;
-        private AttackAbility _attackAbility;
+        private PlayerAttack _attackAbility;
         private Vector3 _CursorPosition; public Vector3 CursorPosition => _CursorPosition;
         private float _mouseAngle; public float MouseAngle => _mouseAngle;
         private float _facingDirection; public float FacingDirection => _facingDirection;
 
         private void Awake()
         {
-            _attackAbility = GetComponent<AttackAbility>();
+            _attackAbility = GetComponent<PlayerAttack>();
         }
 
 
@@ -33,34 +33,37 @@ namespace _Script.Character
         }
         
         
-        public void Shoot(Vector2 direction)
+        /**
+         * Called when the left mouse button is pressed and holding
+         */
+        public void LeftMouseButtonDown(Vector2 direction)
         {
-            _attackAbility.Shoot(transform, direction);
+            _attackAbility.Pressed(direction);
         }
-
-        public void NormalAttack(Vector2 direction)
+        
+        /**
+         * Release the right mouse button
+         */
+        public void LeftMouseButtonUp(Vector2 direction)
         {
-            var facingLeft = Helper.IsFaceLeft(_mouseAngle);
-            if(facingLeft)
-            {
-                _attackAbility.NormalAttack(LeftHand.transform, direction);
-            }
-            else
-            {
-                _attackAbility.NormalAttack(RightHand.transform, direction);
-            }
+            _attackAbility.Released(direction);
         }
 
 
-        public void LeftMouseButton(Vector2 direction)
+        /**
+         * Release the left mouse button
+         */
+        public void RightMouseButtonUp(Vector2 direction)
         {
-            NormalAttack(direction);
         }
-
-        public void RightMouseButton(Vector2 direction)
+        
+        /**
+         * Called when the right mouse button is pressed and holding
+         */
+        public void RightMouseButtonDown(Vector2 direction)
         {
-            Shoot(direction);
         }
+        
 
         public void SpaceBar(Vector2 direction)
         {

@@ -11,7 +11,6 @@ namespace _Script.Character
         private Rigidbody2D _rigidbody2D;
         private Vector2 _movement;
         private PlayerInputActions _playerInputActions;
-        private PlayerCharacter _playerCharacter;
         private Vector2 _fireDirection;
         
         private List<IControl> _controls = new List<IControl>();
@@ -28,24 +27,27 @@ namespace _Script.Character
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _playerInputActions = new PlayerInputActions();
-            _playerCharacter = GetComponent<PlayerCharacter>();
         }
 
         private void OnEnable()
         {
             _playerInputActions.Player.Enable();
-            _playerInputActions.Player.Fire.performed += OnFire;
-            _playerInputActions.Player.NormalAttack.performed += OnNormalAttack;
+            _playerInputActions.Player.RightMouseButton.performed += OnRightMouseButtonDown;
+            _playerInputActions.Player.RightMouseButton.canceled += OnRightMouseButtonUp;
+            _playerInputActions.Player.LeftMouseButton.performed += OnLeftMouseButtonDown;
+            _playerInputActions.Player.LeftMouseButton.canceled += OnLeftMouseButtonUp;
+
             _playerInputActions.Player.Move.performed += OnMove;
             _playerInputActions.Player.Move.canceled += OnMove;
         }
 
         private void OnDisable()
         {
-            _playerInputActions.Player.Fire.performed -= OnFire;
-            _playerInputActions.Player.NormalAttack.performed -= OnNormalAttack;
+            _playerInputActions.Player.RightMouseButton.performed -= OnRightMouseButtonDown;
+            _playerInputActions.Player.LeftMouseButton.performed -= OnLeftMouseButtonDown;
+            _playerInputActions.Player.RightMouseButton.canceled -= OnRightMouseButtonUp;
+            _playerInputActions.Player.LeftMouseButton.canceled -= OnLeftMouseButtonUp;
             _playerInputActions.Player.Disable();
-
 
             _playerInputActions.Player.Move.performed -= OnMove;
             _playerInputActions.Player.Move.canceled -= OnMove;
@@ -55,8 +57,10 @@ namespace _Script.Character
         {
             UpdateMovement();
             UpdateFireDirection();
+            
         }
-
+        
+        
         private void OnMove(InputAction.CallbackContext context)
         {
             _movement = context.ReadValue<Vector2>();
@@ -68,19 +72,35 @@ namespace _Script.Character
         }
 
 
-        private void OnFire(InputAction.CallbackContext context)
+        private void OnLeftMouseButtonDown(InputAction.CallbackContext context)
         {
             foreach (var control in _controls)
             {
-                control.RightMouseButton(_fireDirection);
+                control.LeftMouseButtonDown(_fireDirection);
             }
         }
         
-        private void OnNormalAttack(InputAction.CallbackContext context)
+        private void OnLeftMouseButtonUp(InputAction.CallbackContext context)
         {
             foreach (var control in _controls)
             {
-                control.LeftMouseButton(_fireDirection);
+                control.LeftMouseButtonUp(_fireDirection);
+            }
+        }
+        
+        private void OnRightMouseButtonDown(InputAction.CallbackContext context)
+        {
+            foreach (var control in _controls)
+            {
+                control.RightMouseButtonDown(_fireDirection);
+            }
+        }
+        
+        private void OnRightMouseButtonUp(InputAction.CallbackContext context)
+        {
+            foreach (var control in _controls)
+            {
+                control.LeftMouseButtonUp(_fireDirection);
             }
         }
 
@@ -90,7 +110,7 @@ namespace _Script.Character
             if (Camera.main != null)
             {
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-                _fireDirection = worldPosition - transform.position;
+                _fireDirection = (worldPosition - transform.position).normalized;
             }
         }
         

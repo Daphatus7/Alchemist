@@ -28,9 +28,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""id"": ""bcf7de5a-6e2a-41d2-8db8-3f2cb3c65d19"",
             ""actions"": [
                 {
-                    ""name"": ""Fire"",
+                    ""name"": ""RightMouseButton"",
                     ""type"": ""Button"",
                     ""id"": ""9e320ec4-4955-431c-89b2-6578242b68f1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftMouseButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""44f4c175-14d6-4b5a-a7da-4f56db4fd3b3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -44,15 +53,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""NormalAttack"",
-                    ""type"": ""Button"",
-                    ""id"": ""44f4c175-14d6-4b5a-a7da-4f56db4fd3b3"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -63,7 +63,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Fire"",
+                    ""action"": ""RightMouseButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -129,7 +129,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""NormalAttack"",
+                    ""action"": ""LeftMouseButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -140,9 +140,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+        m_Player_RightMouseButton = m_Player.FindAction("RightMouseButton", throwIfNotFound: true);
+        m_Player_LeftMouseButton = m_Player.FindAction("LeftMouseButton", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-        m_Player_NormalAttack = m_Player.FindAction("NormalAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -204,16 +204,16 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-    private readonly InputAction m_Player_Fire;
+    private readonly InputAction m_Player_RightMouseButton;
+    private readonly InputAction m_Player_LeftMouseButton;
     private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_NormalAttack;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
         public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Fire => m_Wrapper.m_Player_Fire;
+        public InputAction @RightMouseButton => m_Wrapper.m_Player_RightMouseButton;
+        public InputAction @LeftMouseButton => m_Wrapper.m_Player_LeftMouseButton;
         public InputAction @Move => m_Wrapper.m_Player_Move;
-        public InputAction @NormalAttack => m_Wrapper.m_Player_NormalAttack;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -223,28 +223,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
-            @Fire.started += instance.OnFire;
-            @Fire.performed += instance.OnFire;
-            @Fire.canceled += instance.OnFire;
+            @RightMouseButton.started += instance.OnRightMouseButton;
+            @RightMouseButton.performed += instance.OnRightMouseButton;
+            @RightMouseButton.canceled += instance.OnRightMouseButton;
+            @LeftMouseButton.started += instance.OnLeftMouseButton;
+            @LeftMouseButton.performed += instance.OnLeftMouseButton;
+            @LeftMouseButton.canceled += instance.OnLeftMouseButton;
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @NormalAttack.started += instance.OnNormalAttack;
-            @NormalAttack.performed += instance.OnNormalAttack;
-            @NormalAttack.canceled += instance.OnNormalAttack;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
         {
-            @Fire.started -= instance.OnFire;
-            @Fire.performed -= instance.OnFire;
-            @Fire.canceled -= instance.OnFire;
+            @RightMouseButton.started -= instance.OnRightMouseButton;
+            @RightMouseButton.performed -= instance.OnRightMouseButton;
+            @RightMouseButton.canceled -= instance.OnRightMouseButton;
+            @LeftMouseButton.started -= instance.OnLeftMouseButton;
+            @LeftMouseButton.performed -= instance.OnLeftMouseButton;
+            @LeftMouseButton.canceled -= instance.OnLeftMouseButton;
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @NormalAttack.started -= instance.OnNormalAttack;
-            @NormalAttack.performed -= instance.OnNormalAttack;
-            @NormalAttack.canceled -= instance.OnNormalAttack;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -264,8 +264,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public PlayerActions @Player => new PlayerActions(this);
     public interface IPlayerActions
     {
-        void OnFire(InputAction.CallbackContext context);
+        void OnRightMouseButton(InputAction.CallbackContext context);
+        void OnLeftMouseButton(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
-        void OnNormalAttack(InputAction.CallbackContext context);
     }
 }
