@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace _Script.Character.Ability
 {
-    [RequireComponent(typeof(Attribute.PlayerAttribute))]
+    [RequireComponent(typeof(PlayerCharacter))]
     public class PlayerAttack : MonoBehaviour
     {
         

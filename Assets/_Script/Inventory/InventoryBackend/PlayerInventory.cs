@@ -1,12 +1,11 @@
 using _Script.Inventory.InventoryHandles;
-using _Script.Items;
+using _Script.Items._Script.Items;
 using UnityEngine;
 
 namespace _Script.Inventory.InventoryBackend
 {
     public class PlayerInventory : Inventory, IPlayerInventoryHandle
     {
-        
         public bool Handle_AddItem(ItemData itemData, int quantity)
         {
             return AddItem(itemData, quantity);

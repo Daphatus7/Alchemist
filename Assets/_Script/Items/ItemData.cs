@@ -1,13 +1,24 @@
+using _Script.Character;
 using UnityEngine;
+
 namespace _Script.Items
 {
-    [CreateAssetMenu(fileName = "New Item", menuName = "Inventory System/Item")]
-    public class ItemData : ScriptableObject
+    namespace _Script.Items
     {
-        public int id;
-        public string itemName;
-        public string description;
-        public Sprite icon;
-        public int maxStackSize = 1;
+        [System.Serializable]
+        public abstract class ItemData : ScriptableObject
+        {
+            public string itemName;
+            public int itemID;
+            [TextArea]
+            public string itemDescription;
+            public Sprite itemIcon;
+            public bool isStackable;
+            public int maxStackSize = 1;
+
+            public abstract void Use(PlayerCharacter playerCharacter);
+        }
     }
+
+
 }

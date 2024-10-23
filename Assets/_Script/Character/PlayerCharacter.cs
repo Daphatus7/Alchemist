@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 namespace _Script.Character
 {
-    public class PlayerCharacter : PlayerAttribute, IControl, IPlayerHandler
+    public class PlayerCharacter : PawnAttribute, IControl, IPlayerHandler
     {
         [SerializeField] private GameObject LeftHand;
         [SerializeField] private GameObject RightHand;
