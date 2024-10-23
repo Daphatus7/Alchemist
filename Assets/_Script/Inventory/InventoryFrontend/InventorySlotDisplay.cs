@@ -1,21 +1,23 @@
-using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
-namespace _Script.Inventory
+namespace _Script.Inventory.InventoryFrontend
 {
-    public class InventorySlot : MonoBehaviour
+    public class InventorySlotDisplay : MonoBehaviour
     {
         [SerializeField] private Image icon;
         [SerializeField] private TextMeshProUGUI quantityText; // Changed to TextMeshProUGUI
         [SerializeField] private Button slotButton;
-
-        private void Awake()
+        private InventoryUI _inventoryUI;
+        private int _slotIndex; public int SlotIndex => _slotIndex;
+        
+        public void InitializeInventorySlot(InventoryUI inventoryUI, int slotIndex)
         {
-
+            _inventoryUI = inventoryUI;
+            _slotIndex = slotIndex;
         }
-
+        
         private void OnEnable()
         {
             if (slotButton != null)
@@ -58,8 +60,7 @@ namespace _Script.Inventory
 
         public void OnSlotClicked()
         {
-            // Handle button click event, this can be expanded to interact with the item
-            Debug.Log("Slot clicked!");
+            _inventoryUI.OnSlotClicked(this);
         }
     }
 }

@@ -1,12 +1,14 @@
 using _Script.Attribute;
 using _Script.Character.Ability;
+using _Script.Inventory.InventoryBackend;
+using _Script.Inventory.InventoryHandles;
 using _Script.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace _Script.Character
 {
-    public class PlayerCharacter : PlayerAttribute, IControl
+    public class PlayerCharacter : PlayerAttribute, IControl, IPlayerHandler
     {
         [SerializeField] private GameObject LeftHand;
         [SerializeField] private GameObject RightHand;
@@ -15,9 +17,14 @@ namespace _Script.Character
         private float _mouseAngle; public float MouseAngle => _mouseAngle;
         private float _facingDirection; public float FacingDirection => _facingDirection;
 
+        private IPlayerInventoryHandle _playerInventory;
+        private IEquipmentInventoryHandle _playerEquipment;
+        
         private void Awake()
         {
             _attackAbility = GetComponent<PlayerAttack>();
+            _playerInventory = GetComponentInChildren<PlayerInventory>();
+            _playerEquipment = GetComponent<PlayerEquipmentInventory>();
         }
 
 
@@ -68,6 +75,16 @@ namespace _Script.Character
         public void SpaceBar(Vector2 direction)
         {
             throw new System.NotImplementedException();
+        }
+
+        public IEquipmentInventoryHandle GetPlayerEquipment()
+        {
+            return _playerEquipment;
+        }
+
+        public IPlayerInventoryHandle GetPlayerInventory()
+        {
+            return _playerInventory;
         }
     }
 }

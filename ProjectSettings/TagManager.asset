@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Interactable
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - Player
   - Damage
   - Enemy
-  - 
+  - Interactable
   - 
   - 
   - 
@@ -63,7 +64,7 @@ TagManager:
   - name: Damage
     uniqueID: 197579771
     locked: 0
-  - name: 
+  - name: Interactable
     uniqueID: 1960661667
     locked: 0
   - name: Default
