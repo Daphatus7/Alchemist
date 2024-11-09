@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _Script.Items;
-using _Script.Items._Script.Items;
+using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
 namespace _Script.Inventory.InventoryBackend
@@ -41,9 +41,9 @@ namespace _Script.Inventory.InventoryBackend
             for (int i = 0; i < capacity; i++)
             {
                 var slot = slots[i];
-                if (!slot.IsEmpty && slot.Item.ItemData == itemData && slot.Item.Quantity < itemData.maxStackSize)
+                if (!slot.IsEmpty && slot.Item.ItemData == itemData && slot.Item.Quantity < itemData.MaxStackSize)
                 {
-                    int availableSpace = itemData.maxStackSize - slot.Item.Quantity;
+                    int availableSpace = itemData.MaxStackSize - slot.Item.Quantity;
                     int amountToAdd = Math.Min(quantityToAdd, availableSpace);
                     slot.Item.Quantity += amountToAdd;
                     quantityToAdd -= amountToAdd;
@@ -64,7 +64,7 @@ namespace _Script.Inventory.InventoryBackend
                 var slot = slots[i];
                 if (slot.IsEmpty)
                 {
-                    int amountToAdd = Math.Min(quantityToAdd, itemData.maxStackSize);
+                    int amountToAdd = Math.Min(quantityToAdd, itemData.MaxStackSize);
                     slot.Item = new InventoryItem(itemData, amountToAdd);
                     quantityToAdd -= amountToAdd;
 
@@ -147,7 +147,7 @@ namespace _Script.Inventory.InventoryBackend
             bool itemUsed = RemoveItemFromSlot(slotIndex, 1);
             if (itemUsed)
             {
-                Debug.Log($"Used item: {itemData.itemName}");
+                Debug.Log($"Used item: {itemData.ItemName}");
                 // Implement additional logic based on item effects
             }
             else
@@ -197,7 +197,7 @@ namespace _Script.Inventory.InventoryBackend
     {
         public InventoryItem Item { get; set; }
 
-        public bool IsEmpty => Item == null || Item.Quantity <= 0;
+        public bool IsEmpty => Item is not { Quantity: > 0 };
 
         public void Clear()
         {

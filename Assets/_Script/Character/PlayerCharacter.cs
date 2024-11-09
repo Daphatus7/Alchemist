@@ -1,5 +1,6 @@
 using _Script.Attribute;
 using _Script.Character.Ability;
+using _Script.Inventory.EquipmentBackend;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryHandles;
 using _Script.Utilities;
@@ -18,7 +19,7 @@ namespace _Script.Character
         private float _facingDirection; public float FacingDirection => _facingDirection;
 
         private IPlayerInventoryHandle _playerInventory;
-        private IEquipmentInventoryHandle _playerEquipment;
+        private IPlayerEquipmentHandle _playerEquipment;
         
         private void Awake()
         {
@@ -77,7 +78,7 @@ namespace _Script.Character
             throw new System.NotImplementedException();
         }
 
-        public IEquipmentInventoryHandle GetPlayerEquipment()
+        public IPlayerEquipmentHandle GetPlayerEquipment()
         {
             return _playerEquipment;
         }
@@ -86,5 +87,6 @@ namespace _Script.Character
         {
             return _playerInventory;
         }
+        
     }
 }
