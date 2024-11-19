@@ -29,6 +29,11 @@ namespace _Script.Damageable
         protected virtual void OnTriggerStay2D(Collider2D other)
         {
             if(!CanDamage()) return;
+            ApplyDamage(other);
+        }
+        
+        protected virtual void ApplyDamage(Collider2D other)
+        {
             if (!IsTarget(other) || !other.TryGetComponent(out IDamageable d)) return;
             var actualDamage = d.ApplyDamage(damage);
             PlayDamageEffect(actualDamage, other);
