@@ -8,6 +8,6 @@ namespace _Script.Character
         public void RightMouseButtonDown(Vector2 direction);
         public void LeftMouseButtonUp(Vector2 direction);
         public void RightMouseButtonUp(Vector2 direction);
-        public void SpaceBar(Vector2 direction);
+        public void Dash(Vector2 direction);
     }
 }

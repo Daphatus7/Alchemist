@@ -9,7 +9,8 @@ namespace _Script.Inventory.InventoryHandles
      */
     public interface IIventoryHandle
     {
-        public bool Handle_AddItem(ItemData itemData, int quantity);
-        public bool Handle_RemoveItem(ItemData itemData, int quantity);
+        public bool Handle_AddItem(InventoryItem inventoryItem);
+        public bool Handle_RemoveItem(InventoryItem inventoryItem);
+        
     }
 }

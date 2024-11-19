@@ -933,6 +933,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2614db386b4a5597c9087adb4eea55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotPrefab: {fileID: 6238919500226578322, guid: 9fe4603197d1f412da0241eef6339eac,
+    type: 3}
+  playerEquipmentInventory: {fileID: 1361047233}
+  equipmentPanel: {fileID: 2076322914}
 --- !u!1 &1483016978
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ namespace _Script.Items
     public class MaterialItem : ItemData
     {
         public override ItemType ItemType => ItemType.Material;
-        public override void Use(PlayerCharacter playerCharacter)
+        public override void Use(PlayerCharacter PlayerCharacter)
         {
             Debug.Log($"{ItemName} is a material and cannot be used directly.");
         }

@@ -3,9 +3,11 @@ using _Script.Inventory.InventoryHandles;
 
 namespace _Script.Character
 {
-    public interface IPlayerHandler
+    public interface IPlayerInventoryHandler
     {
         public IPlayerInventoryHandle GetPlayerInventory();
         public IPlayerEquipmentHandle GetPlayerEquipment();
+        
+        
     }
 }

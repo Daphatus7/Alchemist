@@ -42,14 +42,14 @@ namespace _Script.Items
 
         private void PickupItem(GameObject player)
         {
-            if(player.TryGetComponent(out IPlayerHandler playerInventory))
+            if(player.TryGetComponent(out IPlayerInventoryHandler playerInventory))
             {
                 if (playerInventory.GetPlayerInventory() == null)
                 {
                     Debug.Log("Player inventory not found");
                     return;
                 }
-                if (playerInventory.GetPlayerInventory().Handle_AddItem(itemData, quantity))
+                if (playerInventory.GetPlayerInventory().Handle_AddItem(new InventoryItem(itemData, quantity)))
                 {
                     Destroy(gameObject);
                 }

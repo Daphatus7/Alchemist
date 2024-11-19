@@ -68,7 +68,7 @@ namespace _Script.Character
 
         private void UpdateMovement()
         {
-            _rigidbody2D.velocity = _movement * speed;
+            _rigidbody2D.linearVelocity = _movement * speed;
         }
 
 

@@ -5,11 +5,12 @@ using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryHandles;
 using _Script.Utilities;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace _Script.Character
 {
-    public class PlayerCharacter : PawnAttribute, IControl, IPlayerHandler
+    public class PlayerCharacter : PawnAttribute, IControl, IPlayerInventoryHandler, IPlayerUIHandle
     {
         [SerializeField] private GameObject LeftHand;
         [SerializeField] private GameObject RightHand;
@@ -20,12 +21,15 @@ namespace _Script.Character
 
         private IPlayerInventoryHandle _playerInventory;
         private IPlayerEquipmentHandle _playerEquipment;
-        
+
+ 
+
         private void Awake()
         {
             _attackAbility = GetComponent<PlayerAttack>();
             _playerInventory = GetComponentInChildren<PlayerInventory>();
             _playerEquipment = GetComponent<PlayerEquipmentInventory>();
+            //debug Equipment inventory
         }
 
 
@@ -73,7 +77,7 @@ namespace _Script.Character
         }
         
 
-        public void SpaceBar(Vector2 direction)
+        public void Dash(Vector2 direction)
         {
             throw new System.NotImplementedException();
         }
@@ -86,6 +90,21 @@ namespace _Script.Character
         public IPlayerInventoryHandle GetPlayerInventory()
         {
             return _playerInventory;
+        }
+
+        public UnityEvent GetPlayerHealthUpdateEvent()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public float GetPlayerHealth()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public float GetPlayerMaxHealth()
+        {
+            throw new System.NotImplementedException();
         }
         
     }

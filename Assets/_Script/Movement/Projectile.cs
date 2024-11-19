@@ -28,7 +28,7 @@ namespace _Script.Movement
         
         private void UpdateMovement()
         {
-            _rigidbody2D.velocity = transform.right * speed;
+            _rigidbody2D.linearVelocity = transform.right * speed;
         }
 
         

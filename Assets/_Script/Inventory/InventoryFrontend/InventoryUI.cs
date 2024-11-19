@@ -1,14 +1,14 @@
+using _Script.Inventory.SlotFrontend;
 using UnityEngine;
 
 namespace _Script.Inventory.InventoryFrontend
 {
     
-    public class InventoryUI : MonoBehaviour, IIventoryUIHandle
+    public class InventoryUI : MonoBehaviour, IInventoryUIHandle
     {
         [SerializeField] private InventoryBackend.Inventory playerInventory;
         [SerializeField] private GameObject inventoryPanel;
         [SerializeField] private GameObject slotPrefab;
-        
         
         void Start()
         {

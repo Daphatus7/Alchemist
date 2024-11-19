@@ -24,7 +24,11 @@ namespace _Script.Items.AbstractItemTypes
 
             public abstract ItemType ItemType { get; }
 
-            public abstract void Use(PlayerCharacter playerCharacter);
+            
+            /**
+             * Use the item, When using an item, this applies effect to the player either by equipping, consuming etc.
+             */
+            public abstract void Use(PlayerCharacter playerInventoryCharacter);
         }
 
         public enum ItemType

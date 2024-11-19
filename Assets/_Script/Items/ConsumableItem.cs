@@ -12,7 +12,7 @@ namespace _Script.Items
         public override ItemType ItemType => ItemType.Consumable;
         public override void Use(PlayerCharacter playerCharacter)
         {
-            //todo: Implement the use of consumable item
+            
         }
     }
     

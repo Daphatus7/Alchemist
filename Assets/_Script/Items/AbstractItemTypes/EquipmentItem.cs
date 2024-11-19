@@ -18,6 +18,11 @@ namespace _Script.Items
         public override void Use(PlayerCharacter playerCharacter)
         {
             // Equip the item
+            InventoryItem returnItem = playerCharacter.GetPlayerEquipment().Handle_EquipItem(new InventoryItem(this));
+            if (returnItem != null)
+            {
+                playerCharacter.GetPlayerInventory().Handle_AddItem(returnItem);
+            }
         }
     }
 }

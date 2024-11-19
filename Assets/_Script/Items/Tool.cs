@@ -1,3 +1,4 @@
+using _Script.Character;
 using _Script.Items.AbstractItemTypes;
 using UnityEngine;
 
@@ -8,6 +9,10 @@ namespace _Script.Items
     {
         public ToolType toolType = ToolType.None;
         public float durability = 1;
+        public override void Use(PlayerCharacter playerInventoryCharacter)
+        {
+            
+        }
     }
     
     public enum ToolType

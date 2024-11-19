@@ -28,7 +28,12 @@ namespace _Script.Items
         }
 
         // Constructor
-        public InventoryItem(ItemData itemData, int quantity)
+        public InventoryItem(InventoryItem item)
+        {
+            itemData = item.ItemData;
+            this.quantity = quantity;
+        }
+        public InventoryItem(ItemData itemData, int quantity = 1)
         {
             this.itemData = itemData;
             this.quantity = quantity;
