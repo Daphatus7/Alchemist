@@ -4,5 +4,6 @@ namespace _Script.Attribute
 {
     public class EnemyAttribute : PawnAttribute
     {
+        
     }
 }

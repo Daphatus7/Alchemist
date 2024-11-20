@@ -43,7 +43,7 @@ namespace _Script.Inventory.EquipmentFrontend
         
         public void OnSlotClicked(InventorySlotDisplay slotDisplay)
         {
-            //todo: implement
+            playerEquipmentInventory.UnequipItem(slotDisplay.SlotIndex);
         }
     }
 }

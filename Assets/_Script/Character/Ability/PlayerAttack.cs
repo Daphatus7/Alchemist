@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Script.Items.AbstractItemTypes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,7 +23,7 @@ namespace _Script.Character.Ability
             targetTags = new List<string> {"Enemy"};
             currentWeapon = GetComponentInChildren<Weapon.Weapon>();
             Debug.LogWarning("Set target tags manually, should move to when weapon is equipped");
-            currentWeapon.SetTargetType(targetTags);
+            currentWeapon?.SetTargetType(targetTags);
         }
         
         private void Update()
@@ -42,6 +43,29 @@ namespace _Script.Character.Ability
             }
         }
         
+        public void ChangeWeapon(GameObject weaponPrefab, WeaponItem weaponItem)
+        {
+            // Spawn weapon
+            var weapon = Instantiate(weaponPrefab, weaponSlot.transform.position, Quaternion.identity);
+            weapon.transform.parent = weaponSlot.transform;
+            // destroy current weapon
+            if(currentWeapon != null)
+            {
+                Destroy(currentWeapon.gameObject);
+            }
+            
+            // set new weapon
+            currentWeapon = weapon.GetComponent<Weapon.Weapon>();
+            currentWeapon.SetWeaponItem(weaponItem, targetTags);
+        }
+        
+        public void RemoveWeapon()
+        {
+            if(currentWeapon != null)
+            {
+                Destroy(currentWeapon.gameObject);
+            }
+        }
         
         public virtual void Pressed(Vector2 direction)
         {

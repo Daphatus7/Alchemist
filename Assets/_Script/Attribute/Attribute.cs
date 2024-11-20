@@ -1,15 +1,17 @@
 using System;
+using _Script.Damageable;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace _Script.Attribute
 {
-    public class PawnAttribute : MonoBehaviour
+    public class PawnAttribute : MonoBehaviour, IDamageable
     {
         [SerializeField] protected float health = 100f; public float Health => health;
         [SerializeField] protected float healthMax = 100f; public float HealthMax => healthMax;
         
         //event on health change
-        public event Action<float> OnHealthChanged;
+        protected UnityEvent onHealthChanged = new UnityEvent();
         
         public float ApplyDamage(float damage)
         {
@@ -17,10 +19,10 @@ namespace _Script.Attribute
             if (health <= 0)
             {
                 Die();
-                OnHealthChanged?.Invoke(health);
+                onHealthChanged?.Invoke();
                 return damage;
             }
-            OnHealthChanged?.Invoke(health);
+            onHealthChanged?.Invoke();
             return damage;
         }
 
@@ -59,7 +61,7 @@ namespace _Script.Attribute
             {
                 health = 0;
             }
-            OnHealthChanged?.Invoke(health);        
+            onHealthChanged?.Invoke();        
         }
         
     }

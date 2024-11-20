@@ -1,4 +1,5 @@
 using _Script.Character;
+using _Script.Inventory.InventoryBackend;
 using UnityEngine;
 using Sirenix.OdinInspector; // Import Odin
 
@@ -28,7 +29,7 @@ namespace _Script.Items.AbstractItemTypes
             /**
              * Use the item, When using an item, this applies effect to the player either by equipping, consuming etc.
              */
-            public abstract void Use(PlayerCharacter playerInventoryCharacter);
+            public abstract void Use(PlayerCharacter playerCharacter);
         }
 
         public enum ItemType
