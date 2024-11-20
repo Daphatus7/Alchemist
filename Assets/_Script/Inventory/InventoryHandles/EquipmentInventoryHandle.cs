@@ -11,7 +11,7 @@ namespace _Script.Inventory.EquipmentBackend
         /**
          * Apply the item effect to the player
          */
-        InventoryItem Handle_Equip_ApplyEffect(InventoryItem item);
+        InventoryItem Handle_Equip(EquipmentItem equipmentItem);
         
         /**
          * Remove the item effect from the player

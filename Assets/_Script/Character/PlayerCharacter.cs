@@ -26,6 +26,13 @@ namespace _Script.Character
         
         private float _attackDamage; public float AttackDamage => _attackDamage;
         
+        
+        public void EquipWeapon(GameObject weapon)
+        {
+            _attackAbility.ChangeWeapon(weapon);
+        }
+        
+        
         public void DebugStat()
         {
             Debug.Log("Player Attack Damage: " + _attackDamage);

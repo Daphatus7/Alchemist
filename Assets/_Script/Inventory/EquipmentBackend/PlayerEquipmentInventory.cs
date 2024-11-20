@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using _Script.Character;
 using _Script.Inventory.InventoryBackend;
 using _Script.Items;
+using _Script.Items.AbstractItemTypes;
 using UnityEngine;
 
 namespace _Script.Inventory.EquipmentBackend
@@ -10,6 +12,7 @@ namespace _Script.Inventory.EquipmentBackend
     {
 
         private Dictionary<PlayerEquipmentSlotType, InventoryItem> _equipmentSlots;
+        private PlayerCharacter _playerCharacter;
         
         //OnEquipmentChanged event
         public event Action OnEquipmentChanged;
@@ -17,6 +20,7 @@ namespace _Script.Inventory.EquipmentBackend
         
         private void Awake()
         {
+            _playerCharacter = GetComponent<PlayerCharacter>();
             _equipmentSlots = new Dictionary<PlayerEquipmentSlotType, InventoryItem>();
         }
         
@@ -26,24 +30,124 @@ namespace _Script.Inventory.EquipmentBackend
          * 1. If there is an item in the slot, return the item to the inventory
          * 2. If there is no item in the slot, equip the item qnd return null
          */
-        private InventoryItem EquipItem(InventoryItem item)
+        private InventoryItem EquipItem(EquipmentItem item)
         {
+            var targetSlot = ConvertToPlayerEquipmentInventory(item);
+            //remove the effect of the equipped item
+
+            //if there is an item in the slot, return the item to the inventory
             InventoryItem tempSlotItem = null;
-            PlayerEquipmentSlotType targetSlot = ConvertToPlayerEquipmentInventory(item.ItemData as EquipmentItem);
+            
+            //get the item in the slot, return the item to the inventory
             if (_equipmentSlots.TryGetValue(targetSlot, out var slot))
             {
                 //get the item in the slot, return the item to the inventory
                 tempSlotItem = slot;
                 //equip the item
-                _equipmentSlots[targetSlot] = item;
-                return tempSlotItem;
             }
-            _equipmentSlots[targetSlot] = item;
+            
+            //remove the effect of the old item if any
+            //apply the effect of the new item
+            switch (targetSlot)
+            {
+                //Apply the effect of the item
+                case PlayerEquipmentSlotType.Weapon:
+                    UnequipWeapon();
+                    EquipWeapon(item);
+                    break;
+                case PlayerEquipmentSlotType.Chest:
+                    EquipArmour(item);
+                    break;
+                case PlayerEquipmentSlotType.Accessory:
+                    EquipAccessory(item);
+                    break;
+                case PlayerEquipmentSlotType.Head:
+                default:
+                    Debug.LogError("Invalid equipment type");
+                    break;
+            }
+            
+
+            _equipmentSlots[targetSlot] = new InventoryItem(item, 1);
             
             OnOnEquipmentChanged();
-            return null;
+            return tempSlotItem;
+        }
+        
+        public void UnequipItem(PlayerEquipmentSlotType slot)
+        {
+            InventoryItem tempSlotItem = null;
+            if (_equipmentSlots.TryGetValue(slot, out var slotItem))
+            {
+                //remove the effect of the equipped item
+                if(slot == PlayerEquipmentSlotType.Weapon)
+                {
+                    UnequipWeapon();
+                }
+                else if(slot == PlayerEquipmentSlotType.Chest)
+                {
+                    UnequipArmour();
+                }
+                else if(slot == PlayerEquipmentSlotType.Accessory)
+                {
+                    UnequipAccessory();
+                }
+                else
+                {
+                    Debug.LogError("Invalid equipment type");
+                }
+
+                tempSlotItem = _equipmentSlots[slot];
+                OnOnEquipmentChanged();
+            }
+        }
+        
+        private void EquipWeapon(EquipmentItem item)
+        {
+            var weapon = (WeaponItem) item;
+            item.Use(_playerCharacter);
+        }
+        
+        private void EquipArmour(EquipmentItem item)
+        {
+            //remove the effect of the equipped item
+            //get leaf item
+            //if there is an item in the slot, return the item to the inventory
+            //equip the item
+        }
+        
+        private void EquipAccessory(EquipmentItem item)
+        {
+            //remove the effect of the equipped item
+            //get leaf item
+            //if there is an item in the slot, return the item to the inventory
+            //equip the item
         }
 
+        private void UnequipWeapon()
+        {
+            //remove the effect of the equipped item
+            //get leaf item
+            //if there is an item in the slot, return the item to the inventory
+            //equip the item
+        }
+        
+        private void UnequipArmour()
+        {
+            //remove the effect of the equipped item
+            //get leaf item
+            //if there is an item in the slot, return the item to the inventory
+            //equip the item
+        }
+        
+        private void UnequipAccessory()
+        {
+            //remove the effect of the equipped item
+            //get leaf item
+            //if there is an item in the slot, return the item to the inventory
+            //equip the item
+        }
+        
         public InventoryItem GetEquipment(PlayerEquipmentSlotType slot)
         {
             return _equipmentSlots.GetValueOrDefault(slot);
@@ -72,10 +176,11 @@ namespace _Script.Inventory.EquipmentBackend
             OnEquipmentChanged?.Invoke();
         }
         
-        public InventoryItem Handle_Equip_ApplyEffect(InventoryItem item)
+        public InventoryItem Handle_Equip(EquipmentItem equipmentItem)
         {
-            return EquipItem(item);
+            return EquipItem(equipmentItem);
         }
+
 
         public InventoryItem Handle_Unequip_RemoveEffect(InventorySlot fromSlot)
         {

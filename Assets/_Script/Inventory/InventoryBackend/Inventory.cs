@@ -244,16 +244,8 @@ namespace _Script.Inventory.InventoryBackend
 
         private InventoryItem OnUseEquipmentItem(EquipmentItem itemData)
         {
-            // Get the player's equipment inventory
-            var equipmentInventory = inventoryOwner.GetPlayerEquipment();
-            // If the equipment inventory is null, log a warning and return
-            if(equipmentInventory == null)
-            {
-                Debug.LogWarning("Equipment inventory is null.");
-                return null;
-            }
             // Equip the item
-            return inventoryOwner.GetPlayerEquipment().Handle_Equip_ApplyEffect(new InventoryItem(itemData));;
+            return inventoryOwner.GetPlayerEquipment().Handle_Equip(itemData);
         }
         private bool OnUseConsumableItem(ConsumableItem itemData)
         {

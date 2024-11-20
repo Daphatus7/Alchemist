@@ -22,7 +22,7 @@ namespace _Script.Character.Ability
             targetTags = new List<string> {"Enemy"};
             currentWeapon = GetComponentInChildren<Weapon.Weapon>();
             Debug.LogWarning("Set target tags manually, should move to when weapon is equipped");
-            currentWeapon.SetTargetType(targetTags);
+            currentWeapon?.SetTargetType(targetTags);
         }
         
         private void Update()
@@ -40,6 +40,21 @@ namespace _Script.Character.Ability
                 var angle = Vector2.SignedAngle(Vector2.up, _fireDirection);
                 currentWeapon.transform.rotation = Quaternion.Euler(0, 0, angle);
             }
+        }
+        
+        public void ChangeWeapon(GameObject weapon)
+        {
+            if(currentWeapon != null)
+            {
+                Destroy(currentWeapon.gameObject);
+            }
+            //Attach the weapon to the weapon slot
+            weapon.transform.parent = weaponSlot.transform;
+            
+            //set relative position to 0
+            weapon.transform.localPosition = Vector3.zero;
+            currentWeapon = weapon.GetComponent<Weapon.Weapon>();
+            currentWeapon.SetTargetType(targetTags);
         }
         
         
