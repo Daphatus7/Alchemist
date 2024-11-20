@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Script.Items.AbstractItemTypes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -42,19 +43,20 @@ namespace _Script.Character.Ability
             }
         }
         
-        public void ChangeWeapon(GameObject weapon)
+        public void ChangeWeapon(GameObject weaponPrefab, WeaponItem weaponItem)
         {
+            // Spawn weapon
+            var weapon = Instantiate(weaponPrefab, weaponSlot.transform.position, Quaternion.identity);
+            weapon.transform.parent = weaponSlot.transform;
+            // destroy current weapon
             if(currentWeapon != null)
             {
                 Destroy(currentWeapon.gameObject);
             }
-            //Attach the weapon to the weapon slot
-            weapon.transform.parent = weaponSlot.transform;
             
-            //set relative position to 0
-            weapon.transform.localPosition = Vector3.zero;
+            // set new weapon
             currentWeapon = weapon.GetComponent<Weapon.Weapon>();
-            currentWeapon.SetTargetType(targetTags);
+            currentWeapon.SetWeaponItem(weaponItem, targetTags);
         }
         
         

@@ -11,8 +11,12 @@ namespace _Script.Damageable
     [RequireComponent(typeof(Collider2D))]
     public class Damage: MonoBehaviour
     {
-        [Header("Damage")]
-        [SerializeField] private float damage = 10f;
+        [Header("Damage")] [SerializeField] private float damage = 10f;
+        public float DamageValue => damage;
+        protected void SetDamage(float value)
+        {
+            damage = value;
+        }
         [SerializeField] private DamageNumber numberPrefab;
         private List<string> _targetTags = new List<string>();
         
@@ -28,13 +32,14 @@ namespace _Script.Damageable
         
         protected virtual void OnTriggerStay2D(Collider2D other)
         {
-            if(!CanDamage()) return;
-            ApplyDamage(other);
+            TryDamage(other);
         }
         
-        protected virtual void ApplyDamage(Collider2D other)
+        protected virtual void TryDamage(Collider2D other)
         {
+            if(!CanDamage()) return;
             if (!IsTarget(other) || !other.TryGetComponent(out IDamageable d)) return;
+            Debug.Log("Dealing damage to " + other.name);
             var actualDamage = d.ApplyDamage(damage);
             PlayDamageEffect(actualDamage, other);
         }

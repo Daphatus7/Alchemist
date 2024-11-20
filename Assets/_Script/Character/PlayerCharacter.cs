@@ -27,9 +27,9 @@ namespace _Script.Character
         private float _attackDamage; public float AttackDamage => _attackDamage;
         
         
-        public void EquipWeapon(GameObject weapon)
+        public PlayerAttack GetPlayerAttack()
         {
-            _attackAbility.ChangeWeapon(weapon);
+            return _attackAbility;
         }
         
         

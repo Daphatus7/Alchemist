@@ -1,10 +1,11 @@
 using System;
+using _Script.Damageable;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace _Script.Attribute
 {
-    public class PawnAttribute : MonoBehaviour
+    public class PawnAttribute : MonoBehaviour, IDamageable
     {
         [SerializeField] protected float health = 100f; public float Health => health;
         [SerializeField] protected float healthMax = 100f; public float HealthMax => healthMax;

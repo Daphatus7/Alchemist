@@ -14,9 +14,7 @@ namespace _Script.Items.AbstractItemTypes
 
         public override void Use(PlayerCharacter playerCharacter)
         {
-            GameObject weapon = Instantiate(weaponPrefab);
-            Debug.Log("Equipping weapon" + weapon.name);
-            playerCharacter.EquipWeapon(weapon);
+            playerCharacter.GetPlayerAttack().ChangeWeapon(weaponPrefab, this);
         }
     }
 

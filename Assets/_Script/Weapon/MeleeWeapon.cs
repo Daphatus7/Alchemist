@@ -8,6 +8,7 @@ namespace _Script.Weapon
 
     public class MeleeWeapon : Weapon
     {
+        
         [SerializeField] private float attackTime = 0.5f; public float AttackTime => attackTime;
         [SerializeField] private float attackDistance = 3f; public float AttackDistance => attackDistance;
         [SerializeField] private AnimationCurve animationCurve; public AnimationCurve AnimationCurve => animationCurve;
@@ -15,7 +16,8 @@ namespace _Script.Weapon
         //initial position and rotation
         private Vector3 _initialPosition; public Vector3 InitialPosition => _initialPosition;
         private Quaternion _initialRotation; public Quaternion InitialRotation => _initialRotation;
-        private bool _attackingLeft = false; public bool AttackingLeft => _attackingLeft;
+        private bool _attackingLeft = false;
+        protected bool AttackingLeft => _attackingLeft;
 
         private bool _isAttacking = false;
         
