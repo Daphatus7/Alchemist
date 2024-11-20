@@ -1,4 +1,5 @@
 using _Script.Character;
+using _Script.Inventory.InventoryBackend;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace _Script.Items
         {
             
         }
+        
     }
     
     public enum ConsumableType

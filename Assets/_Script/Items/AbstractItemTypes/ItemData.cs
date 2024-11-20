@@ -1,4 +1,5 @@
 using _Script.Character;
+using _Script.Inventory.InventoryBackend;
 using UnityEngine;
 using Sirenix.OdinInspector; // Import Odin
 

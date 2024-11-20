@@ -72,12 +72,12 @@ namespace _Script.Inventory.EquipmentBackend
             OnEquipmentChanged?.Invoke();
         }
         
-        public InventoryItem Handle_EquipItem(InventoryItem item)
+        public InventoryItem Handle_Equip_ApplyEffect(InventoryItem item)
         {
             return EquipItem(item);
         }
 
-        public InventoryItem Handle_UnequipItem(InventorySlot fromSlot)
+        public InventoryItem Handle_Unequip_RemoveEffect(InventorySlot fromSlot)
         {
             return null;
         }

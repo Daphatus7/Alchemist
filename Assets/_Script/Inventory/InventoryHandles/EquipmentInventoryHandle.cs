@@ -8,7 +8,14 @@ namespace _Script.Inventory.EquipmentBackend
      */
     public interface IPlayerEquipmentHandle
     {
-        InventoryItem Handle_EquipItem(InventoryItem item);
-        InventoryItem Handle_UnequipItem(InventorySlot fromSlo);
+        /**
+         * Apply the item effect to the player
+         */
+        InventoryItem Handle_Equip_ApplyEffect(InventoryItem item);
+        
+        /**
+         * Remove the item effect from the player
+         */
+        InventoryItem Handle_Unequip_RemoveEffect(InventorySlot fromSlo);
     }
 }

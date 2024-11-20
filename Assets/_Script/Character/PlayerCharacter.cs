@@ -22,7 +22,17 @@ namespace _Script.Character
         private IPlayerInventoryHandle _playerInventory;
         private IPlayerEquipmentHandle _playerEquipment;
 
- 
+        #region Player Attribute from Equipment
+        
+        private float _attackDamage; public float AttackDamage => _attackDamage;
+        
+        public void DebugStat()
+        {
+            Debug.Log("Player Attack Damage: " + _attackDamage);
+        }
+        
+        #endregion
+        
 
         private void Awake()
         {
@@ -36,6 +46,7 @@ namespace _Script.Character
         private void Update()
         {
             UpdateCursorPosition();
+            DebugStat();
         }
         
         private void UpdateCursorPosition()
@@ -94,17 +105,17 @@ namespace _Script.Character
 
         public UnityEvent GetPlayerHealthUpdateEvent()
         {
-            throw new System.NotImplementedException();
+            return onHealthChanged;
         }
 
         public float GetPlayerHealth()
         {
-            throw new System.NotImplementedException();
+            return Health;
         }
 
         public float GetPlayerMaxHealth()
         {
-            throw new System.NotImplementedException();
+            return HealthMax;
         }
         
     }

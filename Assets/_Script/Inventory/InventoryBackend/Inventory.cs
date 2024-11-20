@@ -98,6 +98,48 @@ namespace _Script.Inventory.InventoryBackend
             return true;
         }
 
+        protected bool AddItemToSlot(InventoryItem itemToAdd, int slotIndex)
+        {
+            if (itemToAdd == null)
+            {
+                Debug.LogWarning("ItemData is null.");
+                return false;
+            }
+
+            if (slotIndex < 0 || slotIndex >= capacity)
+            {
+                Debug.LogWarning("Invalid slot index.");
+                return false;
+            }
+
+            var slot = slots[slotIndex];
+            if (!slot.IsEmpty && slot.Item.ItemData == itemToAdd.ItemData && slot.Item.Quantity < itemToAdd.ItemData.MaxStackSize)
+            {
+                int availableSpace = itemToAdd.ItemData.MaxStackSize - slot.Item.Quantity;
+                int amountToAdd = Math.Min(itemToAdd.Quantity, availableSpace);
+                slot.Item.Quantity += amountToAdd;
+
+                // Notify UI update
+                OnInventoryChanged?.Invoke();
+                
+                return true;
+            }
+
+            if (slot.IsEmpty)
+            {
+                int amountToAdd = Math.Min(itemToAdd.Quantity, itemToAdd.ItemData.MaxStackSize);
+                slot.Item = new InventoryItem(itemToAdd.ItemData, amountToAdd);
+
+                // Notify UI update
+                OnInventoryChanged?.Invoke();
+
+                return true;
+            }
+
+            Debug.Log("Slot is full.");
+            return false;
+        }
+        
         protected bool RemoveItem(InventoryItem inventoryItem, int quantity = 1)
         {
             int quantityToRemove = quantity;
@@ -161,42 +203,66 @@ namespace _Script.Inventory.InventoryBackend
             OnUsingItem(itemData, slotIndex);
         }
         
+        /**
+         * When right-clicking on an inventory item.
+         * 1. Put the item in temporary slot
+         * 2. Get the type of the item
+         * 3. Apply the effect of the item to the player
+         * 4. Remove the item from the inventory
+         */
         protected virtual void OnUsingItem(ItemData itemData, int slotIndex)
         {
             // Implement item usage logic
             
-            bool itemUsed = RemoveItemFromSlot(slotIndex, 1);
-            
-            //add item to equipment inventory
-            var equipmentInventory = inventoryOwner.GetPlayerEquipment();
-            if(equipmentInventory == null)
+            //Use Equipment Item - if there is item in the equipment inventory, remove it and add it back to the inventory
+            if(itemData.ItemType == ItemType.Equipment)
             {
-                Debug.LogWarning("Equipment inventory is null.");
-                return;
+                InventoryItem removedItem = OnUseEquipmentItem((EquipmentItem) itemData);
+                RemoveItemFromSlot(slotIndex, 1);
+                if(removedItem != null)
+                {
+                    // Remove the item from the inventory
+                    // Add the removed item back to the inventory
+                    AddItemToSlot(removedItem, slotIndex);
+                }
             }
-            inventoryOwner.GetPlayerEquipment().Handle_EquipItem(new InventoryItem(itemData));
-            if (itemUsed)
+            //Use Consumable Item - if the item is used, remove it from the inventory
+            else if(itemData.ItemType == ItemType.Consumable)
             {
-                itemData.Use(inventoryOwner);
-                Debug.Log($"Used item: {itemData.ItemName}");
-                // Implement additional logic based on item effects
+                if (OnUseConsumableItem((ConsumableItem)itemData))
+                {
+                    // Remove the item from the inventory
+                    RemoveItemFromSlot(slotIndex, 1);
+                }
             }
-            else
+            //Use Material Item
+            else if(itemData.ItemType == ItemType.Material)
             {
-                Debug.Log("Failed to use item.");
+                OnUseMaterialItem(itemData);
             }
         }
 
-        private InventoryItem OnUseEquipmentItem(ItemData itemData)
+        private InventoryItem OnUseEquipmentItem(EquipmentItem itemData)
         {
-            return null;
+            // Get the player's equipment inventory
+            var equipmentInventory = inventoryOwner.GetPlayerEquipment();
+            // If the equipment inventory is null, log a warning and return
+            if(equipmentInventory == null)
+            {
+                Debug.LogWarning("Equipment inventory is null.");
+                return null;
+            }
+            // Equip the item
+            return inventoryOwner.GetPlayerEquipment().Handle_Equip_ApplyEffect(new InventoryItem(itemData));;
         }
-        private InventoryItem OnUseConsumableItem(ItemData itemData)
+        private bool OnUseConsumableItem(ConsumableItem itemData)
         {
-            return null;
+            itemData.Use(inventoryOwner);
+            return true;
         }
         private InventoryItem OnUseMaterialItem(ItemData itemData)
         {
+            itemData.Use(inventoryOwner);
             return null;
         }
         
@@ -248,5 +314,12 @@ namespace _Script.Inventory.InventoryBackend
         {
             Item = null;
         }
+    }
+    
+    public enum InventoryType
+    {
+        Inventory,
+        Equipment,
+        Crafting,
     }
 }
