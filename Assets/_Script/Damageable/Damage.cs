@@ -39,7 +39,6 @@ namespace _Script.Damageable
         {
             if(!CanDamage()) return;
             if (!IsTarget(other) || !other.TryGetComponent(out IDamageable d)) return;
-            Debug.Log("Dealing damage to " + other.name);
             var actualDamage = d.ApplyDamage(damage);
             PlayDamageEffect(actualDamage, other);
         }

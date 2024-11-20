@@ -59,6 +59,13 @@ namespace _Script.Character.Ability
             currentWeapon.SetWeaponItem(weaponItem, targetTags);
         }
         
+        public void RemoveWeapon()
+        {
+            if(currentWeapon != null)
+            {
+                Destroy(currentWeapon.gameObject);
+            }
+        }
         
         public virtual void Pressed(Vector2 direction)
         {

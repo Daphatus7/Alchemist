@@ -74,8 +74,10 @@ namespace _Script.Inventory.EquipmentBackend
             return tempSlotItem;
         }
         
-        public void UnequipItem(PlayerEquipmentSlotType slot)
+        public void UnequipItem(int slotIndex)
         {
+            var slot = (PlayerEquipmentSlotType) slotIndex;
+            
             InventoryItem tempSlotItem = null;
             if (_equipmentSlots.TryGetValue(slot, out var slotItem))
             {
@@ -98,6 +100,16 @@ namespace _Script.Inventory.EquipmentBackend
                 }
 
                 tempSlotItem = _equipmentSlots[slot];
+                
+                //try to add the item to the inventory
+                if(_playerCharacter.GetPlayerInventory().Handle_AddItem(tempSlotItem))
+                {
+                    _equipmentSlots[slot] = null;
+                }
+                else
+                {
+                    Debug.LogError("Failed to return the item to the inventory");
+                }
                 OnOnEquipmentChanged();
             }
         }
@@ -126,10 +138,7 @@ namespace _Script.Inventory.EquipmentBackend
 
         private void UnequipWeapon()
         {
-            //remove the effect of the equipped item
-            //get leaf item
-            //if there is an item in the slot, return the item to the inventory
-            //equip the item
+            _playerCharacter.GetPlayerAttack().RemoveWeapon();
         }
         
         private void UnequipArmour()
