@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Interactable
   layers:
   - Default
   - TransparentFX
@@ -11,6 +13,10 @@ TagManager:
   - 
   - Water
   - UI
+  - Player
+  - Damage
+  - Enemy
+  - Interactable
   - 
   - 
   - 
@@ -22,6 +28,8 @@ TagManager:
   - 
   - 
   - 
+  - Layer 2
+  - Layer 3
   - 
   - 
   - 
@@ -30,14 +38,35 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Background
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2425651459
+    locked: 0
+  - name: Level
+    uniqueID: 4250941897
+    locked: 0
+  - name: Scene
+    uniqueID: 789907441
+    locked: 0
+  - name: New Layer 4
+    uniqueID: 3028873213
+    locked: 0
+  - name: New Layer 5
+    uniqueID: 217426391
+    locked: 0
+  - name: Player
+    uniqueID: 1596155273
+    locked: 0
+  - name: Enemy
+    uniqueID: 1538842371
+    locked: 0
+  - name: Damage
+    uniqueID: 197579771
+    locked: 0
+  - name: Interactable
+    uniqueID: 1960661667
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

@@ -1,6 +1,10 @@
-namespace DefaultNamespace;
 
-public class Pawn
+using UnityEngine;
+
+namespace _Script.Character
 {
-    
+    public class Pawn : MonoBehaviour
+    {
+        
+    }
 }
