@@ -35,7 +35,6 @@ namespace _Script.Character
         
         public void DebugStat()
         {
-            Debug.Log("Player Attack Damage: " + _attackDamage);
         }
         
         #endregion
@@ -53,7 +52,7 @@ namespace _Script.Character
         private void Update()
         {
             UpdateCursorPosition();
-            DebugStat();
+            //DebugStat();
         }
         
         private void UpdateCursorPosition()

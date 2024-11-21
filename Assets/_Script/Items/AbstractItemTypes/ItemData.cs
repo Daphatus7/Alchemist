@@ -15,6 +15,7 @@ namespace _Script.Items.AbstractItemTypes
             [SerializeField, TextArea] private string itemDescription;
             [SerializeField] private Sprite itemIcon;
             [SerializeField] private int maxStackSize = 1;
+            [SerializeField] private Rarity rarity;
 
             // Public read-only properties
             public string ItemName => itemName;
@@ -37,6 +38,17 @@ namespace _Script.Items.AbstractItemTypes
             Equipment,
             Consumable,
             Material,
+            Seed,
+            Fruit
+        }
+        
+        public enum Rarity
+        {
+            Common,
+            Uncommon,
+            Rare,
+            Epic,
+            Legendary
         }
     }
 }
