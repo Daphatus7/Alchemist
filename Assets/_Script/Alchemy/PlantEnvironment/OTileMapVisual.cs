@@ -26,7 +26,7 @@ namespace _Script.Alchemy.PlantEnvironment
 
             if (groundSprite != null)
             {
-                tileUVsDictionary[TileType.Ground] = GetSpriteUVCoords(groundSprite);
+                tileUVsDictionary[TileType.Grass] = GetSpriteUVCoords(groundSprite);
             }
             if (pathSprite != null)
             {

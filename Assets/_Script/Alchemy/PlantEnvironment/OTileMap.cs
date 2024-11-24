@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace _Script.Alchemy.PlantEnvironment
 {
+    // Creator Class for grids
     public class OTileMap : MonoBehaviour
     {
         private Grid<TileObject> _grid; public Grid<TileObject> Grid => _grid;
@@ -27,5 +28,15 @@ namespace _Script.Alchemy.PlantEnvironment
             }
         }
         
+        public TileObject CreateTile(TileType tileType)
+        {
+            switch (tileType)
+            {
+                case TileType.Dirt:
+                    return new DirtTile(0, 0, _grid);
+                default:
+                    return new TileObject(0, 0, _grid);
+            }
+        }
     }
 }

@@ -6603,7 +6603,7 @@ MonoBehaviour:
   tileMap: {fileID: 1901647014}
   gridRenderer: {fileID: 1901647018}
   _needsUpdate: 1
-  _canEdit: 0
+  _canEdit: 1
 --- !u!114 &1901647014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6630,10 +6630,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileMesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
   baseTileMaterial: {fileID: 2100000, guid: a43ef0703723b4dcbb751157f69d0eb7, type: 2}
-  groundTexture: {fileID: 2800000, guid: 6b9ff663d095742a99021a828c0fb945, type: 3}
-  pathTexture: {fileID: 2800000, guid: 9b0f58ac115544fd4aeeea88deaba4df, type: 3}
-  dirtTexture: {fileID: 2800000, guid: 6bc8d5fadccd2407ea2fa47d5cb9f0c5, type: 3}
-  wetDirtTexture: {fileID: 2800000, guid: cebd4edcffc654d819d9e0d2135aab5b, type: 3}
+  spriteAtlas: {fileID: 4343727234628468602, guid: eab1378e5d0d7439691ac0df90052682,
+    type: 2}
 --- !u!1 &2076322914
 GameObject:
   m_ObjectHideFlags: 0

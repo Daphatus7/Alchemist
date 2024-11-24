@@ -1,4 +1,4 @@
-Shader "Custom/InstancedTextureShader"
+Shader "Custom/InstancedTileShader"
 {
     Properties
     {
@@ -7,7 +7,7 @@ Shader "Custom/InstancedTextureShader"
     SubShader
     {
         Tags { "RenderType"="Opaque" }
-        LOD 200
+        LOD 100
 
         Pass
         {
@@ -33,20 +33,28 @@ Shader "Custom/InstancedTextureShader"
                 UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
+            UNITY_INSTANCING_BUFFER_START(Props)
+                UNITY_DEFINE_INSTANCED_PROP(float4, _UVOffset)
+            UNITY_INSTANCING_BUFFER_END(Props)
+
             sampler2D _MainTex;
 
             v2f vert (appdata v)
             {
-                v2f o;
                 UNITY_SETUP_INSTANCE_ID(v);
+                v2f o;
                 UNITY_TRANSFER_INSTANCE_ID(v, o);
                 o.pos = UnityObjectToClipPos(v.vertex);
-                o.uv = v.uv;
+
+                float4 uvOffset = UNITY_ACCESS_INSTANCED_PROP(Props, _UVOffset);
+                o.uv = v.uv * uvOffset.zw + uvOffset.xy;
+
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
+                UNITY_SETUP_INSTANCE_ID(i);
                 fixed4 col = tex2D(_MainTex, i.uv);
                 return col;
             }

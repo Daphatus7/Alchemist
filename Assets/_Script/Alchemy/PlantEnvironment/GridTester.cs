@@ -39,7 +39,7 @@ namespace _Script.Alchemy.Pot
                     gridRenderer = GetComponent<GridRenderer>();
                     gridRenderer.SetGrid(tileMap.Grid);
                     _needsUpdate = false;
-                    gridRenderer.InitializeMaterials();
+                    //gridRenderer.InitializeMaterials();
                 }
             }
             

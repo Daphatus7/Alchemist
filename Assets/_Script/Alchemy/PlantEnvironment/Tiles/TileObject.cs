@@ -10,7 +10,7 @@ namespace _Script.Alchemy.PlantEnvironment
         private TileType _tileType; public TileType TileType => _tileType;
         private IGridTileHandle _gridTileHandle;
         
-        public TileObject(int x, int y, IGridTileHandle gridTileHandle,TileType tileType = TileType.Ground)
+        public TileObject(int x, int y, IGridTileHandle gridTileHandle,TileType tileType = TileType.Grass)
         {
             _x = x;
             _y = y;
@@ -33,7 +33,7 @@ namespace _Script.Alchemy.PlantEnvironment
     public enum TileType 
     {
         None,
-        Ground,
+        Grass,
         Path,
         Dirt,
         WetDirt 

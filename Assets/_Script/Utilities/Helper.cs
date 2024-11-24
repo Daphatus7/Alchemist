@@ -56,20 +56,20 @@ namespace _Script.Utilities
                 Event e = Event.current;
                 if (e != null && e.isMouse)
                 {
-                    // 获取鼠标在 Scene 视图中的位置
+                    // set the mouse position to the current event position
                     Vector2 mousePosition = e.mousePosition;
 
-                    // 使用 HandleUtility 将 GUI 坐标转换为世界射线
+                    // use the SceneView camera to create a world space ray
                     Ray worldRay = HandleUtility.GUIPointToWorldRay(mousePosition);
 
-                    // 定义一个在 Z = 0 的平面（即 2D 游戏的 XY 平面）
+                    // define a plane that faces forward at the world position
                     Plane plane = new Plane(Vector3.forward, Vector3.zero);
 
                     if (plane.Raycast(worldRay, out float distance))
                     {
-                        // 获取射线与平面的交点
+                        // get the world position of the ray hit
                         Vector3 worldPosition = worldRay.GetPoint(distance);
-                        worldPosition.z = 0; // 确保 Z 轴为 0
+                        worldPosition.z = 0; // ensure the z position is 0
                         return worldPosition;
                     }
                 }
