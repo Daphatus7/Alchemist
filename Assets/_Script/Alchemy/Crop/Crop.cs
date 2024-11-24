@@ -8,7 +8,7 @@ namespace _Script.Alchemy.Plant
     /**
      * The instance of a plant.
      */
-    public class Plant : Interactable.Interactable, ITimeHandle
+    public class Crop : Interactable.Interactable, ITimeHandle
     {
         [SerializeField] private int _currentGrowthTime = 0; // Tracks how many days the plant has grown
         [SerializeField] private int _maturationTime = 10; // Days required for the plant to fully mature
@@ -87,7 +87,7 @@ namespace _Script.Alchemy.Plant
             }
             else
             {
-                Debug.Log("Plant is not mature yet!");
+                Debug.Log("Crop is not mature yet!");
             }
         }
 
@@ -99,11 +99,11 @@ namespace _Script.Alchemy.Plant
 
                 // Optionally reduce maturation time as an effect of fertilization
                 _maturationTime = Mathf.Max(1, _maturationTime - 1);
-                Debug.Log("Plant fertilized! Maturation time reduced.");
+                Debug.Log("Crop fertilized! Maturation time reduced.");
             }
             else
             {
-                Debug.Log("Plant is already fertilized!");
+                Debug.Log("Crop is already fertilized!");
             }
         }
 
@@ -111,7 +111,7 @@ namespace _Script.Alchemy.Plant
         {
             if(Mature) return;
             _currentGrowthTime++;
-            Debug.Log("Plant has grown!");
+            Debug.Log("Crop has grown!");
             Grow();
         }
 
@@ -122,7 +122,7 @@ namespace _Script.Alchemy.Plant
 
         protected override void OnInteractCompleted()
         {
-            Debug.Log("Plant harvested!");
+            Debug.Log("Crop harvested!");
             Harvest();
         }
     }

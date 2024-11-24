@@ -9,7 +9,7 @@ namespace _Script.Utilities.ServiceLocator
     public class ServiceLocator : ServiceLocatorSingleton<ServiceLocator, IGameService> 
     {
         private readonly Dictionary<string, List<IGameService>> services = new ();
-        public List<T> Get<T>() where T : IGameService
+        public new List<T> Get<T>() where T : IGameService
         {
             string key = typeof(T).Name;
             if (!services.ContainsKey(key))
@@ -20,7 +20,7 @@ namespace _Script.Utilities.ServiceLocator
             // Attempt to cast each service to the desired type and return the list
             return services[key].OfType<T>().ToList();
         }
-        public void Register<T>(T service) where T : IGameService
+        public new void Register<T>(T service) where T : IGameService
         {
             string key = typeof(T).Name;
             if (!this.services.ContainsKey(key))
@@ -31,7 +31,7 @@ namespace _Script.Utilities.ServiceLocator
             this.services[key].Add(service);
         }
     
-        public void Unregister<T>(T service) where T : IGameService
+        public new void Unregister<T>(T service) where T : IGameService
         {
             string key = typeof(T).Name;
             if (!this.services.ContainsKey(key))
