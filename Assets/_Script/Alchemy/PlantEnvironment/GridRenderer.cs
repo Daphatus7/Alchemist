@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using _Script.Alchemy.PlantEnvironment;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class GridRenderer : MonoBehaviour
 {
     [SerializeField] private Mesh tileMesh; // a quad mesh
@@ -13,27 +15,32 @@ public class GridRenderer : MonoBehaviour
     [SerializeField] private Texture2D dirtTexture;
     [SerializeField] private Texture2D wetDirtTexture;
 
-    private Grid<TileObject> _grid;
-    private Dictionary<TileType, List<Matrix4x4>> _tileTypeMatrices;
-    private Dictionary<TileType, Material> _tileTypeMaterials;
+    private Grid<TileObject> _grid; public Grid<TileObject> Grid => _grid;
+    private Dictionary<TileType, List<Matrix4x4>> _tileTypeMatrices = new Dictionary<TileType, List<Matrix4x4>>();
+    private Dictionary<TileType, Material> _tileTypeMaterials = new Dictionary<TileType, Material>();
 
     private bool _needsUpdate = true;
 
     private void Awake()
     {
-        _tileTypeMatrices = new Dictionary<TileType, List<Matrix4x4>>();
-        _tileTypeMaterials = new Dictionary<TileType, Material>();
-
         // create a material for each tile type
+
+    }
+
+    private void Start()
+    {
+        InitializeMaterials();
+    }
+
+    public void InitializeMaterials()
+    {
         CreateMaterialForTileType(TileType.Ground, groundTexture);
         CreateMaterialForTileType(TileType.Path, pathTexture);
         CreateMaterialForTileType(TileType.Dirt, dirtTexture);
         CreateMaterialForTileType(TileType.WetDirt, wetDirtTexture);
-        
-        
-        SetGrid(new Grid<TileObject>(10, 10, 1f, Vector3.zero, (int x, int y, Grid<TileObject> g) => new TileObject(x, y, g)));
     }
     
+
 
     private void CreateMaterialForTileType(TileType tileType, Texture2D texture)
     {
@@ -71,7 +78,9 @@ public class GridRenderer : MonoBehaviour
     }
 
     private void LateUpdate()
-    {
+    {   
+
+        
         if (_needsUpdate)
         {
             UpdateRenderData();
@@ -83,6 +92,11 @@ public class GridRenderer : MonoBehaviour
 
     private void UpdateRenderData()
     {
+        if(_tileTypeMatrices == null)
+        {
+            Debug.LogError("_tileTypeMatrices is null.");
+            return;
+        }
         _tileTypeMatrices.Clear();
 
         if (_grid == null)
@@ -120,7 +134,7 @@ public class GridRenderer : MonoBehaviour
             TileType tileType = kvp.Key;
             List<Matrix4x4> matrices = kvp.Value;
 
-            // 获取对应的材质
+            // get the material for this tile type
             if (!_tileTypeMaterials.TryGetValue(tileType, out Material tileMaterial))
             {
                 Debug.LogWarning($"Material for TileType {tileType} not found.");

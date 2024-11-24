@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 
 namespace _Script.Utilities
@@ -46,6 +47,37 @@ namespace _Script.Utilities
             vec.z = 0;
             return vec;
         }
+        
+        public static Vector3 GetMouseWorldPositionInEditor()
+        {
+#if UNITY_EDITOR
+            if (SceneView.lastActiveSceneView != null)
+            {
+                Event e = Event.current;
+                if (e != null && e.isMouse)
+                {
+                    // 获取鼠标在 Scene 视图中的位置
+                    Vector2 mousePosition = e.mousePosition;
+
+                    // 使用 HandleUtility 将 GUI 坐标转换为世界射线
+                    Ray worldRay = HandleUtility.GUIPointToWorldRay(mousePosition);
+
+                    // 定义一个在 Z = 0 的平面（即 2D 游戏的 XY 平面）
+                    Plane plane = new Plane(Vector3.forward, Vector3.zero);
+
+                    if (plane.Raycast(worldRay, out float distance))
+                    {
+                        // 获取射线与平面的交点
+                        Vector3 worldPosition = worldRay.GetPoint(distance);
+                        worldPosition.z = 0; // 确保 Z 轴为 0
+                        return worldPosition;
+                    }
+                }
+            }
+#endif
+            return Vector3.zero;
+        }        
+        
         
         public static Mesh AddToMesh(Mesh mesh, Vector3 pos, float rot, Vector3 baseSize, Vector2 uv00, Vector2 uv11) {
             if (mesh == null) {
