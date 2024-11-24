@@ -14,7 +14,7 @@ namespace _Script.Alchemy.PlantEnvironment
         {
             _grid = new Grid<TileObject>(width, height, cellSize, originPosition, (int x, int y, Grid<TileObject> g) => new TileObject(x, y, g));
         }
-
+        
         public void SetTileType(Vector3 worldPosition, TileType tileType)
         {
             var tilemapObject = _grid.GetGridObject(worldPosition);

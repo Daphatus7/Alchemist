@@ -17,12 +17,12 @@ namespace _Script.Alchemy.PlantEnvironment
 
         private Matrix4x4[] _matrices;
         private Vector4[] _uvOffsets;
-        private HashSet<int> _dirtyTiles = new HashSet<int>();
+        private readonly HashSet<int> _dirtyTiles = new HashSet<int>();
         private int _gridWidth;
         private int _gridHeight;
 
-        private Matrix4x4[] _batchMatricesArray = new Matrix4x4[1023];
-        private Vector4[] _batchUVOffsetsArray = new Vector4[1023];
+        private readonly Matrix4x4[] _batchMatricesArray = new Matrix4x4[1023];
+        private readonly Vector4[] _batchUVOffsetsArray = new Vector4[1023];
 
         private bool _needsUpdate = true;
 
@@ -40,8 +40,12 @@ namespace _Script.Alchemy.PlantEnvironment
                 return;
             }
 
-            baseTileMaterial.mainTexture = spriteAtlas.GetSprite("T_Dirt_0").texture;
+            baseTileMaterial.mainTexture = spriteAtlas.GetSprite("T_Grass_0").texture;
         }
+        
+        /*
+         * Initialise the grid and the matrices and uvOffsets arrays
+         */
         public void SetGrid(Grid<TileObject> grid)
         {
             _grid = grid;
@@ -58,10 +62,11 @@ namespace _Script.Alchemy.PlantEnvironment
                 _matrices[i] = Matrix4x4.identity;
                 _uvOffsets[i] = Vector4.zero;
 
-                // Mark all tiles as dirty
+                // Add tiles that need to be updated, which are all tiles at the start.
                 _dirtyTiles.Add(i);
             }
 
+            // Subscribe to the OnGridValueChanged event
             _grid.OnGridValueChanged += OnGridValueChanged;
             _needsUpdate = true;
         }
@@ -75,6 +80,7 @@ namespace _Script.Alchemy.PlantEnvironment
             }
         }
 
+        // Event handler for the OnGridValueChanged event
         private void OnGridValueChanged(object sender, Grid<TileObject>.OnGridValueChangedEventArgs e)
         {
             int index = GetIndex(e.x, e.y);
@@ -82,6 +88,7 @@ namespace _Script.Alchemy.PlantEnvironment
             _needsUpdate = true;
         }
 
+        // Get the index of a tile in the matrices and uvOffsets arrays
         private int GetIndex(int x, int y)
         {
             return x * _gridHeight + y;
@@ -89,9 +96,12 @@ namespace _Script.Alchemy.PlantEnvironment
 
         private void LateUpdate()
         {
+            
+            // If the grid has changed, update the render data
             if (_needsUpdate)
             {
                 UpdateRenderData();
+                // Clear the flag
                 _needsUpdate = false;
             }
 
@@ -100,7 +110,7 @@ namespace _Script.Alchemy.PlantEnvironment
 
         private void UpdateRenderData()
         {
-            Debug.Log("Updating render data...");
+            //Debug.Log("Updating render data...");
             if (_grid == null)
             {
                 Debug.LogWarning("Grid is null.");
@@ -112,16 +122,22 @@ namespace _Script.Alchemy.PlantEnvironment
                 Debug.LogWarning("No dirty tiles to update.");
             }
 
+            
+            // Update the matrices and uvOffsets for all dirty tiles
             foreach (int index in _dirtyTiles)
             {
                 int x = index / _gridHeight;
                 int y = index % _gridHeight;
 
-                Debug.Log($"Updating tile at ({x}, {y}) with index {index}");
+                //Debug.Log($"Updating tile at ({x}, {y}) with index {index}");
 
+                // Get the TileObject at this position
                 TileObject tileObject = _grid.GetGridObject(x, y);
+                
+                // Get the TileType of the TileObject
                 TileType tileType = tileObject.TileType;
 
+                //if the change is invalid, discard the change
                 if (tileType == TileType.None)
                 {
                     // Clear the matrix and uvOffset for empty tiles
@@ -154,6 +170,12 @@ namespace _Script.Alchemy.PlantEnvironment
             _dirtyTiles.Clear();
         }
 
+        
+        /**
+         * Draws the tiles on the screen
+         * Runs every frame to render the tiles
+         * Uses Graphics.DrawMeshInstanced to render all tiles in a single draw call
+         */
         private void RenderTiles()
         {
             if (_matrices == null || _uvOffsets == null)
@@ -190,7 +212,8 @@ namespace _Script.Alchemy.PlantEnvironment
                 }
             }
             
-            Debug.Log($"Total tiles rendered: {renderedTiles}");
+            
+            //Debug.Log($"Total tiles rendered: {renderedTiles}");
         }
 
         private Sprite GetSpriteForTileType(TileType tileType)
