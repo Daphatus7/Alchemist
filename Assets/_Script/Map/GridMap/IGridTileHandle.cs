@@ -1,4 +1,4 @@
-namespace _Script.Alchemy.PlantEnvironment
+namespace _Script.Map.GridMap
 {
     public interface IGridTileHandle
     {

@@ -1,8 +1,9 @@
 using System;
+using _Script.Alchemy.PlantEnvironment;
 using _Script.Utilities;
 using UnityEngine;
 
-namespace _Script.Alchemy.PlantEnvironment
+namespace _Script.Map.GridMap
 {
     public class Grid<TGridObject>: IGridTileHandle
     {

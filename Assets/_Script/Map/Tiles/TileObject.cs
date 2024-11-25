@@ -1,6 +1,6 @@
-using UnityEngine;
+using _Script.Map.GridMap;
 
-namespace _Script.Alchemy.PlantEnvironment
+namespace _Script.Map.Tiles
 {
     public class TileObject 
     {
@@ -8,6 +8,7 @@ namespace _Script.Alchemy.PlantEnvironment
         private readonly int _x; public int X => _x;
         private readonly int _y; public int Y => _y;
         private TileType _tileType; public TileType TileType => _tileType;
+        
         private IGridTileHandle _gridTileHandle;
         
         public TileObject(int x, int y, IGridTileHandle gridTileHandle,TileType tileType = TileType.Grass)

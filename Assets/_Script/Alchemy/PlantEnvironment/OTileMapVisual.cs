@@ -1,6 +1,8 @@
 using _Script.Utilities;
 using UnityEngine;
 using System.Collections.Generic;
+using _Script.Map.GridMap;
+using _Script.Map.Tiles;
 
 namespace _Script.Alchemy.PlantEnvironment
 {

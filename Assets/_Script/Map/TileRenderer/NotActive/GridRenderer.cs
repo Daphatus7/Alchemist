@@ -1,8 +1,11 @@
 using System.Collections.Generic;
+using _Script.Alchemy.PlantEnvironment;
+using _Script.Map.GridMap;
+using _Script.Map.Tiles;
 using UnityEngine;
 using UnityEngine.U2D;
 
-namespace _Script.Alchemy.PlantEnvironment
+namespace _Script.Map.TileRenderer.NotActive
 {
     [ExecuteInEditMode]
     public class GridRenderer : MonoBehaviour
@@ -42,6 +45,9 @@ namespace _Script.Alchemy.PlantEnvironment
 
             baseTileMaterial.mainTexture = spriteAtlas.GetSprite("T_Grass_0").texture;
         }
+
+
+        
         
         /*
          * Initialise the grid and the matrices and uvOffsets arrays

@@ -1,31 +1,26 @@
-using System;
 using _Script.Alchemy.PlantEnvironment;
 using _Script.Map.GridMap;
-using _Script.Map.TileRenderer.NotActive;
 using _Script.Map.Tiles;
 using _Script.Utilities;
 using UnityEditor;
 using UnityEngine;
-namespace _Script.Alchemy.Pot
+
+namespace _Script.Map.TileRenderer
 {
     [ExecuteInEditMode]
-    public class GridTester : MonoBehaviour
+    public class GenericGridTester : MonoBehaviour
     {
         [SerializeField] private OTileMap tileMap;
-        [SerializeField] private GridRenderer gridRenderer;
+        [SerializeField] private TileGridRenderer gridRenderer;
         
         [SerializeField] private bool _needsUpdate = false;
         [SerializeField] private bool _canEdit = false;
-        private void Awake()
-        {
-  
-        }
         
         private void Start()
         {
             tileMap = GetComponent<OTileMap>();
             tileMap.Initialize(10, 5, 1f, transform.position);
-            gridRenderer = GetComponent<GridRenderer>();
+            gridRenderer = GetComponent<TileGridRenderer>();
             gridRenderer.SetGrid(tileMap.Grid);
         }
         
@@ -39,7 +34,7 @@ namespace _Script.Alchemy.Pot
                 {
                     tileMap = GetComponent<OTileMap>();
                     tileMap.Initialize(10, 5, 1f, transform.position);
-                    gridRenderer = GetComponent<GridRenderer>();
+                    gridRenderer = GetComponent<TileGridRenderer>();
                     gridRenderer.SetGrid(tileMap.Grid);
                     _needsUpdate = false;
                     //gridRenderer.InitializeMaterials();
@@ -51,12 +46,12 @@ namespace _Script.Alchemy.Pot
                 tileMap.Initialize(10, 5, 1f, transform.position);
                 gridRenderer.SetGrid(tileMap.Grid);
             }
-            // if (Input.GetMouseButtonDown(0))
-            // {
-            //     Debug.Log("Mouse Clicked");
-            //     Vector3 position = Helper.GetMouseWorldPosition();
-            //     tileMap.SetTileType(position, TileType.Dirt);
-            // }
+            if (Input.GetMouseButtonDown(0))
+            {
+                Debug.Log("Mouse Clicked");
+                Vector3 position = Helper.GetMouseWorldPosition();
+                tileMap.SetTileType(position, TileType.Dirt);
+            }
         }
         
         private void OnEnable()

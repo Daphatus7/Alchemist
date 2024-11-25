@@ -1,9 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using _Script.Alchemy.PlantEnvironment;
+using _Script.Map.Tiles;
 using UnityEngine;
 
-namespace _Script.Alchemy.PlantEnvironment
+namespace _Script.Map.GridMap
 {
     // Creator Class for grids
     public class OTileMap : MonoBehaviour
