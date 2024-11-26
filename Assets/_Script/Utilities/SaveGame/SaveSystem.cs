@@ -96,7 +96,7 @@ namespace _Script.Utilities.SaveGame
 
         private string GenerateUniqueKeyForService(ISaveGame service)
         {
-            return GetDataTypeSaveName(service) + GetDataNameSavename(service);
+            return GetDataTypeSaveName(service) + GetDataNameSaveName(service);
         }
     
         private string GetDataTypeSaveName(ISaveGame service)
@@ -105,7 +105,7 @@ namespace _Script.Utilities.SaveGame
             return service.GetType().Name; // Customize as needed
         }
     
-        private string GetDataNameSavename(ISaveGame service)
+        private string GetDataNameSaveName(ISaveGame service)
         {
             // Example: Use service type name + unique identifier
             return service.ToString(); // Customize as needed

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _Script.Map.TileRenderer
 {
-    public class TileGridRenderer : BaseGridRenderer<BaseTile>
+    public class TileGridRenderer : BaseGridRenderer<AbstractTile>
     {
         protected override void SubscribeToGridEvents()
         {
@@ -20,7 +20,7 @@ namespace _Script.Map.TileRenderer
             }
         }
 
-        private void OnGridValueChanged(object sender, Grid<BaseTile>.OnGridValueChangedEventArgs e)
+        private void OnGridValueChanged(object sender, Grid<AbstractTile>.OnGridValueChangedEventArgs e)
         {
             int index = GetIndex(e.x, e.y);
             _dirtyTiles.Add(index);
@@ -40,7 +40,7 @@ namespace _Script.Map.TileRenderer
                 int x = index / _gridHeight;
                 int y = index % _gridHeight;
 
-                BaseTile tileObject = _grid.GetGridObject(x, y);
+                AbstractTile tileObject = _grid.GetGridObject(x, y);
 
                 if (!ShouldRenderInstance(tileObject))
                 {
@@ -80,7 +80,7 @@ namespace _Script.Map.TileRenderer
             return _grid.GetWorldPosition(x, y) + new Vector3(_grid.GetCellSize(), _grid.GetCellSize()) * 0.5f;
         }
 
-        protected override Vector4 GetUVOffset(BaseTile tile)
+        protected override Vector4 GetUVOffset(AbstractTile tile)
         {
             TileType tileType = tile.GetTileType();
             Sprite sprite = GetSpriteForTileType(tileType);
@@ -94,7 +94,7 @@ namespace _Script.Map.TileRenderer
             return CalculateUVOffset(sprite);
         }
 
-        protected override bool ShouldRenderInstance(BaseTile tileObject)
+        protected override bool ShouldRenderInstance(AbstractTile tileObject)
         {
             return tileObject.GetTileType() != TileType.None;
         }

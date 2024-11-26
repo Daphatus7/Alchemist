@@ -9,7 +9,7 @@ namespace _Script.Managers
 {
     public class SaveLoadManager: PersistentSingleton<SaveLoadManager>
     {
-        [SerializeField] private string saveName = "save_0";
+        [SerializeField] private string saveName = "save_1";
         [SerializeField] private bool _removeSave = false;
         
         [SerializeField] private GenericGridTester _gridTester;

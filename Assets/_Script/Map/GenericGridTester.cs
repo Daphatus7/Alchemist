@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _Script.Map.GridMap;
+using _Script.Map.Tile;
 using _Script.Map.Tile.Tile_Base;
 using _Script.Map.TileRenderer;
 using _Script.Utilities;
@@ -61,7 +62,7 @@ namespace _Script.Map
             {
                 Debug.Log("Mouse Clicked");
                 Vector3 position = Helper.GetMouseWorldPosition();
-                tileMap.SetTileType(position, TileType.Dirt);
+                tileMap.SetTile(position, new List<TileType> {TileType.Dirt, TileType.Grass});
             }
         }
         
@@ -84,7 +85,7 @@ namespace _Script.Map
             if (e.type == EventType.MouseDown && e.button == 0)
             {
                 Vector3 position = Helper.GetMouseWorldPositionInEditor();
-                tileMap.SetTileType(position, TileType.Dirt);
+                //tileMap.SetTileType(position, TileType.Dirt);
                 _needsUpdate = true;
                 
                 e.Use(); // mark the event as "used" so it doesn't propagate
@@ -93,23 +94,14 @@ namespace _Script.Map
         
         public object OnSaveData()
         {
-            List<object> tileSaveObjects = new List<object>();
-            for(int x = 0; x < tileMap.Grid.GetWidth(); x++)
-            {
-                for(int y = 0; y < tileMap.Grid.GetHeight(); y++)
-                {
-                    var tile = tileMap.Grid.GetGridObject(x, y);
-                    var date = tile.OnSaveData();
-                    tileSaveObjects.Add(date);
-                }
-            }
-            return tileSaveObjects;
+            return tileMap.OnSaveData();
         }
 
         public void OnLoadData(object data)
         {
             tileMap = GetComponent<OTileMap>();
-            tileMap.Initialize(10, 5, 1f, transform.position, (List<TileSaveObject>) data);
+            
+            tileMap.LoadSavedData((TileMapSave) data);
             gridRenderer = GetComponent<TileGridRenderer>();
             gridRenderer.SetGrid(tileMap.Grid);
         }

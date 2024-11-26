@@ -10,7 +10,7 @@ namespace _Script.Map.Tile.Tile_Concrete
     {
         protected override TileType TileType => TileType.Dirt;
         
-        public DirtTile(int x, int y, bool isWet, IGridTileHandle gridTileHandle) : base(x, y, isWet, gridTileHandle)
+        public DirtTile(int x, int y, IGridTileHandle gridTileHandle, bool isWet = false) : base(x, y, isWet, gridTileHandle)
         {
             
         }

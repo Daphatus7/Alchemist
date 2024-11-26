@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using _Script.Map.GridMap;
+using _Script.Map.Tile.Tile_Base;
 using UnityEngine;
 using UnityEngine.U2D;
 

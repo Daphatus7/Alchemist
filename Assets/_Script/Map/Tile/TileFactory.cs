@@ -14,20 +14,19 @@ namespace _Script.Map.Tile
      */
     public class TileFactory
     {
-        public static Dictionary<string, TileType> TileTypeMap = new Dictionary<string, TileType>
-        {
-            {"DirtTile", TileType.Dirt},
-            {"GrassTile", TileType.Grass}
-        };
         
-        public static AbstractTile CreateTile(List<string> type, int x, int y, object data, IGridTileHandle gridTileHandle)
+        /**
+         * Unpack tile data and create a tile based on the data
+         */
+        public static AbstractTile LoadSavedTile(List<TileSaveObject> tileData, int x, int y, IGridTileHandle gridTileHandle)
         {
             //Base tile
             AbstractTile baseTile = null;
-            switch (type[0])
+            var baseTileData = (TileBaseSaveObject) tileData[0];
+            switch (baseTileData.TileType)
             {
-                case "Dirt":
-                    baseTile = LoadDirtTile(x, y, (bool) data, gridTileHandle);
+                case TileType.Dirt:
+                    baseTile = LoadDirtTile(x, y, baseTileData.IsWet, gridTileHandle);
                     break;
                 Default:
                     //Exception
@@ -36,14 +35,14 @@ namespace _Script.Map.Tile
             }
             
             //Decorators
-            for (int i = 1; i < type.Count; i++)
+            for (int i = 1; i < tileData.Count; i++)
             {
-                switch (type[i])
+                switch (tileData[i].TileType)
                 {
-                    case "Grass":
+                    case TileType.Grass:
                         baseTile = new GrassTile(baseTile);
                         break;
-                    case "Rock":
+                    case TileType.Rock:
                         baseTile = new RockTile(baseTile);
                         break;
                 }
@@ -52,12 +51,47 @@ namespace _Script.Map.Tile
             return baseTile;
         }
 
+        public static AbstractTile CreateTile(List<TileType> tileTypes, int x, int y, IGridTileHandle gridTileHandle)
+        {
+            //Base tile
+            AbstractTile baseTile = null;
+            var baseTileData = tileTypes[0];
+            switch (baseTileData)
+            {
+                case TileType.Dirt:
+                    baseTile = LoadDirtTile(x, y, false, gridTileHandle);
+                    break;
+                Default:
+                    //Exception
+                    throw new System.Exception("The first tile of the stack is not a valid tile type");
+                    return null;
+            }
+            
+            //Decorators
+            for (int i = 1; i < tileTypes.Count; i++)
+            {
+                switch (tileTypes[i])
+                {
+                    case TileType.Grass:
+                        baseTile = new GrassTile(baseTile);
+                        break;
+                    case TileType.Rock:
+                        baseTile = new RockTile(baseTile);
+                        break;
+                }
+            }
+            
+            return baseTile;
+        }
+
+        
+        
 
         #region BaseTile
         
         private static DirtTile LoadDirtTile(int x, int y, bool isWet, IGridTileHandle gridTileHandle)
         {
-            return new DirtTile(x, y, isWet, null); 
+            return new DirtTile(x, y, gridTileHandle,isWet);
         }
         
         #endregion

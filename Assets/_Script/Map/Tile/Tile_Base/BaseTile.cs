@@ -25,19 +25,20 @@ namespace _Script.Map.Tile.Tile_Base
             var baseTileSaveObject = new TileBaseSaveObject(TileType, _x, _y, _isWet);
             return new List<TileSaveObject> {baseTileSaveObject};
         }
+
+        public void OnUpdate()
+        {
+            GridTileHandle.OnUpdate(_x, _y);
+        }
     }
     
     [Serializable]
     public class TileBaseSaveObject : TileSaveObject
     {
-        public int X;
-        public int Y;
         public bool IsWet;
         public TileBaseSaveObject(TileType tileType, int x, int y, bool isWet)
         {
             TileType = tileType;
-            X = x;
-            Y = y;
             IsWet = isWet;
         }
     }

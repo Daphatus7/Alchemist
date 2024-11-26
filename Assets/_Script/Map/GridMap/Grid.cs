@@ -16,8 +16,8 @@ namespace _Script.Map.GridMap
         public int GetHeight() => _height;
         private float _cellSize;
         public float GetCellSize() => _cellSize;
-        private TGridObject[,] _gridArray;
-        private Vector3 _originPosition;
+        private TGridObject[,] _gridArray; public TGridObject[,] GetGridArray() => _gridArray;
+        private Vector3 _originPosition; public Vector3 GetOriginPosition() => _originPosition;
         private TextMesh[,] _debugTextArray;
 
         public bool IsDebug = false;
@@ -129,7 +129,7 @@ namespace _Script.Map.GridMap
         //     SetValue(x, y, value);
         // }
 
-        private void GetXY(Vector3 worldPosition, out int x, out int y)
+        public void GetXY(Vector3 worldPosition, out int x, out int y)
         {
             x = Mathf.FloorToInt((worldPosition - _originPosition).x / _cellSize);
             y = Mathf.FloorToInt((worldPosition - _originPosition).y / _cellSize);
