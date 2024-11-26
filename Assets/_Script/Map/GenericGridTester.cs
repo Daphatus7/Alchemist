@@ -1,0 +1,122 @@
+using System;
+using System.Collections.Generic;
+using _Script.Map.GridMap;
+using _Script.Map.Tile.Tile_Base;
+using _Script.Map.TileRenderer;
+using _Script.Utilities;
+using _Script.Utilities.ServiceLocator;
+using UnityEditor;
+using UnityEngine;
+
+namespace _Script.Map
+{
+    //[ExecuteInEditMode]
+    public class GenericGridTester : MonoBehaviour, ISaveTileMap
+    {
+        [SerializeField] private OTileMap tileMap;
+        [SerializeField] private TileGridRenderer gridRenderer;
+        
+        [SerializeField] private bool _needsUpdate = false;
+        [SerializeField] private bool _canEdit = false;
+        
+        private void Start()
+        {
+            ServiceLocator.Instance.Register<ISaveTileMap>(this);
+        }
+
+        private void OnDestroy()
+        {
+            ServiceLocator.Instance.Unregister<ISaveTileMap>(this);
+        }
+
+        private void InitializeTileMap()
+        {
+            tileMap = GetComponent<OTileMap>();
+            tileMap.Initialize(10, 5, 1f, transform.position);
+            gridRenderer = GetComponent<TileGridRenderer>();
+            gridRenderer.SetGrid(tileMap.Grid);
+        }
+        
+        private void Update()
+        {
+            if(_needsUpdate && _canEdit)
+            {
+                if (tileMap.Grid == null)
+                {
+                    tileMap = GetComponent<OTileMap>();
+                    tileMap.Initialize(10, 5, 1f, transform.position);
+                    gridRenderer = GetComponent<TileGridRenderer>();
+                    gridRenderer.SetGrid(tileMap.Grid);
+                    _needsUpdate = false;
+                    //gridRenderer.InitializeMaterials();
+                }
+            }
+            
+            if (gridRenderer == null)
+            {
+                tileMap.Initialize(10, 5, 1f, transform.position);
+                gridRenderer.SetGrid(tileMap.Grid);
+            }
+            if (Input.GetMouseButtonDown(0))
+            {
+                Debug.Log("Mouse Clicked");
+                Vector3 position = Helper.GetMouseWorldPosition();
+                tileMap.SetTileType(position, TileType.Dirt);
+            }
+        }
+        
+        private void OnEnable()
+        {
+            SceneView.duringSceneGui += OnSceneGUI;
+        }
+
+        private void OnDisable()
+        {
+            SceneView.duringSceneGui -= OnSceneGUI;
+        }
+
+
+        private void OnSceneGUI(SceneView sceneView)
+        {
+            if (!_canEdit) return;
+            Event e = Event.current;
+            // detect left mouse click
+            if (e.type == EventType.MouseDown && e.button == 0)
+            {
+                Vector3 position = Helper.GetMouseWorldPositionInEditor();
+                tileMap.SetTileType(position, TileType.Dirt);
+                _needsUpdate = true;
+                
+                e.Use(); // mark the event as "used" so it doesn't propagate
+            }
+        }
+        
+        public object OnSaveData()
+        {
+            List<object> tileSaveObjects = new List<object>();
+            for(int x = 0; x < tileMap.Grid.GetWidth(); x++)
+            {
+                for(int y = 0; y < tileMap.Grid.GetHeight(); y++)
+                {
+                    var tile = tileMap.Grid.GetGridObject(x, y);
+                    var date = tile.OnSaveData();
+                    tileSaveObjects.Add(date);
+                }
+            }
+            return tileSaveObjects;
+        }
+
+        public void OnLoadData(object data)
+        {
+            tileMap = GetComponent<OTileMap>();
+            tileMap.Initialize(10, 5, 1f, transform.position, (List<TileSaveObject>) data);
+            gridRenderer = GetComponent<TileGridRenderer>();
+            gridRenderer.SetGrid(tileMap.Grid);
+        }
+
+        public void LoadDefaultData()
+        {
+            InitializeTileMap();
+        }
+    }
+}

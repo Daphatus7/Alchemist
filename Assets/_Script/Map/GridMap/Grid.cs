@@ -1,10 +1,13 @@
 using System;
-using _Script.Alchemy.PlantEnvironment;
+using System.Collections.Generic;
 using _Script.Utilities;
 using UnityEngine;
 
 namespace _Script.Map.GridMap
 {
+    /**
+     * Only handles the logic component of the grid and holding the grid object
+     */
     public class Grid<TGridObject>: IGridTileHandle
     {
         private int _width;
@@ -27,9 +30,7 @@ namespace _Script.Map.GridMap
             public int y;
         }
 
-        public Grid(int width, int height, float cellSize, Vector3 originPosition,
-            Func<int, int, Grid<TGridObject>, TGridObject> createGridObject)
-
+        public Grid(int width, int height, float cellSize, Vector3 originPosition, Func<int, int, Grid<TGridObject>, TGridObject> createGridObject)
         {
             _width = width;
             _height = height;
@@ -45,7 +46,8 @@ namespace _Script.Map.GridMap
                     _gridArray[x, y] = createGridObject(x, y, this);
                 }
             }
-
+            
+            #region Debug
             if (IsDebug)
             {
                 TextMesh[,] debugTextArray = new TextMesh[width, height];
@@ -69,6 +71,28 @@ namespace _Script.Map.GridMap
                 {
                     debugTextArray[eventArgs.x, eventArgs.y].text = _gridArray[eventArgs.x, eventArgs.y]?.ToString();
                 };
+            }
+            #endregion
+        }
+        
+        public Grid(int width, int height, float cellSize, Vector3 originPosition)
+        {
+            _width = width;
+            _height = height;
+            _cellSize = cellSize;
+            _originPosition = originPosition;
+
+            _gridArray = new TGridObject[width, height];
+        }
+        
+        public void InitializeGrid(List<TGridObject> gridObjects)
+        {
+            for (int x = 0; x < _gridArray.GetLength(0); x++)
+            {
+                for (int y = 0; y < _gridArray.GetLength(1); y++)
+                {
+                    _gridArray[x, y] = gridObjects[x * _height + y];
+                }
             }
         }
 

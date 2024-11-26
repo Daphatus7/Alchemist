@@ -1,5 +1,5 @@
-using _Script.Alchemy.PlantEnvironment;
-using _Script.Map.Tiles;
+using System.Collections.Generic;
+using _Script.Map.Tile.Tile_Base;
 using UnityEngine;
 
 namespace _Script.Map.GridMap
@@ -7,11 +7,28 @@ namespace _Script.Map.GridMap
     // Creator Class for grids
     public class OTileMap : MonoBehaviour
     {
-        private Grid<TileObject> _grid; public Grid<TileObject> Grid => _grid;
+        private Grid<BaseTile> _grid; public Grid<BaseTile> Grid => _grid;
         
         public void Initialize(int width, int height, float cellSize, Vector3 originPosition)
         {
-            _grid = new Grid<TileObject>(width, height, cellSize, originPosition, (int x, int y, Grid<TileObject> g) => new TileObject(x, y, g));
+            //TODO: Implement this
+            //_grid = new Grid<BaseTile>(width, height, cellSize, originPosition, (int x, int y, Grid<BaseTile> g) => new BaseTile(x, y, g));
+        }
+        
+        public void Initialize(int width, int height, float cellSize, Vector3 originPosition, List<TileSaveObject> tileSaveObjects)
+        {
+            
+            // _grid = new Grid<BaseTile>(width, height, cellSize, originPosition, (int x, int y, Grid<BaseTile> g) =>
+            // {
+            //     var tileSaveObject = tileSaveObjects.Find(tile => tile.X == x && tile.Y == y);
+            //     if (tileSaveObject != null)
+            //     {
+            //         var tile = ServiceLocator.Instance.Get<ITileFactory>().CreateTile(tileSaveObject.ClassName, x, y);
+            //         tile.SetTileType(tileSaveObject.TileType);
+            //         return tile;
+            //     }
+            //     return new BaseTile(x, y, g);
+            // });
         }
         
         public void SetTileType(Vector3 worldPosition, TileType tileType)
@@ -19,23 +36,15 @@ namespace _Script.Map.GridMap
             var tilemapObject = _grid.GetGridObject(worldPosition);
             if (tilemapObject != null) 
             {
-                tilemapObject.SetTileType(tileType);
+                Debug.LogError("SetTileType to be removed from OTileMap");
+                //tilemapObject.SetTileType(tileType);
             }
             else
             {
                 Debug.LogWarning("TilemapObject is null");
             }
         }
-        
-        public TileObject CreateTile(TileType tileType)
-        {
-            switch (tileType)
-            {
-                case TileType.Dirt:
-                    return new DirtTile(0, 0, _grid);
-                default:
-                    return new TileObject(0, 0, _grid);
-            }
-        }
+
+       
     }
 }

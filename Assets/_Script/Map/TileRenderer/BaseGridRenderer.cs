@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using _Script.Alchemy.PlantEnvironment;
 using _Script.Map.GridMap;
 using UnityEngine;
 using UnityEngine.U2D;

@@ -1,12 +1,11 @@
-using _Script.Alchemy.PlantEnvironment;
 using _Script.Map.GridMap;
+using _Script.Map.Tile.Tile_Base;
 using _Script.Map.TileRenderer;
-using _Script.Map.Tiles;
 using UnityEngine;
 
 namespace _Script.Map.TileRenderer
 {
-    public class TileGridRenderer : BaseGridRenderer<TileObject>
+    public class TileGridRenderer : BaseGridRenderer<BaseTile>
     {
         protected override void SubscribeToGridEvents()
         {
@@ -21,7 +20,7 @@ namespace _Script.Map.TileRenderer
             }
         }
 
-        private void OnGridValueChanged(object sender, Grid<TileObject>.OnGridValueChangedEventArgs e)
+        private void OnGridValueChanged(object sender, Grid<BaseTile>.OnGridValueChangedEventArgs e)
         {
             int index = GetIndex(e.x, e.y);
             _dirtyTiles.Add(index);
@@ -41,7 +40,7 @@ namespace _Script.Map.TileRenderer
                 int x = index / _gridHeight;
                 int y = index % _gridHeight;
 
-                TileObject tileObject = _grid.GetGridObject(x, y);
+                BaseTile tileObject = _grid.GetGridObject(x, y);
 
                 if (!ShouldRenderInstance(tileObject))
                 {
@@ -81,9 +80,9 @@ namespace _Script.Map.TileRenderer
             return _grid.GetWorldPosition(x, y) + new Vector3(_grid.GetCellSize(), _grid.GetCellSize()) * 0.5f;
         }
 
-        protected override Vector4 GetUVOffset(TileObject tileObject)
+        protected override Vector4 GetUVOffset(BaseTile tile)
         {
-            TileType tileType = tileObject.TileType;
+            TileType tileType = tile.GetTileType();
             Sprite sprite = GetSpriteForTileType(tileType);
 
             if (sprite == null)
@@ -95,9 +94,9 @@ namespace _Script.Map.TileRenderer
             return CalculateUVOffset(sprite);
         }
 
-        protected override bool ShouldRenderInstance(TileObject tileObject)
+        protected override bool ShouldRenderInstance(BaseTile tileObject)
         {
-            return tileObject.TileType != TileType.None;
+            return tileObject.GetTileType() != TileType.None;
         }
 
         private Sprite GetSpriteForTileType(TileType tileType)
