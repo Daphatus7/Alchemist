@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 
 namespace _Script.Character
 {
-    public class PlayerCharacter : PawnAttribute, IControl, IPlayerInventoryHandler, IPlayerUIHandle
+    public class PlayerCharacter : PawnAttribute, IControl, IPlayerInventoryHandler, IPlayerUIHandle, IPlayerTileHandle
     {
         [SerializeField] private GameObject LeftHand;
         [SerializeField] private GameObject RightHand;
@@ -61,7 +61,8 @@ namespace _Script.Character
             _mouseAngle = Mathf.Atan2(_CursorPosition.y - transform.position.y, _CursorPosition.x - transform.position.x) * Mathf.Rad2Deg;
         }
         
-        
+        #region Control
+
         /**
          * Called when the left mouse button is pressed and holding
          */
@@ -91,13 +92,17 @@ namespace _Script.Character
          */
         public void RightMouseButtonDown(Vector2 direction)
         {
+            
         }
         
-
         public void Dash(Vector2 direction)
         {
             throw new System.NotImplementedException();
         }
+
+        #endregion
+        
+        #region Inventory
 
         public IPlayerEquipmentHandle GetPlayerEquipment()
         {
@@ -108,6 +113,10 @@ namespace _Script.Character
         {
             return _playerInventory;
         }
+
+        #endregion
+        
+        #region Stat
 
         public UnityEvent GetPlayerHealthUpdateEvent()
         {
@@ -123,6 +132,7 @@ namespace _Script.Character
         {
             return HealthMax;
         }
-        
+
+        #endregion
     }
 }

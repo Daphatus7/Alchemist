@@ -30,7 +30,7 @@ namespace _Script.Map.GridMap
             public int y;
         }
 
-        public Grid(int width, int height, float cellSize, Vector3 originPosition, Func<int, int, Grid<TGridObject>, TGridObject> createGridObject)
+        public Grid(int width, int height, float cellSize, Vector3 originPosition, Func<int, int, Grid<TGridObject>,TGridObject> createGridObject)
         {
             _width = width;
             _height = height;

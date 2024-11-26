@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using _Script.Map.Tile.Tile_Base;
+using UnityEngine;
 
 namespace _Script.Map.Tile.Tile_Decorator
 {
@@ -22,7 +23,6 @@ namespace _Script.Map.Tile.Tile_Decorator
          */
         public override void Use()
         {
-            
         }
 
         /**

@@ -91,7 +91,7 @@ namespace _Script.Map.Tile
         
         private static DirtTile LoadDirtTile(int x, int y, bool isWet, IGridTileHandle gridTileHandle)
         {
-            return new DirtTile(x, y, gridTileHandle,isWet);
+            return new DirtTile(x, y, gridTileHandle);
         }
         
         #endregion

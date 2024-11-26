@@ -84,6 +84,11 @@ namespace _Script.Map.GridMap
             _grid.OnUpdate(x, y);
         }
         
+        
+        /**
+         * Try to remove the surface of the tile
+         * If there is no more surface, then show warning
+         */
         public void DestroySurfaceTile(Vector3 pos)
         {
             int x, y;
@@ -101,6 +106,28 @@ namespace _Script.Map.GridMap
             //trigger update
             _grid.OnUpdate(x, y);
         }
-        
+
+        public void RemoveTile(int x, int y)
+        {
+            var parentTile = _grid.GetGridArray()[x, y].GetParentTile();
+            if (parentTile != null)
+            {
+                Debug.Log("Destroying surface tile");
+                _grid.GetGridArray()[x, y] = parentTile;
+            }
+            else
+            {
+                Debug.Log("Cannot destroy surface tile");
+            }
+            //trigger update
+            _grid.OnUpdate(x, y);
+        }
+
+        public void Use(Vector3 position)
+        {
+            int x, y;
+            _grid.GetXY(position, out x, out y);
+            _grid.GetGridArray()[x, y].Use();
+        }
     }
 }

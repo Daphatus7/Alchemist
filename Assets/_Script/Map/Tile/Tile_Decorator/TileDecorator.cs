@@ -13,6 +13,11 @@ namespace _Script.Map.Tile.Tile_Decorator
             ParentTile = parentTile;
         }
         
+        public override BaseTile GetBaseTile()
+        {
+            return ParentTile.GetBaseTile();
+        }
+        
         public override AbstractTile GetParentTile()
         {
             return ParentTile;

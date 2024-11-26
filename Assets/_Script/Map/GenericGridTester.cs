@@ -64,17 +64,12 @@ namespace _Script.Map
                 Vector3 position = Helper.GetMouseWorldPosition();
                 tileMap.SetTile(position, new List<TileType> {TileType.Dirt, TileType.Grass});
             }
+            
             if (Input.GetMouseButtonDown(1))
             {
                 Debug.Log("Mouse Clicked");
                 Vector3 position = Helper.GetMouseWorldPosition();
-                tileMap.DestroySurfaceTile(position);
-            }
-            //keyboard 1
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                Debug.Log("Keyboard 1");
-                Vector3 position = Helper.GetMouseWorldPosition();
+                tileMap.Use(position);
             }
         }
         
@@ -103,6 +98,8 @@ namespace _Script.Map
                 e.Use(); // mark the event as "used" so it doesn't propagate
             }
         }
+
+        #region Save-and-Load
         
         public object OnSaveData()
         {
@@ -122,5 +119,8 @@ namespace _Script.Map
         {
             InitializeTileMap();
         }
+        
+        #endregion
+        
     }
 }
