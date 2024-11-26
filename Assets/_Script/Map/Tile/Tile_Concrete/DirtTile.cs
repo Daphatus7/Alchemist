@@ -24,7 +24,12 @@ namespace _Script.Map.Tile.Tile_Concrete
         {
             return IsWet ? new List<TileType> {TileType, TileType.WetDirt} : new List<TileType> {TileType};
         }
-        
+
+        public override AbstractTile GetParentTile()
+        {
+            return null;
+        }
+
         public override void Use()
         {
             throw new System.NotImplementedException();

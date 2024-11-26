@@ -84,5 +84,23 @@ namespace _Script.Map.GridMap
             _grid.OnUpdate(x, y);
         }
         
+        public void DestroySurfaceTile(Vector3 pos)
+        {
+            int x, y;
+            _grid.GetXY(pos, out x, out y);
+            var parentTile = _grid.GetGridArray()[x, y].GetParentTile();
+            if (parentTile != null)
+            {
+                Debug.Log("Destroying surface tile");
+                _grid.GetGridArray()[x, y] = parentTile;
+            }
+            else
+            {
+                Debug.Log("Cannot destroy surface tile");
+            }
+            //trigger update
+            _grid.OnUpdate(x, y);
+        }
+        
     }
 }

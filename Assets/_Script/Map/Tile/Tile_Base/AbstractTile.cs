@@ -25,6 +25,8 @@ namespace _Script.Map.Tile.Tile_Base
         public abstract List<TileType> GetTileTypes();
         
         public abstract List<TileSaveObject> OnSaveData();
+        
+        public abstract AbstractTile GetParentTile();
     }
     
     [Serializable]

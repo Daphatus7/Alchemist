@@ -6,13 +6,17 @@ namespace _Script.Map.Tile.Tile_Decorator
 {
     public abstract class TileDecorator : AbstractTile
     {
-        protected readonly AbstractTile BaseTile;
+        protected readonly AbstractTile ParentTile;
         
-        protected TileDecorator(AbstractTile baseTile)
+        protected TileDecorator(AbstractTile parentTile)
         {
-            BaseTile = baseTile;
+            ParentTile = parentTile;
         }
-
+        
+        public override AbstractTile GetParentTile()
+        {
+            return ParentTile;
+        }
         public override TileType GetTileType()
         {
             return TileType;
@@ -20,14 +24,14 @@ namespace _Script.Map.Tile.Tile_Decorator
 
         public override List<TileType> GetTileTypes()
         {
-            var tileTypes = BaseTile.GetTileTypes();
+            var tileTypes = ParentTile.GetTileTypes();
             tileTypes.Add(TileType);
             return tileTypes;
         }
 
         public override List<TileSaveObject> OnSaveData()
         {
-            var tileSaveObjects = BaseTile.OnSaveData();
+            var tileSaveObjects = ParentTile.OnSaveData();
             tileSaveObjects.Add(new TileDecoratorSaveObject(TileType));
             return tileSaveObjects;
         }

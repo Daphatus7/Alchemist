@@ -64,6 +64,18 @@ namespace _Script.Map
                 Vector3 position = Helper.GetMouseWorldPosition();
                 tileMap.SetTile(position, new List<TileType> {TileType.Dirt, TileType.Grass});
             }
+            if (Input.GetMouseButtonDown(1))
+            {
+                Debug.Log("Mouse Clicked");
+                Vector3 position = Helper.GetMouseWorldPosition();
+                tileMap.DestroySurfaceTile(position);
+            }
+            //keyboard 1
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                Debug.Log("Keyboard 1");
+                Vector3 position = Helper.GetMouseWorldPosition();
+            }
         }
         
         private void OnEnable()
