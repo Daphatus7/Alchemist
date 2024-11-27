@@ -11,8 +11,9 @@ namespace _Script.Managers
     {
         [SerializeField] private string saveName = "save_1";
         [SerializeField] private bool _removeSave = false;
-        
         [SerializeField] private GenericGridTester _gridTester;
+        
+        [SerializeField] private bool _debug = false;
         
         public void Start()
         {
@@ -24,11 +25,13 @@ namespace _Script.Managers
             yield return new WaitForSeconds(0.5f);
             if (LoadSavedTileMap())
             {
-                Debug.Log("Loaded saved tile map...");
+                if(_debug)
+                    Debug.Log("Loaded saved tile map...");
             }
             else
             {
-                Debug.Log("Failed to load saved tile map...");
+                if(_debug)
+                    Debug.Log("Failed to load saved tile map...");
                 LoadDefaultTileMap();
             }
             
@@ -43,13 +46,15 @@ namespace _Script.Managers
         
         public void SaveGame()
         {
-            Debug.Log("Saving game...");
+            if(_debug)
+                Debug.Log("Saving game...");
             SaveSystem.Instance.SaveData<ISaveTileMap>(saveName);
         }
         
         public bool LoadSavedTileMap()
         {
-            Debug.Log("Trying to load saved tile map...");
+            if(_debug)
+                Debug.Log("Trying to load saved tile map...");
             return SaveSystem.Instance.LoadData<ISaveTileMap>(saveName);
         }
         

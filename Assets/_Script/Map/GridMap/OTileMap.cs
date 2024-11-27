@@ -79,6 +79,12 @@ namespace _Script.Map.GridMap
         {
             int x, y;
             _grid.GetXY(pos, out x, out y);
+            //check boundary
+            if (x < 0 || y < 0 || x >= _grid.GetWidth() || y >= _grid.GetHeight())
+            {
+                return;
+            }
+            
             _grid.GetGridArray()[x, y] = TileFactory.CreateTile(tileTypes, x, y, _grid);
             //trigger update
             _grid.OnUpdate(x, y);
@@ -93,6 +99,10 @@ namespace _Script.Map.GridMap
         {
             int x, y;
             _grid.GetXY(pos, out x, out y);
+            if (x < 0 || y < 0 || x >= _grid.GetWidth() || y >= _grid.GetHeight())
+            {
+                return;
+            }
             var parentTile = _grid.GetGridArray()[x, y].GetParentTile();
             if (parentTile != null)
             {

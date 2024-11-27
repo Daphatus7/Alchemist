@@ -8,16 +8,18 @@ namespace _Script.Utilities.SaveGame
     public class SaveSystem : PersistentSingleton<SaveSystem>
     {
         
+        [SerializeField] private bool _debug = false;
+        
         public bool LoadData<T>(string SaveName) where T : ISaveGame
         {
             if (IsNewSave<T>(SaveName))
             {
-                Debug.Log($"It is a new save {SaveName}_{typeof(T).Name}");
+                //Debug.Log($"It is a new save {SaveName}_{typeof(T).Name}");
                 return false;
             }
             else
             {
-                Debug.Log($"load Saved {SaveName}_{typeof(T).Name}");
+                //Debug.Log($"load Saved {SaveName}_{typeof(T).Name}");
                 Load<T>(SaveName);
                 return true;
             }
@@ -57,8 +59,8 @@ namespace _Script.Utilities.SaveGame
                 ES3.Save(key, data); // Save the data
                 fileIndices.Add(key);
             }
-            
-            Debug.Log($"Saving... {SaveName}_{typeof(T).Name}");
+            if(_debug)
+                Debug.Log($"Saving... {SaveName}_{typeof(T).Name}");
             ES3.Save(GetInternalName<T>(SaveName), fileIndices); // Save the index of all keys
         }
     
