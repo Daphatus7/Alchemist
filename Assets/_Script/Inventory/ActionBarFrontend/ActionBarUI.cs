@@ -1,6 +1,7 @@
 using _Script.Inventory.ActionBarBackend;
 using _Script.Inventory.InventoryFrontend;
 using _Script.Inventory.SlotFrontend;
+using _Script.Items;
 using UnityEngine;
 
 namespace _Script.Inventory.ActionBarFrontend
@@ -10,7 +11,7 @@ namespace _Script.Inventory.ActionBarFrontend
         [SerializeField] private ActionBar _actionBar;
         [SerializeField] private GameObject inventoryPanel;
         [SerializeField] private GameObject slotPrefab;
-        
+
         void Start()
         {
             UpdateInventoryUI();
@@ -52,6 +53,16 @@ namespace _Script.Inventory.ActionBarFrontend
         public void OnSlotClicked(InventorySlotDisplay slotDisplay)
         {
             _actionBar.LeftClickItem(slotDisplay.SlotIndex);
+        }
+
+        public InventoryItem RemoveAllItemsFromSlot(int slotIndex)
+        {
+            return _actionBar.RemoveAllItemsFromSlot(slotIndex);
+        }
+
+        public void AddItemToEmptySlot(InventoryItem item, int slotIndex)
+        {
+            _actionBar.AddItemToEmptySlot(item, slotIndex);
         }
     }
 }

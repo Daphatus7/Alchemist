@@ -39,7 +39,7 @@ namespace _Script.Inventory.InventoryBackend
             }
         }
 
-        protected bool AddItem(InventoryItem itemToAdd)
+        public bool AddItem(InventoryItem itemToAdd)
         {
             if (itemToAdd == null)
             {
@@ -98,8 +98,25 @@ namespace _Script.Inventory.InventoryBackend
 
             return true;
         }
+        
+        public void AddItemToEmptySlot(InventoryItem item, int slotIndex)
+        {
+            if (slotIndex < 0 || slotIndex >= capacity)
+            {
+                Debug.LogWarning("Invalid slot index.");
+                return;
+            }
 
-        protected bool AddItemToSlot(InventoryItem itemToAdd, int slotIndex)
+            if (slots[slotIndex].IsEmpty)
+            {
+                slots[slotIndex].Item = item;
+
+                // Notify UI update
+                OnInventoryChanged?.Invoke();
+            }
+        }
+
+        public bool AddItemToSlot(InventoryItem itemToAdd, int slotIndex)
         {
             if (itemToAdd == null)
             {
@@ -139,6 +156,30 @@ namespace _Script.Inventory.InventoryBackend
 
             Debug.Log("Slot is full.");
             return false;
+        }
+
+        public InventoryItem RemoveAllItemsFromSlot(int slotIndex)
+        {
+            if (slotIndex < 0 || slotIndex >= capacity)
+            {
+                Debug.LogWarning("Invalid slot index.");
+                return null;
+            }
+
+            InventorySlot slot = slots[slotIndex];
+            if (slot.IsEmpty)
+            {
+                Debug.Log("Slot is empty.");
+                return null;
+            }
+
+            InventoryItem item = slot.Item;
+            slot.Clear();
+
+            // Notify UI update
+            OnInventoryChanged?.Invoke();
+
+            return item;
         }
         
         protected bool RemoveItem(InventoryItem inventoryItem, int quantity = 1)
@@ -294,6 +335,24 @@ namespace _Script.Inventory.InventoryBackend
         public void LeftClickItem(int slotIndex)
         {
             UseItem(slotIndex);
+        }
+
+        public InventoryItem SwapItem(InventoryItem item, int slotIndex)
+        {
+            if (slotIndex < 0 || slotIndex >= capacity)
+            {
+                Debug.LogWarning("Invalid slot index.");
+                return item;
+            }
+
+            InventorySlot slot = slots[slotIndex];
+            InventoryItem previousItem = slot.Item;
+            slot.Item = item;
+
+            // Notify UI update
+            OnInventoryChanged?.Invoke();
+
+            return previousItem;
         }
     }
 

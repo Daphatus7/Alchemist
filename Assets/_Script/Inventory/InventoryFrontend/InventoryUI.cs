@@ -1,4 +1,5 @@
 using _Script.Inventory.SlotFrontend;
+using _Script.Items;
 using UnityEngine;
 
 namespace _Script.Inventory.InventoryFrontend
@@ -52,6 +53,16 @@ namespace _Script.Inventory.InventoryFrontend
         public void OnSlotClicked(InventorySlotDisplay slotDisplay)
         {
             playerInventory.LeftClickItem(slotDisplay.SlotIndex);
+        }
+
+        public InventoryItem RemoveAllItemsFromSlot(int slotIndex)
+        {
+            return playerInventory.RemoveAllItemsFromSlot(slotIndex);
+        }
+
+        public void AddItemToEmptySlot(InventoryItem item, int slotIndex)
+        {
+            playerInventory.AddItemToEmptySlot(item, slotIndex);
         }
     }
 

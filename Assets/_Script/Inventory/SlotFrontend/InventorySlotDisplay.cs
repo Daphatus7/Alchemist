@@ -1,4 +1,5 @@
 using _Script.Inventory.InventoryFrontend;
+using _Script.Items;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,22 +7,29 @@ using UnityEngine.UI;
 
 namespace _Script.Inventory.SlotFrontend
 {
-    public class InventorySlotDisplay: MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+    public class InventorySlotDisplay : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
     {
         [SerializeField] private Image icon;
-        [SerializeField] private TextMeshProUGUI quantityText; // Changed to TextMeshProUGUI
+        [SerializeField] private TextMeshProUGUI quantityText;
         [SerializeField] private Button slotButton;
         [SerializeField] private Image highlight;
+
         private IContainerUIHandle _inventoryUI;
-        private int _slotIndex; public int SlotIndex => _slotIndex;
-        
+        private int _slotIndex;
+        public int SlotIndex => _slotIndex;
+
+        /**
+         * only visual representation of the item
+         */
+        private InventoryItem currentItem;
+
         public void InitializeInventorySlot(IContainerUIHandle inventoryUI, int slotIndex)
         {
             _inventoryUI = inventoryUI;
             _slotIndex = slotIndex;
             highlight.enabled = false;
         }
-        
+
         private void OnEnable()
         {
             if (slotButton != null)
@@ -29,7 +37,7 @@ namespace _Script.Inventory.SlotFrontend
                 slotButton.onClick.AddListener(OnSlotClicked);
             }
         }
-        
+
         private void OnDisable()
         {
             if (slotButton != null)
@@ -38,52 +46,72 @@ namespace _Script.Inventory.SlotFrontend
             }
         }
 
-
         public void SetSlot(Items.InventoryItem item)
         {
-            // Set icon and quantity
+            currentItem = item;
+
             if (item != null && item.Icon != null)
             {
                 icon.sprite = item.Icon;
-                icon.color = Color.white; // Make the icon fully visible
-                quantityText.text = item.Quantity > 1 ? item.Quantity.ToString() : ""; // Only show quantity if more than 1
+                icon.color = Color.white;
+                quantityText.text = item.Quantity > 1 ? item.Quantity.ToString() : "";
             }
             else
             {
-                ClearSlot(); // Clear slot if item is null
+                ClearSlot();
             }
         }
-        
+
         public virtual void ClearSlot()
         {
-            // Clear the icon and hide the quantity
+            currentItem = null;
             icon.sprite = null;
-            icon.color = new Color(1, 1, 1, 0); // Fully transparent
+            icon.color = new Color(1, 1, 1, 0);
             quantityText.text = "";
         }
 
         public virtual void OnSlotClicked()
         {
+            Debug.Log("Slot clicked." + _slotIndex);
             _inventoryUI.OnSlotClicked(this);
         }
-
 
         #region Drag and Drop
 
         [SerializeField] private GameObject dragItemPrefab;
-        private GameObject dragItem;
-        private Canvas canvas;  // Reference to the canvas
+        private static GameObject dragItem;
+        private static Canvas canvas;
 
         private void Start()
         {
-            canvas = GetComponentInParent<Canvas>();  // Ensure the item is under the correct canvas
+            canvas = GetComponentInParent<Canvas>();
         }
-        
+
         public void OnBeginDrag(PointerEventData eventData)
         {
-            Debug.Log("Begin Drag");
-            dragItem = Instantiate(dragItemPrefab, canvas.transform);
-            SetDragItemPosition(eventData);
+            if (currentItem != null)
+            {
+                icon.raycastTarget = false;
+                if(dragItem == null)
+                {
+                    dragItem = Instantiate(dragItemPrefab, canvas.transform);
+                }
+                else
+                {
+                    dragItem.SetActive(true);
+                }
+
+                Image dragItemImage = dragItem.GetComponent<Image>();
+                if (dragItemImage != null)
+                {
+                    dragItemImage.sprite = icon.sprite;
+                    dragItemImage.raycastTarget = false; // Disable raycast target
+                }
+
+                SetDragItemPosition(eventData);
+
+                icon.color = new Color(1, 1, 1, 0);
+            }
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -91,35 +119,59 @@ namespace _Script.Inventory.SlotFrontend
             if (dragItem != null)
             {
                 SetDragItemPosition(eventData);
-                Debug.Log("Dragging");
             }
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            Debug.Log("End Drag");
             if (dragItem != null)
+            {
                 Destroy(dragItem);
+                dragItem = null;
+
+                icon.color = Color.white;
+            }
+            icon.raycastTarget = true;
         }
 
         private void SetDragItemPosition(PointerEventData eventData)
         {
-            RectTransformUtility.ScreenPointToWorldPointInRectangle(
-                canvas.GetComponent<RectTransform>(),  // The canvas RectTransform
-                eventData.position,                    // Pointer position in screen space
-                canvas.worldCamera,                    // The camera rendering the canvas (null for Screen Space - Overlay)
-                out Vector3 worldPosition              // Output world space position
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvas.transform as RectTransform,
+                eventData.position,
+                canvas.worldCamera,
+                out Vector2 localPoint
             );
-            dragItem.transform.position = worldPosition;
+            dragItem.transform.localPosition = localPoint;
         }
 
         public void OnDrop(PointerEventData eventData)
         {
-            Debug.Log("Drop");
+            InventorySlotDisplay sourceSlot = eventData.pointerDrag?.GetComponent<InventorySlotDisplay>();
+            
+            //if there is a inventory slot display when dropping
+            if (sourceSlot != null && sourceSlot != this)
+            {
+                //Swap items
+                var myItem = _inventoryUI.RemoveAllItemsFromSlot(_slotIndex);
+                var sourceItem = sourceSlot._inventoryUI.RemoveAllItemsFromSlot(sourceSlot._slotIndex);
+                _inventoryUI.AddItemToEmptySlot(sourceItem, _slotIndex);
+                sourceSlot._inventoryUI.AddItemToEmptySlot(myItem, sourceSlot._slotIndex);
+            }
+            //if there is no inventory slot display when dropping, drop to the ground
+            else if (sourceSlot == null)
+            {
+                //Drop item to the ground
+            }
+            
+            //hide the drag item visual
+            if (dragItem != null)
+            {
+                dragItem.SetActive(false);
+            }
+            
         }
+        
         #endregion
-
-
-
     }
 }

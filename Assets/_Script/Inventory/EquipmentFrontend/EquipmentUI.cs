@@ -1,6 +1,7 @@
 using _Script.Inventory.EquipmentBackend;
 using _Script.Inventory.InventoryFrontend;
 using _Script.Inventory.SlotFrontend;
+using _Script.Items;
 using UnityEngine;
 
 namespace _Script.Inventory.EquipmentFrontend
@@ -45,5 +46,17 @@ namespace _Script.Inventory.EquipmentFrontend
         {
             playerEquipmentInventory.UnequipItem(slotDisplay.SlotIndex);
         }
+
+        public InventoryItem RemoveAllItemsFromSlot(int slotIndex)
+        {
+            Debug.LogError("EquipmentUI does not support removing items");
+            return null;
+        }
+
+        public void AddItemToEmptySlot(InventoryItem item, int slotIndex)
+        {
+            Debug.LogError("EquipmentUI does not support adding items");
+        }
+        
     }
 }
