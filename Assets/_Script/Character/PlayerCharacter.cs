@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 
 namespace _Script.Character
 {
-    public class PlayerCharacter : PawnAttribute, IControl, IPlayerInventoryHandler, IPlayerUIHandle, IPlayerTileHandle
+    public class PlayerCharacter : PawnAttribute, IControl, IPlayerInventoryHandler, IPlayerUIHandle
     {
         [SerializeField] private GameObject LeftHand;
         [SerializeField] private GameObject RightHand;

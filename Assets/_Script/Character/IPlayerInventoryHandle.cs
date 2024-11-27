@@ -7,7 +7,5 @@ namespace _Script.Character
     {
         public IPlayerInventoryHandle GetPlayerInventory();
         public IPlayerEquipmentHandle GetPlayerEquipment();
-        
-        
     }
 }
