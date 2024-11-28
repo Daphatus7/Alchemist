@@ -17,21 +17,29 @@ namespace _Script.Items.AbstractItemTypes
         {
             
         }
-        
+
+        /// <summary>
+        /// Don't make tangled logic - let one method handles only one thing
+        /// </summary>
+        /// <param name="playerCharacter"></param>
         public override void OnSelected(PlayerCharacter playerCharacter)
         {
             Debug.Log("Weapon Selected");
             //spawn the weapon
             //Let player handle the weapon
-            playerCharacter.SetPlayerActionStrategy(ActionStrategyFactory.CreateStrategy(this));
+            playerCharacter.WeaponStrategy.ChangeWeapon(weaponPrefab, this);
+            //Set Strategy
+            playerCharacter.SetWeaponStrategy();
         }
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="playerCharacter"></param>
         public override void OnDeselected(PlayerCharacter playerCharacter)
         {
-            //Destroy the handle - so the player cannot attack
-            //Remove the visual representation of the weapon
-            Debug.Log("Weapon Deselected");
-            //remove existing weapon
+            //could this leads to deleting wrong item
+            playerCharacter.WeaponStrategy.RemoveWeapon();
         }
     }
 

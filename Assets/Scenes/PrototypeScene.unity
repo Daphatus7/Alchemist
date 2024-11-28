@@ -443,10 +443,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 2
+  m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1174,22 +1174,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2615383920521333222}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1361047227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1361047215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 566a45e2a15c48c1bc6d35160466897a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponSlot: {fileID: 237876452}
-  currentWeapon: {fileID: 0}
-  targetTags:
-  - Enemy
 --- !u!4 &1361047232 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6835500981790531497, guid: e1d01e4eea6684baa9b053ff7cef7499,
@@ -1220,6 +1204,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b2b98b97a143e3bc7dd0ab6a6b9bfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1361047238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361047215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1b7fa9d0774623b1e59408ee761016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSlot: {fileID: 237876452}
+  targetTags:
+  - Enemy
 --- !u!1 &1440996028
 GameObject:
   m_ObjectHideFlags: 0
@@ -7073,11 +7072,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6514619874994577401, guid: e1d01e4eea6684baa9b053ff7cef7499,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1361047227}
+      addedObject: {fileID: 1361047233}
     - targetCorrespondingSourceObject: {fileID: 6514619874994577401, guid: e1d01e4eea6684baa9b053ff7cef7499,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1361047233}
+      addedObject: {fileID: 1361047238}
   m_SourcePrefab: {fileID: 100100000, guid: e1d01e4eea6684baa9b053ff7cef7499, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

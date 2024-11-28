@@ -4,8 +4,6 @@ using _Script.Character.ActionStrategy;
 using _Script.Inventory.EquipmentBackend;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryHandles;
-using _Script.Items.AbstractItemTypes._Script.Items;
-using _Script.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -16,25 +14,24 @@ namespace _Script.Character
     {
         [SerializeField] private GameObject LeftHand;
         [SerializeField] private GameObject RightHand;
-        private PlayerAttack _attackAbility;
         
-        private IActionStrategy _actionStrategy;
+        
         private Vector3 _cursorPosition; public Vector3 CursorPosition => _cursorPosition;
         private float _mouseAngle; public float MouseAngle => _mouseAngle;
         private float _facingDirection; public float FacingDirection => _facingDirection;
 
         private IPlayerInventoryHandle _playerInventory;
         private IPlayerEquipmentHandle _playerEquipment;
+        
+        private WeaponStrategy _weaponStrategy; public WeaponStrategy WeaponStrategy => _weaponStrategy;
+        private GenericStrategy _genericStrategy; public GenericStrategy GenericStrategy => _genericStrategy;
+        private IActionStrategy _actionStrategy;
 
         #region Player Attribute from Equipment
         
         private float _attackDamage; public float AttackDamage => _attackDamage;
         
         
-        public PlayerAttack GetPlayerAttack()
-        {
-            return _attackAbility;
-        }
         public void DebugStat()
         {
         }
@@ -44,7 +41,7 @@ namespace _Script.Character
 
         private void Awake()
         {
-            _attackAbility = GetComponent<PlayerAttack>();
+            _weaponStrategy = GetComponent<WeaponStrategy>();
             _playerInventory = GetComponentInChildren<PlayerInventory>();
             _playerEquipment = GetComponent<PlayerEquipmentInventory>();
             //debug Equipment inventory
@@ -67,7 +64,24 @@ namespace _Script.Character
         
         
         
-        #region Control
+        #region Control - Strategy Pattern
+        
+
+        
+        public void SetWeaponStrategy()
+        {
+            _actionStrategy = _weaponStrategy;
+        }
+        
+        public void SetGenericStrategy()
+        {
+            _actionStrategy = _genericStrategy;
+        }
+        
+        public void UnsetStrategy()
+        {
+            _actionStrategy = null;
+        }
 
         /**
          * Called when the left mouse button is pressed and holding

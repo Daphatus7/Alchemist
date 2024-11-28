@@ -19,6 +19,12 @@ namespace _Script.Inventory.ActionBarBackend
             return RemoveItem(inventoryItem);
         }
 
+        
+        /// <summary>
+        /// this provides interface for external classes to select the item
+        /// No tangled logic
+        /// </summary>
+        /// <param name="slotIndex"></param>
         public void OnSelectItem(int slotIndex)
         {
             // {methods before} this function made sure that it's {not selecting the same item twice}
@@ -27,6 +33,12 @@ namespace _Script.Inventory.ActionBarBackend
             _selectedItem.ItemData.OnSelected(inventoryOwner);
         }
         
+        
+        /// <summary>
+        /// this provides interface for external classes to deselect the item
+        /// Within the action bar class, there is {no} tangled logic
+        /// </summary>
+        /// <param name="slotIndex"></param>
         public void OnDeSelectItem(int slotIndex)
         {
             _selectedItem?.ItemData.OnDeselected(inventoryOwner);

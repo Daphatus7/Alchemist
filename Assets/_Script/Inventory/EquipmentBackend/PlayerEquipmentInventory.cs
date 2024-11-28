@@ -50,11 +50,6 @@ namespace _Script.Inventory.EquipmentBackend
             //apply the effect of the new item
             switch (targetSlot)
             {
-                //Apply the effect of the item
-                case PlayerEquipmentSlotType.Weapon:
-                    UnequipWeapon();
-                    EquipWeapon(item);
-                    break;
                 case PlayerEquipmentSlotType.Chest:
                     EquipArmour(item);
                     break;
@@ -82,11 +77,7 @@ namespace _Script.Inventory.EquipmentBackend
             if (_equipmentSlots.TryGetValue(slot, out var slotItem))
             {
                 //remove the effect of the equipped item
-                if(slot == PlayerEquipmentSlotType.Weapon)
-                {
-                    UnequipWeapon();
-                }
-                else if(slot == PlayerEquipmentSlotType.Chest)
+                if(slot == PlayerEquipmentSlotType.Chest)
                 {
                     UnequipArmour();
                 }
@@ -117,12 +108,7 @@ namespace _Script.Inventory.EquipmentBackend
             }
             
         }
-        
-        private void EquipWeapon(EquipmentItem item)
-        {
-            var weapon = (WeaponItem) item;
-            item.Use(_playerCharacter);
-        }
+
         
         private void EquipArmour(EquipmentItem item)
         {
@@ -138,11 +124,6 @@ namespace _Script.Inventory.EquipmentBackend
             //get leaf item
             //if there is an item in the slot, return the item to the inventory
             //equip the item
-        }
-
-        private void UnequipWeapon()
-        {
-            _playerCharacter.GetPlayerAttack().RemoveWeapon();
         }
         
         private void UnequipArmour()

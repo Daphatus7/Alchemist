@@ -15,7 +15,7 @@ namespace _Script.Alchemy.Seed
             throw new System.NotImplementedException();
         }
 
-        public override IActionStrategy OnSelected(PlayerCharacter playerCharacter)
+        public override void OnSelected(PlayerCharacter playerCharacter)
         {
             throw new System.NotImplementedException();
         }

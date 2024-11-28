@@ -65,6 +65,13 @@ namespace _Script.Inventory.ActionBarFrontend
             slotDisplay.SetSlot(_actionBar.Slots[slotIndex].Item);
         }
 
+        
+        /// <summary>
+        /// Select the slot at the given index.
+        /// if the slot is already selected, use the item.
+        /// if the previous slot is not empty, deselect it.
+        /// </summary>
+        /// <param name="slotIndex"></param>
         public void SelectSlot(int slotIndex)
         {
             //Case 1: Invalid slot index
@@ -78,6 +85,8 @@ namespace _Script.Inventory.ActionBarFrontend
             if(_actionBar.Slots[slotIndex].IsEmptySlot())
             {
                 Debug.LogWarning("No item in slot.");
+                //still deselect the previous item
+                DeselectPreviousSlot();
                 return;
             }
             
@@ -108,6 +117,16 @@ namespace _Script.Inventory.ActionBarFrontend
             _actionBar.OnSelectItem(slotIndex);
         }
 
+        
+        private void DeselectPreviousSlot()
+        {
+            if (_selectedSlotDisplay)
+            {
+                _selectedSlotDisplay.UnhighlightSlot();
+                _selectedSlot = null;
+            }
+        }
+        
         #region Keyboard Input
 
         private void Update()
