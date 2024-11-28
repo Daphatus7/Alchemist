@@ -1,4 +1,5 @@
 using _Script.Character;
+using _Script.Character.ActionStrategy;
 using UnityEngine;
 
 namespace _Script.Items.AbstractItemTypes
@@ -14,7 +15,23 @@ namespace _Script.Items.AbstractItemTypes
 
         public override void Use(PlayerCharacter playerCharacter)
         {
-            playerCharacter.GetPlayerAttack().ChangeWeapon(weaponPrefab, this);
+            
+        }
+        
+        public override IActionStrategy OnSelected(PlayerCharacter playerCharacter)
+        {
+
+            //spawn corresponding visual and attach it to the player
+            //return the handle
+            Debug.Log("Weapon Selected");
+            return null;
+        }
+        
+        public override void OnDeselected(PlayerCharacter playerCharacter)
+        {
+            //Destroy the handle - so the player cannot attack
+            //Remove the visual representation of the weapon
+            Debug.Log("Weapon Deselected");
         }
     }
 

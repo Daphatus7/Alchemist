@@ -11,7 +11,7 @@ namespace _Script.Inventory.InventoryBackend
     {
         [SerializeField] private int capacity = 20;
 
-        private PlayerCharacter inventoryOwner; public PlayerCharacter InventoryOwner => inventoryOwner;
+        protected PlayerCharacter inventoryOwner; public PlayerCharacter InventoryOwner => inventoryOwner;
         public int Capacity => capacity;
 
         // Fixed-size array representing inventory slots
@@ -259,6 +259,8 @@ namespace _Script.Inventory.InventoryBackend
             //Use Equipment Item - if there is item in the equipment inventory, remove it and add it back to the inventory
             if(itemData.ItemType == ItemType.Equipment)
             {
+                Debug.Log("Using Equipment Item Currently Disabled");
+                return;
                 InventoryItem removedItem = OnUseEquipmentItem((EquipmentItem) itemData);
                 RemoveItemFromSlot(slotIndex, 1);
                 if(removedItem != null)
@@ -347,6 +349,11 @@ namespace _Script.Inventory.InventoryBackend
         public void Clear()
         {
             Item = null;
+        }
+        
+        public bool IsEmptySlot()
+        {
+            return Item == null;
         }
     }
     

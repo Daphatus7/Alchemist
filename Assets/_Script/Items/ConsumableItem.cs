@@ -1,4 +1,5 @@
 using _Script.Character;
+using _Script.Character.ActionStrategy;
 using _Script.Inventory.InventoryBackend;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
@@ -15,7 +16,16 @@ namespace _Script.Items
         {
             
         }
-        
+
+        public override IActionStrategy OnSelected(PlayerCharacter playerCharacter)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void OnDeselected(PlayerCharacter playerCharacter)
+        {
+            throw new System.NotImplementedException();
+        }
     }
     
     public enum ConsumableType

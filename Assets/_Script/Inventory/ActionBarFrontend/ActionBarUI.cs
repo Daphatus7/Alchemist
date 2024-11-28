@@ -15,8 +15,7 @@ namespace _Script.Inventory.ActionBarFrontend
         
         private InventorySlotDisplay[] _inventorySlotDisplays;
         
-        private InventoryItem _selectedSlot;
-        public InventoryItem SelectedSlot => _selectedSlot;
+        private InventoryItem _selectedSlot; public InventoryItem SelectedSlot => _selectedSlot;
         private InventorySlotDisplay _selectedSlotDisplay;
 
         private void Start()
@@ -68,30 +67,48 @@ namespace _Script.Inventory.ActionBarFrontend
 
         public void SelectSlot(int slotIndex)
         {
+            //Case 1: Invalid slot index
             if (slotIndex < 0 || slotIndex >= _inventorySlotDisplays.Length)
             {
                 Debug.LogWarning("Invalid slot index.");
                 return;
             }
-
-            // Check if selecting the same slot
-            if (_selectedSlotDisplay != null && _selectedSlotDisplay.SlotIndex == slotIndex)
+            
+            //Case 2: Check if has item
+            if(_actionBar.Slots[slotIndex].IsEmptySlot())
+            {
+                Debug.LogWarning("No item in slot.");
+                return;
+            }
+            
+            //Case 3: Check if selecting the same slot
+            if (_selectedSlotDisplay && _selectedSlotDisplay.SlotIndex == slotIndex)
             {
                 // Use the selected slot
                 _actionBar.LeftClickItem(slotIndex);
                 return;
             }
 
+            
+            /*Deselect previous item*/
             // Unhighlight the previous slot
-            _selectedSlotDisplay?.UnhighlightSlot();
-
+            if (_selectedSlotDisplay)
+            {
+                _selectedSlotDisplay?.UnhighlightSlot();
+                _actionBar.OnDeSelectItem(slotIndex);
+            }
+            
+            /*Select new item*/
             // Highlight the new slot
             _selectedSlotDisplay = _inventorySlotDisplays[slotIndex];
             _selectedSlotDisplay.HighlightSlot();
 
             // Update selected slot item
             _selectedSlot = _actionBar.Slots[slotIndex].Item;
+            _actionBar.OnSelectItem(slotIndex);
         }
+
+        #region Keyboard Input
 
         private void Update()
         {
@@ -136,6 +153,9 @@ namespace _Script.Inventory.ActionBarFrontend
                 SelectSlot(9);
             }
         }
+
+
+        #endregion
 
         public void OnSlotClicked(InventorySlotDisplay slotDisplay)
         {

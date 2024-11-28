@@ -18,5 +18,20 @@ namespace _Script.Inventory.ActionBarBackend
         {
             return RemoveItem(inventoryItem);
         }
+
+        public void OnSelectItem(int slotIndex)
+        {
+            // {methods before} this function made sure that it's {not selecting the same item twice}
+            //now select the new item and execute any action
+            _selectedItem = Slots[slotIndex].Item;
+            _selectedItem.ItemData.OnSelected(inventoryOwner);
+        }
+        
+        public void OnDeSelectItem(int slotIndex)
+        {
+            _selectedItem?.ItemData.OnDeselected(inventoryOwner);
+            _selectedItem = null;
+        }
+        
     }
 }

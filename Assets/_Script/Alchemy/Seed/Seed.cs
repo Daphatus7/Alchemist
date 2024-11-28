@@ -1,4 +1,5 @@
 using _Script.Character;
+using _Script.Character.ActionStrategy;
 using _Script.Items.AbstractItemTypes._Script.Items;
 
 namespace _Script.Alchemy.Seed
@@ -10,6 +11,16 @@ namespace _Script.Alchemy.Seed
         public int growthStage = 3;
         
         public override void Use(PlayerCharacter playerCharacter)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override IActionStrategy OnSelected(PlayerCharacter playerCharacter)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void OnDeselected(PlayerCharacter playerCharacter)
         {
             throw new System.NotImplementedException();
         }

@@ -1,4 +1,5 @@
 using _Script.Character;
+using _Script.Character.ActionStrategy;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
@@ -11,6 +12,16 @@ namespace _Script.Items
         public override void Use(PlayerCharacter playerCharacter)
         {
             Debug.Log($"{ItemName} is a material and cannot be used directly.");
+        }
+        
+        public override IActionStrategy OnSelected(PlayerCharacter playerCharacter)
+        {
+            return null;
+        }
+        
+        public override void OnDeselected(PlayerCharacter playerCharacter)
+        {
+            
         }
     }
 }

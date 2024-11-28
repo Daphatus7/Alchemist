@@ -1,8 +1,10 @@
 using _Script.Attribute;
 using _Script.Character.Ability;
+using _Script.Character.ActionStrategy;
 using _Script.Inventory.EquipmentBackend;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryHandles;
+using _Script.Items.AbstractItemTypes._Script.Items;
 using _Script.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
@@ -15,7 +17,9 @@ namespace _Script.Character
         [SerializeField] private GameObject LeftHand;
         [SerializeField] private GameObject RightHand;
         private PlayerAttack _attackAbility;
-        private Vector3 _CursorPosition; public Vector3 CursorPosition => _CursorPosition;
+        
+        private IActionStrategy _actionStrategy;
+        private Vector3 _cursorPosition; public Vector3 CursorPosition => _cursorPosition;
         private float _mouseAngle; public float MouseAngle => _mouseAngle;
         private float _facingDirection; public float FacingDirection => _facingDirection;
 
@@ -57,8 +61,8 @@ namespace _Script.Character
         
         private void UpdateCursorPosition()
         {
-            _CursorPosition = Camera.main!.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            _mouseAngle = Mathf.Atan2(_CursorPosition.y - transform.position.y, _CursorPosition.x - transform.position.x) * Mathf.Rad2Deg;
+            _cursorPosition = Camera.main!.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            _mouseAngle = Mathf.Atan2(_cursorPosition.y - transform.position.y, _cursorPosition.x - transform.position.x) * Mathf.Rad2Deg;
         }
         
         #region Control
@@ -68,7 +72,9 @@ namespace _Script.Character
          */
         public void LeftMouseButtonDown(Vector2 direction)
         {
-            _attackAbility.Pressed(direction);
+            //Get Action bar Item
+            //call the function
+            
         }
         
         /**
@@ -76,7 +82,6 @@ namespace _Script.Character
          */
         public void LeftMouseButtonUp(Vector2 direction)
         {
-            _attackAbility.Released(direction);
         }
 
 
