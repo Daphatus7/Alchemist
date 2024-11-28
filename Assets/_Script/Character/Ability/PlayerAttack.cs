@@ -90,17 +90,13 @@ namespace _Script.Character.Ability
 
         public void LeftMouseButtonDown(Vector3 direction)
         {
+            
             Pressed(direction);
         }
 
         public void LeftMouseButtonUp(Vector3 direction)
         {
             Released(direction);
-        }
-
-        public void OnStrategySelected(ItemData selectedItem)
-        {
-            
         }
     }
 }

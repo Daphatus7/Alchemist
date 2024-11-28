@@ -17,9 +17,8 @@ namespace _Script.Items
             
         }
 
-        public override IActionStrategy OnSelected(PlayerCharacter playerCharacter)
+        public override void OnSelected(PlayerCharacter playerCharacter)
         {
-            throw new System.NotImplementedException();
         }
 
         public override void OnDeselected(PlayerCharacter playerCharacter)

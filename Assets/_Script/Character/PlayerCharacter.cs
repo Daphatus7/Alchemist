@@ -35,8 +35,6 @@ namespace _Script.Character
         {
             return _attackAbility;
         }
-        
-        
         public void DebugStat()
         {
         }
@@ -65,6 +63,10 @@ namespace _Script.Character
             _mouseAngle = Mathf.Atan2(_cursorPosition.y - transform.position.y, _cursorPosition.x - transform.position.x) * Mathf.Rad2Deg;
         }
         
+        
+        
+        
+        
         #region Control
 
         /**
@@ -74,7 +76,7 @@ namespace _Script.Character
         {
             //Get Action bar Item
             //call the function
-            
+            _actionStrategy?.LeftMouseButtonDown(direction);
         }
         
         /**
@@ -82,6 +84,7 @@ namespace _Script.Character
          */
         public void LeftMouseButtonUp(Vector2 direction)
         {
+            _actionStrategy?.LeftMouseButtonUp(direction);
         }
 
 
@@ -107,7 +110,7 @@ namespace _Script.Character
 
         #endregion
         
-        #region Inventory
+        #region Inventory Handle
 
         public IPlayerEquipmentHandle GetPlayerEquipment()
         {

@@ -14,9 +14,8 @@ namespace _Script.Items
             Debug.Log($"{ItemName} is a material and cannot be used directly.");
         }
         
-        public override IActionStrategy OnSelected(PlayerCharacter playerCharacter)
+        public override void OnSelected(PlayerCharacter playerCharacter)
         {
-            return null;
         }
         
         public override void OnDeselected(PlayerCharacter playerCharacter)

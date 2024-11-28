@@ -33,7 +33,7 @@ namespace _Script.Items.AbstractItemTypes
              */
             public abstract void Use(PlayerCharacter playerCharacter);
 
-            public abstract IActionStrategy OnSelected(PlayerCharacter playerCharacter);
+            public abstract void OnSelected(PlayerCharacter playerCharacter);
             
             public abstract void OnDeselected(PlayerCharacter playerCharacter);
         }

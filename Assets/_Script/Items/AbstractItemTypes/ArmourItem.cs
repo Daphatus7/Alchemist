@@ -9,9 +9,8 @@ namespace _Script.Items.AbstractItemTypes
         public override EquipmentType EquipmentType => EquipmentType.Armour;
         public float defence = 1;
 
-        public override IActionStrategy OnSelected(PlayerCharacter playerCharacter)
+        public override void OnSelected(PlayerCharacter playerCharacter)
         {
-            return null;
         }
         
         public override void OnDeselected(PlayerCharacter playerCharacter)

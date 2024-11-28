@@ -18,13 +18,12 @@ namespace _Script.Items.AbstractItemTypes
             
         }
         
-        public override IActionStrategy OnSelected(PlayerCharacter playerCharacter)
+        public override void OnSelected(PlayerCharacter playerCharacter)
         {
-
-            //spawn corresponding visual and attach it to the player
-            //return the handle
             Debug.Log("Weapon Selected");
-            return null;
+            //spawn the weapon
+            //Let player handle the weapon
+            playerCharacter.SetPlayerActionStrategy(ActionStrategyFactory.CreateStrategy(this));
         }
         
         public override void OnDeselected(PlayerCharacter playerCharacter)
@@ -32,6 +31,7 @@ namespace _Script.Items.AbstractItemTypes
             //Destroy the handle - so the player cannot attack
             //Remove the visual representation of the weapon
             Debug.Log("Weapon Deselected");
+            //remove existing weapon
         }
     }
 
