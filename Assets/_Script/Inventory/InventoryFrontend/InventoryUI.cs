@@ -4,49 +4,65 @@ using UnityEngine;
 
 namespace _Script.Inventory.InventoryFrontend
 {
-    
     public class InventoryUI : MonoBehaviour, IInventoryUIHandle
     {
         [SerializeField] private InventoryBackend.Inventory playerInventory;
         [SerializeField] private GameObject inventoryPanel;
         [SerializeField] private GameObject slotPrefab;
-        
-        void Start()
+
+        private InventorySlotDisplay[] slotDisplays;
+
+        private void Start()
         {
-            UpdateInventoryUI();
+            InitializeInventoryUI();
         }
-        
+
         private void OnEnable()
         {
-            playerInventory.OnInventoryChanged += UpdateInventoryUI;
-            UpdateInventoryUI();
+            playerInventory.OnInventorySlotChanged += UpdateSlotUI;
+            // Subscribe to full inventory updates if needed
+            // playerInventory.OnInventoryChanged += UpdateAllSlotsUI;
         }
 
         private void OnDisable()
         {
-            playerInventory.OnInventoryChanged -= UpdateInventoryUI;
+            playerInventory.OnInventorySlotChanged -= UpdateSlotUI;
+            // Unsubscribe from full inventory updates if needed
+            // playerInventory.OnInventoryChanged -= UpdateAllSlotsUI;
         }
-        
-        private void UpdateInventoryUI()
+
+        private void InitializeInventoryUI()
         {
-            foreach (Transform child in inventoryPanel.transform)
-            {
-                Destroy(child.gameObject);
-            }
-            
-            for (int i = 0; i < playerInventory.Capacity; i++)
+            int capacity = playerInventory.Capacity;
+            slotDisplays = new InventorySlotDisplay[capacity];
+
+            for (int i = 0; i < capacity; i++)
             {
                 GameObject slot = Instantiate(slotPrefab, inventoryPanel.transform);
                 InventorySlotDisplay inventorySlotDisplay = slot.GetComponent<InventorySlotDisplay>();
                 inventorySlotDisplay.InitializeInventorySlot(this, i);
-                if (i < playerInventory.Slots.Length)
-                {
-                    inventorySlotDisplay.SetSlot(playerInventory.Slots[i].Item);
-                }
-                else
-                {
-                    inventorySlotDisplay.ClearSlot();
-                }
+                slotDisplays[i] = inventorySlotDisplay;
+
+                // Set the slot's initial item
+                inventorySlotDisplay.SetSlot(playerInventory.Slots[i].Item);
+            }
+        }
+
+        private void UpdateSlotUI(int slotIndex)
+        {
+            if (slotIndex < 0 || slotIndex >= slotDisplays.Length)
+                return;
+
+            InventorySlotDisplay slotDisplay = slotDisplays[slotIndex];
+            slotDisplay.SetSlot(playerInventory.Slots[slotIndex].Item);
+        }
+
+        // Implement if full inventory updates are necessary
+        private void UpdateAllSlotsUI()
+        {
+            for (int i = 0; i < slotDisplays.Length; i++)
+            {
+                slotDisplays[i].SetSlot(playerInventory.Slots[i].Item);
             }
         }
 
@@ -65,5 +81,4 @@ namespace _Script.Inventory.InventoryFrontend
             playerInventory.AddItemToEmptySlot(item, slotIndex);
         }
     }
-
 }

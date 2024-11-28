@@ -15,8 +15,7 @@ namespace _Script.Inventory.SlotFrontend
         [SerializeField] private Image highlight;
 
         private IContainerUIHandle _inventoryUI;
-        private int _slotIndex;
-        public int SlotIndex => _slotIndex;
+        private int _slotIndex;  public int SlotIndex => _slotIndex;
 
         /**
          * only visual representation of the item
@@ -27,6 +26,8 @@ namespace _Script.Inventory.SlotFrontend
         {
             _inventoryUI = inventoryUI;
             _slotIndex = slotIndex;
+            
+            //hide
             highlight.enabled = false;
         }
 
@@ -46,12 +47,13 @@ namespace _Script.Inventory.SlotFrontend
             }
         }
 
-        public void SetSlot(Items.InventoryItem item)
+        public void SetSlot(InventoryItem item)
         {
             currentItem = item;
 
             if (item != null && item.Icon != null)
             {
+                icon.enabled = true;
                 icon.sprite = item.Icon;
                 icon.color = Color.white;
                 quantityText.text = item.Quantity > 1 ? item.Quantity.ToString() : "";
@@ -65,8 +67,8 @@ namespace _Script.Inventory.SlotFrontend
         public virtual void ClearSlot()
         {
             currentItem = null;
-            icon.sprite = null;
             icon.color = new Color(1, 1, 1, 0);
+            icon.enabled = false;
             quantityText.text = "";
         }
 
@@ -87,6 +89,18 @@ namespace _Script.Inventory.SlotFrontend
             canvas = GetComponentInParent<Canvas>();
         }
 
+        
+        public void HighlightSlot()
+        {
+            highlight.enabled = true;
+        }
+        
+        public void UnhighlightSlot()
+        {
+            highlight.enabled = false;
+        }
+        
+        
         public void OnBeginDrag(PointerEventData eventData)
         {
             if (currentItem != null)
@@ -126,9 +140,7 @@ namespace _Script.Inventory.SlotFrontend
         {
             if (dragItem != null)
             {
-                Destroy(dragItem);
-                dragItem = null;
-
+                dragItem.SetActive(false);
                 icon.color = Color.white;
             }
             icon.raycastTarget = true;
@@ -152,6 +164,19 @@ namespace _Script.Inventory.SlotFrontend
             //if there is a inventory slot display when dropping
             if (sourceSlot != null && sourceSlot != this)
             {
+                //first check if the item can be swapped
+                /*
+                 * Cases where the item cannot be swapped
+                 * 1. if the target inventory is equipment inventory
+                 *  a. if the source is in equipment inventory
+                 *      i. they are both in the same equipment slot, check if the item type is the same
+                 *      ii. they are in different equipment slot, then return fail
+                 *  b. the source is not in other inventory, 
+                 */
+                
+                //TODO: Implement the swapping logic special cases (Equipment)
+                
+                
                 //Swap items
                 var myItem = _inventoryUI.RemoveAllItemsFromSlot(_slotIndex);
                 var sourceItem = sourceSlot._inventoryUI.RemoveAllItemsFromSlot(sourceSlot._slotIndex);

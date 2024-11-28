@@ -49,13 +49,15 @@ namespace _Script.Inventory.EquipmentFrontend
 
         public InventoryItem RemoveAllItemsFromSlot(int slotIndex)
         {
-            Debug.LogError("EquipmentUI does not support removing items");
-            return null;
+            return playerEquipmentInventory.RemoveEquipmentFromSlot(slotIndex);
         }
 
         public void AddItemToEmptySlot(InventoryItem item, int slotIndex)
         {
-            Debug.LogError("EquipmentUI does not support adding items");
+            //check if is equipment item
+            if(item.ItemData is EquipmentItem equipmentItem)
+                playerEquipmentInventory.Handle_Equip(equipmentItem);
+            Debug.LogError("This is not an equipment item");
         }
         
     }

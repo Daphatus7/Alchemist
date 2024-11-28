@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using _Script.Inventory.ActionBarBackend;
 using _Script.Inventory.InventoryFrontend;
 using _Script.Inventory.SlotFrontend;
@@ -11,42 +12,128 @@ namespace _Script.Inventory.ActionBarFrontend
         [SerializeField] private ActionBar _actionBar;
         [SerializeField] private GameObject inventoryPanel;
         [SerializeField] private GameObject slotPrefab;
+        
+        private InventorySlotDisplay[] _inventorySlotDisplays;
+        
+        private InventoryItem _selectedSlot;
+        public InventoryItem SelectedSlot => _selectedSlot;
+        private InventorySlotDisplay _selectedSlotDisplay;
 
-        void Start()
+        private void Start()
         {
-            UpdateInventoryUI();
+            InitializeInventoryUI();
         }
         
         private void OnEnable()
         {
-            _actionBar.OnInventoryChanged += UpdateInventoryUI;
+            _actionBar.OnInventorySlotChanged += UpdateSlotUI;
+            // Subscribe to full inventory updates if needed
+            // _actionBar.OnInventoryChanged += UpdateAllSlotsUI;
         }
 
         private void OnDisable()
         {
-            _actionBar.OnInventoryChanged -= UpdateInventoryUI;
+            _actionBar.OnInventorySlotChanged -= UpdateSlotUI;
+            // Unsubscribe from full inventory updates if needed
+            // _actionBar.OnInventoryChanged -= UpdateAllSlotsUI;
         }
-        
-        private void UpdateInventoryUI()
+
+        private void InitializeInventoryUI()
         {
-            foreach (Transform child in inventoryPanel.transform)
-            {
-                Destroy(child.gameObject);
-            }
-            
-            for (int i = 0; i < _actionBar.Capacity; i++)
+            int capacity = _actionBar.Capacity;
+            _inventorySlotDisplays = new InventorySlotDisplay[capacity];
+
+            for (int i = 0; i < capacity; i++)
             {
                 GameObject slot = Instantiate(slotPrefab, inventoryPanel.transform);
                 InventorySlotDisplay inventorySlotDisplay = slot.GetComponent<InventorySlotDisplay>();
+                
+                // Initialize the slot
                 inventorySlotDisplay.InitializeInventorySlot(this, i);
-                if (i < _actionBar.Slots.Length)
-                {
-                    inventorySlotDisplay.SetSlot(_actionBar.Slots[i].Item);
-                }
-                else
-                {
-                    inventorySlotDisplay.ClearSlot();
-                }
+                inventorySlotDisplay.SetSlot(_actionBar.Slots[i].Item);
+
+                // Store the slot display
+                _inventorySlotDisplays[i] = inventorySlotDisplay;
+            }
+        }
+
+        private void UpdateSlotUI(int slotIndex)
+        {
+            if (slotIndex < 0 || slotIndex >= _inventorySlotDisplays.Length)
+                return;
+
+            InventorySlotDisplay slotDisplay = _inventorySlotDisplays[slotIndex];
+            slotDisplay.SetSlot(_actionBar.Slots[slotIndex].Item);
+        }
+
+        public void SelectSlot(int slotIndex)
+        {
+            if (slotIndex < 0 || slotIndex >= _inventorySlotDisplays.Length)
+            {
+                Debug.LogWarning("Invalid slot index.");
+                return;
+            }
+
+            // Check if selecting the same slot
+            if (_selectedSlotDisplay != null && _selectedSlotDisplay.SlotIndex == slotIndex)
+            {
+                // Use the selected slot
+                _actionBar.LeftClickItem(slotIndex);
+                return;
+            }
+
+            // Unhighlight the previous slot
+            _selectedSlotDisplay?.UnhighlightSlot();
+
+            // Highlight the new slot
+            _selectedSlotDisplay = _inventorySlotDisplays[slotIndex];
+            _selectedSlotDisplay.HighlightSlot();
+
+            // Update selected slot item
+            _selectedSlot = _actionBar.Slots[slotIndex].Item;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                SelectSlot(0);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                SelectSlot(1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                SelectSlot(2);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                SelectSlot(3);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                SelectSlot(4);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                SelectSlot(5); 
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                SelectSlot(6);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                SelectSlot(7);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha9))
+            {
+                SelectSlot(8);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                SelectSlot(9);
             }
         }
 

@@ -73,12 +73,12 @@ namespace _Script.Inventory.EquipmentBackend
             OnOnEquipmentChanged();
             return tempSlotItem;
         }
-        
-        public void UnequipItem(int slotIndex)
+
+
+        public InventoryItem RemoveEquipmentFromSlot(int slotIndex)
         {
             var slot = (PlayerEquipmentSlotType) slotIndex;
-            
-            InventoryItem tempSlotItem = null;
+            InventoryItem tempSlotItem = null; //UnEquip the item
             if (_equipmentSlots.TryGetValue(slot, out var slotItem))
             {
                 //remove the effect of the equipped item
@@ -100,18 +100,22 @@ namespace _Script.Inventory.EquipmentBackend
                 }
 
                 tempSlotItem = _equipmentSlots[slot];
-                
-                //try to add the item to the inventory
-                if(_playerCharacter.GetPlayerInventory().Handle_AddItem(tempSlotItem))
-                {
-                    _equipmentSlots[slot] = null;
-                }
-                else
-                {
-                    Debug.LogError("Failed to return the item to the inventory");
-                }
+                _equipmentSlots[slot] = null;
                 OnOnEquipmentChanged();
             }
+            return tempSlotItem;
+        }
+        
+        
+        public void UnequipItem(int slotIndex)
+        {
+            var item = RemoveEquipmentFromSlot(slotIndex);
+            if (item != null)
+            {
+                //return the item to the inventory
+                _playerCharacter.GetPlayerInventory().Handle_AddItem(item);
+            }
+            
         }
         
         private void EquipWeapon(EquipmentItem item)

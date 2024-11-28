@@ -18,7 +18,7 @@ namespace _Script.Inventory.InventoryBackend
         private InventorySlot[] slots; public InventorySlot[] Slots => slots;
 
         // Event to notify when the inventory has changed
-        public event Action OnInventoryChanged;
+        public event Action<int> OnInventorySlotChanged;
 
         public void SetInventoryOwner(PlayerCharacter playerInventoryCharacter)
         {
@@ -61,7 +61,7 @@ namespace _Script.Inventory.InventoryBackend
                     quantityToAdd -= amountToAdd;
 
                     // Notify UI update
-                    OnInventoryChanged?.Invoke();
+                    OnInventorySlotChanged?.Invoke(i);
 
                     if (quantityToAdd <= 0)
                     {
@@ -81,7 +81,7 @@ namespace _Script.Inventory.InventoryBackend
                     quantityToAdd -= amountToAdd;
 
                     // Notify UI update
-                    OnInventoryChanged?.Invoke();
+                    OnInventorySlotChanged?.Invoke(i);
 
                     if (quantityToAdd <= 0)
                     {
@@ -112,7 +112,7 @@ namespace _Script.Inventory.InventoryBackend
                 slots[slotIndex].Item = item;
 
                 // Notify UI update
-                OnInventoryChanged?.Invoke();
+                OnInventorySlotChanged?.Invoke(slotIndex);
             }
         }
 
@@ -138,7 +138,7 @@ namespace _Script.Inventory.InventoryBackend
                 slot.Item.Quantity += amountToAdd;
 
                 // Notify UI update
-                OnInventoryChanged?.Invoke();
+                OnInventorySlotChanged?.Invoke(slotIndex);
                 
                 return true;
             }
@@ -149,7 +149,7 @@ namespace _Script.Inventory.InventoryBackend
                 slot.Item = new InventoryItem(itemToAdd.ItemData, amountToAdd);
 
                 // Notify UI update
-                OnInventoryChanged?.Invoke();
+                OnInventorySlotChanged?.Invoke(slotIndex);
 
                 return true;
             }
@@ -177,7 +177,7 @@ namespace _Script.Inventory.InventoryBackend
             slot.Clear();
 
             // Notify UI update
-            OnInventoryChanged?.Invoke();
+            OnInventorySlotChanged?.Invoke(slotIndex);
 
             return item;
         }
@@ -203,7 +203,7 @@ namespace _Script.Inventory.InventoryBackend
                     }
 
                     // Notify UI update
-                    OnInventoryChanged?.Invoke();
+                    OnInventorySlotChanged?.Invoke(i);
 
                     if (quantityToRemove <= 0)
                     {
@@ -321,7 +321,7 @@ namespace _Script.Inventory.InventoryBackend
                 }
 
                 // Notify UI update
-                OnInventoryChanged?.Invoke();
+                OnInventorySlotChanged?.Invoke(slotIndex);
 
                 return true;
             }
@@ -335,24 +335,6 @@ namespace _Script.Inventory.InventoryBackend
         public void LeftClickItem(int slotIndex)
         {
             UseItem(slotIndex);
-        }
-
-        public InventoryItem SwapItem(InventoryItem item, int slotIndex)
-        {
-            if (slotIndex < 0 || slotIndex >= capacity)
-            {
-                Debug.LogWarning("Invalid slot index.");
-                return item;
-            }
-
-            InventorySlot slot = slots[slotIndex];
-            InventoryItem previousItem = slot.Item;
-            slot.Item = item;
-
-            // Notify UI update
-            OnInventoryChanged?.Invoke();
-
-            return previousItem;
         }
     }
 
