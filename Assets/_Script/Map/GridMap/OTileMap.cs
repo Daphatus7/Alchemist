@@ -139,5 +139,16 @@ namespace _Script.Map.GridMap
             _grid.GetXY(position, out x, out y);
             _grid.GetGridArray()[x, y].Use();
         }
+
+        public TileType GetTileType(Vector3 position)
+        {
+            int x, y;
+            _grid.GetXY(position, out x, out y);
+            if (x < 0 || y < 0 || x >= _grid.GetWidth() || y >= _grid.GetHeight())
+            {
+                return TileType.None;
+            }
+            return _grid.GetGridArray()[x, y].GetTileType();
+        }
     }
 }

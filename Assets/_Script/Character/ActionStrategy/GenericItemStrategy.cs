@@ -1,5 +1,7 @@
 using _Script.Items;
 using _Script.Items.AbstractItemTypes._Script.Items;
+using _Script.Map;
+using _Script.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -28,12 +30,12 @@ namespace _Script.Character.ActionStrategy
         private void Update()
         {
             OnUpdatePosition();
+            CheckingTargetInteraction();
         }
 
         private void CheckingTargetInteraction()
         {
-            // Check if the target is interactable
-            // if yes, interact with the target
+            Debug.Log(GameTileMap.Instance.PointedTileType);
         }
         
         private void OnUpdatePosition()

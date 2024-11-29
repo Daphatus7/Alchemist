@@ -11,7 +11,7 @@ namespace _Script.Managers
     {
         [SerializeField] private string saveName = "save_1";
         [SerializeField] private bool _removeSave = false;
-        [SerializeField] private GenericGridTester _gridTester;
+        [SerializeField] private GameTileMap _gridTester;
         
         [SerializeField] private bool _debug = false;
         

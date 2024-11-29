@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using _Script.Map.GridMap;
 using _Script.Map.Tile;
@@ -8,17 +7,21 @@ using _Script.Utilities;
 using _Script.Utilities.ServiceLocator;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace _Script.Map
 {
     //[ExecuteInEditMode]
-    public class GenericGridTester : MonoBehaviour, ISaveTileMap
+    public class GameTileMap : Singleton<GameTileMap>, ISaveTileMap
     {
         [SerializeField] private OTileMap tileMap;
         [SerializeField] private TileGridRenderer gridRenderer;
         
         [SerializeField] private bool _needsUpdate = false;
         [SerializeField] private bool _canEdit = false;
+        
+        
+        private TileType _pointedTileType; public TileType PointedTileType => _pointedTileType;
         
         private void Start()
         {
@@ -40,6 +43,9 @@ namespace _Script.Map
         
         private void Update()
         {
+            UpdateCursorTileType(Helper.GetMouseWorldPosition());
+            
+            
             if(_needsUpdate && _canEdit)
             {
                 if (tileMap.Grid == null)
@@ -58,19 +64,19 @@ namespace _Script.Map
                 tileMap.Initialize(10, 5, 1f, transform.position);
                 gridRenderer.SetGrid(tileMap.Grid);
             }
-            if (Input.GetMouseButtonDown(0))
-            {
-                Debug.Log("Mouse Clicked");
-                Vector3 position = Helper.GetMouseWorldPosition();
-                tileMap.SetTile(position, new List<TileType> {TileType.Dirt, TileType.Grass});
-            }
-            
-            if (Input.GetMouseButtonDown(1))
-            {
-                Debug.Log("Mouse Clicked");
-                Vector3 position = Helper.GetMouseWorldPosition();
-                tileMap.Use(position);
-            }
+            // if (Input.GetMouseButtonDown(0))
+            // {
+            //     Debug.Log("Mouse Clicked");
+            //     Vector3 position = Helper.GetMouseWorldPosition();
+            //     tileMap.SetTile(position, new List<TileType> {TileType.Dirt, TileType.Grass});
+            // }
+            //
+            // if (Input.GetMouseButtonDown(1))
+            // {
+            //     Debug.Log("Mouse Clicked");
+            //     Vector3 position = Helper.GetMouseWorldPosition();
+            //     tileMap.Use(position);
+            // }
         }
         
         private void OnEnable()
@@ -82,8 +88,19 @@ namespace _Script.Map
         {
             SceneView.duringSceneGui -= OnSceneGUI;
         }
+        
+        
+        public void UpdateCursorTileType(Vector3 position)
+        {
+            if(CursorMovementTracker.Instance.HasCursorMoved)
+            {
+                _pointedTileType = tileMap.GetTileType(position);
+                Debug.Log(_pointedTileType);
+            }
+        }
 
-
+        
+        
         private void OnSceneGUI(SceneView sceneView)
         {
             if (!_canEdit) return;

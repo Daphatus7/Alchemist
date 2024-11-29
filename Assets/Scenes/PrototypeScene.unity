@@ -1234,6 +1234,18 @@ MonoBehaviour:
   itemSlot: {fileID: 237876453}
   itemInHandPrefab: {fileID: 5935879752676590583, guid: b2004f35d16bc42f1b6ef3628d5ec7b2,
     type: 3}
+--- !u!114 &1361047243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361047215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da13f0213c7140f8b8ba98b806557fac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1440996028
 GameObject:
   m_ObjectHideFlags: 0
@@ -6851,7 +6863,6 @@ GameObject:
   - component: {fileID: 1901647014}
   - component: {fileID: 1901647019}
   - component: {fileID: 1901647020}
-  - component: {fileID: 1901647021}
   m_Layer: 31
   m_Name: TileMap
   m_TagString: Untagged
@@ -6918,18 +6929,6 @@ MonoBehaviour:
   gridRenderer: {fileID: 1901647019}
   _needsUpdate: 0
   _canEdit: 0
---- !u!114 &1901647021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1901647010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b082af4ea604d1ab9a2cf0bc7f6d922, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2076322914
 GameObject:
   m_ObjectHideFlags: 0
@@ -7096,6 +7095,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1361047239}
+    - targetCorrespondingSourceObject: {fileID: 6514619874994577401, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1361047243}
   m_SourcePrefab: {fileID: 100100000, guid: e1d01e4eea6684baa9b053ff7cef7499, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
