@@ -159,10 +159,17 @@ namespace _Script.Inventory.SlotFrontend
 
         public void OnDrop(PointerEventData eventData)
         {
+
             InventorySlotDisplay sourceSlot = eventData.pointerDrag?.GetComponent<InventorySlotDisplay>();
+
+            //if the source slot is empty then return
+            if (sourceSlot == null || sourceSlot.currentItem == null)
+            {
+                return;
+            }
             
             //if there is a inventory slot display when dropping
-            if (sourceSlot != null && sourceSlot != this)
+            if (sourceSlot != this)
             {
                 //first check if the item can be swapped
                 /*

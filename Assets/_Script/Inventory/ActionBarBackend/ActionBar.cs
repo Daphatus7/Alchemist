@@ -1,14 +1,26 @@
 
-using _Script.Inventory.InventoryFrontend;
-using _Script.Inventory.SlotFrontend;
 using _Script.Items;
+using UnityEngine;
 
 namespace _Script.Inventory.ActionBarBackend
 {
     public class ActionBar : InventoryBackend.Inventory, IActionBarHandle
     {
-        private InventoryItem _selectedItem;
-        
+        private InventoryItem _selectedItem; public InventoryItem SelectedItem
+        {
+            get
+            {
+                return _selectedItem;
+            }
+            
+            set 
+            {
+                Debug.Log("Selected item is set");
+                _selectedItem = value;
+            }
+            
+        }
+
         public bool Handle_AddItem(InventoryItem inventoryItem)
         {
             return AddItem(inventoryItem);

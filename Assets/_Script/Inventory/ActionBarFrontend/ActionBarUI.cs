@@ -15,7 +15,6 @@ namespace _Script.Inventory.ActionBarFrontend
         
         private InventorySlotDisplay[] _inventorySlotDisplays;
         
-        private InventoryItem _selectedSlot; public InventoryItem SelectedSlot => _selectedSlot;
         private InventorySlotDisplay _selectedSlotDisplay;
 
         private void Start()
@@ -63,6 +62,15 @@ namespace _Script.Inventory.ActionBarFrontend
 
             InventorySlotDisplay slotDisplay = _inventorySlotDisplays[slotIndex];
             slotDisplay.SetSlot(_actionBar.Slots[slotIndex].Item);
+        }
+        
+        /// <summary>
+        /// Called when the item is dragged from the action bar
+        /// </summary>
+        /// <param name="slotIndex"></param>
+        private void UpdateSelectedSlot(int slotIndex)
+        {
+            
         }
 
         
@@ -120,7 +128,7 @@ namespace _Script.Inventory.ActionBarFrontend
             _selectedSlotDisplay.HighlightSlot();
 
             // Update selected slot item
-            _selectedSlot = _actionBar.Slots[slotIndex].Item;
+            _actionBar.SelectedItem = _actionBar.Slots[slotIndex].Item;
             _actionBar.OnSelectItem(slotIndex);
         }
 
@@ -130,7 +138,7 @@ namespace _Script.Inventory.ActionBarFrontend
             if (_selectedSlotDisplay)
             {
                 _selectedSlotDisplay.UnhighlightSlot();
-                _selectedSlot = null;
+                _actionBar.SelectedItem = null;
             }
         }
         
@@ -195,6 +203,7 @@ namespace _Script.Inventory.ActionBarFrontend
 
         public void AddItemToEmptySlot(InventoryItem item, int slotIndex)
         {
+
             _actionBar.AddItemToEmptySlot(item, slotIndex);
         }
     }
