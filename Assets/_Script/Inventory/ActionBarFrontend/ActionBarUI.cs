@@ -75,18 +75,25 @@ namespace _Script.Inventory.ActionBarFrontend
         public void SelectSlot(int slotIndex)
         {
             //Case 1: Invalid slot index
+            // do nothing
             if (slotIndex < 0 || slotIndex >= _inventorySlotDisplays.Length)
             {
                 Debug.LogWarning("Invalid slot index.");
                 return;
             }
             
-            //Case 2: Check if has item
+            //Case 2: Check if has an item
+            //if the slot is empty, then try to deselect the previous item
+            //and set selected item to null
             if(_actionBar.Slots[slotIndex].IsEmptySlot())
             {
                 Debug.LogWarning("No item in slot.");
                 //still deselect the previous item
                 DeselectPreviousSlot();
+                _selectedSlotDisplay = _inventorySlotDisplays[slotIndex];
+                _selectedSlotDisplay.HighlightSlot();
+                
+                _actionBar.OnSelectNone();
                 return;
             }
             

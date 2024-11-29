@@ -23,6 +23,7 @@ namespace _Script.Inventory.ActionBarBackend
         /// <summary>
         /// this provides interface for external classes to select the item
         /// No tangled logic
+        /// Select the item in the slot and Call the method in the item
         /// </summary>
         /// <param name="slotIndex"></param>
         public void OnSelectItem(int slotIndex)
@@ -33,10 +34,19 @@ namespace _Script.Inventory.ActionBarBackend
             _selectedItem.ItemData.OnSelected(inventoryOwner);
         }
         
+        /// <summary>
+        /// handling selected none item
+        /// </summary>
+        public void OnSelectNone()
+        {
+            _selectedItem = null;
+        }
         
         /// <summary>
         /// this provides interface for external classes to deselect the item
         /// Within the action bar class, there is {no} tangled logic
+        /// DeSelect the item in the slot
+        /// and call the method in the item
         /// </summary>
         /// <param name="slotIndex"></param>
         public void OnDeSelectItem(int slotIndex)
