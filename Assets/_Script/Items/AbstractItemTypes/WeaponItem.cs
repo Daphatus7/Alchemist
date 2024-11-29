@@ -24,7 +24,6 @@ namespace _Script.Items.AbstractItemTypes
         /// <param name="playerCharacter"></param>
         public override void OnSelected(PlayerCharacter playerCharacter)
         {
-            Debug.Log("Weapon Selected");
             //spawn the weapon
             //Let player handle the weapon
             playerCharacter.WeaponStrategy.ChangeWeapon(weaponPrefab, this);

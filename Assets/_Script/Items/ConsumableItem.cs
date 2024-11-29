@@ -23,7 +23,6 @@ namespace _Script.Items
 
         public override void OnDeselected(PlayerCharacter playerCharacter)
         {
-            throw new System.NotImplementedException();
         }
     }
     

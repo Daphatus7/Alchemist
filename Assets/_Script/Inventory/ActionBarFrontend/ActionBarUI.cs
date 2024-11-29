@@ -117,11 +117,7 @@ namespace _Script.Inventory.ActionBarFrontend
             
             /*Deselect previous item*/
             // Unhighlight the previous slot
-            if (_selectedSlotDisplay)
-            {
-                _selectedSlotDisplay.UnhighlightSlot();
-                _actionBar.OnDeSelectItem(_selectedSlotDisplay.SlotIndex);
-            }
+            DeselectPreviousSlot();
             
             /*Select new item*/
             // Highlight the new slot
@@ -142,7 +138,9 @@ namespace _Script.Inventory.ActionBarFrontend
         {
             if (_selectedSlotDisplay)
             {
+                //Visual
                 _selectedSlotDisplay.UnhighlightSlot();
+                //Logic
                 _actionBar.OnDeSelectItem(_selectedSlotDisplay.SlotIndex);
                 _selectedSlotDisplay = null;
             }

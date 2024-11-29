@@ -28,6 +28,7 @@ namespace _Script.Inventory.ActionBarBackend
             }
             else
             {
+                Debug.Log("Selected item: " + slotIndex + " " + Slots[slotIndex].Item.ItemData.ItemName);
                 _selectedSlotIndex = slotIndex;
                 _selectedItem = Slots[slotIndex].Item;
             }
@@ -74,6 +75,5 @@ namespace _Script.Inventory.ActionBarBackend
             _selectedItem?.ItemData.OnDeselected(inventoryOwner);
             _selectedItem = null;
         }
-        
     }
 }
