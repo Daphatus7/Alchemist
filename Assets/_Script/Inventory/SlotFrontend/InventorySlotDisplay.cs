@@ -184,11 +184,19 @@ namespace _Script.Inventory.SlotFrontend
                 //TODO: Implement the swapping logic special cases (Equipment)
                 
                 
-                //Swap items
+                //Swap item
                 var myItem = _inventoryUI.RemoveAllItemsFromSlot(_slotIndex);
                 var sourceItem = sourceSlot._inventoryUI.RemoveAllItemsFromSlot(sourceSlot._slotIndex);
-                _inventoryUI.AddItemToEmptySlot(sourceItem, _slotIndex);
-                sourceSlot._inventoryUI.AddItemToEmptySlot(myItem, sourceSlot._slotIndex);
+                
+                //consider the case where the source slot is empty
+                if (sourceItem != null && sourceItem.ItemData != null)
+                {
+                    _inventoryUI.AddItemToEmptySlot(sourceItem, _slotIndex);
+                }
+                if(myItem != null && myItem.ItemData != null)
+                {
+                    sourceSlot._inventoryUI.AddItemToEmptySlot(myItem, sourceSlot._slotIndex);
+                }
             }
             //if there is no inventory slot display when dropping, drop to the ground
             else if (sourceSlot == null)

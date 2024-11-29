@@ -6,21 +6,7 @@ namespace _Script.Inventory.ActionBarBackend
 {
     public class ActionBar : InventoryBackend.Inventory, IActionBarHandle
     {
-        private InventoryItem _selectedItem; public InventoryItem SelectedItem
-        {
-            get
-            {
-                return _selectedItem;
-            }
-            
-            set 
-            {
-                Debug.Log("Selected item is set");
-                _selectedItem = value;
-            }
-            
-        }
-
+        
         public bool Handle_AddItem(InventoryItem inventoryItem)
         {
             return AddItem(inventoryItem);
@@ -30,7 +16,24 @@ namespace _Script.Inventory.ActionBarBackend
         {
             return RemoveItem(inventoryItem);
         }
-
+        
+        private InventoryItem _selectedItem;
+        
+        public void SetSelectedItem(int slotIndex)
+        {
+            if (slotIndex < 0 || slotIndex >= Slots.Length)
+            {
+                _selectedSlotIndex = -1;
+                _selectedItem = null;
+            }
+            else
+            {
+                _selectedSlotIndex = slotIndex;
+                _selectedItem = Slots[slotIndex].Item;
+            }
+        }
+        
+        private int _selectedSlotIndex; public int SelectedSlotIndex => _selectedSlotIndex;
         
         /// <summary>
         /// this provides interface for external classes to select the item
@@ -40,10 +43,15 @@ namespace _Script.Inventory.ActionBarBackend
         /// <param name="slotIndex"></param>
         public void OnSelectItem(int slotIndex)
         {
-            // {methods before} this function made sure that it's {not selecting the same item twice}
-            //now select the new item and execute any action
-            _selectedItem = Slots[slotIndex].Item;
-            _selectedItem.ItemData.OnSelected(inventoryOwner);
+            SetSelectedItem(slotIndex);
+            if (_selectedItem != null)
+            {
+                _selectedItem.ItemData.OnSelected(inventoryOwner);
+            }
+            else
+            {
+                Debug.LogWarning("Selected item is null.");
+            }
         }
         
         /// <summary>

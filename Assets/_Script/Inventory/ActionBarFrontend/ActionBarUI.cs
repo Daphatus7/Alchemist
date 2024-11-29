@@ -20,6 +20,7 @@ namespace _Script.Inventory.ActionBarFrontend
         private void Start()
         {
             InitializeInventoryUI();
+            SelectSlot(0);
         }
         
         private void OnEnable()
@@ -118,18 +119,22 @@ namespace _Script.Inventory.ActionBarFrontend
             // Unhighlight the previous slot
             if (_selectedSlotDisplay)
             {
-                _selectedSlotDisplay?.UnhighlightSlot();
-                _actionBar.OnDeSelectItem(slotIndex);
+                _selectedSlotDisplay.UnhighlightSlot();
+                _actionBar.OnDeSelectItem(_selectedSlotDisplay.SlotIndex);
             }
             
             /*Select new item*/
             // Highlight the new slot
+            SetSelectedSlot(slotIndex);
+            // Update selected slot item
+            _actionBar.OnSelectItem(slotIndex);
+        }
+        
+        private void SetSelectedSlot(int slotIndex)
+        {
             _selectedSlotDisplay = _inventorySlotDisplays[slotIndex];
             _selectedSlotDisplay.HighlightSlot();
-
-            // Update selected slot item
-            _actionBar.SelectedItem = _actionBar.Slots[slotIndex].Item;
-            _actionBar.OnSelectItem(slotIndex);
+            _actionBar.SetSelectedItem(slotIndex);
         }
 
         
@@ -138,7 +143,8 @@ namespace _Script.Inventory.ActionBarFrontend
             if (_selectedSlotDisplay)
             {
                 _selectedSlotDisplay.UnhighlightSlot();
-                _actionBar.SelectedItem = null;
+                _actionBar.OnDeSelectItem(_selectedSlotDisplay.SlotIndex);
+                _selectedSlotDisplay = null;
             }
         }
         
@@ -198,13 +204,22 @@ namespace _Script.Inventory.ActionBarFrontend
 
         public InventoryItem RemoveAllItemsFromSlot(int slotIndex)
         {
+            //if the slot is selected, deselect it
+            if(slotIndex == _actionBar.SelectedSlotIndex)
+            {
+                DeselectPreviousSlot();
+            }
             return _actionBar.RemoveAllItemsFromSlot(slotIndex);
         }
 
         public void AddItemToEmptySlot(InventoryItem item, int slotIndex)
         {
-
             _actionBar.AddItemToEmptySlot(item, slotIndex);
+            Debug.Log("Item added to slot " + slotIndex + " in action bar." +_actionBar.SelectedSlotIndex);
+            if(slotIndex == _actionBar.SelectedSlotIndex)
+            {
+                SelectSlot(slotIndex);
+            }
         }
     }
 }
