@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c4ab893bdc549c8bf76a8600cc7dbe4, type: 3}
-  m_Name: AlphaSeed
+  m_Name: Alpha Seed
   m_EditorClassIdentifier: 
   itemName: Alpha Seed
   itemID: 0
-  itemDescription: 'Alpha Seed
-
-'
+  itemDescription: Alpha Seed that is so primitive
   itemIcon: {fileID: 21300000, guid: d62fc87d7e2c1d740b3afc4193abf641, type: 3}
-  maxStackSize: 5
-  rarity: 0
+  maxStackSize: 20
+  rarity: 4

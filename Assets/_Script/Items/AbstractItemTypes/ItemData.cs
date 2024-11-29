@@ -26,7 +26,7 @@ namespace _Script.Items.AbstractItemTypes
             public int MaxStackSize => maxStackSize;
 
             public abstract ItemType ItemType { get; }
-
+            public abstract string ItemTypeString { get; }
             
             /**
              * Use the item, When using an item, this applies effect to the player either by equipping, consuming etc.

@@ -169,7 +169,6 @@ namespace _Script.Inventory.InventoryBackend
             InventorySlot slot = slots[slotIndex];
             if (slot.IsEmpty)
             {
-                Debug.Log("Slot is empty.");
                 return null;
             }
 

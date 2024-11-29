@@ -66,16 +66,6 @@ namespace _Script.Inventory.ActionBarFrontend
         }
         
         /// <summary>
-        /// Called when the item is dragged from the action bar
-        /// </summary>
-        /// <param name="slotIndex"></param>
-        private void UpdateSelectedSlot(int slotIndex)
-        {
-            
-        }
-
-        
-        /// <summary>
         /// Select the slot at the given index.
         /// if the slot is already selected, use the item.
         /// if the previous slot is not empty, deselect it.
@@ -123,14 +113,13 @@ namespace _Script.Inventory.ActionBarFrontend
             // Highlight the new slot
             SetSelectedSlot(slotIndex);
             // Update selected slot item
-            _actionBar.OnSelectItem(slotIndex);
         }
         
         private void SetSelectedSlot(int slotIndex)
         {
             _selectedSlotDisplay = _inventorySlotDisplays[slotIndex];
             _selectedSlotDisplay.HighlightSlot();
-            _actionBar.SetSelectedItem(slotIndex);
+            _actionBar.OnSelectItem(slotIndex);
         }
 
         
@@ -213,7 +202,7 @@ namespace _Script.Inventory.ActionBarFrontend
         public void AddItemToEmptySlot(InventoryItem item, int slotIndex)
         {
             _actionBar.AddItemToEmptySlot(item, slotIndex);
-            Debug.Log("Item added to slot " + slotIndex + " in action bar." +_actionBar.SelectedSlotIndex);
+            //Debug.Log("Item added to slot " + slotIndex + " in action bar." +_actionBar.SelectedSlotIndex);
             if(slotIndex == _actionBar.SelectedSlotIndex)
             {
                 SelectSlot(slotIndex);

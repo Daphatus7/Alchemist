@@ -19,7 +19,7 @@ namespace _Script.Inventory.ActionBarBackend
         
         private InventoryItem _selectedItem;
         
-        public void SetSelectedItem(int slotIndex)
+        private void SetSelectedItem(int slotIndex)
         {
             if (slotIndex < 0 || slotIndex >= Slots.Length)
             {
@@ -28,12 +28,10 @@ namespace _Script.Inventory.ActionBarBackend
             }
             else
             {
-                Debug.Log("Selected item: " + slotIndex + " " + Slots[slotIndex].Item.ItemData.ItemName);
                 _selectedSlotIndex = slotIndex;
                 _selectedItem = Slots[slotIndex].Item;
             }
         }
-        
         private int _selectedSlotIndex; public int SelectedSlotIndex => _selectedSlotIndex;
         
         /// <summary>

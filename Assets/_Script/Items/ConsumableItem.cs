@@ -12,6 +12,8 @@ namespace _Script.Items
         public int amount;
         public ConsumableType consumableType;
         public override ItemType ItemType => ItemType.Consumable;
+        
+        public override string ItemTypeString => "Consumable";
         public override void Use(PlayerCharacter playerCharacter)
         {
             

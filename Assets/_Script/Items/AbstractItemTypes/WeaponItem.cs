@@ -12,6 +12,8 @@ namespace _Script.Items.AbstractItemTypes
         public float attackSpeed = 1f;
         public float range = 1f;
         public GameObject weaponPrefab;
+        
+        public override string ItemTypeString => "Weapon";
 
         public override void Use(PlayerCharacter playerCharacter)
         {
@@ -30,6 +32,7 @@ namespace _Script.Items.AbstractItemTypes
             //Set Strategy
             playerCharacter.SetWeaponStrategy();
         }
+        
 
         /// <summary>
         /// 
