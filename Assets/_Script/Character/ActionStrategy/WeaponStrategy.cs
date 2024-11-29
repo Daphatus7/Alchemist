@@ -9,7 +9,7 @@ namespace _Script.Character.ActionStrategy
     {
         [SerializeField] private GameObject weaponSlot;
         
-        private Weapon.Weapon currentWeapon;
+        private Weapon.Weapon _currentWeapon;
         
         [Header("Attacks")]
         //valid target tags
@@ -19,15 +19,15 @@ namespace _Script.Character.ActionStrategy
         private void Awake()
         {
             targetTags = new List<string> {"Enemy"};
-            currentWeapon = GetComponentInChildren<Weapon.Weapon>();
+            _currentWeapon = GetComponentInChildren<Weapon.Weapon>();
             Debug.LogWarning("Set target tags manually, should move to when weapon is equipped");
-            currentWeapon?.SetTargetType(targetTags);
+            _currentWeapon?.SetTargetType(targetTags);
         }
         
         private void Update()
         {
             // if has a weapon, rotate the weapon to face the mouse
-            if(currentWeapon)
+            if(_currentWeapon)
             {
                 Vector3 mousePosition = Mouse.current.position.ReadValue();
                 var fireDirection = Vector2.zero;
@@ -37,7 +37,7 @@ namespace _Script.Character.ActionStrategy
                     fireDirection = (worldPosition - transform.position).normalized;
                 }
                 var angle = Vector2.SignedAngle(Vector2.up, fireDirection);
-                currentWeapon.transform.rotation = Quaternion.Euler(0, 0, angle);
+                _currentWeapon.transform.rotation = Quaternion.Euler(0, 0, angle);
             }
         }
         
@@ -50,7 +50,7 @@ namespace _Script.Character.ActionStrategy
         {
             
             //if there is a weapon, don't change weapon
-            if (currentWeapon)
+            if (_currentWeapon)
             {
                 Debug.LogError("Cannot change weapon, there is a weapon equipped");
                 return;
@@ -59,41 +59,41 @@ namespace _Script.Character.ActionStrategy
             var weapon = Instantiate(weaponPrefab, weaponSlot.transform.position, Quaternion.identity);
             weapon.transform.parent = weaponSlot.transform;
             // destroy current weapon
-            if(currentWeapon != null)
+            if(_currentWeapon != null)
             {
-                Destroy(currentWeapon.gameObject);
+                Destroy(_currentWeapon.gameObject);
             }
             
             // set new weapon
-            currentWeapon = weapon.GetComponent<Weapon.Weapon>();
-            currentWeapon.SetWeaponItem(weaponItem, targetTags);
+            _currentWeapon = weapon.GetComponent<Weapon.Weapon>();
+            _currentWeapon.SetWeaponItem(weaponItem, targetTags);
         }
         
         public void RemoveWeapon()
         {
-            if(currentWeapon)
+            if(_currentWeapon)
             {
-                Destroy(currentWeapon.gameObject);
-                currentWeapon = null;
+                Destroy(_currentWeapon.gameObject);
+                _currentWeapon = null;
             }
         }
         
         public void Pressed(Vector2 direction)
         {
-            if(currentWeapon != null)
+            if(_currentWeapon != null)
             {
-                if (!currentWeapon.IsCoolingDown)
+                if (!_currentWeapon.IsCoolingDown)
                 {
-                    currentWeapon.OnPressed(direction);
+                    _currentWeapon.OnPressed(direction);
                 }
             }
         }
         
         public void Released(Vector2 direction)
         {
-            if(currentWeapon != null)
+            if(_currentWeapon != null)
             {
-                currentWeapon.OnReleased(direction);
+                _currentWeapon.OnReleased(direction);
             }
         }
 

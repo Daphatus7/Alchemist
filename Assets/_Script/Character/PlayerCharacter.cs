@@ -16,8 +16,6 @@ namespace _Script.Character
         [SerializeField] private GameObject RightHand;
         
         
-        private Vector3 _cursorPosition; public Vector3 CursorPosition => _cursorPosition;
-        private float _mouseAngle; public float MouseAngle => _mouseAngle;
         private float _facingDirection; public float FacingDirection => _facingDirection;
 
         private IPlayerInventoryHandle _playerInventory;
@@ -37,32 +35,15 @@ namespace _Script.Character
         }
         
         #endregion
-        
 
         private void Awake()
         {
             _weaponStrategy = GetComponent<WeaponStrategy>();
+            _genericStrategy = GetComponent<GenericStrategy>();
             _playerInventory = GetComponentInChildren<PlayerInventory>();
             _playerEquipment = GetComponent<PlayerEquipmentInventory>();
             //debug Equipment inventory
         }
-
-
-        private void Update()
-        {
-            UpdateCursorPosition();
-            //DebugStat();
-        }
-        
-        private void UpdateCursorPosition()
-        {
-            _cursorPosition = Camera.main!.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            _mouseAngle = Mathf.Atan2(_cursorPosition.y - transform.position.y, _cursorPosition.x - transform.position.x) * Mathf.Rad2Deg;
-        }
-        
-        
-        
-        
         
         #region Control - Strategy Pattern
         

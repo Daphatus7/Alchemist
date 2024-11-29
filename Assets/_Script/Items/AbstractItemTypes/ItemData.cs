@@ -14,7 +14,7 @@ namespace _Script.Items.AbstractItemTypes
             [SerializeField] private string itemName;
             [SerializeField] private int itemID;
             [SerializeField, TextArea] private string itemDescription;
-            [SerializeField] private Sprite itemIcon;
+            [SerializeField] private Sprite itemIcon; public Sprite ItemSprite => itemIcon;
             [SerializeField] private int maxStackSize = 1;
             [SerializeField] private Rarity rarity;
 

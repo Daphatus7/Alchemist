@@ -8,7 +8,6 @@ namespace _Script.Items
     public class SeedItem : MaterialItem
     {
         public override ItemType ItemType => ItemType.Seed;
-        
         public override string ItemTypeString => "Seed";
 
         public override void Use(PlayerCharacter playerCharacter)
@@ -18,12 +17,14 @@ namespace _Script.Items
         
         public override void OnSelected(PlayerCharacter playerCharacter)
         {
-            Debug.Log("Selected Seed Item " + ItemName);
+            playerCharacter.GenericStrategy.ChangeItem(this);
+            playerCharacter.SetGenericStrategy();
         }
         
         public override void OnDeselected(PlayerCharacter playerCharacter)
         {
-            Debug.Log("Deselected Seed Item " + ItemName);
+            playerCharacter.GenericStrategy.RemoveItem();
+            playerCharacter.UnsetStrategy();
         }
     }
 }

@@ -1,5 +1,7 @@
+using _Script.Items;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace _Script.Character.ActionStrategy
 {
@@ -8,8 +10,10 @@ namespace _Script.Character.ActionStrategy
         /**
          * Consider this as temporary solution
          */
-        [SerializeField] private GameObject itemSlot;
-        private GameObject currentItem;
+        [SerializeField] private Transform itemSlot;
+        [SerializeField] private GameObject itemInHandPrefab;
+        private static GameObject currentItem;
+        private static SpriteRenderer currentSpriteRenderer;
         
         public void LeftMouseButtonDown(Vector3 direction)
         {
@@ -21,18 +25,72 @@ namespace _Script.Character.ActionStrategy
             Debug.Log("Left Mouse Button Up");
         }
         
-        public void ChangeItem(GameObject itemPrefab, ItemData itemData)
+        private void Update()
         {
-            // Spawn item
-            var item = Instantiate(itemPrefab, itemSlot.transform.position, Quaternion.identity);
-            item.transform.parent = itemSlot.transform;
+            OnUpdatePosition();
+        }
+
+        private void CheckingTargetInteraction()
+        {
+            // Check if the target is interactable
+            // if yes, interact with the target
+        }
+        
+        private void OnUpdatePosition()
+        {
+            // if has a weapon, rotate the weapon to face the mouse
+            if (currentItem)
+            {
+                // get mouse position
+
+                // convert screen position to world position
+                if (Camera.main)
+                {
+                    Vector3 mousePosition = Mouse.current.position.ReadValue();
+                    // convert screen position to world position
+                    var worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+                    // calculate direction and distance
+               
+                    Vector3 direction = (worldPosition - transform.position) * 3f;
+                    
+                    if(direction.magnitude > 2f)
+                    {
+                        direction = direction.normalized * 2f;
+                    }
+                    
+                    Vector3 targetPosition =  itemSlot.position + direction;
+                    
+
+                    // update item position
+                    currentItem.transform.position = new Vector3(targetPosition.x, targetPosition.y, 0);
+                }
+            }
+        }
+        
+        
+        public void ChangeItem(ItemData itemData)
+        {
+            // Spawn
+            //if the item is spawned but not enabled, enable it
+            if (currentItem)
+            {
+                currentItem.SetActive(true);
+            }
+            else
+            {
+                currentItem = Instantiate(itemInHandPrefab, itemSlot.transform.position, Quaternion.identity);
+                currentItem.transform.parent = itemSlot.transform;
+                currentSpriteRenderer = currentItem.GetComponent<SpriteRenderer>();
+            } 
+            //set renderer
+            currentSpriteRenderer.sprite = itemData.ItemSprite;
         }
         
         public void RemoveItem()
         {
-            if(currentItem != null)
+            if(currentItem)
             {
-                Destroy(currentItem.gameObject);
+                currentItem.SetActive(false);
             }
         }
     }

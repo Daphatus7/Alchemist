@@ -42,6 +42,7 @@ namespace _Script.Items.AbstractItemTypes
         {
             //could this leads to deleting wrong item
             playerCharacter.WeaponStrategy.RemoveWeapon();
+            playerCharacter.UnsetStrategy();
         }
     }
 
