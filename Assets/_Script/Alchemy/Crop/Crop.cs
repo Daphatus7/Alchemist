@@ -8,6 +8,7 @@ namespace _Script.Alchemy.Plant
     /**
      * The instance of a plant.
      */
+    [RequireComponent(typeof(SpriteRenderer))]
     public class Crop : Interactable.Interactable, ITimeHandle
     {
         [SerializeField] private int _currentGrowthTime = 0; // Tracks how many days the plant has grown

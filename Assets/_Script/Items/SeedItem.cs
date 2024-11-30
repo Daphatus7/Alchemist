@@ -9,6 +9,8 @@ namespace _Script.Items
     {
         public override ItemType ItemType => ItemType.Seed;
         public override string ItemTypeString => "Seed";
+        
+        public GameObject cropPrefab;
 
         public override void Use(PlayerCharacter playerCharacter)
         {

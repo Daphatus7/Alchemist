@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace _Script.Utilities.ServiceLocator
 {
+    [DefaultExecutionOrder(-100)]
     public class ServiceLocator : Singleton<ServiceLocator>
     {
         private readonly Dictionary<string, List<IGameService>> services = new ();

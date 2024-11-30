@@ -28,6 +28,9 @@ namespace _Script.Map.Tile
                 case TileType.Dirt:
                     baseTile = LoadDirtTile(x, y, baseTileData.IsWet, gridTileHandle);
                     break;
+                case TileType.Soil:
+                    baseTile = LoadSoilTile(x, y, baseTileData.IsWet, gridTileHandle);
+                    break;
                 Default:
                     //Exception
                     throw new System.Exception("The first tile of the stack is not a valid tile type");
@@ -61,6 +64,9 @@ namespace _Script.Map.Tile
                 case TileType.Dirt:
                     baseTile = LoadDirtTile(x, y, false, gridTileHandle);
                     break;
+                case TileType.Soil:
+                    baseTile = LoadSoilTile(x, y, true, gridTileHandle);
+                    break;
                 Default:
                     //Exception
                     throw new System.Exception("The first tile of the stack is not a valid tile type");
@@ -92,6 +98,11 @@ namespace _Script.Map.Tile
         private static DirtTile LoadDirtTile(int x, int y, bool isWet, IGridTileHandle gridTileHandle)
         {
             return new DirtTile(x, y, gridTileHandle);
+        }
+        
+        private static SoilTile LoadSoilTile(int x, int y, bool isWet, IGridTileHandle gridTileHandle)
+        {
+            return new SoilTile(x, y, gridTileHandle);
         }
         
         #endregion

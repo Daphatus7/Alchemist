@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using _Script.Alchemy.Plant;
 using _Script.Map.GridMap;
 using _Script.Map.Tile;
 using _Script.Map.Tile.Tile_Base;
@@ -11,7 +13,8 @@ using UnityEngine.InputSystem;
 
 namespace _Script.Map
 {
-    //[ExecuteInEditMode]
+
+    [DefaultExecutionOrder(10)]
     public class GameTileMap : Singleton<GameTileMap>, ISaveTileMap
     {
         [SerializeField] private OTileMap tileMap;
@@ -20,8 +23,10 @@ namespace _Script.Map
         [SerializeField] private bool _needsUpdate = false;
         [SerializeField] private bool _canEdit = false;
         
+        [SerializeField] private GameObject cropPrefab;
         
-        private TileType _pointedTileType; public TileType PointedTileType => _pointedTileType;
+        
+        private TileContext _pointedTile; public TileContext PointedTile => _pointedTile;
         
         private void Start()
         {
@@ -43,8 +48,8 @@ namespace _Script.Map
         
         private void Update()
         {
-            UpdateCursorTileType(Helper.GetMouseWorldPosition());
             
+            TrackCursorMovement();
             
             if(_needsUpdate && _canEdit)
             {
@@ -66,9 +71,9 @@ namespace _Script.Map
             }
             // if (Input.GetMouseButtonDown(0))
             // {
-            //     Debug.Log("Mouse Clicked");
+            //     Debug.Log("Placing Soil");
             //     Vector3 position = Helper.GetMouseWorldPosition();
-            //     tileMap.SetTile(position, new List<TileType> {TileType.Dirt, TileType.Grass});
+            //     tileMap.SetTile(position, new List<TileType> {TileType.Soil});
             // }
             //
             // if (Input.GetMouseButtonDown(1))
@@ -77,6 +82,13 @@ namespace _Script.Map
             //     Vector3 position = Helper.GetMouseWorldPosition();
             //     tileMap.Use(position);
             // }
+            
+            if (Input.GetMouseButtonDown(1))
+            {
+                Debug.Log("Placing Soil");
+                Vector3 position = Helper.GetMouseWorldPosition();
+                tileMap.AddCrop(position, cropPrefab);
+            }
         }
         
         private void OnEnable()
@@ -88,17 +100,6 @@ namespace _Script.Map
         {
             SceneView.duringSceneGui -= OnSceneGUI;
         }
-        
-        
-        public void UpdateCursorTileType(Vector3 position)
-        {
-            if(CursorMovementTracker.Instance.HasCursorMoved)
-            {
-                _pointedTileType = tileMap.GetTileType(position);
-                Debug.Log(_pointedTileType);
-            }
-        }
-
         
         
         private void OnSceneGUI(SceneView sceneView)
@@ -138,6 +139,36 @@ namespace _Script.Map
         }
         
         #endregion
+
+        #region Optimization - cursor movement tracker
         
+        private Vector2Int _lastCursorPosition;
+        public event Action<Vector2> OnCursorMoved;
+        
+        private void TrackCursorMovement()
+        {
+            // Get the current cursor position
+            Vector3 currentCursorPosition = Helper.GetMouseWorldPosition();
+
+            // Convert the cursor position to world position
+            tileMap.Grid.GetXY(currentCursorPosition, out var x, out var y);
+            
+            //Out of bounds
+            if(x < 0 || y < 0 || x >= tileMap.Grid.GetWidth() || y >= tileMap.Grid.GetHeight())
+            {
+                return;
+            }
+            
+            // Check if the cursor has moved
+            if(_lastCursorPosition != new Vector2Int(x, y))
+            {
+                _lastCursorPosition = new Vector2Int(x, y);
+                _pointedTile = new TileContext(tileMap.Grid.GetGridArray()[x, y]);
+                OnCursorMoved?.Invoke(currentCursorPosition);
+            }
+        }
+        
+
+        #endregion
     }
 }

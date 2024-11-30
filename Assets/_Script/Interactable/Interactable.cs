@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace _Script.Interactable
 {
-    [RequireComponent(typeof(Collider2D))]
     public abstract class Interactable : MonoBehaviour
     {
         /**
@@ -11,6 +10,10 @@ namespace _Script.Interactable
          */
         private bool _isInteracting = false; public bool IsInteracting => _isInteracting;
         
+        private void Awake()
+        {
+            gameObject.layer = LayerMask.NameToLayer("Interactable"); 
+        }
         
         /*
          * Time tracking for interaction
@@ -30,8 +33,6 @@ namespace _Script.Interactable
         }
         
         protected abstract bool CanInteract();
-        
- 
 
         private void OnInteract()
         {
@@ -54,21 +55,19 @@ namespace _Script.Interactable
         #region Trigger
 
         
-        private void OnMouseDown()
+        public void OnStartInteract()
         {
             //can interact
             if (!CanInteract()) return;
             _isInteracting = true;
         }
         
-        
-        private void OnMouseUp()
+        public void OnEndInteract()
         {
             _isInteracting = false;
             OnInteractCanceled();
         }
         
-
         #endregion
 
     }

@@ -38,20 +38,26 @@ SpriteAtlas:
     cachedData: {fileID: 0}
     packedSpriteRenderDataKeys:
     - 6b9ff663d095742a99021a828c0fb945: 2489584174085898198
+    - 1b36281a21467476884c288f8a145a8d: 6860726234353650964
     - 6bc8d5fadccd2407ea2fa47d5cb9f0c5: -3873098836313798668
     - 9b0f58ac115544fd4aeeea88deaba4df: -1300594913051438373
     - cebd4edcffc654d819d9e0d2135aab5b: -5163170747001403803
+    - 6a6e73ad5a03a42f6a47fabacfe5ca76: 6704698115707792778
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 2489584174085898198, guid: 6b9ff663d095742a99021a828c0fb945, type: 3}
+  - {fileID: 6860726234353650964, guid: 1b36281a21467476884c288f8a145a8d, type: 3}
   - {fileID: -3873098836313798668, guid: 6bc8d5fadccd2407ea2fa47d5cb9f0c5, type: 3}
   - {fileID: -1300594913051438373, guid: 9b0f58ac115544fd4aeeea88deaba4df, type: 3}
   - {fileID: -5163170747001403803, guid: cebd4edcffc654d819d9e0d2135aab5b, type: 3}
+  - {fileID: 6704698115707792778, guid: 6a6e73ad5a03a42f6a47fabacfe5ca76, type: 3}
   m_PackedSpriteNamesToIndex:
   - T_Grass_0
+  - T_WetSoil_0
   - T_Dirt_0
   - T_Path_0
   - T_WetDirt_0
+  - T_Soil_0
   m_RenderDataMap: {}
   m_Tag: MapAtlas
   m_IsVariant: 0

@@ -100,6 +100,11 @@ namespace _Script.Map.GridMap
         {
             return new Vector3(x, y) * _cellSize + _originPosition;
         }
+        
+        public Vector3 GetGridCenterWorldPosition(int x, int y)
+        {
+            return new Vector3(x, y) * _cellSize + _originPosition + new Vector3(_cellSize, _cellSize) * .5f;
+        }
 
         private void SetValue(int x, int y, TGridObject value)
         {
@@ -165,13 +170,6 @@ namespace _Script.Map.GridMap
                 Debug.LogWarning("GridObject is null");
                 return default(TGridObject);
             }
-        }
-
-        public TGridObject GetGridObject(Vector3 worldPosition)
-        {
-            int x, y;
-            GetXY(worldPosition, out x, out y);
-            return GetGridObject(x, y);
         }
 
         public void OnUpdate(int x, int y)

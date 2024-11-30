@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Script.Alchemy.Plant;
 using _Script.Map.Tile;
 using _Script.Map.Tile.Tile_Base;
 using _Script.Map.Tile.Tile_Concrete;
@@ -132,6 +133,13 @@ namespace _Script.Map.GridMap
             //trigger update
             _grid.OnUpdate(x, y);
         }
+        
+        public Vector3 GetTilePosition(Vector3 position)
+        {
+            int x, y;
+            _grid.GetXY(position, out x, out y);
+            return _grid.GetWorldPosition(x, y);
+        }
 
         public void Use(Vector3 position)
         {
@@ -150,5 +158,22 @@ namespace _Script.Map.GridMap
             }
             return _grid.GetGridArray()[x, y].GetTileType();
         }
+
+        public void AddCrop(Vector3 position, GameObject cropPrefab)
+        {
+            int x, y;
+            _grid.GetXY(position, out x, out y);
+            if (x < 0 || y < 0 || x >= _grid.GetWidth() || y >= _grid.GetHeight())
+            {
+                return;
+            }
+            var soilTile = _grid.GetGridArray()[x, y].GetBaseTile();
+            if(soilTile is SoilTile tile)
+            {
+                var crop = Instantiate(cropPrefab, _grid.GetGridCenterWorldPosition(x, y), Quaternion.identity).GetComponent<Crop>();
+                tile.AddCrop(crop);
+            }
+        }
+
     }
 }

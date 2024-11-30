@@ -45,7 +45,7 @@ namespace _Script.Character
             //debug Equipment inventory
         }
         
-        #region Control - Strategy Pattern
+        #region Action Bar - Strategy Pattern
         
 
         

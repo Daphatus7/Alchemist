@@ -43,9 +43,11 @@ namespace _Script.Map.Tile.Tile_Base
         None,
         Grass,
         Path,
+        Soil,
         Rock,
         Dirt,
-        WetDirt 
+        WetDirt,
+        WetSoil
     }
     
     public enum TileCategory

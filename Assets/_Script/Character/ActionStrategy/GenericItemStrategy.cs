@@ -1,12 +1,15 @@
+using System;
 using _Script.Items;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using _Script.Map;
+using _Script.Map.Tile.Tile_Base;
 using _Script.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace _Script.Character.ActionStrategy
 {
+    [DefaultExecutionOrder(50)]
     public sealed class GenericStrategy : MonoBehaviour, IActionStrategy
     {
         /**
@@ -26,16 +29,25 @@ namespace _Script.Character.ActionStrategy
         {
             Debug.Log("Left Mouse Button Up");
         }
+
+        private void OnEnable()
+        {
+            GameTileMap.Instance.OnCursorMoved += CheckingTargetInteraction;
+        }
+
+        private void OnDisable()
+        {
+            GameTileMap.Instance.OnCursorMoved -= CheckingTargetInteraction;
+        }
         
         private void Update()
         {
             OnUpdatePosition();
-            CheckingTargetInteraction();
         }
 
-        private void CheckingTargetInteraction()
+        private void CheckingTargetInteraction(Vector2 pos)
         {
-            Debug.Log(GameTileMap.Instance.PointedTileType);
+            var tile = GameTileMap.Instance.PointedTile;
         }
         
         private void OnUpdatePosition()
@@ -61,7 +73,6 @@ namespace _Script.Character.ActionStrategy
                     }
                     
                     Vector3 targetPosition =  itemSlot.position + direction;
-                    
 
                     // update item position
                     currentItem.transform.position = new Vector3(targetPosition.x, targetPosition.y, 0);
