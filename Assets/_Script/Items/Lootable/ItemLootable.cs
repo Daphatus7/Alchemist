@@ -6,7 +6,7 @@ using UnityEngine;
 namespace _Script.Items.Lootable
 {
     [RequireComponent(typeof(SpriteRenderer), typeof(Collider2D))]
-    public class ItemLootable : MonoBehaviour
+    public class ItemLootable : Interactable.Interactable
     {
         [SerializeField] private ItemData itemData;
         [SerializeField] private int quantity = 1;
@@ -33,6 +33,8 @@ namespace _Script.Items.Lootable
                 _spriteRenderer.sprite = itemData.ItemIcon;
             }
         }
+
+  
 
         private void Start()
         {
@@ -82,6 +84,26 @@ namespace _Script.Items.Lootable
             
         }
 
+        protected override bool CanInteract()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override void OnInteract()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override void OnInteractCanceled()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override void OnInteractCompleted()
+        {
+            throw new System.NotImplementedException();
+        }
+        
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if(_isPickedUp) return;

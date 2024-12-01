@@ -5,13 +5,13 @@ namespace _Script.Utilities
 {
     public class CursorMovementTracker : Singleton<CursorMovementTracker>
     {
-        private bool _hasCursorMoved = false; public bool HasCursorMoved => _hasCursorMoved;
-        private Vector2 _lastCursorPosition;
+        private static bool hasCursorMoved = false; public static bool HasCursorMoved => hasCursorMoved;
+        private static Vector2 lastCursorPosition; public static Vector2 CursorPosition => lastCursorPosition;
 
         private void Start()
         {
             // Initialize cursor position
-            _lastCursorPosition = Mouse.current.position.ReadValue();
+            lastCursorPosition = Helper.GetMouseWorldPosition();
         }
 
         private void Update()
@@ -22,17 +22,17 @@ namespace _Script.Utilities
         private void TrackCursorMovement()
         {
             // Get the current cursor position
-            Vector2 currentCursorPosition = Mouse.current.position.ReadValue();
+            Vector2 currentCursorPosition = Helper.GetMouseWorldPosition();
 
             // Check if the cursor has moved
-            if (currentCursorPosition != _lastCursorPosition)
+            if (currentCursorPosition != lastCursorPosition)
             {
-                _hasCursorMoved = true;
-                _lastCursorPosition = currentCursorPosition;
+                hasCursorMoved = true;
+                lastCursorPosition = currentCursorPosition;
             }
             else
             {
-                _hasCursorMoved = false;
+                hasCursorMoved = false;
             }
         }
     }

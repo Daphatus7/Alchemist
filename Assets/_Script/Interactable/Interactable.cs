@@ -9,65 +9,61 @@ namespace _Script.Interactable
          * if the object is interactable and the player is actively interacting with it
          */
         private bool _isInteracting = false; public bool IsInteracting => _isInteracting;
-        
-        private void Awake()
+
+        protected virtual void Awake()
         {
+            //make sure all interactable objects are on the interactable layer
             gameObject.layer = LayerMask.NameToLayer("Interactable"); 
         }
         
-        /*
-         * Time tracking for interaction
-         */
-        private float _timeElapsed = 0f;
-        /*
-         * Total time required to interact with the object
-         */
-        [SerializeField] private float _timeToComplete = 0.5f;
-        
-        private void Update()
-        {
-            if (_isInteracting)
-            {
-                OnInteract();
-            }
-        }
-        
+        /// <summary>
+        /// Checked before the player is allowed to interact with the object
+        /// </summary>
+        /// <returns></returns>
         protected abstract bool CanInteract();
+        
+        /// <summary>
+        /// Called when the player interacts with the object
+        /// </summary>
+        protected abstract void OnInteract();
 
-        private void OnInteract()
-        {
-            _timeElapsed += Time.deltaTime;
-            Debug.Log("Interacting with " + _timeElapsed);
-            if (_timeElapsed >= _timeToComplete)
-            {
-                Debug.Log("Interact completed");
-                OnInteractCompleted();
-            }
-        }
+        
+        /// <summary>
+        /// ramification of the player canceling the interaction
+        /// </summary>
+        protected abstract void OnInteractCanceled();
 
-        private void OnInteractCanceled()
-        {
-        }
-
+        
+        /// <summary>
+        /// Called when the player has completed the interaction
+        /// </summary>
         protected abstract void OnInteractCompleted();
 
 
         #region Trigger
 
         
-        public void OnStartInteract()
+        /// <summary>
+        /// Trigger Start
+        /// </summary>
+        public void Interact()
         {
-            //can interact
-            if (!CanInteract()) return;
-            _isInteracting = true;
+            if(CanInteract())
+            {
+                _isInteracting = true;
+                OnInteract();
+            }
         }
         
-        public void OnEndInteract()
+        /// <summary>
+        /// Trigger Cancel
+        /// </summary>
+        public void InteractCanceled()
         {
             _isInteracting = false;
             OnInteractCanceled();
         }
-        
+
         #endregion
 
     }

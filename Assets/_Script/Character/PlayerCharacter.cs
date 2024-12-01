@@ -4,6 +4,7 @@ using _Script.Character.ActionStrategy;
 using _Script.Inventory.EquipmentBackend;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryHandles;
+using _Script.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -21,8 +22,9 @@ namespace _Script.Character
         private IPlayerInventoryHandle _playerInventory;
         private IPlayerEquipmentHandle _playerEquipment;
         
+        private InteractionBase _interactionBase;
         private WeaponStrategy _weaponStrategy; public WeaponStrategy WeaponStrategy => _weaponStrategy;
-        private GenericStrategy _genericStrategy; public GenericStrategy GenericStrategy => _genericStrategy;
+        private GenericItemStrategy _genericStrategy; public GenericItemStrategy GenericStrategy => _genericStrategy;
         private IActionStrategy _actionStrategy;
 
         #region Player Attribute from Equipment
@@ -38,24 +40,50 @@ namespace _Script.Character
 
         private void Awake()
         {
+            _interactionBase = new InteractionBase();
             _weaponStrategy = GetComponent<WeaponStrategy>();
-            _genericStrategy = GetComponent<GenericStrategy>();
+            _genericStrategy = GetComponent<GenericItemStrategy>();
             _playerInventory = GetComponentInChildren<PlayerInventory>();
             _playerEquipment = GetComponent<PlayerEquipmentInventory>();
-            //debug Equipment inventory
+        }
+        
+        public void Update()
+        {
+
+            if (CursorMovementTracker.HasCursorMoved)
+            {
+                var context = _interactionBase.InteractableRaycast(transform.position, CursorMovementTracker.CursorPosition);
+                if(Input.GetKeyDown(KeyCode.E))
+                {
+                    Debug.Log("Interact");
+                    context?.Interact();
+                }
+            }
+            
         }
         
         #region Action Bar - Strategy Pattern
         
-
-        
         public void SetWeaponStrategy()
         {
+            //Disable the generic strategy
+            _genericStrategy.gameObject.SetActive(false);
+            
+            //Enable the weapon strategy
+            _weaponStrategy.gameObject.SetActive(true);
+            
+            
             _actionStrategy = _weaponStrategy;
         }
         
         public void SetGenericStrategy()
         {
+            //Disable the weapon strategy
+            _weaponStrategy.gameObject.SetActive(false);
+            
+            //Enable the generic strategy
+            _genericStrategy.gameObject.SetActive(true);
+            
             _actionStrategy = _genericStrategy;
         }
         
