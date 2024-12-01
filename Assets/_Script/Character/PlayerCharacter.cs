@@ -47,6 +47,8 @@ namespace _Script.Character
             _genericStrategy = GetComponent<GenericItemStrategy>();
             _playerInventory = GetComponentInChildren<PlayerInventory>();
             _playerEquipment = GetComponent<PlayerEquipmentInventory>();
+            
+            UnsetAllStrategy();
         }
         
         private InteractionContext _context;
@@ -54,15 +56,17 @@ namespace _Script.Character
 
         public void Update()
         {
+            //Interact with world objects
             if (CursorMovementTracker.HasCursorMoved)
             {
+                //get the interactable object
                 _context = _interactionBase.InteractableRaycast(transform.position, CursorMovementTracker.CursorPosition);
 
                 if (_context != null)
                 {
                     _context.GetInteractableName();
 
-                    _context.Highlight(out IInteractable interactable);
+                    _context.Highlight(out var interactable);
 
                     if (_currentlyHighlightedObject == interactable) return;
                     _currentlyHighlightedObject?.OnHighlightEnd();
@@ -84,10 +88,10 @@ namespace _Script.Character
         public void SetWeaponStrategy()
         {
             //Disable the generic strategy
-            _genericStrategy.gameObject.SetActive(false);
+            _genericStrategy.enabled = false;
             
             //Enable the weapon strategy
-            _weaponStrategy.gameObject.SetActive(true);
+            _weaponStrategy.enabled = true;
             
             
             _actionStrategy = _weaponStrategy;
@@ -96,10 +100,10 @@ namespace _Script.Character
         public void SetGenericStrategy()
         {
             //Disable the weapon strategy
-            _weaponStrategy.gameObject.SetActive(false);
+            _weaponStrategy.enabled = false;
             
             //Enable the generic strategy
-            _genericStrategy.gameObject.SetActive(true);
+            _genericStrategy.enabled = true;
             
             _actionStrategy = _genericStrategy;
         }
@@ -109,6 +113,13 @@ namespace _Script.Character
             _actionStrategy = null;
         }
 
+        public void UnsetAllStrategy()
+        {
+            _actionStrategy = null;
+            _weaponStrategy.enabled = false;
+            _genericStrategy.enabled = false;
+        }
+        
         /**
          * Called when the left mouse button is pressed and holding
          */

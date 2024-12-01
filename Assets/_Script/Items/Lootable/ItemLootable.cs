@@ -112,6 +112,7 @@ namespace _Script.Items.Lootable
 
         public void OnHighlightEnd()
         {
+            if(_spriteRenderer == null) return;
             _spriteRenderer.color = Color.white;
         }
 

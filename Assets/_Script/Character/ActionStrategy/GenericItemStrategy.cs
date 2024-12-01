@@ -43,6 +43,7 @@ namespace _Script.Character.ActionStrategy
         
         private void Update()
         {
+            Debug.Log("Generic Item Strategy Update");
             OnUpdatePosition();
         }
 
