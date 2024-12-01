@@ -1,12 +1,13 @@
 using System.Collections;
 using _Script.Character;
+using _Script.Interactable;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
 namespace _Script.Items.Lootable
 {
     [RequireComponent(typeof(SpriteRenderer), typeof(Collider2D))]
-    public class ItemLootable : Interactable.Interactable
+    public class ItemLootable : MonoBehaviour, IInteractable
     {
         [SerializeField] private ItemData itemData;
         [SerializeField] private int quantity = 1;
@@ -33,8 +34,6 @@ namespace _Script.Items.Lootable
                 _spriteRenderer.sprite = itemData.ItemIcon;
             }
         }
-
-  
 
         private void Start()
         {
@@ -84,28 +83,9 @@ namespace _Script.Items.Lootable
             
         }
 
-        protected override bool CanInteract()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        protected override void OnInteract()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        protected override void OnInteractCanceled()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        protected override void OnInteractCompleted()
-        {
-            throw new System.NotImplementedException();
-        }
-        
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            return;
             if(_isPickedUp) return;
             if (collision.CompareTag("Player"))
             {
@@ -117,6 +97,22 @@ namespace _Script.Items.Lootable
         public void Interact(GameObject player)
         {
             PickupItem(player);
+        }
+
+        public void InteractEnd(GameObject player)
+        {
+            
+        }
+
+        public void OnHighlight()
+        {
+            //light green
+            _spriteRenderer.color = new Color(0.5f, 1f, 0.5f, 1f);
+        }
+
+        public void OnHighlightEnd()
+        {
+            _spriteRenderer.color = Color.white;
         }
 
         private void PickupItem(GameObject player)
@@ -141,6 +137,16 @@ namespace _Script.Items.Lootable
             {
                 _isPickedUp = false;
             }
+        }
+
+        public void Interact()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void InteractEnd()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

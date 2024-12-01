@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using _Script.Attribute;
 using _Script.Character.Ability;
 using _Script.Character.ActionStrategy;
+using _Script.Interactable;
 using _Script.Inventory.EquipmentBackend;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryHandles;
@@ -47,20 +49,35 @@ namespace _Script.Character
             _playerEquipment = GetComponent<PlayerEquipmentInventory>();
         }
         
+        private InteractionContext _context;
+        private IInteractable _currentlyHighlightedObject = null;
+
         public void Update()
         {
-
             if (CursorMovementTracker.HasCursorMoved)
             {
-                var context = _interactionBase.InteractableRaycast(transform.position, CursorMovementTracker.CursorPosition);
-                if(Input.GetKeyDown(KeyCode.E))
+                _context = _interactionBase.InteractableRaycast(transform.position, CursorMovementTracker.CursorPosition);
+
+                if (_context != null)
                 {
-                    Debug.Log("Interact");
-                    context?.Interact();
+                    _context.GetInteractableName();
+
+                    _context.Highlight(out IInteractable interactable);
+
+                    if (_currentlyHighlightedObject == interactable) return;
+                    _currentlyHighlightedObject?.OnHighlightEnd();
+                    _currentlyHighlightedObject = interactable;
+                }
+                else
+                {
+                    // if there is no interactable object
+                    if (_currentlyHighlightedObject == null) return;
+                    _currentlyHighlightedObject.OnHighlightEnd();
+                    _currentlyHighlightedObject = null;
                 }
             }
-            
         }
+
         
         #region Action Bar - Strategy Pattern
         
@@ -99,7 +116,15 @@ namespace _Script.Character
         {
             //Get Action bar Item
             //call the function
-            _actionStrategy?.LeftMouseButtonDown(direction);
+            
+            if(_context != null)
+            {
+                _context.Interact(gameObject);
+            }
+            else
+            {
+                _actionStrategy?.LeftMouseButtonDown(direction);
+            }
         }
         
         /**
