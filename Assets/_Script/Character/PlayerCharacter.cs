@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using _Script.Attribute;
 using _Script.Character.Ability;
 using _Script.Character.ActionStrategy;
+using _Script.Interactable;
 using _Script.Inventory.EquipmentBackend;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryHandles;
+using _Script.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -21,8 +24,9 @@ namespace _Script.Character
         private IPlayerInventoryHandle _playerInventory;
         private IPlayerEquipmentHandle _playerEquipment;
         
+        private InteractionBase _interactionBase;
         private WeaponStrategy _weaponStrategy; public WeaponStrategy WeaponStrategy => _weaponStrategy;
-        private GenericStrategy _genericStrategy; public GenericStrategy GenericStrategy => _genericStrategy;
+        private GenericItemStrategy _genericStrategy; public GenericItemStrategy GenericStrategy => _genericStrategy;
         private IActionStrategy _actionStrategy;
 
         #region Player Attribute from Equipment
@@ -38,24 +42,65 @@ namespace _Script.Character
 
         private void Awake()
         {
+            _interactionBase = new InteractionBase();
             _weaponStrategy = GetComponent<WeaponStrategy>();
-            _genericStrategy = GetComponent<GenericStrategy>();
+            _genericStrategy = GetComponent<GenericItemStrategy>();
             _playerInventory = GetComponentInChildren<PlayerInventory>();
             _playerEquipment = GetComponent<PlayerEquipmentInventory>();
-            //debug Equipment inventory
         }
+        
+        private InteractionContext _context;
+        private IInteractable _currentlyHighlightedObject = null;
+
+        public void Update()
+        {
+            if (CursorMovementTracker.HasCursorMoved)
+            {
+                _context = _interactionBase.InteractableRaycast(transform.position, CursorMovementTracker.CursorPosition);
+
+                if (_context != null)
+                {
+                    _context.GetInteractableName();
+
+                    _context.Highlight(out IInteractable interactable);
+
+                    if (_currentlyHighlightedObject == interactable) return;
+                    _currentlyHighlightedObject?.OnHighlightEnd();
+                    _currentlyHighlightedObject = interactable;
+                }
+                else
+                {
+                    // if there is no interactable object
+                    if (_currentlyHighlightedObject == null) return;
+                    _currentlyHighlightedObject.OnHighlightEnd();
+                    _currentlyHighlightedObject = null;
+                }
+            }
+        }
+
         
         #region Action Bar - Strategy Pattern
         
-
-        
         public void SetWeaponStrategy()
         {
+            //Disable the generic strategy
+            _genericStrategy.gameObject.SetActive(false);
+            
+            //Enable the weapon strategy
+            _weaponStrategy.gameObject.SetActive(true);
+            
+            
             _actionStrategy = _weaponStrategy;
         }
         
         public void SetGenericStrategy()
         {
+            //Disable the weapon strategy
+            _weaponStrategy.gameObject.SetActive(false);
+            
+            //Enable the generic strategy
+            _genericStrategy.gameObject.SetActive(true);
+            
             _actionStrategy = _genericStrategy;
         }
         
@@ -71,7 +116,15 @@ namespace _Script.Character
         {
             //Get Action bar Item
             //call the function
-            _actionStrategy?.LeftMouseButtonDown(direction);
+            
+            if(_context != null)
+            {
+                _context.Interact(gameObject);
+            }
+            else
+            {
+                _actionStrategy?.LeftMouseButtonDown(direction);
+            }
         }
         
         /**

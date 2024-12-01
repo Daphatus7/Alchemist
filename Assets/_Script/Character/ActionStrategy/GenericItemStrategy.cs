@@ -10,15 +10,16 @@ using UnityEngine.InputSystem;
 namespace _Script.Character.ActionStrategy
 {
     [DefaultExecutionOrder(50)]
-    public sealed class GenericStrategy : MonoBehaviour, IActionStrategy
+    public sealed class GenericItemStrategy : MonoBehaviour, IActionStrategy
     {
         /**
          * Consider this as temporary solution
          */
         [SerializeField] private Transform itemSlot;
         [SerializeField] private GameObject itemInHandPrefab;
-        private static GameObject currentItem;
-        private static SpriteRenderer currentSpriteRenderer;
+        private GameObject currentItem;
+        private SpriteRenderer currentSpriteRenderer;
+        [SerializeField] private float itemDistance = 1f;
         
         public void LeftMouseButtonDown(Vector3 direction)
         {
@@ -58,21 +59,16 @@ namespace _Script.Character.ActionStrategy
                 // get mouse position
 
                 // convert screen position to world position
-                if (Camera.main)
+                if (CursorMovementTracker.HasCursorMoved)
                 {
-                    Vector3 mousePosition = Mouse.current.position.ReadValue();
+                    
+                    Vector3 mousePosition = CursorMovementTracker.CursorPosition;
                     // convert screen position to world position
-                    var worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
                     // calculate direction and distance
                
-                    Vector3 direction = (worldPosition - transform.position) * 3f;
-                    
-                    if(direction.magnitude > 2f)
-                    {
-                        direction = direction.normalized * 2f;
-                    }
-                    
-                    Vector3 targetPosition =  itemSlot.position + direction;
+                    Vector3 direction = (mousePosition - itemSlot.position);
+                    var extent = Mathf.Min(direction.magnitude, itemDistance);
+                    Vector3 targetPosition = itemSlot.position + direction.normalized * extent;
 
                     // update item position
                     currentItem.transform.position = new Vector3(targetPosition.x, targetPosition.y, 0);

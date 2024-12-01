@@ -49,7 +49,7 @@ namespace _Script.Map
         private void Update()
         {
             
-            TrackCursorMovement();
+            TrackHasCursorMoved();
             
             if(_needsUpdate && _canEdit)
             {
@@ -82,13 +82,6 @@ namespace _Script.Map
             //     Vector3 position = Helper.GetMouseWorldPosition();
             //     tileMap.Use(position);
             // }
-            
-            if (Input.GetMouseButtonDown(1))
-            {
-                Debug.Log("Placing Soil");
-                Vector3 position = Helper.GetMouseWorldPosition();
-                tileMap.AddCrop(position, cropPrefab);
-            }
         }
         
         private void OnEnable()
@@ -145,7 +138,7 @@ namespace _Script.Map
         private Vector2Int _lastCursorPosition;
         public event Action<Vector2> OnCursorMoved;
         
-        private void TrackCursorMovement()
+        private void TrackHasCursorMoved()
         {
             // Get the current cursor position
             Vector3 currentCursorPosition = Helper.GetMouseWorldPosition();

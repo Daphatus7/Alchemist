@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _Script.Interactable;
 using _Script.Managers;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace _Script.Alchemy.Plant
      * The instance of a plant.
      */
     [RequireComponent(typeof(SpriteRenderer))]
-    public class Crop : Interactable.Interactable, ITimeHandle
+    public class Crop : MonoBehaviour, IInteractable
     {
         [SerializeField] private int _currentGrowthTime = 0; // Tracks how many days the plant has grown
         [SerializeField] private int _maturationTime = 10; // Days required for the plant to fully mature
@@ -116,15 +117,27 @@ namespace _Script.Alchemy.Plant
             Grow();
         }
 
-        protected override bool CanInteract()
+        public void Interact(GameObject player)
         {
-            return Mature;
+            if(Mature)
+            {
+                Harvest();
+            }
         }
 
-        protected override void OnInteractCompleted()
+        public void InteractEnd(GameObject player)
         {
-            Debug.Log("Crop harvested!");
-            Harvest();
+            
+        }
+
+        public void OnHighlight()
+        {
+            _spriteRenderer.color = Color.yellow;
+        }
+        
+        public void OnHighlightEnd()
+        {
+            _spriteRenderer.color = Color.white;
         }
     }
 }
