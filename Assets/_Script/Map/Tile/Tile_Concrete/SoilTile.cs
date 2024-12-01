@@ -43,6 +43,7 @@ namespace _Script.Map.Tile.Tile_Concrete
             //if the plant is already grown, harvest it
             //try to get the seed that the player is holding
             //if indeed the player is holding a seed, plant it, remove the seed from the player's inventory
+            _crop?.Harvest();
         }
 
         public void AddCrop(Crop crop)

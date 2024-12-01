@@ -65,7 +65,7 @@ namespace _Script.Character
                 if (_context != null)
                 {
                     _context.GetInteractableName();
-
+                    
                     _context.Highlight(out var interactable);
 
                     if (_currentlyHighlightedObject == interactable) return;
@@ -81,7 +81,6 @@ namespace _Script.Character
                 }
             }
         }
-
         
         #region Action Bar - Strategy Pattern
         
@@ -92,7 +91,6 @@ namespace _Script.Character
             
             //Enable the weapon strategy
             _weaponStrategy.enabled = true;
-            
             
             _actionStrategy = _weaponStrategy;
         }

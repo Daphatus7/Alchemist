@@ -159,18 +159,16 @@ namespace _Script.Map.GridMap
             return _grid.GetGridArray()[x, y].GetTileType();
         }
 
-        public void AddCrop(Vector3 position, GameObject cropPrefab)
+        public void AddCrop(Vector2Int position, GameObject cropPrefab)
         {
-            int x, y;
-            _grid.GetXY(position, out x, out y);
-            if (x < 0 || y < 0 || x >= _grid.GetWidth() || y >= _grid.GetHeight())
+            if (position.x < 0 || position.y < 0 || position.x >= _grid.GetWidth() || position.y >= _grid.GetHeight())
             {
                 return;
             }
-            var soilTile = _grid.GetGridArray()[x, y].GetBaseTile();
+            var soilTile = _grid.GetGridArray()[position.x, position.y].GetBaseTile();
             if(soilTile is SoilTile tile)
             {
-                var crop = Instantiate(cropPrefab, _grid.GetGridCenterWorldPosition(x, y), Quaternion.identity).GetComponent<Crop>();
+                var crop = Instantiate(cropPrefab, _grid.GetGridCenterWorldPosition(position.x, position.y), Quaternion.identity).GetComponent<Crop>();
                 tile.AddCrop(crop);
             }
         }

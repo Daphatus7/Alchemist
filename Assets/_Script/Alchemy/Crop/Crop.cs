@@ -10,7 +10,7 @@ namespace _Script.Alchemy.Plant
      * The instance of a plant.
      */
     [RequireComponent(typeof(SpriteRenderer))]
-    public class Crop : MonoBehaviour, IInteractable
+    public class Crop : MonoBehaviour
     {
         [SerializeField] private int _currentGrowthTime = 0; // Tracks how many days the plant has grown
         [SerializeField] private int _maturationTime = 10; // Days required for the plant to fully mature
@@ -74,7 +74,6 @@ namespace _Script.Alchemy.Plant
         private void UpdateSprite(int growthStageIndex)
         {
             _spriteRenderer.sprite = _growthStages[growthStageIndex];
-
         }
 
         public void Harvest()

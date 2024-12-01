@@ -23,6 +23,7 @@ namespace _Script.Map
         [SerializeField] private bool _needsUpdate = false;
         [SerializeField] private bool _canEdit = false;
         
+        //Test only crop prefab, need to be removed later
         [SerializeField] private GameObject cropPrefab;
         
         
@@ -76,39 +77,27 @@ namespace _Script.Map
             //     tileMap.SetTile(position, new List<TileType> {TileType.Soil});
             // }
             //
-            // if (Input.GetMouseButtonDown(1))
-            // {
-            //     Debug.Log("Mouse Clicked");
-            //     Vector3 position = Helper.GetMouseWorldPosition();
-            //     tileMap.Use(position);
-            // }
-        }
-        
-        private void OnEnable()
-        {
-            SceneView.duringSceneGui += OnSceneGUI;
-        }
-
-        private void OnDisable()
-        {
-            SceneView.duringSceneGui -= OnSceneGUI;
-        }
-        
-        
-        private void OnSceneGUI(SceneView sceneView)
-        {
-            if (!_canEdit) return;
-            Event e = Event.current;
-            // detect left mouse click
-            if (e.type == EventType.MouseDown && e.button == 0)
+            if (Input.GetMouseButtonDown(1))
             {
-                Vector3 position = Helper.GetMouseWorldPositionInEditor();
-                //tileMap.SetTileType(position, TileType.Dirt);
-                _needsUpdate = true;
-                
-                e.Use(); // mark the event as "used" so it doesn't propagate
+                Debug.Log("Mouse Clicked");
+                Vector3 position = Helper.GetMouseWorldPosition();
+                tileMap.Use(position);
             }
+            
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Debug.Log("Plant");
+                tileMap.AddCrop(_pointedTile.Position, cropPrefab);
+            }
+            
+            if(Input.GetMouseButtonDown(0))
+            {
+                _pointedTile.Use();
+            }
+            
+            
         }
+        
 
         #region Save-and-Load
         
@@ -161,6 +150,37 @@ namespace _Script.Map
             }
         }
         
+
+        #endregion
+
+        #region Disabled Code
+
+        // GUI
+        // private void OnEnable()
+        // {
+        //     SceneView.duringSceneGui += OnSceneGUI;
+        // }
+        //
+        // private void OnDisable()
+        // {
+        //     SceneView.duringSceneGui -= OnSceneGUI;
+        // }
+        //
+        //
+        // private void OnSceneGUI(SceneView sceneView)
+        // {
+        //     if (!_canEdit) return;
+        //     Event e = Event.current;
+        //     // detect left mouse click
+        //     if (e.type == EventType.MouseDown && e.button == 0)
+        //     {
+        //         Vector3 position = Helper.GetMouseWorldPositionInEditor();
+        //         //tileMap.SetTileType(position, TileType.Dirt);
+        //         _needsUpdate = true;
+        //         
+        //         e.Use(); // mark the event as "used" so it doesn't propagate
+        //     }
+        // }
 
         #endregion
     }

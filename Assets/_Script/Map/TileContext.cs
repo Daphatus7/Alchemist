@@ -22,11 +22,11 @@ namespace _Script.Map
         public TileType TileType => _tile.GetTileType();
         
 
-        public Vector2 Position
+        public Vector2Int Position
         {
             get
             {
-                return new Vector2(_tile.GetBaseTile().X,
+                return new Vector2Int(_tile.GetBaseTile().X,
                     _tile.GetBaseTile().Y);
             }
         }

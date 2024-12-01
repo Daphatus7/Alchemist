@@ -32,7 +32,6 @@ namespace _Script.Inventory.InventoryBackend
             // Initialize the slots array with the capacity
             inventoryOwner = GetComponentInParent<PlayerCharacter>();
             slots = new InventorySlot[capacity];
-            Debug.Log("Initializing inventory slots..." + capacity);
             for (int i = 0; i < capacity; i++)
             {
                 slots[i] = new InventorySlot();
