@@ -8,15 +8,6 @@ namespace _Script.Items.AbstractItemTypes
         public ArmourType armourType = ArmourType.None;
         public override EquipmentType EquipmentType => EquipmentType.Armour;
         public float defence = 1;
-
-        public override void OnSelected(PlayerCharacter playerCharacter)
-        {
-        }
-        
-        public override void OnDeselected(PlayerCharacter playerCharacter)
-        {
-            
-        }
     }
     
     public enum ArmourType

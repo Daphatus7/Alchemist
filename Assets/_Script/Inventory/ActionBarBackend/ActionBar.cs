@@ -45,7 +45,23 @@ namespace _Script.Inventory.ActionBarBackend
             SetSelectedItem(slotIndex);
             if (_selectedItem != null)
             {
-                _selectedItem.ItemData.OnSelected(inventoryOwner);
+                var itemType = _selectedItem.ItemData.ItemTypeString;
+                if(itemType == "Seed")
+                {
+                    inventoryOwner.GenericStrategy.ChangeItem(_selectedItem.ItemData);
+                    inventoryOwner.SetGenericStrategy();
+                }
+                else if (itemType == "Weapon")
+                {
+                    //spawn the weapon
+                    //Let player handle the weapon
+                    inventoryOwner.WeaponStrategy.ChangeWeapon(_selectedItem.ItemData);
+                    //Set Strategy
+                    inventoryOwner.SetWeaponStrategy();                }
+                else
+                {
+                    Debug.LogWarning("Selected item is not a seed.");
+                }
             }
             else
             {
@@ -70,7 +86,23 @@ namespace _Script.Inventory.ActionBarBackend
         /// <param name="slotIndex"></param>
         public void OnDeSelectItem(int slotIndex)
         {
-            _selectedItem?.ItemData.OnDeselected(inventoryOwner);
+            //if slot has no item do nothing
+            if(Slots[slotIndex].Item == null) return;
+            
+            var itemTypeName = Slots[slotIndex].Item.ItemData.ItemTypeString;
+            if(itemTypeName == "Seed")
+            {
+                inventoryOwner.GenericStrategy.RemoveItem();
+            }
+            else if (itemTypeName == "Weapon")
+            {
+                inventoryOwner.WeaponStrategy.RemoveWeapon();
+            }
+            else
+            {
+                Debug.LogWarning("Selected item is not valid.");
+            }
+            inventoryOwner.UnsetStrategy();
             _selectedItem = null;
         }
     }

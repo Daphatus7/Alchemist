@@ -18,14 +18,6 @@ namespace _Script.Items
         {
             
         }
-
-        public override void OnSelected(PlayerCharacter playerCharacter)
-        {
-        }
-
-        public override void OnDeselected(PlayerCharacter playerCharacter)
-        {
-        }
     }
     
     public enum ConsumableType

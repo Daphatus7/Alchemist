@@ -32,10 +32,6 @@ namespace _Script.Items.AbstractItemTypes
              * Use the item, When using an item, this applies effect to the player either by equipping, consuming etc.
              */
             public abstract void Use(PlayerCharacter playerCharacter);
-
-            public abstract void OnSelected(PlayerCharacter playerCharacter);
-            
-            public abstract void OnDeselected(PlayerCharacter playerCharacter);
         }
 
         public enum ItemType

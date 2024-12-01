@@ -33,7 +33,14 @@ namespace _Script.Map
         
         public void Use()
         {
-            _tile.Use();
+            if (_tile != null)
+            {
+                _tile.Use();
+            }
+            else
+            {
+                Debug.Log("Tile is null");
+            }
         }
         
         public bool AddCrop(Crop crop)

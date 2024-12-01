@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using _Script.Items.AbstractItemTypes;
+using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -40,32 +41,37 @@ namespace _Script.Character.ActionStrategy
                 _currentWeapon.transform.rotation = Quaternion.Euler(0, 0, angle);
             }
         }
-        
+
         /// <summary>
         /// Make sure there is no weapon selected before changing weapon
         /// </summary>
-        /// <param name="weaponPrefab"></param>
-        /// <param name="weaponItem"></param>
-        public void ChangeWeapon(GameObject weaponPrefab, WeaponItem weaponItem)
+        /// <param name="itemData"></param>
+        public void ChangeWeapon(ItemData itemData)
         {
-            
-            //if there is a weapon, don't change weapon
-            if (_currentWeapon)
+            var weaponItem = itemData as WeaponItem;
+            if (weaponItem != null)
             {
-                Debug.LogError("Cannot change weapon, there is a weapon equipped");
-                return;
-            }
-            // Spawn weapon
-            var weapon = Instantiate(weaponPrefab, weaponSlot.transform.position, Quaternion.identity);
-            weapon.transform.parent = weaponSlot.transform;
-            // destroy current weapon
-            if(_currentWeapon != null)
-            {
-                Destroy(_currentWeapon.gameObject);
-            }
+                var weaponPrefab = weaponItem.weaponPrefab;
             
-            // set new weapon
-            _currentWeapon = weapon.GetComponent<Weapon.Weapon>();
+                //if there is a weapon, don't change weapon
+                if (_currentWeapon)
+                {
+                    Debug.LogError("Cannot change weapon, there is a weapon equipped");
+                    return;
+                }
+                // Spawn weapon
+                var weapon = Instantiate(weaponPrefab, weaponSlot.transform.position, Quaternion.identity);
+                weapon.transform.parent = weaponSlot.transform;
+                // destroy current weapon
+                if(_currentWeapon != null)
+                {
+                    Destroy(_currentWeapon.gameObject);
+                }
+            
+                // set new weapon
+                _currentWeapon = weapon.GetComponent<Weapon.Weapon>();
+            }
+
             _currentWeapon.SetWeaponItem(weaponItem, targetTags);
         }
         

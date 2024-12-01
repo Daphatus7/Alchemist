@@ -92,7 +92,7 @@ namespace _Script.Map
             
             if(Input.GetMouseButtonDown(0))
             {
-                _pointedTile.Use();
+                _pointedTile?.Use();
             }
             
             

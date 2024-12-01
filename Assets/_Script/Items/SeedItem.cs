@@ -16,17 +16,5 @@ namespace _Script.Items
         {
             base.Use(playerCharacter);
         }
-        
-        public override void OnSelected(PlayerCharacter playerCharacter)
-        {
-            playerCharacter.GenericStrategy.ChangeItem(this);
-            playerCharacter.SetGenericStrategy();
-        }
-        
-        public override void OnDeselected(PlayerCharacter playerCharacter)
-        {
-            playerCharacter.GenericStrategy.RemoveItem();
-            playerCharacter.UnsetStrategy();
-        }
     }
 }

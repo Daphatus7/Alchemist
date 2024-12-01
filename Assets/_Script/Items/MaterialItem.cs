@@ -16,14 +16,5 @@ namespace _Script.Items
         {
             Debug.Log($"{ItemName} is a material and cannot be used directly.");
         }
-        
-        public override void OnSelected(PlayerCharacter playerCharacter)
-        {
-        }
-        
-        public override void OnDeselected(PlayerCharacter playerCharacter)
-        {
-            
-        }
     }
 }

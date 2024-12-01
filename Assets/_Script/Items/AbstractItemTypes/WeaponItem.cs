@@ -19,31 +19,6 @@ namespace _Script.Items.AbstractItemTypes
         {
             
         }
-
-        /// <summary>
-        /// Don't make tangled logic - let one method handles only one thing
-        /// </summary>
-        /// <param name="playerCharacter"></param>
-        public override void OnSelected(PlayerCharacter playerCharacter)
-        {
-            //spawn the weapon
-            //Let player handle the weapon
-            playerCharacter.WeaponStrategy.ChangeWeapon(weaponPrefab, this);
-            //Set Strategy
-            playerCharacter.SetWeaponStrategy();
-        }
-        
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="playerCharacter"></param>
-        public override void OnDeselected(PlayerCharacter playerCharacter)
-        {
-            //could this leads to deleting wrong item
-            playerCharacter.WeaponStrategy.RemoveWeapon();
-            playerCharacter.UnsetStrategy();
-        }
     }
 
     public enum WeaponType

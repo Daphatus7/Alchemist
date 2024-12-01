@@ -20,10 +20,11 @@ namespace _Script.Character.ActionStrategy
         private GameObject currentItem;
         private SpriteRenderer currentSpriteRenderer;
         [SerializeField] private float itemDistance = 1f;
+        private ItemData _itemData;
         
         public void LeftMouseButtonDown(Vector3 direction)
         {
-            Debug.Log("Left Mouse Button Down");
+            
         }
 
         public void LeftMouseButtonUp(Vector3 direction)
@@ -51,6 +52,9 @@ namespace _Script.Character.ActionStrategy
         {
             var tile = GameTileMap.Instance.PointedTile;
         }
+        
+        
+        
         
         private void OnUpdatePosition()
         {
@@ -80,6 +84,7 @@ namespace _Script.Character.ActionStrategy
         
         public void ChangeItem(ItemData itemData)
         {
+            _itemData = itemData;
             // Spawn
             //if the item is spawned but not enabled, enable it
             if (currentItem)
