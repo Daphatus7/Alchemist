@@ -223,24 +223,25 @@ namespace _Script.Inventory.InventoryBackend
         /**
          * When right-clicking on an inventory item.
          */
-        private void UseItem(int slotIndex)
+        private bool UseItem(int slotIndex)
         {
             if (slotIndex < 0 || slotIndex >= capacity)
             {
                 Debug.LogWarning("Invalid slot index.");
-                return;
+                return false;
             }
 
             InventorySlot slot = slots[slotIndex];
             if (slot.IsEmpty)
             {
                 //Debug.Log("Slot is empty.");
-                return;
+                return false;
             }
 
             ItemData itemData = slot.Item.ItemData;
 
             OnUsingItem(itemData, slotIndex);
+            return true;
         }
         
         /**
@@ -255,7 +256,10 @@ namespace _Script.Inventory.InventoryBackend
             // Implement item usage logic
             
             //Use Equipment Item - if there is item in the equipment inventory, remove it and add it back to the inventory
-            if(itemData.ItemType == ItemType.Equipment)
+            var itemType = itemData.ItemTypeString;
+            
+            
+            if(itemType == "Equipment")
             {
                 Debug.Log("Using Equipment Item Currently Disabled");
                 return;
@@ -268,8 +272,16 @@ namespace _Script.Inventory.InventoryBackend
                     AddItemToSlot(removedItem, slotIndex);
                 }
             }
+            else if (itemType == "Seed")
+            {
+                if(OnUseSeedItem(itemData))
+                {
+                    // Remove the item from the inventory
+                    RemoveItemFromSlot(slotIndex, 1);
+                }
+            }
             //Use Consumable Item - if the item is used, remove it from the inventory
-            else if(itemData.ItemType == ItemType.Consumable)
+            else if(itemType == "Consumable")
             {
                 if (OnUseConsumableItem((ConsumableItem)itemData))
                 {
@@ -278,9 +290,10 @@ namespace _Script.Inventory.InventoryBackend
                 }
             }
             //Use Material Item
-            else if(itemData.ItemType == ItemType.Material)
+            else if(itemType == "Material")
             {
                 OnUseMaterialItem(itemData);
+                Debug.Log("There is no effect for using material item.");
             }
         }
 
@@ -298,6 +311,11 @@ namespace _Script.Inventory.InventoryBackend
         {
             itemData.Use(inventoryOwner);
             return null;
+        }
+        
+        private bool OnUseSeedItem(ItemData itemData)
+        {
+            return itemData.Use(inventoryOwner);
         }
         
         
@@ -322,7 +340,6 @@ namespace _Script.Inventory.InventoryBackend
 
                 // Notify UI update
                 OnInventorySlotChanged?.Invoke(slotIndex);
-
                 return true;
             }
             else

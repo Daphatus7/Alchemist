@@ -38,7 +38,6 @@ namespace _Script.Map.Tile.Tile_Concrete
 
         public override void Use()
         {
-            Debug.Log("using dirt tile");
         }
     }
 }

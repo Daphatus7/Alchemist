@@ -1,5 +1,8 @@
 
+using System;
+using _Script.Character;
 using _Script.Items;
+using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
 namespace _Script.Inventory.ActionBarBackend
@@ -34,6 +37,8 @@ namespace _Script.Inventory.ActionBarBackend
         }
         private int _selectedSlotIndex; public int SelectedSlotIndex => _selectedSlotIndex;
         
+        private ActionBarContext _actionBarContext;
+        
         /// <summary>
         /// this provides interface for external classes to select the item
         /// No tangled logic
@@ -46,9 +51,12 @@ namespace _Script.Inventory.ActionBarBackend
             if (_selectedItem != null)
             {
                 var itemType = _selectedItem.ItemData.ItemTypeString;
+                
+                //allowing the item to be used temporarily
+                _actionBarContext = new ActionBarContext(LeftClickItem, slotIndex, _selectedItem.ItemData);
                 if(itemType == "Seed")
                 {
-                    inventoryOwner.GenericStrategy.ChangeItem(_selectedItem.ItemData);
+                    inventoryOwner.GenericStrategy.ChangeItem(_selectedItem.ItemData, _actionBarContext);
                     inventoryOwner.SetGenericStrategy();
                 }
                 else if (itemType == "Weapon")
@@ -104,6 +112,31 @@ namespace _Script.Inventory.ActionBarBackend
             }
             inventoryOwner.UnsetStrategy();
             _selectedItem = null;
+        }
+    }
+
+    public class ActionBarContext
+    {
+        private readonly Action<int> _performAction; // Use Action<int> for a method that takes an int and returns void
+        private readonly int _selectedSlotIndex;
+        private readonly ItemData _itemData;
+
+        // Expose ItemData through a property
+        public ItemData ItemData => _itemData;
+
+        // Constructor accepting Action<int> for slot-specific actions
+        public ActionBarContext(Action<int> performAction, int selectedSlotIndex, ItemData itemData)
+        {
+            _performAction = performAction ?? throw new ArgumentNullException(nameof(performAction));
+            _itemData = itemData ?? throw new ArgumentNullException(nameof(itemData));
+            _selectedSlotIndex = selectedSlotIndex;
+        }
+
+        // UseItem now calls the Action<int> delegate
+        public void UseItem()
+        {
+            Debug.Log("Using item at slot index " + _selectedSlotIndex);
+            _performAction(_selectedSlotIndex);
         }
     }
 }

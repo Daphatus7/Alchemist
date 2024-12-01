@@ -20,7 +20,6 @@ namespace _Script.Map
         }
         
         public TileType TileType => _tile.GetTileType();
-        
 
         public Vector2Int Position
         {
@@ -37,23 +36,6 @@ namespace _Script.Map
             {
                 _tile.Use();
             }
-            else
-            {
-                Debug.Log("Tile is null");
-            }
-        }
-        
-        public bool AddCrop(Crop crop)
-        {
-            if (_tile.GetBaseTile() is SoilTile soilTile)
-            {
-                if(soilTile.IsFertile)
-                {
-                    soilTile.AddCrop(crop);
-                    return true;
-                }
-            }
-            return false;
         }
     }
 }

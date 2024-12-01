@@ -1,5 +1,6 @@
 using _Script.Character;
 using _Script.Items.AbstractItemTypes._Script.Items;
+using _Script.Map;
 using UnityEngine;
 
 namespace _Script.Items
@@ -12,9 +13,9 @@ namespace _Script.Items
         
         public GameObject cropPrefab;
 
-        public override void Use(PlayerCharacter playerCharacter)
+        public override bool Use(PlayerCharacter playerCharacter)
         {
-            base.Use(playerCharacter);
+            return GameTileMap.Instance.AddCrop(cropPrefab);
         }
     }
 }

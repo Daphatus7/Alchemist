@@ -145,6 +145,10 @@ namespace _Script.Map.GridMap
         {
             int x, y;
             _grid.GetXY(position, out x, out y);
+            if (x < 0 || y < 0 || x >= _grid.GetWidth() || y >= _grid.GetHeight())
+            {
+                return;
+            }
             _grid.GetGridArray()[x, y].Use();
         }
 
@@ -159,18 +163,25 @@ namespace _Script.Map.GridMap
             return _grid.GetGridArray()[x, y].GetTileType();
         }
 
-        public void AddCrop(Vector2Int position, GameObject cropPrefab)
+        public bool AddCrop(Vector2Int position, GameObject cropPrefab)
         {
+            //check boundary
             if (position.x < 0 || position.y < 0 || position.x >= _grid.GetWidth() || position.y >= _grid.GetHeight())
             {
-                return;
+                return false;
             }
-            var soilTile = _grid.GetGridArray()[position.x, position.y].GetBaseTile();
-            if(soilTile is SoilTile tile)
+            //check if the tile is soil
+            var tile = _grid.GetGridArray()[position.x, position.y].GetBaseTile();
+            if(tile is SoilTile soilTile)
             {
-                var crop = Instantiate(cropPrefab, _grid.GetGridCenterWorldPosition(position.x, position.y), Quaternion.identity).GetComponent<Crop>();
-                tile.AddCrop(crop);
+                if (soilTile.IsFertile)
+                {
+                    var crop = Instantiate(cropPrefab, _grid.GetGridCenterWorldPosition(position.x, position.y), Quaternion.identity).GetComponent<Crop>();
+                    soilTile.AddCrop(crop);
+                    return true;
+                }
             }
+            return false;
         }
 
     }

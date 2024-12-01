@@ -11,8 +11,14 @@ namespace _Script.Map.Tile.Tile_Concrete
     {
         protected override TileType TileType => TileType.Soil;
         private Crop _crop;
-        
-        public bool IsFertile => _crop == null;
+
+        public bool IsFertile
+        {
+            get
+            {
+                return _crop is null;
+            }
+        }
         
         public SoilTile(int x, int y,IGridTileHandle gridTileHandle) : base(x, y, false, gridTileHandle)
         {
@@ -48,6 +54,7 @@ namespace _Script.Map.Tile.Tile_Concrete
 
         public void AddCrop(Crop crop)
         {
+            Debug.Log("Adding crop to soil tile");
             _crop = crop;
         }
     }

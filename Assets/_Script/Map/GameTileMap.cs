@@ -76,7 +76,7 @@ namespace _Script.Map
             //     Vector3 position = Helper.GetMouseWorldPosition();
             //     tileMap.SetTile(position, new List<TileType> {TileType.Soil});
             // }
-            //
+            
             if (Input.GetMouseButtonDown(1))
             {
                 Debug.Log("Mouse Clicked");
@@ -95,7 +95,15 @@ namespace _Script.Map
                 _pointedTile?.Use();
             }
             
-            
+        }
+
+        public bool AddCrop(GameObject crop)
+        {
+            if(_pointedTile.TileType == TileType.Soil)
+            {
+                return tileMap.AddCrop(_pointedTile.Position, crop);
+            }
+            return false;
         }
         
 
@@ -138,6 +146,7 @@ namespace _Script.Map
             //Out of bounds
             if(x < 0 || y < 0 || x >= tileMap.Grid.GetWidth() || y >= tileMap.Grid.GetHeight())
             {
+                _pointedTile = null;
                 return;
             }
             

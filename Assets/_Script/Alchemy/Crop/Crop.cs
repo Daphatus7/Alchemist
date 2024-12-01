@@ -82,7 +82,7 @@ namespace _Script.Alchemy.Plant
             {
                 // Spawn the fruit prefab at the plant's position
                 Instantiate(_fruitPrefab, transform.position, Quaternion.identity);
-
+                
                 // Optionally destroy the plant after harvesting
                 Destroy(gameObject);
             }

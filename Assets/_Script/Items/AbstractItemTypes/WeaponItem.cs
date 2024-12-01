@@ -15,9 +15,9 @@ namespace _Script.Items.AbstractItemTypes
         
         public override string ItemTypeString => "Weapon";
 
-        public override void Use(PlayerCharacter playerCharacter)
+        public override bool Use(PlayerCharacter playerCharacter)
         {
-            
+            return true;
         }
     }
 

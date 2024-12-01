@@ -1,4 +1,5 @@
 using System;
+using _Script.Inventory.ActionBarBackend;
 using _Script.Items;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using _Script.Map;
@@ -20,16 +21,14 @@ namespace _Script.Character.ActionStrategy
         private GameObject currentItem;
         private SpriteRenderer currentSpriteRenderer;
         [SerializeField] private float itemDistance = 1f;
-        private ItemData _itemData;
         
         public void LeftMouseButtonDown(Vector3 direction)
         {
-            
+            _useItem?.UseItem();
         }
 
         public void LeftMouseButtonUp(Vector3 direction)
         {
-            Debug.Log("Left Mouse Button Up");
         }
 
         private void OnEnable()
@@ -44,7 +43,6 @@ namespace _Script.Character.ActionStrategy
         
         private void Update()
         {
-            Debug.Log("Generic Item Strategy Update");
             OnUpdatePosition();
         }
 
@@ -81,11 +79,12 @@ namespace _Script.Character.ActionStrategy
             }
         }
         
+        private ActionBarContext _useItem;
         
-        public void ChangeItem(ItemData itemData)
+        public void ChangeItem(ItemData itemData, ActionBarContext useItem)
         {
-            _itemData = itemData;
             // Spawn
+            _useItem = useItem;
             //if the item is spawned but not enabled, enable it
             if (currentItem)
             {
@@ -96,7 +95,7 @@ namespace _Script.Character.ActionStrategy
                 currentItem = Instantiate(itemInHandPrefab, itemSlot.transform.position, Quaternion.identity);
                 currentItem.transform.parent = itemSlot.transform;
                 currentSpriteRenderer = currentItem.GetComponent<SpriteRenderer>();
-            } 
+            }
             //set renderer
             currentSpriteRenderer.sprite = itemData.ItemSprite;
         }

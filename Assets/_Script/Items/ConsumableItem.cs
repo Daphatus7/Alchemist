@@ -14,9 +14,9 @@ namespace _Script.Items
         public override ItemType ItemType => ItemType.Consumable;
         
         public override string ItemTypeString => "Consumable";
-        public override void Use(PlayerCharacter playerCharacter)
+        public override bool Use(PlayerCharacter playerCharacter)
         {
-            
+            return true;
         }
     }
     

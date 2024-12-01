@@ -9,9 +9,9 @@ namespace _Script.Items
     public class HelmetItem : ArmourItem
     {
         public override string ItemTypeString => "Helmet";
-        public override void Use(PlayerCharacter playerCharacter)
+        public override bool Use(PlayerCharacter playerCharacter)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
     }
 }

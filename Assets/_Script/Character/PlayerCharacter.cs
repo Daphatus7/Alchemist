@@ -51,7 +51,7 @@ namespace _Script.Character
             UnsetAllStrategy();
         }
         
-        private InteractionContext _context;
+        private InteractionContext _interactionContext;
         private IInteractable _currentlyHighlightedObject = null;
 
         public void Update()
@@ -60,13 +60,13 @@ namespace _Script.Character
             if (CursorMovementTracker.HasCursorMoved)
             {
                 //get the interactable object
-                _context = _interactionBase.InteractableRaycast(transform.position, CursorMovementTracker.CursorPosition);
+                _interactionContext = _interactionBase.InteractableRaycast(transform.position, CursorMovementTracker.CursorPosition);
 
-                if (_context != null)
+                if (_interactionContext != null)
                 {
-                    _context.GetInteractableName();
+                    _interactionContext.GetInteractableName();
                     
-                    _context.Highlight(out var interactable);
+                    _interactionContext.Highlight(out var interactable);
 
                     if (_currentlyHighlightedObject == interactable) return;
                     _currentlyHighlightedObject?.OnHighlightEnd();
@@ -125,15 +125,8 @@ namespace _Script.Character
         {
             //Get Action bar Item
             //call the function
-            
-            if(_context != null)
-            {
-                _context.Interact(gameObject);
-            }
-            else
-            {
-                _actionStrategy?.LeftMouseButtonDown(direction);
-            }
+            _actionStrategy?.LeftMouseButtonDown(direction);
+            _interactionContext.Interact(gameObject);
         }
         
         /**

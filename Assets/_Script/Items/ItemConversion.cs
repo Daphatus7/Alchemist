@@ -55,5 +55,15 @@ namespace _Script.Items
 
             return null;
         }
+        
+        public static SeedItem ConvertToSeed(ItemData itemData)
+        {
+            if (itemData is SeedItem seedItem)
+            {
+                return seedItem;
+            }
+
+            return null;
+        }
     }
 }

@@ -103,7 +103,6 @@ namespace _Script.Inventory.ActionBarFrontend
                 _actionBar.LeftClickItem(slotIndex);
                 return;
             }
-
             
             /*Deselect previous item*/
             // Unhighlight the previous slot
