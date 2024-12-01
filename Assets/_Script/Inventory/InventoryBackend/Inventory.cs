@@ -197,6 +197,7 @@ namespace _Script.Inventory.InventoryBackend
                     // If the quantity reaches zero, clear the slot's item data, but keep the slot
                     if (slot.Item.Quantity <= 0)
                     {
+                        OnItemUsedUp(i);
                         slot.Clear();
                     }
 
@@ -335,6 +336,7 @@ namespace _Script.Inventory.InventoryBackend
                 // If quantity reaches zero, clear the slot
                 if (slot.Item.Quantity <= 0)
                 {
+                    OnItemUsedUp(slotIndex);
                     slot.Clear();
                 }
 
@@ -347,6 +349,10 @@ namespace _Script.Inventory.InventoryBackend
                 Debug.Log("Not enough items in slot to remove.");
                 return false;
             }
+        }
+        
+        protected virtual void OnItemUsedUp(int slotIndex)
+        {
         }
 
         public void LeftClickItem(int slotIndex)

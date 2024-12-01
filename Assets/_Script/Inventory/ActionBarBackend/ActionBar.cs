@@ -113,6 +113,16 @@ namespace _Script.Inventory.ActionBarBackend
             inventoryOwner.UnsetStrategy();
             _selectedItem = null;
         }
+
+        protected override void OnItemUsedUp(int slotIndex)
+        {
+            //if the used up item is the selected item
+            if(slotIndex == _selectedSlotIndex)
+            {
+                _selectedItem = null;
+                OnDeSelectItem(slotIndex);
+            }
+        }
     }
 
     public class ActionBarContext
