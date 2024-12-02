@@ -145,7 +145,6 @@ namespace _Script.Inventory.ActionBarBackend
         // UseItem now calls the Action<int> delegate
         public void UseItem()
         {
-            Debug.Log("Using item at slot index " + _selectedSlotIndex);
             _performAction(_selectedSlotIndex);
         }
     }

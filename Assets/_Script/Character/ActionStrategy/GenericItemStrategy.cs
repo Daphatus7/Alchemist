@@ -20,8 +20,10 @@ namespace _Script.Character.ActionStrategy
         
         public void LeftMouseButtonDown(Vector3 direction)
         {
-            if(IsCursorInRange())
+            if (IsCursorInRange())
+            {
                 _useItem?.UseItem();
+            }
         }
 
         public void LeftMouseButtonUp(Vector3 direction)

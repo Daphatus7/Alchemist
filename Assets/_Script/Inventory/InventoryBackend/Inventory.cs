@@ -277,6 +277,7 @@ namespace _Script.Inventory.InventoryBackend
             {
                 if(OnUseSeedItem(itemData))
                 {
+                    Debug.Log("Seed item used.");
                     // Remove the item from the inventory
                     RemoveItemFromSlot(slotIndex, 1);
                 }

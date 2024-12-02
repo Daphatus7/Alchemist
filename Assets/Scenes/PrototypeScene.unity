@@ -474,7 +474,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1465828381
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &333667428
@@ -968,7 +968,7 @@ PrefabInstance:
     - target: {fileID: 1084942439330472745, guid: 339fb50ad3af84f3a9e0aecf2e37bbef,
         type: 3}
       propertyPath: quantity
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1353417606510277796, guid: 339fb50ad3af84f3a9e0aecf2e37bbef,
         type: 3}
@@ -1024,6 +1024,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: L_AlphaSeed
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172278498976130515, guid: 339fb50ad3af84f3a9e0aecf2e37bbef,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6869,7 +6874,7 @@ GameObject:
   - component: {fileID: 1901647014}
   - component: {fileID: 1901647019}
   - component: {fileID: 1901647020}
-  m_Layer: 31
+  m_Layer: 5
   m_Name: TileMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
