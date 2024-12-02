@@ -1,12 +1,8 @@
-using System;
 using _Script.Inventory.ActionBarBackend;
 using _Script.Items;
-using _Script.Items.AbstractItemTypes._Script.Items;
 using _Script.Map;
-using _Script.Map.Tile.Tile_Base;
 using _Script.Utilities;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace _Script.Character.ActionStrategy
 {
