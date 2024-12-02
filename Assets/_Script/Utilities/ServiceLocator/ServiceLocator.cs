@@ -6,22 +6,24 @@ using UnityEngine;
 namespace _Script.Utilities.ServiceLocator
 {
     [DefaultExecutionOrder(-100)]
-    public class ServiceLocator : ServiceLocatorSingleton<ServiceLocator, IGameService> 
+    public class ServiceLocator : Singleton<ServiceLocator>
     {
         private readonly Dictionary<string, List<IGameService>> services = new ();
         public List<T> Get<T>() where T : IGameService
         {
+            
             string key = typeof(T).Name;
-            if (!services.ContainsKey(key))
+            if (!services.TryGetValue(key, out var service))
             {
                 throw new InvalidOperationException($"No services registered for type {key}.");
             }
 
             // Attempt to cast each service to the desired type and return the list
-            return services[key].OfType<T>().ToList();
+            return service.OfType<T>().ToList();
         }
         public void Register<T>(T service) where T : IGameService
         {
+            Debug.Log("Registering service " + service);
             string key = typeof(T).Name;
             if (!this.services.ContainsKey(key))
             {

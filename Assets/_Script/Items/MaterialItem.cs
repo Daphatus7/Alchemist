@@ -1,4 +1,5 @@
 using _Script.Character;
+using _Script.Character.ActionStrategy;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
@@ -8,9 +9,13 @@ namespace _Script.Items
     public class MaterialItem : ItemData
     {
         public override ItemType ItemType => ItemType.Material;
-        public override void Use(PlayerCharacter PlayerCharacter)
+        
+        public override string ItemTypeString => "Material";
+        
+        public override bool Use(PlayerCharacter playerCharacter)
         {
             Debug.Log($"{ItemName} is a material and cannot be used directly.");
+            return true;
         }
     }
 }

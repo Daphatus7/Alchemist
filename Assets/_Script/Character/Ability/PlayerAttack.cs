@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Script.Character.ActionStrategy;
 using _Script.Items.AbstractItemTypes;
+using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace _Script.Character.Ability
 {
+    
     [RequireComponent(typeof(PlayerCharacter))]
-    public class PlayerAttack : MonoBehaviour
+    public class PlayerAttack : MonoBehaviour, IActionStrategy
     {
         
         [Header("Weapon")]
@@ -28,17 +31,16 @@ namespace _Script.Character.Ability
         
         private void Update()
         {
-            if(currentWeapon != null)
+            if(currentWeapon)
             {
                 Vector3 mousePosition = Mouse.current.position.ReadValue();
-                var worldPosition = Vector3.zero;
-                var _fireDirection = Vector2.zero;
-                if (Camera.main != null)
+                var fireDirection = Vector2.zero;
+                if (Camera.main)
                 {
-                    worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-                    _fireDirection = (worldPosition - transform.position).normalized;
+                    var worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+                    fireDirection = (worldPosition - transform.position).normalized;
                 }
-                var angle = Vector2.SignedAngle(Vector2.up, _fireDirection);
+                var angle = Vector2.SignedAngle(Vector2.up, fireDirection);
                 currentWeapon.transform.rotation = Quaternion.Euler(0, 0, angle);
             }
         }
@@ -85,14 +87,16 @@ namespace _Script.Character.Ability
                 currentWeapon.OnReleased(direction);
             }
         }
-        
-        public void LootWeapon(Weapon.Weapon weapon)
+
+        public void LeftMouseButtonDown(Vector3 direction)
         {
-            if(currentWeapon != null)
-            {
-                Debug.Log("Drop weapon");
-            }
-            currentWeapon = weapon;
+            
+            Pressed(direction);
+        }
+
+        public void LeftMouseButtonUp(Vector3 direction)
+        {
+            Released(direction);
         }
     }
 }

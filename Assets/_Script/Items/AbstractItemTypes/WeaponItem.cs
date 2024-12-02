@@ -1,4 +1,5 @@
 using _Script.Character;
+using _Script.Character.ActionStrategy;
 using UnityEngine;
 
 namespace _Script.Items.AbstractItemTypes
@@ -11,10 +12,12 @@ namespace _Script.Items.AbstractItemTypes
         public float attackSpeed = 1f;
         public float range = 1f;
         public GameObject weaponPrefab;
+        
+        public override string ItemTypeString => "Weapon";
 
-        public override void Use(PlayerCharacter playerCharacter)
+        public override bool Use(PlayerCharacter playerCharacter)
         {
-            playerCharacter.GetPlayerAttack().ChangeWeapon(weaponPrefab, this);
+            return true;
         }
     }
 

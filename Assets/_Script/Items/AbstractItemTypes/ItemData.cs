@@ -1,4 +1,5 @@
 using _Script.Character;
+using _Script.Character.ActionStrategy;
 using _Script.Inventory.InventoryBackend;
 using UnityEngine;
 using Sirenix.OdinInspector; // Import Odin
@@ -13,8 +14,9 @@ namespace _Script.Items.AbstractItemTypes
             [SerializeField] private string itemName;
             [SerializeField] private int itemID;
             [SerializeField, TextArea] private string itemDescription;
-            [SerializeField] private Sprite itemIcon;
+            [SerializeField] private Sprite itemIcon; public Sprite ItemSprite => itemIcon;
             [SerializeField] private int maxStackSize = 1;
+            [SerializeField] private Rarity rarity;
 
             // Public read-only properties
             public string ItemName => itemName;
@@ -24,12 +26,12 @@ namespace _Script.Items.AbstractItemTypes
             public int MaxStackSize => maxStackSize;
 
             public abstract ItemType ItemType { get; }
-
+            public abstract string ItemTypeString { get; }
             
             /**
              * Use the item, When using an item, this applies effect to the player either by equipping, consuming etc.
              */
-            public abstract void Use(PlayerCharacter playerCharacter);
+            public abstract bool Use(PlayerCharacter playerCharacter);
         }
 
         public enum ItemType
@@ -37,6 +39,17 @@ namespace _Script.Items.AbstractItemTypes
             Equipment,
             Consumable,
             Material,
+            Seed,
+            Fruit
+        }
+        
+        public enum Rarity
+        {
+            Common,
+            Uncommon,
+            Rare,
+            Epic,
+            Legendary
         }
     }
 }

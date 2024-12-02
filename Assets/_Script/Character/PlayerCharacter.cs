@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using _Script.Attribute;
 using _Script.Character.Ability;
+using _Script.Character.ActionStrategy;
+using _Script.Interactable;
 using _Script.Inventory.EquipmentBackend;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryHandles;
@@ -14,61 +17,116 @@ namespace _Script.Character
     {
         [SerializeField] private GameObject LeftHand;
         [SerializeField] private GameObject RightHand;
-        private PlayerAttack _attackAbility;
-        private Vector3 _CursorPosition; public Vector3 CursorPosition => _CursorPosition;
-        private float _mouseAngle; public float MouseAngle => _mouseAngle;
+        
+        
         private float _facingDirection; public float FacingDirection => _facingDirection;
 
         private IPlayerInventoryHandle _playerInventory;
         private IPlayerEquipmentHandle _playerEquipment;
+        
+        private InteractionBase _interactionBase;
+        private WeaponStrategy _weaponStrategy; public WeaponStrategy WeaponStrategy => _weaponStrategy;
+        private GenericItemStrategy _genericStrategy; public GenericItemStrategy GenericStrategy => _genericStrategy;
+        private IActionStrategy _actionStrategy;
 
         #region Player Attribute from Equipment
         
         private float _attackDamage; public float AttackDamage => _attackDamage;
         
         
-        public PlayerAttack GetPlayerAttack()
-        {
-            return _attackAbility;
-        }
-        
-        
         public void DebugStat()
         {
-            Debug.Log("Player Attack Damage: " + _attackDamage);
         }
         
         #endregion
-        
 
         private void Awake()
         {
-            _attackAbility = GetComponent<PlayerAttack>();
+            _interactionBase = new InteractionBase();
+            _weaponStrategy = GetComponent<WeaponStrategy>();
+            _genericStrategy = GetComponent<GenericItemStrategy>();
             _playerInventory = GetComponentInChildren<PlayerInventory>();
             _playerEquipment = GetComponent<PlayerEquipmentInventory>();
-            //debug Equipment inventory
-        }
-
-
-        private void Update()
-        {
-            UpdateCursorPosition();
-            DebugStat();
+            
+            UnsetAllStrategy();
         }
         
-        private void UpdateCursorPosition()
+        private InteractionContext _interactionContext;
+        private IInteractable _currentlyHighlightedObject = null;
+
+        public void Update()
         {
-            _CursorPosition = Camera.main!.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            _mouseAngle = Mathf.Atan2(_CursorPosition.y - transform.position.y, _CursorPosition.x - transform.position.x) * Mathf.Rad2Deg;
+            //Interact with world objects
+            if (CursorMovementTracker.HasCursorMoved)
+            {
+                //get the interactable object
+                _interactionContext = _interactionBase.InteractableRaycast(transform.position, CursorMovementTracker.CursorPosition);
+
+                if (_interactionContext != null)
+                {
+                    _interactionContext.GetInteractableName();
+                    
+                    _interactionContext.Highlight(out var interactable);
+
+                    if (_currentlyHighlightedObject == interactable) return;
+                    _currentlyHighlightedObject?.OnHighlightEnd();
+                    _currentlyHighlightedObject = interactable;
+                }
+                else
+                {
+                    // if there is no interactable object
+                    if (_currentlyHighlightedObject == null) return;
+                    _currentlyHighlightedObject.OnHighlightEnd();
+                    _currentlyHighlightedObject = null;
+                }
+            }
         }
         
+        #region Action Bar - Strategy Pattern
+        
+        public void SetWeaponStrategy()
+        {
+            //Disable the generic strategy
+            _genericStrategy.enabled = false;
+            
+            //Enable the weapon strategy
+            _weaponStrategy.enabled = true;
+            
+            _actionStrategy = _weaponStrategy;
+        }
+        
+        public void SetGenericStrategy()
+        {
+            //Disable the weapon strategy
+            _weaponStrategy.enabled = false;
+            
+            //Enable the generic strategy
+            _genericStrategy.enabled = true;
+            
+            _actionStrategy = _genericStrategy;
+        }
+        
+        public void UnsetStrategy()
+        {
+            _actionStrategy = null;
+        }
+
+        public void UnsetAllStrategy()
+        {
+            _actionStrategy = null;
+            _weaponStrategy.enabled = false;
+            _genericStrategy.enabled = false;
+        }
         
         /**
          * Called when the left mouse button is pressed and holding
          */
         public void LeftMouseButtonDown(Vector2 direction)
         {
-            _attackAbility.Pressed(direction);
+            //Get Action bar Item
+            //call the function
+            _actionStrategy?.LeftMouseButtonDown(direction);
+            _interactionContext.Interact(gameObject);
         }
         
         /**
@@ -76,7 +134,7 @@ namespace _Script.Character
          */
         public void LeftMouseButtonUp(Vector2 direction)
         {
-            _attackAbility.Released(direction);
+            _actionStrategy?.LeftMouseButtonUp(direction);
         }
 
 
@@ -92,13 +150,17 @@ namespace _Script.Character
          */
         public void RightMouseButtonDown(Vector2 direction)
         {
+            
         }
         
-
         public void Dash(Vector2 direction)
         {
             throw new System.NotImplementedException();
         }
+
+        #endregion
+        
+        #region Inventory Handle
 
         public IPlayerEquipmentHandle GetPlayerEquipment()
         {
@@ -109,6 +171,10 @@ namespace _Script.Character
         {
             return _playerInventory;
         }
+
+        #endregion
+        
+        #region Stat
 
         public UnityEvent GetPlayerHealthUpdateEvent()
         {
@@ -124,6 +190,7 @@ namespace _Script.Character
         {
             return HealthMax;
         }
-        
+
+        #endregion
     }
 }

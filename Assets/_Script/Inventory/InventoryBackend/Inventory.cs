@@ -11,14 +11,14 @@ namespace _Script.Inventory.InventoryBackend
     {
         [SerializeField] private int capacity = 20;
 
-        private PlayerCharacter inventoryOwner; public PlayerCharacter InventoryOwner => inventoryOwner;
+        protected PlayerCharacter inventoryOwner; public PlayerCharacter InventoryOwner => inventoryOwner;
         public int Capacity => capacity;
 
         // Fixed-size array representing inventory slots
         private InventorySlot[] slots; public InventorySlot[] Slots => slots;
 
         // Event to notify when the inventory has changed
-        public event Action OnInventoryChanged;
+        public event Action<int> OnInventorySlotChanged;
 
         public void SetInventoryOwner(PlayerCharacter playerInventoryCharacter)
         {
@@ -38,7 +38,7 @@ namespace _Script.Inventory.InventoryBackend
             }
         }
 
-        protected bool AddItem(InventoryItem itemToAdd)
+        public bool AddItem(InventoryItem itemToAdd)
         {
             if (itemToAdd == null)
             {
@@ -60,7 +60,7 @@ namespace _Script.Inventory.InventoryBackend
                     quantityToAdd -= amountToAdd;
 
                     // Notify UI update
-                    OnInventoryChanged?.Invoke();
+                    OnInventorySlotChanged?.Invoke(i);
 
                     if (quantityToAdd <= 0)
                     {
@@ -80,7 +80,7 @@ namespace _Script.Inventory.InventoryBackend
                     quantityToAdd -= amountToAdd;
 
                     // Notify UI update
-                    OnInventoryChanged?.Invoke();
+                    OnInventorySlotChanged?.Invoke(i);
 
                     if (quantityToAdd <= 0)
                     {
@@ -97,8 +97,25 @@ namespace _Script.Inventory.InventoryBackend
 
             return true;
         }
+        
+        public void AddItemToEmptySlot(InventoryItem item, int slotIndex)
+        {
+            if (slotIndex < 0 || slotIndex >= capacity)
+            {
+                Debug.LogWarning("Invalid slot index.");
+                return;
+            }
 
-        protected bool AddItemToSlot(InventoryItem itemToAdd, int slotIndex)
+            if (slots[slotIndex].IsEmpty)
+            {
+                slots[slotIndex].Item = item;
+
+                // Notify UI update
+                OnInventorySlotChanged?.Invoke(slotIndex);
+            }
+        }
+
+        public bool AddItemToSlot(InventoryItem itemToAdd, int slotIndex)
         {
             if (itemToAdd == null)
             {
@@ -120,7 +137,7 @@ namespace _Script.Inventory.InventoryBackend
                 slot.Item.Quantity += amountToAdd;
 
                 // Notify UI update
-                OnInventoryChanged?.Invoke();
+                OnInventorySlotChanged?.Invoke(slotIndex);
                 
                 return true;
             }
@@ -131,13 +148,36 @@ namespace _Script.Inventory.InventoryBackend
                 slot.Item = new InventoryItem(itemToAdd.ItemData, amountToAdd);
 
                 // Notify UI update
-                OnInventoryChanged?.Invoke();
+                OnInventorySlotChanged?.Invoke(slotIndex);
 
                 return true;
             }
 
             Debug.Log("Slot is full.");
             return false;
+        }
+
+        public InventoryItem RemoveAllItemsFromSlot(int slotIndex)
+        {
+            if (slotIndex < 0 || slotIndex >= capacity)
+            {
+                Debug.LogWarning("Invalid slot index.");
+                return null;
+            }
+
+            InventorySlot slot = slots[slotIndex];
+            if (slot.IsEmpty)
+            {
+                return null;
+            }
+
+            InventoryItem item = slot.Item;
+            slot.Clear();
+
+            // Notify UI update
+            OnInventorySlotChanged?.Invoke(slotIndex);
+
+            return item;
         }
         
         protected bool RemoveItem(InventoryItem inventoryItem, int quantity = 1)
@@ -157,11 +197,12 @@ namespace _Script.Inventory.InventoryBackend
                     // If the quantity reaches zero, clear the slot's item data, but keep the slot
                     if (slot.Item.Quantity <= 0)
                     {
+                        OnItemUsedUp(i);
                         slot.Clear();
                     }
 
                     // Notify UI update
-                    OnInventoryChanged?.Invoke();
+                    OnInventorySlotChanged?.Invoke(i);
 
                     if (quantityToRemove <= 0)
                     {
@@ -183,24 +224,25 @@ namespace _Script.Inventory.InventoryBackend
         /**
          * When right-clicking on an inventory item.
          */
-        private void UseItem(int slotIndex)
+        private bool UseItem(int slotIndex)
         {
             if (slotIndex < 0 || slotIndex >= capacity)
             {
                 Debug.LogWarning("Invalid slot index.");
-                return;
+                return false;
             }
 
             InventorySlot slot = slots[slotIndex];
             if (slot.IsEmpty)
             {
-                Debug.Log("Slot is empty.");
-                return;
+                //Debug.Log("Slot is empty.");
+                return false;
             }
 
             ItemData itemData = slot.Item.ItemData;
 
             OnUsingItem(itemData, slotIndex);
+            return true;
         }
         
         /**
@@ -215,8 +257,13 @@ namespace _Script.Inventory.InventoryBackend
             // Implement item usage logic
             
             //Use Equipment Item - if there is item in the equipment inventory, remove it and add it back to the inventory
-            if(itemData.ItemType == ItemType.Equipment)
+            var itemType = itemData.ItemTypeString;
+            
+            
+            if(itemType == "Equipment")
             {
+                Debug.Log("Using Equipment Item Currently Disabled");
+                return;
                 InventoryItem removedItem = OnUseEquipmentItem((EquipmentItem) itemData);
                 RemoveItemFromSlot(slotIndex, 1);
                 if(removedItem != null)
@@ -226,8 +273,16 @@ namespace _Script.Inventory.InventoryBackend
                     AddItemToSlot(removedItem, slotIndex);
                 }
             }
+            else if (itemType == "Seed")
+            {
+                if(OnUseSeedItem(itemData))
+                {
+                    // Remove the item from the inventory
+                    RemoveItemFromSlot(slotIndex, 1);
+                }
+            }
             //Use Consumable Item - if the item is used, remove it from the inventory
-            else if(itemData.ItemType == ItemType.Consumable)
+            else if(itemType == "Consumable")
             {
                 if (OnUseConsumableItem((ConsumableItem)itemData))
                 {
@@ -236,9 +291,10 @@ namespace _Script.Inventory.InventoryBackend
                 }
             }
             //Use Material Item
-            else if(itemData.ItemType == ItemType.Material)
+            else if(itemType == "Material")
             {
                 OnUseMaterialItem(itemData);
+                Debug.Log("There is no effect for using material item.");
             }
         }
 
@@ -258,6 +314,11 @@ namespace _Script.Inventory.InventoryBackend
             return null;
         }
         
+        private bool OnUseSeedItem(ItemData itemData)
+        {
+            return itemData.Use(inventoryOwner);
+        }
+        
         
         private bool RemoveItemFromSlot(int slotIndex, int quantity)
         {
@@ -275,12 +336,12 @@ namespace _Script.Inventory.InventoryBackend
                 // If quantity reaches zero, clear the slot
                 if (slot.Item.Quantity <= 0)
                 {
+                    OnItemUsedUp(slotIndex);
                     slot.Clear();
                 }
 
                 // Notify UI update
-                OnInventoryChanged?.Invoke();
-
+                OnInventorySlotChanged?.Invoke(slotIndex);
                 return true;
             }
             else
@@ -288,6 +349,10 @@ namespace _Script.Inventory.InventoryBackend
                 Debug.Log("Not enough items in slot to remove.");
                 return false;
             }
+        }
+        
+        protected virtual void OnItemUsedUp(int slotIndex)
+        {
         }
 
         public void LeftClickItem(int slotIndex)
@@ -305,6 +370,11 @@ namespace _Script.Inventory.InventoryBackend
         public void Clear()
         {
             Item = null;
+        }
+        
+        public bool IsEmptySlot()
+        {
+            return Item == null;
         }
     }
     

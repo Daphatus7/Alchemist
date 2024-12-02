@@ -1,6 +1,7 @@
 using _Script.Inventory.EquipmentBackend;
 using _Script.Inventory.InventoryFrontend;
 using _Script.Inventory.SlotFrontend;
+using _Script.Items;
 using UnityEngine;
 
 namespace _Script.Inventory.EquipmentFrontend
@@ -45,5 +46,19 @@ namespace _Script.Inventory.EquipmentFrontend
         {
             playerEquipmentInventory.UnequipItem(slotDisplay.SlotIndex);
         }
+
+        public InventoryItem RemoveAllItemsFromSlot(int slotIndex)
+        {
+            return playerEquipmentInventory.RemoveEquipmentFromSlot(slotIndex);
+        }
+
+        public void AddItemToEmptySlot(InventoryItem item, int slotIndex)
+        {
+            //check if is equipment item
+            if(item.ItemData is EquipmentItem equipmentItem)
+                playerEquipmentInventory.Handle_Equip(equipmentItem);
+            Debug.LogError("This is not an equipment item");
+        }
+        
     }
 }

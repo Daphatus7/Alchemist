@@ -31,7 +31,6 @@ namespace _Script.Items
         public InventoryItem(InventoryItem item)
         {
             itemData = item.ItemData;
-            this.quantity = quantity;
         }
         public InventoryItem(ItemData itemData, int quantity = 1)
         {

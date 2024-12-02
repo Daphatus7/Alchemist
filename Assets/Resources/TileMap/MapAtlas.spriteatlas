@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MapAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 5e6a9453beba04798b245e9db9f03dbe, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 6b9ff663d095742a99021a828c0fb945: 2489584174085898198
+    - 1b36281a21467476884c288f8a145a8d: 6860726234353650964
+    - 6bc8d5fadccd2407ea2fa47d5cb9f0c5: -3873098836313798668
+    - 9b0f58ac115544fd4aeeea88deaba4df: -1300594913051438373
+    - cebd4edcffc654d819d9e0d2135aab5b: -5163170747001403803
+    - 6a6e73ad5a03a42f6a47fabacfe5ca76: 6704698115707792778
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 2489584174085898198, guid: 6b9ff663d095742a99021a828c0fb945, type: 3}
+  - {fileID: 6860726234353650964, guid: 1b36281a21467476884c288f8a145a8d, type: 3}
+  - {fileID: -3873098836313798668, guid: 6bc8d5fadccd2407ea2fa47d5cb9f0c5, type: 3}
+  - {fileID: -1300594913051438373, guid: 9b0f58ac115544fd4aeeea88deaba4df, type: 3}
+  - {fileID: -5163170747001403803, guid: cebd4edcffc654d819d9e0d2135aab5b, type: 3}
+  - {fileID: 6704698115707792778, guid: 6a6e73ad5a03a42f6a47fabacfe5ca76, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - T_Grass_0
+  - T_WetSoil_0
+  - T_Dirt_0
+  - T_Path_0
+  - T_WetDirt_0
+  - T_Soil_0
+  m_RenderDataMap: {}
+  m_Tag: MapAtlas
+  m_IsVariant: 0

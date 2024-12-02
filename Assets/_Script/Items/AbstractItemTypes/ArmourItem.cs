@@ -1,3 +1,6 @@
+using _Script.Character;
+using _Script.Character.ActionStrategy;
+
 namespace _Script.Items.AbstractItemTypes
 {
     public abstract class ArmourItem : EquipmentItem

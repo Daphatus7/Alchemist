@@ -50,11 +50,6 @@ namespace _Script.Inventory.EquipmentBackend
             //apply the effect of the new item
             switch (targetSlot)
             {
-                //Apply the effect of the item
-                case PlayerEquipmentSlotType.Weapon:
-                    UnequipWeapon();
-                    EquipWeapon(item);
-                    break;
                 case PlayerEquipmentSlotType.Chest:
                     EquipArmour(item);
                     break;
@@ -73,20 +68,16 @@ namespace _Script.Inventory.EquipmentBackend
             OnOnEquipmentChanged();
             return tempSlotItem;
         }
-        
-        public void UnequipItem(int slotIndex)
+
+
+        public InventoryItem RemoveEquipmentFromSlot(int slotIndex)
         {
             var slot = (PlayerEquipmentSlotType) slotIndex;
-            
-            InventoryItem tempSlotItem = null;
+            InventoryItem tempSlotItem = null; //UnEquip the item
             if (_equipmentSlots.TryGetValue(slot, out var slotItem))
             {
                 //remove the effect of the equipped item
-                if(slot == PlayerEquipmentSlotType.Weapon)
-                {
-                    UnequipWeapon();
-                }
-                else if(slot == PlayerEquipmentSlotType.Chest)
+                if(slot == PlayerEquipmentSlotType.Chest)
                 {
                     UnequipArmour();
                 }
@@ -100,25 +91,24 @@ namespace _Script.Inventory.EquipmentBackend
                 }
 
                 tempSlotItem = _equipmentSlots[slot];
-                
-                //try to add the item to the inventory
-                if(_playerCharacter.GetPlayerInventory().Handle_AddItem(tempSlotItem))
-                {
-                    _equipmentSlots[slot] = null;
-                }
-                else
-                {
-                    Debug.LogError("Failed to return the item to the inventory");
-                }
+                _equipmentSlots[slot] = null;
                 OnOnEquipmentChanged();
             }
+            return tempSlotItem;
         }
         
-        private void EquipWeapon(EquipmentItem item)
+        
+        public void UnequipItem(int slotIndex)
         {
-            var weapon = (WeaponItem) item;
-            item.Use(_playerCharacter);
+            var item = RemoveEquipmentFromSlot(slotIndex);
+            if (item != null)
+            {
+                //return the item to the inventory
+                _playerCharacter.GetPlayerInventory().Handle_AddItem(item);
+            }
+            
         }
+
         
         private void EquipArmour(EquipmentItem item)
         {
@@ -134,11 +124,6 @@ namespace _Script.Inventory.EquipmentBackend
             //get leaf item
             //if there is an item in the slot, return the item to the inventory
             //equip the item
-        }
-
-        private void UnequipWeapon()
-        {
-            _playerCharacter.GetPlayerAttack().RemoveWeapon();
         }
         
         private void UnequipArmour()

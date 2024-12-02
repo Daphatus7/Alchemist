@@ -3,10 +3,8 @@ using _Script.Items.AbstractItemTypes._Script.Items;
 
 namespace _Script.Items
 {
-    public class ItemConversion
+    public static class ItemConversion
     {
-        
-        
         /**
          * Convert the item data to equipment item
          */
@@ -16,7 +14,6 @@ namespace _Script.Items
             {
                 return equipmentItem;
             }
-
             return null;
         }
 
@@ -54,6 +51,16 @@ namespace _Script.Items
             if (itemData is ConsumableItem consumableItem)
             {
                 return consumableItem;
+            }
+
+            return null;
+        }
+        
+        public static SeedItem ConvertToSeed(ItemData itemData)
+        {
+            if (itemData is SeedItem seedItem)
+            {
+                return seedItem;
             }
 
             return null;
