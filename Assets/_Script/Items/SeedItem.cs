@@ -10,7 +10,9 @@ namespace _Script.Items
     {
         public override ItemType ItemType => ItemType.Seed;
         public override string ItemTypeString => "Seed";
+        public Sprite seedOnGroundSprite;
         
+        //not instantiated reference to the prefab
         public GameObject cropPrefab;
 
         public override bool Use(PlayerCharacter playerCharacter)

@@ -37,5 +37,18 @@ namespace _Script.Map
                 _tile.Use();
             }
         }
+
+        public bool IsFertile
+        {
+            get
+            {
+                if (_tile is SoilTile soilTile)
+                {
+                    return soilTile.IsFertile;
+                }
+
+                return false;
+            }
+        }
     }
 }

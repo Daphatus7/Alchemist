@@ -24,7 +24,8 @@ namespace _Script.Character.ActionStrategy
         
         public void LeftMouseButtonDown(Vector3 direction)
         {
-            _useItem?.UseItem();
+            if(IsCursorInRange())
+                _useItem?.UseItem();
         }
 
         public void LeftMouseButtonUp(Vector3 direction)
@@ -56,32 +57,76 @@ namespace _Script.Character.ActionStrategy
         
         private void OnUpdatePosition()
         {
-            // if has a weapon, rotate the weapon to face the mouse
+            // if has item in hand
             if (currentItem)
             {
-                // get mouse position
-
+                
                 // convert screen position to world position
                 if (CursorMovementTracker.HasCursorMoved)
                 {
-                    
-                    Vector3 mousePosition = CursorMovementTracker.CursorPosition;
-                    // convert screen position to world position
-                    // calculate direction and distance
-               
-                    Vector3 direction = (mousePosition - itemSlot.position);
-                    var extent = Mathf.Min(direction.magnitude, itemDistance);
-                    Vector3 targetPosition = itemSlot.position + direction.normalized * extent;
-
-                    // update item position
-                    currentItem.transform.position = new Vector3(targetPosition.x, targetPosition.y, 0);
+                    //if can show the preview that means the player has landed on a fertile soil
+                    if (IsCursorInRange())
+                    {
+                        if (ShowSeedPreview()) return;
+                    }
+                    else
+                    {
+                        UpdateItemPosition();
+                    }
                 }
             }
+        }
+
+        private bool IsCursorInRange()
+        {
+            var distance = Vector3.Distance(CursorMovementTracker.CursorPosition, itemSlot.position);
+            return distance <= itemDistance;
+        }
+        
+        private bool ShowSeedPreview()
+        {
+            //if the item is not a seed, return false
+            if(_useItem.ItemData.ItemTypeString != "Seed") return false;
+            
+            //if the item is a seed, show the preview
+            var seedItem = _useItem.ItemData as SeedItem;
+            if(!seedItem) return false;
+            
+            //get the pointed tile
+            var tile = GameTileMap.Instance.PointedTile;
+            
+            //if the tile is not null and is fertile, show the preview
+            if (tile != null && tile.IsFertile)
+            {
+                // show preview
+                currentSpriteRenderer.sprite = seedItem.seedOnGroundSprite;
+                currentItem.transform.position = GameTileMap.Instance.GetTileWorldCenterPosition(tile.Position.x, tile.Position.y);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
+        
+        private void UpdateItemPosition()
+        {
+            Vector3 mousePosition = CursorMovementTracker.CursorPosition;
+            // convert screen position to world position
+            // calculate direction and distance
+               
+            Vector3 direction = (mousePosition - itemSlot.position);
+            var extent = Mathf.Min(direction.magnitude, itemDistance);
+            Vector3 targetPosition = itemSlot.position + direction.normalized * extent;
+
+            // update item position
+            currentItem.transform.position = new Vector3(targetPosition.x, targetPosition.y, 0);
         }
         
         private ActionBarContext _useItem;
         
-        public void ChangeItem(ItemData itemData, ActionBarContext useItem)
+        public void ChangeItem(ActionBarContext useItem)
         {
             // Spawn
             _useItem = useItem;
@@ -97,7 +142,7 @@ namespace _Script.Character.ActionStrategy
                 currentSpriteRenderer = currentItem.GetComponent<SpriteRenderer>();
             }
             //set renderer
-            currentSpriteRenderer.sprite = itemData.ItemSprite;
+            currentSpriteRenderer.sprite = useItem.ItemData.ItemSprite;
         }
         
         public void RemoveItem()

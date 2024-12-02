@@ -965,6 +965,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1084942439330472745, guid: 339fb50ad3af84f3a9e0aecf2e37bbef,
+        type: 3}
+      propertyPath: quantity
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1353417606510277796, guid: 339fb50ad3af84f3a9e0aecf2e37bbef,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6930,8 +6935,6 @@ MonoBehaviour:
   gridRenderer: {fileID: 1901647019}
   _needsUpdate: 0
   _canEdit: 0
-  cropPrefab: {fileID: 4651703955239141290, guid: 37613e8729a06478fa97274bd3710739,
-    type: 3}
 --- !u!1 &2076322914
 GameObject:
   m_ObjectHideFlags: 0

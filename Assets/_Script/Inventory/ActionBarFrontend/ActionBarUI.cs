@@ -96,8 +96,8 @@ namespace _Script.Inventory.ActionBarFrontend
                 return;
             }
             
-            //Case 3: Check if selecting the same slot
-            if (_selectedSlotDisplay && _selectedSlotDisplay.SlotIndex == slotIndex)
+            //Case 3: Check if selecting the same slot and is not seed item
+            if (_selectedSlotDisplay && _selectedSlotDisplay.SlotIndex == slotIndex && _actionBar.Slots[slotIndex].Item.ItemData.ItemTypeString != "Seed")
             {
                 // Use the selected slot
                 _actionBar.LeftClickItem(slotIndex);

@@ -56,7 +56,7 @@ namespace _Script.Inventory.ActionBarBackend
                 _actionBarContext = new ActionBarContext(LeftClickItem, slotIndex, _selectedItem.ItemData);
                 if(itemType == "Seed")
                 {
-                    inventoryOwner.GenericStrategy.ChangeItem(_selectedItem.ItemData, _actionBarContext);
+                    inventoryOwner.GenericStrategy.ChangeItem(_actionBarContext);
                     inventoryOwner.SetGenericStrategy();
                 }
                 else if (itemType == "Weapon")

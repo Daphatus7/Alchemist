@@ -23,10 +23,6 @@ namespace _Script.Map
         [SerializeField] private bool _needsUpdate = false;
         [SerializeField] private bool _canEdit = false;
         
-        //Test only crop prefab, need to be removed later
-        [SerializeField] private GameObject cropPrefab;
-        
-        
         private TileContext _pointedTile; public TileContext PointedTile => _pointedTile;
         
         private void Start()
@@ -84,18 +80,14 @@ namespace _Script.Map
                 tileMap.Use(position);
             }
             
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Debug.Log("Plant");
-                tileMap.AddCrop(_pointedTile.Position, cropPrefab);
-            }
-            
             if(Input.GetMouseButtonDown(0))
             {
                 _pointedTile?.Use();
             }
             
         }
+
+        #region Crop
 
         public bool AddCrop(GameObject crop)
         {
@@ -104,6 +96,13 @@ namespace _Script.Map
                 return tileMap.AddCrop(_pointedTile.Position, crop);
             }
             return false;
+        }
+        
+        #endregion
+
+        public Vector3 GetTileWorldCenterPosition(int x, int y)
+        {
+            return tileMap.Grid.GetGridCenterWorldPosition(x, y);
         }
         
 
