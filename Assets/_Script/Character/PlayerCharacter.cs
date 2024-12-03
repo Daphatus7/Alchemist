@@ -5,6 +5,7 @@ using _Script.Character.ActionStrategy;
 using _Script.Interactable;
 using _Script.Inventory.EquipmentBackend;
 using _Script.Inventory.InventoryBackend;
+using _Script.Inventory.InventoryFrontend;
 using _Script.Inventory.InventoryHandles;
 using _Script.Utilities;
 using UnityEngine;
@@ -28,6 +29,8 @@ namespace _Script.Character
         private WeaponStrategy _weaponStrategy; public WeaponStrategy WeaponStrategy => _weaponStrategy;
         private GenericItemStrategy _genericStrategy; public GenericItemStrategy GenericStrategy => _genericStrategy;
         private IActionStrategy _actionStrategy;
+        
+        [SerializeField] private InventoryUI _inventoryUI;
 
         #region Player Attribute from Equipment
         
@@ -80,6 +83,11 @@ namespace _Script.Character
                     _currentlyHighlightedObject = null;
                 }
             }
+            
+            if(Input.GetKeyDown(KeyCode.I))
+            {
+                _inventoryUI.ToggleInventoryUI();
+            }
         }
         
         #region Action Bar - Strategy Pattern
@@ -126,7 +134,7 @@ namespace _Script.Character
             //Get Action bar Item
             //call the function
             _actionStrategy?.LeftMouseButtonDown(direction);
-            _interactionContext.Interact(gameObject);
+            _interactionContext?.Interact(gameObject);
         }
         
         /**

@@ -1,13 +1,14 @@
 
 using System;
 using _Script.Character;
+using _Script.Inventory.InventoryBackend;
 using _Script.Items;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
 namespace _Script.Inventory.ActionBarBackend
 {
-    public class ActionBar : InventoryBackend.Inventory, IActionBarHandle
+    public class ActionBar : PlayerInventory, IActionBarHandle
     {
         
         public bool Handle_AddItem(InventoryItem inventoryItem)

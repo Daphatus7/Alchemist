@@ -11,26 +11,20 @@ namespace _Script.Inventory.InventoryBackend
     {
         [SerializeField] private int capacity = 20;
 
-        protected PlayerCharacter inventoryOwner; public PlayerCharacter InventoryOwner => inventoryOwner;
         public int Capacity => capacity;
 
         // Fixed-size array representing inventory slots
-        private InventorySlot[] slots; public InventorySlot[] Slots => slots;
+        protected InventorySlot[] slots; public InventorySlot[] Slots => slots;
 
         // Event to notify when the inventory has changed
         public event Action<int> OnInventorySlotChanged;
-
-        public void SetInventoryOwner(PlayerCharacter playerInventoryCharacter)
-        {
-            inventoryOwner = playerInventoryCharacter;
-        }
         
-        private void Awake()
+        
+        protected virtual void Awake()
         {
             //private 
             
             // Initialize the slots array with the capacity
-            inventoryOwner = GetComponentInParent<PlayerCharacter>();
             slots = new InventorySlot[capacity];
             for (int i = 0; i < capacity; i++)
             {
@@ -38,7 +32,7 @@ namespace _Script.Inventory.InventoryBackend
             }
         }
 
-        public bool AddItem(InventoryItem itemToAdd)
+        protected bool AddItem(InventoryItem itemToAdd)
         {
             if (itemToAdd == null)
             {
@@ -115,7 +109,7 @@ namespace _Script.Inventory.InventoryBackend
             }
         }
 
-        public bool AddItemToSlot(InventoryItem itemToAdd, int slotIndex)
+        protected bool AddItemToSlot(InventoryItem itemToAdd, int slotIndex)
         {
             if (itemToAdd == null)
             {
@@ -180,7 +174,7 @@ namespace _Script.Inventory.InventoryBackend
             return item;
         }
         
-        protected bool RemoveItem(InventoryItem inventoryItem, int quantity = 1)
+        protected virtual bool RemoveItem(InventoryItem inventoryItem, int quantity = 1)
         {
             int quantityToRemove = quantity;
 
@@ -221,107 +215,10 @@ namespace _Script.Inventory.InventoryBackend
         }
         
 
-        /**
-         * When right-clicking on an inventory item.
-         */
-        private bool UseItem(int slotIndex)
-        {
-            if (slotIndex < 0 || slotIndex >= capacity)
-            {
-                Debug.LogWarning("Invalid slot index.");
-                return false;
-            }
 
-            InventorySlot slot = slots[slotIndex];
-            if (slot.IsEmpty)
-            {
-                //Debug.Log("Slot is empty.");
-                return false;
-            }
 
-            ItemData itemData = slot.Item.ItemData;
 
-            OnUsingItem(itemData, slotIndex);
-            return true;
-        }
-        
-        /**
-         * When right-clicking on an inventory item.
-         * 1. Put the item in temporary slot
-         * 2. Get the type of the item
-         * 3. Apply the effect of the item to the player
-         * 4. Remove the item from the inventory
-         */
-        protected virtual void OnUsingItem(ItemData itemData, int slotIndex)
-        {
-            // Implement item usage logic
-            
-            //Use Equipment Item - if there is item in the equipment inventory, remove it and add it back to the inventory
-            var itemType = itemData.ItemTypeString;
-            
-            
-            if(itemType == "Equipment")
-            {
-                Debug.Log("Using Equipment Item Currently Disabled");
-                return;
-                InventoryItem removedItem = OnUseEquipmentItem((EquipmentItem) itemData);
-                RemoveItemFromSlot(slotIndex, 1);
-                if(removedItem != null)
-                {
-                    // Remove the item from the inventory
-                    // Add the removed item back to the inventory
-                    AddItemToSlot(removedItem, slotIndex);
-                }
-            }
-            else if (itemType == "Seed")
-            {
-                if(OnUseSeedItem(itemData))
-                {
-                    Debug.Log("Seed item used.");
-                    // Remove the item from the inventory
-                    RemoveItemFromSlot(slotIndex, 1);
-                }
-            }
-            //Use Consumable Item - if the item is used, remove it from the inventory
-            else if(itemType == "Consumable")
-            {
-                if (OnUseConsumableItem((ConsumableItem)itemData))
-                {
-                    // Remove the item from the inventory
-                    RemoveItemFromSlot(slotIndex, 1);
-                }
-            }
-            //Use Material Item
-            else if(itemType == "Material")
-            {
-                OnUseMaterialItem(itemData);
-                Debug.Log("There is no effect for using material item.");
-            }
-        }
-
-        private InventoryItem OnUseEquipmentItem(EquipmentItem itemData)
-        {
-            // Equip the item
-            return inventoryOwner.GetPlayerEquipment().Handle_Equip(itemData);
-        }
-        private bool OnUseConsumableItem(ConsumableItem itemData)
-        {
-            itemData.Use(inventoryOwner);
-            return true;
-        }
-        private InventoryItem OnUseMaterialItem(ItemData itemData)
-        {
-            itemData.Use(inventoryOwner);
-            return null;
-        }
-        
-        private bool OnUseSeedItem(ItemData itemData)
-        {
-            return itemData.Use(inventoryOwner);
-        }
-        
-        
-        private bool RemoveItemFromSlot(int slotIndex, int quantity)
+        protected bool RemoveItemFromSlot(int slotIndex, int quantity)
         {
             var slot = slots[slotIndex];
             if (slot.IsEmpty)
@@ -356,10 +253,8 @@ namespace _Script.Inventory.InventoryBackend
         {
         }
 
-        public void LeftClickItem(int slotIndex)
-        {
-            UseItem(slotIndex);
-        }
+        public abstract void LeftClickItem(int slotIndex);
+
     }
 
     public class InventorySlot

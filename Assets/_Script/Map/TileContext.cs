@@ -22,7 +22,6 @@ namespace _Script.Map
             _position = position;
             _worldPosition = worldPosition;
             _isFertile = isFertile;
-            Debug.Log("TileContext created is " + isFertile);
         }
         
         public TileType TileType => _tile.GetTileType();

@@ -11,17 +11,25 @@ namespace _Script.Inventory.InventoryFrontend
         [SerializeField] private GameObject slotPrefab;
 
         private InventorySlotDisplay[] slotDisplays;
-
+        
         private void Start()
         {
             InitializeInventoryUI();
+            gameObject.SetActive(false);
         }
 
+        public void ToggleInventoryUI()
+        {
+            gameObject.SetActive(!gameObject.activeSelf);
+        }
+        
+        
         private void OnEnable()
         {
             playerInventory.OnInventorySlotChanged += UpdateSlotUI;
             // Subscribe to full inventory updates if needed
             // playerInventory.OnInventoryChanged += UpdateAllSlotsUI;
+            UpdateAllSlotsUI();
         }
 
         private void OnDisable()
@@ -30,7 +38,8 @@ namespace _Script.Inventory.InventoryFrontend
             // Unsubscribe from full inventory updates if needed
             // playerInventory.OnInventoryChanged -= UpdateAllSlotsUI;
         }
-
+        
+        
         private void InitializeInventoryUI()
         {
             int capacity = playerInventory.Capacity;
@@ -48,6 +57,17 @@ namespace _Script.Inventory.InventoryFrontend
             }
         }
 
+
+
+        // Implement if full inventory updates are necessary
+        private void UpdateAllSlotsUI()
+        {
+            for (int i = 0; i < slotDisplays?.Length; i++)
+            {
+                slotDisplays[i].SetSlot(playerInventory.Slots[i].Item);
+            }
+        }
+
         private void UpdateSlotUI(int slotIndex)
         {
             if (slotIndex < 0 || slotIndex >= slotDisplays.Length)
@@ -56,16 +76,7 @@ namespace _Script.Inventory.InventoryFrontend
             InventorySlotDisplay slotDisplay = slotDisplays[slotIndex];
             slotDisplay.SetSlot(playerInventory.Slots[slotIndex].Item);
         }
-
-        // Implement if full inventory updates are necessary
-        private void UpdateAllSlotsUI()
-        {
-            for (int i = 0; i < slotDisplays.Length; i++)
-            {
-                slotDisplays[i].SetSlot(playerInventory.Slots[i].Item);
-            }
-        }
-
+        
         public void OnSlotClicked(InventorySlotDisplay slotDisplay)
         {
             playerInventory.LeftClickItem(slotDisplay.SlotIndex);
