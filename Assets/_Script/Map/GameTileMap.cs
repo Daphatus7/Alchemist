@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using _Script.Alchemy.Plant;
 using _Script.Map.Tile.Tile_Base;
-using _Script.Map.Tile.Tile_Concrete;
 using _Script.Utilities;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
@@ -14,9 +13,11 @@ namespace _Script.Map
     [DefaultExecutionOrder(10)]
     public class GameTileMap : Singleton<GameTileMap>, ISaveTileMap
     {
-        [SerializeField] private Tilemap tileMap;
+        private Tilemap tileMap;
         
         private TileContext _pointedTile; public TileContext PointedTile => _pointedTile;
+        
+        private readonly Dictionary<Vector2Int, Crop> _crops = new Dictionary<Vector2Int, Crop>();
         
         private void Start()
         {
@@ -35,29 +36,57 @@ namespace _Script.Map
             
             if(Input.GetMouseButtonDown(0))
             {
-                _pointedTile?.Use();
+                //try to access the dictionary
+                if(_pointedTile != null)
+                {
+                    //check if the key exist
+                    if(_crops.ContainsKey(_pointedTile.Position))
+                    {
+                        //get the crop
+                        var crop = _crops[_pointedTile.Position];
+                        //harvest the crop
+                        if(crop.Harvest())
+                        {
+                            //remove the crop from the dictionary
+                            Destroy(_crops[_pointedTile.Position].gameObject);
+                            _crops.Remove(_pointedTile.Position);
+                        }
+                    }
+                }
             }
             
         }
 
         #region Crop
 
+        private bool IsFertile(CustomTile tile, Vector2Int position)
+        {
+            if(tile.GetTileType() == TileType.Soil)
+            {
+                return !_crops.ContainsKey(position);
+            }
+            return false;
+        }
+        
+        
+        
         public bool AddCrop(GameObject cropPrefab)
         {
-            if(_pointedTile == null)
+            if(_pointedTile != null)
             {
-                return false;
-            }
-            
-            //check if the tile is soil
-            var tile = _pointedTile.GetTile;
-            if(tile is SoilTile soilTile)
-            {
-                if (soilTile.IsFertile)
+                if (_pointedTile.GetTile.GetTileType() == TileType.Soil)
                 {
-                    var crop = Instantiate(cropPrefab, _pointedTile.WorldPosition, Quaternion.identity).GetComponent<Crop>();
-                    soilTile.AddCrop(crop);
-                    return true;
+                    //check if the key exist - if the key exist, then there is a crop
+                    if (_crops.ContainsKey(_pointedTile.Position))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        var crop = Instantiate(cropPrefab, _pointedTile.WorldPosition, Quaternion.identity).GetComponent<Crop>();
+                        _crops.Add(_pointedTile.Position, crop);
+                        return true;
+                    }
                 }
             }
             return false;
@@ -114,8 +143,9 @@ namespace _Script.Map
                     _pointedTile = null;
                     return;
                 }
-                Debug.Log("Cursor moved to " + tile.GetTileType());
-                _pointedTile = new TileContext(tileMap.GetTile<CustomTile>(cellPosition), new Vector2Int(cellPosition.x, cellPosition.y), worldPosition);
+                _pointedTile = new TileContext(tileMap.GetTile<CustomTile>(cellPosition), 
+                    new Vector2Int(cellPosition.x, cellPosition.y), 
+                    worldPosition, IsFertile(tile, currentCursorCellPosition));
                 OnCursorMoved?.Invoke(currentCursorPosition);
             }
         }

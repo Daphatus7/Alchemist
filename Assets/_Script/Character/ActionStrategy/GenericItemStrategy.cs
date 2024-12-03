@@ -47,6 +47,7 @@ namespace _Script.Character.ActionStrategy
 
         private void CheckingTargetInteraction(Vector2 pos)
         {
+            //TODO: Implement this - potentially improve the performance
             var tile = GameTileMap.Instance.PointedTile;
         }
         
@@ -86,7 +87,7 @@ namespace _Script.Character.ActionStrategy
             //if the item is not a seed, return false
             if(_useItem.ItemData.ItemTypeString != "Seed") return false;
             
-            //if the item is a seed, show the preview
+            //cast the item to seed item
             var seedItem = _useItem.ItemData as SeedItem;
             if(!seedItem) return false;
             

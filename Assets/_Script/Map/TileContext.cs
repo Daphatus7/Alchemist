@@ -1,6 +1,4 @@
-using _Script.Alchemy.Plant;
 using _Script.Map.Tile.Tile_Base;
-using _Script.Map.Tile.Tile_Concrete;
 using UnityEngine;
 
 namespace _Script.Map
@@ -16,11 +14,15 @@ namespace _Script.Map
         private readonly CustomTile _tile;
         private readonly Vector2 _worldPosition;
         private readonly Vector2Int _position;
-        public TileContext(CustomTile tile, Vector2Int position, Vector2 worldPosition)
+        private bool _isFertile; public bool IsFertile => _isFertile;
+        
+        public TileContext(CustomTile tile, Vector2Int position, Vector2 worldPosition, bool isFertile)
         {
             _tile = tile;
             _position = position;
             _worldPosition = worldPosition;
+            _isFertile = isFertile;
+            Debug.Log("TileContext created is " + isFertile);
         }
         
         public TileType TileType => _tile.GetTileType();
@@ -29,26 +31,5 @@ namespace _Script.Map
         public Vector2 WorldPosition => _worldPosition;
         public Vector2Int Position => _position;
         
-
-        public void Use()
-        {
-            if (_tile != null)
-            {
-                _tile.Use();
-            }
-        }
-
-        public bool IsFertile
-        {
-            get
-            {
-                if (_tile is SoilTile soilTile)
-                {
-                    return soilTile.IsFertile;
-                }
-
-                return false;
-            }
-        }
     }
 }
