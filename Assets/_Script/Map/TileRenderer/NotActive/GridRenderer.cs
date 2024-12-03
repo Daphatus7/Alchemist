@@ -14,8 +14,8 @@ namespace _Script.Map.TileRenderer.NotActive
 
         [SerializeField] private SpriteAtlas spriteAtlas; // The SpriteAtlas containing all tile sprites
 
-        private Grid<AbstractTile> _grid;
-        public Grid<AbstractTile> Grid => _grid;
+        private Grid<CustomTile> _grid;
+        public Grid<CustomTile> Grid => _grid;
 
         private Matrix4x4[] _matrices;
         private Vector4[] _uvOffsets;
@@ -51,7 +51,7 @@ namespace _Script.Map.TileRenderer.NotActive
         /*
          * Initialise the grid and the matrices and uvOffsets arrays
          */
-        public void SetGrid(Grid<AbstractTile> grid)
+        public void SetGrid(Grid<CustomTile> grid)
         {
             _grid = grid;
             _gridWidth = _grid.GetWidth();
@@ -86,7 +86,7 @@ namespace _Script.Map.TileRenderer.NotActive
         }
 
         // Event handler for the OnGridValueChanged event
-        private void OnGridValueChanged(object sender, Grid<AbstractTile>.OnGridValueChangedEventArgs e)
+        private void OnGridValueChanged(object sender, Grid<CustomTile>.OnGridValueChangedEventArgs e)
         {
             int index = GetIndex(e.x, e.y);
             _dirtyTiles.Add(index);
@@ -137,7 +137,7 @@ namespace _Script.Map.TileRenderer.NotActive
                 //Debug.Log($"Updating tile at ({x}, {y}) with index {index}");
 
                 // Get the TileObject at this position
-                AbstractTile tileObject = _grid.GetGridObject(x, y);
+                CustomTile tileObject = _grid.GetGridObject(x, y);
                 
                 // Get the TileType of the TileObject
                 TileType tileType = tileObject.GetTileType();

@@ -8,11 +8,12 @@ namespace _Script.Map.Tile.Tile_Decorator
      * Use to decorate the surface tile
      * 
      */
+    [CreateAssetMenu(fileName = "T_Grass", menuName = "Tile/T_Grass")]
     public class GrassTile : TileDecorator
     {
         protected override TileType TileType => TileType.Grass;
         
-        public GrassTile(AbstractTile tile) : base(tile)
+        public GrassTile(CustomTile tile) : base(tile)
         {
             
         }

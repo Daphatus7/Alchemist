@@ -93,7 +93,7 @@ namespace _Script.Utilities.SaveGame
     
         private List<T> GetSaveGameServices<T>() where T : ISaveGame
         {
-            return ServiceLocator.ServiceLocator.Instance.Get<T>();
+            return ServiceLocator.ServiceLocator.Instance?.Get<T>();
         }
 
         private string GenerateUniqueKeyForService(ISaveGame service)

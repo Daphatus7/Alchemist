@@ -4,23 +4,27 @@ using UnityEngine;
 
 namespace _Script.Map.Tile.Tile_Decorator
 {
-    public abstract class TileDecorator : AbstractTile
+    public abstract class TileDecorator : CustomTile
     {
-        protected readonly AbstractTile ParentTile;
+        private readonly CustomTile _parentTile;
         
-        protected TileDecorator(AbstractTile parentTile)
+        protected TileDecorator(CustomTile parentTile)
         {
-            ParentTile = parentTile;
+            _parentTile = parentTile;
         }
-        
+
+        protected TileDecorator()
+        {
+        }
+
         public override BaseTile GetBaseTile()
         {
-            return ParentTile.GetBaseTile();
+            return _parentTile.GetBaseTile();
         }
         
-        public override AbstractTile GetParentTile()
+        public override CustomTile GetParentTile()
         {
-            return ParentTile;
+            return _parentTile;
         }
         public override TileType GetTileType()
         {
@@ -29,14 +33,14 @@ namespace _Script.Map.Tile.Tile_Decorator
 
         public override List<TileType> GetTileTypes()
         {
-            var tileTypes = ParentTile.GetTileTypes();
+            var tileTypes = _parentTile.GetTileTypes();
             tileTypes.Add(TileType);
             return tileTypes;
         }
 
         public override List<TileSaveObject> OnSaveData()
         {
-            var tileSaveObjects = ParentTile.OnSaveData();
+            var tileSaveObjects = _parentTile.OnSaveData();
             tileSaveObjects.Add(new TileDecoratorSaveObject(TileType));
             return tileSaveObjects;
         }

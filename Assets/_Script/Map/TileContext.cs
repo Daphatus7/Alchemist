@@ -13,23 +13,23 @@ namespace _Script.Map
     {
         
         //The surface tile
-        private readonly AbstractTile _tile;
-        public TileContext(AbstractTile tile)
+        private readonly CustomTile _tile;
+        private readonly Vector2 _worldPosition;
+        private readonly Vector2Int _position;
+        public TileContext(CustomTile tile, Vector2Int position, Vector2 worldPosition)
         {
             _tile = tile;
+            _position = position;
+            _worldPosition = worldPosition;
         }
         
         public TileType TileType => _tile.GetTileType();
+        public CustomTile GetTile => _tile;
 
-        public Vector2Int Position
-        {
-            get
-            {
-                return new Vector2Int(_tile.GetBaseTile().X,
-                    _tile.GetBaseTile().Y);
-            }
-        }
+        public Vector2 WorldPosition => _worldPosition;
+        public Vector2Int Position => _position;
         
+
         public void Use()
         {
             if (_tile != null)

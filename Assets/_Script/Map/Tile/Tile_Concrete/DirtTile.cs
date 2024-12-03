@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace _Script.Map.Tile.Tile_Concrete
 {
+    [CreateAssetMenu(fileName = "T_Dirt", menuName = "Tile/T_Dirt")]
     public class DirtTile : BaseTile
     {
         protected override TileType TileType => TileType.Dirt;
@@ -26,7 +27,7 @@ namespace _Script.Map.Tile.Tile_Concrete
             return IsWet ? new List<TileType> {TileType, TileType.WetDirt} : new List<TileType> {TileType};
         }
 
-        public override AbstractTile GetParentTile()
+        public override CustomTile GetParentTile()
         {
             return null;
         }

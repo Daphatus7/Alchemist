@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _Script.Map.Tile.Tile_Base
 {
-    public abstract class BaseTile : AbstractTile
+    public abstract class BaseTile : CustomTile
     {
         private readonly int _x; public int X => _x;
         private readonly int _y; public int Y => _y;

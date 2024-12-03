@@ -1,14 +1,17 @@
 using System.Collections.Generic;
 using _Script.Map.Tile.Tile_Base;
+using UnityEngine;
 
 namespace _Script.Map.Tile.Tile_Decorator
 {
+    
+    [CreateAssetMenu(fileName = "T_Rock", menuName = "Tile/T_Rock")]
     public class RockTile : TileDecorator
     {
         
         protected override TileType TileType => TileType.Rock;
 
-        public RockTile(AbstractTile baseTile) : base(baseTile)
+        public RockTile(CustomTile baseTile) : base(baseTile)
         {
 
         }

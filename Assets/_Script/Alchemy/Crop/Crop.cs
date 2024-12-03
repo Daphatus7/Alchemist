@@ -76,7 +76,7 @@ namespace _Script.Alchemy.Plant
             _spriteRenderer.sprite = _growthStages[growthStageIndex];
         }
 
-        public void Harvest()
+        public bool Harvest()
         {
             if (Mature)
             {
@@ -84,12 +84,13 @@ namespace _Script.Alchemy.Plant
                 Instantiate(_fruitPrefab, transform.position, Quaternion.identity);
                 
                 // Optionally destroy the plant after harvesting
-                Destroy(gameObject);
+                return true;
             }
             else
             {
                 Debug.Log("Crop is not mature yet!");
             }
+            return false;
         }
 
         public void Fertilize()
@@ -114,19 +115,6 @@ namespace _Script.Alchemy.Plant
             _currentGrowthTime++;
             Debug.Log("Crop has grown!");
             Grow();
-        }
-
-        public void Interact(GameObject player)
-        {
-            if(Mature)
-            {
-                Harvest();
-            }
-        }
-
-        public void InteractEnd(GameObject player)
-        {
-            
         }
 
         public void OnHighlight()
