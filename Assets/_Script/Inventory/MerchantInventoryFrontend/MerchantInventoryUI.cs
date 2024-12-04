@@ -50,7 +50,7 @@ namespace _Script.Inventory.MerchantInventoryFrontend
         
         public InventoryItem Purchase(IPlayerInventoryHandler playerInventory, int slotIndex, int quantity = 1)
         {
-            if(playerInventory.RemoveGold(_inventory.Slots[slotIndex].ItemData.Value))
+            if(playerInventory.RemoveGold(_inventory.Slots[slotIndex].ItemData.Value * _inventory.Slots[slotIndex].Quantity))
             {
                 return RemoveAllItemsFromSlot(slotIndex);;
             }

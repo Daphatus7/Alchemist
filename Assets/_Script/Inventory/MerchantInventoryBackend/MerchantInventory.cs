@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.SlotFrontend;
+using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
 namespace _Script.Inventory.MerchantInventoryBackend
@@ -14,10 +15,17 @@ namespace _Script.Inventory.MerchantInventoryBackend
         [SerializeField] private string merchantName;
         [SerializeField] private List<InventoryItem> itemsForSale;
 
+        public List<ItemData> debugItems;
+        
         public string MerchantName => merchantName;
         
         private void Start()
         {
+            foreach (var item in debugItems)
+            {
+                AddItem(new InventoryItem(item, item.MaxStackSize));
+            }
+            
             InitializeMerchantInventory();
         }
 
@@ -31,14 +39,6 @@ namespace _Script.Inventory.MerchantInventoryBackend
             {
                 AddItemToSlot(itemsForSale[i], i);
             }
-        }
-        
-        public void BuyItemFromSlot(int slotIndex)
-        {
-            //get player inventory
-            //Check if the player can buy this item
-            //if can buy then
-            
         }
 
         public override SlotType SlotType => SlotType.Merchant;

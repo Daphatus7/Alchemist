@@ -8,6 +8,8 @@ using UnityEngine;
 
 namespace _Script.Character.PlayerUI
 {
+    
+    [DefaultExecutionOrder(300)]
     public class GoldDisplay : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI goldText;

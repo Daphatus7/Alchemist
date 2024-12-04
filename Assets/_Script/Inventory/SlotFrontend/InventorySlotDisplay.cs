@@ -183,7 +183,6 @@ namespace _Script.Inventory.SlotFrontend
 
         public void OnDrag(PointerEventData eventData)
         {
-            if(!CanDrag()) return;
             if (dragItem != null)
             {
                 SetDragItemPosition(eventData);
@@ -225,6 +224,7 @@ namespace _Script.Inventory.SlotFrontend
                 
                 var dragType = GetDragType(sourceSlot);
 
+                Debug.Log("Drag Type: " + dragType);
                 switch (dragType)
                 {
                     
@@ -264,6 +264,7 @@ namespace _Script.Inventory.SlotFrontend
                             {
                                 if (merchantSelf.Sell(playerInventory, sourceSlot))
                                 {
+                                    _inventoryUI.AddItem(sourceSlot.currentItem);
                                     //remove the item from the player inventory
                                     sourceSlot._inventoryUI.RemoveAllItemsFromSlot(sourceSlot._slotIndex);
                                 }
@@ -373,9 +374,25 @@ namespace _Script.Inventory.SlotFrontend
                             return DragType.DoNothing;
                     }
                     break;
-                //From Merchant to Merchant
+                //From Merchant to other slots
                 case SlotType.Merchant:
-                    return DragType.DoNothing;
+                    switch (SlotType)
+                    {
+                        //From Merchant to Equipment
+                        case SlotType.Equipment:
+                            return DragType.DoNothing;
+                        //From Merchant to Inventory
+                        case SlotType.PlayerInventory:
+                            return DragType.Buy;
+                        //From Merchant to ActionBar
+                        case SlotType.ActionBar:
+                            return DragType.DoNothing;
+                        //From Merchant to Merchant
+                        case SlotType.Merchant:
+                            return DragType.DoNothing;
+                        default:
+                            return DragType.DoNothing;
+                    }
                 default:
                     return DragType.DoNothing;
             }

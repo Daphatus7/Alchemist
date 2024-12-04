@@ -22,13 +22,15 @@ namespace _Script.NPC.NpcBackend
         [SerializeField] private DialogueModule dialogueModule;
 
         [SerializeField] private NpcDialogueUI dialogueUI;
-        [SerializeField] private Dictionary<NpcHandlerType, INpcHandler> npcHandlers;
+        [SerializeField] private Dictionary<NpcHandlerType, INpcHandler> _npcHandlers;
 
         private void Awake()
         {
             _collider = GetComponent<BoxCollider2D>();
-            npcHandlers = new Dictionary<NpcHandlerType, INpcHandler>();
-            npcHandlers.Add(NpcHandlerType.Merchant, GetComponent<MerchantUnit>());
+            _npcHandlers = new Dictionary<NpcHandlerType, INpcHandler>
+            {
+                { NpcHandlerType.Merchant, GetComponent<MerchantUnit>() }
+            };
         }
 
         public void OnEnable()
@@ -38,12 +40,13 @@ namespace _Script.NPC.NpcBackend
 
         public void OnMouseDown()
         {
-            dialogueUI.StartDialogue(dialogueModule.dialogueLines);
+            //dialogueUI.StartDialogue(dialogueModule.dialogueLines);
+            OnDialogueEnd();
         }
         
-        public void OnDialogueEnd()
+        private void OnDialogueEnd()
         {
-            npcHandlers[NpcHandlerType.Merchant].LoadNpcModule();
+            _npcHandlers[NpcHandlerType.Merchant].LoadNpcModule();
         }
     }
 

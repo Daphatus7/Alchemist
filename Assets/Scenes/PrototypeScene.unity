@@ -3180,6 +3180,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   merchantName: 
   itemsForSale: []
+  debugItems:
+  - {fileID: 11400000, guid: b539ddb23ce724e04bdafca4715ddbf5, type: 2}
+  - {fileID: 11400000, guid: 56fa3d3fbbd6048d4925337da97e2fd9, type: 2}
+  - {fileID: 11400000, guid: 92514a02da9ce483eba8d3d7e1fb6771, type: 2}
 --- !u!114 &1884410859
 MonoBehaviour:
   m_ObjectHideFlags: 0
