@@ -1,13 +1,12 @@
 // Author : Peiyu Wang @ Daphatus
 // 03 12 2024 12 54
 
-using System;
 using System.Collections.Generic;
-using _Script.Character;
+using _Script.Inventory.InventoryBackend;
 using _Script.Items;
 using UnityEngine;
 
-namespace _Script.Inventory.NpcInventoryBackend
+namespace _Script.Inventory.MerchantInventoryBackend
 {
     public class MerchantInventory : InventoryBackend.Inventory
     {
@@ -16,9 +15,7 @@ namespace _Script.Inventory.NpcInventoryBackend
         [SerializeField] private List<InventoryItem> itemsForSale;
 
         public string MerchantName => merchantName;
-
-        public event Action OnMerchantInventoryChanged;
-
+        
         private void Start()
         {
             InitializeMerchantInventory();
@@ -34,8 +31,6 @@ namespace _Script.Inventory.NpcInventoryBackend
             {
                 AddItemToSlot(itemsForSale[i], i);
             }
-
-            OnMerchantInventoryChanged?.Invoke();
         }
         
         public void BuyItemFromSlot(int slotIndex)

@@ -1,41 +1,58 @@
 using _Script.Items.AbstractItemTypes._Script.Items;
+using Sirenix.OdinInspector;
 using UnityEngine;
-using Sirenix.OdinInspector; // Make sure Odin is imported
 
-namespace _Script.Items
+namespace _Script.Inventory.InventoryBackend
 {
     [System.Serializable]
     public class InventoryItem
     {
-        [ReadOnly, SerializeField] protected ItemData itemData; 
-        public ItemData ItemData => itemData;
+        private ItemData _itemData; public ItemData ItemData => _itemData;
 
-        // Use Odin's ReadOnly to display but prevent changes in the Inspector
-        [ReadOnly, ShowInInspector]
-        public Sprite Icon => itemData != null ? itemData.ItemIcon : null; // Referencing ItemIcon with the public getter
+        public Sprite Icon => _itemData != null ? _itemData.ItemSprite : null;
 
-        // Similar for ItemName, using ShowInInspector to display
-        [ReadOnly, ShowInInspector]
-        protected string ItemName => itemData != null ? itemData.ItemName : null; 
-        public string GetName() => ItemName;
+        public string ItemName => _itemData != null ? _itemData.ItemName : null;
 
-        [SerializeField, ShowInInspector] 
-        protected int quantity; 
+        private int quantity = 1;
+        
         public int Quantity
         {
             get => quantity;
-            set => quantity = value;
+            set => quantity = Mathf.Max(0, value); // Ensure quantity is non-negative
         }
 
-        // Constructor
+        // Constructor for copying an InventoryItem
         public InventoryItem(InventoryItem item)
         {
-            itemData = item.ItemData;
+            _itemData = item.ItemData;
+            quantity = item.Quantity;
         }
+
+        public InventoryItem()
+        {
+            _itemData = null;
+            quantity = 0;
+        }
+
+        // Constructor for creating an item with data and quantity
         public InventoryItem(ItemData itemData, int quantity = 1)
         {
-            this.itemData = itemData;
+            this._itemData = itemData;
             this.quantity = quantity;
+        }
+
+        public bool IsEmpty
+        {
+            get
+            {
+                return quantity == 0 || _itemData == null;
+            }
+        }
+
+        public void Clear()
+        {
+            _itemData = null;
+            quantity = 0;
         }
     }
 }

@@ -16,6 +16,6 @@ namespace _Script.Inventory.EquipmentBackend
         /**
          * Remove the item effect from the player
          */
-        InventoryItem Handle_Unequip_RemoveEffect(InventorySlot fromSlo);
+        InventoryItem Handle_Unequip_RemoveEffect(InventoryItem fromSlo);
     }
 }

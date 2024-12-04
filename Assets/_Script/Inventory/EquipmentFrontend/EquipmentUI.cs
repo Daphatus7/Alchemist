@@ -1,4 +1,5 @@
 using _Script.Inventory.EquipmentBackend;
+using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontend;
 using _Script.Inventory.SlotFrontend;
 using _Script.Items;

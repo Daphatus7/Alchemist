@@ -33,7 +33,7 @@ namespace _Script.Inventory.ActionBarBackend
             else
             {
                 _selectedSlotIndex = slotIndex;
-                _selectedItem = Slots[slotIndex].Item;
+                _selectedItem = Slots[slotIndex];
             }
         }
         private int _selectedSlotIndex; public int SelectedSlotIndex => _selectedSlotIndex;
@@ -96,9 +96,13 @@ namespace _Script.Inventory.ActionBarBackend
         public void OnDeSelectItem(int slotIndex)
         {
             //if slot has no item do nothing
-            if(Slots[slotIndex].Item == null) return;
-            
-            var itemTypeName = Slots[slotIndex].Item.ItemData.ItemTypeString;
+            if(Slots[slotIndex].IsEmpty) return;
+            RemoveStrategy(slotIndex);
+        }
+
+        private void RemoveStrategy(int slotIndex)
+        {
+            var itemTypeName = Slots[slotIndex].ItemData.ItemTypeString;
             if(itemTypeName == "Seed")
             {
                 inventoryOwner.GenericStrategy.RemoveItem();
@@ -114,14 +118,15 @@ namespace _Script.Inventory.ActionBarBackend
             inventoryOwner.UnsetStrategy();
             _selectedItem = null;
         }
+        
 
         protected override void OnItemUsedUp(int slotIndex)
         {
             //if the used up item is the selected item
             if(slotIndex == _selectedSlotIndex)
             {
-                _selectedItem = null;
-                OnDeSelectItem(slotIndex);
+                _selectedItem = null; 
+                RemoveStrategy(slotIndex);
             }
         }
     }

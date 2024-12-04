@@ -1,6 +1,9 @@
 // Author : Peiyu Wang @ Daphatus
 // 03 12 2024 12 10
 
+using System;
+using System.Collections.Generic;
+using _Script.Inventory.MerchantInventoryFrontend;
 using _Script.NPC.NPCFrontend._Script.NPC.NPCFrontend;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -19,6 +22,14 @@ namespace _Script.NPC.NpcBackend
         [SerializeField] private DialogueModule dialogueModule;
 
         [SerializeField] private NpcDialogueUI dialogueUI;
+        [SerializeField] private Dictionary<NpcHandlerType, INpcHandler> npcHandlers;
+
+        private void Awake()
+        {
+            _collider = GetComponent<BoxCollider2D>();
+            npcHandlers = new Dictionary<NpcHandlerType, INpcHandler>();
+            npcHandlers.Add(NpcHandlerType.Merchant, GetComponent<MerchantUnit>());
+        }
 
         public void OnEnable()
         {
@@ -32,10 +43,17 @@ namespace _Script.NPC.NpcBackend
         
         public void OnDialogueEnd()
         {
-            Debug.Log("Dialogue Ended!");
+            npcHandlers[NpcHandlerType.Merchant].LoadNpcModule();
         }
     }
 
+    public enum NpcHandlerType
+    {
+        Merchant,
+        QuestGiver,
+        Trainer
+    }
+    
     // Dialogue module
     [System.Serializable]
     public class DialogueModule

@@ -114,14 +114,14 @@ namespace _Script.Inventory.InventoryBackend
                 return false;
             }
 
-            InventorySlot slot = slots[slotIndex];
+            InventoryItem slot = slots[slotIndex];
             if (slot.IsEmpty)
             {
                 //Debug.Log("Slot is empty.");
                 return false;
             }
 
-            ItemData itemData = slot.Item.ItemData;
+            ItemData itemData = slot.ItemData;
 
             OnUsingItem(itemData, slotIndex);
             return true;

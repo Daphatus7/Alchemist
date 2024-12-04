@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace _Script.Utilities.ServiceLocator
@@ -8,43 +7,55 @@ namespace _Script.Utilities.ServiceLocator
     [DefaultExecutionOrder(-100)]
     public class ServiceLocator : Singleton<ServiceLocator>
     {
-        private readonly Dictionary<string, List<IGameService>> _services = new ();
-        public List<T> Get<T>() where T : IGameService
+        // Dictionary to hold services with their type names as keys
+        private readonly Dictionary<string, IGameService> _services = new();
+
+        /// <summary>
+        /// Get a service of type T.
+        /// </summary>
+        public T Get<T>() where T : IGameService
         {
-            
             string key = typeof(T).Name;
-            if (!_services.TryGetValue(key, out var service))
+            if (_services.TryGetValue(key, out var service))
             {
-                Debug.LogWarning($"Service of type {key} not found");
+                return (T)service;
             }
 
-            // Attempt to cast each service to the desired type and return the list
-            return service != null ? service.OfType<T>().ToList() : new List<T>();
+            Debug.LogWarning($"Service of type {key} not found");
+            return default; // Returns null for reference types
         }
+
+        /// <summary>
+        /// Register a service of type T.
+        /// </summary>
         public void Register<T>(T service) where T : IGameService
         {
-            Debug.Log("Registering service " + service);
+            Debug.Log($"Registering service of type {typeof(T).Name}");
             string key = typeof(T).Name;
-            if (!this._services.ContainsKey(key))
-            {
-                this._services[key] = new List<IGameService>();
-            }
 
-            this._services[key].Add(service);
-        }
-    
-        public void Unregister<T>(T service) where T : IGameService
-        {
-            string key = typeof(T).Name;
-            if (!this._services.ContainsKey(key))
+            if (_services.ContainsKey(key))
             {
+                Debug.LogError($"Service of type {key} is already registered.");
                 return;
             }
 
-            this._services[key].Remove(service);
-            if (this._services[key].Count == 0)
+            _services[key] = service;
+        }
+
+        /// <summary>
+        /// Unregister a service of type T.
+        /// </summary>
+        public void Unregister<T>() where T : IGameService
+        {
+            string key = typeof(T).Name;
+
+            if (_services.Remove(key))
             {
-                this._services.Remove(key);
+                Debug.Log($"Service of type {key} unregistered successfully.");
+            }
+            else
+            {
+                Debug.LogWarning($"No service of type {key} found to unregister.");
             }
         }
     }

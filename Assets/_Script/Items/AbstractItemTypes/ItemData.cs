@@ -1,6 +1,4 @@
 using _Script.Character;
-using _Script.Character.ActionStrategy;
-using _Script.Inventory.InventoryBackend;
 using UnityEngine;
 using Sirenix.OdinInspector; // Import Odin
 
@@ -11,29 +9,52 @@ namespace _Script.Items.AbstractItemTypes
         [System.Serializable]
         public abstract class ItemData : ScriptableObject
         {
-            [SerializeField] private string itemName;
-            [SerializeField] private int itemID;
-            [SerializeField, TextArea] private string itemDescription;
-            [SerializeField] private Sprite itemIcon; public Sprite ItemSprite => itemIcon;
-            [SerializeField] private int maxStackSize = 1;
-            [SerializeField] private Rarity rarity;
+            [Title("Basic Info")]
+            [SerializeField, Tooltip("Name of the item")]
+            private string itemName;
 
-            // Public read-only properties
+            [SerializeField, Tooltip("Unique ID of the item")]
+            private int itemID;
+
+            [SerializeField, TextArea, Tooltip("Detailed description of the item")]
+            private string itemDescription;
+
+            [Title("Visuals")]
+            [SerializeField, Tooltip("Icon representing the item"), PreviewField(75)]
+            private Sprite itemIcon;
+
+            [Title("Stacking & Rarity")]
+            [SerializeField, Tooltip("Maximum stack size for this item")]
+            private int maxStackSize = 1;
+
+            [SerializeField, Tooltip("Rarity of the item")]
+            private Rarity rarity;
+
+            [Title("Read-Only Debug Info"), ReadOnly, ShowInInspector]
+            public Sprite ItemSprite => itemIcon;
+
+            [ReadOnly, ShowInInspector]
             public string ItemName => itemName;
+
+            [ReadOnly, ShowInInspector]
             public int ItemID => itemID;
+
+            [ReadOnly, ShowInInspector]
             public string ItemDescription => itemDescription;
-            public Sprite ItemIcon => itemIcon;
+
+            [ReadOnly, ShowInInspector]
             public int MaxStackSize => maxStackSize;
 
             public abstract ItemType ItemType { get; }
             public abstract string ItemTypeString { get; }
-            
-            /**
-             * Use the item, When using an item, this applies effect to the player either by equipping, consuming etc.
-             */
+
+            /// <summary>
+            /// Use the item. Applies effects to the player (e.g., equip, consume).
+            /// </summary>
+            /// <param name="playerCharacter">The player character to apply effects to.</param>
+            /// <returns>True if the item was used successfully; false otherwise.</returns>
             public abstract bool Use(PlayerCharacter playerCharacter);
         }
-
         public enum ItemType
         {
             Equipment,

@@ -17,7 +17,7 @@ namespace _Script.Managers
         
         public void Start()
         {
-            StartCoroutine(DelayedLoad());
+            //StartCoroutine(DelayedLoad());
         }
         
         private IEnumerator DelayedLoad()

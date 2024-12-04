@@ -1,8 +1,7 @@
-using System.Collections.Generic;
 using _Script.Inventory.ActionBarBackend;
+using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontend;
 using _Script.Inventory.SlotFrontend;
-using _Script.Items;
 using UnityEngine;
 
 namespace _Script.Inventory.ActionBarFrontend
@@ -49,7 +48,7 @@ namespace _Script.Inventory.ActionBarFrontend
                 
                 // Initialize the slot
                 inventorySlotDisplay.InitializeInventorySlot(this, i);
-                inventorySlotDisplay.SetSlot(_actionBar.Slots[i].Item);
+                inventorySlotDisplay.SetSlot(_actionBar.Slots[i]);
 
                 // Store the slot display
                 _inventorySlotDisplays[i] = inventorySlotDisplay;
@@ -62,7 +61,7 @@ namespace _Script.Inventory.ActionBarFrontend
                 return;
 
             InventorySlotDisplay slotDisplay = _inventorySlotDisplays[slotIndex];
-            slotDisplay.SetSlot(_actionBar.Slots[slotIndex].Item);
+            slotDisplay.SetSlot(_actionBar.Slots[slotIndex]);
         }
         
         /// <summary>
@@ -84,7 +83,7 @@ namespace _Script.Inventory.ActionBarFrontend
             //Case 2: Check if has an item
             //if the slot is empty, then try to deselect the previous item
             //and set selected item to null
-            if(_actionBar.Slots[slotIndex].IsEmptySlot())
+            if(_actionBar.Slots[slotIndex].IsEmpty)
             {
                 Debug.LogWarning("No item in slot.");
                 //still deselect the previous item
@@ -97,7 +96,7 @@ namespace _Script.Inventory.ActionBarFrontend
             }
             
             //Case 3: Check if selecting the same slot and is not seed item
-            if (_selectedSlotDisplay && _selectedSlotDisplay.SlotIndex == slotIndex && _actionBar.Slots[slotIndex].Item.ItemData.ItemTypeString != "Seed")
+            if (_selectedSlotDisplay && _selectedSlotDisplay.SlotIndex == slotIndex && _actionBar.Slots[slotIndex].ItemData.ItemTypeString != "Seed")
             {
                 // Use the selected slot
                 _actionBar.LeftClickItem(slotIndex);

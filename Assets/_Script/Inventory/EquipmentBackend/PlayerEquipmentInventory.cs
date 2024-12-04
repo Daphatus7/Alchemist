@@ -175,8 +175,7 @@ namespace _Script.Inventory.EquipmentBackend
             return EquipItem(equipmentItem);
         }
 
-
-        public InventoryItem Handle_Unequip_RemoveEffect(InventorySlot fromSlot)
+        public InventoryItem Handle_Unequip_RemoveEffect(InventoryItem fromSlot)
         {
             return null;
         }

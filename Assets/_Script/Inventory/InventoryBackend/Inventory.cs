@@ -1,20 +1,18 @@
 using System;
-using System.Collections.Generic;
-using _Script.Character;
-using _Script.Items;
-using _Script.Items.AbstractItemTypes._Script.Items;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Script.Inventory.InventoryBackend
 {
     public abstract class Inventory : MonoBehaviour
     {
-        [SerializeField] private int capacity = 20;
+        private int capacity = 20;
+        [TableList] protected InventoryItem[] slots; public InventoryItem[] Slots => slots;
 
+        [ShowInInspector, ReadOnly, PropertyOrder(2)]
+        [Tooltip("Get the capacity of the inventory")]
         public int Capacity => capacity;
-
-        // Fixed-size array representing inventory slots
-        protected InventorySlot[] slots; public InventorySlot[] Slots => slots;
+        
 
         // Event to notify when the inventory has changed
         public event Action<int> OnInventorySlotChanged;
@@ -25,14 +23,14 @@ namespace _Script.Inventory.InventoryBackend
             //private 
             
             // Initialize the slots array with the capacity
-            slots = new InventorySlot[capacity];
+            slots = new InventoryItem[capacity];
             for (int i = 0; i < capacity; i++)
             {
-                slots[i] = new InventorySlot();
+                slots[i] = new InventoryItem();
             }
         }
 
-        protected bool AddItem(InventoryItem itemToAdd)
+        public bool AddItem(InventoryItem itemToAdd)
         {
             if (itemToAdd == null)
             {
@@ -45,17 +43,17 @@ namespace _Script.Inventory.InventoryBackend
             // First, try to add to existing stacks with the same item that are not full
             for (int i = 0; i < capacity; i++)
             {
-                var slot = slots[i];
-                if (!slot.IsEmpty && slot.Item.ItemData == itemToAdd.ItemData && slot.Item.Quantity < itemToAdd.ItemData.MaxStackSize)
+                if (!slots[i].IsEmpty && slots[i].ItemData == itemToAdd.ItemData && slots[i].Quantity < itemToAdd.ItemData.MaxStackSize)
                 {
-                    int availableSpace = itemToAdd.ItemData.MaxStackSize - slot.Item.Quantity;
+                    int availableSpace = itemToAdd.ItemData.MaxStackSize - slots[i].Quantity;
                     int amountToAdd = Math.Min(quantityToAdd, availableSpace);
-                    slot.Item.Quantity += amountToAdd;
+                    slots[i].Quantity += amountToAdd;
                     quantityToAdd -= amountToAdd;
-
+                    
                     // Notify UI update
                     OnInventorySlotChanged?.Invoke(i);
 
+                    // If the quantity reaches zero, we are done
                     if (quantityToAdd <= 0)
                     {
                         return true;
@@ -66,11 +64,10 @@ namespace _Script.Inventory.InventoryBackend
             // Next, try to add to empty slots
             for (int i = 0; i < capacity; i++)
             {
-                var slot = slots[i];
-                if (slot.IsEmpty)
+                if (slots[i].IsEmpty)
                 {
                     int amountToAdd = Math.Min(quantityToAdd, itemToAdd.ItemData.MaxStackSize);
-                    slot.Item = new InventoryItem(itemToAdd.ItemData, amountToAdd);
+                    slots[i] = new InventoryItem(itemToAdd.ItemData, amountToAdd);
                     quantityToAdd -= amountToAdd;
 
                     // Notify UI update
@@ -102,7 +99,7 @@ namespace _Script.Inventory.InventoryBackend
 
             if (slots[slotIndex].IsEmpty)
             {
-                slots[slotIndex].Item = item;
+                slots[slotIndex] = item;
 
                 // Notify UI update
                 OnInventorySlotChanged?.Invoke(slotIndex);
@@ -123,12 +120,11 @@ namespace _Script.Inventory.InventoryBackend
                 return false;
             }
 
-            var slot = slots[slotIndex];
-            if (!slot.IsEmpty && slot.Item.ItemData == itemToAdd.ItemData && slot.Item.Quantity < itemToAdd.ItemData.MaxStackSize)
+            if (!slots[slotIndex].IsEmpty && slots[slotIndex].ItemData == itemToAdd.ItemData && slots[slotIndex].Quantity < itemToAdd.ItemData.MaxStackSize)
             {
-                int availableSpace = itemToAdd.ItemData.MaxStackSize - slot.Item.Quantity;
+                int availableSpace = itemToAdd.ItemData.MaxStackSize - slots[slotIndex].Quantity;
                 int amountToAdd = Math.Min(itemToAdd.Quantity, availableSpace);
-                slot.Item.Quantity += amountToAdd;
+                slots[slotIndex].Quantity += amountToAdd;
 
                 // Notify UI update
                 OnInventorySlotChanged?.Invoke(slotIndex);
@@ -136,10 +132,10 @@ namespace _Script.Inventory.InventoryBackend
                 return true;
             }
 
-            if (slot.IsEmpty)
+            if (slots[slotIndex].IsEmpty)
             {
                 int amountToAdd = Math.Min(itemToAdd.Quantity, itemToAdd.ItemData.MaxStackSize);
-                slot.Item = new InventoryItem(itemToAdd.ItemData, amountToAdd);
+                slots[slotIndex] = new InventoryItem(itemToAdd.ItemData, amountToAdd);
 
                 // Notify UI update
                 OnInventorySlotChanged?.Invoke(slotIndex);
@@ -159,14 +155,13 @@ namespace _Script.Inventory.InventoryBackend
                 return null;
             }
 
-            InventorySlot slot = slots[slotIndex];
-            if (slot.IsEmpty)
+            if (slots[slotIndex].IsEmpty)
             {
                 return null;
             }
 
-            InventoryItem item = slot.Item;
-            slot.Clear();
+            InventoryItem item = new InventoryItem(slots[slotIndex].ItemData, slots[slotIndex].Quantity);
+            slots[slotIndex].Clear();
 
             // Notify UI update
             OnInventorySlotChanged?.Invoke(slotIndex);
@@ -181,18 +176,17 @@ namespace _Script.Inventory.InventoryBackend
             // Go through the slots and remove items
             for (int i = 0; i < capacity; i++)
             {
-                var slot = slots[i];
-                if (!slot.IsEmpty && slot.Item.ItemData == inventoryItem.ItemData)
+                if (!slots[i].IsEmpty && slots[i].ItemData == inventoryItem.ItemData)
                 {
-                    int amountToRemove = Math.Min(quantityToRemove, slot.Item.Quantity);
-                    slot.Item.Quantity -= amountToRemove;
+                    int amountToRemove = Math.Min(quantityToRemove, slots[i].Quantity);
+                    slots[i].Quantity -= amountToRemove;
                     quantityToRemove -= amountToRemove;
 
                     // If the quantity reaches zero, clear the slot's item data, but keep the slot
-                    if (slot.Item.Quantity <= 0)
+                    if (slots[i].Quantity <= 0)
                     {
                         OnItemUsedUp(i);
-                        slot.Clear();
+                        slots[i].Clear();
                     }
 
                     // Notify UI update
@@ -220,22 +214,21 @@ namespace _Script.Inventory.InventoryBackend
 
         protected bool RemoveItemFromSlot(int slotIndex, int quantity)
         {
-            var slot = slots[slotIndex];
-            if (slot.IsEmpty)
+            if (slots[slotIndex].IsEmpty)
             {
                 Debug.Log("Slot is empty.");
                 return false;
             }
 
-            if (slot.Item.Quantity >= quantity)
+            if (slots[slotIndex].Quantity >= quantity)
             {
-                slot.Item.Quantity -= quantity;
+                slots[slotIndex].Quantity -= quantity;
 
                 // If quantity reaches zero, clear the slot
-                if (slot.Item.Quantity <= 0)
+                if (slots[slotIndex].Quantity <= 0)
                 {
                     OnItemUsedUp(slotIndex);
-                    slot.Clear();
+                    slots[slotIndex].Clear();
                 }
 
                 // Notify UI update
@@ -256,23 +249,7 @@ namespace _Script.Inventory.InventoryBackend
         public abstract void LeftClickItem(int slotIndex);
 
     }
-
-    public class InventorySlot
-    {
-        public InventoryItem Item { get; set; }
-
-        public bool IsEmpty => Item is not { Quantity: > 0 };
-
-        public void Clear()
-        {
-            Item = null;
-        }
-        
-        public bool IsEmptySlot()
-        {
-            return Item == null;
-        }
-    }
+    
     
     public enum InventoryType
     {

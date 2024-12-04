@@ -1,3 +1,4 @@
+using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.SlotFrontend;
 using _Script.Items;
 using UnityEngine;
@@ -53,7 +54,7 @@ namespace _Script.Inventory.InventoryFrontend
                 slotDisplays[i] = inventorySlotDisplay;
 
                 // Set the slot's initial item
-                inventorySlotDisplay.SetSlot(playerInventory.Slots[i].Item);
+                inventorySlotDisplay.SetSlot(playerInventory.Slots[i]);
             }
         }
 
@@ -64,7 +65,7 @@ namespace _Script.Inventory.InventoryFrontend
         {
             for (int i = 0; i < slotDisplays?.Length; i++)
             {
-                slotDisplays[i].SetSlot(playerInventory.Slots[i].Item);
+                slotDisplays[i].SetSlot(playerInventory.Slots[i]);
             }
         }
 
@@ -74,7 +75,7 @@ namespace _Script.Inventory.InventoryFrontend
                 return;
 
             InventorySlotDisplay slotDisplay = slotDisplays[slotIndex];
-            slotDisplay.SetSlot(playerInventory.Slots[slotIndex].Item);
+            slotDisplay.SetSlot(playerInventory.Slots[slotIndex]);
         }
         
         public void OnSlotClicked(InventorySlotDisplay slotDisplay)

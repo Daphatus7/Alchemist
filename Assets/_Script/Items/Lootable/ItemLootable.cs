@@ -1,6 +1,7 @@
 using System.Collections;
 using _Script.Character;
 using _Script.Interactable;
+using _Script.Inventory.InventoryBackend;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
@@ -31,7 +32,7 @@ namespace _Script.Items.Lootable
 
             if (itemData != null)
             {
-                _spriteRenderer.sprite = itemData.ItemIcon;
+                _spriteRenderer.sprite = itemData.ItemSprite;
             }
         }
 
