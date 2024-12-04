@@ -164,23 +164,27 @@ namespace _Script.Character
         }
 
         #endregion
-
         #region Player Assets
 
         private int _gold = 1000;
-        private event Action<int> OnGoldChanged;
+        private readonly UnityEvent<int> _onGoldChanged = new UnityEvent<int>();
         public void AddGold(int amount)
         {
             _gold += amount;
-            OnGoldChanged?.Invoke(_gold);
+            _onGoldChanged?.Invoke(_gold);
         }
         
         public bool RemoveGold(int amount)
         {
             if (_gold - amount < 0) return false;
             _gold -= amount;
-            OnGoldChanged?.Invoke(_gold);
+            _onGoldChanged?.Invoke(_gold);
             return true;
+        }
+        
+        public UnityEvent<int> PlayerGoldUpdateEvent()
+        {
+            return _onGoldChanged;
         }
 
         #endregion
@@ -190,6 +194,7 @@ namespace _Script.Character
         {
             return onHealthChanged;
         }
+        
 
         public float GetPlayerHealth()
         {
@@ -199,6 +204,11 @@ namespace _Script.Character
         public float GetPlayerMaxHealth()
         {
             return HealthMax;
+        }
+
+        public int GetPlayerGold()
+        {
+            return _gold;
         }
 
         #endregion

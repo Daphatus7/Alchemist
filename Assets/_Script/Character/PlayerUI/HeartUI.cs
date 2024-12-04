@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Script.UI
+namespace _Script.Character.PlayerUI
 {
     public class HeartUI : MonoBehaviour
     {

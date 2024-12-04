@@ -3,7 +3,7 @@ using _Script.Character;
 using _Script.Managers;
 using UnityEngine;
 
-namespace _Script.UI
+namespace _Script.Character.PlayerUI
 {
     public class PlayerHealthUI : MonoBehaviour
     {
