@@ -3,6 +3,7 @@
 
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontend;
+using _Script.Inventory.InventoryFrontendHandler;
 using _Script.Inventory.SlotFrontend;
 using _Script.Items;
 using UnityEngine;
@@ -10,7 +11,7 @@ using UnityEngine;
 namespace _Script.Inventory.InventoryFrontendBase
 {
     public abstract class InventoryUIBase<TInventory> : 
-        MonoBehaviour, IInventoryUIHandle
+        MonoBehaviour, IContainerUIHandle
         where TInventory : InventoryBackend.Inventory
     {
         [SerializeField] protected TInventory _inventory;
@@ -70,14 +71,19 @@ namespace _Script.Inventory.InventoryFrontendBase
             {
                 GameObject slot = Instantiate(slotPrefab, inventoryPanel.transform);
                 InventorySlotDisplay inventorySlotDisplay = slot.GetComponent<InventorySlotDisplay>();
-                inventorySlotDisplay.InitializeInventorySlot(this, i);
+                inventorySlotDisplay.InitializeInventorySlot(GetContainerUIHandler(), i, _inventory.SlotType);
                 _slotDisplays[i] = inventorySlotDisplay;
-
                 // Set the slot's initial item
                 inventorySlotDisplay.SetSlot(_inventory.Slots[i]);
             }
         }
-
+        
+        protected virtual IContainerUIHandle GetContainerUIHandler()
+        {
+            return this;
+        }
+        
+        
         // Update all slots in the UI
         protected void UpdateAllSlotsUI()
         {
@@ -118,6 +124,16 @@ namespace _Script.Inventory.InventoryFrontendBase
         public void AddItemToEmptySlot(InventoryItem item, int slotIndex)
         {
             _inventory.AddItemToEmptySlot(item, slotIndex);
+        }
+
+        public InventoryItem AddItem(InventoryItem item)
+        {
+            return _inventory.AddItem(item);
+        }
+
+        public virtual bool AcceptsItem(InventoryItem item)
+        {
+            return true;
         }
     }
 }

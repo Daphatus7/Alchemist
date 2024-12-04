@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace _Script.Inventory.EquipmentBackend
 {
-    public sealed class PlayerEquipmentInventory : MonoBehaviour, IPlayerEquipmentHandle
+    public sealed class PlayerEquipmentInventory : MonoBehaviour
     {
 
         private Dictionary<PlayerEquipmentSlotType, InventoryItem> _equipmentSlots;
@@ -104,7 +104,7 @@ namespace _Script.Inventory.EquipmentBackend
             if (item != null)
             {
                 //return the item to the inventory
-                _playerCharacter.GetPlayerInventory().Handle_AddItem(item);
+                _playerCharacter.PlayerInventory.AddItem(item);
             }
             
         }

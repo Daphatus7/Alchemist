@@ -1,6 +1,7 @@
 using _Script.Inventory.ActionBarBackend;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontend;
+using _Script.Inventory.InventoryFrontendHandler;
 using _Script.Inventory.SlotFrontend;
 using UnityEngine;
 
@@ -47,7 +48,7 @@ namespace _Script.Inventory.ActionBarFrontend
                 InventorySlotDisplay inventorySlotDisplay = slot.GetComponent<InventorySlotDisplay>();
                 
                 // Initialize the slot
-                inventorySlotDisplay.InitializeInventorySlot(this, i);
+                inventorySlotDisplay.InitializeInventorySlot(this, i, _actionBar.SlotType);
                 inventorySlotDisplay.SetSlot(_actionBar.Slots[i]);
 
                 // Store the slot display
@@ -205,6 +206,16 @@ namespace _Script.Inventory.ActionBarFrontend
             {
                 SelectSlot(slotIndex);
             }
+        }
+
+        public InventoryItem AddItem(InventoryItem item)
+        {
+            return _actionBar.AddItem(item);
+        }
+        
+        public bool AcceptsItem(InventoryItem item)
+        {
+            return true;
         }
     }
 }

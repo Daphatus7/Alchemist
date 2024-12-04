@@ -119,20 +119,23 @@ namespace _Script.Items.Lootable
 
         private void PickupItem(GameObject player)
         {
-            if(player.TryGetComponent(out IPlayerInventoryHandler playerInventory))
+            if(player.TryGetComponent(out PlayerCharacter playerCharacter))
             {
-                if (playerInventory.GetPlayerInventory() == null)
+                //check if the player has an inventory
+                if (playerCharacter.PlayerInventory == null)
                 {
                     Debug.Log("Player inventory not found");
                     return;
                 }
-                if (playerInventory.GetPlayerInventory().Handle_AddItem(new InventoryItem(itemData, quantity)))
+                
+                if (playerCharacter.PlayerInventory.AddItem(new InventoryItem(itemData, quantity)) is { } item)
                 {
-                    Destroy(gameObject);
+                   Debug.Log($"Picked up {itemData.ItemName} x{quantity}");
                 }
                 else
                 {
-                    _isPickedUp = false;
+                    _isPickedUp = true;
+                    Destroy(gameObject);
                 }
             }
             else

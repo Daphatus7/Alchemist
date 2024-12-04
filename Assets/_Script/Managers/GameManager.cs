@@ -11,12 +11,16 @@ namespace _Script.Managers
         private ServiceLocator _serviceLocator; public ServiceLocator GetServiceLocator() => _serviceLocator;
         
         [SerializeField] private PlayerCharacter _playerCharacter;
-        public IPlayerUIHandle GetPlayerUIHandle() => _playerCharacter;
-        public IPlayerInventoryHandler GetPlayerInventoryHandler() => _playerCharacter;
+        
         protected override void Awake()
         {
             base.Awake();
             _serviceLocator = ServiceLocator.Instance;
+        }
+
+        public IPlayerUIHandle GetPlayerUIHandle()
+        {
+            return _playerCharacter;
         }
     }
 }

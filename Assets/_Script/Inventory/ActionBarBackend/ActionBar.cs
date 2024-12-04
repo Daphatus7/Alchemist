@@ -1,26 +1,12 @@
-
 using System;
-using _Script.Character;
 using _Script.Inventory.InventoryBackend;
-using _Script.Items;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
 namespace _Script.Inventory.ActionBarBackend
 {
-    public class ActionBar : PlayerInventory, IActionBarHandle
+    public class ActionBar : PlayerInventory
     {
-        
-        public bool Handle_AddItem(InventoryItem inventoryItem)
-        {
-            return AddItem(inventoryItem);
-        }
-
-        public bool Handle_RemoveItem(InventoryItem inventoryItem)
-        {
-            return RemoveItem(inventoryItem);
-        }
-        
         private InventoryItem _selectedItem;
         
         private void SetSelectedItem(int slotIndex)

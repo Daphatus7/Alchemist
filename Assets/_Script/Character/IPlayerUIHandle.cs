@@ -7,7 +7,6 @@ namespace _Script.Character
         UnityEvent GetPlayerHealthUpdateEvent();
         float GetPlayerHealth();
         float GetPlayerMaxHealth();
-        
     }
 
 }

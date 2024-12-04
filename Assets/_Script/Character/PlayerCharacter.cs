@@ -1,12 +1,10 @@
-using System.Collections.Generic;
+using System;
 using _Script.Attribute;
-using _Script.Character.Ability;
 using _Script.Character.ActionStrategy;
 using _Script.Interactable;
 using _Script.Inventory.EquipmentBackend;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontend;
-using _Script.Inventory.InventoryHandles;
 using _Script.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,16 +12,15 @@ using UnityEngine.InputSystem;
 
 namespace _Script.Character
 {
-    public class PlayerCharacter : PawnAttribute, IControl, IPlayerInventoryHandler, IPlayerUIHandle
+    public class PlayerCharacter : PawnAttribute, IControl, IPlayerUIHandle
     {
         [SerializeField] private GameObject LeftHand;
         [SerializeField] private GameObject RightHand;
         
-        
         private float _facingDirection; public float FacingDirection => _facingDirection;
 
-        private IPlayerInventoryHandle _playerInventory;
-        private IPlayerEquipmentHandle _playerEquipment;
+        private PlayerInventory _playerInventory; public PlayerInventory PlayerInventory => _playerInventory;
+        private PlayerEquipmentInventory _playerEquipment; public PlayerEquipmentInventory PlayerEquipment => _playerEquipment;
         
         private InteractionBase _interactionBase;
         private WeaponStrategy _weaponStrategy; public WeaponStrategy WeaponStrategy => _weaponStrategy;
@@ -167,21 +164,26 @@ namespace _Script.Character
         }
 
         #endregion
-        
-        #region Inventory Handle
 
-        public IPlayerEquipmentHandle GetPlayerEquipment()
+        #region Player Assets
+
+        private int _gold = 1000;
+        private event Action<int> OnGoldChanged;
+        public void AddGold(int amount)
         {
-            return _playerEquipment;
+            _gold += amount;
+            OnGoldChanged?.Invoke(_gold);
         }
-
-        public IPlayerInventoryHandle GetPlayerInventory()
+        
+        public bool RemoveGold(int amount)
         {
-            return _playerInventory;
+            if (_gold - amount < 0) return false;
+            _gold -= amount;
+            OnGoldChanged?.Invoke(_gold);
+            return true;
         }
 
         #endregion
-        
         #region Stat
 
         public UnityEvent GetPlayerHealthUpdateEvent()

@@ -1,24 +1,22 @@
 using _Script.Character;
-using _Script.Inventory.InventoryHandles;
+using _Script.Inventory.SlotFrontend;
 using _Script.Items;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
 namespace _Script.Inventory.InventoryBackend
 {
-    public class PlayerInventory : Inventory, IPlayerInventoryHandle
+    public class PlayerInventory : Inventory
     {
         protected PlayerCharacter inventoryOwner; public PlayerCharacter InventoryOwner => inventoryOwner;
         
+
+        public override SlotType SlotType => SlotType.PlayerInventory;
+
         protected override void Awake()
         {
             base.Awake();
             inventoryOwner = GetComponentInParent<PlayerCharacter>();
-        }
-        
-        public bool Handle_AddItem(InventoryItem inventoryItem)
-        {
-            return AddItem(inventoryItem);
         }
 
         public bool Handle_RemoveItem(InventoryItem inventoryItem)
@@ -29,7 +27,7 @@ namespace _Script.Inventory.InventoryBackend
         private InventoryItem OnUseEquipmentItem(EquipmentItem itemData)
         {
             // Equip the item
-            return inventoryOwner.GetPlayerEquipment().Handle_Equip(itemData);
+            return inventoryOwner.PlayerEquipment.Handle_Equip(itemData);
         }
         private bool OnUseConsumableItem(ConsumableItem itemData)
         {

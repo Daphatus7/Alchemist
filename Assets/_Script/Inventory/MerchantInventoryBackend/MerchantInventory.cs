@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
-using _Script.Items;
+using _Script.Inventory.SlotFrontend;
 using UnityEngine;
 
 namespace _Script.Inventory.MerchantInventoryBackend
@@ -41,9 +41,13 @@ namespace _Script.Inventory.MerchantInventoryBackend
             
         }
 
+        public override SlotType SlotType => SlotType.Merchant;
+
         public override void LeftClickItem(int slotIndex)
         {
             
         }
     }
+    
+
 }

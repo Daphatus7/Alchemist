@@ -1,13 +1,14 @@
 using _Script.Inventory.InventoryBackend;
+using _Script.Inventory.InventoryFrontendHandler;
 using _Script.Inventory.SlotFrontend;
 using _Script.Items;
 using UnityEngine;
 
 namespace _Script.Inventory.InventoryFrontend
 {
-    public class InventoryUI : MonoBehaviour, IInventoryUIHandle
+    public class InventoryUI : MonoBehaviour, IPlayerInventoryHandler
     {
-        [SerializeField] private InventoryBackend.Inventory playerInventory;
+        [SerializeField] private PlayerInventory playerInventory;
         [SerializeField] private GameObject inventoryPanel;
         [SerializeField] private GameObject slotPrefab;
 
@@ -50,7 +51,7 @@ namespace _Script.Inventory.InventoryFrontend
             {
                 GameObject slot = Instantiate(slotPrefab, inventoryPanel.transform);
                 InventorySlotDisplay inventorySlotDisplay = slot.GetComponent<InventorySlotDisplay>();
-                inventorySlotDisplay.InitializeInventorySlot(this, i);
+                inventorySlotDisplay.InitializeInventorySlot(this, i, playerInventory.SlotType);
                 slotDisplays[i] = inventorySlotDisplay;
 
                 // Set the slot's initial item
@@ -91,6 +92,26 @@ namespace _Script.Inventory.InventoryFrontend
         public void AddItemToEmptySlot(InventoryItem item, int slotIndex)
         {
             playerInventory.AddItemToEmptySlot(item, slotIndex);
+        }
+
+        public InventoryItem AddItem(InventoryItem item)
+        {
+            return playerInventory.AddItem(item);
+        }
+        
+        public bool AcceptsItem(InventoryItem item)
+        {
+            return true;
+        }
+
+        public void AddGold(int amount)
+        {
+            playerInventory.InventoryOwner.AddGold(amount);
+        }
+
+        public bool RemoveGold(int amount)
+        {
+            return playerInventory.InventoryOwner.RemoveGold(amount);
         }
     }
 }

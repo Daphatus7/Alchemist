@@ -1,4 +1,5 @@
 using System;
+using _Script.Inventory.SlotFrontend;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -8,11 +9,11 @@ namespace _Script.Inventory.InventoryBackend
     {
         private int capacity = 20;
         [TableList] protected InventoryItem[] slots; public InventoryItem[] Slots => slots;
-
         [ShowInInspector, ReadOnly, PropertyOrder(2)]
         [Tooltip("Get the capacity of the inventory")]
         public int Capacity => capacity;
-        
+
+        public abstract SlotType SlotType { get; }
 
         // Event to notify when the inventory has changed
         public event Action<int> OnInventorySlotChanged;
@@ -30,12 +31,12 @@ namespace _Script.Inventory.InventoryBackend
             }
         }
 
-        public bool AddItem(InventoryItem itemToAdd)
+        public InventoryItem AddItem(InventoryItem itemToAdd)
         {
             if (itemToAdd == null)
             {
                 Debug.LogWarning("ItemData is null.");
-                return false;
+                return null;
             }
 
             int quantityToAdd = itemToAdd.Quantity;
@@ -56,7 +57,7 @@ namespace _Script.Inventory.InventoryBackend
                     // If the quantity reaches zero, we are done
                     if (quantityToAdd <= 0)
                     {
-                        return true;
+                        return null;
                     }
                 }
             }
@@ -75,7 +76,7 @@ namespace _Script.Inventory.InventoryBackend
 
                     if (quantityToAdd <= 0)
                     {
-                        return true;
+                        return null;
                     }
                 }
             }
@@ -83,10 +84,10 @@ namespace _Script.Inventory.InventoryBackend
             if (quantityToAdd > 0)
             {
                 Debug.Log("Inventory is full!");
-                return false;
+                return new InventoryItem(itemToAdd.ItemData, quantityToAdd);
             }
 
-            return true;
+            return null;
         }
         
         public void AddItemToEmptySlot(InventoryItem item, int slotIndex)

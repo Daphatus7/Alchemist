@@ -26,9 +26,12 @@ namespace _Script.Items.AbstractItemTypes
             [Title("Stacking & Rarity")]
             [SerializeField, Tooltip("Maximum stack size for this item")]
             private int maxStackSize = 1;
+            
 
             [SerializeField, Tooltip("Rarity of the item")]
             private Rarity rarity;
+
+            private int _value = 1; public int Value => _value;
 
             [Title("Read-Only Debug Info"), ReadOnly, ShowInInspector]
             public Sprite ItemSprite => itemIcon;

@@ -22,9 +22,9 @@ namespace _Script.Inventory.EquipmentFrontend
             _chestSlot = Instantiate(slotPrefab, equipmentPanel.transform).GetComponent<InventorySlotDisplay>();
             _weaponSlot = Instantiate(slotPrefab, equipmentPanel.transform).GetComponent<InventorySlotDisplay>();
             
-            _headSlot.InitializeInventorySlot(this, (int)PlayerEquipmentSlotType.Head);
-            _chestSlot.InitializeInventorySlot(this, (int)PlayerEquipmentSlotType.Chest);
-            _weaponSlot.InitializeInventorySlot(this, (int)PlayerEquipmentSlotType.Weapon);
+            _headSlot.InitializeInventorySlot(this, (int)PlayerEquipmentSlotType.Head, SlotType.Equipment);
+            _chestSlot.InitializeInventorySlot(this, (int)PlayerEquipmentSlotType.Chest, SlotType.Equipment);
+            _weaponSlot.InitializeInventorySlot(this, (int)PlayerEquipmentSlotType.Weapon, SlotType.Equipment);
         }
         
         private void OnEnable()
@@ -60,6 +60,19 @@ namespace _Script.Inventory.EquipmentFrontend
                 playerEquipmentInventory.Handle_Equip(equipmentItem);
             Debug.LogError("This is not an equipment item");
         }
+
+        public InventoryItem AddItem(InventoryItem item)
+        {
+            //check if is equipment item
+            if(item.ItemData is EquipmentItem equipmentItem)
+                playerEquipmentInventory.Handle_Equip(equipmentItem);
+            Debug.LogError("This is not an equipment item");
+            return null;
+        }
         
+        public bool AcceptsItem(InventoryItem item)
+        {
+            return item.ItemData is EquipmentItem;
+        }
     }
 }
