@@ -18,7 +18,7 @@ namespace _Script.Managers
             _serviceLocator = ServiceLocator.Instance;
         }
 
-        public IPlayerUIHandle GetPlayerUIHandle()
+        public PlayerCharacter GetPlayer()
         {
             return _playerCharacter;
         }

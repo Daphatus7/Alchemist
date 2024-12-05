@@ -22,7 +22,7 @@ namespace _Script.Character
 
         private float _facingDirection;
         public float FacingDirection => _facingDirection;
-
+        
         private PlayerInventory _playerInventory;
         public PlayerInventory PlayerInventory => _playerInventory;
         private PlayerEquipmentInventory _playerEquipment;
@@ -35,6 +35,20 @@ namespace _Script.Character
         public GenericItemStrategy GenericStrategy => _genericStrategy;
         private IActionStrategy _actionStrategy;
 
+        #region player Attribute
+
+        [SerializeField] private float mana = 10f; public float Mana => mana;
+        [SerializeField]private float _manaMax = 100f; public float ManaMax => _manaMax;
+        [SerializeField] private float stamina= 10f; public float Stamina => stamina;
+        [SerializeField]private float _staminaMax = 100f; public float StaminaMax => _staminaMax;
+        [SerializeField] private float hunger = 100f; public float Hunger => hunger;
+        [SerializeField]private float _hungerMax = 100f; public float HungerMax => _hungerMax;
+        
+        
+        public UnityEvent onStatsChanged = new UnityEvent();
+        
+        #endregion
+        
         [SerializeField] private InventoryUI _inventoryUI;
 
         #region Player Attribute from Equipment
@@ -177,7 +191,7 @@ namespace _Script.Character
 
         #region Player Assets
 
-        private int _gold = 1000;
+        private int _gold = 1000; public int Gold => _gold;
         private readonly UnityEvent<int> _onGoldChanged = new UnityEvent<int>();
 
         public void AddGold(int amount)
@@ -201,22 +215,11 @@ namespace _Script.Character
 
         #endregion
 
-        #region Stat
+        #region Stat - Event 
 
         public UnityEvent GetPlayerHealthUpdateEvent()
         {
             return onHealthChanged;
-        }
-
-
-        public float GetPlayerHealth()
-        {
-            return Health;
-        }
-
-        public float GetPlayerMaxHealth()
-        {
-            return HealthMax;
         }
 
         public int GetPlayerGold()
@@ -226,6 +229,8 @@ namespace _Script.Character
 
         #endregion
 
+        #region Item 
+        
         public bool UseTownScroll(ScrollType spellType, float castTime)
         {
             StartCoroutine(CastSpellCoroutine(spellType, castTime));
@@ -257,5 +262,87 @@ namespace _Script.Character
             }
         }
         
+
+        #endregion
+
+        public void EatFood(FoodType foodType, int foodValue)
+        {
+            switch (foodType)
+            {
+                case FoodType.Health:
+                    Restore(AttributeType.Health, foodValue);
+                    break;
+                case FoodType.Mana:
+                    Restore(AttributeType.Mana, foodValue);
+                    break;
+                case FoodType.Stamina:
+                    Restore(AttributeType.Stamina, foodValue);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(foodType), foodType, null);
+            }
+        }
+        
+        protected override void Restore(AttributeType type, float value)
+        {
+            switch (type)
+            {
+                case AttributeType.Health:
+                    RestoreHealth(value);
+                    break;
+                case AttributeType.Mana:
+                    RestoreMana(value);
+                    break;
+                case AttributeType.Stamina:
+                    RestoreStamina(value);
+                    break;
+                case AttributeType.Hunger:
+                    RestoreHungry(value);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+                    break;
+            }
+            onStatsChanged?.Invoke();
+        }
+        
+        private void RestoreMana(float value)
+        {
+            mana += value;
+            if (mana > 100)
+            {
+                mana = 100;
+            }
+            else if (mana < 0)
+            {
+                mana = 0;
+            }
+        }
+        
+        private void RestoreStamina(float value)
+        {
+            stamina += value;
+            if (stamina > 100)
+            {
+                stamina = 100;
+            }
+            else if (stamina < 0)
+            {
+                stamina = 0;
+            }
+        }
+        
+        private void RestoreHungry(float value)
+        {
+            hunger += value;
+            if (hunger > 100)
+            {
+                hunger = 100;
+            }
+            else if (hunger < 0)
+            {
+                hunger = 0;
+            }
+        }
     }
 }

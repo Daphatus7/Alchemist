@@ -25,7 +25,6 @@ namespace _Script.Inventory.MerchantInventoryBackend
             {
                 AddItem(new InventoryItem(item, item.MaxStackSize));
             }
-            
             InitializeMerchantInventory();
         }
 

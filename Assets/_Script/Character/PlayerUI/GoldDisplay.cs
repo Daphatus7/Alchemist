@@ -13,7 +13,7 @@ namespace _Script.Character.PlayerUI
     public class GoldDisplay : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI goldText;
-
+        
         private void Awake()
         {
             goldText = GetComponent<TextMeshProUGUI>();
@@ -21,13 +21,13 @@ namespace _Script.Character.PlayerUI
 
         private void Start()
         {
-            SetGoldText(GameManager.Instance.GetPlayerUIHandle().GetPlayerGold());
-            GameManager.Instance.GetPlayerUIHandle().PlayerGoldUpdateEvent().AddListener(SetGoldText);
+            SetGoldText(GameManager.Instance.GetPlayer().Gold);
+            GameManager.Instance.GetPlayer().PlayerGoldUpdateEvent().AddListener(SetGoldText);
         }
         
         private void OnDestroy()
         {
-            GameManager.Instance.GetPlayerUIHandle().PlayerGoldUpdateEvent().RemoveListener(SetGoldText);
+            GameManager.Instance.GetPlayer().PlayerGoldUpdateEvent().RemoveListener(SetGoldText);
         }
 
         private void SetGoldText(int gold)

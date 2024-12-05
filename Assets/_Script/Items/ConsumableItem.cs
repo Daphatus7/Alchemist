@@ -9,13 +9,13 @@ namespace _Script.Items
     [CreateAssetMenu(fileName = "New Consumable", menuName = "Items/Consumable")]
     public class ConsumableItem : ItemData
     {
-        public int amount;
         public override ItemType ItemType => ItemType.Consumable;
-        
         public override string ItemTypeString => "Consumable";
         public override bool Use(PlayerCharacter playerCharacter)
         {
             return true;
         }
     }
+    
+
 }

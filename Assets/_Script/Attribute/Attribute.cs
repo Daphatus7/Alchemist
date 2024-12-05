@@ -31,7 +31,7 @@ namespace _Script.Attribute
             Debug.LogError("Die method has not been implemented yet.");
         }
 
-        public void Restore(AttributeType type, float value)
+        protected virtual void Restore(AttributeType type, float value)
         {
             switch (type)
             {
@@ -49,7 +49,7 @@ namespace _Script.Attribute
             }
         }
         
-        private void RestoreHealth(float value)
+        protected void RestoreHealth(float value)
         {
             //consider negative value
             health += value;
@@ -71,5 +71,6 @@ namespace _Script.Attribute
         Health,
         Mana,
         Stamina,
+        Hunger
     }
 }

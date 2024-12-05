@@ -1,6 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 05 12 2024 12 51
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Script.Damageable;
@@ -13,7 +14,7 @@ namespace _Script.Enemy.EnemyAbility
     {
          //Spawn a circular raycast that will damage the player if it hits
         
-        [SerializeField] private float attackRange = 1f;
+        [SerializeField] private float attackRange = 0.5f;
         [SerializeField] private float damage = 10f;
         [SerializeField] private float damageCooldown = 1.5f;
         //Damageable tags
@@ -35,6 +36,9 @@ namespace _Script.Enemy.EnemyAbility
             yield return new WaitForSeconds(0.3f);
             PlayVisualEffect(attackRange, targetPosition);
             Collider2D[] colliders = Physics2D.OverlapCircleAll(targetPosition, attackRange);
+            
+            //Gizmo debug circle
+
             foreach (Collider2D other in colliders)
             {
                 var damageable = other.GetComponent<IDamageable>();
@@ -49,7 +53,14 @@ namespace _Script.Enemy.EnemyAbility
                 }
             }
         }
-        
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, attackRange);
+        }
+
+
         private void PlayVisualEffect(float radius, Vector2 targetPosition, float duration = 0.5f)
         {
             if (visualEffectPrefab != null)

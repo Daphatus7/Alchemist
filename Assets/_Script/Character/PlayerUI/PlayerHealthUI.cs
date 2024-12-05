@@ -11,24 +11,23 @@ namespace _Script.Character.PlayerUI
         [SerializeField] private GameObject heartPrefab;
         [SerializeField] private float healthPerHeart = 20f; // assume each heart represents 20 health
         private List<HeartUI> hearts = new List<HeartUI>();
-        private IPlayerUIHandle playerCharacter;
+        private PlayerCharacter playerCharacter;
 
         private void Start()
         {
-            playerCharacter = GameManager.Instance.GetPlayerUIHandle();
-            playerCharacter.GetPlayerHealthUpdateEvent().AddListener(UpdateHearts);
+            playerCharacter = GameManager.Instance.GetPlayer();
+            playerCharacter.onStatsChanged.AddListener(UpdateHearts);
             UpdateHearts();
         }
 
         private void OnDestroy()
         {
-            playerCharacter.GetPlayerHealthUpdateEvent().RemoveListener(UpdateHearts);
         }
 
         private void UpdateHearts()
         {
-            UpdateTotalHearts(playerCharacter.GetPlayerMaxHealth());
-            UpdateHeartsFill(playerCharacter.GetPlayerHealth());
+            UpdateTotalHearts(playerCharacter.HealthMax);
+            UpdateHeartsFill(playerCharacter.Health);
         }
 
         private void UpdateHeartsFill(float health)
