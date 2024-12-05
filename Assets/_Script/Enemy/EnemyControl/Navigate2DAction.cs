@@ -54,6 +54,8 @@ namespace _Script.Enemy.EnemyControl
             return Status.Running;
         }
 
+        
+        
         protected override Status OnUpdate()
         {
             if (_mAIAgent == null || _mAgentTransform == null || Target.Value == null)

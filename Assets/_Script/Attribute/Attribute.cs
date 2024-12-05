@@ -18,7 +18,7 @@ namespace _Script.Attribute
             health -= damage;
             if (health <= 0)
             {
-                Die();
+                OnDeath();
                 onHealthChanged?.Invoke();
                 return damage;
             }
@@ -26,7 +26,7 @@ namespace _Script.Attribute
             return damage;
         }
 
-        private void Die()
+        protected virtual void OnDeath()
         {
             Debug.LogError("Die method has not been implemented yet.");
         }

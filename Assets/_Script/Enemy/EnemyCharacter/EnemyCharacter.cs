@@ -16,5 +16,11 @@ namespace _Script.Enemy.EnemyCharacter
         {
             _abilities = new List<IEnemyAbilityHandler>(GetComponents<IEnemyAbilityHandler>());
         }
+        
+        protected override void OnDeath()
+        {
+            base.OnDeath();
+            Destroy(gameObject);
+        }
     }
 }

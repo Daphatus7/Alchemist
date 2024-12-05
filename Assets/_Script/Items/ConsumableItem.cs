@@ -10,7 +10,6 @@ namespace _Script.Items
     public class ConsumableItem : ItemData
     {
         public int amount;
-        public ConsumableType consumableType;
         public override ItemType ItemType => ItemType.Consumable;
         
         public override string ItemTypeString => "Consumable";
@@ -18,12 +17,5 @@ namespace _Script.Items
         {
             return true;
         }
-    }
-    
-    public enum ConsumableType
-    {
-        HealthPotion,
-        ManaPotion,
-        StaminaPotion
     }
 }

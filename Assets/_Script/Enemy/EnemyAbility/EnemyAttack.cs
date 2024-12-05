@@ -27,9 +27,14 @@ namespace _Script.Enemy.EnemyAbility
         public void UseAbility(Transform target)
         {
             var targetPosition = target.position;
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(targetPosition, attackRange);
+            StartCoroutine(DelayedDamage(targetPosition));
+        }
+        
+        private IEnumerator DelayedDamage(Vector2 targetPosition)
+        {
+            yield return new WaitForSeconds(0.3f);
             PlayVisualEffect(attackRange, targetPosition);
-            
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(targetPosition, attackRange);
             foreach (Collider2D other in colliders)
             {
                 var damageable = other.GetComponent<IDamageable>();
@@ -40,7 +45,7 @@ namespace _Script.Enemy.EnemyAbility
                     {
                         damageNumberPrefab.Spawn(other.transform.position, actualDamage);
                     }
-                    return;
+                    break;
                 }
             }
         }

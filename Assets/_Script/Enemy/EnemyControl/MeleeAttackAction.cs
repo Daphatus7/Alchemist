@@ -1,5 +1,6 @@
 using System;
 using _Script.Enemy.EnemyAbility;
+using _Script.Utilities;
 using Unity.Behavior;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
@@ -23,6 +24,9 @@ public partial class MeleeAttackAction : Action
             return Status.Failure;
         }
         attackAbility.UseAbility(Target.Value);
+        Helper.CreateWorldText("Attacking", null,
+            Agent.Value.transform.position, 30, Color.white,
+            TextAnchor.MiddleCenter);
         return Status.Success;
     }
 
