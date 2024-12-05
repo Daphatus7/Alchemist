@@ -7,7 +7,7 @@ namespace _Script.Inventory.InventoryBackend
 {
     public abstract class Inventory : MonoBehaviour
     {
-        private int capacity = 20;
+        [SerializeField] private int capacity = 20;
         [TableList] protected InventoryItem[] slots; public InventoryItem[] Slots => slots;
         [ShowInInspector, ReadOnly, PropertyOrder(2)]
         [Tooltip("Get the capacity of the inventory")]
@@ -143,7 +143,6 @@ namespace _Script.Inventory.InventoryBackend
 
                 return true;
             }
-
             Debug.Log("Slot is full.");
             return false;
         }

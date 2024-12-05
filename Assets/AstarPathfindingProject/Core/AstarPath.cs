@@ -1260,6 +1260,8 @@ public class AstarPath : VersionedMonoBehaviour {
 		}
 	}
 
+	[SerializeField] private bool _debugMode = false;
+
 	/// <summary>Initializes the <see cref="pathProcessor"/> field</summary>
 	void InitializePathProcessor () {
 		int numThreads = CalculateThreadCount(threadCount);
@@ -1283,7 +1285,8 @@ public class AstarPath : VersionedMonoBehaviour {
 		};
 
 		pathProcessor.OnPathPostSearch += path => {
-			LogPathResults(path);
+			if(_debugMode)
+				LogPathResults(path);
 			var tmp = OnPathPostSearch;
 			if (tmp != null) tmp(path);
 		};

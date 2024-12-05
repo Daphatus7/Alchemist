@@ -333,7 +333,6 @@ namespace _Script.Inventory.SlotFrontend
                         default:
                             return DragType.DoNothing;
                     }
-                    break;
                 //from player inventory to other slots
                 case SlotType.PlayerInventory:
                     switch (SlotType)
@@ -353,7 +352,6 @@ namespace _Script.Inventory.SlotFrontend
                         default:
                             return DragType.DoNothing;
                     }
-                    break;
                 //From ActionBar to other slots
                 case SlotType.ActionBar:
                     switch (SlotType)
@@ -373,7 +371,6 @@ namespace _Script.Inventory.SlotFrontend
                         default:
                             return DragType.DoNothing;
                     }
-                    break;
                 //From Merchant to other slots
                 case SlotType.Merchant:
                     switch (SlotType)
