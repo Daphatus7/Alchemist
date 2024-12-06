@@ -13,7 +13,7 @@ namespace _Script.Attribute
         //event on health change
         protected UnityEvent onHealthChanged = new UnityEvent();
         
-        public float ApplyDamage(float damage)
+        public virtual float ApplyDamage(float damage)
         {
             health -= damage;
             if (health <= 0)

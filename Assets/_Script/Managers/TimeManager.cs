@@ -17,6 +17,8 @@ namespace _Script.Managers
         // Events
         public UnityEvent onNewDay = new UnityEvent();
 
+        public UnityEvent onNightStart = new UnityEvent();
+        
         [Header("Visual Settings")]
         [SerializeField] private Image dayNightOverlay;    // Assign the UI Image used for day/night overlay
         [SerializeField] private Color dayOverlayColor = new Color(0f, 0f, 0f, 0f);
@@ -45,7 +47,12 @@ namespace _Script.Managers
         private void UpdateDayProgress()
         {
             _currentTime += Time.deltaTime;
-
+            
+            if (IsNight())
+            {
+                onNightStart.Invoke();
+            }
+            
             // If we've passed a full cycle (day + night):
             if (_currentTime >= _secondsInCycle)
             {
@@ -54,12 +61,24 @@ namespace _Script.Managers
             }
         }
 
+        private bool IsDayTime()
+        {
+            return _currentTime < _dayLength;
+        }
+        
+        
+
         public void NextDay()
         {
             _day++;
             onNewDay.Invoke();
         }
 
+        public bool IsNight()
+        {
+            return !IsDayTime();
+        }
+        
         /// <summary>
         /// Returns a normalized value (0 to 1) indicating how far we are into the full day/night cycle.
         /// 0 = start of day

@@ -7,6 +7,7 @@ using _Script.Inventory.EquipmentBackend;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontend;
 using _Script.Items;
+using _Script.Managers;
 using _Script.Places;
 using _Script.Utilities;
 using UnityEngine;
@@ -72,10 +73,31 @@ namespace _Script.Character
             _genericStrategy = GetComponent<GenericItemStrategy>();
             _playerInventory = GetComponentInChildren<PlayerInventory>();
             _playerEquipment = GetComponent<PlayerEquipmentInventory>();
-
+            
             UnsetAllStrategy();
+            
+            
+            //Subscribe to the events
+            
+ 
         }
 
+        
+        private void Start()
+        {
+            TimeManager.Instance.onNewDay.AddListener(OnNewDay);
+            TimeManager.Instance.onNightStart.AddListener(OnNightStart);
+        }
+
+
+        private void OnDestroy()
+        {
+            TimeManager.Instance.onNewDay.RemoveListener(OnNewDay);
+            TimeManager.Instance.onNightStart.RemoveListener(OnNightStart);
+        }
+
+
+        
         private InteractionContext _interactionContext;
         private IInteractable _currentlyHighlightedObject = null;
 
@@ -112,6 +134,8 @@ namespace _Script.Character
                 _inventoryUI.ToggleInventoryUI();
             }
         }
+
+
 
         #region Action Bar - Strategy Pattern
 
@@ -317,48 +341,52 @@ namespace _Script.Character
         private void AddMana(float value)
         {
             mana += value;
-            if (mana > 100)
+            if (mana > _manaMax)
             {
-                mana = 100;
+                mana = _manaMax;
             }
             else if (mana < 0)
             {
                 mana = 0;
             }
+            onStatsChanged?.Invoke();
         }
         
         private void AddStamina(float value)
         {
             stamina += value;
-            if (stamina > 100)
+            if (stamina > _staminaMax)
             {
-                stamina = 100;
+                stamina = _staminaMax;
             }
             else if (stamina < 0)
             {
                 stamina = 0;
             }
+            onStatsChanged?.Invoke();
         }
         
         private void AddSanity(float value)
         {
+            Debug.Log($"Adding {value} to sanity.");
             _sanity += value;
-            if (_sanity > 100)
+            if (_sanity > _sanityMax)
             {
-                _sanity = 100;
+                _sanity = _sanityMax;
             }
             else if (_sanity < 0)
             {
                 _sanity = 0;
             }
+            onStatsChanged?.Invoke();
         }
         
         private void AddHunger(float value)
         {
             hunger += value;
-            if (hunger > 100)
+            if (hunger > _hungerMax)
             {
-                hunger = 100;
+                hunger = _hungerMax;
             }
             else if (hunger < 0)
             {
@@ -366,9 +394,60 @@ namespace _Script.Character
             }
         }
 
+        public override float ApplyDamage(float damage)
+        {
+            health -= damage;
+            if (health <= 0)
+            {
+                OnDeath();
+                onHealthChanged?.Invoke();
+                return damage;
+            }
+            onStatsChanged?.Invoke();
+            return damage;
+        }
+        
         #region Sanity
         
+       
+        #endregion
 
+        #region Time Affects Player
+
+        private Coroutine _playerSanityRoutine;
+        
+        private void OnNewDay()
+        {
+            if (_playerSanityRoutine != null)
+            {
+                StopCoroutine(_playerSanityRoutine);
+                _playerSanityRoutine = null;
+                Debug.Log("Sanity routine stopped.");
+            }
+        }
+        
+        
+        private bool _hasLightSource = false; 
+        public void SetLightSource(bool hasLightSource)
+        {
+            _hasLightSource = hasLightSource;
+        }
+        
+        private void OnNightStart()
+        {
+            _playerSanityRoutine ??= StartCoroutine(SanityRoutine());
+        }
+        
+        private IEnumerator SanityRoutine()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(1f);
+                if(_hasLightSource) continue;
+                AddSanity(-1);
+            }
+        }
+        
         #endregion
     }
 }
