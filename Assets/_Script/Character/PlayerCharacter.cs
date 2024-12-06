@@ -38,11 +38,13 @@ namespace _Script.Character
         #region player Attribute
 
         [SerializeField] private float mana = 10f; public float Mana => mana;
-        [SerializeField]private float _manaMax = 100f; public float ManaMax => _manaMax;
+        [SerializeField]private float _manaMax = 10f; public float ManaMax => _manaMax;
         [SerializeField] private float stamina= 10f; public float Stamina => stamina;
-        [SerializeField]private float _staminaMax = 100f; public float StaminaMax => _staminaMax;
-        [SerializeField] private float hunger = 100f; public float Hunger => hunger;
-        [SerializeField]private float _hungerMax = 100f; public float HungerMax => _hungerMax;
+        [SerializeField]private float _staminaMax = 10f; public float StaminaMax => _staminaMax;
+        [SerializeField] private float hunger = 10f; public float Hunger => hunger;
+        [SerializeField]private float _hungerMax = 10f; public float HungerMax => _hungerMax;
+        [SerializeField] private float _sanity = 10f; public float Sanity => _sanity;
+        [SerializeField] private float _sanityMax = 10f; public float SanityMax => _sanityMax;
         
         
         public UnityEvent onStatsChanged = new UnityEvent();
@@ -278,6 +280,9 @@ namespace _Script.Character
                 case FoodType.Stamina:
                     Restore(AttributeType.Stamina, foodValue);
                     break;
+                case FoodType.Sanity:
+                    Restore(AttributeType.Sanity, foodValue);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(foodType), foodType, null);
             }
@@ -291,13 +296,16 @@ namespace _Script.Character
                     RestoreHealth(value);
                     break;
                 case AttributeType.Mana:
-                    RestoreMana(value);
+                    AddMana(value);
                     break;
                 case AttributeType.Stamina:
-                    RestoreStamina(value);
+                    AddStamina(value);
                     break;
                 case AttributeType.Hunger:
-                    RestoreHungry(value);
+                    AddHunger(value);
+                    break;
+                case AttributeType.Sanity:
+                    AddSanity(value);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -306,7 +314,7 @@ namespace _Script.Character
             onStatsChanged?.Invoke();
         }
         
-        private void RestoreMana(float value)
+        private void AddMana(float value)
         {
             mana += value;
             if (mana > 100)
@@ -319,7 +327,7 @@ namespace _Script.Character
             }
         }
         
-        private void RestoreStamina(float value)
+        private void AddStamina(float value)
         {
             stamina += value;
             if (stamina > 100)
@@ -332,7 +340,20 @@ namespace _Script.Character
             }
         }
         
-        private void RestoreHungry(float value)
+        private void AddSanity(float value)
+        {
+            _sanity += value;
+            if (_sanity > 100)
+            {
+                _sanity = 100;
+            }
+            else if (_sanity < 0)
+            {
+                _sanity = 0;
+            }
+        }
+        
+        private void AddHunger(float value)
         {
             hunger += value;
             if (hunger > 100)
@@ -344,5 +365,10 @@ namespace _Script.Character
                 hunger = 0;
             }
         }
+
+        #region Sanity
+        
+
+        #endregion
     }
 }

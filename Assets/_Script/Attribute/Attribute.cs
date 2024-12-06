@@ -44,6 +44,9 @@ namespace _Script.Attribute
                 case AttributeType.Stamina:
                     //todo: implement stamina restore
                     break;
+                case AttributeType.Sanity:
+                    //todo: implement sanity restore
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
@@ -71,6 +74,7 @@ namespace _Script.Attribute
         Health,
         Mana,
         Stamina,
+        Sanity,
         Hunger
     }
 }

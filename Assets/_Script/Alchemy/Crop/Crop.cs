@@ -37,19 +37,19 @@ namespace _Script.Alchemy.Plant
 
         private void Start()
         {
-            // Register the plant with the DayManager to handle daily updates
-            if (DayManager.Instance != null)
+            // Register the plant with the TimeManager to handle daily updates
+            if (TimeManager.Instance != null)
             {
-                DayManager.Instance.OnNewDay.AddListener(NewDay);
+                TimeManager.Instance.onNewDay.AddListener(NewDay);
             }
         }
 
         private void OnDestroy()
         {
-            // Unregister from the DayManager to avoid memory leaks
-            if (DayManager.Instance != null)
+            // Unregister from the TimeManager to avoid memory leaks
+            if (TimeManager.Instance != null)
             {
-                DayManager.Instance.OnNewDay.RemoveListener(NewDay);
+                TimeManager.Instance.onNewDay.RemoveListener(NewDay);
             }
         }
 
