@@ -6,35 +6,43 @@ using Unity.Properties;
 
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "CheckTargetInRadious", story: "[Agent] Checks [Target]", category: "Action", id: "a90957601ef1db05b0898b78fbc390b0")]
-public partial class CheckTargetInRadiousAction : Action
+public class CheckTargetInRadiousAction : Action
 {
     [SerializeReference] public BlackboardVariable<GameObject> Agent;
     [SerializeReference] public BlackboardVariable<Transform> Target;
-    [SerializeReference] public BlackboardVariable<float> range = new BlackboardVariable<float>(10f);
-
+    [SerializeReference] public BlackboardVariable<float> range = new BlackboardVariable<float>(5f);
+    [SerializeReference] public BlackboardVariable<string> layerMask = new BlackboardVariable<string>("Player");
+    
     protected override Status OnStart()
     {
         return Status.Running;
     }
  
-
     private Collider2D CheckTargetInRange()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(Agent.Value.transform.position, range);
+        Vector2 agentPos = Agent.Value.transform.position;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(agentPos, range.Value, LayerMask.GetMask(layerMask.Value));
+        
+        // Create a combined layer mask for raycasting:
         foreach (var collider in colliders)
         {
+            //check if the player is in the range
             if (collider.CompareTag("Player"))
             {
-                return collider;
+                // Draw a debug line to visualize the check
+
+                var distance = Vector2.Distance(agentPos, collider.transform.position);
+                Vector2 direction = collider.transform.position - Agent.Value.transform.position;
+                /**temp solution**/
+                var hitResults = Physics2D.RaycastAll(agentPos, direction, distance, LayerMask.GetMask("Obstacle"));
+                return hitResults.Length == 0 ? collider : null;
             }
         }
         return null;
     }
     
-    
     protected override Status OnUpdate()
     {
-        //Cooldown
         var target = CheckTargetInRange();
         if (target != null)
         {
@@ -48,4 +56,3 @@ public partial class CheckTargetInRadiousAction : Action
     {
     }
 }
-
