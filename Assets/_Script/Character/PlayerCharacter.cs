@@ -36,6 +36,17 @@ namespace _Script.Character
         public GenericItemStrategy GenericStrategy => _genericStrategy;
         private IActionStrategy _actionStrategy;
 
+
+        #region Player Stats Variables
+
+        [Header("Player Stats")]
+        [SerializeField] private float hungerDamage = 1f;
+        [SerializeField] private float hungerRate = -1f;
+        [Header("how long it takes for the player to get hungry")]
+        [SerializeField] private float hungerDuration = 5f;
+        
+        #endregion
+
         #region player Attribute
 
         [SerializeField] private float mana = 10f; public float Mana => mana;
@@ -77,18 +88,27 @@ namespace _Script.Character
             UnsetAllStrategy();
             
             
-            //Subscribe to the events
-            
- 
+            //Subscribe to the event
         }
+        
+        
 
         
         private void Start()
         {
             TimeManager.Instance.onNewDay.AddListener(OnNewDay);
             TimeManager.Instance.onNightStart.AddListener(OnNightStart);
+            PauseableUpdate();
         }
 
+        private void PauseableUpdate()
+        {
+            if (_playerHungerRoutine == null)
+            {
+                _playerHungerRoutine = StartCoroutine(HungerRoutine());
+            }
+        }
+        
 
         private void OnDestroy()
         {
@@ -380,7 +400,6 @@ namespace _Script.Character
             }
             onStatsChanged?.Invoke();
         }
-        
         private void AddHunger(float value)
         {
             hunger += value;
@@ -391,6 +410,7 @@ namespace _Script.Character
             else if (hunger < 0)
             {
                 hunger = 0;
+                ApplyDamage(hungerDamage);
             }
         }
 
@@ -415,6 +435,7 @@ namespace _Script.Character
         #region Time Affects Player
 
         private Coroutine _playerSanityRoutine;
+        private Coroutine _playerHungerRoutine;
         
         private void OnNewDay()
         {
@@ -447,6 +468,16 @@ namespace _Script.Character
                 AddSanity(-1);
             }
         }
+        
+        private IEnumerator HungerRoutine()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(hungerDuration);
+                AddHunger(-hungerRate);
+            }
+        }
+        
         
         #endregion
     }
