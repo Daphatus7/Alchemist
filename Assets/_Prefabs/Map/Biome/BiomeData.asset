@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f8981af1dfd4725ae56f42db4694d8f, type: 3}
+  m_Name: BiomeData
+  m_EditorClassIdentifier: 
+  biomeName: 
+  gizmoColor: {r: 0, g: 1, b: 0, a: 1}
+  minHeight: 1
+  maxHeight: 30
+  minMoisture: 2
+  maxMoisture: 20
+  baseTile: {fileID: 11400000, guid: a40dd03e3cb3b4b358bf946967e4cc67, type: 2}
+  detailTiles:
+  - {fileID: 11400000, guid: d086ec1a7551b4dce976c2ea22192976, type: 2}
+  - {fileID: 11400000, guid: 600b9ab614d7c4d1494752afd17186dd, type: 2}
+  detailChance: 0.1
+  floraPrefabs:
+  - {fileID: 860091500876104406, guid: c5c395a83c3338d46bd52e936cf46245, type: 3}
+  - {fileID: 3753018676070325537, guid: bf462882706828c44a4465986b6fb8d2, type: 3}
+  - {fileID: 2055102311959635369, guid: 39562e88b536753438a3153c5fbdf7b8, type: 3}
+  floraSpawnChance: 0.05
