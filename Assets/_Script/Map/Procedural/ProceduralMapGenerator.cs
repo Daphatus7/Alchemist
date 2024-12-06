@@ -13,14 +13,17 @@ namespace _Script.Map.Procedural
         [Header("Map Dimensions")]
         public int mapWidth = 512;
         public int mapHeight = 512;
-        public int chunkSize = 64; // 分块大小
+        public int chunkSize = 64; 
         public int chunksToGenerateX = 8;
         public int chunksToGenerateY = 8;
 
         [Header("Noise Settings")]
-        public float baseNoiseScale = 0.01f;
-        public float moistureNoiseScale = 0.01f;
-        // 可加更多通道，如温度、植被密度等
+        public float baseNoiseScale = 0.02f;        // Increased for more noticeable variations
+        public float moistureNoiseScale = 0.02f;    // Increased for more noticeable variations
+
+        // Adding a seed for deterministic variation
+        [Header("Seed")]
+        public int seed = 12345;  // You can randomize this if desired
 
         [Header("Biomes")]
         public BiomeData[] biomes;
@@ -30,39 +33,39 @@ namespace _Script.Map.Procedural
         public Tilemap detailTilemap;
 
         [Header("Others")]
-        public float plantRefreshInterval = 10f; // 植物定期刷新间隔（秒）
+        public float plantRefreshInterval = 10f; 
 
-        private float[,] heightMap;    // 储存高度值（0-1）
-        private float[,] moistureMap;  // 储存湿度值（0-1）
-        private BiomeData[,] biomeMap; // 对应每个格子所属的biome
+        private float[,] heightMap;    
+        private float[,] moistureMap;  
+        private BiomeData[,] biomeMap; 
 
         private List<Vector2Int> potentialFloraSpots = new List<Vector2Int>();
         private System.Random rand;
 
         void Start()
         {
-            rand = new System.Random();
+            rand = new System.Random(seed);
             StartCoroutine(GenerateMapDataAsync());
         }
 
         IEnumerator GenerateMapDataAsync()
         {
-            // 分配数组内存
+            // Allocate arrays
             heightMap = new float[mapWidth, mapHeight];
             moistureMap = new float[mapWidth, mapHeight];
             biomeMap = new BiomeData[mapWidth, mapHeight];
 
-            // 生成基础噪声数据（高度、湿度）
+            // Generate base noise data
             GenerateHeightMap();
             GenerateMoistureMap();
 
-            // 根据噪声数据分类biome
+            // Classify biomes
             ClassifyBiomes();
 
-            // 按分块生成Tile，减少一次性绘制造成的卡顿
+            // Draw chunks asynchronously
             yield return StartCoroutine(DrawChunksAsync());
 
-            // 合并碰撞(如需)
+            // If you have a composite collider, update it
             var composite = baseTilemap.GetComponent<UnityEngine.CompositeCollider2D>();
             if (composite != null)
             {
@@ -77,11 +80,16 @@ namespace _Script.Map.Procedural
 
         void GenerateHeightMap()
         {
+            // Create offsets from seed for height
+            float hOffsetX = seed + 1000f;
+            float hOffsetY = seed + 2000f;
             for (int x = 0; x < mapWidth; x++)
             {
                 for (int y = 0; y < mapHeight; y++)
                 {
-                    float sample = Mathf.PerlinNoise(x * baseNoiseScale, y * baseNoiseScale);
+                    float nx = (x + hOffsetX) * baseNoiseScale;
+                    float ny = (y + hOffsetY) * baseNoiseScale;
+                    float sample = Mathf.PerlinNoise(nx, ny);
                     heightMap[x, y] = sample;
                 }
             }
@@ -89,11 +97,16 @@ namespace _Script.Map.Procedural
 
         void GenerateMoistureMap()
         {
+            // Create offsets from seed for moisture
+            float mOffsetX = seed + 3000f;
+            float mOffsetY = seed + 4000f;
             for (int x = 0; x < mapWidth; x++)
             {
                 for (int y = 0; y < mapHeight; y++)
                 {
-                    float sample = Mathf.PerlinNoise(x * moistureNoiseScale + 1000f, y * moistureNoiseScale + 1000f);
+                    float nx = (x + mOffsetX) * moistureNoiseScale;
+                    float ny = (y + mOffsetY) * moistureNoiseScale;
+                    float sample = Mathf.PerlinNoise(nx, ny);
                     moistureMap[x, y] = sample;
                 }
             }
@@ -101,7 +114,15 @@ namespace _Script.Map.Procedural
 
         void ClassifyBiomes()
         {
-            // 根据高度和湿度将每个格子匹配到最合适的Biomes
+            // Ensure your biome thresholds are distinct and cover different ranges
+            // Example: 
+            // Biome 1: height 0.0-0.4, moisture 0.0-0.5
+            // Biome 2: height 0.4-0.7, moisture 0.0-0.5
+            // Biome 3: height 0.7-1.0, moisture 0.0-0.5
+            // Biome 4: height 0.0-0.4, moisture 0.5-1.0
+            // ... etc.
+            // Adjust biome ScriptableObjects accordingly.
+
             for (int x = 0; x < mapWidth; x++)
             {
                 for (int y = 0; y < mapHeight; y++)
@@ -115,7 +136,6 @@ namespace _Script.Map.Procedural
 
         BiomeData SelectBiome(float height, float moisture)
         {
-            // 简单线性搜索，实际可优化或根据权重选择
             foreach (var b in biomes)
             {
                 if (height >= b.minHeight && height <= b.maxHeight &&
@@ -125,7 +145,7 @@ namespace _Script.Map.Procedural
                 }
             }
 
-            // 如果没有匹配，返回一个默认biome（可选）
+            // Fallback if no biome is matched (should be avoided by having properly set thresholds)
             return biomes.Length > 0 ? biomes[0] : null;
         }
 
@@ -165,11 +185,9 @@ namespace _Script.Map.Procedural
                     if (biome == null) continue;
 
                     Vector3Int pos = new Vector3Int(x, y, 0);
-                    // 基础Tile
                     basePositions.Add(pos);
                     baseTiles.Add(biome.baseTile);
 
-                    // 随机细节Tile
                     if (biome.detailTiles != null && biome.detailTiles.Length > 0 && 
                         rand.NextDouble() < biome.detailChance)
                     {
@@ -192,7 +210,6 @@ namespace _Script.Map.Procedural
                 {
                     var biome = biomeMap[x, y];
                     if (biome == null) continue;
-                    // 将属于该biome并有一定概率生长植物的地点加入列表
                     if (biome.floraPrefabs != null && biome.floraPrefabs.Length > 0)
                     {
                         potentialFloraSpots.Add(new Vector2Int(x, y));
@@ -212,7 +229,6 @@ namespace _Script.Map.Procedural
 
         void RefreshFlora()
         {
-            // 从potentialFloraSpots中随机挑选一些点，尝试种植植物
             for (int i = 0; i < 50; i++)
             {
                 if (potentialFloraSpots.Count == 0) break;
@@ -224,10 +240,8 @@ namespace _Script.Map.Procedural
 
                 if (rand.NextDouble() < biome.floraSpawnChance)
                 {
-                    // 实例化植物
-                    var prefab = biome.floraPrefabs[rand.Next(biome.floraPrefabs.Length)];
                     Vector3 worldPos = baseTilemap.CellToWorld(new Vector3Int(spot.x, spot.y, 0)) + new Vector3(0.5f, 0.5f, 0);
-                    Instantiate(prefab, worldPos, Quaternion.identity);
+                    Instantiate(biome.floraPrefabs[rand.Next(biome.floraPrefabs.Length)], worldPos, Quaternion.identity);
                 }
             }
         }

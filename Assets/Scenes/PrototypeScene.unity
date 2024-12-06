@@ -26040,16 +26040,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28cf06fc694c47a689b052955cf48899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapWidth: 512
-  mapHeight: 512
+  mapWidth: 128
+  mapHeight: 128
   chunkSize: 64
   chunksToGenerateX: 8
   chunksToGenerateY: 8
   baseNoiseScale: 0.01
   moistureNoiseScale: 0.01
-  biomes: []
+  seed: 12345
+  biomes:
+  - {fileID: 11400000, guid: b47422f47ca874155966f7059a727995, type: 2}
   baseTilemap: {fileID: 1814035104}
-  detailTilemap: {fileID: 1814035104}
+  detailTilemap: {fileID: 1512938473}
   plantRefreshInterval: 10
 --- !u!1 &1831460473
 GameObject:
