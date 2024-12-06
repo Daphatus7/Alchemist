@@ -8,27 +8,32 @@ using UnityEngine.Tilemaps;
 
 namespace _Script.Map.Procedural
 {
-    public class ProceduralMapGenerator : MonoBehaviour
+    public class ComplexMapGenerator : MonoBehaviour
     {
-        [Header("Map Dimensions")] public int mapWidth = 512;
+        [Header("Map Dimensions")]
+        public int mapWidth = 512;
         public int mapHeight = 512;
         public int chunkSize = 64; // 分块大小
         public int chunksToGenerateX = 8;
         public int chunksToGenerateY = 8;
 
-        [Header("Noise Settings")] public float baseNoiseScale = 0.01f;
+        [Header("Noise Settings")]
+        public float baseNoiseScale = 0.01f;
         public float moistureNoiseScale = 0.01f;
         // 可加更多通道，如温度、植被密度等
 
-        [Header("Biomes")] public BiomeData[] biomes;
+        [Header("Biomes")]
+        public BiomeData[] biomes;
 
-        [Header("Tilemaps")] public Tilemap baseTilemap;
+        [Header("Tilemaps")]
+        public Tilemap baseTilemap;
         public Tilemap detailTilemap;
 
-        [Header("Others")] public float plantRefreshInterval = 10f; // 植物定期刷新间隔（秒）
+        [Header("Others")]
+        public float plantRefreshInterval = 10f; // 植物定期刷新间隔（秒）
 
-        private float[,] heightMap; // 储存高度值（0-1）
-        private float[,] moistureMap; // 储存湿度值（0-1）
+        private float[,] heightMap;    // 储存高度值（0-1）
+        private float[,] moistureMap;  // 储存湿度值（0-1）
         private BiomeData[,] biomeMap; // 对应每个格子所属的biome
 
         private List<Vector2Int> potentialFloraSpots = new List<Vector2Int>();
@@ -165,7 +170,7 @@ namespace _Script.Map.Procedural
                     baseTiles.Add(biome.baseTile);
 
                     // 随机细节Tile
-                    if (biome.detailTiles != null && biome.detailTiles.Length > 0 &&
+                    if (biome.detailTiles != null && biome.detailTiles.Length > 0 && 
                         rand.NextDouble() < biome.detailChance)
                     {
                         detailPositions.Add(pos);
@@ -221,12 +226,10 @@ namespace _Script.Map.Procedural
                 {
                     // 实例化植物
                     var prefab = biome.floraPrefabs[rand.Next(biome.floraPrefabs.Length)];
-                    Vector3 worldPos = baseTilemap.CellToWorld(new Vector3Int(spot.x, spot.y, 0)) +
-                                       new Vector3(0.5f, 0.5f, 0);
+                    Vector3 worldPos = baseTilemap.CellToWorld(new Vector3Int(spot.x, spot.y, 0)) + new Vector3(0.5f, 0.5f, 0);
                     Instantiate(prefab, worldPos, Quaternion.identity);
                 }
             }
         }
     }
 }
-
