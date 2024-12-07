@@ -327,6 +327,9 @@ namespace _Script.Character
                 case FoodType.Sanity:
                     Restore(AttributeType.Sanity, foodValue);
                     break;
+                case FoodType.Hunger:
+                    Restore(AttributeType.Hunger, foodValue);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(foodType), foodType, null);
             }
@@ -451,6 +454,14 @@ namespace _Script.Character
         private bool _isInSafeZone = false; 
         public void SetInSafeZone(bool isInSafeZone)
         {
+            if (_isInSafeZone)
+            {
+                Debug.Log("Player is in safe zone.");
+            }
+            else
+            {
+                Debug.Log("Player is not in safe zone.");
+            }
             _isInSafeZone = isInSafeZone;
         }
         

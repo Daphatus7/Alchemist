@@ -3,6 +3,7 @@
 
 using System;
 using _Script.Character;
+using _Script.Places;
 using UnityEngine;
 
 namespace _Script.NPC.NpcBackend
@@ -13,6 +14,7 @@ namespace _Script.NPC.NpcBackend
         {
             base.OnDialogueEnd();
             Debug.Log("Bonfire is lit");
+            PlaceManager.Instance.TeleportPlayerToTown(_player);
         }
 
         private PlayerCharacter _player;

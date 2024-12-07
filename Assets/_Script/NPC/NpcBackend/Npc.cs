@@ -32,7 +32,6 @@ namespace _Script.NPC.NpcBackend
             
             dialogueUI.StartDialogue(dialogueModule.dialogueLines);
             dialogueUI.OnDialogueEnd += OnDialogueEnd;
-            OnDialogueEnd();
         }
 
         protected virtual void OnDialogueEnd()
