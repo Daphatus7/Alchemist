@@ -29,6 +29,7 @@ namespace _Script.Items.AbstractItemTypes
         Wand,
         Pickaxe,
         Hammer,
+        Torch,
         None,
     }
 }

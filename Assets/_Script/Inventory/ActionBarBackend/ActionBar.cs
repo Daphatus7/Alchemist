@@ -52,7 +52,12 @@ namespace _Script.Inventory.ActionBarBackend
                     //Let player handle the weapon
                     inventoryOwner.WeaponStrategy.ChangeWeapon(_selectedItem.ItemData);
                     //Set Strategy
-                    inventoryOwner.SetWeaponStrategy();                }
+                    inventoryOwner.SetWeaponStrategy();                
+                }
+                else if (itemType == "Torch")
+                {
+                    
+                }
                 else
                 {
                     Debug.LogWarning("Selected item is not a seed.");

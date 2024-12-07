@@ -64,7 +64,8 @@ namespace _Script.Items.AbstractItemTypes
             Consumable,
             Material,
             Seed,
-            Fruit
+            Fruit,
+            Torch,  
         }
         
         public enum Rarity
