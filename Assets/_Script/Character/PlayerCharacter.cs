@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using _Script.Attribute;
 using _Script.Character.ActionStrategy;
 using _Script.Interactable;
@@ -30,24 +31,25 @@ namespace _Script.Character
         public PlayerEquipmentInventory PlayerEquipment => _playerEquipment;
 
         private InteractionBase _interactionBase;
+
+        // Strategies
         private WeaponStrategy _weaponStrategy;
         public WeaponStrategy WeaponStrategy => _weaponStrategy;
+        
         private GenericItemStrategy _genericStrategy;
         public GenericItemStrategy GenericStrategy => _genericStrategy;
+
+        // Add torch strategy field
+        private TorchItemStrategy _torchStrategy;
+        public TorchItemStrategy TorchStrategy => _torchStrategy;
+
         private IActionStrategy _actionStrategy;
-
-
-        #region Player Stats Variables
-
+        
         [Header("Player Stats")]
         [SerializeField] private float hungerDamage = 1f;
         [SerializeField] private float hungerRate = -1f;
-        [Header("how long it takes for the player to get hungry")]
+        [Header("How long it takes for the player to get hungry")]
         [SerializeField] private float hungerDuration = 5f;
-        
-        #endregion
-
-        #region player Attribute
 
         [SerializeField] private float mana = 10f; public float Mana => mana;
         [SerializeField]private float _manaMax = 10f; public float ManaMax => _manaMax;
@@ -58,42 +60,48 @@ namespace _Script.Character
         [SerializeField] private float _sanity = 10f; public float Sanity => _sanity;
         [SerializeField] private float _sanityMax = 10f; public float SanityMax => _sanityMax;
         
-        
         public UnityEvent onStatsChanged = new UnityEvent();
-        
-        #endregion
-        
-        [SerializeField] private InventoryUI _inventoryUI;
 
-        #region Player Attribute from Equipment
+        [SerializeField] private InventoryUI _inventoryUI;
 
         private float _attackDamage;
         public float AttackDamage => _attackDamage;
 
+        private int _gold = 1000; public int Gold => _gold;
+        private readonly UnityEvent<int> _onGoldChanged = new UnityEvent<int>();
 
-        public void DebugStat()
-        {
-        }
+        private InteractionContext _interactionContext;
+        private IInteractable _currentlyHighlightedObject = null;
 
-        #endregion
+        // For sanity and hunger routines
+        private Coroutine _playerSanityRoutine;
+        private Coroutine _playerHungerRoutine;
+        private bool _isInSafeZone = false; 
+
+        // A dictionary to manage strategies by string keys (optional but helpful if you plan to expand)
+        private Dictionary<string, IActionStrategy> _strategies;
 
         private void Awake()
         {
             _interactionBase = new InteractionBase();
             _weaponStrategy = GetComponent<WeaponStrategy>();
             _genericStrategy = GetComponent<GenericItemStrategy>();
+
+            // Attempt to get torch strategy if you have it as a component
+            _torchStrategy = GetComponent<TorchItemStrategy>();
+
             _playerInventory = GetComponentInChildren<PlayerInventory>();
             _playerEquipment = GetComponent<PlayerEquipmentInventory>();
-            
-            UnsetAllStrategy();
-            
-            
-            //Subscribe to the event
-        }
-        
-        
 
-        
+            // Initialize dictionary for strategies
+            _strategies = new Dictionary<string, IActionStrategy>();
+            if (_weaponStrategy != null) _strategies["Weapon"] = _weaponStrategy;
+            if (_genericStrategy != null) _strategies["Generic"] = _genericStrategy;
+            if (_torchStrategy != null) _strategies["Torch"] = _torchStrategy;
+
+            UnsetAllStrategy();
+        }
+
         private void Start()
         {
             TimeManager.Instance.onNewDay.AddListener(OnNewDay);
@@ -108,7 +116,6 @@ namespace _Script.Character
                 _playerHungerRoutine = StartCoroutine(HungerRoutine());
             }
         }
-        
 
         private void OnDestroy()
         {
@@ -116,24 +123,16 @@ namespace _Script.Character
             TimeManager.Instance.onNightStart.RemoveListener(OnNightStart);
         }
 
-
-        
-        private InteractionContext _interactionContext;
-        private IInteractable _currentlyHighlightedObject = null;
-
         public void Update()
         {
-            //Interact with world objects
+            // Interact with world objects
             if (CursorMovementTracker.HasCursorMoved)
             {
-                //get the interactable object
-                _interactionContext =
-                    _interactionBase.InteractableRaycast(transform.position, CursorMovementTracker.CursorPosition);
+                _interactionContext = _interactionBase.InteractableRaycast(transform.position, CursorMovementTracker.CursorPosition);
 
                 if (_interactionContext != null)
                 {
                     _interactionContext.GetInteractableName();
-
                     _interactionContext.Highlight(out var interactable);
 
                     if (_currentlyHighlightedObject == interactable) return;
@@ -155,90 +154,109 @@ namespace _Script.Character
             }
         }
 
-
-
         #region Action Bar - Strategy Pattern
+
+        // Unified enabling/disabling logic
+        private void EnableStrategy(IActionStrategy strategyToEnable)
+        {
+            // Disable all strategies first
+            foreach (var strategyPair in _strategies)
+            {
+                if (strategyPair.Value is MonoBehaviour mb)
+                {
+                    mb.enabled = false;
+                }
+            }
+
+            // Enable only the requested strategy
+            if (strategyToEnable is MonoBehaviour enableMb)
+            {
+                enableMb.enabled = true;
+            }
+
+            _actionStrategy = strategyToEnable;
+        }
 
         public void SetWeaponStrategy()
         {
-            //Disable the generic strategy
-            _genericStrategy.enabled = false;
-
-            //Enable the weapon strategy
-            _weaponStrategy.enabled = true;
-
-            _actionStrategy = _weaponStrategy;
+            if (_weaponStrategy == null)
+            {
+                Debug.LogWarning("Weapon strategy not found on PlayerCharacter.");
+                return;
+            }
+            EnableStrategy(_weaponStrategy);
         }
 
         public void SetGenericStrategy()
         {
-            //Disable the weapon strategy
-            _weaponStrategy.enabled = false;
+            if (_genericStrategy == null)
+            {
+                Debug.LogWarning("Generic strategy not found on PlayerCharacter.");
+                return;
+            }
+            EnableStrategy(_genericStrategy);
+        }
 
-            //Enable the generic strategy
-            _genericStrategy.enabled = true;
+        
+        private bool _isTorchActive = false;
+        public void SetTorchStrategy()
+        {
+            if (_torchStrategy == null)
+            {
+                Debug.LogWarning("Torch strategy not found on PlayerCharacter.");
+                return;
+            }
 
-            _actionStrategy = _genericStrategy;
+            _isTorchActive = true;
+            EnableStrategy(_torchStrategy);
         }
 
         public void UnsetStrategy()
         {
+            _isTorchActive = false;
             _actionStrategy = null;
         }
 
         public void UnsetAllStrategy()
         {
+            // Disable all known strategies
+            foreach (var strategyPair in _strategies)
+            {
+                if (strategyPair.Value is MonoBehaviour mb)
+                {
+                    mb.enabled = false;
+                }
+            }
             _actionStrategy = null;
-            _weaponStrategy.enabled = false;
-            _genericStrategy.enabled = false;
         }
 
-        /**
-         * Called when the left mouse button is pressed and holding
-         */
         public void LeftMouseButtonDown(Vector2 direction)
         {
-            //Get Action bar Item
-            //call the function
             _actionStrategy?.LeftMouseButtonDown(direction);
             _interactionContext?.Interact(gameObject);
         }
 
-        /**
-         * Release the right mouse button
-         */
         public void LeftMouseButtonUp(Vector2 direction)
         {
             _actionStrategy?.LeftMouseButtonUp(direction);
         }
 
-
-        /**
-         * Release the left mouse button
-         */
         public void RightMouseButtonUp(Vector2 direction)
         {
         }
 
-        /**
-         * Called when the right mouse button is pressed and holding
-         */
         public void RightMouseButtonDown(Vector2 direction)
         {
-
         }
 
         public void Dash(Vector2 direction)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         #endregion
 
         #region Player Assets
-
-        private int _gold = 1000; public int Gold => _gold;
-        private readonly UnityEvent<int> _onGoldChanged = new UnityEvent<int>();
 
         public void AddGold(int amount)
         {
@@ -276,7 +294,7 @@ namespace _Script.Character
         #endregion
 
         #region Item 
-        
+
         public bool UseTownScroll(ScrollType spellType, float castTime)
         {
             StartCoroutine(CastSpellCoroutine(spellType, castTime));
@@ -307,7 +325,6 @@ namespace _Script.Character
                     break;
             }
         }
-        
 
         #endregion
 
@@ -334,7 +351,7 @@ namespace _Script.Character
                     throw new ArgumentOutOfRangeException(nameof(foodType), foodType, null);
             }
         }
-        
+
         protected override void Restore(AttributeType type, float value)
         {
             switch (type)
@@ -356,53 +373,35 @@ namespace _Script.Character
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
-                    break;
             }
             onStatsChanged?.Invoke();
         }
-        
+
         private void AddMana(float value)
         {
             mana += value;
-            if (mana > _manaMax)
-            {
-                mana = _manaMax;
-            }
-            else if (mana < 0)
-            {
-                mana = 0;
-            }
+            if (mana > _manaMax) mana = _manaMax;
+            else if (mana < 0) mana = 0;
             onStatsChanged?.Invoke();
         }
-        
+
         private void AddStamina(float value)
         {
             stamina += value;
-            if (stamina > _staminaMax)
-            {
-                stamina = _staminaMax;
-            }
-            else if (stamina < 0)
-            {
-                stamina = 0;
-            }
+            if (stamina > _staminaMax) stamina = _staminaMax;
+            else if (stamina < 0) stamina = 0;
             onStatsChanged?.Invoke();
         }
-        
+
         private void AddSanity(float value)
         {
             Debug.Log($"Adding {value} to sanity.");
             _sanity += value;
-            if (_sanity > _sanityMax)
-            {
-                _sanity = _sanityMax;
-            }
-            else if (_sanity < 0)
-            {
-                _sanity = 0;
-            }
+            if (_sanity > _sanityMax) _sanity = _sanityMax;
+            else if (_sanity < 0) _sanity = 0;
             onStatsChanged?.Invoke();
         }
+
         private void AddHunger(float value)
         {
             hunger += value;
@@ -429,17 +428,13 @@ namespace _Script.Character
             onStatsChanged?.Invoke();
             return damage;
         }
-        
-        #region Sanity
-        
-       
-        #endregion
 
-        #region Time Affects Player
+        public void SetInSafeZone(bool isInSafeZone)
+        {
+            _isInSafeZone = isInSafeZone;
+            Debug.Log(_isInSafeZone ? "Player is in safe zone." : "Player is not in safe zone.");
+        }
 
-        private Coroutine _playerSanityRoutine;
-        private Coroutine _playerHungerRoutine;
-        
         private void OnNewDay()
         {
             if (_playerSanityRoutine != null)
@@ -449,37 +444,22 @@ namespace _Script.Character
                 Debug.Log("Sanity routine stopped.");
             }
         }
-        
-        
-        private bool _isInSafeZone = false; 
-        public void SetInSafeZone(bool isInSafeZone)
-        {
-            if (_isInSafeZone)
-            {
-                Debug.Log("Player is in safe zone.");
-            }
-            else
-            {
-                Debug.Log("Player is not in safe zone.");
-            }
-            _isInSafeZone = isInSafeZone;
-        }
-        
+
         private void OnNightStart()
         {
             _playerSanityRoutine ??= StartCoroutine(SanityRoutine());
         }
-        
+
         private IEnumerator SanityRoutine()
         {
             while (true)
             {
                 yield return new WaitForSeconds(1f);
-                if(_isInSafeZone) continue;
+                if (_isInSafeZone || _isTorchActive) continue;
                 AddSanity(-1);
             }
         }
-        
+
         private IEnumerator HungerRoutine()
         {
             while (true)
@@ -488,8 +468,5 @@ namespace _Script.Character
                 AddHunger(-hungerRate);
             }
         }
-        
-        
-        #endregion
     }
 }

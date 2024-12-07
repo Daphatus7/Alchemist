@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace _Script.Items
 {
+    [CreateAssetMenu(fileName = "New Torch Item", menuName = "Items/Torch Item")]
     public class TorchItem : ItemData
     {
         [SerializeField] private float torchDuration = 10f;

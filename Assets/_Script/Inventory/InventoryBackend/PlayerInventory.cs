@@ -18,11 +18,6 @@ namespace _Script.Inventory.InventoryBackend
             base.Awake();
             inventoryOwner = GetComponentInParent<PlayerCharacter>();
         }
-
-        public bool Handle_RemoveItem(InventoryItem inventoryItem)
-        {
-            return RemoveItem(inventoryItem);
-        }
         
         private InventoryItem OnUseEquipmentItem(EquipmentItem itemData)
         {
@@ -44,8 +39,6 @@ namespace _Script.Inventory.InventoryBackend
         {
             return itemData.Use(inventoryOwner);
         }
-        
-        
         
         /**
          * When right-clicking on an inventory item.

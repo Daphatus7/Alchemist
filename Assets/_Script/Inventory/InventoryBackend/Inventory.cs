@@ -209,9 +209,6 @@ namespace _Script.Inventory.InventoryBackend
         }
         
 
-
-
-
         protected bool RemoveItemFromSlot(int slotIndex, int quantity)
         {
             if (slots[slotIndex].IsEmpty)

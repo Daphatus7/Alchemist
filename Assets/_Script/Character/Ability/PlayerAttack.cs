@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using _Script.Character.ActionStrategy;
+using _Script.Inventory.ActionBarBackend;
 using _Script.Items.AbstractItemTypes;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
@@ -97,6 +98,16 @@ namespace _Script.Character.Ability
         public void LeftMouseButtonUp(Vector3 direction)
         {
             Released(direction);
+        }
+
+        public void ChangeItem(ActionBarContext useItem)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void RemoveItem()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
