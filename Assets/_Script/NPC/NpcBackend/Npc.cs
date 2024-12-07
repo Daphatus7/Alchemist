@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using _Script.Character;
 using _Script.Inventory.MerchantInventoryFrontend;
 using _Script.NPC.NPCFrontend._Script.NPC.NPCFrontend;
 using Sirenix.OdinInspector;
@@ -10,43 +11,34 @@ using UnityEngine;
 
 namespace _Script.NPC.NpcBackend
 {
-    [RequireComponent(typeof(BoxCollider2D))]
-    public class Npc : MonoBehaviour
+    [RequireComponent(typeof(Collider2D))]
+    public abstract class Npc : MonoBehaviour
     {
         [BoxGroup("Basic Info")]
         [LabelText("NPC Name"), Tooltip("Name of the NPC")]
         public string npcName;
         
-        private BoxCollider2D _collider;
-        
         [SerializeField] private DialogueModule dialogueModule;
 
         [SerializeField] private NpcDialogueUI dialogueUI;
-        [SerializeField] private Dictionary<NpcHandlerType, INpcHandler> _npcHandlers;
-
-        private void Awake()
-        {
-            _collider = GetComponent<BoxCollider2D>();
-            _npcHandlers = new Dictionary<NpcHandlerType, INpcHandler>
-            {
-                { NpcHandlerType.Merchant, GetComponent<MerchantUnit>() }
-            };
-        }
-
-        public void OnEnable()
-        {
-            dialogueUI.OnDialogueEnd += OnDialogueEnd;
-        }
+        protected Dictionary<NpcHandlerType, INpcHandler> _npcHandlers;
+        private const float DialogueDistance = 1.5f;
 
         public void OnMouseDown()
         {
-            //dialogueUI.StartDialogue(dialogueModule.dialogueLines);
+            var check = Physics2D.OverlapCircle(transform.position, DialogueDistance, LayerMask.GetMask("Player"));
+            if (check == null) return;
+            
+            
+            dialogueUI.StartDialogue(dialogueModule.dialogueLines);
+            dialogueUI.OnDialogueEnd += OnDialogueEnd;
             OnDialogueEnd();
         }
-        
-        private void OnDialogueEnd()
+
+        protected virtual void OnDialogueEnd()
         {
-            _npcHandlers[NpcHandlerType.Merchant].LoadNpcModule();
+            Debug.Log("sub" + _npcHandlers);
+            dialogueUI.OnDialogueEnd -= OnDialogueEnd;
         }
     }
 

@@ -448,10 +448,10 @@ namespace _Script.Character
         }
         
         
-        private bool _hasLightSource = false; 
-        public void SetLightSource(bool hasLightSource)
+        private bool _isInSafeZone = false; 
+        public void SetInSafeZone(bool isInSafeZone)
         {
-            _hasLightSource = hasLightSource;
+            _isInSafeZone = isInSafeZone;
         }
         
         private void OnNightStart()
@@ -464,7 +464,7 @@ namespace _Script.Character
             while (true)
             {
                 yield return new WaitForSeconds(1f);
-                if(_hasLightSource) continue;
+                if(_isInSafeZone) continue;
                 AddSanity(-1);
             }
         }

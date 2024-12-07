@@ -1,4 +1,4 @@
-Shader "Cainos/Sprite Shadow"
+Shader "Cainos/Pixel Art Top Down - Basic/Sprite Default - Shadow"
 {
 	Properties
 	{

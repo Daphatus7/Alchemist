@@ -14,14 +14,19 @@ namespace Cainos.PixelArtTopDown_Basic
         private Color curColor;
         private Color targetColor;
 
+        private void Awake()
+        {
+            targetColor = runes[0].color;
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
-            targetColor = new Color(1, 1, 1, 1);
+            targetColor.a = 1.0f;
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            targetColor = new Color(1, 1, 1, 0);
+            targetColor.a = 0.0f;
         }
 
         private void Update()

@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.6}
+  m_AnchoredPosition: {x: 0, y: 1.7}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &710713777606993700
@@ -50,10 +50,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a248d44ba74540ffaf7d9fdfec5dc430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: Jane The Mage
+  text: 'Ken The  Merchant
+
+'
   textColor: {r: 1, g: 1, b: 1, a: 1}
   textSize: 4
-  offset: {x: 0, y: 1.6, z: 0}
+  offset: {x: 0, y: 1.7, z: 0}
 --- !u!23 &1357107075043979486
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -119,7 +121,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Jane The Mage
+  m_text: 'Ken The  Merchant
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -184,7 +188,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 8.868032, y: 2.1894965, z: 8.862446, w: 2.2211149}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -204,7 +208,9 @@ GameObject:
   - component: {fileID: 1263350367263015867}
   - component: {fileID: 3194487395070998921}
   - component: {fileID: 424326558511371869}
-  - component: {fileID: 4057434725439284947}
+  - component: {fileID: 9109133701280716184}
+  - component: {fileID: 83727879730681288}
+  - component: {fileID: 1028801686032175467}
   m_Layer: 8
   m_Name: NPC_Template
   m_TagString: Enemy
@@ -329,7 +335,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.65625, y: 1.367069}
   m_EdgeRadius: 0
---- !u!114 &4057434725439284947
+--- !u!114 &9109133701280716184
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -338,12 +344,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 7294792953007767854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b2b951e3e01d43f59c520056b4cafa5, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c4aa44daf4a474d8657da34ae68f2b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcName: Jane The Mage
+  capacity: 20
+  merchantName: 
+  itemsForSale: []
+  debugItems:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 56fa3d3fbbd6048d4925337da97e2fd9, type: 2}
+  - {fileID: 11400000, guid: 92514a02da9ce483eba8d3d7e1fb6771, type: 2}
+--- !u!114 &83727879730681288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294792953007767854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1efbd77082748e78bad0b2299f2b0a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1028801686032175467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294792953007767854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aa420eaa68412880e6ea9a5a6dc716, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcName: 
   dialogueModule:
-    dialogueLines:
-    - Hello there !
-    - what you want to buy
+    dialogueLines: []
   dialogueUI: {fileID: 0}
