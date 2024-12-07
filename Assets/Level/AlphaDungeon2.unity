@@ -762,7 +762,7 @@ Transform:
   m_GameObject: {fileID: 1376201513}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -18.7, y: -16.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1039,20 +1039,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28cf06fc694c47a689b052955cf48899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 1000
-  height: 1000
+  width: 100
+  height: 100
   wallTile: {fileID: 11400000, guid: 96945c2584c47b44ebe75d015b3cde49, type: 2}
   grassTile: {fileID: 11400000, guid: abe9370c58435f244a894542a9d0f78d, type: 2}
   dirtTile: {fileID: 11400000, guid: a40dd03e3cb3b4b358bf946967e4cc67, type: 2}
   waterTile: {fileID: 11400000, guid: 3ccc0959d691c46efa19f27e74bfa03d, type: 2}
   forestTile: {fileID: 11400000, guid: 600b9ab614d7c4d1494752afd17186dd, type: 2}
-  poiTile: {fileID: 11400000, guid: d086ec1a7551b4dce976c2ea22192976, type: 2}
+  poiTile: {fileID: 11400000, guid: 5fe40d7b004adde4293bdf59101e1f97, type: 2}
+  floraTilemap: {fileID: 1545508924}
+  floraTile: {fileID: 11400000, guid: 30ac4e308e14d40648750624db7a70cd, type: 2}
+  floraDensity: 0.3
+  floraNoiseScale: 0.05
+  floraMinNoise: 0.4
+  floraMaxNoise: 0.6
+  obstaclesTilemap: {fileID: 1545508924}
+  rockTile: {fileID: 11400000, guid: 96945c2584c47b44ebe75d015b3cde49, type: 2}
+  rockDensity: 0.2
+  rockNoiseScale: 0.05
+  rockMinNoise: 0.5
+  rockMaxNoise: 0.8
   baseTilemap: {fileID: 1310514154}
   perlinScale: 0.1
   forestThreshold: 50
   waterThreshold: 35
   numberOfPOIs: 3
   minDistanceBetweenPOIs: 8
+  monsterSpawnPrefab: {fileID: 621942562}
+  numberOfMonsterSpawns: 5
+  minDistanceBetweenMonsterSpawns: 10
+  seed: 0
+  useRandomSeed: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
