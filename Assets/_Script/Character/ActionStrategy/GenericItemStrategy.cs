@@ -17,7 +17,7 @@ namespace _Script.Character.ActionStrategy
                 var seedItem = currentUseItem.ItemData as SeedItem;
                 if (seedItem == null) return false;
 
-                var tile = GameTileMap.Instance.PointedTile;
+                var tile = GameTileMap.PointedTile;
                 if (tile != null && tile.IsFertile)
                 {
                     currentSpriteRenderer.sprite = seedItem.seedOnGroundSprite;

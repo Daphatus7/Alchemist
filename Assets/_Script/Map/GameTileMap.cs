@@ -15,7 +15,7 @@ namespace _Script.Map
     {
         private Tilemap tileMap;
         
-        private TileContext _pointedTile; public TileContext PointedTile => _pointedTile;
+        private static TileContext _pointedTile; public static TileContext PointedTile => _pointedTile;
         
         private readonly Dictionary<Vector2Int, Crop> _crops = new Dictionary<Vector2Int, Crop>();
         
