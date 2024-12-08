@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6ddab620e2542b4b57188734b88b76b, type: 3}
+  m_Name: DesertBiome
+  m_EditorClassIdentifier: 
+  mainGroundTile: {fileID: 11400000, guid: 7b6e368fc0ee90b4ca09e0f71344589a, type: 2}
+  forestTile: {fileID: 11400000, guid: 30ac4e308e14d40648750624db7a70cd, type: 2}
+  waterTile: {fileID: 11400000, guid: 3ccc0959d691c46efa19f27e74bfa03d, type: 2}
+  wallTile: {fileID: 11400000, guid: 96945c2584c47b44ebe75d015b3cde49, type: 2}
+  grassTile: {fileID: 11400000, guid: a9932c56762082e42ae3a877f0c79f7d, type: 2}
+  sandTile: {fileID: 11400000, guid: d086ec1a7551b4dce976c2ea22192976, type: 2}
+  dirtTile: {fileID: 11400000, guid: a40dd03e3cb3b4b358bf946967e4cc67, type: 2}
+  selectionThreshold: 0.358
+  forestThreshold: 50
+  waterThreshold: 35
+  floraTile: {fileID: 11400000, guid: b33146e6cee9d43309cc1f529575fddb, type: 2}
+  floraDensity: 0.3
+  floraNoiseScale: 0.05
+  floraMinNoise: 0.4
+  floraMaxNoise: 0.6
+  resourcePrefab: {fileID: 5172278498976130515, guid: 339fb50ad3af84f3a9e0aecf2e37bbef,
+    type: 3}
+  numberOfResources: 10
+  resourceDensity: 0.25
+  minResourceDistance: 5
+  monsterPrefab: {fileID: 8794507309829770285, guid: 502a773631bb0460494fd8ba8814e964,
+    type: 3}
+  numberOfMonsters: 5
+  minMonsterDistance: 10
+  poiTile: {fileID: 11400000, guid: e787fdd8f60de2c4eb002b7e8cd621fb, type: 2}
+  numberOfPOIs: 3
+  minDistanceBetweenPOIs: 8
+  rockTile: {fileID: 11400000, guid: 658e3c6b9a7284736a643895bddc5d6f, type: 2}
+  rockDensity: 0.2
+  rockNoiseScale: 0.05
+  rockMinNoise: 0.5
+  rockMaxNoise: 0.8

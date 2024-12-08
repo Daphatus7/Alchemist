@@ -10,54 +10,27 @@ namespace _Script.Map.Procedural
         public int width = 50;
         public int height = 50;
 
-        [Header("Tiles")]
-        public TileBase wallTile;
-        public TileBase grassTile;
-        public TileBase dirtTile;
-        public TileBase waterTile;
-        public TileBase forestTile;
-        public TileBase poiTile;
-
-        [Header("Flora Settings")]
-        public Tilemap floraTilemap;
-        public TileBase floraTile;
-        [Range(0.0f, 1.0f)] public float floraDensity = 0.3f;
-        [Range(0.0f, 1.0f)] public float floraNoiseScale = 0.05f;
-        public float floraMinNoise = 0.4f;
-        public float floraMaxNoise = 0.6f;
-
-        [Header("Rocks Settings")]
-        public Tilemap obstaclesTilemap;
-        public TileBase rockTile;
-        [Range(0.0f, 1.0f)] public float rockDensity = 0.2f;
-        [Range(0.0f, 1.0f)] public float rockNoiseScale = 0.05f;
-        public float rockMinNoise = 0.5f;
-        public float rockMaxNoise = 0.8f;
-
-        [Header("Tilemap Reference")]
+        [Header("Base Tilemap References")]
         public Tilemap baseTilemap;
+        public Tilemap obstaclesTilemap;
+        public Tilemap floraTilemap;
+
+        [Header("Biomes")]
+        public Biome[] biomes;
 
         [Header("Noise Settings")]
-        [Range(0.0f, 1.0f)] public float perlinScale = 0.1f;
-        [Range(0, 100)] public int forestThreshold = 50;
-        [Range(0, 100)] public int waterThreshold = 35;
-
-        [Header("POI Settings")]
-        public int numberOfPOIs = 3;
-        public int minDistanceBetweenPOIs = 8;
-
-        [Header("Monster Spawn Settings")]
-        public GameObject monsterSpawnPrefab;
-        public int numberOfMonsterSpawns = 5;
-        public float minDistanceBetweenMonsterSpawns = 10f;
-
-        [Header("Seed")]
+        [Range(0f,1f)] public float biomeNoiseScale = 0.1f;
+        [Range(0f,1f)] public float perlinScale = 0.1f;
         public int seed = 0;
         public bool useRandomSeed = false;
 
         private TileBase[,] _mapTiles;
         private bool[,] _walkableArea;
-        private TileBase[,] _obstacleTiles; // Stores placed obstacle tiles (e.g., rocks)
+        private TileBase[,] _obstacleTiles;
+        private Biome[,] _tileBiomes;
+
+        // A list of valid, walkable, obstacle-free tiles for spawning
+        private List<Vector2Int> validSpawnTiles;
 
         void Start()
         {
@@ -68,7 +41,13 @@ namespace _Script.Map.Procedural
         {
             if (baseTilemap == null || floraTilemap == null || obstaclesTilemap == null)
             {
-                Debug.LogError("Please assign baseTilemap, floraTilemap, and obstaclesTilemap in the inspector.");
+                Debug.LogError("Assign baseTilemap, floraTilemap, and obstaclesTilemap.");
+                return;
+            }
+
+            if (biomes == null || biomes.Length == 0)
+            {
+                Debug.LogError("No biomes defined. Please assign biomes.");
                 return;
             }
 
@@ -80,15 +59,25 @@ namespace _Script.Map.Procedural
             _mapTiles = new TileBase[width, height];
             _walkableArea = new bool[width, height];
             _obstacleTiles = new TileBase[width, height];
+            _tileBiomes = new Biome[width, height];
 
             InitializeBoundary();
+            AssignBiomesToTiles();
             GenerateWalkableArea();
-            AddPerlinNoiseTerrain();
-            PlacePOIs();
-            PlaceFlora();
-            PlaceRocks();
+            ApplyBiomeTerrain();
+            ApplyPerlinBasedFeatures();
+            PlacePOIsFromBiomes();
+            PlaceRocksFromBiomes();
             RenderFinalMap();
-            PlaceMonsterSpawns();
+            PlaceFloraFromBiomes();
+
+            // Sync walkability after all changes
+            SyncWalkableAreaWithFinalMap();
+            // Build a list of all valid walkable spawn tiles
+            BuildValidSpawnTilesList();
+
+            PlaceMonstersFromBiomes();
+            PlaceResourcesFromBiomes();
         }
 
         void InitializeBoundary()
@@ -97,17 +86,35 @@ namespace _Script.Map.Procedural
             {
                 for (int y = 0; y < height; y++)
                 {
-                    if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
-                    {
-                        _mapTiles[x, y] = wallTile;
-                        _walkableArea[x, y] = false;
-                    }
-                    else
-                    {
-                        _mapTiles[x, y] = null;
-                    }
+                    _mapTiles[x, y] = null;
+                    _walkableArea[x, y] = !(x == 0 || y == 0 || x == width - 1 || y == height - 1);
                 }
             }
+        }
+
+        void AssignBiomesToTiles()
+        {
+            float xOffset = Random.Range(0f,9999f);
+            float yOffset = Random.Range(0f,9999f);
+
+            for (int x = 1; x < width-1; x++)
+            {
+                for (int y = 1; y < height-1; y++)
+                {
+                    float n = Mathf.PerlinNoise((x+xOffset)*biomeNoiseScale,(y+yOffset)*biomeNoiseScale);
+                    _tileBiomes[x,y] = PickBiomeByNoise(n);
+                }
+            }
+        }
+
+        Biome PickBiomeByNoise(float n)
+        {
+            foreach (var b in biomes)
+            {
+                if (n <= b.selectionThreshold)
+                    return b;
+            }
+            return biomes[biomes.Length-1];
         }
 
         void GenerateWalkableArea()
@@ -121,9 +128,7 @@ namespace _Script.Map.Procedural
             }
 
             for (int i = 0; i < 3; i++)
-            {
                 _walkableArea = SmoothWalkableArea(_walkableArea);
-            }
 
             for (int x = 1; x < width - 1; x++)
             {
@@ -131,11 +136,12 @@ namespace _Script.Map.Procedural
                 {
                     if (_walkableArea[x, y])
                     {
-                        _mapTiles[x, y] = (Random.value > 0.5f) ? grassTile : dirtTile;
+                        _mapTiles[x,y] = null; 
                     }
                     else
                     {
-                        _mapTiles[x, y] = wallTile;
+                        Biome b = _tileBiomes[x,y];
+                        _mapTiles[x,y] = b != null && b.wallTile != null ? b.wallTile : null;
                     }
                 }
             }
@@ -143,138 +149,153 @@ namespace _Script.Map.Procedural
 
         bool[,] SmoothWalkableArea(bool[,] area)
         {
-            bool[,] newArea = new bool[width, height];
-            for (int x = 1; x < width - 1; x++)
+            bool[,] newArea = new bool[width,height];
+            for (int x = 1; x < width-1; x++)
             {
-                for (int y = 1; y < height - 1; y++)
+                for (int y = 1; y < height-1; y++)
                 {
-                    int neighborCount = CountWalkableNeighbors(area, x, y);
-                    newArea[x, y] = neighborCount > 4;
+                    int n = CountWalkableNeighbors(area,x,y);
+                    newArea[x,y] = n > 4;
                 }
             }
             return newArea;
         }
 
-        int CountWalkableNeighbors(bool[,] area, int cx, int cy)
+        int CountWalkableNeighbors(bool[,] area,int cx,int cy)
         {
             int count = 0;
-            for (int nx = cx - 1; nx <= cx + 1; nx++)
+            for (int nx=cx-1; nx<=cx+1; nx++)
             {
-                for (int ny = cy - 1; ny <= cy + 1; ny++)
+                for (int ny=cy-1; ny<=cy+1; ny++)
                 {
-                    if (nx >= 0 && nx < width && ny >= 0 && ny < height)
+                    if (nx>=0 && nx<width && ny>=0 && ny<height)
                     {
-                        if (area[nx, ny]) count++;
+                        if (area[nx,ny]) count++;
                     }
                 }
             }
             return count;
         }
 
-        void AddPerlinNoiseTerrain()
+        void ApplyBiomeTerrain()
         {
-            float xOffset = Random.Range(0f, 1000f);
-            float yOffset = Random.Range(0f, 1000f);
-
-            for (int x = 1; x < width - 1; x++)
+            for (int x=1; x<width-1; x++)
             {
-                for (int y = 1; y < height - 1; y++)
+                for (int y=1; y<height-1; y++)
                 {
-                    if (_mapTiles[x, y] != null && _mapTiles[x, y] != wallTile)
-                    {
-                        float noiseValue = Mathf.PerlinNoise((x + xOffset) * perlinScale, (y + yOffset) * perlinScale) * 100f;
+                    Biome b = _tileBiomes[x,y];
+                    if (b == null) continue;
+                    if (_walkableArea[x,y])
+                        _mapTiles[x,y] = b.mainGroundTile;
+                }
+            }
+        }
 
-                        if (noiseValue > forestThreshold)
+        void ApplyPerlinBasedFeatures()
+        {
+            float xOffset = Random.Range(0f,1000f);
+            float yOffset = Random.Range(0f,1000f);
+
+            for (int x=1; x<width-1; x++)
+            {
+                for (int y=1; y<height-1; y++)
+                {
+                    Biome b = _tileBiomes[x,y];
+                    if (b == null || _mapTiles[x,y]==null || !_walkableArea[x,y]) continue;
+
+                    float val = Mathf.PerlinNoise((x+xOffset)*perlinScale,(y+yOffset)*perlinScale)*100f;
+                    if (val > b.forestThreshold && b.forestTile!=null)
+                    {
+                        _mapTiles[x,y] = b.forestTile;
+                        _walkableArea[x,y] = true;
+                    }
+                    else if (val < b.waterThreshold && b.waterTile!=null)
+                    {
+                        _mapTiles[x,y] = b.waterTile;
+                        _walkableArea[x,y] = false;
+                    }
+                }
+            }
+        }
+
+        void PlacePOIsFromBiomes()
+        {
+            foreach (var b in biomes)
+            {
+                if (b.poiTile == null || b.numberOfPOIs <=0) continue;
+
+                List<Vector2Int> placedPOIs = new List<Vector2Int>();
+                int attempts = 0;
+                int maxAttempts = b.numberOfPOIs*50;
+
+                while (placedPOIs.Count < b.numberOfPOIs && attempts<maxAttempts)
+                {
+                    attempts++;
+                    int x=Random.Range(2,width-2);
+                    int y=Random.Range(2,height-2);
+                    if (_mapTiles[x,y]==b.mainGroundTile || _mapTiles[x,y]==b.forestTile || _mapTiles[x,y]==b.dirtTile)
+                    {
+                        bool tooClose=false;
+                        Vector2Int cand=new Vector2Int(x,y);
+                        foreach(var p in placedPOIs)
                         {
-                            _mapTiles[x, y] = forestTile;
-                            _walkableArea[x, y] = true;  // Forest still walkable if you want, or set to false if needed
+                            if (Vector2Int.Distance(p,cand)<b.minDistanceBetweenPOIs)
+                            {
+                                tooClose=true;
+                                break;
+                            }
                         }
-                        else if (noiseValue < waterThreshold)
+                        if(!tooClose)
                         {
-                            _mapTiles[x, y] = waterTile;
-                            _walkableArea[x, y] = false;
+                            _mapTiles[x,y]=b.poiTile;
+                            placedPOIs.Add(cand);
+                            SurroundPOIWithTerrain(x,y,b);
                         }
                     }
                 }
             }
         }
 
-        void PlacePOIs()
+        void SurroundPOIWithTerrain(int px,int py,Biome b)
         {
-            List<Vector2Int> placedPOIs = new List<Vector2Int>();
-
-            int attempts = 0;
-            int maxAttempts = numberOfPOIs * 50;
-
-            while (placedPOIs.Count < numberOfPOIs && attempts < maxAttempts)
+            for (int x=px-1;x<=px+1;x++)
             {
-                attempts++;
-                int x = Random.Range(2, width - 2);
-                int y = Random.Range(2, height - 2);
-
-                if (_mapTiles[x, y] == grassTile || _mapTiles[x, y] == dirtTile)
+                for (int y=py-1;y<=py+1;y++)
                 {
-                    bool tooClose = false;
-                    foreach (var poi in placedPOIs)
+                    if(!(x==px && y==py))
                     {
-                        if (Vector2Int.Distance(poi, new Vector2Int(x, y)) < minDistanceBetweenPOIs)
+                        if (_mapTiles[x,y]==b.grassTile || _mapTiles[x,y]==b.dirtTile)
                         {
-                            tooClose = true;
-                            break;
-                        }
-                    }
-
-                    if (!tooClose)
-                    {
-                        _mapTiles[x, y] = poiTile;
-                        placedPOIs.Add(new Vector2Int(x, y));
-                        SurroundPOIWithTerrain(x, y);
-                    }
-                }
-            }
-        }
-
-        void SurroundPOIWithTerrain(int px, int py)
-        {
-            for (int x = px - 1; x <= px + 1; x++)
-            {
-                for (int y = py - 1; y <= py + 1; y++)
-                {
-                    if (!(x == px && y == py))
-                    {
-                        if (_mapTiles[x, y] != null && (_mapTiles[x, y] == grassTile || _mapTiles[x, y] == dirtTile))
-                        {
-                            _mapTiles[x, y] = wallTile;
-                            _walkableArea[x, y] = false;
+                            if (b.wallTile!=null)
+                            {
+                                _mapTiles[x,y]=b.wallTile;
+                                _walkableArea[x,y]=false;
+                            }
                         }
                     }
                 }
             }
         }
 
-        void PlaceFlora()
+        void PlaceRocksFromBiomes()
         {
-            // Deferred until after map is rendered
-        }
+            float rockXOffset = Random.Range(0f,1000f);
+            float rockYOffset = Random.Range(0f,1000f);
 
-        void PlaceRocks()
-        {
-            if (rockTile == null) return;
-
-            float rockXOffset = Random.Range(0f, 1000f);
-            float rockYOffset = Random.Range(0f, 1000f);
-
-            for (int x = 1; x < width - 1; x++)
+            for (int x=1;x<width-1;x++)
             {
-                for (int y = 1; y < height - 1; y++)
+                for (int y=1;y<height-1;y++)
                 {
-                    if (_mapTiles[x, y] == grassTile || _mapTiles[x, y] == dirtTile)
+                    Biome b=_tileBiomes[x,y];
+                    if (b==null || b.rockTile==null) continue;
+
+                    if (_mapTiles[x,y]==b.grassTile || _mapTiles[x,y]==b.dirtTile)
                     {
-                        float noiseValue = Mathf.PerlinNoise((x + rockXOffset) * rockNoiseScale, (y + rockYOffset) * rockNoiseScale);
-                        if (noiseValue >= rockMinNoise && noiseValue <= rockMaxNoise && Random.value < rockDensity)
+                        float val=Mathf.PerlinNoise((x+rockXOffset)*b.rockNoiseScale,(y+rockYOffset)*b.rockNoiseScale);
+                        if(val>=b.rockMinNoise && val<=b.rockMaxNoise && Random.value<b.rockDensity)
                         {
-                            _obstacleTiles[x, y] = rockTile;
-                            _walkableArea[x, y] = false; // becomes an obstacle
+                            _obstacleTiles[x,y]=b.rockTile;
+                            _walkableArea[x,y]=false;
                         }
                     }
                 }
@@ -287,108 +308,179 @@ namespace _Script.Map.Procedural
             obstaclesTilemap.ClearAllTiles();
             floraTilemap.ClearAllTiles();
 
-            // Render base and obstacles based on walkability
-            for (int x = 0; x < width; x++)
+            for (int x=0;x<width;x++)
             {
-                for (int y = 0; y < height; y++)
+                for (int y=0;y<height;y++)
                 {
-                    if (_mapTiles[x, y] == null) continue;
+                    TileBase ground=_mapTiles[x,y];
+                    if (ground==null) continue;
 
-                    if (_walkableArea[x, y])
-                    {
-                        // Walkable tile goes to base layer
-                        baseTilemap.SetTile(new Vector3Int(x, y, 0), _mapTiles[x, y]);
-                    }
+                    if (_walkableArea[x,y])
+                        baseTilemap.SetTile(new Vector3Int(x,y,0),ground);
                     else
                     {
-                        // Not walkable: goes to obstacles layer
-                        TileBase obstacleToPlace = _obstacleTiles[x, y] != null ? _obstacleTiles[x, y] : _mapTiles[x, y];
-                        obstaclesTilemap.SetTile(new Vector3Int(x, y, 0), obstacleToPlace);
+                        TileBase obstacle = _obstacleTiles[x,y]!=null?_obstacleTiles[x,y]:ground;
+                        obstaclesTilemap.SetTile(new Vector3Int(x,y,0),obstacle);
                     }
                 }
             }
+        }
 
-            // Place flora on walkable tiles (grass/dirt) that are not obstructed
-            if (floraTile != null)
+        void PlaceFloraFromBiomes()
+        {
+            for(int x=1;x<width-1;x++)
             {
-                float floraXOffset = Random.Range(0f, 1000f);
-                float floraYOffset = Random.Range(0f, 1000f);
-
-                for (int x = 1; x < width - 1; x++)
+                for(int y=1;y<height-1;y++)
                 {
-                    for (int y = 1; y < height - 1; y++)
+                    Biome b=_tileBiomes[x,y];
+                    if(b==null||b.floraTile==null) continue;
+
+                    if(_walkableArea[x,y] && obstaclesTilemap.GetTile(new Vector3Int(x,y,0))==null)
                     {
-                        if (_walkableArea[x, y] && (_mapTiles[x, y] == grassTile || _mapTiles[x, y] == dirtTile))
+                        float fXOff=Random.Range(0f,1000f);
+                        float fYOff=Random.Range(0f,1000f);
+                        float noise=Mathf.PerlinNoise((x+fXOff)*b.floraNoiseScale,(y+fYOff)*b.floraNoiseScale);
+
+                        if(noise>=b.floraMinNoise && noise<=b.floraMaxNoise && Random.value<b.floraDensity)
                         {
-                            float noiseValue = Mathf.PerlinNoise((x + floraXOffset) * floraNoiseScale, (y + floraYOffset) * floraNoiseScale);
-                            if (noiseValue >= floraMinNoise && noiseValue <= floraMaxNoise && Random.value < floraDensity)
-                            {
-                                // Place flora only if there's no obstacle here
-                                if (obstaclesTilemap.GetTile(new Vector3Int(x, y, 0)) == null)
-                                {
-                                    floraTilemap.SetTile(new Vector3Int(x, y, 0), floraTile);
-                                }
-                            }
+                            floraTilemap.SetTile(new Vector3Int(x,y,0),b.floraTile);
                         }
                     }
                 }
             }
         }
 
-        /// <summary>
-        /// Place monster spawn points in a balanced way around the map.
-        /// Similar logic to POI placement: random locations with minimum spacing.
-        /// </summary>
-        void PlaceMonsterSpawns()
+        void SyncWalkableAreaWithFinalMap()
         {
-            if (monsterSpawnPrefab == null)
+            for (int x=0;x<width;x++)
             {
-                Debug.LogWarning("No monsterSpawnPrefab assigned. Skipping monster spawn placement.");
-                return;
-            }
-
-            List<Vector2> placedSpawns = new List<Vector2>();
-            int attempts = 0;
-            int maxAttempts = numberOfMonsterSpawns * 100; // Arbitrary to avoid infinite loops
-
-            while (placedSpawns.Count < numberOfMonsterSpawns && attempts < maxAttempts)
-            {
-                attempts++;
-                int x = Random.Range(2, width - 2);
-                int y = Random.Range(2, height - 2);
-
-                // Check if tile is walkable and not obstructed
-                if (_walkableArea[x, y] && obstaclesTilemap.GetTile(new Vector3Int(x, y, 0)) == null)
+                for (int y=0;y<height;y++)
                 {
-                    // Check distance from other spawn points
-                    bool tooClose = false;
-                    Vector2 candidatePos = new Vector2(x, y);
-                    foreach (var spawnPos in placedSpawns)
+                    if (_mapTiles[x,y]==null)
                     {
-                        if (Vector2.Distance(spawnPos, candidatePos) < minDistanceBetweenMonsterSpawns)
+                        _walkableArea[x,y]=false;
+                        continue;
+                    }
+
+                    Biome b=_tileBiomes[x,y];
+                    if (b!=null && (_mapTiles[x,y]==b.waterTile||_mapTiles[x,y]==b.wallTile))
+                    {
+                        _walkableArea[x,y]=false;
+                        continue;
+                    }
+
+                    if (obstaclesTilemap.GetTile(new Vector3Int(x,y,0))!=null)
+                    {
+                        _walkableArea[x,y]=false;
+                        continue;
+                    }
+
+                    _walkableArea[x,y]=true;
+                }
+            }
+        }
+
+        void BuildValidSpawnTilesList()
+        {
+            validSpawnTiles = new List<Vector2Int>();
+            for (int x=1;x<width-1;x++)
+            {
+                for (int y=1;y<height-1;y++)
+                {
+                    if(_walkableArea[x,y] && obstaclesTilemap.GetTile(new Vector3Int(x,y,0))==null)
+                    {
+                        // This tile can host monsters/resources
+                        validSpawnTiles.Add(new Vector2Int(x,y));
+                    }
+                }
+            }
+        }
+
+        void PlaceMonstersFromBiomes()
+        {
+            // Instead of random attempts, pick from validSpawnTiles
+            foreach(var b in biomes)
+            {
+                if(b.monsterPrefab==null||b.numberOfMonsters<=0) continue;
+
+                // Shuffle validSpawnTiles or pick random indices
+                // Using a simple approach:
+                var candidateList = new List<Vector2Int>(validSpawnTiles);
+                int attempts=0;
+
+                // Place monsters ensuring min distance
+                List<Vector2> placedM = new List<Vector2>();
+                while(placedM.Count<b.numberOfMonsters && candidateList.Count>0 && attempts< b.numberOfMonsters*100)
+                {
+                    attempts++;
+                    int randIndex=Random.Range(0,candidateList.Count);
+                    Vector2Int spot=candidateList[randIndex];
+                    bool tooClose=false;
+                    foreach(var mPos in placedM)
+                    {
+                        if(Vector2.Distance(mPos,spot)<b.minMonsterDistance)
                         {
-                            tooClose = true;
+                            tooClose=true;
                             break;
                         }
                     }
 
-                    if (!tooClose)
+                    if(!tooClose)
                     {
-                        // Place monster spawn point
-                        Vector3 worldPos = baseTilemap.CellToWorld(new Vector3Int(x, y, 0));
-                        Instantiate(monsterSpawnPrefab, worldPos + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity);
-                        placedSpawns.Add(candidatePos);
+                        Vector3 wPos=baseTilemap.CellToWorld(new Vector3Int(spot.x,spot.y,0));
+                        Instantiate(b.monsterPrefab,wPos+new Vector3(0.5f,0.5f,0f),Quaternion.identity);
+                        placedM.Add(spot);
+                        // Remove this tile from candidateList to avoid spawning another monster here
+                        candidateList.RemoveAt(randIndex);
+                    }
+                    else
+                    {
+                        // Just remove this candidate from the list to avoid repeated checking
+                        candidateList.RemoveAt(randIndex);
                     }
                 }
             }
+        }
 
-            if (placedSpawns.Count < numberOfMonsterSpawns)
+        void PlaceResourcesFromBiomes()
+        {
+            foreach(var b in biomes)
             {
-                Debug.LogWarning("Not all monster spawns could be placed due to constraints.");
-            }
-            else
-            {
-                Debug.Log($"Placed {placedSpawns.Count} monster spawn points.");
+                if(b.resourcePrefab==null||b.numberOfResources<=0) continue;
+
+                var candidateList = new List<Vector2Int>(validSpawnTiles);
+                List<Vector2Int> placedR = new List<Vector2Int>();
+                int attempts=0;
+
+                while(placedR.Count<b.numberOfResources && candidateList.Count>0 && attempts<b.numberOfResources*100)
+                {
+                    attempts++;
+                    int randIndex=Random.Range(0,candidateList.Count);
+                    Vector2Int spot=candidateList[randIndex];
+
+                    // Distance check
+                    bool tooClose=false;
+                    foreach(var rPos in placedR)
+                    {
+                        if(Vector2Int.Distance(rPos,spot)<b.minResourceDistance)
+                        {
+                            tooClose=true;
+                            break;
+                        }
+                    }
+
+                    if(!tooClose && Random.value<b.resourceDensity)
+                    {
+                        Vector3 wPos=baseTilemap.CellToWorld(new Vector3Int(spot.x,spot.y,0));
+                        Instantiate(b.resourcePrefab,wPos+new Vector3(0.5f,0.5f,0f),Quaternion.identity);
+                        placedR.Add(spot);
+                        candidateList.RemoveAt(randIndex);
+                    }
+                    else
+                    {
+                        candidateList.RemoveAt(randIndex);
+                    }
+                }
             }
         }
     }
