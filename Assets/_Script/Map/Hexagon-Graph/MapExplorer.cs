@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace _Script.Hexagon_Graph
+namespace _Script.Map.Hexagon_Graph
 {
     public class MapExplorer : MonoBehaviour
     {
@@ -41,7 +40,8 @@ namespace _Script.Hexagon_Graph
             // Generate visual representations
             GenerateGridVisuals();
         }
-
+        
+        
 
         private void HighlightHex(HexNode hexNode, Color color)
         {

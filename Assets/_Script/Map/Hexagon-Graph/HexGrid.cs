@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Script.Hexagon_Graph
+namespace _Script.Map.Hexagon_Graph
 {
     public class HexGrid
     {

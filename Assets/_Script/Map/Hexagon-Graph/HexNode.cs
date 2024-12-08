@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using _Script.Map;
 using UnityEngine;
 
-namespace _Script.Hexagon_Graph
+namespace _Script.Map.Hexagon_Graph
 {
     public class HexNode
     {
@@ -11,7 +12,10 @@ namespace _Script.Hexagon_Graph
 
         public HexNode parent; // For retracing the path
         
+        
         private readonly NodeType nodeType = NodeType.Empty; public NodeType NodeType => nodeType;
+        
+        private MapNode mapNode; public MapNode MapNode => mapNode;
         
         public  int gCost; // Cost from the start node
         public int hCost; // Cost to the goal node

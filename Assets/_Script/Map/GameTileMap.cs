@@ -13,7 +13,7 @@ namespace _Script.Map
     [DefaultExecutionOrder(10)]
     public class GameTileMap : Singleton<GameTileMap>, ISaveTileMap
     {
-        private Tilemap tileMap;
+        private Tilemap _tileMap;
         
         private static TileContext _pointedTile; public static TileContext PointedTile => _pointedTile;
         
@@ -21,11 +21,7 @@ namespace _Script.Map
         
         private void Start()
         {
-            tileMap = GetComponent<Tilemap>();
-        }
-
-        private void OnDestroy()
-        {
+            _tileMap = GetComponent<Tilemap>();
         }
         
         private void Update()
@@ -96,7 +92,7 @@ namespace _Script.Map
 
         public Vector3 GetTileWorldCenterPosition(int x, int y)
         {
-            return tileMap.GetCellCenterWorld(new Vector3Int(x, y, 0));
+            return _tileMap.GetCellCenterWorld(new Vector3Int(x, y, 0));
         }
         
 
@@ -129,21 +125,21 @@ namespace _Script.Map
             Vector3 currentCursorPosition = Helper.GetMouseWorldPosition();
             
             // Convert the cursor position to world position
-            var cellPosition = tileMap.WorldToCell(currentCursorPosition);
-            var worldPosition = tileMap.GetCellCenterWorld(cellPosition);
+            var cellPosition = _tileMap.WorldToCell(currentCursorPosition);
+            var worldPosition = _tileMap.GetCellCenterWorld(cellPosition);
             // Check if the cursor has moved
             var currentCursorCellPosition = new Vector2Int(cellPosition.x, cellPosition.y);
             if(_lastCursorPosition != currentCursorCellPosition)
             {
                 _lastCursorPosition = currentCursorCellPosition;
-                var tile = tileMap.GetTile<CustomTile>(cellPosition);
+                var tile = _tileMap.GetTile<CustomTile>(cellPosition);
                 //if there is no tile at the cursor position
                 if (tile == null)
                 {
                     _pointedTile = null;
                     return;
                 }
-                _pointedTile = new TileContext(tileMap.GetTile<CustomTile>(cellPosition), 
+                _pointedTile = new TileContext(_tileMap.GetTile<CustomTile>(cellPosition), 
                     new Vector2Int(cellPosition.x, cellPosition.y), 
                     worldPosition, IsFertile(tile, currentCursorCellPosition));
                 OnCursorMoved?.Invoke(currentCursorPosition);

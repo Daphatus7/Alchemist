@@ -4,6 +4,9 @@ using _Script.Character;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#endif
 
 namespace _Script.Managers
 {
@@ -146,6 +149,22 @@ namespace _Script.Managers
             DontDestroyOnLoad(_playerCharacter.gameObject);
         }
 
+#if ODIN_INSPECTOR
+        [BoxGroup("Debug Controls")]
+        [Button(ButtonSizes.Medium)]
+        private void DebugLoadDungeonLevels()
+        {
+            LoadDungeonLevels();
+        }
+
+        [BoxGroup("Debug Controls")]
+        [Button(ButtonSizes.Medium)]
+        private void DebugUnloadDungeonLevels()
+        {
+            UnloadAllDungeonLevels();
+        }
+#endif
+
         #region Private Coroutines and Helpers
 
         private IEnumerator LoadMainSceneAsync(string sceneName)
@@ -161,6 +180,7 @@ namespace _Script.Managers
             UnloadAllAdditiveScenes();
             loadedAdditiveScenes.Clear();
 
+            // Using a coroutine to simulate a load; uncomment the lines below if you need actual async load
             // AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             // while (!asyncLoad.isDone)
             // {
