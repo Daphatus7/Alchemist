@@ -6,5 +6,6 @@ namespace _Script.Map.Hexagon_Graph
     {
         void Highlight(bool isHighlighted);
         Vector3Int GetPosition();
+        void SetNodeComplete();
     }
 }

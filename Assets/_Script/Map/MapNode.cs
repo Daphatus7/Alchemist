@@ -6,10 +6,22 @@ using UnityEngine;
 
 namespace _Script.Map
 {
-    public class MapNode :ScriptableObject
+    public class MapNode
     {
-        public NodeType nodeType = NodeType.Boss;
-        public string description = "This is a boss node";
-        public int seed = 0;
+        public NodeType NodeType = NodeType.Boss;
+        public readonly string NodeName = "AlphaDungeon2";
+        public string Description = "This is a boss node";
+        public int Seed = 0;
+        
+        public MapNode(NodeType nodeType, string nodeName, string description, int seed)
+        {
+            NodeType = nodeType;
+            NodeName = nodeName;
+            Description = description;
+            Seed = seed;
+        }
+        public MapNode()
+        {
+        }
     }
 }

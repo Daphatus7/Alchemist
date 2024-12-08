@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using _Script.Character;
+using _Script.Map;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -32,12 +33,6 @@ namespace _Script.Managers
 
             // Ensure persistent objects like the player and manager
             MakePersistentObjects();
-
-            // Optionally load the starting scene as the main scene
-            if (!string.IsNullOrEmpty(startingScene))
-            {
-                StartCoroutine(LoadMainSceneAsync(startingScene));
-            }
         }
 
         /// <summary>
@@ -140,6 +135,12 @@ namespace _Script.Managers
             Debug.Log("All dungeon levels unloaded.");
         }
 
+        public void LoadMap(MapNode data)
+        {
+            // Load the map scene
+            StartCoroutine(LoadMainSceneAsync(data.NodeName));
+        }
+        
         /// <summary>
         /// Ensure persistent objects like the player are not destroyed across scenes.
         /// </summary>
@@ -201,6 +202,8 @@ namespace _Script.Managers
             }
         }
 
+
+        
         private IEnumerator AddSceneAsync(string sceneName)
         {
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
