@@ -92,7 +92,12 @@ namespace _Script.Map.Procedural
             sPoint = spawnPoint;
             _endPoint = endPoint;
             ePoint = endPoint;
+            
+            
+            DebugPrintReachableAreas();
             HighlightReachableAreas();
+            DebugHighlightChosenRegion();
+            DebugMarkSpawnEndPoints();
             return true;
         }
 
@@ -460,7 +465,25 @@ namespace _Script.Map.Procedural
         }
 
         /// <summary>
-        /// Highlight reachable areas by placing a debug tile with a unique color for each area.
+        /// Print information about the reachable areas to the console.
+        /// </summary>
+        void DebugPrintReachableAreas()
+        {
+            if (reachableAreas == null || reachableAreas.Count == 0)
+            {
+                Debug.Log("No reachable areas found.");
+                return;
+            }
+
+            Debug.Log($"Number of reachable areas: {reachableAreas.Count}");
+            for (int i = 0; i < reachableAreas.Count; i++)
+            {
+                Debug.Log($"Area {i}: Size = {reachableAreas[i].Count} tiles");
+            }
+        }
+
+        /// <summary>
+        /// Highlights each reachable area with a different color to visualize their locations.
         /// </summary>
         void HighlightReachableAreas()
         {
@@ -470,7 +493,6 @@ namespace _Script.Map.Procedural
                 return;
             }
 
-            // Define a set of colors to cycle through or generate random colors
             Color[] colors = new Color[] {
                 Color.red, Color.green, Color.blue,
                 Color.magenta, Color.cyan, Color.yellow,
@@ -480,12 +502,7 @@ namespace _Script.Map.Procedural
             for (int i = 0; i < reachableAreas.Count; i++)
             {
                 var area = reachableAreas[i];
-                // pick a color
-                Color c;
-                if (i < colors.Length)
-                    c = colors[i];
-                else
-                    c = new Color(Random.value, Random.value, Random.value); // fallback random color if too many areas
+                Color c = (i < colors.Length) ? colors[i] : new Color(Random.value, Random.value, Random.value);
 
                 foreach (var tilePos in area)
                 {
@@ -493,6 +510,58 @@ namespace _Script.Map.Procedural
                     debugTilemap.SetTile(cellPos, debugTile);
                     debugTilemap.SetColor(cellPos, c);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Highlights the chosen (largest) reachable region with a distinct border or color.
+        /// </summary>
+        void DebugHighlightChosenRegion()
+        {
+            if (debugTilemap == null || debugTile == null || chosenRegion == null || chosenRegion.Count == 0)
+                return;
+
+            // Use white color for chosen region as an overlay
+            Color chosenColor = Color.white;
+
+            foreach (var tilePos in chosenRegion)
+            {
+                Vector3Int cellPos = new Vector3Int(tilePos.x, tilePos.y, 0);
+                if (debugTilemap.GetTile(cellPos) != null)
+                {
+                    // Mix chosenColor with existing color?
+                    // For simplicity, just overwrite with chosenColor for clarity
+                    debugTilemap.SetColor(cellPos, chosenColor);
+                }
+                else
+                {
+                    debugTilemap.SetTile(cellPos, debugTile);
+                    debugTilemap.SetColor(cellPos, chosenColor);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Mark the spawn and end points with a distinct color or tile on the debug tilemap.
+        /// </summary>
+        void DebugMarkSpawnEndPoints()
+        {
+            if (debugTilemap == null || debugTile == null)
+                return;
+
+            // Spawn point as green, end point as red
+            if (_spawnPoint != Vector2Int.zero)
+            {
+                Vector3Int spawnCell = new Vector3Int(_spawnPoint.x, _spawnPoint.y, 0);
+                debugTilemap.SetTile(spawnCell, debugTile);
+                debugTilemap.SetColor(spawnCell, Color.green);
+            }
+
+            if (_endPoint != Vector2Int.zero)
+            {
+                Vector3Int endCell = new Vector3Int(_endPoint.x, _endPoint.y, 0);
+                debugTilemap.SetTile(endCell, debugTile);
+                debugTilemap.SetColor(endCell, Color.red);
             }
         }
         
