@@ -4,7 +4,7 @@ using _Script.Inventory.InventoryBackend;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
-namespace _Script.Inventory.ActionBarBackend
+namespace _Script.Inventory.PlayerInventory
 {
     public class PlayerInventory : PlayerContainer
     {

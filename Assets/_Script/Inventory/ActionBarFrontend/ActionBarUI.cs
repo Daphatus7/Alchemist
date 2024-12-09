@@ -1,4 +1,3 @@
-using _Script.Inventory.ActionBarBackend;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontend;
 using _Script.Inventory.InventoryFrontendHandler;
@@ -10,7 +9,7 @@ namespace _Script.Inventory.ActionBarFrontend
 {
     public class ActionBarUI : MonoBehaviour, IContainerUIHandle
     {
-        private PlayerInventory _playerInventory;
+        private PlayerInventory.PlayerInventory _playerInventory;
         [SerializeField] private GameObject inventoryPanel;
         [SerializeField] private GameObject slotPrefab;
         

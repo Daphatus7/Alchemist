@@ -1,9 +1,9 @@
 // Author : Peiyu Wang @ Daphatus
 // 07 12 2024 12 42
 
+using _Script.Inventory.PlayerInventory;
 using _Script.Map;
 using _Script.Utilities;
-using _Script.Inventory.ActionBarBackend;
 using UnityEngine;
 
 namespace _Script.Character.ActionStrategy
