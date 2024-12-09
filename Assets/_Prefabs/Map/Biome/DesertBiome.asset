@@ -29,12 +29,12 @@ MonoBehaviour:
   floraMaxNoise: 0.6
   resourcePrefab: {fileID: 5172278498976130515, guid: 339fb50ad3af84f3a9e0aecf2e37bbef,
     type: 3}
-  numberOfResources: 10
+  numberOfResources: 1
   resourceDensity: 0.25
   minResourceDistance: 5
   monsterPrefab: {fileID: 8794507309829770285, guid: 502a773631bb0460494fd8ba8814e964,
     type: 3}
-  numberOfMonsters: 5
+  numberOfMonsters: 1
   minMonsterDistance: 10
   poiTile: {fileID: 11400000, guid: e787fdd8f60de2c4eb002b7e8cd621fb, type: 2}
   numberOfPOIs: 3

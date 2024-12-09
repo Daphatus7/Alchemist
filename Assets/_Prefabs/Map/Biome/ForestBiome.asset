@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: ForestBiome
   m_EditorClassIdentifier: 
   mainGroundTile: {fileID: 11400000, guid: 7b6e368fc0ee90b4ca09e0f71344589a, type: 2}
-  forestTile: {fileID: 11400000, guid: d086ec1a7551b4dce976c2ea22192976, type: 2}
-  waterTile: {fileID: 11400000, guid: 2717e162092c14a8e9880f779f5c8543, type: 2}
+  forestTile: {fileID: 11400000, guid: 30ac4e308e14d40648750624db7a70cd, type: 2}
+  waterTile: {fileID: 11400000, guid: 3ccc0959d691c46efa19f27e74bfa03d, type: 2}
   wallTile: {fileID: 11400000, guid: 96945c2584c47b44ebe75d015b3cde49, type: 2}
   grassTile: {fileID: 11400000, guid: a9932c56762082e42ae3a877f0c79f7d, type: 2}
   sandTile: {fileID: 11400000, guid: d086ec1a7551b4dce976c2ea22192976, type: 2}
   dirtTile: {fileID: 11400000, guid: a40dd03e3cb3b4b358bf946967e4cc67, type: 2}
-  selectionThreshold: 0.358
+  selectionThreshold: 0.4
   forestThreshold: 50
   waterThreshold: 35
   floraTile: {fileID: 11400000, guid: b33146e6cee9d43309cc1f529575fddb, type: 2}
@@ -29,12 +29,12 @@ MonoBehaviour:
   floraMaxNoise: 0.6
   resourcePrefab: {fileID: 5172278498976130515, guid: 339fb50ad3af84f3a9e0aecf2e37bbef,
     type: 3}
-  numberOfResources: 10
+  numberOfResources: 5
   resourceDensity: 0.25
   minResourceDistance: 5
   monsterPrefab: {fileID: 8794507309829770285, guid: 502a773631bb0460494fd8ba8814e964,
     type: 3}
-  numberOfMonsters: 5
+  numberOfMonsters: 1
   minMonsterDistance: 10
   poiTile: {fileID: 11400000, guid: e787fdd8f60de2c4eb002b7e8cd621fb, type: 2}
   numberOfPOIs: 3

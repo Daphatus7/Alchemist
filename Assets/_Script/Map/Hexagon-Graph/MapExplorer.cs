@@ -104,7 +104,7 @@ namespace _Script.Map.Hexagon_Graph
             
             
             Debug.Log($"Clicked on node: {node.NodeType} + currently disabled loading scenes");
-            //GameManager.Instance.LoadMap(node.MapNode);
+            GameManager.Instance.AddScene(node.MapNode);
         }
         
         private void OnHoverOnNode(INodeHandle handle)

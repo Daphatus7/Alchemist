@@ -2673,6 +2673,8 @@ MonoBehaviour:
   startingScene: PrototypeScene
   dungeonLevels:
   - AlphaDungeon2
+  _spawnBonfirePrefab: {fileID: 379468172664703565, guid: 7f7e98fb9779a4befaf90666cfa5488a,
+    type: 3}
 --- !u!114 &969537174
 MonoBehaviour:
   m_ObjectHideFlags: 0

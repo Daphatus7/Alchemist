@@ -55,16 +55,16 @@ namespace _Script.Managers
         /// <summary>
         /// Loads a scene additively (in addition to the current main scene and other additive scenes).
         /// </summary>
-        public void AddScene(string sceneName)
+        public void AddScene(MapNode sceneData)
         {
             // Avoid adding a scene that's already loaded
-            if (loadedAdditiveScenes.Contains(sceneName))
+            if (loadedAdditiveScenes.Contains(sceneData.MapName))
             {
-                Debug.LogWarning($"Scene {sceneName} is already loaded additively.");
+                Debug.LogWarning($"Scene {sceneData.MapName} is already loaded.");
                 return;
             }
 
-            StartCoroutine(AddSceneAsync(sceneName));
+            StartCoroutine(AddSceneAsync(sceneData.MapName));
         }
 
         /// <summary>
@@ -94,14 +94,15 @@ namespace _Script.Managers
         /// </summary>
         public void MovePlayerToScene(Vector3 spawnPosition, string targetScene)
         {
-            // Ensure the target scene is loaded additively
-            if (!SceneManager.GetSceneByName(targetScene).isLoaded)
+            if (loadedAdditiveScenes.Contains(targetScene))
             {
-                AddScene(targetScene);
+                _playerCharacter.transform.position = spawnPosition;
+                Debug.Log($"Player moved to {spawnPosition} in scene {targetScene}.");
             }
-
-            // Move the player to the new spawn position
-            _playerCharacter.transform.position = spawnPosition;
+            else
+            {
+                Debug.LogWarning($"Scene {targetScene} is not loaded. Player cannot be moved.");
+            }
         }
 
         /// <summary>
@@ -133,12 +134,6 @@ namespace _Script.Managers
                 UnloadAdditiveScene(level);
             }
             Debug.Log("All dungeon levels unloaded.");
-        }
-
-        public void LoadMap(MapNode data)
-        {
-            // Load the map scene
-            StartCoroutine(LoadMainSceneAsync(data.NodeName));
         }
         
         /// <summary>
@@ -222,6 +217,22 @@ namespace _Script.Managers
 
             loadedAdditiveScenes.Add(sceneName);
             Debug.Log($"Additive scene {sceneName} has been loaded.");
+            
+            //The scene is loaded but not the map, now generate the map
+            //wait
+            OnMapLoaded(sceneName);
+        }
+
+        [SerializeField] private GameObject _spawnBonfirePrefab;
+        private void OnMapLoaded(string newScene)
+        {
+            if (SubGameManager.Instance.GenerateMap(out Vector2Int spawnPoint, out Vector2Int endPoint))
+            {
+                MovePlayerToScene(new Vector3(spawnPoint.x, spawnPoint.y, 0), newScene);
+                
+                //Spawn spawn bonfire at the spawn point
+                Instantiate(_spawnBonfirePrefab, new Vector3(endPoint.x, endPoint.y, 0), Quaternion.identity);
+            }
         }
 
         private IEnumerator UnloadSceneAsync(string sceneName)
