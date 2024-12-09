@@ -1,3 +1,4 @@
+using System;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontendHandler;
 using _Script.Inventory.SlotFrontend;
@@ -9,59 +10,76 @@ namespace _Script.Inventory.InventoryFrontend
     public class InventoryUI : MonoBehaviour, IPlayerInventoryHandler
     {
         private PlayerContainer _playerContainer;
+        private IInventoryManagerHandler _inventoryManager;
         [SerializeField] private GameObject inventoryPanel;
         [SerializeField] private GameObject slotPrefab;
 
         private InventorySlotDisplay[] _slotDisplays;
-        
-        private void Start()
-        {
-            InitializeInventoryUI();
-            gameObject.SetActive(false);
-        }
+
+        private bool _initialized = false;
 
         public void ToggleInventoryUI()
         {
             gameObject.SetActive(!gameObject.activeSelf);
         }
-        
-        
-        private void OnEnable()
+
+        private void OnDestroy()
         {
-            _playerContainer.OnInventorySlotChanged += UpdateSlotUI;
-            // Subscribe to full inventory updates if needed
-            // playerInventory.OnInventoryChanged += UpdateAllSlotsUI;
-            UpdateAllSlotsUI();
+            if (_playerContainer != null) 
+                _playerContainer.OnInventorySlotChanged -= UpdateSlotUI;
         }
 
-        private void OnDisable()
+        public void InitializeInventoryUI(IInventoryManagerHandler inventoryManager, PlayerContainer playerContainer)
         {
-            _playerContainer.OnInventorySlotChanged -= UpdateSlotUI;
-            // Unsubscribe from full inventory updates if needed
-            // playerInventory.OnInventoryChanged -= UpdateAllSlotsUI;
-        }
-        
-        
-        private void InitializeInventoryUI()
-        {
+            _playerContainer = playerContainer;
+            _inventoryManager = inventoryManager;
+            _playerContainer.OnInventorySlotChanged += UpdateSlotUI;
+            
             int capacity = _playerContainer.Capacity;
             _slotDisplays = new InventorySlotDisplay[capacity];
 
+            // Initialize pool if not done yet
+            if (!_initialized)
+            {
+                // For example, initialize the slot pool with some capacity if not done globally:
+                // SlotPool.Initialize(slotPrefab, someParentTransform, initialCount: 100);
+                // In a production scenario, you'd ensure SlotPool is initialized elsewhere once.
+                _initialized = true;
+            }
+
             for (int i = 0; i < capacity; i++)
             {
-                GameObject slot = Instantiate(slotPrefab, inventoryPanel.transform);
-                InventorySlotDisplay inventorySlotDisplay = slot.GetComponent<InventorySlotDisplay>();
+                InventorySlotDisplay inventorySlotDisplay = SlotPool.GetSlot();
+                inventorySlotDisplay.transform.SetParent(inventoryPanel.transform, false);
                 inventorySlotDisplay.InitializeInventorySlot(this, i, _playerContainer.SlotType);
+                inventorySlotDisplay.gameObject.SetActive(true);
                 _slotDisplays[i] = inventorySlotDisplay;
 
                 // Set the slot's initial item
                 inventorySlotDisplay.SetSlot(_playerContainer.Slots[i]);
             }
         }
+        
+        public void CloseInventoryUI()
+        {
+            // Instead of destroying slots, return them to the pool
+            for (int i = 0; i < _slotDisplays.Length; i++)
+            {
+                _slotDisplays[i].ClearSlot();
+                SlotPool.ReturnSlotToPool(_slotDisplays[i]);
+                _slotDisplays[i] = null;
+            }
 
+            _playerContainer.OnInventorySlotChanged -= UpdateSlotUI;
+            
+            _inventoryManager.OnCloseInventoryUI(this);
+            
+            _playerContainer = null;
+            _inventoryManager = null;
+            
+            Destroy(gameObject); // Destroy only the UI container, slots are reused
+        }
 
-
-        // Implement if full inventory updates are necessary
         private void UpdateAllSlotsUI()
         {
             for (int i = 0; i < _slotDisplays?.Length; i++)

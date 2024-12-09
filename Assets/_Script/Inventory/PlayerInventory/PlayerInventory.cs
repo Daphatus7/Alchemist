@@ -10,7 +10,7 @@ namespace _Script.Inventory.PlayerInventory
     {
         private InventoryItem _selectedItem;
         private int _selectedSlotIndex;
-
+        
         public PlayerInventory(PlayerCharacter owner, int capacity, int selectedSlotIndex = 0) : base(owner, capacity)
         {
             _selectedSlotIndex = selectedSlotIndex;
@@ -201,5 +201,7 @@ namespace _Script.Inventory.PlayerInventory
         {
             _remove(_selectedSlotIndex);
         }
+        
+        
     }
 }

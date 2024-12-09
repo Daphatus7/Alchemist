@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontendHandler;
 using TMPro;
@@ -14,6 +15,8 @@ namespace _Script.Inventory.SlotFrontend
         [SerializeField] private Button slotButton;
         [SerializeField] private Image highlight;
 
+        private int _slotIndex;  public int SlotIndex => _slotIndex;
+        private int _inventoryIndex; public int InventoryIndex => _inventoryIndex;
         public string ItemTypeName => currentItem.ItemData.ItemName;
         public int Value => currentItem.ItemData.Value;
         public int Quantity => currentItem.Quantity;
@@ -21,8 +24,7 @@ namespace _Script.Inventory.SlotFrontend
         private SlotType _slotType; public SlotType SlotType => _slotType;
         
         private IContainerUIHandle _inventoryUI;
-        private int _slotIndex;  public int SlotIndex => _slotIndex;
-
+        
         /**
          * only visual representation of the item
          */
@@ -41,6 +43,17 @@ namespace _Script.Inventory.SlotFrontend
             //hide
             highlight.enabled = false;
             _slotType = slotType;
+        }
+        
+        public void InitializeInventorySlot(IContainerUIHandle inventoryUI, int slotIndex, int inventoryIndex,SlotType slotType)
+        {
+            _inventoryUI = inventoryUI;
+            _slotIndex = slotIndex;
+            
+            //hide
+            highlight.enabled = false;
+            _slotType = slotType;
+            _inventoryIndex = inventoryIndex;
         }
 
         private void OnEnable()
@@ -451,4 +464,57 @@ namespace _Script.Inventory.SlotFrontend
         Sell,
         DoNothing
     }
+    
+    public static class SlotPool
+    {
+        private static List<InventorySlotDisplay> _availableSlots = new List<InventorySlotDisplay>();
+        private static GameObject _slotPrefab;
+        private static Transform _poolParent;
+        private static bool _initialized;
+
+        public static void Initialize(GameObject slotPrefab, Transform poolParent, int initialCount)
+        {
+            if (_initialized) return;
+            _initialized = true;
+            _slotPrefab = slotPrefab;
+            _poolParent = poolParent;
+
+            // Pre-instantiate initialCount slots
+            for (int i = 0; i < initialCount; i++)
+            {
+                var slot = CreateNewSlot();
+                ReturnSlotToPool(slot);
+            }
+        }
+
+        public static InventorySlotDisplay GetSlot()
+        {
+            if (_availableSlots.Count == 0)
+            {
+                // Pool is empty, create a new slot
+                return CreateNewSlot();
+            }
+
+            int lastIndex = _availableSlots.Count - 1;
+            InventorySlotDisplay slot = _availableSlots[lastIndex];
+            _availableSlots.RemoveAt(lastIndex);
+            slot.gameObject.SetActive(true);
+            return slot;
+        }
+
+        public static void ReturnSlotToPool(InventorySlotDisplay slot)
+        {
+            slot.gameObject.SetActive(false);
+            slot.transform.SetParent(_poolParent);
+            _availableSlots.Add(slot);
+        }
+
+        private static InventorySlotDisplay CreateNewSlot()
+        {
+            GameObject slotObj = Object.Instantiate(_slotPrefab, _poolParent);
+            slotObj.SetActive(false);
+            return slotObj.GetComponent<InventorySlotDisplay>();
+        }
+    }
+
 }
