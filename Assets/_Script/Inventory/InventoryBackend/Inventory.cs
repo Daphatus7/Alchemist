@@ -1,48 +1,58 @@
 using System;
 using _Script.Inventory.SlotFrontend;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Script.Inventory.InventoryBackend
 {
-    public abstract class Inventory : MonoBehaviour
+    public abstract class Inventory
     {
-        [SerializeField] private int capacity = 20;
-        [TableList] protected InventoryItem[] slots; public InventoryItem[] Slots => slots;
-        [ShowInInspector, ReadOnly, PropertyOrder(2)]
-        [Tooltip("Get the capacity of the inventory")]
-        public int Capacity => capacity;
+        private readonly int _capacity = 20; public int Capacity => _capacity;
+        protected InventoryItem[] slots; public InventoryItem[] Slots => slots;
+        
+        //Load an Empty Inventory
+        public Inventory(int capacity)
+        {
+            _capacity = capacity;
+            
+            slots = new InventoryItem[_capacity];
+            for (int i = 0; i < _capacity; i++)
+            {
+                slots[i] = new InventoryItem();
+            }
+        }
+        
+        //Load an Inventory with Items
+        public Inventory(int capacity, InventoryItem[] items)
+        {
+            _capacity = capacity;
+            slots = items;
+            
+            slots = new InventoryItem[_capacity];
+            for (int i = 0; i < _capacity; i++)
+            {
+                slots[i] = new InventoryItem();
+            }
+        }
+        
 
         public abstract SlotType SlotType { get; }
 
         // Event to notify when the inventory has changed
         public event Action<int> OnInventorySlotChanged;
         
-        
-        protected virtual void Awake()
-        {
-            //private 
-            
-            // Initialize the slots array with the capacity
-            slots = new InventoryItem[capacity];
-            for (int i = 0; i < capacity; i++)
-            {
-                slots[i] = new InventoryItem();
-            }
-        }
 
         public InventoryItem AddItem(InventoryItem itemToAdd)
         {
             if (itemToAdd == null)
             {
-                Debug.LogWarning("ItemData is null.");
+                //Debug.LogWarning("ItemData is null.");
                 return null;
             }
 
             int quantityToAdd = itemToAdd.Quantity;
 
             // First, try to add to existing stacks with the same item that are not full
-            for (int i = 0; i < capacity; i++)
+            for (int i = 0; i < _capacity; i++)
             {
                 if (!slots[i].IsEmpty && slots[i].ItemData == itemToAdd.ItemData && slots[i].Quantity < itemToAdd.ItemData.MaxStackSize)
                 {
@@ -63,7 +73,7 @@ namespace _Script.Inventory.InventoryBackend
             }
 
             // Next, try to add to empty slots
-            for (int i = 0; i < capacity; i++)
+            for (int i = 0; i < _capacity; i++)
             {
                 if (slots[i].IsEmpty)
                 {
@@ -83,7 +93,7 @@ namespace _Script.Inventory.InventoryBackend
 
             if (quantityToAdd > 0)
             {
-                Debug.Log("Inventory is full!");
+                //Debug.Log("Inventory is full!");
                 return new InventoryItem(itemToAdd.ItemData, quantityToAdd);
             }
 
@@ -92,9 +102,9 @@ namespace _Script.Inventory.InventoryBackend
         
         public void AddItemToEmptySlot(InventoryItem item, int slotIndex)
         {
-            if (slotIndex < 0 || slotIndex >= capacity)
+            if (slotIndex < 0 || slotIndex >= _capacity)
             {
-                Debug.LogWarning("Invalid slot index.");
+                //Debug.LogWarning("Invalid slot index.");
                 return;
             }
 
@@ -115,7 +125,7 @@ namespace _Script.Inventory.InventoryBackend
                 return false;
             }
 
-            if (slotIndex < 0 || slotIndex >= capacity)
+            if (slotIndex < 0 || slotIndex >= _capacity)
             {
                 Debug.LogWarning("Invalid slot index.");
                 return false;
@@ -149,7 +159,7 @@ namespace _Script.Inventory.InventoryBackend
 
         public InventoryItem RemoveAllItemsFromSlot(int slotIndex)
         {
-            if (slotIndex < 0 || slotIndex >= capacity)
+            if (slotIndex < 0 || slotIndex >= _capacity)
             {
                 Debug.LogWarning("Invalid slot index.");
                 return null;
@@ -174,7 +184,7 @@ namespace _Script.Inventory.InventoryBackend
             int quantityToRemove = quantity;
 
             // Go through the slots and remove items
-            for (int i = 0; i < capacity; i++)
+            for (int i = 0; i < _capacity; i++)
             {
                 if (!slots[i].IsEmpty && slots[i].ItemData == inventoryItem.ItemData)
                 {
@@ -245,13 +255,5 @@ namespace _Script.Inventory.InventoryBackend
 
         public abstract void LeftClickItem(int slotIndex);
 
-    }
-    
-    
-    public enum InventoryType
-    {
-        Inventory,
-        Equipment,
-        Crafting,
     }
 }

@@ -440,6 +440,7 @@ namespace _Script.Inventory.SlotFrontend
         Equipment,
         ActionBar,
         Merchant,
+        Bag
     }
 
     public enum DragType

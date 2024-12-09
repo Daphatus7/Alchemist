@@ -1,14 +1,25 @@
 using System;
+using _Script.Character;
 using _Script.Inventory.InventoryBackend;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
 namespace _Script.Inventory.ActionBarBackend
 {
-    public class ActionBar : PlayerInventory
+    public class PlayerInventory : PlayerContainer
     {
         private InventoryItem _selectedItem;
         private int _selectedSlotIndex;
+
+        public PlayerInventory(PlayerCharacter owner, int capacity, int selectedSlotIndex = 0) : base(owner, capacity)
+        {
+            _selectedSlotIndex = selectedSlotIndex;
+            _selectedItem = Slots[selectedSlotIndex];
+            
+            Debug.Log("By default, the player will select the first item when loaded.");
+            OnSelectItem(selectedSlotIndex);
+        }
+
         public int SelectedSlotIndex => _selectedSlotIndex;
         
         private ActionBarContext _actionBarContext;

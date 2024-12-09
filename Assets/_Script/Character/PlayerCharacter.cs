@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using _Script.Attribute;
 using _Script.Character.ActionStrategy;
 using _Script.Interactable;
+using _Script.Inventory.ActionBarBackend;
 using _Script.Inventory.EquipmentBackend;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontend;
@@ -13,7 +14,6 @@ using _Script.Places;
 using _Script.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 
 namespace _Script.Character
 {
@@ -25,8 +25,7 @@ namespace _Script.Character
         private float _facingDirection;
         public float FacingDirection => _facingDirection;
         
-        private PlayerInventory _playerInventory;
-        public PlayerInventory PlayerInventory => _playerInventory;
+        private PlayerInventory _playerInventory; public PlayerInventory PlayerInventory => _playerInventory;
         private PlayerEquipmentInventory _playerEquipment;
         public PlayerEquipmentInventory PlayerEquipment => _playerEquipment;
 
@@ -90,8 +89,12 @@ namespace _Script.Character
             // Attempt to get torch strategy if you have it as a component
             _torchStrategy = GetComponent<TorchItemStrategy>();
 
-            _playerInventory = GetComponentInChildren<PlayerInventory>();
-            _playerEquipment = GetComponent<PlayerEquipmentInventory>();
+            
+            
+            InitializePlayerInventories();
+            
+            
+
 
             // Initialize dictionary for strategies
             _strategies = new Dictionary<string, IActionStrategy>();
@@ -257,6 +260,24 @@ namespace _Script.Character
         #endregion
 
         #region Player Assets
+
+        [SerializeField] private int playerActionbarCapacity = 6;
+        
+        public void InitializePlayerInventories()
+        {
+            _playerInventory = new PlayerInventory(this, playerActionbarCapacity);
+        }
+        
+        private PlayerContainer [] _inventories;
+
+        public void AddNewInventory()
+        {
+            
+        }
+        
+        
+        
+        
 
         public void AddGold(int amount)
         {

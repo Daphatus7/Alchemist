@@ -5,6 +5,7 @@
 //  *   Date: $[InvalidReference]
 //  */
 
+using _Script.Character;
 using UnityEngine;
 
 namespace _Script.Interactable

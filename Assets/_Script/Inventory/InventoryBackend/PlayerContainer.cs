@@ -6,17 +6,26 @@ using UnityEngine;
 
 namespace _Script.Inventory.InventoryBackend
 {
-    public class PlayerInventory : Inventory
+    public class PlayerContainer : Inventory
     {
         protected PlayerCharacter inventoryOwner; public PlayerCharacter InventoryOwner => inventoryOwner;
         
-
         public override SlotType SlotType => SlotType.PlayerInventory;
-
-        protected override void Awake()
+        
+        /**
+         * Load an Empty Inventory
+         */
+        public PlayerContainer(PlayerCharacter owner, int capacity) : base(capacity)
         {
-            base.Awake();
-            inventoryOwner = GetComponentInParent<PlayerCharacter>();
+            inventoryOwner = owner;
+        }
+        
+        /**
+         * Load an Inventory with Items
+         */
+        public PlayerContainer(PlayerCharacter owner, int capacity, InventoryItem[] items) : base(capacity, items)
+        {
+            inventoryOwner = owner;
         }
         
         private InventoryItem OnUseEquipmentItem(EquipmentItem itemData)
@@ -57,7 +66,7 @@ namespace _Script.Inventory.InventoryBackend
             
             if(itemType == "Equipment")
             {
-                Debug.Log("Using Equipment Item Currently Disabled");
+                //Debug.Log("Using Equipment Item Currently Disabled");
                 return;
                 InventoryItem removedItem = OnUseEquipmentItem((EquipmentItem) itemData);
                 RemoveItemFromSlot(slotIndex, 1);
@@ -72,7 +81,7 @@ namespace _Script.Inventory.InventoryBackend
             {
                 if(OnUseSeedItem(itemData))
                 {
-                    Debug.Log("Seed item used.");
+                    //Debug.Log("Seed item used.");
                     // Remove the item from the inventory
                     RemoveItemFromSlot(slotIndex, 1);
                 }
@@ -90,18 +99,18 @@ namespace _Script.Inventory.InventoryBackend
             else if(itemType == "Material")
             {
                 OnUseMaterialItem(itemData);
-                Debug.Log("There is no effect for using material item.");
+                //Debug.Log("There is no effect for using material item.");
             }
         }
         
         /**
          * When right-clicking on an inventory item.
          */
-        private bool UseItem(int slotIndex)
+        protected bool UseItem(int slotIndex)
         {
             if (slotIndex < 0 || slotIndex >= Capacity)
             {
-                Debug.LogWarning("Invalid slot index.");
+                //Debug.LogWarning("Invalid slot index.");
                 return false;
             }
 

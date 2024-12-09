@@ -104,7 +104,7 @@ namespace _Script.Inventory.EquipmentBackend
             if (item != null)
             {
                 //return the item to the inventory
-                _playerCharacter.PlayerInventory.AddItem(item);
+               // _playerCharacter.PlayerContainer.AddItem(item);
             }
             
         }
@@ -174,11 +174,7 @@ namespace _Script.Inventory.EquipmentBackend
         {
             return EquipItem(equipmentItem);
         }
-
-        public InventoryItem Handle_Unequip_RemoveEffect(InventoryItem fromSlot)
-        {
-            return null;
-        }
+        
     }
     
     public enum PlayerEquipmentSlotType

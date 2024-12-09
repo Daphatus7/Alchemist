@@ -8,9 +8,6 @@ using _Script.Inventory.MerchantInventoryBackend;
 using _Script.Inventory.SlotFrontend;
 using _Script.NPC.NpcBackend;
 using _Script.Utilities.ServiceLocator;
-using UnityEngine;
-using UnityEngine.UI;
-using Button = UnityEngine.UIElements.Button;
 
 namespace _Script.Inventory.MerchantInventoryFrontend
 {

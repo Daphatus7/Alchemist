@@ -4,39 +4,35 @@
 using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.SlotFrontend;
-using _Script.Items.AbstractItemTypes._Script.Items;
-using UnityEngine;
 
 namespace _Script.Inventory.MerchantInventoryBackend
 {
     public class MerchantInventory : InventoryBackend.Inventory
     {
-        [Header("Merchant Settings")]
-        [SerializeField] private string merchantName;
-        [SerializeField] private List<InventoryItem> itemsForSale;
-
-        public List<ItemData> debugItems;
+        private List<InventoryItem> _itemsForSale;
         
-        public string MerchantName => merchantName;
-        
-        private void Start()
+        public MerchantInventory(int capacity, List<InventoryItem> itemsForSale) : base(capacity)
         {
-            foreach (var item in debugItems)
-            {
-                AddItem(new InventoryItem(item, item.MaxStackSize));
-            }
+            this._itemsForSale = itemsForSale;
             InitializeMerchantInventory();
         }
 
+        public MerchantInventory(int capacity, InventoryItem[] items, List<InventoryItem> itemsForSale) : base(capacity, items)
+        {
+            this._itemsForSale = itemsForSale;
+            InitializeMerchantInventory();
+
+        }
+        
         /// <summary>
         /// Initialize the merchant's inventory with predefined items for sale.
         /// </summary>
         private void InitializeMerchantInventory()
         {
             // Clear and populate inventory slots with items for sale
-            for (int i = 0; i < itemsForSale.Count && i < Capacity; i++)
+            for (int i = 0; i < _itemsForSale.Count && i < Capacity; i++)
             {
-                AddItemToSlot(itemsForSale[i], i);
+                AddItemToSlot(_itemsForSale[i], i);
             }
         }
 
