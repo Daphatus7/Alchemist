@@ -65,7 +65,8 @@ namespace _Script.Items.AbstractItemTypes
             Material,
             Seed,
             Fruit,
-            Torch,  
+            Torch,
+            Container
         }
         
         public enum Rarity

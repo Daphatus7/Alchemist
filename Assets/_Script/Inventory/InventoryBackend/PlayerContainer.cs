@@ -12,6 +12,12 @@ namespace _Script.Inventory.InventoryBackend
         
         public override SlotType SlotType => SlotType.PlayerInventory;
         
+        
+        public void AssignOwner(PlayerCharacter owner)
+        {
+            inventoryOwner = owner;
+        }
+        
         /**
          * Load an Empty Inventory
          */
@@ -76,6 +82,10 @@ namespace _Script.Inventory.InventoryBackend
                     // Add the removed item back to the inventory
                     AddItemToSlot(removedItem, slotIndex);
                 }
+            }
+            else if (itemType == "Container")
+            {
+                inventoryOwner.OpenContainer((ContainerItem)itemData);
             }
             else if (itemType == "Seed")
             {

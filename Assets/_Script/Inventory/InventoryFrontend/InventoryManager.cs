@@ -11,7 +11,9 @@ namespace _Script.Inventory.InventoryFrontend
     public class InventoryManager : MonoBehaviour, IInventoryManagerHandler
     {
         [SerializeField] private List<InventoryUI> inventoryUIs = new List<InventoryUI>();
-        [SerializeField] private GameObject inventoryPanel;
+        [SerializeField] private GameObject inventoryManagerPanel;
+        [SerializeField] private GameObject inventoryPanelPrefab;
+
         [SerializeField] private GameObject slotPrefab;
         [SerializeField] private int initialPoolCount = 100;
 
@@ -28,9 +30,26 @@ namespace _Script.Inventory.InventoryFrontend
             SlotPool.Initialize(slotPrefab, _poolParent, initialPoolCount);
         }
 
-        public void LoadPlayerContainer(PlayerContainer playerContainer)
+        public void TogglePlayerContainer(PlayerContainer playerContainer)
         {
-            InventoryUI newInventoryUI = Instantiate(inventoryPanel, transform).GetComponent<InventoryUI>();
+            // Check if the container is already open
+            foreach (var t in inventoryUIs)
+            {
+                if (t.CurrentContainer == playerContainer)
+                {
+                    // It's already open, so close it
+                    OnCloseInventory(t);
+                    return;
+                }
+            }
+
+            // If not found, create a new UI for this container
+            CreateInventoryUI(playerContainer);
+        }
+        
+        private void CreateInventoryUI(PlayerContainer playerContainer)
+        {
+            InventoryUI newInventoryUI = Instantiate(inventoryPanelPrefab, inventoryManagerPanel.transform).GetComponent<InventoryUI>();
             newInventoryUI.InitializeInventoryUI(this, playerContainer);
             inventoryUIs.Add(newInventoryUI);
         }

@@ -1,8 +1,6 @@
 using _Script.Inventory.InventoryBackend;
-using _Script.Inventory.InventoryFrontend;
 using _Script.Inventory.InventoryFrontendHandler;
 using _Script.Inventory.SlotFrontend;
-using _Script.Managers;
 using UnityEngine;
 
 namespace _Script.Inventory.ActionBarFrontend
@@ -17,21 +15,13 @@ namespace _Script.Inventory.ActionBarFrontend
         
         private InventorySlotDisplay _selectedSlotDisplay;
 
-        private void Start()
-        {
-            //Need get player _actionBar
-            _playerInventory = GameManager.Instance.GetPlayer().PlayerInventory;
-            InitializeInventoryUI();
-            SelectSlot(0);
-        }
-        
-        private void OnEnable()
-        {
-            _playerInventory.OnInventorySlotChanged += UpdateSlotUI;
-            // Subscribe to full inventory updates if needed
-            // _actionBar.OnInventoryChanged += UpdateAllSlotsUI;
-        }
-
+        // private void OnEnable()
+        // {
+        //     _playerInventory.OnInventorySlotChanged += UpdateSlotUI;
+        //     // Subscribe to full inventory updates if needed
+        //     // _actionBar.OnInventoryChanged += UpdateAllSlotsUI;
+        // }
+        //
         private void OnDisable()
         {
             _playerInventory.OnInventorySlotChanged -= UpdateSlotUI;
@@ -39,9 +29,9 @@ namespace _Script.Inventory.ActionBarFrontend
             // _actionBar.OnInventoryChanged -= UpdateAllSlotsUI;
         }
 
-        private void InitializeInventoryUI()
+        public void InitializeInventoryUI(PlayerInventory.PlayerInventory playerInventory, int capacity, int selectedSlot = 0)
         {
-            int capacity = _playerInventory.Capacity;
+            _playerInventory = playerInventory;
             _inventorySlotDisplays = new InventorySlotDisplay[capacity];
 
             for (int i = 0; i < capacity; i++)
@@ -56,6 +46,8 @@ namespace _Script.Inventory.ActionBarFrontend
                 // Store the slot display
                 _inventorySlotDisplays[i] = inventorySlotDisplay;
             }
+            _playerInventory.OnInventorySlotChanged += UpdateSlotUI;
+            SelectSlot(selectedSlot);
         }
 
         private void UpdateSlotUI(int slotIndex)

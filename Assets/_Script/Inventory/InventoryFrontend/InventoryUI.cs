@@ -9,11 +9,19 @@ namespace _Script.Inventory.InventoryFrontend
 {
     public class InventoryUI : MonoBehaviour, IPlayerInventoryHandler
     {
-        private PlayerContainer _playerContainer;
+        private PlayerContainer _playerContainer; public PlayerContainer CurrentContainer => _playerContainer;
         private IInventoryManagerHandler _inventoryManager;
         [SerializeField] private GameObject inventoryPanel;
         [SerializeField] private GameObject slotPrefab;
-
+        
+        
+        
+        public bool CompareItems(InventoryItem item1, InventoryItem item2)
+        {
+            return item1.ItemData == item2.ItemData;
+        }
+        
+        
         private InventorySlotDisplay[] _slotDisplays;
 
         private bool _initialized = false;
@@ -51,6 +59,7 @@ namespace _Script.Inventory.InventoryFrontend
             {
                 InventorySlotDisplay inventorySlotDisplay = SlotPool.GetSlot();
                 inventorySlotDisplay.transform.SetParent(inventoryPanel.transform, false);
+                inventorySlotDisplay.transform.localScale = Vector3.one;
                 inventorySlotDisplay.InitializeInventorySlot(this, i, _playerContainer.SlotType);
                 inventorySlotDisplay.gameObject.SetActive(true);
                 _slotDisplays[i] = inventorySlotDisplay;

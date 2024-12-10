@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using _Script.Attribute;
 using _Script.Character.ActionStrategy;
 using _Script.Interactable;
+using _Script.Inventory.ActionBarFrontend;
 using _Script.Inventory.EquipmentBackend;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontend;
@@ -26,8 +27,7 @@ namespace _Script.Character
         public float FacingDirection => _facingDirection;
         
         private PlayerInventory _playerInventory; public PlayerInventory PlayerInventory => _playerInventory;
-        private PlayerEquipmentInventory _playerEquipment;
-        public PlayerEquipmentInventory PlayerEquipment => _playerEquipment;
+        private PlayerEquipmentInventory _playerEquipment; public PlayerEquipmentInventory PlayerEquipment => _playerEquipment;
 
         private InteractionBase _interactionBase;
 
@@ -61,7 +61,7 @@ namespace _Script.Character
         
         public UnityEvent onStatsChanged = new UnityEvent();
 
-        [SerializeField] private InventoryUI _inventoryUI;
+        [SerializeField] private InventoryManager _inventoryManager;
 
         private float _attackDamage;
         public float AttackDamage => _attackDamage;
@@ -149,11 +149,6 @@ namespace _Script.Character
                     _currentlyHighlightedObject.OnHighlightEnd();
                     _currentlyHighlightedObject = null;
                 }
-            }
-
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                _inventoryUI.ToggleInventoryUI();
             }
         }
 
@@ -259,26 +254,27 @@ namespace _Script.Character
 
         #endregion
 
-        #region Player Assets
+        #region Player Inventory
 
         [SerializeField] private int playerActionbarCapacity = 6;
-        
-        public void InitializePlayerInventories()
+        [SerializeField] private ActionBarUI _actionBarUI;
+
+
+        private void InitializePlayerInventories()
         {
             _playerInventory = new PlayerInventory(this, playerActionbarCapacity);
+            _actionBarUI.InitializeInventoryUI(_playerInventory, playerActionbarCapacity, 0);
         }
         
-        private PlayerContainer [] _inventories;
-
-        public void AddNewInventory()
+        public void OpenContainer(ContainerItem containerItem)
         {
+            //should not assign owner here
+            var container = containerItem.Container;
+            container.AssignOwner(this);
             
+            _inventoryManager.TogglePlayerContainer(containerItem.Container);
         }
         
-        
-        
-        
-
         public void AddGold(int amount)
         {
             _gold += amount;
@@ -489,5 +485,7 @@ namespace _Script.Character
                 AddHunger(-hungerRate);
             }
         }
+
+
     }
 }
