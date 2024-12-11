@@ -2587,8 +2587,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _day: 1
-  _dayLength: 5
-  _nightLength: 5
+  _dayLength: 30
+  _nightLength: 30
   onNewDay:
     m_PersistentCalls:
       m_Calls: []
