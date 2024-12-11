@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontendHandler;
@@ -5,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace _Script.Inventory.SlotFrontend
 {
@@ -17,9 +19,9 @@ namespace _Script.Inventory.SlotFrontend
 
         private int _slotIndex;  public int SlotIndex => _slotIndex;
         private int _inventoryIndex; public int InventoryIndex => _inventoryIndex;
-        public string ItemTypeName => currentItem.ItemData.ItemName;
-        public int Value => currentItem.ItemData.Value;
-        public int Quantity => currentItem.Quantity;
+        public string ItemTypeName => _currentItem.ItemData.ItemName;
+        public int Value => _currentItem.ItemData.Value;
+        public int Quantity => _currentItem.Quantity;
         
         private SlotType _slotType; public SlotType SlotType => _slotType;
         
@@ -28,7 +30,7 @@ namespace _Script.Inventory.SlotFrontend
         /**
          * only visual representation of the item
          */
-        private InventoryItem currentItem;
+        private InventoryItem _currentItem;
         
         private void Start()
         {
@@ -74,7 +76,7 @@ namespace _Script.Inventory.SlotFrontend
 
         public void SetSlot(InventoryItem item)
         {
-            currentItem = item;
+            _currentItem = item;
 
             if (item != null && item.Icon != null)
             {
@@ -91,7 +93,7 @@ namespace _Script.Inventory.SlotFrontend
 
         public virtual void ClearSlot()
         {
-            currentItem = null;
+            _currentItem = null;
             icon.color = new Color(1, 1, 1, 0);
             icon.enabled = false;
             quantityText.text = "";
@@ -108,8 +110,6 @@ namespace _Script.Inventory.SlotFrontend
         [SerializeField] private GameObject dragItemPrefab;
         private static GameObject dragItem;
         private static Canvas canvas;
-
-
         
         public void HighlightSlot()
         {
@@ -120,8 +120,7 @@ namespace _Script.Inventory.SlotFrontend
         {
             highlight.enabled = false;
         }
-
-
+        
         private bool CanDrag()
         {
             if(SlotType == SlotType.Merchant)
@@ -151,7 +150,7 @@ namespace _Script.Inventory.SlotFrontend
                 case SlotType.Merchant:
                     if(_inventoryUI is IMerchantHandler merchant)
                     {
-                        return merchant.AcceptsItem(sourceSlot.currentItem);
+                        return merchant.AcceptsItem(sourceSlot._currentItem);
                     }
                     return false;
                 case SlotType.ActionBar:
@@ -163,13 +162,11 @@ namespace _Script.Inventory.SlotFrontend
             }
         }
         
-        
-        
         public void OnBeginDrag(PointerEventData eventData)
         {
             if(!CanDrag()) return;
             //If item is not null, then start dragging
-            if (currentItem != null)
+            if (_currentItem != null)
             {
                 icon.raycastTarget = false;
                 if(dragItem == null)
@@ -181,7 +178,7 @@ namespace _Script.Inventory.SlotFrontend
                     dragItem.SetActive(true);
                 }
 
-                Image dragItemImage = dragItem.GetComponent<Image>();
+                var dragItemImage = dragItem.GetComponent<Image>();
                 if (dragItemImage != null)
                 {
                     dragItemImage.sprite = icon.sprite;
@@ -224,7 +221,7 @@ namespace _Script.Inventory.SlotFrontend
             
 
             //if the source slot is empty then return
-            if (sourceSlot == null || sourceSlot.currentItem == null)
+            if (sourceSlot == null || sourceSlot._currentItem == null)
             {
                 return;
             }
@@ -240,7 +237,6 @@ namespace _Script.Inventory.SlotFrontend
                 Debug.Log("Drag Type: " + dragType);
                 switch (dragType)
                 {
-                    
                     case DragType.Swap:
                         SwapItems(sourceSlot);
                         break;
@@ -254,7 +250,7 @@ namespace _Script.Inventory.SlotFrontend
                                 if (merchant.Purchase(player, sourceSlot._slotIndex) is { } item)
                                 {
                                     //consider if there is an item in the target slot
-                                    if(currentItem != null)
+                                    if(_currentItem != null)
                                     {
                                         //add item to inventory
                                         var remainingItem = _inventoryUI.AddItem(item);
@@ -277,7 +273,7 @@ namespace _Script.Inventory.SlotFrontend
                             {
                                 if (merchantSelf.Sell(playerInventory, sourceSlot))
                                 {
-                                    _inventoryUI.AddItem(sourceSlot.currentItem);
+                                    _inventoryUI.AddItem(sourceSlot._currentItem);
                                     //remove the item from the player inventory
                                     sourceSlot._inventoryUI.RemoveAllItemsFromSlot(sourceSlot._slotIndex);
                                 }
@@ -293,8 +289,10 @@ namespace _Script.Inventory.SlotFrontend
                         break;
                     case DragType.DoNothing:
                         break;
-                    default:
+                    case DragType.Add:
                         break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
                 
                 //first check if the item can be swapped
@@ -306,8 +304,6 @@ namespace _Script.Inventory.SlotFrontend
                  *      ii. they are in different equipment slot, then return fail
                  *  b. the source is not in other inventory, 
                  */
-                
-                
 
             }
             //if there is no inventory slot display when dropping, drop to the ground

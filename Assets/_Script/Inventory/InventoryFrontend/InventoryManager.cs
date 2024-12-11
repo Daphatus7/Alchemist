@@ -16,7 +16,6 @@ namespace _Script.Inventory.InventoryFrontend
 
         [SerializeField] private GameObject slotPrefab;
         [SerializeField] private int initialPoolCount = 100;
-
         private Transform _poolParent;
 
         private void Awake()

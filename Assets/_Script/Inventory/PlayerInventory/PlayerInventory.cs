@@ -1,6 +1,7 @@
 using System;
 using _Script.Character;
 using _Script.Inventory.InventoryBackend;
+using _Script.Inventory.SlotFrontend;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
@@ -10,7 +11,8 @@ namespace _Script.Inventory.PlayerInventory
     {
         private InventoryItem _selectedItem;
         private int _selectedSlotIndex;
-        
+        public override SlotType SlotType => SlotType.PlayerInventory;
+
         public PlayerInventory(PlayerCharacter owner, int capacity, int selectedSlotIndex = 0) : base(owner, capacity)
         {
             _selectedSlotIndex = selectedSlotIndex;

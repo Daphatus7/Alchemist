@@ -6,7 +6,6 @@ using _Script.Character.ActionStrategy;
 using _Script.Interactable;
 using _Script.Inventory.ActionBarFrontend;
 using _Script.Inventory.EquipmentBackend;
-using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontend;
 using _Script.Inventory.PlayerInventory;
 using _Script.Items;
@@ -89,13 +88,10 @@ namespace _Script.Character
             // Attempt to get torch strategy if you have it as a component
             _torchStrategy = GetComponent<TorchItemStrategy>();
 
-            
-            
+
+
             InitializePlayerInventories();
             
-            
-
-
             // Initialize dictionary for strategies
             _strategies = new Dictionary<string, IActionStrategy>();
             if (_weaponStrategy != null) _strategies["Weapon"] = _weaponStrategy;
