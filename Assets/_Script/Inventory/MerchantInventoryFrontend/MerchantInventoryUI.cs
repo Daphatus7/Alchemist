@@ -8,9 +8,6 @@ using _Script.Inventory.MerchantInventoryBackend;
 using _Script.Inventory.SlotFrontend;
 using _Script.NPC.NpcBackend;
 using _Script.Utilities.ServiceLocator;
-using UnityEngine;
-using UnityEngine.UI;
-using Button = UnityEngine.UIElements.Button;
 
 namespace _Script.Inventory.MerchantInventoryFrontend
 {
@@ -48,7 +45,7 @@ namespace _Script.Inventory.MerchantInventoryFrontend
             HideInventory();
         }
         
-        public InventoryItem Purchase(IPlayerInventoryHandler playerInventory, int slotIndex, int quantity = 1)
+        public ItemStack Purchase(IPlayerInventoryHandler playerInventory, int slotIndex, int quantity = 1)
         {
             if(playerInventory.RemoveGold(_inventory.Slots[slotIndex].ItemData.Value * _inventory.Slots[slotIndex].Quantity))
             {
@@ -83,7 +80,7 @@ namespace _Script.Inventory.MerchantInventoryFrontend
             return true;
         }
 
-        public override bool AcceptsItem(InventoryItem item)
+        public override bool AcceptsItem(ItemStack itemStack)
         {
             return true;
         }

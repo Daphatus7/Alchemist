@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using _Script.Managers;
 using UnityEngine;
@@ -49,7 +48,6 @@ namespace _Script.Map.Hexagon_Graph
             // Generate visual representations
             GenerateGridVisuals();
             hexGameObjectMap[startHex].SetNodeComplete();
-
         }
 
         public void Update()

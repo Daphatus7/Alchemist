@@ -4,16 +4,17 @@ using System.Collections.Generic;
 using _Script.Attribute;
 using _Script.Character.ActionStrategy;
 using _Script.Interactable;
+using _Script.Inventory.ActionBarFrontend;
 using _Script.Inventory.EquipmentBackend;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontend;
+using _Script.Inventory.PlayerInventory;
 using _Script.Items;
 using _Script.Managers;
 using _Script.Places;
 using _Script.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 
 namespace _Script.Character
 {
@@ -25,10 +26,8 @@ namespace _Script.Character
         private float _facingDirection;
         public float FacingDirection => _facingDirection;
         
-        private PlayerInventory _playerInventory;
-        public PlayerInventory PlayerInventory => _playerInventory;
-        private PlayerEquipmentInventory _playerEquipment;
-        public PlayerEquipmentInventory PlayerEquipment => _playerEquipment;
+        private PlayerInventory _playerInventory; public PlayerInventory PlayerInventory => _playerInventory;
+        private PlayerEquipmentInventory _playerEquipment; public PlayerEquipmentInventory PlayerEquipment => _playerEquipment;
 
         private InteractionBase _interactionBase;
 
@@ -62,7 +61,7 @@ namespace _Script.Character
         
         public UnityEvent onStatsChanged = new UnityEvent();
 
-        [SerializeField] private InventoryUI _inventoryUI;
+        [SerializeField] private InventoryManager _inventoryManager;
 
         private float _attackDamage;
         public float AttackDamage => _attackDamage;
@@ -90,9 +89,10 @@ namespace _Script.Character
             // Attempt to get torch strategy if you have it as a component
             _torchStrategy = GetComponent<TorchItemStrategy>();
 
-            _playerInventory = GetComponentInChildren<PlayerInventory>();
-            _playerEquipment = GetComponent<PlayerEquipmentInventory>();
 
+
+            InitializePlayerInventories();
+            
             // Initialize dictionary for strategies
             _strategies = new Dictionary<string, IActionStrategy>();
             if (_weaponStrategy != null) _strategies["Weapon"] = _weaponStrategy;
@@ -146,11 +146,6 @@ namespace _Script.Character
                     _currentlyHighlightedObject.OnHighlightEnd();
                     _currentlyHighlightedObject = null;
                 }
-            }
-
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                _inventoryUI.ToggleInventoryUI();
             }
         }
 
@@ -256,8 +251,23 @@ namespace _Script.Character
 
         #endregion
 
-        #region Player Assets
+        #region Player Inventory
 
+        [SerializeField] private int playerActionbarCapacity = 6;
+        [SerializeField] private ActionBarUI _actionBarUI;
+
+
+        private void InitializePlayerInventories()
+        {
+            _playerInventory = new PlayerInventory(this, playerActionbarCapacity);
+            _actionBarUI.InitializeInventoryUI(_playerInventory, playerActionbarCapacity, 0);
+        }
+        
+        public void OpenContainerInstance(PlayerContainer containerItem)
+        {
+            _inventoryManager.ToggleContainer(containerItem);
+        }
+        
         public void AddGold(int amount)
         {
             _gold += amount;
@@ -468,5 +478,7 @@ namespace _Script.Character
                 AddHunger(-hungerRate);
             }
         }
+
+
     }
 }

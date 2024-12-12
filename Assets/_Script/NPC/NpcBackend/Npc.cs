@@ -24,6 +24,11 @@ namespace _Script.NPC.NpcBackend
         protected Dictionary<NpcHandlerType, INpcHandler> _npcHandlers;
         private const float DialogueDistance = 1.5f;
 
+        protected void Awake()
+        {
+            dialogueUI = NpcDialogueUI.Instance;
+        }
+
         public void OnMouseDown()
         {
             var check = Physics2D.OverlapCircle(transform.position, DialogueDistance, LayerMask.GetMask("Player"));

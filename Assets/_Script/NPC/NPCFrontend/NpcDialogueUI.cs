@@ -12,7 +12,7 @@ using TMPro;
 
 namespace _Script.NPC.NPCFrontend
 {
-    public class NpcDialogueUI : MonoBehaviour
+    public class NpcDialogueUI : Singleton<NpcDialogueUI>
     {
         [Header("UI Elements")]
         [Tooltip("Panel for the dialogue box")]
@@ -86,7 +86,7 @@ namespace _Script.NPC.NPCFrontend
             isTyping = true;
             dialogueText.text = "";
 
-            foreach (char letter in dialogue.ToCharArray())
+            foreach (char letter in dialogue)
             {
                 dialogueText.text += letter;
                 yield return new WaitForSeconds(typingSpeed);

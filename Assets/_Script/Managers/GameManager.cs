@@ -22,6 +22,7 @@ namespace _Script.Managers
 
         // Track the main (or primary) currently loaded scene
         private string currentMainScene;
+        private string currentAdditiveScene;
 
         // Keep track of all currently loaded additive scenes
         private List<string> loadedAdditiveScenes = new List<string>();
@@ -64,16 +65,27 @@ namespace _Script.Managers
                 return;
             }
 
+            currentAdditiveScene = sceneData.MapName;
             StartCoroutine(AddSceneAsync(sceneData.MapName));
         }
-
+        
+        
+        public void UnloadCurrentAdditiveScene()
+        {
+            if(currentAdditiveScene != null)
+                UnloadAdditiveScene(currentAdditiveScene);
+            else Debug.LogWarning("No current additive scene to unload");
+        }
+        
+        
         /// <summary>
         /// Unloads a currently loaded additive scene.
         /// </summary>
-        public void UnloadAdditiveScene(string sceneName)
+        private void UnloadAdditiveScene(string sceneName)
         {
             if (loadedAdditiveScenes.Contains(sceneName))
             {
+                currentAdditiveScene = null;
                 StartCoroutine(UnloadSceneAsync(sceneName));
             }
         }
@@ -104,17 +116,7 @@ namespace _Script.Managers
                 Debug.LogWarning($"Scene {targetScene} is not loaded. Player cannot be moved.");
             }
         }
-
-        /// <summary>
-        /// Reloads the current main scene (useful for restarting levels).
-        /// </summary>
-        public void ReloadCurrentScene()
-        {
-            if (!string.IsNullOrEmpty(currentMainScene))
-            {
-                StartCoroutine(ReloadMainSceneAsync(currentMainScene));
-            }
-        }
+        
 
         /// <summary>
         /// Loads all dungeon levels additively.

@@ -116,22 +116,22 @@ namespace _Script.Inventory.InventoryFrontendBase
             _inventory.LeftClickItem(slotDisplay.SlotIndex);
         }
         
-        public InventoryItem RemoveAllItemsFromSlot(int slotIndex)
+        public ItemStack RemoveAllItemsFromSlot(int slotIndex)
         {
             return _inventory.RemoveAllItemsFromSlot(slotIndex);
         }
 
-        public void AddItemToEmptySlot(InventoryItem item, int slotIndex)
+        public void AddItemToEmptySlot(ItemStack itemStack, int slotIndex)
         {
-            _inventory.AddItemToEmptySlot(item, slotIndex);
+            _inventory.AddItemToEmptySlot(itemStack, slotIndex);
         }
 
-        public InventoryItem AddItem(InventoryItem item)
+        public ItemStack AddItem(ItemStack itemStack)
         {
-            return _inventory.AddItem(item);
+            return _inventory.AddItem(itemStack);
         }
 
-        public virtual bool AcceptsItem(InventoryItem item)
+        public virtual bool AcceptsItem(ItemStack itemStack)
         {
             return true;
         }

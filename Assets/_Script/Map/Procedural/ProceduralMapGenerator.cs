@@ -94,10 +94,10 @@ namespace _Script.Map.Procedural
             ePoint = endPoint;
             
             
-            DebugPrintReachableAreas();
-            HighlightReachableAreas();
-            DebugHighlightChosenRegion();
-            DebugMarkSpawnEndPoints();
+            // DebugPrintReachableAreas();
+            // HighlightReachableAreas();
+            // DebugHighlightChosenRegion();
+            // DebugMarkSpawnEndPoints();
             return true;
         }
 
