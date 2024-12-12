@@ -20,6 +20,8 @@ namespace _Script.Character
 {
     public class PlayerCharacter : PawnAttribute, IControl, IPlayerUIHandle
     {
+        #region Inspector Fields & References
+
         [Header("References")]
         [SerializeField] private GameObject LeftHand;
         [SerializeField] private GameObject RightHand;
@@ -27,32 +29,21 @@ namespace _Script.Character
         [SerializeField] private ActionBarUI _actionBarUI;
         [SerializeField] private Rigidbody2D _rb;
 
-        [Header("Player Stats")]
-        [SerializeField] private float hungerDamage = 1f;
-        [SerializeField] private float hungerRate = -1f;
-        [SerializeField] private float hungerDuration = 5f;
-
-        [SerializeField] private float mana = 10f;        public float Mana => mana;
-        [SerializeField] private float _manaMax = 10f;    public float ManaMax => _manaMax;
-        [SerializeField] private float stamina = 10f;     public float Stamina => stamina;
-        [SerializeField] private float _staminaMax = 10f; public float StaminaMax => _staminaMax;
-        [SerializeField] private float hunger = 10f;      public float Hunger => hunger;
-        [SerializeField] private float _hungerMax = 10f;  public float HungerMax => _hungerMax;
-        [SerializeField] private float _sanity = 10f;     public float Sanity => _sanity;
-        [SerializeField] private float _sanityMax = 10f;  public float SanityMax => _sanityMax;
-
+        #endregion
+        
+        
         [Header("Movement Settings")]
         [SerializeField] private float baseMoveSpeed = 5f;
         [SerializeField] private float sprintMultiplier = 1.5f;
         [SerializeField] private float dashSpeed = 10f;
         [SerializeField] private float dashDuration = 0.2f;
         [SerializeField] private float dashCooldown = 2f;
-
-        public UnityEvent onStatsChanged = new UnityEvent();
+        [Tooltip("Time in seconds to smoothly interpolate velocity changes.")]
+        [SerializeField] private float velocitySmoothingTime = 0.1f;
+        
 
         private float _facingDirection; public float FacingDirection => _facingDirection;
         private float _attackDamage; public float AttackDamage => _attackDamage;
-        private int _gold = 1000; public int Gold => _gold;
 
         private bool _isInSafeZone = false;
         private bool _isTorchActive = false;
@@ -65,18 +56,26 @@ namespace _Script.Character
 
         private PlayerInventory _playerInventory; public PlayerInventory PlayerInventory => _playerInventory;
         private PlayerEquipmentInventory _playerEquipment; public PlayerEquipmentInventory PlayerEquipment => _playerEquipment;
-
         private WeaponStrategy _weaponStrategy; public WeaponStrategy WeaponStrategy => _weaponStrategy;
         private GenericItemStrategy _genericStrategy; public GenericItemStrategy GenericStrategy => _genericStrategy;
         private TorchItemStrategy _torchStrategy; public TorchItemStrategy TorchStrategy => _torchStrategy;
 
         private IActionStrategy _actionStrategy;
         private Dictionary<string, IActionStrategy> _strategies;
-        
+
         private Coroutine _playerSanityRoutine;
         private Coroutine _playerHungerRoutine;
-        
+
         private readonly UnityEvent<int> _onGoldChanged = new UnityEvent<int>();
+
+        // Smooth movement fields
+        private Vector2 _targetVelocity;
+        private Vector2 _currentVelocity;
+        private float _smoothDampVelocityX;
+        private float _smoothDampVelocityY;
+
+
+        #region Unity Lifecycle Methods
 
         private void Awake()
         {
@@ -112,6 +111,22 @@ namespace _Script.Character
             HandleInteraction();
         }
 
+        private void FixedUpdate()
+        {
+            if (_rb == null) return;
+
+            // Smoothly adjust velocity towards _targetVelocity for smoother movement
+            float smoothTime = velocitySmoothingTime;
+            float newVelX = Mathf.SmoothDamp(_rb.linearVelocity.x, _targetVelocity.x, ref _smoothDampVelocityX, smoothTime);
+            float newVelY = Mathf.SmoothDamp(_rb.linearVelocity.y, _targetVelocity.y, ref _smoothDampVelocityY, smoothTime);
+
+            _rb.linearVelocity = new Vector2(newVelX, newVelY);
+        }
+
+        #endregion
+
+        #region Interaction & Input Handling
+
         private void PauseableUpdate()
         {
             if (_playerHungerRoutine == null)
@@ -119,8 +134,6 @@ namespace _Script.Character
                 _playerHungerRoutine = StartCoroutine(HungerRoutine());
             }
         }
-
-        #region Interaction & Input Handling
 
         private void HandleInteraction()
         {
@@ -237,28 +250,17 @@ namespace _Script.Character
 
         #region Movement: Move, Dash, Sprint
 
-        /// <summary>
-        /// Move the player in the given direction at base speed.
-        /// Call this function whenever you have updated movement input.
-        /// </summary>
         public void Move(Vector2 direction)
         {
-            if (_rb == null) return;
-            _rb.linearVelocity = direction.normalized * baseMoveSpeed;
+            _targetVelocity = direction.normalized * baseMoveSpeed;
         }
 
-        /// <summary>
-        /// Start a dash in the given direction. This sets a temporary velocity and restores after dashDuration.
-        /// </summary>
         public void Dash(Vector2 direction)
         {
             if (!_canDash || _rb == null) return;
             StartCoroutine(DashCoroutine(direction));
         }
 
-        /// <summary>
-        /// Called after the dash ends. Use this if you need cleanup logic after dash.
-        /// </summary>
         public void DashEnd(Vector2 direction)
         {
             // Optional: cleanup logic after dash
@@ -268,50 +270,36 @@ namespace _Script.Character
         {
             _canDash = false;
 
-            // Store original velocity
-            Vector2 originalVelocity = _rb.linearVelocity;
+            Vector2 originalTarget = _targetVelocity;
+            _targetVelocity = direction.normalized * dashSpeed;
 
-            // Set dash velocity
-            _rb.linearVelocity = direction.normalized * dashSpeed;
-
-            // Wait for dashDuration
             yield return new WaitForSeconds(dashDuration);
 
-            // Restore original velocity
-            _rb.linearVelocity = originalVelocity;
+            _targetVelocity = originalTarget;
 
             DashEnd(direction);
 
-            // Wait for cooldown
             yield return new WaitForSeconds(dashCooldown);
             _canDash = true;
         }
 
-        /// <summary>
-        /// Begin sprinting, increasing speed while maintaining the given direction.
-        /// Call Move after this if direction changes.
-        /// </summary>
         public void Sprint(Vector2 direction)
         {
             if (_isSprinting) return;
             _isSprinting = true;
-            if (_rb != null)
-                _rb.linearVelocity = direction.normalized * baseMoveSpeed * sprintMultiplier;
+            _targetVelocity = direction.normalized * baseMoveSpeed * sprintMultiplier;
         }
 
-        /// <summary>
-        /// Stop sprinting, returning to base speed.
-        /// </summary>
         public void SprintEnd(Vector2 direction)
         {
             _isSprinting = false;
-            if (_rb != null)
-                _rb.linearVelocity = direction.normalized * baseMoveSpeed;
+            _targetVelocity = direction.normalized * baseMoveSpeed;
         }
 
         #endregion
 
         #region Player Inventory & Gold
+        private int _gold = 1000; public int Gold => _gold;
 
         [SerializeField] private int playerActionbarCapacity = 6;
 
@@ -401,6 +389,30 @@ namespace _Script.Character
                     break;
             }
         }
+        
+        #endregion
+        
+        #region Player Stats
+
+        [Header("Player Stats")]
+        [SerializeField] private float hungerDamage = 1f;
+        [SerializeField] private float hungerRate = -1f;
+        [SerializeField] private float hungerDuration = 5f;
+
+        [SerializeField] private float mana = 10f;        public float Mana => mana;
+        [SerializeField] private float _manaMax = 10f;    public float ManaMax => _manaMax;
+
+        [SerializeField] private float stamina = 10f;     public float Stamina => stamina;
+        [SerializeField] private float _staminaMax = 10f; public float StaminaMax => _staminaMax;
+
+        [SerializeField] private float hunger = 10f;      public float Hunger => hunger;
+        [SerializeField] private float _hungerMax = 10f;  public float HungerMax => _hungerMax;
+
+        [SerializeField] private float _sanity = 10f;     public float Sanity => _sanity;
+        [SerializeField] private float _sanityMax = 10f;  public float SanityMax => _sanityMax;
+
+        public UnityEvent onStatsChanged = new UnityEvent();
+
 
         public void EatFood(FoodType foodType, int foodValue)
         {

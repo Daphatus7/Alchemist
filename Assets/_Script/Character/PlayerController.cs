@@ -91,6 +91,10 @@ namespace _Script.Character
         private void OnMove(InputAction.CallbackContext context)
         {
             _movement = context.ReadValue<Vector2>();
+            foreach (var m in _controls)
+            {
+                m.Move(_movement);
+            }
         }
 
         private void OnLeftMouseButtonDown(InputAction.CallbackContext context)
