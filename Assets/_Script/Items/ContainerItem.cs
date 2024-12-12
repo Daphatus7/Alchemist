@@ -15,8 +15,6 @@ namespace _Script.Items
 
         public override bool Use(PlayerCharacter playerCharacter)
         {
-            // Normally you might open a container here, but since we handle it through lootable or runtime logic,
-            // just return true or perform any generic action needed.
             return true;
         }
     }

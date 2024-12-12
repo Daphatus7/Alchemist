@@ -1,6 +1,7 @@
 using System;
 using _Script.Inventory.SlotFrontend;
 using _Script.Items;
+using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
 namespace _Script.Inventory.InventoryBackend
@@ -10,10 +11,10 @@ namespace _Script.Inventory.InventoryBackend
         private readonly int _capacity;
         public int Capacity => _capacity;
         
-        protected ItemStack[] slots;
+        protected readonly ItemStack[] slots;
         public ItemStack[] Slots => slots;
         
-        //Load an Empty Inventory
+        // Load an empty inventory
         public Inventory(int capacity)
         {
             _capacity = capacity;
@@ -25,19 +26,18 @@ namespace _Script.Inventory.InventoryBackend
             }
         }
         
-        //Load an Inventory with Items
+        // Load an inventory with items
         public Inventory(int capacity, ItemStack[] items)
         {
             _capacity = capacity;
             slots = new ItemStack[_capacity];
 
-            // 将传入的 items 复制到 slots 中，如果数量不够则剩余为空
             for (int i = 0; i < _capacity; i++)
             {
                 if (items != null && i < items.Length && items[i] != null && !items[i].IsEmpty)
                 {
-                    // 创建新堆叠，避免对同一堆叠引用的副作用
-                    slots[i] = new ItemStack(items[i].ItemData, items[i].Quantity);
+                    // Use CreateStack to preserve special data if it's a specialized stack
+                    slots[i] = CreateStack(items[i].ItemData, items[i].Quantity, items[i]);
                 }
                 else
                 {
@@ -45,7 +45,6 @@ namespace _Script.Inventory.InventoryBackend
                 }
             }
         }
-        
 
         public abstract SlotType SlotType { get; }
 
@@ -53,10 +52,10 @@ namespace _Script.Inventory.InventoryBackend
         public event Action<int> OnInventorySlotChanged;
         
         /// <summary>
-        /// 尝试向背包中添加物品堆叠的逻辑：
-        /// 1. 先尝试向已有相同物品类型的堆叠中合并
-        /// 2. 若无法完全合并，则尝试放入空槽
-        /// 返回值为未能放入的剩余物品堆叠，如果全部放入则返回null
+        /// Attempts to add an item stack to the inventory:
+        /// 1. Merge into existing stacks first.
+        /// 2. If not fully merged, try placing into empty slots.
+        /// Returns null if fully placed, or the leftover if not enough space.
         /// </summary>
         public ItemStack AddItem(ItemStack itemStackToAdd)
         {
@@ -64,20 +63,8 @@ namespace _Script.Inventory.InventoryBackend
             {
                 return null;
             }
-
-            if (itemStackToAdd.ItemData is ContainerItem)
-            {
-                //此处根据您的判断逻辑，如果当前Inventory本身是Container的内容（例如判断SlotType是否是Bag，或者您的Container类型判断）
-                //假设SlotType为Bag表示是个容器背包，那么禁止将ContainerItem放入其中
-                if (this.SlotType == SlotType.Bag)
-                {
-                    Debug.LogWarning("Cannot place a ContainerItem inside another Container.");
-                    return itemStackToAdd; //直接返回，不添加该物品
-                }
-            }
             
-
-            // 先合并到已有的相同类型堆叠
+            // First, try merging with existing stacks
             for (int i = 0; i < _capacity; i++)
             {
                 var slot = slots[i];
@@ -85,39 +72,38 @@ namespace _Script.Inventory.InventoryBackend
                 {
                     int oldQuantity = itemStackToAdd.Quantity;
                     int remaining = slot.TryAdd(itemStackToAdd);
+                    itemStackToAdd.Quantity = remaining; 
+                    
                     if (remaining < oldQuantity)
                         OnInventorySlotChanged?.Invoke(i);
 
                     if (remaining == 0)
                     {
-                        // 全部合并成功
-                        return null;
+                        return null; // Fully merged
                     }
-
-                    // 仍有剩余未放入的物品
-                    itemStackToAdd = new ItemStack(itemStackToAdd.ItemData, remaining);
                 }
             }
 
-            // 再尝试放入空槽
+            // Then, try placing into empty slots
             for (int i = 0; i < _capacity; i++)
             {
                 if (slots[i].IsEmpty)
                 {
                     int toAdd = Mathf.Min(itemStackToAdd.Quantity, itemStackToAdd.ItemData.MaxStackSize);
-                    slots[i] = new ItemStack(itemStackToAdd.ItemData, toAdd);
+                    
+                    // Preserve data by creating a stack of the same type
+                    slots[i] = CreateStack(itemStackToAdd.ItemData, toAdd, itemStackToAdd);
                     OnInventorySlotChanged?.Invoke(i);
 
-                    int remaining = itemStackToAdd.Quantity - toAdd;
-                    if (remaining <= 0)
+                    itemStackToAdd.Quantity -= toAdd; 
+                    if (itemStackToAdd.Quantity <= 0)
                     {
-                        return null; // 全部放入成功
+                        return null; // Fully placed
                     }
-                    itemStackToAdd = new ItemStack(itemStackToAdd.ItemData, remaining);
                 }
             }
 
-            // 若到这里仍有剩余则表示背包已满
+            // Not enough space
             return itemStackToAdd;
         }
         
@@ -131,7 +117,8 @@ namespace _Script.Inventory.InventoryBackend
 
             if (slots[slotIndex].IsEmpty)
             {
-                slots[slotIndex] = itemStack;
+                // Use CreateStack to preserve item stack type and data
+                slots[slotIndex] = CreateStack(itemStack.ItemData, itemStack.Quantity, itemStack);
                 OnInventorySlotChanged?.Invoke(slotIndex);
             }
             else
@@ -159,17 +146,17 @@ namespace _Script.Inventory.InventoryBackend
             {
                 int remaining = slot.TryAdd(itemStackToAdd);
                 OnInventorySlotChanged?.Invoke(slotIndex);
-                return remaining < itemStackToAdd.Quantity; // 如果有添加成功则返回true
+                return remaining < itemStackToAdd.Quantity; 
             }
 
             if (slot.IsEmpty)
             {
                 int toAdd = Mathf.Min(itemStackToAdd.Quantity, itemStackToAdd.ItemData.MaxStackSize);
-                slots[slotIndex] = new ItemStack(itemStackToAdd.ItemData, toAdd);
+                slots[slotIndex] = CreateStack(itemStackToAdd.ItemData, toAdd, itemStackToAdd);
                 OnInventorySlotChanged?.Invoke(slotIndex);
 
-                int left = itemStackToAdd.Quantity - toAdd;
-                return left < itemStackToAdd.Quantity;
+                itemStackToAdd.Quantity -= toAdd;
+                return toAdd > 0;
             }
 
             Debug.Log("Slot is full or not compatible with the item type.");
@@ -189,7 +176,8 @@ namespace _Script.Inventory.InventoryBackend
                 return null;
             }
 
-            ItemStack removed = new ItemStack(slots[slotIndex].ItemData, slots[slotIndex].Quantity);
+            // Create a stack of the same type as the slot for consistency
+            ItemStack removed = CreateStack(slots[slotIndex].ItemData, slots[slotIndex].Quantity, slots[slotIndex]);
             slots[slotIndex].Clear();
             OnInventorySlotChanged?.Invoke(slotIndex);
             return removed;
@@ -226,13 +214,8 @@ namespace _Script.Inventory.InventoryBackend
                 }
             }
 
-            if (quantityToRemove > 0)
-            {
-                Debug.Log("Not enough items to remove.");
-                return false;
-            }
-
-            return true;
+            Debug.Log("Not enough items to remove.");
+            return false;
         }
         
         protected bool RemoveItemFromSlot(int slotIndex, int quantity)
@@ -277,12 +260,30 @@ namespace _Script.Inventory.InventoryBackend
         
         protected virtual void OnItemUsedUp(int slotIndex)
         {
-            // 子类可重写此方法，以实现当某格物品用尽时的特殊逻辑
+            // Subclasses can override this method to implement special logic when an item stack is used up
         }
 
         /// <summary>
-        /// 点击物品槽位(例如左键点击)的逻辑在子类中实现
+        /// The logic for clicking an item slot (for example, left-clicking) should be implemented in the subclass.
         /// </summary>
         public abstract void LeftClickItem(int slotIndex);
+
+        /// <summary>
+        /// Creates a new stack of the appropriate type (e.g., ContainerItemStack if needed) 
+        /// using the given item data, quantity, and template stack.
+        /// This ensures that if the template is a specialized stack (like ContainerItemStack),
+        /// we preserve that data.
+        /// </summary>
+        protected ItemStack CreateStack(ItemData itemData, int quantity, ItemStack template)
+        {
+            // Check if the template is a ContainerItemStack and preserve associated data
+            if (template is ContainerItemStack cStack && itemData is ContainerItem cItem)
+            {
+                return new ContainerItemStack(cItem, quantity, cStack.AssociatedContainer);
+            }
+
+            // Otherwise, just create a regular ItemStack
+            return new ItemStack(itemData, quantity);
+        }
     }
 }

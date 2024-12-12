@@ -5,153 +5,117 @@ using _Script.Inventory.InventoryBackend;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
-namespace _Script.Items.Lootable
+[RequireComponent(typeof(SpriteRenderer), typeof(Collider2D))]
+public class ItemLootable : MonoBehaviour, IInteractable
 {
-    [RequireComponent(typeof(SpriteRenderer), typeof(Collider2D))]
-    public class ItemLootable : MonoBehaviour, IInteractable
+    [SerializeField] protected ItemData itemData;
+    [SerializeField] protected int quantity = 1;
+
+    protected BoxCollider2D _collider;
+    protected SpriteRenderer _spriteRenderer;
+    protected bool _isPickedUp = false;
+
+    private float verticalVelocity;
+    private float gravity = -30f;
+    private float height;
+    private Vector3 initialPosition;
+    private bool isFalling = true;
+    private Vector2 horizontalVelocity;
+
+    protected virtual void Awake()
     {
-        [SerializeField] private ItemData itemData;
-        [SerializeField] private int quantity = 1;
+        _collider = GetComponent<BoxCollider2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
 
-        private BoxCollider2D _collider;
-        private SpriteRenderer _spriteRenderer;
-        private bool _isPickedUp = false;
-
-        // variables for item drop animation
-        private float verticalVelocity;
-        private float gravity = -30f;
-        private float height;
-        private Vector3 initialPosition;
-        private bool isFalling = true;
-        private Vector2 horizontalVelocity;
-
-        private void Awake()
+        if (itemData != null)
         {
-            _collider = GetComponent<BoxCollider2D>();
-            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _spriteRenderer.sprite = itemData.ItemSprite;
+        }
+    }
 
-            if (itemData != null)
+    protected virtual void Start()
+    {
+        _collider.isTrigger = true;
+        _collider.enabled = false; 
+
+        verticalVelocity = Random.Range(5f, 10f);
+        height = 0f;
+        initialPosition = transform.position;
+        horizontalVelocity = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * 2f;
+
+        StartCoroutine(FallEffect());
+    }
+
+    private IEnumerator FallEffect()
+    {
+        while(isFalling)
+        {
+            verticalVelocity += gravity * Time.deltaTime;
+            height += verticalVelocity * Time.deltaTime;
+
+            if (height <= 0f)
             {
-                _spriteRenderer.sprite = itemData.ItemSprite;
+                height = 0f;
+                verticalVelocity = 0f;
+                isFalling = false;
+                _collider.enabled = true;
             }
+
+            Vector3 position = initialPosition;
+            position += (Vector3)(horizontalVelocity * Time.deltaTime);
+            position.y += height;
+            transform.position = position;
+
+            float scale = Mathf.Lerp(1.2f, 1f, height / 10f);
+            transform.localScale = new Vector3(scale, scale, 1f);
+
+            yield return null;
         }
 
-        private void Start()
+        transform.localScale = Vector3.one;
+    }
+
+    public virtual void Interact(GameObject player)
+    {
+        PickupItem(player);
+    }
+
+    public virtual void InteractEnd(GameObject player) { }
+
+    public void OnHighlight()
+    {
+        if(_spriteRenderer != null)
+            _spriteRenderer.color = new Color(0.5f, 1f, 0.5f, 1f);
+    }
+
+    public void OnHighlightEnd()
+    {
+        if(_spriteRenderer != null)
+            _spriteRenderer.color = Color.white;
+    }
+
+    protected virtual void PickupItem(GameObject player)
+    {
+        if (player.TryGetComponent(out PlayerCharacter playerCharacter))
         {
-            _collider.isTrigger = true;
-            _collider.enabled = false; 
-
-            verticalVelocity = Random.Range(5f, 10f);
-            height = 0f;
-            initialPosition = transform.position;
-
-            // velocity for horizontal movement
-            horizontalVelocity = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * 2f;
-            
-            StartCoroutine(FallEffect());
-        }
-        
-        private IEnumerator FallEffect()
-        {
-            while(isFalling)
-            {
-                verticalVelocity += gravity * Time.deltaTime;
-                height += verticalVelocity * Time.deltaTime;
-
-                if (height <= 0f)
-                {
-                    height = 0f;
-                    verticalVelocity = 0f;
-                    isFalling = false;
-
-                    //After the item has fallen, enable the collider
-                    _collider.enabled = true;
-                }
-                
-                //based on the height, move the item horizontally
-                Vector3 position = initialPosition;
-                position += (Vector3)(horizontalVelocity * Time.deltaTime);
-                position.y += height;
-                transform.position = position;
-                
-                float scale = Mathf.Lerp(1.2f, 1f, height / 10f);
-                transform.localScale = new Vector3(scale, scale, 1f);
-                
-                yield return null;
-            }
-            
-            transform.localScale = Vector3.one;
-            
-        }
-
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            return;
-            if(_isPickedUp) return;
-            if (collision.CompareTag("Player"))
+            // For a normal item (non-container), create a normal stack
+            var stack = new ItemStack(itemData, quantity);
+            if (playerCharacter.PlayerInventory.AddItem(stack) == null)
             {
                 _isPickedUp = true;
-                PickupItem(collision.gameObject);
-            }
-        }
-
-        public void Interact(GameObject player)
-        {
-            PickupItem(player);
-        }
-
-        public void InteractEnd(GameObject player)
-        {
-            
-        }
-
-        public void OnHighlight()
-        {
-            //light green
-            _spriteRenderer.color = new Color(0.5f, 1f, 0.5f, 1f);
-        }
-
-        public void OnHighlightEnd()
-        {
-            if(_spriteRenderer == null) return;
-            _spriteRenderer.color = Color.white;
-        }
-
-        private void PickupItem(GameObject player)
-        {
-            if(player.TryGetComponent(out PlayerCharacter playerCharacter))
-            {
-                //check if the player has an inventory
-                if (playerCharacter.PlayerInventory == null)
-                {
-                    Debug.Log("Player inventory not found");
-                    return;
-                }
-                
-                if (playerCharacter.PlayerInventory.AddItem(new ItemStack(itemData, quantity)) is { } item)
-                {
-                   Debug.Log($"Picked up {itemData.ItemName} x{quantity}");
-                }
-                else
-                {
-                    _isPickedUp = true;
-                    Destroy(gameObject);
-                }
+                Destroy(gameObject);
             }
             else
             {
-                _isPickedUp = false;
+                Debug.Log("Not enough space in inventory!");
             }
         }
-
-        public void Interact()
+        else
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void InteractEnd()
-        {
-            throw new System.NotImplementedException();
+            _isPickedUp = false;
         }
     }
+
+    public void Interact() { throw new System.NotImplementedException(); }
+    public void InteractEnd() { throw new System.NotImplementedException(); }
 }

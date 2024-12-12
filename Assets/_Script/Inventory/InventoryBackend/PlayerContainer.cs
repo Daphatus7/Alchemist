@@ -13,7 +13,6 @@ namespace _Script.Inventory.InventoryBackend
         public override SlotType SlotType => SlotType.PlayerInventory;
         public string UniqueID { get; }
         
-        public static int totalPlayerContainers = 0;
 
         /// <summary>
         /// Initializes an empty inventory.
@@ -21,8 +20,6 @@ namespace _Script.Inventory.InventoryBackend
         public PlayerContainer(PlayerCharacter owner, int capacity) : base(capacity)
         {
             UniqueID = System.Guid.NewGuid().ToString();
-            totalPlayerContainers++;
-            Debug.Log("PlayerContainer created with ID: " + totalPlayerContainers);
             inventoryOwner = owner;
         }
         
@@ -74,9 +71,9 @@ namespace _Script.Inventory.InventoryBackend
         /// 2. Applies the corresponding effect.
         /// 3. Removes or decreases the item stack if necessary.
         /// </summary>
-        protected virtual void OnUsingItem(ItemData itemData, int slotIndex)
+        protected virtual void OnUsingItem(ItemStack slot, int slotIndex)
         {
-            var itemType = itemData.ItemTypeString;
+            var itemType = slot.ItemData.ItemTypeString;
 
             if (itemType == "Equipment")
             {
@@ -93,12 +90,13 @@ namespace _Script.Inventory.InventoryBackend
             else if (itemType == "Container")
             {
                 // Opens a container-type item (like a chest or bag).
-                itemData.Use(inventoryOwner);
+                if (slot is ContainerItemStack con) 
+                    inventoryOwner.OpenContainerInstance(con.AssociatedContainer);
             }
             else if (itemType == "Seed")
             {
                 // Uses a seed item. If successful, remove one from the slot.
-                if (OnUseSeedItem(itemData))
+                if (OnUseSeedItem(slot.ItemData))
                 {
                     RemoveItemFromSlot(slotIndex, 1);
                 }
@@ -106,7 +104,7 @@ namespace _Script.Inventory.InventoryBackend
             else if (itemType == "Consumable")
             {
                 // Uses a consumable item. If successful, remove one from the slot.
-                if (OnUseConsumableItem((ConsumableItem)itemData))
+                if (OnUseConsumableItem((ConsumableItem)slot.ItemData))
                 {
                     RemoveItemFromSlot(slotIndex, 1);
                 }
@@ -114,7 +112,7 @@ namespace _Script.Inventory.InventoryBackend
             else if (itemType == "Material")
             {
                 // Uses a material item. No guaranteed removal logic; depends on the effect.
-                OnUseMaterialItem(itemData);
+                OnUseMaterialItem(slot.ItemData);
             }
         }
 
@@ -135,9 +133,8 @@ namespace _Script.Inventory.InventoryBackend
                 //Debug.Log("Slot is empty.");
                 return false;
             }
-
-            ItemData itemData = slot.ItemData;
-            OnUsingItem(itemData, slotIndex);
+            
+            OnUsingItem(slot, slotIndex);
             return true;
         }
 

@@ -46,9 +46,7 @@ namespace _Script.Inventory.InventoryFrontend
         /// This applies to the player's main inventory or additional bags.
         /// </summary>
         public void ToggleContainer(PlayerContainer container)
-        {
-            CreateInventoryUI(container);
-return;
+        { 
             string containerID = container.UniqueID;
             if (_openInventoryUIs.TryGetValue(containerID, out var ui))
             {
