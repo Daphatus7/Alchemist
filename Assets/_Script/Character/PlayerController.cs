@@ -6,8 +6,8 @@ namespace _Script.Character
 {
     public class PlayerController : MonoBehaviour
     {
-
         [SerializeField] private float speed = 5f;
+        
         private Rigidbody2D _rigidbody2D;
         private Vector2 _movement;
         private PlayerInputActions _playerInputActions;
@@ -18,59 +18,84 @@ namespace _Script.Character
         private void Awake()
         {
             AwakenInitialize();
-            //get all controls in the children
             _controls.AddRange(GetComponents<IControl>());
-
         }   
         
         protected virtual void AwakenInitialize()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
+            if (_rigidbody2D == null)
+            {
+                Debug.LogWarning("PlayerController: Missing Rigidbody2D component.");
+            }
+
             _playerInputActions = new PlayerInputActions();
         }
 
         private void OnEnable()
         {
-            _playerInputActions.Player.Enable();
-            _playerInputActions.Player.RightMouseButton.performed += OnRightMouseButtonDown;
-            _playerInputActions.Player.RightMouseButton.canceled += OnRightMouseButtonUp;
-            _playerInputActions.Player.LeftMouseButton.performed += OnLeftMouseButtonDown;
-            _playerInputActions.Player.LeftMouseButton.canceled += OnLeftMouseButtonUp;
+            var playerActions = _playerInputActions.Player;
+            playerActions.Enable();
 
-            _playerInputActions.Player.Move.performed += OnMove;
-            _playerInputActions.Player.Move.canceled += OnMove;
+            // Mouse Buttons
+            playerActions.RightMouseButton.performed += OnRightMouseButtonDown;
+            playerActions.RightMouseButton.canceled += OnRightMouseButtonUp;
+            
+            playerActions.LeftMouseButton.performed += OnLeftMouseButtonDown;
+            playerActions.LeftMouseButton.canceled += OnLeftMouseButtonUp;
+            
+            // Dash
+            playerActions.Dash.performed += OnDash;
+            
+            // Sprint
+            playerActions.Sprint.performed += OnSprint;
+            playerActions.Sprint.canceled += OnSprintEnd;
+
+            // Movement
+            playerActions.Move.performed += OnMove;
+            playerActions.Move.canceled += OnMove;
         }
 
         private void OnDisable()
         {
-            _playerInputActions.Player.RightMouseButton.performed -= OnRightMouseButtonDown;
-            _playerInputActions.Player.LeftMouseButton.performed -= OnLeftMouseButtonDown;
-            _playerInputActions.Player.RightMouseButton.canceled -= OnRightMouseButtonUp;
-            _playerInputActions.Player.LeftMouseButton.canceled -= OnLeftMouseButtonUp;
-            _playerInputActions.Player.Disable();
+            var playerActions = _playerInputActions.Player;
 
-            _playerInputActions.Player.Move.performed -= OnMove;
-            _playerInputActions.Player.Move.canceled -= OnMove;
+            // Mouse Buttons
+            playerActions.RightMouseButton.performed -= OnRightMouseButtonDown;
+            playerActions.RightMouseButton.canceled -= OnRightMouseButtonUp;
+
+            playerActions.LeftMouseButton.performed -= OnLeftMouseButtonDown;
+            playerActions.LeftMouseButton.canceled -= OnLeftMouseButtonUp;
+            
+            // Dash
+            playerActions.Dash.performed -= OnDash;
+
+            // Sprint
+            playerActions.Sprint.performed -= OnSprint;
+            playerActions.Sprint.canceled -= OnSprintEnd;
+
+            // Movement
+            playerActions.Move.performed -= OnMove;
+            playerActions.Move.canceled -= OnMove;
+
+            playerActions.Disable();
         }
 
         private void Update()
         {
-            UpdateMovement();
             UpdateFireDirection();
-            
         }
-        
-        
+
+        #region Input Callbacks
+
         private void OnMove(InputAction.CallbackContext context)
         {
             _movement = context.ReadValue<Vector2>();
+            foreach (var m in _controls)
+            {
+                m.Move(_movement);
+            }
         }
-
-        private void UpdateMovement()
-        {
-            _rigidbody2D.linearVelocity = _movement * speed;
-        }
-
 
         private void OnLeftMouseButtonDown(InputAction.CallbackContext context)
         {
@@ -79,7 +104,7 @@ namespace _Script.Character
                 control.LeftMouseButtonDown(_fireDirection);
             }
         }
-        
+
         private void OnLeftMouseButtonUp(InputAction.CallbackContext context)
         {
             foreach (var control in _controls)
@@ -87,7 +112,7 @@ namespace _Script.Character
                 control.LeftMouseButtonUp(_fireDirection);
             }
         }
-        
+
         private void OnRightMouseButtonDown(InputAction.CallbackContext context)
         {
             foreach (var control in _controls)
@@ -95,30 +120,60 @@ namespace _Script.Character
                 control.RightMouseButtonDown(_fireDirection);
             }
         }
-        
+
         private void OnRightMouseButtonUp(InputAction.CallbackContext context)
         {
             foreach (var control in _controls)
             {
-                control.LeftMouseButtonUp(_fireDirection);
+                control.RightMouseButtonUp(_fireDirection);
             }
         }
+
+        private void OnDash(InputAction.CallbackContext obj)
+        {
+            // Perform dash with current movement direction
+            foreach (var c in _controls)
+            {
+                c.Dash(_movement);
+            }
+        }
+        
+        private void OnSprint(InputAction.CallbackContext context)
+        {
+            foreach (var control in _controls)
+            {
+                control.Sprint(_movement);
+            }
+        }
+
+        private void OnSprintEnd(InputAction.CallbackContext obj)
+        {
+            foreach (var c in _controls)
+            {
+                c.SprintEnd(_movement);
+            }
+        }
+
+        #endregion
+        
 
         private void UpdateFireDirection()
         {
             Vector3 mousePosition = Mouse.current.position.ReadValue();
-            if (Camera.main != null)
-            {
-                Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-                _fireDirection = (worldPosition - transform.position).normalized;
-            }
+            Camera mainCamera = Camera.main;
+            if (mainCamera == null) return;
+            
+            Vector3 worldPosition = mainCamera.ScreenToWorldPoint(mousePosition);
+            _fireDirection = (worldPosition - transform.position);
+            _fireDirection.Normalize();
         }
+
         
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
             Gizmos.DrawRay(transform.position, _fireDirection);
         }
     }
-
 }

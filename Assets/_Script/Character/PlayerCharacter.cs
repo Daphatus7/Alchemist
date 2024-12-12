@@ -20,85 +20,75 @@ namespace _Script.Character
 {
     public class PlayerCharacter : PawnAttribute, IControl, IPlayerUIHandle
     {
+        #region Inspector Fields & References
+
+        [Header("References")]
         [SerializeField] private GameObject LeftHand;
         [SerializeField] private GameObject RightHand;
+        [SerializeField] private InventoryManager _inventoryManager;
+        [SerializeField] private ActionBarUI _actionBarUI;
+        [SerializeField] private Rigidbody2D _rb;
 
-        private float _facingDirection;
-        public float FacingDirection => _facingDirection;
+        #endregion
         
-        private PlayerInventory _playerInventory; public PlayerInventory PlayerInventory => _playerInventory;
-        private PlayerEquipmentInventory _playerEquipment; public PlayerEquipmentInventory PlayerEquipment => _playerEquipment;
+        
+        [Header("Movement Settings")]
+        [SerializeField] private float baseMoveSpeed = 5f;
+        [SerializeField] private float sprintMultiplier = 1.5f;
+        [SerializeField] private float dashSpeed = 10f;
+        [SerializeField] private float dashDuration = 0.2f;
+        [SerializeField] private float dashCooldown = 2f;
+        [Tooltip("Time in seconds to smoothly interpolate velocity changes.")]
+        [SerializeField] private float velocitySmoothingTime = 0.1f;
+        
+
+        private float _facingDirection; public float FacingDirection => _facingDirection;
+        private float _attackDamage; public float AttackDamage => _attackDamage;
+
+        private bool _isInSafeZone = false;
+        private bool _isTorchActive = false;
+        private bool _canDash = true;
+        private bool _isSprinting = false;
 
         private InteractionBase _interactionBase;
-
-        // Strategies
-        private WeaponStrategy _weaponStrategy;
-        public WeaponStrategy WeaponStrategy => _weaponStrategy;
-        
-        private GenericItemStrategy _genericStrategy;
-        public GenericItemStrategy GenericStrategy => _genericStrategy;
-
-        // Add torch strategy field
-        private TorchItemStrategy _torchStrategy;
-        public TorchItemStrategy TorchStrategy => _torchStrategy;
-
-        private IActionStrategy _actionStrategy;
-        
-        [Header("Player Stats")]
-        [SerializeField] private float hungerDamage = 1f;
-        [SerializeField] private float hungerRate = -1f;
-        [Header("How long it takes for the player to get hungry")]
-        [SerializeField] private float hungerDuration = 5f;
-
-        [SerializeField] private float mana = 10f; public float Mana => mana;
-        [SerializeField]private float _manaMax = 10f; public float ManaMax => _manaMax;
-        [SerializeField] private float stamina= 10f; public float Stamina => stamina;
-        [SerializeField]private float _staminaMax = 10f; public float StaminaMax => _staminaMax;
-        [SerializeField] private float hunger = 10f; public float Hunger => hunger;
-        [SerializeField]private float _hungerMax = 10f; public float HungerMax => _hungerMax;
-        [SerializeField] private float _sanity = 10f; public float Sanity => _sanity;
-        [SerializeField] private float _sanityMax = 10f; public float SanityMax => _sanityMax;
-        
-        public UnityEvent onStatsChanged = new UnityEvent();
-
-        [SerializeField] private InventoryManager _inventoryManager;
-
-        private float _attackDamage;
-        public float AttackDamage => _attackDamage;
-
-        private int _gold = 1000; public int Gold => _gold;
-        private readonly UnityEvent<int> _onGoldChanged = new UnityEvent<int>();
-
         private InteractionContext _interactionContext;
         private IInteractable _currentlyHighlightedObject = null;
 
-        // For sanity and hunger routines
+        private PlayerInventory _playerInventory; public PlayerInventory PlayerInventory => _playerInventory;
+        private PlayerEquipmentInventory _playerEquipment; public PlayerEquipmentInventory PlayerEquipment => _playerEquipment;
+        private WeaponStrategy _weaponStrategy; public WeaponStrategy WeaponStrategy => _weaponStrategy;
+        private GenericItemStrategy _genericStrategy; public GenericItemStrategy GenericStrategy => _genericStrategy;
+        private TorchItemStrategy _torchStrategy; public TorchItemStrategy TorchStrategy => _torchStrategy;
+
+        private IActionStrategy _actionStrategy;
+        private Dictionary<string, IActionStrategy> _strategies;
+
         private Coroutine _playerSanityRoutine;
         private Coroutine _playerHungerRoutine;
-        private bool _isInSafeZone = false; 
 
-        // A dictionary to manage strategies by string keys (optional but helpful if you plan to expand)
-        private Dictionary<string, IActionStrategy> _strategies;
+        private readonly UnityEvent<int> _onGoldChanged = new UnityEvent<int>();
+
+        // Smooth movement fields
+        private Vector2 _targetVelocity;
+        private Vector2 _currentVelocity;
+        private float _smoothDampVelocityX;
+        private float _smoothDampVelocityY;
+
+
+        #region Unity Lifecycle Methods
 
         private void Awake()
         {
             _interactionBase = new InteractionBase();
+
             _weaponStrategy = GetComponent<WeaponStrategy>();
             _genericStrategy = GetComponent<GenericItemStrategy>();
-
-            // Attempt to get torch strategy if you have it as a component
             _torchStrategy = GetComponent<TorchItemStrategy>();
-
-
+            _rb = GetComponent<Rigidbody2D>();
 
             InitializePlayerInventories();
+            InitializeStrategies();
             
-            // Initialize dictionary for strategies
-            _strategies = new Dictionary<string, IActionStrategy>();
-            if (_weaponStrategy != null) _strategies["Weapon"] = _weaponStrategy;
-            if (_genericStrategy != null) _strategies["Generic"] = _genericStrategy;
-            if (_torchStrategy != null) _strategies["Torch"] = _torchStrategy;
-
             UnsetAllStrategy();
         }
 
@@ -106,8 +96,36 @@ namespace _Script.Character
         {
             TimeManager.Instance.onNewDay.AddListener(OnNewDay);
             TimeManager.Instance.onNightStart.AddListener(OnNightStart);
+
             PauseableUpdate();
         }
+
+        private void OnDestroy()
+        {
+            TimeManager.Instance.onNewDay.RemoveListener(OnNewDay);
+            TimeManager.Instance.onNightStart.RemoveListener(OnNightStart);
+        }
+
+        private void Update()
+        {
+            HandleInteraction();
+        }
+
+        private void FixedUpdate()
+        {
+            if (_rb == null) return;
+
+            // Smoothly adjust velocity towards _targetVelocity for smoother movement
+            float smoothTime = velocitySmoothingTime;
+            float newVelX = Mathf.SmoothDamp(_rb.linearVelocity.x, _targetVelocity.x, ref _smoothDampVelocityX, smoothTime);
+            float newVelY = Mathf.SmoothDamp(_rb.linearVelocity.y, _targetVelocity.y, ref _smoothDampVelocityY, smoothTime);
+
+            _rb.linearVelocity = new Vector2(newVelX, newVelY);
+        }
+
+        #endregion
+
+        #region Interaction & Input Handling
 
         private void PauseableUpdate()
         {
@@ -117,57 +135,51 @@ namespace _Script.Character
             }
         }
 
-        private void OnDestroy()
+        private void HandleInteraction()
         {
-            TimeManager.Instance.onNewDay.RemoveListener(OnNewDay);
-            TimeManager.Instance.onNightStart.RemoveListener(OnNightStart);
-        }
+            if (!CursorMovementTracker.HasCursorMoved) return;
 
-        public void Update()
-        {
-            // Interact with world objects
-            if (CursorMovementTracker.HasCursorMoved)
+            _interactionContext = _interactionBase.InteractableRaycast(transform.position, CursorMovementTracker.CursorPosition);
+
+            if (_interactionContext != null)
             {
-                _interactionContext = _interactionBase.InteractableRaycast(transform.position, CursorMovementTracker.CursorPosition);
+                _interactionContext.GetInteractableName();
+                _interactionContext.Highlight(out var interactable);
 
-                if (_interactionContext != null)
-                {
-                    _interactionContext.GetInteractableName();
-                    _interactionContext.Highlight(out var interactable);
-
-                    if (_currentlyHighlightedObject == interactable) return;
-                    _currentlyHighlightedObject?.OnHighlightEnd();
-                    _currentlyHighlightedObject = interactable;
-                }
-                else
-                {
-                    // if there is no interactable object
-                    if (_currentlyHighlightedObject == null) return;
-                    _currentlyHighlightedObject.OnHighlightEnd();
-                    _currentlyHighlightedObject = null;
-                }
+                if (_currentlyHighlightedObject == interactable) return;
+                _currentlyHighlightedObject?.OnHighlightEnd();
+                _currentlyHighlightedObject = interactable;
+            }
+            else
+            {
+                if (_currentlyHighlightedObject == null) return;
+                _currentlyHighlightedObject.OnHighlightEnd();
+                _currentlyHighlightedObject = null;
             }
         }
 
-        #region Action Bar - Strategy Pattern
+        #endregion
 
-        // Unified enabling/disabling logic
+        #region Strategies (Action Bar)
+
+        private void InitializeStrategies()
+        {
+            _strategies = new Dictionary<string, IActionStrategy>();
+            if (_weaponStrategy != null) _strategies["Weapon"] = _weaponStrategy;
+            if (_genericStrategy != null) _strategies["Generic"] = _genericStrategy;
+            if (_torchStrategy != null) _strategies["Torch"] = _torchStrategy;
+        }
+
         private void EnableStrategy(IActionStrategy strategyToEnable)
         {
-            // Disable all strategies first
             foreach (var strategyPair in _strategies)
             {
                 if (strategyPair.Value is MonoBehaviour mb)
-                {
                     mb.enabled = false;
-                }
             }
 
-            // Enable only the requested strategy
             if (strategyToEnable is MonoBehaviour enableMb)
-            {
                 enableMb.enabled = true;
-            }
 
             _actionStrategy = strategyToEnable;
         }
@@ -192,8 +204,6 @@ namespace _Script.Character
             EnableStrategy(_genericStrategy);
         }
 
-        
-        private bool _isTorchActive = false;
         public void SetTorchStrategy()
         {
             if (_torchStrategy == null)
@@ -214,13 +224,10 @@ namespace _Script.Character
 
         public void UnsetAllStrategy()
         {
-            // Disable all known strategies
             foreach (var strategyPair in _strategies)
             {
                 if (strategyPair.Value is MonoBehaviour mb)
-                {
                     mb.enabled = false;
-                }
             }
             _actionStrategy = null;
         }
@@ -236,26 +243,65 @@ namespace _Script.Character
             _actionStrategy?.LeftMouseButtonUp(direction);
         }
 
-        public void RightMouseButtonUp(Vector2 direction)
-        {
-        }
+        public void RightMouseButtonDown(Vector2 direction) { }
+        public void RightMouseButtonUp(Vector2 direction) { }
 
-        public void RightMouseButtonDown(Vector2 direction)
+        #endregion
+
+        #region Movement: Move, Dash, Sprint
+
+        public void Move(Vector2 direction)
         {
+            _targetVelocity = direction.normalized * baseMoveSpeed;
         }
 
         public void Dash(Vector2 direction)
         {
-            throw new NotImplementedException();
+            if (!_canDash || _rb == null) return;
+            StartCoroutine(DashCoroutine(direction));
+        }
+
+        public void DashEnd(Vector2 direction)
+        {
+            // Optional: cleanup logic after dash
+        }
+
+        private IEnumerator DashCoroutine(Vector2 direction)
+        {
+            _canDash = false;
+
+            Vector2 originalTarget = _targetVelocity;
+            _targetVelocity = direction.normalized * dashSpeed;
+
+            yield return new WaitForSeconds(dashDuration);
+
+            _targetVelocity = originalTarget;
+
+            DashEnd(direction);
+
+            yield return new WaitForSeconds(dashCooldown);
+            _canDash = true;
+        }
+
+        public void Sprint(Vector2 direction)
+        {
+            if (_isSprinting) return;
+            _isSprinting = true;
+            _targetVelocity = direction.normalized * baseMoveSpeed * sprintMultiplier;
+        }
+
+        public void SprintEnd(Vector2 direction)
+        {
+            _isSprinting = false;
+            _targetVelocity = direction.normalized * baseMoveSpeed;
         }
 
         #endregion
 
-        #region Player Inventory
+        #region Player Inventory & Gold
+        private int _gold = 1000; public int Gold => _gold;
 
         [SerializeField] private int playerActionbarCapacity = 6;
-        [SerializeField] private ActionBarUI _actionBarUI;
-
 
         private void InitializePlayerInventories()
         {
@@ -289,21 +335,30 @@ namespace _Script.Character
 
         #endregion
 
-        #region Stat - Event 
+        #region Stats & Events
 
-        public UnityEvent GetPlayerHealthUpdateEvent()
+        public override float ApplyDamage(float damage)
         {
-            return onHealthChanged;
+            health -= damage;
+            if (health <= 0)
+            {
+                OnDeath();
+                onHealthChanged?.Invoke();
+                return damage;
+            }
+            onStatsChanged?.Invoke();
+            return damage;
         }
 
-        public int GetPlayerGold()
+        public void SetInSafeZone(bool isInSafeZone)
         {
-            return _gold;
+            _isInSafeZone = isInSafeZone;
+            Debug.Log(_isInSafeZone ? "Player is in safe zone." : "Player is not in safe zone.");
         }
 
         #endregion
 
-        #region Item 
+        #region Item & Consumables
 
         public bool UseTownScroll(ScrollType spellType, float castTime)
         {
@@ -314,7 +369,6 @@ namespace _Script.Character
         private IEnumerator CastSpellCoroutine(ScrollType scrollType, float castTime)
         {
             float remainingTime = castTime;
-
             while (remainingTime > 0)
             {
                 Debug.Log($"Spell '{scrollType}' will be cast in {remainingTime} seconds...");
@@ -335,8 +389,30 @@ namespace _Script.Character
                     break;
             }
         }
-
+        
         #endregion
+        
+        #region Player Stats
+
+        [Header("Player Stats")]
+        [SerializeField] private float hungerDamage = 1f;
+        [SerializeField] private float hungerRate = -1f;
+        [SerializeField] private float hungerDuration = 5f;
+
+        [SerializeField] private float mana = 10f;        public float Mana => mana;
+        [SerializeField] private float _manaMax = 10f;    public float ManaMax => _manaMax;
+
+        [SerializeField] private float stamina = 10f;     public float Stamina => stamina;
+        [SerializeField] private float _staminaMax = 10f; public float StaminaMax => _staminaMax;
+
+        [SerializeField] private float hunger = 10f;      public float Hunger => hunger;
+        [SerializeField] private float _hungerMax = 10f;  public float HungerMax => _hungerMax;
+
+        [SerializeField] private float _sanity = 10f;     public float Sanity => _sanity;
+        [SerializeField] private float _sanityMax = 10f;  public float SanityMax => _sanityMax;
+
+        public UnityEvent onStatsChanged = new UnityEvent();
+
 
         public void EatFood(FoodType foodType, int foodValue)
         {
@@ -426,24 +502,9 @@ namespace _Script.Character
             }
         }
 
-        public override float ApplyDamage(float damage)
-        {
-            health -= damage;
-            if (health <= 0)
-            {
-                OnDeath();
-                onHealthChanged?.Invoke();
-                return damage;
-            }
-            onStatsChanged?.Invoke();
-            return damage;
-        }
+        #endregion
 
-        public void SetInSafeZone(bool isInSafeZone)
-        {
-            _isInSafeZone = isInSafeZone;
-            Debug.Log(_isInSafeZone ? "Player is in safe zone." : "Player is not in safe zone.");
-        }
+        #region Sanity & Hunger Routines
 
         private void OnNewDay()
         {
@@ -479,6 +540,6 @@ namespace _Script.Character
             }
         }
 
-
+        #endregion
     }
 }

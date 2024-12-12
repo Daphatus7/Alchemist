@@ -3292,6 +3292,12 @@ MonoBehaviour:
   itemInHandPrefab: {fileID: 5935879752676590583, guid: b2004f35d16bc42f1b6ef3628d5ec7b2,
     type: 3}
   itemDistance: 1
+--- !u!50 &1361047259 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 6278326024908024523, guid: e1d01e4eea6684baa9b053ff7cef7499,
+    type: 3}
+  m_PrefabInstance: {fileID: 2615383920521333222}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1401297573
 GameObject:
   m_ObjectHideFlags: 0
@@ -5274,6 +5280,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
         type: 3}
+      propertyPath: _rb
+      value: 
+      objectReference: {fileID: 1361047259}
+    - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
       propertyPath: _actionBarUI
       value: 
       objectReference: {fileID: 762694988}
@@ -5282,6 +5293,11 @@ PrefabInstance:
       propertyPath: _inventoryUI
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: _rigidbody2D
+      value: 
+      objectReference: {fileID: 1361047259}
     - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
         type: 3}
       propertyPath: _inventoryManager
