@@ -5280,6 +5280,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
         type: 3}
+      propertyPath: _rb
+      value: 
+      objectReference: {fileID: 1361047259}
+    - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
       propertyPath: _actionBarUI
       value: 
       objectReference: {fileID: 762694988}
