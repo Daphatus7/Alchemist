@@ -48,31 +48,31 @@ namespace _Script.Inventory.EquipmentFrontend
             playerEquipmentInventory.UnequipItem(slotDisplay.SlotIndex);
         }
 
-        public InventoryItem RemoveAllItemsFromSlot(int slotIndex)
+        public ItemStack RemoveAllItemsFromSlot(int slotIndex)
         {
             return playerEquipmentInventory.RemoveEquipmentFromSlot(slotIndex);
         }
 
-        public void AddItemToEmptySlot(InventoryItem item, int slotIndex)
+        public void AddItemToEmptySlot(ItemStack itemStack, int slotIndex)
         {
             //check if is equipment item
-            if(item.ItemData is EquipmentItem equipmentItem)
+            if(itemStack.ItemData is EquipmentItem equipmentItem)
                 playerEquipmentInventory.Handle_Equip(equipmentItem);
             Debug.LogError("This is not an equipment item");
         }
 
-        public InventoryItem AddItem(InventoryItem item)
+        public ItemStack AddItem(ItemStack itemStack)
         {
             //check if is equipment item
-            if(item.ItemData is EquipmentItem equipmentItem)
+            if(itemStack.ItemData is EquipmentItem equipmentItem)
                 playerEquipmentInventory.Handle_Equip(equipmentItem);
             Debug.LogError("This is not an equipment item");
             return null;
         }
         
-        public bool AcceptsItem(InventoryItem item)
+        public bool AcceptsItem(ItemStack itemStack)
         {
-            return item.ItemData is EquipmentItem;
+            return itemStack.ItemData is EquipmentItem;
         }
     }
 }

@@ -21,10 +21,10 @@ namespace _Script.NPC.NpcBackend
         {
             
             //Add merchant inventory to merchant
-            var itemsToAdd = new List<InventoryItem>();
+            var itemsToAdd = new List<ItemStack>();
             foreach(var item in itemsForSale)
             {
-                itemsToAdd.Add(new InventoryItem(item, item.MaxStackSize));
+                itemsToAdd.Add(new ItemStack(item, item.MaxStackSize));
             }
             _merchantInventory = new MerchantInventory(20, itemsToAdd);
         }

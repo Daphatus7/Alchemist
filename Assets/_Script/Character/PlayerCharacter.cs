@@ -6,6 +6,7 @@ using _Script.Character.ActionStrategy;
 using _Script.Interactable;
 using _Script.Inventory.ActionBarFrontend;
 using _Script.Inventory.EquipmentBackend;
+using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontend;
 using _Script.Inventory.PlayerInventory;
 using _Script.Items;
@@ -262,13 +263,9 @@ namespace _Script.Character
             _actionBarUI.InitializeInventoryUI(_playerInventory, playerActionbarCapacity, 0);
         }
         
-        public void OpenContainer(ContainerItem containerItem)
+        public void OpenContainerInstance(PlayerContainer containerItem)
         {
-            //should not assign owner here
-            var container = containerItem.Container;
-            container.AssignOwner(this);
-            
-            _inventoryManager.TogglePlayerContainer(containerItem.Container);
+            _inventoryManager.ToggleContainer(containerItem);
         }
         
         public void AddGold(int amount)

@@ -45,7 +45,7 @@ namespace _Script.Inventory.MerchantInventoryFrontend
             HideInventory();
         }
         
-        public InventoryItem Purchase(IPlayerInventoryHandler playerInventory, int slotIndex, int quantity = 1)
+        public ItemStack Purchase(IPlayerInventoryHandler playerInventory, int slotIndex, int quantity = 1)
         {
             if(playerInventory.RemoveGold(_inventory.Slots[slotIndex].ItemData.Value * _inventory.Slots[slotIndex].Quantity))
             {
@@ -80,7 +80,7 @@ namespace _Script.Inventory.MerchantInventoryFrontend
             return true;
         }
 
-        public override bool AcceptsItem(InventoryItem item)
+        public override bool AcceptsItem(ItemStack itemStack)
         {
             return true;
         }

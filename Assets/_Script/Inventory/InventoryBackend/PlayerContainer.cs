@@ -9,113 +9,118 @@ namespace _Script.Inventory.InventoryBackend
     public class PlayerContainer : Inventory
     {
         protected PlayerCharacter inventoryOwner; public PlayerCharacter InventoryOwner => inventoryOwner;
-        
+
         public override SlotType SlotType => SlotType.PlayerInventory;
+        public string UniqueID { get; }
         
-        
-        public void AssignOwner(PlayerCharacter owner)
-        {
-            inventoryOwner = owner;
-        }
-        
-        /**
-         * Load an Empty Inventory
-         */
+        public static int totalPlayerContainers = 0;
+
+        /// <summary>
+        /// Initializes an empty inventory.
+        /// </summary>
         public PlayerContainer(PlayerCharacter owner, int capacity) : base(capacity)
         {
+            UniqueID = System.Guid.NewGuid().ToString();
+            totalPlayerContainers++;
+            Debug.Log("PlayerContainer created with ID: " + totalPlayerContainers);
             inventoryOwner = owner;
         }
         
-        /**
-         * Load an Inventory with Items
-         */
-        public PlayerContainer(PlayerCharacter owner, int capacity, InventoryItem[] items) : base(capacity, items)
+        public override bool Equals(object obj)
         {
-            inventoryOwner = owner;
+            if (obj is PlayerContainer other)
+            {
+                return this.UniqueID == other.UniqueID;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return UniqueID != null ? UniqueID.GetHashCode() : 0;
         }
         
-        private InventoryItem OnUseEquipmentItem(EquipmentItem itemData)
+        private ItemStack OnUseEquipmentItem(EquipmentItem itemData)
         {
-            // Equip the item
+            // Logic for equipping the item to the player.
+            // Returns any item stack that needs to be reinserted into the inventory if applicable.
             return inventoryOwner.PlayerEquipment.Handle_Equip(itemData);
         }
+
         private bool OnUseConsumableItem(ConsumableItem itemData)
         {
+            // Uses the consumable item effect on the player.
             itemData.Use(inventoryOwner);
             return true;
         }
-        private InventoryItem OnUseMaterialItem(ItemData itemData)
+
+        private ItemStack OnUseMaterialItem(ItemData itemData)
         {
+            // Logic for using a material item if needed.
+            // Currently just invokes Use() and returns null.
             itemData.Use(inventoryOwner);
             return null;
         }
-        
+
         private bool OnUseSeedItem(ItemData itemData)
         {
+            // Logic for using a seed item, e.g., planting a crop in the world.
             return itemData.Use(inventoryOwner);
         }
-        
-        /**
-         * When right-clicking on an inventory item.
-         * 1. Put the item in temporary slot
-         * 2. Get the type of the item
-         * 3. Apply the effect of the item to the player
-         * 4. Remove the item from the inventory
-         */
+
+        /// <summary>
+        /// This method is invoked when the player uses (e.g., right-clicks) an item in the inventory slot.
+        /// 1. Determines the item type.
+        /// 2. Applies the corresponding effect.
+        /// 3. Removes or decreases the item stack if necessary.
+        /// </summary>
         protected virtual void OnUsingItem(ItemData itemData, int slotIndex)
         {
-            // Implement item usage logic
-            
-            //Use Equipment Item - if there is item in the equipment inventory, remove it and add it back to the inventory
             var itemType = itemData.ItemTypeString;
-            
-            
-            if(itemType == "Equipment")
+
+            if (itemType == "Equipment")
             {
-                //Debug.Log("Using Equipment Item Currently Disabled");
+                // Equipment usage logic is currently commented out.
+                // Example (disabled):
+                // var removedItemStack = OnUseEquipmentItem((EquipmentItem)itemData);
+                // RemoveItemFromSlot(slotIndex, 1);
+                // if (removedItemStack != null)
+                // {
+                //     AddItemToSlot(removedItemStack, slotIndex);
+                // }
                 return;
-                InventoryItem removedItem = OnUseEquipmentItem((EquipmentItem) itemData);
-                RemoveItemFromSlot(slotIndex, 1);
-                if(removedItem != null)
-                {
-                    // Remove the item from the inventory
-                    // Add the removed item back to the inventory
-                    AddItemToSlot(removedItem, slotIndex);
-                }
             }
             else if (itemType == "Container")
             {
-                inventoryOwner.OpenContainer((ContainerItem)itemData);
+                // Opens a container-type item (like a chest or bag).
+                itemData.Use(inventoryOwner);
             }
             else if (itemType == "Seed")
             {
-                if(OnUseSeedItem(itemData))
+                // Uses a seed item. If successful, remove one from the slot.
+                if (OnUseSeedItem(itemData))
                 {
-                    //Debug.Log("Seed item used.");
-                    // Remove the item from the inventory
                     RemoveItemFromSlot(slotIndex, 1);
                 }
             }
-            //Use Consumable Item - if the item is used, remove it from the inventory
-            else if(itemType == "Consumable")
+            else if (itemType == "Consumable")
             {
+                // Uses a consumable item. If successful, remove one from the slot.
                 if (OnUseConsumableItem((ConsumableItem)itemData))
                 {
-                    // Remove the item from the inventory
                     RemoveItemFromSlot(slotIndex, 1);
                 }
             }
-            //Use Material Item
-            else if(itemType == "Material")
+            else if (itemType == "Material")
             {
+                // Uses a material item. No guaranteed removal logic; depends on the effect.
                 OnUseMaterialItem(itemData);
-                //Debug.Log("There is no effect for using material item.");
             }
         }
-        
-        /**
-         * When right-clicking on an inventory item.
-         */
+
+        /// <summary>
+        /// Attempts to use the item in the given slot index (e.g., left-click action).
+        /// </summary>
         protected bool UseItem(int slotIndex)
         {
             if (slotIndex < 0 || slotIndex >= Capacity)
@@ -124,7 +129,7 @@ namespace _Script.Inventory.InventoryBackend
                 return false;
             }
 
-            InventoryItem slot = slots[slotIndex];
+            ItemStack slot = Slots[slotIndex];
             if (slot.IsEmpty)
             {
                 //Debug.Log("Slot is empty.");
@@ -132,13 +137,14 @@ namespace _Script.Inventory.InventoryBackend
             }
 
             ItemData itemData = slot.ItemData;
-
             OnUsingItem(itemData, slotIndex);
             return true;
         }
-        
+
         public override void LeftClickItem(int slotIndex)
         {
+            // Here, LeftClickItem logic can vary based on the game rules.
+            // Currently, we simply use the item in that slot.
             UseItem(slotIndex);
         }
     }

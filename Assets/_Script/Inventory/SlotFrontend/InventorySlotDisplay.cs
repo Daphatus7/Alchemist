@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontendHandler;
+using _Script.Items;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,22 +17,27 @@ namespace _Script.Inventory.SlotFrontend
         [SerializeField] private TextMeshProUGUI quantityText;
         [SerializeField] private Button slotButton;
         [SerializeField] private Image highlight;
+        [SerializeField] private GameObject dragItemPrefab;
 
-        private int _slotIndex;  public int SlotIndex => _slotIndex;
-        private int _inventoryIndex; public int InventoryIndex => _inventoryIndex;
-        public string ItemTypeName => _currentItem.ItemData.ItemName;
-        public int Value => _currentItem.ItemData.Value;
-        public int Quantity => _currentItem.Quantity;
-        
-        private SlotType _slotType; public SlotType SlotType => _slotType;
-        
+        private static GameObject dragItem;
+        private static Canvas canvas;
+
+        private int _slotIndex;  
+        public int SlotIndex => _slotIndex;
+
+        private int _inventoryIndex; 
+        public int InventoryIndex => _inventoryIndex;
+
+        private SlotType _slotType; 
+        public SlotType SlotType => _slotType;
+
         private IContainerUIHandle _inventoryUI;
-        
-        /**
-         * only visual representation of the item
-         */
-        private InventoryItem _currentItem;
-        
+        private ItemStack _currentStack;
+
+        public string ItemTypeName => _currentStack?.IsEmpty == false ? _currentStack.ItemData.ItemName : "";
+        public int Value => _currentStack?.IsEmpty == false ? _currentStack.ItemData.Value : 0;
+        public int Quantity => _currentStack?.IsEmpty == false ? _currentStack.Quantity : 0;
+
         private void Start()
         {
             canvas = GetComponentInParent<Canvas>();
@@ -41,49 +47,42 @@ namespace _Script.Inventory.SlotFrontend
         {
             _inventoryUI = inventoryUI;
             _slotIndex = slotIndex;
-            
-            //hide
-            highlight.enabled = false;
             _slotType = slotType;
+            highlight.enabled = false;
         }
-        
-        public void InitializeInventorySlot(IContainerUIHandle inventoryUI, int slotIndex, int inventoryIndex,SlotType slotType)
+
+        public void InitializeInventorySlot(IContainerUIHandle inventoryUI, int slotIndex, int inventoryIndex, SlotType slotType)
         {
             _inventoryUI = inventoryUI;
             _slotIndex = slotIndex;
-            
-            //hide
-            highlight.enabled = false;
-            _slotType = slotType;
             _inventoryIndex = inventoryIndex;
+            _slotType = slotType;
+            highlight.enabled = false;
         }
 
         private void OnEnable()
         {
-            if (slotButton != null)
-            {
-                slotButton.onClick.AddListener(OnSlotClicked);
-            }
+            slotButton?.onClick.AddListener(OnSlotClicked);
         }
 
         private void OnDisable()
         {
-            if (slotButton != null)
-            {
-                slotButton.onClick.RemoveListener(OnSlotClicked);
-            }
+            slotButton?.onClick.RemoveListener(OnSlotClicked);
         }
 
-        public void SetSlot(InventoryItem item)
+        /// <summary>
+        /// Update slot display with the given ItemStack.
+        /// </summary>
+        public void SetSlot(ItemStack stack)
         {
-            _currentItem = item;
-
-            if (item != null && item.Icon != null)
+            _currentStack = stack;
+            if (_currentStack?.IsEmpty == false)
             {
+                var data = _currentStack.ItemData;
                 icon.enabled = true;
-                icon.sprite = item.Icon;
+                icon.sprite = data.ItemSprite;
                 icon.color = Color.white;
-                quantityText.text = item.Quantity > 1 ? item.Quantity.ToString() : "";
+                quantityText.text = _currentStack.Quantity > 1 ? _currentStack.Quantity.ToString() : "";
             }
             else
             {
@@ -93,7 +92,7 @@ namespace _Script.Inventory.SlotFrontend
 
         public virtual void ClearSlot()
         {
-            _currentItem = null;
+            _currentStack = null;
             icon.color = new Color(1, 1, 1, 0);
             icon.enabled = false;
             quantityText.text = "";
@@ -101,57 +100,40 @@ namespace _Script.Inventory.SlotFrontend
 
         public virtual void OnSlotClicked()
         {
-            Debug.Log("Slot clicked." + _slotIndex);
+            Debug.Log("Slot clicked: " + _slotIndex);
             _inventoryUI.OnSlotClicked(this);
         }
 
+        #region Highlight Methods
+        public void HighlightSlot() => highlight.enabled = true;
+        public void UnhighlightSlot() => highlight.enabled = false;
+        #endregion
+
         #region Drag and Drop
 
-        [SerializeField] private GameObject dragItemPrefab;
-        private static GameObject dragItem;
-        private static Canvas canvas;
-        
-        public void HighlightSlot()
-        {
-            highlight.enabled = true;
-        }
-        
-        public void UnhighlightSlot()
-        {
-            highlight.enabled = false;
-        }
-        
         private bool CanDrag()
         {
-            if(SlotType == SlotType.Merchant)
+            // Decide if dragging is allowed based on slot type
+            switch (SlotType)
             {
-                Debug.Log("Currently Set to true");
-                return true;
+                case SlotType.Merchant:
+                case SlotType.ActionBar:
+                case SlotType.PlayerInventory:
+                case SlotType.Equipment:
+                    return true;
+                default:
+                    return false;
             }
-            else if (SlotType == SlotType.ActionBar)
-            {
-                return true;
-            }
-            else if (SlotType == SlotType.PlayerInventory)
-            {
-                return true;
-            }
-            else if (SlotType == SlotType.Equipment)
-            {
-                return true;
-            }
-            return false;
         }
         
         private bool CanDrop(InventorySlotDisplay sourceSlot)
         {
+            // Determine if dropping into this slot is allowed
             switch (SlotType)
             {
                 case SlotType.Merchant:
-                    if(_inventoryUI is IMerchantHandler merchant)
-                    {
-                        return merchant.AcceptsItem(sourceSlot._currentItem);
-                    }
+                    if (_inventoryUI is IMerchantHandler merchant)
+                        return sourceSlot._currentStack?.IsEmpty == false && merchant.AcceptsItem(sourceSlot._currentStack);
                     return false;
                 case SlotType.ActionBar:
                 case SlotType.PlayerInventory:
@@ -164,44 +146,34 @@ namespace _Script.Inventory.SlotFrontend
         
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if(!CanDrag()) return;
-            //If item is not null, then start dragging
-            if (_currentItem != null)
+            if (!CanDrag() || _currentStack?.IsEmpty != false) return;
+
+            icon.raycastTarget = false;
+            if (dragItem == null)
+                dragItem = Instantiate(dragItemPrefab, canvas.transform);
+            else
+                dragItem.SetActive(true);
+
+            var dragItemImage = dragItem.GetComponent<Image>();
+            if (dragItemImage != null)
             {
-                icon.raycastTarget = false;
-                if(dragItem == null)
-                {
-                    dragItem = Instantiate(dragItemPrefab, canvas.transform);
-                }
-                else
-                {
-                    dragItem.SetActive(true);
-                }
-
-                var dragItemImage = dragItem.GetComponent<Image>();
-                if (dragItemImage != null)
-                {
-                    dragItemImage.sprite = icon.sprite;
-                    dragItemImage.raycastTarget = false; // Disable raycast target
-                }
-
-                SetDragItemPosition(eventData);
-
-                icon.color = new Color(1, 1, 1, 0);
+                dragItemImage.sprite = icon.sprite;
+                dragItemImage.raycastTarget = false; 
             }
+
+            SetDragItemPosition(eventData);
+            icon.color = new Color(1, 1, 1, 0);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
             if (dragItem != null)
-            {
                 SetDragItemPosition(eventData);
-            }
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if(!CanDrag()) return;
+            if (!CanDrag()) return;
             if (dragItem != null)
             {
                 dragItem.SetActive(false);
@@ -210,192 +182,117 @@ namespace _Script.Inventory.SlotFrontend
             icon.raycastTarget = true;
         }
 
-
         public void OnDrop(PointerEventData eventData)
         {
+            // Drag end, release in this slot
+            var sourceSlot = eventData.pointerDrag?.GetComponent<InventorySlotDisplay>();
+            if (sourceSlot?._currentStack?.IsEmpty != false)
+                return;
 
-            //Check if the request is valid
-            
-            //Get the source slot, which is the request comes from
-            InventorySlotDisplay sourceSlot = eventData.pointerDrag?.GetComponent<InventorySlotDisplay>();
-            
-
-            //if the source slot is empty then return
-            if (sourceSlot == null || sourceSlot._currentItem == null)
+            // Cache itemData for performance
+            var itemData = sourceSlot._currentStack.ItemData;
+            // Prevent placing a ContainerItem inside another Container (Bag)
+            if (itemData is ContainerItem && _slotType == SlotType.Bag)
             {
+                Debug.LogWarning("Cannot place a ContainerItem inside another Container (Bag).");
                 return;
             }
-            
-            if(!CanDrop(sourceSlot)) return;
-            
-            //if something is coming from the source slot
-            if (sourceSlot != this)
-            {
-                
-                var dragType = GetDragType(sourceSlot);
 
-                Debug.Log("Drag Type: " + dragType);
-                switch (dragType)
-                {
-                    case DragType.Swap:
-                        SwapItems(sourceSlot);
-                        break;
-                    case DragType.Buy:
-                        //See if the player can buy the item
-                        if (sourceSlot._inventoryUI is IMerchantHandler merchant)
+            if (!CanDrop(sourceSlot)) return;
+
+            // Determine drag type
+            var dragType = GetDragType(sourceSlot);
+            Debug.Log("Drag Type: " + dragType);
+
+            switch (dragType)
+            {
+                case DragType.Swap:
+                    SwapItems(sourceSlot);
+                    break;
+                case DragType.Buy:
+                    if (sourceSlot._inventoryUI is IMerchantHandler merchant && _inventoryUI is IPlayerInventoryHandler player)
+                    {
+                        var purchasedItem = merchant.Purchase(player, sourceSlot._slotIndex);
+                        if (purchasedItem?.IsEmpty == false)
                         {
-                            if (_inventoryUI is IPlayerInventoryHandler player)
+                            if (_currentStack?.IsEmpty == false)
                             {
-                                //purchase the item
-                                if (merchant.Purchase(player, sourceSlot._slotIndex) is { } item)
-                                {
-                                    //consider if there is an item in the target slot
-                                    if(_currentItem != null)
-                                    {
-                                        //add item to inventory
-                                        var remainingItem = _inventoryUI.AddItem(item);
-                                    }
-                                    else
-                                    {
-                                        _inventoryUI.AddItemToEmptySlot(item, _slotIndex);
-                                    }
-                                    //consider adding item to inventory other than the player inventory
-                                }
+                                var remainingItem = _inventoryUI.AddItem(purchasedItem);
+                            }
+                            else
+                            {
+                                _inventoryUI.AddItemToEmptySlot(purchasedItem, _slotIndex);
                             }
                         }
-                        break;
-                    case DragType.Sell:
-                        //the item is being sent to the merchant
-                        Debug.Log("sell" + sourceSlot._inventoryUI);
-                        if (sourceSlot._inventoryUI is IPlayerInventoryHandler playerInventory)
+                    }
+                    break;
+                case DragType.Sell:
+                    if (sourceSlot._inventoryUI is IPlayerInventoryHandler playerInv && _inventoryUI is IMerchantHandler merchantSelf)
+                    {
+                        if (merchantSelf.Sell(playerInv, sourceSlot))
                         {
-                            if (_inventoryUI is IMerchantHandler merchantSelf)
-                            {
-                                if (merchantSelf.Sell(playerInventory, sourceSlot))
-                                {
-                                    _inventoryUI.AddItem(sourceSlot._currentItem);
-                                    //remove the item from the player inventory
-                                    sourceSlot._inventoryUI.RemoveAllItemsFromSlot(sourceSlot._slotIndex);
-                                }
-                                else
-                                {
-                                    Debug.Log("Merchant does not accept the item");
-                                    //the merchant does not accept the trade
-                                    //do nothing for now
-                                }
-                            }
+                            _inventoryUI.AddItem(sourceSlot._currentStack);
+                            sourceSlot._inventoryUI.RemoveAllItemsFromSlot(sourceSlot._slotIndex);
                         }
-                        
-                        break;
-                    case DragType.DoNothing:
-                        break;
-                    case DragType.Add:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-                
-                //first check if the item can be swapped
-                /*
-                 * Cases where the item cannot be swapped
-                 * 1. if the target inventory is equipment inventory
-                 *  a. if the source is in equipment inventory
-                 *      i. they are both in the same equipment slot, check if the item type is the same
-                 *      ii. they are in different equipment slot, then return fail
-                 *  b. the source is not in other inventory, 
-                 */
+                        else
+                        {
+                            Debug.Log("Merchant does not accept the item");
+                        }
+                    }
+                    break;
+                default:
+                    // Do nothing
+                    break;
+            }
 
-            }
-            //if there is no inventory slot display when dropping, drop to the ground
-            else if (sourceSlot == null)
-            {
-                //Drop item to the ground
-            }
-            
-            //hide the drag item visual
+            // Hide drag item visual
             if (dragItem != null)
-            {
                 dragItem.SetActive(false);
-            }
         }
-        
+
         private DragType GetDragType(InventorySlotDisplay sourceSlot)
         {
+            // Determine drag type based on source and target SlotType
             switch (sourceSlot.SlotType)
             {
-                //From Equipment to other slots
                 case SlotType.Equipment:
                     switch (SlotType)
                     {
-                        //From Equipment to Equipment
-                        case SlotType.Equipment:
-                            return DragType.DoNothing;
-                        //From Equipment to Inventory
-                        case SlotType.PlayerInventory:
-                            return DragType.Buy;
-                        //From Equipment to ActionBar
-                        case SlotType.ActionBar:
-                            return DragType.Sell;
-                        //From Equipment to Merchant
-                        case SlotType.Merchant:
-                            return DragType.DoNothing;
-                        default:
-                            return DragType.DoNothing;
+                        case SlotType.Equipment: return DragType.DoNothing;
+                        case SlotType.PlayerInventory: return DragType.Buy;
+                        case SlotType.ActionBar: return DragType.Sell;
+                        case SlotType.Merchant: return DragType.DoNothing;
+                        default: return DragType.DoNothing;
                     }
-                //from player inventory to other slots
                 case SlotType.PlayerInventory:
                     switch (SlotType)
                     {
-                        //From player inventory to Equipment
-                        case SlotType.Equipment:
-                            return DragType.Swap;
-                        //From player inventory to Inventory
+                        case SlotType.Equipment: 
                         case SlotType.PlayerInventory:
-                            return DragType.Swap;
-                        //From player inventory to ActionBar
                         case SlotType.ActionBar:
                             return DragType.Swap;
-                        //From player inventory to Merchant
                         case SlotType.Merchant:
                             return DragType.Sell;
                         default:
                             return DragType.DoNothing;
                     }
-                //From ActionBar to other slots
                 case SlotType.ActionBar:
                     switch (SlotType)
                     {
-                        //From ActionBar to Equipment
                         case SlotType.Equipment:
-                            return DragType.Swap;
-                        //From ActionBar to Inventory
                         case SlotType.PlayerInventory:
-                            return DragType.Swap;
-                        //From ActionBar to ActionBar
                         case SlotType.ActionBar:
                             return DragType.Swap;
-                        //From ActionBar to Merchant
                         case SlotType.Merchant:
                             return DragType.Sell;
                         default:
                             return DragType.DoNothing;
                     }
-                //From Merchant to other slots
                 case SlotType.Merchant:
                     switch (SlotType)
                     {
-                        //From Merchant to Equipment
-                        case SlotType.Equipment:
-                            return DragType.DoNothing;
-                        //From Merchant to Inventory
                         case SlotType.PlayerInventory:
                             return DragType.Buy;
-                        //From Merchant to ActionBar
-                        case SlotType.ActionBar:
-                            return DragType.DoNothing;
-                        //From Merchant to Merchant
-                        case SlotType.Merchant:
-                            return DragType.DoNothing;
                         default:
                             return DragType.DoNothing;
                     }
@@ -403,33 +300,22 @@ namespace _Script.Inventory.SlotFrontend
                     return DragType.DoNothing;
             }
         }
-        
-        
+
         /// <summary>
-        /// Swap the items or simply add to the target slot
+        /// Swap items between slots.
         /// </summary>
-        /// <param name="source"></param>
         private void SwapItems(InventorySlotDisplay source)
         {
             var sourceItem = source._inventoryUI.RemoveAllItemsFromSlot(source._slotIndex);
             var myItem = _inventoryUI.RemoveAllItemsFromSlot(_slotIndex);
-                
-            //consider the case where the source slot is empty
-            if (sourceItem != null && sourceItem.ItemData != null)
-            {
+
+            if (sourceItem?.IsEmpty == false)
                 _inventoryUI.AddItemToEmptySlot(sourceItem, _slotIndex);
-            }
-            if(myItem != null && myItem.ItemData != null)
-            {
+
+            if (myItem?.IsEmpty == false)
                 source._inventoryUI.AddItemToEmptySlot(myItem, source._slotIndex);
-            }
         }
 
-        private InventoryItem RemoveInventoryItem(int slotIndex)
-        {
-            return _inventoryUI.RemoveAllItemsFromSlot(slotIndex);
-        }
-        
         private void SetDragItemPosition(PointerEventData eventData)
         {
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -440,30 +326,13 @@ namespace _Script.Inventory.SlotFrontend
             );
             dragItem.transform.localPosition = localPoint;
         }
-        #endregion
-    }
-    
-    public enum SlotType
-    {
-        PlayerInventory,
-        Equipment,
-        ActionBar,
-        Merchant,
-        Bag
-    }
 
-    public enum DragType
-    {
-        Swap,
-        Add, //Currently not implemented 
-        Buy,
-        Sell,
-        DoNothing
+        #endregion
     }
     
     public static class SlotPool
     {
-        private static List<InventorySlotDisplay> _availableSlots = new List<InventorySlotDisplay>();
+        private static readonly List<InventorySlotDisplay> _availableSlots = new List<InventorySlotDisplay>();
         private static GameObject _slotPrefab;
         private static Transform _poolParent;
         private static bool _initialized;
@@ -492,7 +361,7 @@ namespace _Script.Inventory.SlotFrontend
             }
 
             int lastIndex = _availableSlots.Count - 1;
-            InventorySlotDisplay slot = _availableSlots[lastIndex];
+            var slot = _availableSlots[lastIndex];
             _availableSlots.RemoveAt(lastIndex);
             slot.gameObject.SetActive(true);
             return slot;
@@ -507,10 +376,28 @@ namespace _Script.Inventory.SlotFrontend
 
         private static InventorySlotDisplay CreateNewSlot()
         {
-            GameObject slotObj = Object.Instantiate(_slotPrefab, _poolParent);
+            var slotObj = Object.Instantiate(_slotPrefab, _poolParent);
             slotObj.SetActive(false);
             return slotObj.GetComponent<InventorySlotDisplay>();
         }
     }
 
+    public enum DragType
+    {
+        Swap,
+        Add, // Not implemented yet
+        Buy,
+        Sell,
+        DoNothing
+    }
+
+    // Keep SlotType and other interfaces consistent with the rest of the project
+    public enum SlotType
+    {
+        PlayerInventory,
+        Equipment,
+        ActionBar,
+        Merchant,
+        Bag
+    }
 }

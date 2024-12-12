@@ -9,14 +9,14 @@ namespace _Script.Inventory.PlayerInventory
 {
     public class PlayerInventory : PlayerContainer
     {
-        private InventoryItem _selectedItem;
+        private ItemStack _selectedItemStack;
         private int _selectedSlotIndex;
         public override SlotType SlotType => SlotType.PlayerInventory;
 
         public PlayerInventory(PlayerCharacter owner, int capacity, int selectedSlotIndex = 0) : base(owner, capacity)
         {
             _selectedSlotIndex = selectedSlotIndex;
-            _selectedItem = Slots[selectedSlotIndex];
+            _selectedItemStack = Slots[selectedSlotIndex];
             
             Debug.Log("By default, the player will select the first item when loaded.");
             OnSelectItem(selectedSlotIndex);
@@ -31,12 +31,12 @@ namespace _Script.Inventory.PlayerInventory
             if (slotIndex < 0 || slotIndex >= Slots.Length)
             {
                 _selectedSlotIndex = -1;
-                _selectedItem = null;
+                _selectedItemStack = null;
             }
             else
             {
                 _selectedSlotIndex = slotIndex;
-                _selectedItem = Slots[slotIndex];
+                _selectedItemStack = Slots[slotIndex];
             }
         }
 
@@ -48,16 +48,16 @@ namespace _Script.Inventory.PlayerInventory
         public void OnSelectItem(int slotIndex)
         {
             SetSelectedItem(slotIndex);
-            if (_selectedItem == null || _selectedItem.IsEmpty)
+            if (_selectedItemStack == null || _selectedItemStack.IsEmpty)
             {
                 Debug.LogWarning("No item selected in that slot.");
                 return;
             }
 
-            var itemType = _selectedItem.ItemData.ItemTypeString;
+            var itemType = _selectedItemStack.ItemData.ItemTypeString;
             
             // Create context to handle item usage
-            _actionBarContext = new ActionBarContext(LeftClickItem, RemoveWeaponOrTorchItem, slotIndex, _selectedItem.ItemData);
+            _actionBarContext = new ActionBarContext(LeftClickItem, RemoveWeaponOrTorchItem, slotIndex, _selectedItemStack.ItemData);
 
             // Now select strategy based on item type
             switch (itemType)
@@ -73,18 +73,10 @@ namespace _Script.Inventory.PlayerInventory
                     inventoryOwner.SetWeaponStrategy();
                     inventoryOwner.WeaponStrategy.ChangeItem(_actionBarContext);
                     break;
-
-                case "Torch":
-                    // Use torch strategy for torches
-                    inventoryOwner.SetTorchStrategy();
-                    inventoryOwner.TorchStrategy.ChangeItem(_actionBarContext);
-                    break;
-
                 default:
                     // For any other item type, fallback to a generic strategy
                     Debug.LogWarning($"Item type '{itemType}' not recognized. Using GenericStrategy as fallback.");
-                    inventoryOwner.SetGenericStrategy();
-                    inventoryOwner.GenericStrategy.ChangeItem(_actionBarContext);
+                    OnSelectNone();
                     break;
             }
         }
@@ -95,7 +87,7 @@ namespace _Script.Inventory.PlayerInventory
         /// </summary>
         public void OnSelectNone()
         {
-            _selectedItem = null;
+            _selectedItemStack = null;
             _selectedSlotIndex = -1;
         }
 
@@ -122,7 +114,6 @@ namespace _Script.Inventory.PlayerInventory
             }
 
             var itemTypeName = Slots[slotIndex].ItemData.ItemTypeString;
-            Debug.Log($"Removing item from slotIndex: {slotIndex}, itemTypeName: {itemTypeName}");
 
             switch (itemTypeName)
             {
@@ -148,11 +139,9 @@ namespace _Script.Inventory.PlayerInventory
             }
 
             // Unset the current strategy after removing the item from it
-            Debug.Log("Unsetting current strategy.");
             inventoryOwner.UnsetStrategy();
 
-            Debug.Log("Clearing selection.");
-            _selectedItem = null;
+            _selectedItemStack = null;
             _selectedSlotIndex = -1;
         }
 
@@ -162,7 +151,7 @@ namespace _Script.Inventory.PlayerInventory
             // If the used up item is currently selected, we remove the associated strategy.
             if (slotIndex == _selectedSlotIndex)
             {
-                _selectedItem = null;
+                _selectedItemStack = null;
                 RemoveStrategy(slotIndex);
             }
         }

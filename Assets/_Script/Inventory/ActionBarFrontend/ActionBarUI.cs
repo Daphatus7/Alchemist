@@ -182,7 +182,7 @@ namespace _Script.Inventory.ActionBarFrontend
             _playerInventory.LeftClickItem(slotDisplay.SlotIndex);
         }
 
-        public InventoryItem RemoveAllItemsFromSlot(int slotIndex)
+        public ItemStack RemoveAllItemsFromSlot(int slotIndex)
         {
             //if the slot is selected, deselect it
             if(slotIndex == _playerInventory.SelectedSlotIndex)
@@ -192,9 +192,9 @@ namespace _Script.Inventory.ActionBarFrontend
             return _playerInventory.RemoveAllItemsFromSlot(slotIndex);
         }
 
-        public void AddItemToEmptySlot(InventoryItem item, int slotIndex)
+        public void AddItemToEmptySlot(ItemStack itemStack, int slotIndex)
         {
-            _playerInventory.AddItemToEmptySlot(item, slotIndex);
+            _playerInventory.AddItemToEmptySlot(itemStack, slotIndex);
             //Debug.Log("Item added to slot " + slotIndex + " in action bar." +_actionBar.SelectedSlotIndex);
             if(slotIndex == _playerInventory.SelectedSlotIndex)
             {
@@ -202,12 +202,12 @@ namespace _Script.Inventory.ActionBarFrontend
             }
         }
 
-        public InventoryItem AddItem(InventoryItem item)
+        public ItemStack AddItem(ItemStack itemStack)
         {
-            return _playerInventory.AddItem(item);
+            return _playerInventory.AddItem(itemStack);
         }
         
-        public bool AcceptsItem(InventoryItem item)
+        public bool AcceptsItem(ItemStack itemStack)
         {
             return true;
         }

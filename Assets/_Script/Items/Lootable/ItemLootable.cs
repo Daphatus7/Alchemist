@@ -128,7 +128,7 @@ namespace _Script.Items.Lootable
                     return;
                 }
                 
-                if (playerCharacter.PlayerInventory.AddItem(new InventoryItem(itemData, quantity)) is { } item)
+                if (playerCharacter.PlayerInventory.AddItem(new ItemStack(itemData, quantity)) is { } item)
                 {
                    Debug.Log($"Picked up {itemData.ItemName} x{quantity}");
                 }
