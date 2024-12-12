@@ -213,11 +213,19 @@ namespace _Script.Inventory.SlotFrontend
                     if (sourceSlot._inventoryUI is IMerchantHandler merchant && _inventoryUI is IPlayerInventoryHandler player)
                     {
                         var purchasedItem = merchant.Purchase(player, sourceSlot._slotIndex);
+                        //if the purchased item is not empty
                         if (purchasedItem?.IsEmpty == false)
                         {
+                            //if the current slot is not empty
                             if (_currentStack?.IsEmpty == false)
                             {
+                                Debug.Log("Current slot is not empty");
                                 var remainingItem = _inventoryUI.AddItem(purchasedItem);
+
+                                if (remainingItem?.IsEmpty == false)
+                                {
+                                    Debug.Log("Not enough space in inventory!");
+                                }
                             }
                             else
                             {

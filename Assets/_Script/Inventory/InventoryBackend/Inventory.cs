@@ -276,14 +276,34 @@ namespace _Script.Inventory.InventoryBackend
         /// </summary>
         protected ItemStack CreateStack(ItemData itemData, int quantity, ItemStack template)
         {
-            // Check if the template is a ContainerItemStack and preserve associated data
-            if (template is ContainerItemStack cStack && itemData is ContainerItem cItem)
+            // Attempt to cast once
+            var cItem = itemData as ContainerItem;
+            var cStack = template as ContainerItemStack;
+
+            if (cItem && cStack != null)
             {
+                // Both itemData is a ContainerItem and template is a ContainerItemStack
+                // Preserve the container data from cStack
                 return new ContainerItemStack(cItem, quantity, cStack.AssociatedContainer);
             }
-
-            // Otherwise, just create a regular ItemStack
-            return new ItemStack(itemData, quantity);
+            else if (cItem)
+            {
+                // itemData is a ContainerItem but the template is not a ContainerItemStack
+                // Create a new ContainerItemStack with a fresh container
+                return new ContainerItemStack(cItem, quantity, new PlayerContainer(null, cItem.Capacity));
+            }
+            else if (cStack != null)
+            {
+                // The template is a ContainerItemStack, but itemData is no longer a ContainerItem.
+                // This scenario is unusual; fallback to a normal ItemStack to avoid invalid data.
+                Debug.LogWarning("Template was ContainerItemStack but itemData is not ContainerItem. Using normal ItemStack fallback.");
+                return new ItemStack(itemData, quantity);
+            }
+            else
+            {
+                // Neither condition applies, create a normal ItemStack
+                return new ItemStack(itemData, quantity);
+            }
         }
     }
 }

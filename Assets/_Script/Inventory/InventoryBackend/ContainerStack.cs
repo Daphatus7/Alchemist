@@ -20,7 +20,7 @@ namespace _Script.Inventory.InventoryBackend
                 // If no container provided, create a new one
                 AssociatedContainer = new PlayerContainer(null, itemData.Capacity);
             }
-            Debug.Log("ContainerItemStack created with Container ID: " + AssociatedContainer.UniqueID);
+//            Debug.Log("ContainerItemStack created with Container ID: " + AssociatedContainer.UniqueID);
         }
     }
 }

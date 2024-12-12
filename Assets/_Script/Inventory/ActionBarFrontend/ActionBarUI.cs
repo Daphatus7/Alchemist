@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _Script.Inventory.ActionBarFrontend
 {
-    public class ActionBarUI : MonoBehaviour, IContainerUIHandle
+    public class ActionBarUI : MonoBehaviour, IPlayerInventoryHandler
     {
         private PlayerInventory.PlayerInventory _playerInventory;
         [SerializeField] private GameObject inventoryPanel;
@@ -210,6 +210,16 @@ namespace _Script.Inventory.ActionBarFrontend
         public bool AcceptsItem(ItemStack itemStack)
         {
             return true;
+        }
+
+        public void AddGold(int amount)
+        {
+            _playerInventory.InventoryOwner.AddGold(amount);
+        }
+
+        public bool RemoveGold(int amount)
+        {
+            return _playerInventory.InventoryOwner.RemoveGold(amount);
         }
     }
 }
