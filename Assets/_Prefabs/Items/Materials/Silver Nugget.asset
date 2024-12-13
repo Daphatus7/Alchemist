@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92e6662694064b23a30fcf10e14d5efb, type: 3}
-  m_Name: Torch
+  m_Script: {fileID: 11500000, guid: cf3ed24158d34aa18cf63e9504e660fc, type: 3}
+  m_Name: Silver Nugget
   m_EditorClassIdentifier: 
-  itemName: Torch
-  itemID: 0
-  itemDescription: 
-  itemIcon: {fileID: 21300000, guid: 68e1f3d1470827b49b3b3347af0e4f6d, type: 3}
+  itemName: Silver Nugget
+  itemID: mat018
+  itemDescription: A small piece of silver ore, ready for smelting.
+  itemIcon: {fileID: 21300000, guid: e504bf3779bda9c40ba6d311e0611951, type: 3}
   maxStackSize: 1
   rarity: 0
-  _value: 1
-  torchDuration: 30
+  _value: 12

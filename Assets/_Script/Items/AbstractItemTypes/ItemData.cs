@@ -11,39 +11,55 @@ namespace _Script.Items.AbstractItemTypes
         {
             [Title("Basic Info")]
             [SerializeField, Tooltip("Name of the item")]
-            private string itemName;
+            public string itemName;
 
             [SerializeField, Tooltip("Unique ID of the item")]
-            private int itemID;
+            public string itemID;
 
             [SerializeField, TextArea, Tooltip("Detailed description of the item")]
-            private string itemDescription;
+            public string itemDescription;
 
             [Title("Visuals")]
             [SerializeField, Tooltip("Icon representing the item"), PreviewField(75)]
-            private Sprite itemIcon;
+            public Sprite itemIcon;
 
             [Title("Stacking & Rarity")]
             [SerializeField, Tooltip("Maximum stack size for this item")]
-            private int maxStackSize = 1;
+            public int maxStackSize = 1;
             
 
             [SerializeField, Tooltip("Rarity of the item")]
-            private Rarity rarity;
+            public Rarity rarity;
 
-            [SerializeField] private int _value = 1; public int Value => _value;
+            [SerializeField] private int _value = 1; public int Value
+            {
+                get => _value;
+                set => _value = value;
+            }
 
             [Title("Read-Only Debug Info"), ReadOnly, ShowInInspector]
             public Sprite ItemSprite => itemIcon;
 
             [ReadOnly, ShowInInspector]
-            public string ItemName => itemName;
+            public string ItemName
+            {
+                get => itemName;
+                set => itemName = value;
+            }
 
             [ReadOnly, ShowInInspector]
-            public int ItemID => itemID;
+            public string ItemID
+            {
+                get => itemID;
+                set => itemID = value;
+            }
 
             [ReadOnly, ShowInInspector]
-            public string ItemDescription => itemDescription;
+            public string ItemDescription
+            {
+                get => itemDescription;
+                set => itemDescription = value;
+            }
 
             [ReadOnly, ShowInInspector]
             public int MaxStackSize => maxStackSize;

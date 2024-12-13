@@ -11,7 +11,8 @@ namespace _Script.Items
         public override ItemType ItemType => ItemType.Material;
         
         public override string ItemTypeString => "Material";
-        
+        public int MaxStack { get; set; }
+
         public override bool Use(PlayerCharacter playerCharacter)
         {
             Debug.Log($"{ItemName} is a material and cannot be used directly.");

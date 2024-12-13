@@ -250,14 +250,25 @@ namespace _Script.Character
 
         #region Movement: Move, Dash, Sprint
 
+        [SerializeField] private int dashCost = 1;
+        [SerializeField] private float sprintCost = 0.5f; // per second
+        [SerializeField] private float hungerRateWhenExhausted = 0.2f; // Hunger cost per second if stamina not full
         public void Move(Vector2 direction)
         {
             _targetVelocity = direction.normalized * baseMoveSpeed;
         }
 
+        
         public void Dash(Vector2 direction)
         {
             if (!_canDash || _rb == null) return;
+
+            // Deduct 1 stamina before starting the dash.
+            AddStamina(-dashCost); 
+            // If you prefer a direct approach without going through AddStamina:
+            // stamina = Mathf.Max(stamina - 1, 0);
+            // onStatsChanged?.Invoke();
+
             StartCoroutine(DashCoroutine(direction));
         }
 
@@ -283,23 +294,59 @@ namespace _Script.Character
             _canDash = true;
         }
 
+        private Coroutine _sprintCostRoutine;
+
         public void Sprint(Vector2 direction)
         {
             if (_isSprinting) return;
             _isSprinting = true;
             _targetVelocity = direction.normalized * baseMoveSpeed * sprintMultiplier;
+
+            // Start a coroutine that costs stamina every second
+            _sprintCostRoutine = StartCoroutine(SprintCostRoutine());
         }
 
         public void SprintEnd(Vector2 direction)
         {
             _isSprinting = false;
             _targetVelocity = direction.normalized * baseMoveSpeed;
+
+            // Stop draining stamina
+            if (_sprintCostRoutine != null)
+            {
+                StopCoroutine(_sprintCostRoutine);
+                _sprintCostRoutine = null;
+            }
+        }
+
+        /// <summary>
+        /// Continuously drains stamina while sprinting. Stops when out of stamina or sprint ends.
+        /// </summary>
+        private IEnumerator SprintCostRoutine()
+        {
+            while (_isSprinting)
+            {
+                // Deduct the sprint cost
+                AddStamina(-sprintCost);
+
+                // Check if we still have stamina
+                if (stamina <= 0)
+                {
+                    // Not enough stamina, end sprint
+                    _isSprinting = false;
+                    _targetVelocity = _targetVelocity.normalized * baseMoveSpeed; // revert to normal speed
+                    yield break;
+                }
+
+                // Wait one second before next deduction
+                yield return new WaitForSeconds(1f);
+            }
         }
 
         #endregion
 
         #region Player Inventory & Gold
-        private int _gold = 1000; public int Gold => _gold;
+        [SerializeField] private int _gold = 10; public int Gold => _gold;
 
         [SerializeField] private int playerActionbarCapacity = 6;
 
@@ -335,84 +382,22 @@ namespace _Script.Character
 
         #endregion
 
-        #region Stats & Events
-
-        public override float ApplyDamage(float damage)
-        {
-            health -= damage;
-            if (health <= 0)
-            {
-                OnDeath();
-                onHealthChanged?.Invoke();
-                return damage;
-            }
-            onStatsChanged?.Invoke();
-            return damage;
-        }
-
-        public void SetInSafeZone(bool isInSafeZone)
-        {
-            _isInSafeZone = isInSafeZone;
-            Debug.Log(_isInSafeZone ? "Player is in safe zone." : "Player is not in safe zone.");
-        }
-
-        #endregion
-
-        #region Item & Consumables
-
-        public bool UseTownScroll(ScrollType spellType, float castTime)
-        {
-            StartCoroutine(CastSpellCoroutine(spellType, castTime));
-            return true;
-        }
-
-        private IEnumerator CastSpellCoroutine(ScrollType scrollType, float castTime)
-        {
-            float remainingTime = castTime;
-            while (remainingTime > 0)
-            {
-                Debug.Log($"Spell '{scrollType}' will be cast in {remainingTime} seconds...");
-                yield return new WaitForSeconds(1f);
-                remainingTime -= 1f;
-            }
-
-            Debug.Log($"Casting spell: {scrollType}");
-            switch (scrollType)
-            {
-                case ScrollType.Town:
-                    PlaceManager.Instance.TeleportPlayerToTown(this);
-                    break;
-                case ScrollType.Dungeon:
-                    break;
-                default:
-                    Debug.Log("Invalid scroll type.");
-                    break;
-            }
-        }
+        #region PlayerStats
         
-        #endregion
-        
-        #region Player Stats
-
         [Header("Player Stats")]
         [SerializeField] private float hungerDamage = 1f;
-        [SerializeField] private float hungerRate = -1f;
+        [SerializeField] private float hungerRate = -1f; public float HungerRate => hungerRate;
         [SerializeField] private float hungerDuration = 5f;
-
-        [SerializeField] private float mana = 10f;        public float Mana => mana;
-        [SerializeField] private float _manaMax = 10f;    public float ManaMax => _manaMax;
-
-        [SerializeField] private float stamina = 10f;     public float Stamina => stamina;
+        [SerializeField] private float mana = 10f; public float Mana => mana;
+        [SerializeField] private float _manaMax = 10f; public float ManaMax => _manaMax;
+        [SerializeField] private float stamina = 10f; public float Stamina => stamina;
         [SerializeField] private float _staminaMax = 10f; public float StaminaMax => _staminaMax;
-
-        [SerializeField] private float hunger = 10f;      public float Hunger => hunger;
-        [SerializeField] private float _hungerMax = 10f;  public float HungerMax => _hungerMax;
-
-        [SerializeField] private float _sanity = 10f;     public float Sanity => _sanity;
-        [SerializeField] private float _sanityMax = 10f;  public float SanityMax => _sanityMax;
+        [SerializeField] private float hunger = 10f; public float Hunger => hunger;
+        [SerializeField] private float _hungerMax = 10f; public float HungerMax => _hungerMax;
+        [SerializeField] private float _sanity = 10f; public float Sanity => _sanity;
+        [SerializeField] private float _sanityMax = 10f; public float SanityMax => _sanityMax;
 
         public UnityEvent onStatsChanged = new UnityEvent();
-
 
         public void EatFood(FoodType foodType, int foodValue)
         {
@@ -501,10 +486,64 @@ namespace _Script.Character
                 ApplyDamage(hungerDamage);
             }
         }
+        
+        public override float ApplyDamage(float damage)
+        {
+            health -= damage;
+            if (health <= 0)
+            {
+                OnDeath();
+                onHealthChanged?.Invoke();
+                return damage;
+            }
+            onStatsChanged?.Invoke();
+            return damage;
+        }
+
+        public void SetInSafeZone(bool isInSafeZone)
+        {
+            _isInSafeZone = isInSafeZone;
+            Debug.Log(_isInSafeZone ? "Player is in safe zone." : "Player is not in safe zone.");
+        }
+        
 
         #endregion
 
-        #region Sanity & Hunger Routines
+        #region Item & Consumables
+
+        public bool UseTownScroll(ScrollType spellType, float castTime)
+        {
+            StartCoroutine(CastSpellCoroutine(spellType, castTime));
+            return true;
+        }
+
+        private IEnumerator CastSpellCoroutine(ScrollType scrollType, float castTime)
+        {
+            float remainingTime = castTime;
+            while (remainingTime > 0)
+            {
+                Debug.Log($"Spell '{scrollType}' will be cast in {remainingTime} seconds...");
+                yield return new WaitForSeconds(1f);
+                remainingTime -= 1f;
+            }
+
+            Debug.Log($"Casting spell: {scrollType}");
+            switch (scrollType)
+            {
+                case ScrollType.Town:
+                    PlaceManager.Instance.TeleportPlayerToTown(this);
+                    break;
+                case ScrollType.Dungeon:
+                    break;
+                default:
+                    Debug.Log("Invalid scroll type.");
+                    break;
+            }
+        }
+        
+        #endregion
+        
+        #region Day and Night
 
         private void OnNewDay()
         {
@@ -536,7 +575,17 @@ namespace _Script.Character
             while (true)
             {
                 yield return new WaitForSeconds(hungerDuration);
-                AddHunger(-hungerRate);
+                // If stamina is not full, increase hunger rate
+                if (stamina < StaminaMax)
+                {
+                    AddHunger(-(hungerRateWhenExhausted + hungerRate));
+                    //Restore stamina
+                    AddStamina(1);
+                }
+                else
+                {
+                    AddHunger(hungerRate);
+                }
             }
         }
 

@@ -1,0 +1,284 @@
+{
+  "materials": [
+    {
+      "ItemName": "Coal",
+      "Description": "A common fuel source, dark and dusty.",
+      "ItemID": "mat001",
+      "Value": 5,
+      "MaxStack": 20,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Copper Ingot",
+      "Description": "A refined bar of copper, useful in crafting tools.",
+      "ItemID": "mat002",
+      "Value": 15,
+      "MaxStack": 10,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Copper Nugget",
+      "Description": "A small lump of copper, ready to be smelted.",
+      "ItemID": "mat003",
+      "Value": 8,
+      "MaxStack": 20,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Crystal",
+      "Description": "A clear mineral shard, faintly reflecting light.",
+      "ItemID": "mat004",
+      "Value": 20,
+      "MaxStack": 10,
+      "Rarity": "Uncommon"
+    },
+    {
+      "ItemName": "Cut Emerald",
+      "Description": "A polished emerald gem, gleaming with green light.",
+      "ItemID": "mat005",
+      "Value": 60,
+      "MaxStack": 5,
+      "Rarity": "Rare"
+    },
+    {
+      "ItemName": "Cut Ruby",
+      "Description": "A finely cut ruby, radiant with deep red hues.",
+      "ItemID": "mat006",
+      "Value": 65,
+      "MaxStack": 5,
+      "Rarity": "Rare"
+    },
+    {
+      "ItemName": "Cut Sapphire",
+      "Description": "A brilliant blue sapphire, expertly cut and polished.",
+      "ItemID": "mat007",
+      "Value": 65,
+      "MaxStack": 5,
+      "Rarity": "Rare"
+    },
+    {
+      "ItemName": "Cut Topaz",
+      "Description": "A sparkling yellow topaz, cut to perfection.",
+      "ItemID": "mat008",
+      "Value": 50,
+      "MaxStack": 10,
+      "Rarity": "Uncommon"
+    },
+    {
+      "ItemName": "Diamond",
+      "Description": "A rare, clear gemstone of remarkable hardness.",
+      "ItemID": "mat009",
+      "Value": 100,
+      "MaxStack": 1,
+      "Rarity": "Rare"
+    },
+    {
+      "ItemName": "Emerald",
+      "Description": "A raw green gemstone, valued by jewelers.",
+      "ItemID": "mat010",
+      "Value": 40,
+      "MaxStack": 10,
+      "Rarity": "Uncommon"
+    },
+    {
+      "ItemName": "Gold Nugget",
+      "Description": "A small chunk of gold, valuable and soft.",
+      "ItemID": "mat011",
+      "Value": 30,
+      "MaxStack": 10,
+      "Rarity": "Uncommon"
+    },
+    {
+      "ItemName": "Golden Ingot",
+      "Description": "A refined bar of gold, sought after by merchants.",
+      "ItemID": "mat012",
+      "Value": 80,
+      "MaxStack": 5,
+      "Rarity": "Rare"
+    },
+    {
+      "ItemName": "Obsidian",
+      "Description": "A volcanic glass shard, sharp and mysterious.",
+      "ItemID": "mat013",
+      "Value": 25,
+      "MaxStack": 20,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Pearl",
+      "Description": "A lustrous pearl formed inside a shell.",
+      "ItemID": "mat014",
+      "Value": 35,
+      "MaxStack": 10,
+      "Rarity": "Uncommon"
+    },
+    {
+      "ItemName": "Ruby",
+      "Description": "A raw red gemstone, admired for its rich color.",
+      "ItemID": "mat015",
+      "Value": 45,
+      "MaxStack": 10,
+      "Rarity": "Uncommon"
+    },
+    {
+      "ItemName": "Sapphire",
+      "Description": "A raw blue gemstone, cool to the touch.",
+      "ItemID": "mat016",
+      "Value": 45,
+      "MaxStack": 10,
+      "Rarity": "Uncommon"
+    },
+    {
+      "ItemName": "Silver Ingot",
+      "Description": "A refined bar of silver, shiny and malleable.",
+      "ItemID": "mat017",
+      "Value": 25,
+      "MaxStack": 10,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Silver Nugget",
+      "Description": "A small piece of silver ore, ready for smelting.",
+      "ItemID": "mat018",
+      "Value": 12,
+      "MaxStack": 20,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Topaz",
+      "Description": "A raw yellow gemstone, warm and pleasing.",
+      "ItemID": "mat019",
+      "Value": 35,
+      "MaxStack": 10,
+      "Rarity": "Uncommon"
+    },
+    {
+      "ItemName": "Bone",
+      "Description": "A sturdy animal bone, useful in basic crafting.",
+      "ItemID": "mat020",
+      "Value": 4,
+      "MaxStack": 20,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Egg",
+      "Description": "A simple egg, can be used in cooking or alchemy.",
+      "ItemID": "mat021",
+      "Value": 3,
+      "MaxStack": 10,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Feather",
+      "Description": "A light feather, good for fletching or quills.",
+      "ItemID": "mat022",
+      "Value": 2,
+      "MaxStack": 20,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Monster Egg",
+      "Description": "An unusual egg laid by a fearsome creature.",
+      "ItemID": "mat023",
+      "Value": 20,
+      "MaxStack": 5,
+      "Rarity": "Uncommon"
+    },
+    {
+      "ItemName": "Monster Eye",
+      "Description": "A strange, preserved eyeball from a beast.",
+      "ItemID": "mat024",
+      "Value": 15,
+      "MaxStack": 10,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Monster Meat",
+      "Description": "Tough flesh harvested from defeated monsters.",
+      "ItemID": "mat025",
+      "Value": 8,
+      "MaxStack": 10,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Skull",
+      "Description": "An empty skull, a grim trophy or alchemical component.",
+      "ItemID": "mat026",
+      "Value": 10,
+      "MaxStack": 5,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Slime Gel",
+      "Description": "A sticky residue left by slimes, useful as a base reagent.",
+      "ItemID": "mat027",
+      "Value": 5,
+      "MaxStack": 20,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Fabric",
+      "Description": "A basic cloth material, ready for tailoring.",
+      "ItemID": "mat028",
+      "Value": 10,
+      "MaxStack": 10,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Leather",
+      "Description": "Tanned animal hide, essential for armor crafting.",
+      "ItemID": "mat029",
+      "Value": 12,
+      "MaxStack": 10,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Paper",
+      "Description": "A sheet of paper, handy for notes or scrolls.",
+      "ItemID": "mat030",
+      "Value": 3,
+      "MaxStack": 20,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Rope",
+      "Description": "A length of sturdy rope, useful in many trades.",
+      "ItemID": "mat031",
+      "Value": 5,
+      "MaxStack": 10,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "String",
+      "Description": "A thin cord for binding or basic crafting.",
+      "ItemID": "mat032",
+      "Value": 2,
+      "MaxStack": 20,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Wood Log",
+      "Description": "A segment of wood, ready for processing.",
+      "ItemID": "mat033",
+      "Value": 4,
+      "MaxStack": 20,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Wooden Plank",
+      "Description": "A flat piece of processed wood.",
+      "ItemID": "mat034",
+      "Value": 6,
+      "MaxStack": 10,
+      "Rarity": "Common"
+    },
+    {
+      "ItemName": "Wool",
+      "Description": "Soft wool sheared from a sheep, ready for spinning.",
+      "ItemID": "mat035",
+      "Value": 5,
+      "MaxStack": 10,
+      "Rarity": "Common"
+    }
+  ]
+}

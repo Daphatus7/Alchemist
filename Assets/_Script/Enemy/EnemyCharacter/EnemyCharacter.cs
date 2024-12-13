@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using _Script.Attribute;
+using _Script.Enemy.DropTable;
 using _Script.Enemy.EnemyAbility;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -8,19 +9,41 @@ namespace _Script.Enemy.EnemyCharacter
 {
     public class EnemyCharacter : PawnAttribute
     {
-
         [SerializeField] private GameObject attackPrefab;
-        private List<IEnemyAbilityHandler> _abilities;
-        
+        [SerializeField] private ScriptableObject dropProviderObject; // Assign a DropTable asset implementing IDropProvider
+    
+        private IDropProvider _dropProvider;
+
         private void Start()
         {
-            _abilities = new List<IEnemyAbilityHandler>(GetComponents<IEnemyAbilityHandler>());
+            // Convert the ScriptableObject to IDropProvider
+            _dropProvider = dropProviderObject as IDropProvider;
         }
-        
+    
         protected override void OnDeath()
         {
             base.OnDeath();
+            DropItems();
             Destroy(gameObject);
+        }
+    
+        private void DropItems()
+        {
+            if (_dropProvider == null) return;
+
+            foreach (var drop in _dropProvider.GetDrops())
+            {
+                float roll = Random.value;
+
+                if (roll <= drop.dropChance)
+                {
+                    int amount = Random.Range(drop.minAmount, drop.maxAmount + 1);
+                    for (int i = 0; i < amount; i++)
+                    {
+                        Instantiate(drop.itemPrefab, transform.position, Quaternion.identity);
+                    }
+                }
+            }
         }
     }
 }
