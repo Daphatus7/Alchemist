@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using _Script.Attribute;
 using _Script.Enemy.DropTable;
 using _Script.Enemy.EnemyAbility;
+using _Script.Items.Lootable;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -22,7 +23,6 @@ namespace _Script.Enemy.EnemyCharacter
     
         protected override void OnDeath()
         {
-            base.OnDeath();
             DropItems();
             Destroy(gameObject);
         }
@@ -40,7 +40,13 @@ namespace _Script.Enemy.EnemyCharacter
                     int amount = Random.Range(drop.minAmount, drop.maxAmount + 1);
                     for (int i = 0; i < amount; i++)
                     {
-                        Instantiate(drop.itemPrefab, transform.position, Quaternion.identity);
+                        //create a game object at the enemy's position
+                        GameObject itemObj = new GameObject("DroppedItem");
+                        itemObj.transform.position = transform.position;
+                        var loot = itemObj.AddComponent<ItemLootable>();
+                        var co = itemObj.AddComponent<BoxCollider2D>();
+                        var sr = itemObj.AddComponent<SpriteRenderer>();
+                        loot.Initialize(co, sr, drop.item, 1);     
                     }
                 }
             }

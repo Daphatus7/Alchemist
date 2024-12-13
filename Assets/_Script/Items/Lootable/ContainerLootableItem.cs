@@ -28,10 +28,8 @@ namespace _Script.Items.Lootable
 
         private PlayerContainer _runtimeContainer;
 
-        protected override void Start()
+        protected void Start()
         {
-            base.Start();
-
             if (itemData is ContainerItem containerItem)
             {
                 _runtimeContainer = new PlayerContainer(null, containerItem.Capacity);
@@ -66,7 +64,6 @@ namespace _Script.Items.Lootable
                     // Attempt to add the container stack to the player's inventory
                     if (playerCharacter.PlayerInventory.AddItem(cStack) == null)
                     {
-                        _isPickedUp = true;
                         Destroy(gameObject);
                     }
                     else
@@ -79,10 +76,6 @@ namespace _Script.Items.Lootable
                     Debug.LogWarning("ContainerLootableItem used with non-container or missing container.");
                     base.PickupItem(player); // fallback to normal item logic
                 }
-            }
-            else
-            {
-                _isPickedUp = false;
             }
         }
     }
