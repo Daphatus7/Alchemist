@@ -49,8 +49,9 @@ namespace _Script.Inventory.InventoryBackend
         }
 
         /// <summary>
-        /// 尝试向该堆叠中添加另一个相同类型的堆叠物品。
-        /// 返回添加后另一堆剩余的数量，如果能全加完则返回0。
+        /// Attempts to add another stack of the same type to this stack.
+        /// Returns the remaining quantity of the other stack after adding.
+        /// If the entire other stack can be added, returns 0.
         /// </summary>
         public int TryAdd(ItemStack other)
         {
@@ -64,14 +65,14 @@ namespace _Script.Inventory.InventoryBackend
         }
 
         /// <summary>
-        /// 从该堆中拆出指定数量的物品，返回新堆叠。
-        /// 如果数量不足，则返回尽可能多的可用物品堆。
-        /// 拆出后本堆叠数量减少。
+        /// Splits a specified quantity from this stack and returns it as a new stack.
+        /// If there isn’t enough quantity, it returns as many as possible.
+        /// After splitting, this stack’s quantity decreases accordingly.
         /// </summary>
         public ItemStack Split(int count)
         {
-            if (IsEmpty || count <= 0) 
-                return new ItemStack(); //返回空堆叠
+            if (IsEmpty || count <= 0)
+                return new ItemStack(); // Returns an empty stack
 
             int actualCount = Mathf.Min(count, Quantity);
             Quantity -= actualCount;

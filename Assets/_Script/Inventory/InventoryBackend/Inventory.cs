@@ -173,12 +173,14 @@ namespace _Script.Inventory.InventoryBackend
 
             if (slots[slotIndex].IsEmpty)
             {
+                OnInventorySlotChanged?.Invoke(slotIndex);
                 return null;
             }
 
             // Create a stack of the same type as the slot for consistency
             ItemStack removed = CreateStack(slots[slotIndex].ItemData, slots[slotIndex].Quantity, slots[slotIndex]);
             slots[slotIndex].Clear();
+
             OnInventorySlotChanged?.Invoke(slotIndex);
             return removed;
         }

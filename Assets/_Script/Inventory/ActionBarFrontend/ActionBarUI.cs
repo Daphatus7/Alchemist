@@ -55,6 +55,7 @@ namespace _Script.Inventory.ActionBarFrontend
             if (slotIndex < 0 || slotIndex >= _inventorySlotDisplays.Length)
                 return;
 
+            Debug.Log("Updating slot " + slotIndex);
             InventorySlotDisplay slotDisplay = _inventorySlotDisplays[slotIndex];
             slotDisplay.SetSlot(_playerInventory.Slots[slotIndex]);
         }
