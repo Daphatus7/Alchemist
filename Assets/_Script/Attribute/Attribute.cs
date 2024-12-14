@@ -75,6 +75,6 @@ namespace _Script.Attribute
         Mana,
         Stamina,
         Sanity,
-        Hunger
+        Food
     }
 }

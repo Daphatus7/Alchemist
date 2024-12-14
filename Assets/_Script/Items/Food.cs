@@ -50,6 +50,6 @@ namespace _Script.Items
         Mana,
         Stamina,
         Sanity,
-        Hunger
+        Food
     }
 }

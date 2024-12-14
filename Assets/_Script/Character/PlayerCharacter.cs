@@ -64,7 +64,7 @@ namespace _Script.Character
         private Dictionary<string, IActionStrategy> _strategies;
 
         private Coroutine _playerSanityRoutine;
-        private Coroutine _playerHungerRoutine;
+        private Coroutine _playerfoodRoutine;
 
         private readonly UnityEvent<int> _onGoldChanged = new UnityEvent<int>();
 
@@ -129,10 +129,7 @@ namespace _Script.Character
 
         private void PauseableUpdate()
         {
-            if (_playerHungerRoutine == null)
-            {
-                _playerHungerRoutine = StartCoroutine(HungerRoutine());
-            }
+            _playerfoodRoutine ??= StartCoroutine(FoodRoutine());
         }
 
         private void HandleInteraction()
@@ -252,7 +249,7 @@ namespace _Script.Character
 
         [SerializeField] private int dashCost = 1;
         [SerializeField] private float sprintCost = 0.5f; // per second
-        [SerializeField] private float hungerRateWhenExhausted = 0.2f; // Hunger cost per second if stamina not full
+        [SerializeField] private float foodRateWhenExhausted = 0.2f; // Food cost per second if stamina not full
         public void Move(Vector2 direction)
         {
             _targetVelocity = direction.normalized * baseMoveSpeed;
@@ -298,6 +295,7 @@ namespace _Script.Character
 
         public void Sprint(Vector2 direction)
         {
+            return; // Sprinting is disabled for now
             if (_isSprinting) return;
             _isSprinting = true;
             _targetVelocity = direction.normalized * baseMoveSpeed * sprintMultiplier;
@@ -385,15 +383,15 @@ namespace _Script.Character
         #region PlayerStats
         
         [Header("Player Stats")]
-        [SerializeField] private float hungerDamage = 1f;
-        [SerializeField] private float hungerRate = -1f; public float HungerRate => hungerRate;
-        [SerializeField] private float hungerDuration = 5f;
+        [SerializeField] private float foodDamage = 1f;
+        [SerializeField] private float foodRate = 1f; public float FoodRate => foodRate;
+        [SerializeField] private float foodDuration = 1f;
         [SerializeField] private float mana = 10f; public float Mana => mana;
         [SerializeField] private float _manaMax = 10f; public float ManaMax => _manaMax;
         [SerializeField] private float stamina = 10f; public float Stamina => stamina;
         [SerializeField] private float _staminaMax = 10f; public float StaminaMax => _staminaMax;
-        [SerializeField] private float hunger = 10f; public float Hunger => hunger;
-        [SerializeField] private float _hungerMax = 10f; public float HungerMax => _hungerMax;
+        [SerializeField] private float food = 10f; public float Food => food;
+        [SerializeField] private float _foodMax = 10f; public float FoodMax => _foodMax;
         [SerializeField] private float _sanity = 10f; public float Sanity => _sanity;
         [SerializeField] private float _sanityMax = 10f; public float SanityMax => _sanityMax;
 
@@ -415,8 +413,8 @@ namespace _Script.Character
                 case FoodType.Sanity:
                     Restore(AttributeType.Sanity, foodValue);
                     break;
-                case FoodType.Hunger:
-                    Restore(AttributeType.Hunger, foodValue);
+                case FoodType.Food:
+                    Restore(AttributeType.Food, foodValue);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(foodType), foodType, null);
@@ -436,8 +434,8 @@ namespace _Script.Character
                 case AttributeType.Stamina:
                     AddStamina(value);
                     break;
-                case AttributeType.Hunger:
-                    AddHunger(value);
+                case AttributeType.Food:
+                    AddFood(value);
                     break;
                 case AttributeType.Sanity:
                     AddSanity(value);
@@ -447,44 +445,67 @@ namespace _Script.Character
             }
             onStatsChanged?.Invoke();
         }
-
-        private void AddMana(float value)
+        private bool AddMana(float value)
         {
             mana += value;
+            if (mana < 0)
+            {
+                mana = 0;
+                onStatsChanged?.Invoke();
+                return false;
+            }
             if (mana > _manaMax) mana = _manaMax;
-            else if (mana < 0) mana = 0;
             onStatsChanged?.Invoke();
+            return true;
         }
 
-        private void AddStamina(float value)
+        private bool AddStamina(float value)
         {
             stamina += value;
+            if (stamina < 0)
+            {
+                stamina = 0;
+                onStatsChanged?.Invoke();
+                return false;
+            }
             if (stamina > _staminaMax) stamina = _staminaMax;
-            else if (stamina < 0) stamina = 0;
             onStatsChanged?.Invoke();
+            return true;
         }
 
-        private void AddSanity(float value)
+        private bool AddSanity(float value)
         {
             Debug.Log($"Adding {value} to sanity.");
             _sanity += value;
+            if (_sanity < 0)
+            {
+                _sanity = 0;
+                onStatsChanged?.Invoke();
+                return false;
+            }
             if (_sanity > _sanityMax) _sanity = _sanityMax;
-            else if (_sanity < 0) _sanity = 0;
             onStatsChanged?.Invoke();
+            return true;
         }
 
-        private void AddHunger(float value)
+        private bool AddFood(float value)
         {
-            hunger += value;
-            if (hunger > _hungerMax)
+            food += value;
+            if (food < 0)
             {
-                hunger = _hungerMax;
+                food = 0;
+                ApplyDamage(foodDamage);
+                // Even though we took damage, we return false because food went below zero
+                // before we corrected it.
+                onStatsChanged?.Invoke();
+                return false;
             }
-            else if (hunger < 0)
+            if (food > _foodMax)
             {
-                hunger = 0;
-                ApplyDamage(hungerDamage);
+                food = _foodMax;
             }
+            onStatsChanged?.Invoke();
+            return true;
         }
         
         public override float ApplyDamage(float damage)
@@ -570,23 +591,40 @@ namespace _Script.Character
             }
         }
 
-        private IEnumerator HungerRoutine()
+        
+        /// <summary>
+        /// Reduce player's food over time.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator FoodRoutine()
         {
             while (true)
             {
-                yield return new WaitForSeconds(hungerDuration);
-                // If stamina is not full, increase hunger rate
+                // For every foodDuration seconds, reduce food by foodRate
+                yield return new WaitForSeconds(foodDuration);
+
+                // If stamina is not full, reduce food by (foodRateWhenExhausted + foodRate)
                 if (stamina < StaminaMax)
                 {
-                    AddHunger(-(hungerRateWhenExhausted + hungerRate));
-                    //Restore stamina
-                    AddStamina(1);
+                    // If we successfully reduce food (meaning we have enough food to consume),
+                    // then restore stamina by 1
+                    if (AddFood(-(foodRateWhenExhausted + foodRate)))
+                    {
+                        AddStamina(1);
+                    }
                 }
+                // If stamina is full, reduce food by the base foodRate
                 else
                 {
-                    AddHunger(hungerRate);
+                    AddFood(-foodRate);
                 }
             }
+        }
+        
+        protected override void OnDeath()
+        {
+            //Game Over
+            Destroy(this);
         }
 
         #endregion

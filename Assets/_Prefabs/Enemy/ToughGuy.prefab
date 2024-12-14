@@ -141,6 +141,7 @@ MonoBehaviour:
   health: 5
   healthMax: 5
   attackPrefab: {fileID: 0}
+  dropProviderObject: {fileID: 11400000, guid: a7a11b8417fcf467a8750da1287b8794, type: 2}
 --- !u!61 &29300319380929225
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -175,7 +176,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.009634495, y: 0.33480334}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -185,7 +186,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5953455, y: 0.619432}
   m_EdgeRadius: 0
 --- !u!50 &5662358411684094054
 Rigidbody2D:

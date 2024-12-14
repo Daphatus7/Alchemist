@@ -38,13 +38,13 @@ namespace _Script.Character
             var maxStamina = (int)_playerCharacter.StaminaMax;
             var sanity = (int)_playerCharacter.Sanity;
             var maxSanity = (int)_playerCharacter.SanityMax;
-            var hunger = (int)_playerCharacter.Hunger;
-            var maxHunger = (int)_playerCharacter.HungerMax;
+            var food = (int)_playerCharacter.Food;
+            var maxFood = (int)_playerCharacter.FoodMax;
             prototypeText.text = $"Health: {health}/{maxHealth}\n" +
                                 $"Mana: {mana}/{maxMana}\n" +
                                 $"Stamina: {stamina}/{maxStamina}\n" +
                                 $"Sanity: {sanity}/{maxSanity}\n" +
-                                $"Hunger: {hunger}/{maxHunger}";
+                                $"Hunger: {food}/{maxFood}";
         }
     }
 }
