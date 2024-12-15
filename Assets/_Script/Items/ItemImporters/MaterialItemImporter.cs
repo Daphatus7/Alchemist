@@ -74,7 +74,7 @@ namespace _Script.Items.ItemImporters
             }
             else
             {
-                // Create a new MaterialItem
+                // Create a new MaterialItem if not found
                 materialItem = ScriptableObject.CreateInstance<MaterialItem>();
                 AssetDatabase.CreateAsset(materialItem, $"{folderPath}/{entry.ItemName}.asset");
             }
@@ -83,7 +83,7 @@ namespace _Script.Items.ItemImporters
             materialItem.ItemName = entry.ItemName;
             materialItem.ItemDescription = entry.Description;
             materialItem.ItemID = entry.ItemID;
-            materialItem.MaxStack = entry.MaxStack;
+            materialItem.maxStackSize = entry.MaxStack;
             materialItem.Value = entry.Value;
             materialItem.rarity = entry.GetRarity();
 

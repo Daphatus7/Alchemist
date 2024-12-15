@@ -14,6 +14,7 @@ using UnityEngine;
 
 namespace _Script.NPC.NpcBackend
 {
+    [DefaultExecutionOrder(500)]
     public class MerchantUnit : MonoBehaviour, INpcHandler, IGlobalUpdate
     {
         
@@ -29,7 +30,7 @@ namespace _Script.NPC.NpcBackend
         {
             GameManager.Instance.RegisterGlobalUpdater(this);
         }
-        
+
         private void OnDisable()
         {
             GameManager.Instance.UnregisterGlobalUpdater(this);

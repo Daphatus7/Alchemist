@@ -25,8 +25,12 @@ namespace _Script.Items.AbstractItemTypes
 
             [Title("Stacking & Rarity")]
             [SerializeField, Tooltip("Maximum stack size for this item")]
-            public int maxStackSize = 1;
-            
+            public int maxStackSize = 1; public int MaxStackSize
+            {
+                get => maxStackSize;
+                set => maxStackSize = value;
+            }
+
 
             [SerializeField, Tooltip("Rarity of the item")]
             public Rarity rarity;
@@ -62,7 +66,6 @@ namespace _Script.Items.AbstractItemTypes
             }
 
             [ReadOnly, ShowInInspector]
-            public int MaxStackSize => maxStackSize;
 
             public abstract ItemType ItemType { get; }
             public abstract string ItemTypeString { get; }
