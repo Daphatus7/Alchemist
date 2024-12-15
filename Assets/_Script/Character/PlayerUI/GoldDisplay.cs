@@ -27,6 +27,7 @@ namespace _Script.Character.PlayerUI
         
         private void OnDestroy()
         {
+            if(GameManager.Instance == null) return;
             GameManager.Instance.GetPlayer().PlayerGoldUpdateEvent().RemoveListener(SetGoldText);
         }
 

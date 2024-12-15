@@ -29,7 +29,8 @@ namespace _Script.Inventory.MerchantInventoryFrontend
         
         private void OnDestroy()
         {
-            ServiceLocator.Instance.Unregister<IMerchantInventoryService>();
+            if(ServiceLocator.Instance != null)
+                ServiceLocator.Instance.Unregister<IMerchantInventoryService>();
         }        
         
         public void LoadMerchantInventory(MerchantInventory merchantInventory)

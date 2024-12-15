@@ -33,9 +33,10 @@ namespace _Script.NPC.NpcBackend
 
         private void OnDisable()
         {
-            GameManager.Instance.UnregisterGlobalUpdater(this);
+            if(GameManager.Instance != null)
+                GameManager.Instance.UnregisterGlobalUpdater(this);
         }
-
+        
         public void InitializeMerchantInventory()
         {
             //Add merchant inventory to merchant

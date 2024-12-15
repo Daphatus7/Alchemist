@@ -102,6 +102,7 @@ namespace _Script.Character
 
         private void OnDestroy()
         {
+            if(TimeManager.Instance == null) return;
             TimeManager.Instance.onNewDay.RemoveListener(OnNewDay);
             TimeManager.Instance.onNightStart.RemoveListener(OnNightStart);
         }
