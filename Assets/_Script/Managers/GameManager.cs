@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using _Script.Character;
+using _Script.Managers.GlobalUpdater;
 using _Script.Map;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
@@ -16,9 +17,34 @@ namespace _Script.Managers
         // Service Locator
         private ServiceLocator _serviceLocator;
 
-        [SerializeField] private PlayerCharacter _playerCharacter;
+        [SerializeField] private PlayerCharacter _playerCharacter; public PlayerCharacter GetPlayer()
+        {
+            return _playerCharacter;
+        }
         [SerializeField] private string startingScene = "PrototypeScene";
         [SerializeField] private List<string> dungeonLevels;
+        
+        private List<IGlobalUpdate> _globalUpdaters = new List<IGlobalUpdate>();
+        
+        
+        private void UpdateGlobalUpdaters()
+        {
+            Debug.Log("Updating global updaters + placed in a improper lines of code, remove it later");
+            foreach (var updater in _globalUpdaters)
+            {
+                updater.Refresh();
+            }
+        }
+        
+        public void RegisterGlobalUpdater(IGlobalUpdate updater)
+        {
+            _globalUpdaters.Add(updater);
+        }
+        
+        public void UnregisterGlobalUpdater(IGlobalUpdate updater)
+        {
+            _globalUpdaters.Remove(updater);
+        }
 
         // Track the main (or primary) currently loaded scene
         private string currentMainScene;
@@ -36,13 +62,6 @@ namespace _Script.Managers
             MakePersistentObjects();
         }
 
-        /// <summary>
-        /// Returns the player character instance.
-        /// </summary>
-        public PlayerCharacter GetPlayer()
-        {
-            return _playerCharacter;
-        }
 
         /// <summary>
         /// Loads a new scene as the main scene (non-additive). Unloads any previously loaded main scene and all additive scenes.
@@ -69,12 +88,13 @@ namespace _Script.Managers
             StartCoroutine(AddSceneAsync(sceneData.MapName));
         }
         
-        
         public void UnloadCurrentAdditiveScene()
         {
             if(currentAdditiveScene != null)
                 UnloadAdditiveScene(currentAdditiveScene);
             else Debug.LogWarning("No current additive scene to unload");
+            
+            UpdateGlobalUpdaters();
         }
         
         
@@ -87,17 +107,6 @@ namespace _Script.Managers
             {
                 currentAdditiveScene = null;
                 StartCoroutine(UnloadSceneAsync(sceneName));
-            }
-        }
-
-        /// <summary>
-        /// Unloads all currently loaded additive scenes.
-        /// </summary>
-        public void UnloadAllAdditiveScenes()
-        {
-            foreach (var scene in loadedAdditiveScenes)
-            {
-                StartCoroutine(UnloadSceneAsync(scene));
             }
         }
 
@@ -117,27 +126,6 @@ namespace _Script.Managers
             }
         }
         
-
-        /// <summary>
-        /// Loads all dungeon levels additively.
-        /// </summary>
-        public void LoadDungeonLevels()
-        {
-            StartCoroutine(LoadDungeonLevelsCoroutine());
-        }
-
-        /// <summary>
-        /// Unloads all dungeon levels.
-        /// </summary>
-        public void UnloadAllDungeonLevels()
-        {
-            foreach (var level in dungeonLevels)
-            {
-                UnloadAdditiveScene(level);
-            }
-            Debug.Log("All dungeon levels unloaded.");
-        }
-        
         /// <summary>
         /// Ensure persistent objects like the player are not destroyed across scenes.
         /// </summary>
@@ -146,22 +134,6 @@ namespace _Script.Managers
             DontDestroyOnLoad(gameObject);
             DontDestroyOnLoad(_playerCharacter.gameObject);
         }
-
-#if ODIN_INSPECTOR
-        [BoxGroup("Debug Controls")]
-        [Button(ButtonSizes.Medium)]
-        private void DebugLoadDungeonLevels()
-        {
-            LoadDungeonLevels();
-        }
-
-        [BoxGroup("Debug Controls")]
-        [Button(ButtonSizes.Medium)]
-        private void DebugUnloadDungeonLevels()
-        {
-            UnloadAllDungeonLevels();
-        }
-#endif
 
         #region Private Coroutines and Helpers
 
@@ -198,8 +170,6 @@ namespace _Script.Managers
                 StartCoroutine(AddSceneAsync(randomDungeonScene));
             }
         }
-
-
         
         private IEnumerator AddSceneAsync(string sceneName)
         {
@@ -232,7 +202,7 @@ namespace _Script.Managers
             {
                 MovePlayerToScene(new Vector3(spawnPoint.x, spawnPoint.y, 0), newScene);
                 
-                //Spawn spawn bonfire at the spawn point
+                //Spawn bonfire at the spawn point
                 Instantiate(_spawnBonfirePrefab, new Vector3(endPoint.x, endPoint.y, 0), Quaternion.identity);
             }
         }
@@ -273,18 +243,17 @@ namespace _Script.Managers
             currentMainScene = sceneName;
             Debug.Log($"{sceneName} has been reloaded.");
         }
-
-        private IEnumerator LoadDungeonLevelsCoroutine()
+        
+        /// <summary>
+        /// Unloads all currently loaded additive scenes.
+        /// </summary>
+        private void UnloadAllAdditiveScenes()
         {
-            foreach (var level in dungeonLevels)
+            foreach (var scene in loadedAdditiveScenes)
             {
-                Debug.Log($"Loading dungeon level: {level}");
-                yield return AddSceneAsync(level);
+                StartCoroutine(UnloadSceneAsync(scene));
             }
-
-            Debug.Log("All dungeon levels loaded additively.");
         }
-
         #endregion
     }
 }

@@ -10,6 +10,6 @@ namespace _Script.Managers.GlobalUpdater
     /// </summary>
     public interface IGlobalUpdate
     {
-        
+        void Refresh();
     }
 }

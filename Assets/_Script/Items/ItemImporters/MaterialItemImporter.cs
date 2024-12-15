@@ -95,7 +95,7 @@ namespace _Script.Items.ItemImporters
             else
             {
                 // Optional: Log if no sprite found
-                // Debug.LogWarning($"No sprite found for item '{entry.ItemName}'");
+                Debug.LogWarning($"No sprite found for item '{entry.ItemName}'");
             }
 
             EditorUtility.SetDirty(materialItem);

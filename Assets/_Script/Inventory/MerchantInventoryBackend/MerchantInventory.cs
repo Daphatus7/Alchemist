@@ -9,19 +9,18 @@ namespace _Script.Inventory.MerchantInventoryBackend
 {
     public class MerchantInventory : InventoryBackend.Inventory
     {
-        private List<ItemStack> _itemsForSale;
+        private readonly List<ItemStack> _itemsForSale;
         
         public MerchantInventory(int capacity, List<ItemStack> itemsForSale) : base(capacity)
         {
-            this._itemsForSale = itemsForSale;
+            _itemsForSale = itemsForSale;
             InitializeMerchantInventory();
         }
 
         public MerchantInventory(int capacity, ItemStack[] items, List<ItemStack> itemsForSale) : base(capacity, items)
         {
-            this._itemsForSale = itemsForSale;
+            _itemsForSale = itemsForSale;
             InitializeMerchantInventory();
-
         }
         
         /// <summary>

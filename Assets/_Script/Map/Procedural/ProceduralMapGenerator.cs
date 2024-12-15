@@ -42,7 +42,7 @@ namespace _Script.Map.Procedural
         private Vector2Int _endPoint; public Vector2Int EndPoint => _endPoint;
         [SerializeField] private int _minDistance = 10;
 
-        public bool GenerateMap(out Vector2Int sPoint, out Vector2Int ePoint)
+        public bool GenerateMap(int intWidth, int iniHeight, out Vector2Int sPoint, out Vector2Int ePoint)
         {
             if (baseTilemap == null || floraTilemap == null || obstaclesTilemap == null)
             {
@@ -64,6 +64,9 @@ namespace _Script.Map.Procedural
                 Random.InitState(seed);
             else
                 Random.InitState(System.DateTime.Now.GetHashCode());
+            
+            width = intWidth;
+            height = iniHeight;
 
             _mapTiles = new TileBase[width, height];
             _walkableArea = new bool[width, height];

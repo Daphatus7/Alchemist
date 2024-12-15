@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc4f2b4e57de46a1a27d190ce97f978c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 0.5
+  attackRange: 1
   damage: 1
   damageCooldown: 1.5
   visualEffectPrefab: {fileID: 3223076601570942459, guid: 3117c91bd90bb4332966bb97f1c3beaa,
