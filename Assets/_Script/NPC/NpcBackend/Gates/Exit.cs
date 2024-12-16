@@ -8,7 +8,6 @@ namespace _Script.NPC.NpcBackend.Gates
         protected override void OnDialogueEnd()
         {
             base.OnDialogueEnd();
-            //Show the map explorer UI
         }
     }
 }

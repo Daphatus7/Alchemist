@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace _Script.Character.ActionStrategy
 {
+    /// <summary>
+    /// Returns the InteractionContext
+    /// </summary>
     [DefaultExecutionOrder(300)]
     public class InteractionBase
     {
@@ -20,6 +23,10 @@ namespace _Script.Character.ActionStrategy
         }
     }
 
+    
+    /// <summary>
+    /// When interacting with an object, the context of the interaction is generated.
+    /// </summary>
     public class InteractionContext
     {
         private readonly RaycastHit2D _hit;
@@ -44,7 +51,7 @@ namespace _Script.Character.ActionStrategy
         {
             if (!_hit.collider) return;
             var interactable = _hit.collider.GetComponent<IInteractable>();
-            interactable?.InteractEnd(player);
+            interactable?.InteractEnd();
         }
 
         public bool Highlight(out IInteractable interactable)

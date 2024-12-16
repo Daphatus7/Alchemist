@@ -132,7 +132,7 @@ namespace _Script.Character
         {
             _playerfoodRoutine ??= StartCoroutine(FoodRoutine());
         }
-
+        
         private void HandleInteraction()
         {
             if (!CursorMovementTracker.HasCursorMoved) return;

@@ -1,4 +1,5 @@
 ﻿using _Script.Inventory.MerchantInventoryBackend;
+using _Script.UserInterface;
 
 namespace _Script.Utilities.ServiceLocator
 {
@@ -11,5 +12,6 @@ namespace _Script.Utilities.ServiceLocator
     {
         void LoadMerchantInventory(MerchantInventory merchantInventory);
         void CloseMerchantInventory();
+        IUIHandler GetUIHandler();
     }
 }

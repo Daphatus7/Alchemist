@@ -2,6 +2,7 @@
 // 03 12 2024 12 02
 
 using System;
+using _Script.UserInterface;
 using UnityEngine;
 
 namespace _Script.NPC.NPCFrontend
@@ -12,7 +13,7 @@ using TMPro;
 
 namespace _Script.NPC.NPCFrontend
 {
-    public class NpcDialogueUI : Singleton<NpcDialogueUI>
+    public class NpcDialogueUI : Singleton<NpcDialogueUI>, IUIHandler
     {
         [Header("UI Elements")]
         [Tooltip("Panel for the dialogue box")]
@@ -40,7 +41,7 @@ namespace _Script.NPC.NPCFrontend
         private void Start()
         {
             // Hide the dialogue panel initially
-            dialoguePanel.SetActive(false);
+            HideUI();
         }
 
         public void OnEnable()
@@ -59,12 +60,11 @@ namespace _Script.NPC.NPCFrontend
             }
         }
         
-
         public void StartDialogue(string[] npcDialogues)
         {
             dialogues = npcDialogues;
             currentDialogueIndex = 0;
-            dialoguePanel.SetActive(true);
+            ShowUI();
             DisplayDialogue(dialogues[currentDialogueIndex]);
         }
 
@@ -113,6 +113,16 @@ namespace _Script.NPC.NPCFrontend
         private void EndDialogue()
         {
             OnDialogueEnd?.Invoke();
+            HideUI();
+        }
+
+        public void ShowUI()
+        {
+            dialoguePanel.SetActive(true);
+        }
+
+        public void HideUI()
+        {
             dialoguePanel.SetActive(false);
         }
     }

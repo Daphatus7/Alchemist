@@ -6,12 +6,14 @@ using _Script.Inventory.InventoryFrontendBase;
 using _Script.Inventory.InventoryFrontendHandler;
 using _Script.Inventory.MerchantInventoryBackend;
 using _Script.Inventory.SlotFrontend;
+using _Script.Managers;
 using _Script.NPC.NpcBackend;
+using _Script.UserInterface;
 using _Script.Utilities.ServiceLocator;
 
 namespace _Script.Inventory.MerchantInventoryFrontend
 {
-    public class MerchantInventoryUI : InventoryUIBase<MerchantInventory>, IMerchantInventoryService, IMerchantHandler    
+    public class MerchantInventoryUI : InventoryUIBase<MerchantInventory>, IMerchantInventoryService, IMerchantHandler   
     {
         public NpcHandlerType HandlerName => NpcHandlerType.Merchant;
         public SlotType SlotType => SlotType.Merchant;
@@ -35,17 +37,28 @@ namespace _Script.Inventory.MerchantInventoryFrontend
         
         public void LoadMerchantInventory(MerchantInventory merchantInventory)
         {
-            ShowInventory();
+            ShowUI();
             AssignInventory(merchantInventory);
             InitializeInventoryUI();
         }
 
         public void CloseMerchantInventory()
         {
-            ClearInventory();
-            HideInventory();
+            HideUI();
+            ConversationManager.Instance.EndConversation();
         }
         
+        
+        public new void HideUI()
+        {
+            ClearInventory();
+            base.HideUI();
+        }
+        public IUIHandler GetUIHandler()
+        {
+            return this;
+        }
+
         public ItemStack Purchase(IPlayerInventoryHandler playerInventory, int slotIndex, int quantity = 1)
         {
             if(playerInventory.RemoveGold(_inventory.Slots[slotIndex].ItemData.Value * _inventory.Slots[slotIndex].Quantity))

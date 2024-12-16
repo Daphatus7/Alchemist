@@ -77,7 +77,7 @@ namespace _Script.Items.Lootable
             PickupItem(player);
         }
 
-        public virtual void InteractEnd(GameObject player) { }
+        public virtual void InteractEnd() { }
 
         public void OnHighlight()
         {

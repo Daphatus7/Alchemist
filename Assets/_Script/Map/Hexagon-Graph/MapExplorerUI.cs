@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using _Script.Managers;
@@ -47,19 +48,27 @@ namespace _Script.Map.Hexagon_Graph
             {
                 hexGameObjectMap[startHex].Highlight(true);
             }
+            
+            //hide the grid initially
+            HideGrid();
         }
 
-        public void Update()
+        private void Update()
         {
             if (Input.GetKeyDown(KeyCode.M))
             {
-                ToggleVisibility();
+                HideGrid();
             }
         }
 
-        private void ToggleVisibility()
+        public void HideGrid()
         {
-            mapGrid.gameObject.SetActive(!mapGrid.gameObject.activeSelf);
+            mapGrid.gameObject.SetActive(false);
+        }
+        
+        public void ShowGrid()
+        {
+            mapGrid.gameObject.SetActive(true);
         }
 
         private void GenerateGridVisuals()
@@ -112,6 +121,9 @@ namespace _Script.Map.Hexagon_Graph
 
             if (_hexGrid.IsAdjacentToPlayer(node) && node.ExplorationState == NodeExplorationState.Revealed)
             {
+                //This is a valid node to explore
+                HideGrid();
+                
                 _hexGrid.MovePlayer(node);
                 node.SetExplorationState(NodeExplorationState.Exploring);
                 handle.SetNodeExploring();

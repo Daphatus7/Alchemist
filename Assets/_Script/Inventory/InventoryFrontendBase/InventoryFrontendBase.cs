@@ -6,12 +6,13 @@ using _Script.Inventory.InventoryFrontend;
 using _Script.Inventory.InventoryFrontendHandler;
 using _Script.Inventory.SlotFrontend;
 using _Script.Items;
+using _Script.UserInterface;
 using UnityEngine;
 
 namespace _Script.Inventory.InventoryFrontendBase
 {
     public abstract class InventoryUIBase<TInventory> : 
-        MonoBehaviour, IContainerUIHandle
+        MonoBehaviour, IContainerUIHandle, IUIHandler
         where TInventory : InventoryBackend.Inventory
     {
         [SerializeField] protected TInventory _inventory;
@@ -25,12 +26,12 @@ namespace _Script.Inventory.InventoryFrontendBase
             gameObject.SetActive(false);
         }
         
-        public void ShowInventory()
+        public void ShowUI()
         {
             gameObject.SetActive(true);
         }
         
-        public void HideInventory()
+        public void HideUI()
         {
             gameObject.SetActive(false);
         }

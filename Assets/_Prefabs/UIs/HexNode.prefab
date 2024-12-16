@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodeImage: {fileID: 3076640658367187889}
+  explorationSprite: {fileID: 0}
   OnNodeClicked:
     m_PersistentCalls:
       m_Calls: []

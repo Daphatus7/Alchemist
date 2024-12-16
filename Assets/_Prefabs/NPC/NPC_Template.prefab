@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 710713777606993700}
   - component: {fileID: 1357107075043979486}
   - component: {fileID: 2642381904087164769}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: NameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 424326558511371869}
   - component: {fileID: 83727879730681288}
   - component: {fileID: 1028801686032175467}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: NPC_Template
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -346,7 +346,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1efbd77082748e78bad0b2299f2b0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsForSale: []
+  itemsForSale:
+  - {fileID: 11400000, guid: 6e6bee1647a8846bf983083159fd3da7, type: 2}
+  - {fileID: 11400000, guid: f10c1a9dfbc8e4b2890a6ece48413d57, type: 2}
+  - {fileID: 11400000, guid: 56fa3d3fbbd6048d4925337da97e2fd9, type: 2}
+  - {fileID: 11400000, guid: 216f7d6a5d1bb4440823743456c9d788, type: 2}
+  - {fileID: 11400000, guid: 9c5c98dc522c849a18698db46dc42cd5, type: 2}
 --- !u!114 &1028801686032175467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,7 +364,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8aa420eaa68412880e6ea9a5a6dc716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcName: 
+  npcName: Ken the Merchant
   dialogueModule:
-    dialogueLines: []
-  dialogueUI: {fileID: 0}
+    dialogueLines:
+    - Hello Traveler
+    - Got Items to sell.
