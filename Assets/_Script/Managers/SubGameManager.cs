@@ -22,7 +22,7 @@ namespace _Script.Managers
         [SerializeField] private ProceduralMapGenerator _map;
         [SerializeField] private Vector2Int _spawnPoint;
         [SerializeField] private Vector2Int _endPoint;
-        [SerializeField] private Vector2Int _mapSize;
+        [SerializeField] private Vector2Int _mapSize; public Vector2Int MapSize => _mapSize;
         [SerializeField] private int _minMapSize = 10;
         [SerializeField] private int _maxMapSize = 100;
         [SerializeField] private SubGameType _subGameType = SubGameType.ResourceGathering;
@@ -30,6 +30,7 @@ namespace _Script.Managers
         
         public bool GenerateMap(out Vector2Int spawnPoint, out Vector2Int endPoint)
         {
+            // Now that the pathfinder is set up, run your map generation based on _subGameType
             switch (_subGameType)
             {
                 case SubGameType.ResourceGathering:

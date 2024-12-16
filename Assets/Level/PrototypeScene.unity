@@ -2173,6 +2173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a6ceacb695340d993899d6a540a17e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _astarPath: {fileID: 204868120}
   _playerCharacter: {fileID: 1361047234}
   startingScene: PrototypeScene
   dungeonLevels:

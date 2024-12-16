@@ -16,6 +16,7 @@ namespace _Script.Managers
     {
         // Service Locator
         private ServiceLocator _serviceLocator;
+        [SerializeField] private AstarPath _astarPath;
 
         [SerializeField] private PlayerCharacter _playerCharacter; public PlayerCharacter GetPlayer()
         {
@@ -195,10 +196,24 @@ namespace _Script.Managers
         }
 
         [SerializeField] private GameObject _spawnBonfirePrefab;
+        
         private void OnMapLoaded(string newScene)
         {
             if (SubGameManager.Instance.GenerateMap(out Vector2Int spawnPoint, out Vector2Int endPoint))
             {
+                var graph = _astarPath.data.gridGraph;
+                graph.nodeSize = 0.5f;
+                graph.width = SubGameManager.Instance.MapSize.x * 2;
+                graph.depth = SubGameManager.Instance.MapSize.y * 2;
+                
+                float totalWidth = graph.width * graph.nodeSize;
+                float totalDepth = graph.depth * graph.nodeSize;
+                
+                graph.center = new Vector3(totalWidth / 2f, totalDepth / 2f, 0);
+
+                graph.SetDimensions(graph.width, graph.depth, graph.nodeSize);
+                AstarPath.active.Scan();
+                
                 MovePlayerToScene(new Vector3(spawnPoint.x, spawnPoint.y, 0), newScene);
                 
                 //Spawn bonfire at the spawn point
