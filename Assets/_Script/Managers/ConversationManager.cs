@@ -20,17 +20,14 @@ namespace _Script.Managers
         {
             if (_conversationInstance != null)
             {
-                Debug.Log("ConversationManager: Conversation already started, closing it and starting a new one");
                 _conversationInstance.TerminateInteraction();
             }
             _conversationInstance = instance;
-            Debug.Log("ConversationManager: Conversation Started");
         }
 
         public void EndConversation()
         {
             if(_conversationInstance == null) return;
-            Debug.Log("ConversationManager: Ending Conversation");
             _conversationInstance.TerminateInteraction();
             _conversationInstance = null;
         }

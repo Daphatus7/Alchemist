@@ -1,5 +1,6 @@
 // Npc.cs
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using _Script.Character;
 using _Script.Interactable;
@@ -11,40 +12,47 @@ using UnityEngine;
 
 namespace _Script.NPC.NpcBackend
 {
+
     [RequireComponent(typeof(Collider2D))]
     public abstract class Npc : MonoBehaviour, IInteractable
     {
         [BoxGroup("Basic Info")]
         [LabelText("NPC Name"), Tooltip("Name of the NPC")]
         public string npcName;
-        
+
         [SerializeField] private DialogueModule dialogueModule;
 
         protected Dictionary<NpcHandlerType, INpcHandler> NpcHandlers;
         private const float DialogueDistance = 1.5f;
-        
+
         private InteractionInstance _conversationInstance;
+        private PlayerCharacter _currentPlayer;
+        private Coroutine _distanceCheckCoroutine;
         
         public void Interact(GameObject player)
         {
-            // Prevent multiple interactions
             if (_conversationInstance != null) return;
 
-            // Create a Conversation Interaction Instance
-            _conversationInstance = new InteractionInstance(this, player.GetComponent<PlayerCharacter>());
-            
-            // Subscribe to the event so NPC can know when the conversation ends
+            _currentPlayer = player.GetComponent<PlayerCharacter>();
+            if (_currentPlayer == null) return;
+
+            _conversationInstance = new InteractionInstance(this, _currentPlayer);
             _conversationInstance.OnInteractionTerminated += OnConversationTerminated;
 
             StartInteraction();
+
+            // Register the dialogue UI as an IUIHandler so it can be closed automatically
+            AddMoreUIHandlers(NpcDialogueUI.Instance);
+            
+            // Start a coroutine to monitor player distance
+            _distanceCheckCoroutine = StartCoroutine(CheckPlayerDistance());
         }
 
         public void InteractEnd()
         {
             if(_conversationInstance == null) return;
-            // NPC actively ends the conversation
             _conversationInstance.TerminateInteraction();
-            // The event OnInteractionTerminated will be invoked from inside TerminateInteraction()
+            // OnConversationTerminated will be called from within TerminateInteraction
         }
 
         public void AddMoreUIHandlers(IUIHandler handler)
@@ -54,7 +62,7 @@ namespace _Script.NPC.NpcBackend
                 _conversationInstance.AddNpcUIHandler(handler);
             }
         }
-        
+
         public void RemoveUIHandler(IUIHandler handler)
         {
             if(_conversationInstance != null)
@@ -66,30 +74,61 @@ namespace _Script.NPC.NpcBackend
         public void OnHighlight() { }
 
         public void OnHighlightEnd() { }
-        
+
         private void StartInteraction()
         {
             var check = Physics2D.OverlapCircle(transform.position, DialogueDistance, LayerMask.GetMask("Player"));
             if (check == null) return;
-            
+
+            // Start Dialogue
             NpcDialogueUI.Instance.StartDialogue(dialogueModule.dialogueLines);
             NpcDialogueUI.Instance.OnDialogueEnd += OnDialogueEnd;
         }
-        
+
         protected virtual void OnDialogueEnd()
         {
-            Debug.Log("Npc: Dialogue ended from UI side");
             NpcDialogueUI.Instance.OnDialogueEnd -= OnDialogueEnd;
-            // Here you may want to let the ConversationInstance know the dialogue ended logically
-            // But if you're just waiting for the player to close or manager to end, it's optional.
+            // Here we just stop listening, we don't end the conversation yet
+            // Ending conversation can be triggered by player leaving or NPC calling InteractEnd()
         }
 
         private void OnConversationTerminated()
         {
-            // This method gets called when InteractionInstance is terminated from anywhere
-            Debug.Log($"Npc: Conversation Terminated Notification Received");
             _conversationInstance.OnInteractionTerminated -= OnConversationTerminated;
             _conversationInstance = null;
+
+            // Stop distance checking if it's still running
+            if (_distanceCheckCoroutine != null)
+            {
+                StopCoroutine(_distanceCheckCoroutine);
+                _distanceCheckCoroutine = null;
+            }
+
+            _currentPlayer = null;
+        }
+
+        /// <summary>
+        /// Coroutine to continuously check the player's distance from the NPC.
+        /// If the player leaves the allowed range, end the conversation.
+        /// </summary>
+        private IEnumerator CheckPlayerDistance()
+        {
+            while (_conversationInstance != null)
+            {
+                if (_currentPlayer != null)
+                {
+                    float distance = Vector3.Distance(transform.position, _currentPlayer.transform.position);
+                    // If player goes beyond DialogueDistance, end the conversation.
+                    if (distance > DialogueDistance)
+                    {
+                        Debug.Log("Npc: Player left interaction range, ending conversation.");
+                        InteractEnd();
+                        yield break;
+                    }
+                }
+
+                yield return new WaitForSeconds(0.3f); 
+            }
         }
     }
 
