@@ -20,13 +20,13 @@ namespace _Script.NPC.NpcBackend
         
         [SerializeField] private DialogueModule dialogueModule;
 
-        [SerializeField] private NpcDialogueUI dialogueUI;
-        protected Dictionary<NpcHandlerType, INpcHandler> _npcHandlers;
+        private NpcDialogueUI _dialogueUI;
+        protected Dictionary<NpcHandlerType, INpcHandler> NpcHandlers;
         private const float DialogueDistance = 1.5f;
 
         protected void Awake()
         {
-            dialogueUI = NpcDialogueUI.Instance;
+            _dialogueUI = NpcDialogueUI.Instance;
         }
 
         public void OnMouseDown()
@@ -35,14 +35,14 @@ namespace _Script.NPC.NpcBackend
             if (check == null) return;
             
             
-            dialogueUI.StartDialogue(dialogueModule.dialogueLines);
-            dialogueUI.OnDialogueEnd += OnDialogueEnd;
+            _dialogueUI.StartDialogue(dialogueModule.dialogueLines);
+            _dialogueUI.OnDialogueEnd += OnDialogueEnd;
         }
 
         protected virtual void OnDialogueEnd()
         {
-            Debug.Log("sub" + _npcHandlers);
-            dialogueUI.OnDialogueEnd -= OnDialogueEnd;
+            Debug.Log("sub" + NpcHandlers);
+            _dialogueUI.OnDialogueEnd -= OnDialogueEnd;
         }
     }
 

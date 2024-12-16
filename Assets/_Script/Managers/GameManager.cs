@@ -75,7 +75,7 @@ namespace _Script.Managers
         /// <summary>
         /// Loads a scene additively (in addition to the current main scene and other additive scenes).
         /// </summary>
-        public void AddScene(MapNode sceneData)
+        public void LoadSelectedScene(MapNode sceneData)
         {
             // Avoid adding a scene that's already loaded
             if (loadedAdditiveScenes.Contains(sceneData.MapName))
@@ -93,7 +93,6 @@ namespace _Script.Managers
             if(currentAdditiveScene != null)
                 UnloadAdditiveScene(currentAdditiveScene);
             else Debug.LogWarning("No current additive scene to unload");
-            
             UpdateGlobalUpdaters();
         }
         

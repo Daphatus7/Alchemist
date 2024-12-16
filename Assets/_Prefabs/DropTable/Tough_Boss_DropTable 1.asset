@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d77b88c96164bd4925cdb1afad484d6, type: 3}
+  m_Name: Tough_Boss_DropTable 1
+  m_EditorClassIdentifier: 
+  drops:
+  - item: {fileID: 11400000, guid: 5c653fba37153457a98c54a75dea61d3, type: 2}
+    dropChance: 0.1
+    minAmount: 0
+    maxAmount: 1
+    isUnique: 0
+  - item: {fileID: 11400000, guid: 7c1e480cf86124971bbc0dfdfed5c2a7, type: 2}
+    dropChance: 0.1
+    minAmount: 0
+    maxAmount: 1
+    isUnique: 0
+  - item: {fileID: 11400000, guid: 82ae9c7bb14494e49975db7b82705143, type: 2}
+    dropChance: 0.1
+    minAmount: 0
+    maxAmount: 1
+    isUnique: 0
+  - item: {fileID: 11400000, guid: 04db07988a6a641fd913d449ab8992ce, type: 2}
+    dropChance: 0.1
+    minAmount: 0
+    maxAmount: 1
+    isUnique: 0
+  - item: {fileID: 11400000, guid: 581e2650dab60455f810f8bf459dc454, type: 2}
+    dropChance: 0.3
+    minAmount: 0
+    maxAmount: 1
+    isUnique: 0

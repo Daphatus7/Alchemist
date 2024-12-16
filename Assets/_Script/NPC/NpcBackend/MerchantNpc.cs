@@ -9,7 +9,7 @@ namespace _Script.NPC.NpcBackend
     {
         protected void Awake()
         {
-            _npcHandlers = new Dictionary<NpcHandlerType, INpcHandler>
+            NpcHandlers = new Dictionary<NpcHandlerType, INpcHandler>
             {
                 { NpcHandlerType.Merchant, GetComponent<MerchantUnit>() }
             };
@@ -18,7 +18,7 @@ namespace _Script.NPC.NpcBackend
         protected override void OnDialogueEnd()
         {
             base.OnDialogueEnd();
-            _npcHandlers[NpcHandlerType.Merchant].LoadNpcModule();
+            NpcHandlers[NpcHandlerType.Merchant].LoadNpcModule();
         }
     }
 }

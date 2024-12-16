@@ -7,8 +7,9 @@ namespace _Script.Map.Hexagon_Graph
     public class HexGrid
     {
         private Dictionary<(int x, int y, int z), HexNode> hexNodes = new Dictionary<(int, int, int), HexNode>();
+        private Dictionary<(int x, int y, int z), List<HexNode>> _neighborsCache = new Dictionary<(int, int, int), List<HexNode>>();
 
-        private readonly int viewRadius = 5;
+        private const int ViewRadius = 2;
         private readonly int _gridRadius;
         public float HexSize;
         private readonly GridConfiguration _gridConfiguration;
@@ -21,11 +22,6 @@ namespace _Script.Map.Hexagon_Graph
         private int _bossWeight;
 
         private Vector3Int _playerPosition;
-
-        // 为了快速获取邻居，将每个节点的邻居提前计算并存储
-        // 在 GenerateGrid 完成后执行预计算邻居
-        // key为节点坐标, value为邻居列表
-        private Dictionary<(int x, int y, int z), List<HexNode>> _neighborsCache = new Dictionary<(int, int, int), List<HexNode>>();
 
         public HexGrid(int gridRadius, float hexSize, GridConfiguration gridConfiguration)
         {
@@ -50,30 +46,16 @@ namespace _Script.Map.Hexagon_Graph
         private NodeType GenerateHexType()
         {
             int rand = UnityEngine.Random.Range(0, _weightSum);
-            if (rand < _obstacleWeight)
-            {
-                return NodeType.Obstacle;
-            }
-            if (rand < _resourceWeight)
-            {
-                return NodeType.Resource;
-            }
-            if (rand < _enemyWeight)
-            {
-                return NodeType.Enemy;
-            }
-            if (rand < _campfireWeight)
-            {
-                return NodeType.Campfire;
-            }
+            if (rand < _obstacleWeight) return NodeType.Obstacle;
+            if (rand < _resourceWeight) return NodeType.Resource;
+            if (rand < _enemyWeight) return NodeType.Enemy;
+            if (rand < _campfireWeight) return NodeType.Campfire;
             return NodeType.Boss;
         }
 
-        // 预生成整个Hex网格
         private void GenerateGrid()
         {
             hexNodes.Clear();
-
             for (int x = -_gridRadius; x <= _gridRadius; x++)
             {
                 for (int y = Mathf.Max(-_gridRadius, -x - _gridRadius); y <= Mathf.Min(_gridRadius, -x + _gridRadius); y++)
@@ -86,7 +68,6 @@ namespace _Script.Map.Hexagon_Graph
             }
         }
 
-        // 预计算所有节点的邻居列表
         private void PrecomputeNeighbors()
         {
             foreach (var kvp in hexNodes)
@@ -107,7 +88,6 @@ namespace _Script.Map.Hexagon_Graph
             }
         }
 
-        // 不再动态生成节点，直接从已有字典中获取
         public HexNode GetHexNode(int x, int y, int z)
         {
             hexNodes.TryGetValue((x, y, z), out HexNode hexNode);
@@ -119,10 +99,21 @@ namespace _Script.Map.Hexagon_Graph
             return hexNodes.Values;
         }
 
+        public IEnumerable<HexNode> GetAllVisibleHexNodes()
+        {
+            foreach (var node in hexNodes.Values)
+            {
+                if (node.ExplorationState != NodeExplorationState.Unrevealed)
+                {
+                    yield return node;
+                }
+            }
+        }
+
         public List<HexNode> GetHexNodesInView(HexNode playerNode)
         {
             List<HexNode> nodesInView = new List<HexNode>();
-            int radius = viewRadius;
+            int radius = ViewRadius;
 
             for (int dx = -radius; dx <= radius; dx++)
             {
@@ -142,8 +133,6 @@ namespace _Script.Map.Hexagon_Graph
             return nodesInView;
         }
 
-        // 优化A*：使用一个优先队列（小顶堆）代替List的线性搜索
-        // 这里为演示，将使用一个简单的自定义比较器和 SortedSet 或者构建一个简单的优先队列类
         private class NodeComparer : IComparer<HexNode>
         {
             public int Compare(HexNode a, HexNode b)
@@ -229,7 +218,6 @@ namespace _Script.Map.Hexagon_Graph
 
         public bool IsAdjacentToPlayer(HexNode node)
         {
-            // 获取玩家节点
             var playerNode = GetHexNode(_playerPosition.x, _playerPosition.y, _playerPosition.z);
             if (playerNode == null)
             {
@@ -246,12 +234,8 @@ namespace _Script.Map.Hexagon_Graph
             _playerPosition = node.Position;
         }
 
-        // 生成玩家出生点的方法 
-        // 策略：从中心开始寻找一个非Obstacle节点作为出生点
         public Vector3Int GenerateSpawnPoint()
         {
-            // 优先选择(0,0,0)作为出生点，如果是障碍，则向外扩散搜索
-            // 或者随机选取一个非Obstacle的节点
             HexNode startNode = GetHexNode(0, 0, 0);
             if (startNode != null && startNode.NodeType != NodeType.Obstacle)
             {
@@ -259,7 +243,6 @@ namespace _Script.Map.Hexagon_Graph
                 return _playerPosition;
             }
 
-            // 如果(0,0,0)是障碍，从附近节点寻找
             int searchRadius = _gridRadius;
             for (int r = 1; r <= searchRadius; r++)
             {
@@ -277,17 +260,69 @@ namespace _Script.Map.Hexagon_Graph
                 }
             }
 
-            // 理论上不应发生：整个地图全是障碍
             Debug.LogError("No valid spawn point found.");
             _playerPosition = Vector3Int.zero;
             return _playerPosition;
         }
 
-        // 玩家出生点放置完成后，可以在外部再调用 SpawnPlayer 函数对玩家物理对象进行初始化
         public Vector3Int SpawnPlayer()
         {
-            // 这里直接使用生成好的_spwanPoint
             return _playerPosition;
+        }
+
+        // Reveal a single node
+        public void RevealHexNode(int x, int y, int z)
+        {
+            var node = GetHexNode(x, y, z);
+            if (node != null && node.ExplorationState == NodeExplorationState.Unrevealed)
+            {
+                node.SetExplorationState(NodeExplorationState.Revealed);
+            }
+        }
+
+        // Reveal nodes around a given node position within the default view radius
+        public void RevealHexNodeInRange(int x, int y, int z, int radius)
+        {
+            var centerNode = GetHexNode(x, y, z);
+            if (centerNode == null) return;
+
+            for (int dx = -radius; dx <= radius; dx++)
+            {
+                for (int dy = Mathf.Max(-radius, -dx - radius); dy <= Mathf.Min(radius, -dx + radius); dy++)
+                {
+                    int dz = -dx - dy;
+                    int nx = centerNode.Position.x + dx;
+                    int ny = centerNode.Position.y + dy;
+                    int nz = centerNode.Position.z + dz;
+
+                    var node = GetHexNode(nx, ny, nz);
+                    if (node != null && node.ExplorationState == NodeExplorationState.Unrevealed)
+                    {
+                        node.SetExplorationState(NodeExplorationState.Revealed);
+                    }
+                }
+            }
+        }
+
+        // Reveal nodes around a given node position within a specified radius
+        public void RevealSurroundingNodes(HexNode centerNode, int radius)
+        {
+            for (int dx = -radius; dx <= radius; dx++)
+            {
+                for (int dy = Mathf.Max(-radius, -dx - radius); dy <= Mathf.Min(radius, -dx + radius); dy++)
+                {
+                    int dz = -dx - dy;
+                    int nx = centerNode.Position.x + dx;
+                    int ny = centerNode.Position.y + dy;
+                    int nz = centerNode.Position.z + dz;
+
+                    var node = GetHexNode(nx, ny, nz);
+                    if (node != null && node.ExplorationState == NodeExplorationState.Unrevealed)
+                    {
+                        node.SetExplorationState(NodeExplorationState.Revealed);
+                    }
+                }
+            }
         }
     }
 }

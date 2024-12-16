@@ -18,14 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3882601236459401676
-Transform:
+--- !u!224 &3882601236459401676
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6433681014328642089}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -35,6 +34,11 @@ Transform:
   - {fileID: 5346019080162810905}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &938428937724180972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,8 +51,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 436316c762924f9e96eee11476be7006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iconRenderer: {fileID: 3076640658367187889}
-  highlightRenderer: {fileID: 8724354714119153001}
+  nodeImage: {fileID: 3076640658367187889}
+  OnNodeClicked:
+    m_PersistentCalls:
+      m_Calls: []
+  OnNodeEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnNodeLeave:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!60 &9164059441449572013
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -88,7 +100,7 @@ PolygonCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.8, y: 0.92}
-    newSize: {x: 0.92, y: 0.8}
+    newSize: {x: 0.8, y: 0.92}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -122,14 +134,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5346019080162810905
-Transform:
+--- !u!224 &5346019080162810905
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6652861280140033450}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -137,6 +148,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3882601236459401676}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0.8, y: 0.92}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &3076640658367187889
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -209,15 +225,14 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6360622518810255150
-Transform:
+  m_IsActive: 0
+--- !u!224 &6360622518810255150
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6744014589892381764}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -225,6 +240,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3882601236459401676}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0.88, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &8724354714119153001
 SpriteRenderer:
   m_ObjectHideFlags: 0

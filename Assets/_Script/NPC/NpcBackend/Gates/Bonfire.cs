@@ -1,13 +1,12 @@
 // Author : Peiyu Wang @ Daphatus
 // 07 12 2024 12 21
 
-using System;
 using _Script.Character;
 using _Script.Managers;
 using _Script.Places;
 using UnityEngine;
 
-namespace _Script.NPC.NpcBackend
+namespace _Script.NPC.NpcBackend.Gates
 {
     public class Bonfire : Npc
     {
@@ -17,7 +16,9 @@ namespace _Script.NPC.NpcBackend
             Debug.Log("Bonfire is lit");
             PlaceManager.Instance.TeleportPlayerToTown(GameManager.Instance.GetPlayer());
             
+            //Mark the current dungeon as completed
             GameManager.Instance.UnloadCurrentAdditiveScene();
+            //MapExplorerUI.Instance.MarkExploringNodeAsCompleted();
         }
 
         private PlayerCharacter _player;

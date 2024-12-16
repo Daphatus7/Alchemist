@@ -8,12 +8,11 @@ using Unity.Properties;
 
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "MeleeAttack", story: "[Agent] attacks [Target]", category: "Action", id: "fdaa1fed8d7e2b9432ca0b08451f06cf")]
-public partial class MeleeAttackAction : Action
+public class MeleeAttackAction : Action
 {
     [SerializeReference] public BlackboardVariable<GameObject> Agent;
     [SerializeReference] public BlackboardVariable<Transform> Target;
     [SerializeReference] public BlackboardVariable<GameObject> ProjectilePrefab;
-
     
     protected override Status OnStart()
     {
@@ -25,8 +24,7 @@ public partial class MeleeAttackAction : Action
         }
         attackAbility.UseAbility(Target.Value);
         Helper.CreateWorldText("Attacking", null,
-            Agent.Value.transform.position, 30, Color.white,
-            TextAnchor.MiddleCenter);
+            Agent.Value.transform.position, 30, Color.white, TextAnchor.MiddleCenter);
         return Status.Success;
     }
 

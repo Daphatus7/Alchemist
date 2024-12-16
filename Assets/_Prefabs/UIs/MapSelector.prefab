@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3556588023441221011
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4718120455489658028}
+  - component: {fileID: 1265017803286737570}
+  m_Layer: 0
+  m_Name: MapSelector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4718120455489658028
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3556588023441221011}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 42.276157}
+  m_LocalScale: {x: 51.8, y: 51.8, z: 51.8}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7735644786357964377}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 2.5356426, y: 0.15609062}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1265017803286737570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3556588023441221011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c379ef729a40e49ab3e6e809bfe79b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hexSize: 0.37
+  gridRadius: 10
+  gridVisibility: 2
+  hexPrefab: {fileID: 6433681014328642089, guid: f5eb3ca69732742d088f71f6303606a1,
+    type: 3}
+  mapGrid: {fileID: 5516263826922473633}
+  emptyNodeSprite: {fileID: 8995154407686431259, guid: 6f99e886420bf46dd8eedb7c248fdf4f,
+    type: 3}
+  resourceNodeSprite: {fileID: 4803058499316172315, guid: cf753e7f4707042b09c30779e1cbe9d6,
+    type: 3}
+  enemyNodeSprite: {fileID: 7674010233824815993, guid: 64605ab1c3d1142aca0e11405c23e389,
+    type: 3}
+  campfireNodeSprite: {fileID: -7577987904384952429, guid: 0e6686a2e8f894628938f3fdf55bb0e6,
+    type: 3}
+  obstacleNodeSprite: {fileID: -7799593173059350681, guid: 93833f8c1f1d54b0ba182be0e2e5d3cf,
+    type: 3}
+  bossNodeSprite: {fileID: 5226876553895818381, guid: 2ede45d3d7d354900ba6ee5691866dcd,
+    type: 3}
+--- !u!1 &5734593686168349105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7735644786357964377}
+  - component: {fileID: 5516263826922473633}
+  m_Layer: 0
+  m_Name: HexMap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7735644786357964377
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5734593686168349105}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4718120455489658028}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 120, y: 120}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!156049354 &5516263826922473633
+Grid:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5734593686168349105}
+  m_Enabled: 1
+  m_CellSize: {x: 1, y: 1, z: 1}
+  m_CellGap: {x: 0, y: 0, z: 0}
+  m_CellLayout: 1
+  m_CellSwizzle: 0

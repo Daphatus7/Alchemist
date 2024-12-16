@@ -8,6 +8,15 @@ using UnityEngine;
 
 namespace _Script.Managers
 {
+
+    public enum SubGameType
+    {
+        ResourceGathering, // Harvesting, Mining, Lumbering, etc.
+        Dungeon, // Dungeon crawling with enemies and loot
+        BossFight, // Boss fight with unique mechanics
+        Bonfire, // Resting and upgrading
+    }
+    
     public class SubGameManager: Singleton<SubGameManager>
     {
         [SerializeField] private ProceduralMapGenerator _map;
@@ -16,17 +25,53 @@ namespace _Script.Managers
         [SerializeField] private Vector2Int _mapSize;
         [SerializeField] private int _minMapSize = 10;
         [SerializeField] private int _maxMapSize = 100;
-
-
-        private Vector2Int GenerateMapSize()
-        {
-            return new Vector2Int(UnityEngine.Random.Range(_minMapSize, _maxMapSize), UnityEngine.Random.Range(_minMapSize, _maxMapSize));
-        }
+        [SerializeField] private SubGameType _subGameType = SubGameType.ResourceGathering;
+        
         
         public bool GenerateMap(out Vector2Int spawnPoint, out Vector2Int endPoint)
         {
+            switch (_subGameType)
+            {
+                case SubGameType.ResourceGathering:
+                    return ResourceGathering_MapGeneration(out spawnPoint, out endPoint);
+                case SubGameType.Dungeon:
+                    return Dungeon_MapGeneration(out spawnPoint, out endPoint);
+                case SubGameType.BossFight:
+                    return BossFight_MapGeneration(out spawnPoint, out endPoint);
+                case SubGameType.Bonfire:
+                    return BonfireMap_Generation(out spawnPoint, out endPoint);
+                default:
+                    return BonfireMap_Generation(out spawnPoint, out endPoint);
+            }
+        }
+        
+        private bool ResourceGathering_MapGeneration(out Vector2Int spawnPoint, out Vector2Int endPoint)
+        {
             _mapSize = GenerateMapSize();
             return _map.GenerateMap(_mapSize.x, _mapSize.y,  out spawnPoint, out endPoint);
+        }
+        
+        private bool Dungeon_MapGeneration(out Vector2Int spawnPoint, out Vector2Int endPoint)
+        {
+            _mapSize = GenerateMapSize();
+            return _map.GenerateMap(_mapSize.x, _mapSize.y,  out spawnPoint, out endPoint);
+        }
+        
+        private bool BossFight_MapGeneration(out Vector2Int spawnPoint, out Vector2Int endPoint)
+        {
+            _mapSize = GenerateMapSize();
+            return _map.GenerateMap(_mapSize.x, _mapSize.y,  out spawnPoint, out endPoint);
+        }
+        
+        private bool BonfireMap_Generation(out Vector2Int spawnPoint, out Vector2Int endPoint)
+        {
+            _mapSize = GenerateMapSize();
+            return _map.GenerateMap(_mapSize.x, _mapSize.y,  out spawnPoint, out endPoint);
+        }
+        
+        private Vector2Int GenerateMapSize()
+        {
+            return new Vector2Int(UnityEngine.Random.Range(_minMapSize, _maxMapSize), UnityEngine.Random.Range(_minMapSize, _maxMapSize));
         }
         
         [Button("Generate Map")]

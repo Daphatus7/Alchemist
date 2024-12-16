@@ -4,8 +4,9 @@ namespace _Script.Map.Hexagon_Graph
 {
     public interface INodeHandle
     {
-        void Highlight(bool isHighlighted);
         Vector3Int GetPosition();
+        void Highlight(bool state);
         void SetNodeComplete();
+        void SetNodeExploring();
     }
 }
