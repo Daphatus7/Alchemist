@@ -1,13 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using _Script.Character;
 using _Script.Managers.GlobalUpdater;
-using _Script.Map;
-using _Script.Map.WorldMap;
 using _Script.Map.WorldMap.MapNode;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #endif
@@ -16,46 +13,16 @@ namespace _Script.Managers
 {
     public class GameManager : Singleton<GameManager>
     {
-        // Service Locator
         private ServiceLocator _serviceLocator;
-        [SerializeField] private AstarPath _astarPath;
 
-        [SerializeField] private PlayerCharacter _playerCharacter; public PlayerCharacter GetPlayer()
-        {
-            return _playerCharacter;
-        }
-        [SerializeField] private string startingScene = "PrototypeScene";
-        [SerializeField] private List<string> dungeonLevels;
-        
+        [SerializeField] private PlayerCharacter _playerCharacter;
+        [SerializeField] private string startingScene = "TownMap";
+
         private List<IGlobalUpdate> _globalUpdaters = new List<IGlobalUpdate>();
-        
-        
-        private void UpdateGlobalUpdaters()
-        {
-            Debug.Log("Updating global updaters + placed in a improper lines of code, remove it later");
-            foreach (var updater in _globalUpdaters)
-            {
-                updater.Refresh();
-            }
-        }
-        
-        public void RegisterGlobalUpdater(IGlobalUpdate updater)
-        {
-            _globalUpdaters.Add(updater);
-        }
-        
-        public void UnregisterGlobalUpdater(IGlobalUpdate updater)
-        {
-            _globalUpdaters.Remove(updater);
-        }
 
-        // Track the main (or primary) currently loaded scene
-        private string currentMainScene;
-        private string currentAdditiveScene;
-
-        // Keep track of all currently loaded additive scenes
-        private List<string> loadedAdditiveScenes = new List<string>();
-
+        // Reference to the LevelManager
+        [SerializeField] private LevelManager _levelManager;
+        
         private void Start()
         {
             // Initialize Service Locator
@@ -63,210 +30,60 @@ namespace _Script.Managers
 
             // Ensure persistent objects like the player and manager
             MakePersistentObjects();
-        }
-
-
-        /// <summary>
-        /// Loads a new scene as the main scene (non-additive). Unloads any previously loaded main scene and all additive scenes.
-        /// </summary>
-        public void LoadMainScene(string sceneName)
-        {
-            if (sceneName == currentMainScene) return;
-            StartCoroutine(LoadMainSceneAsync(sceneName));
-        }
-
-        /// <summary>
-        /// Loads a scene additively (in addition to the current main scene and other additive scenes).
-        /// </summary>
-        public void LoadSelectedScene(NodeData nodeData)
-        {
-            // Avoid adding a scene that's already loaded
-            if (loadedAdditiveScenes.Contains(nodeData.MapName))
-            {
-                Debug.LogWarning($"Scene {nodeData.MapName} is already loaded.");
-                return;
-            }
             
-            currentAdditiveScene = nodeData.MapName;
-            StartCoroutine(AddSceneAsync(nodeData));
-        }
-        
-        public void UnloadCurrentAdditiveScene()
-        {
-            if(currentAdditiveScene != null)
-                UnloadAdditiveScene(currentAdditiveScene);
-            else Debug.LogWarning("No current additive scene to unload");
-            UpdateGlobalUpdaters();
-        }
-        
-        
-        /// <summary>
-        /// Unloads a currently loaded additive scene.
-        /// </summary>
-        private void UnloadAdditiveScene(string sceneName)
-        {
-            if (loadedAdditiveScenes.Contains(sceneName))
-            {
-                currentAdditiveScene = null;
-                StartCoroutine(UnloadSceneAsync(sceneName));
-            }
+            // Initialize LevelManager and pass references it needs (if not directly assigned via inspector)
+            _levelManager.Initialize(_playerCharacter, startingScene);
+
+            // Optionally load the starting scene or handle any other initial logic
+            _levelManager.LoadMainScene(startingScene);
         }
 
-        /// <summary>
-        /// Moves the player to a position in a specific target scene. Ensures the target scene is loaded additively.
-        /// </summary>
-        public void MovePlayerToScene(Vector3 spawnPosition, string targetScene)
+        public PlayerCharacter GetPlayer()
         {
-            if (loadedAdditiveScenes.Contains(targetScene))
-            {
-                _playerCharacter.transform.position = spawnPosition;
-                Debug.Log($"Player moved to {spawnPosition} in scene {targetScene}.");
-            }
-            else
-            {
-                Debug.LogWarning($"Scene {targetScene} is not loaded. Player cannot be moved.");
-            }
+            return _playerCharacter;
         }
-        
-        /// <summary>
-        /// Ensure persistent objects like the player are not destroyed across scenes.
-        /// </summary>
+
         private void MakePersistentObjects()
         {
             DontDestroyOnLoad(gameObject);
             DontDestroyOnLoad(_playerCharacter.gameObject);
         }
 
-        #region Private Coroutines and Helpers
-
-        private IEnumerator LoadMainSceneAsync(string sceneName)
+        // Global updaters
+        private void UpdateGlobalUpdaters()
         {
-            // Unload the current main scene if there is one
-            if (!string.IsNullOrEmpty(currentMainScene))
+            Debug.Log("Updating global updaters - Consider removing this log in production");
+            foreach (var updater in _globalUpdaters)
             {
-                yield return SceneManager.UnloadSceneAsync(currentMainScene);
-                currentMainScene = null;
-            }
-
-            // Unload all additive scenes before loading a new main scene
-            UnloadAllAdditiveScenes();
-            loadedAdditiveScenes.Clear();
-
-            // Using a coroutine to simulate a load; uncomment the lines below if you need actual async load
-            // AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-            // while (!asyncLoad.isDone)
-            // {
-            //     Debug.Log($"Loading main scene {sceneName}: {asyncLoad.progress * 100}%");
-            //     yield return null;
-            // }
-
-            currentMainScene = sceneName;
-            Debug.Log($"Main scene {sceneName} has been loaded.");
-        }
-        
-        private IEnumerator AddSceneAsync(NodeData nodeData)
-        {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nodeData.MapName, LoadSceneMode.Additive);
-            while (!asyncLoad.isDone)
-            {
-                Debug.Log($"Loading additive scene {nodeData.MapName}: {asyncLoad.progress * 100}%");
-                yield return null;
-            }
-
-            // Ensure the scene is active if required
-            Scene loadedScene = SceneManager.GetSceneByName(nodeData.MapName);
-            if (loadedScene.IsValid())
-            {
-                SceneManager.SetActiveScene(loadedScene);
-            }
-
-            loadedAdditiveScenes.Add(nodeData.MapName);
-            Debug.Log($"Additive scene {nodeData.MapName} has been loaded.");
-            
-            //The scene is loaded but not the map, now generate the map
-            //wait
-            OnMapLoaded(nodeData);
-        }
-
-        [SerializeField] private GameObject _spawnBonfirePrefab;
-        
-        
-        /// <summary>
-        /// When generating an procedural map
-        /// </summary>
-        private void OnMapLoaded(NodeData nodeData)
-        {
-            if (SubGameManager.Instance.GenerateMap(nodeData, out Vector2Int spawnPoint, out Vector2Int endPoint))
-            {
-                // Set up the A* pathfinding grid graph
-                var graph = _astarPath.data.gridGraph;
-                graph.nodeSize = 0.5f;
-                graph.width = SubGameManager.Instance.MapSize.x * 2;
-                graph.depth = SubGameManager.Instance.MapSize.y * 2;
-                
-                float totalWidth = graph.width * graph.nodeSize;
-                float totalDepth = graph.depth * graph.nodeSize;
-                
-                graph.center = new Vector3(totalWidth / 2f, totalDepth / 2f, 0);
-
-                graph.SetDimensions(graph.width, graph.depth, graph.nodeSize);
-                AstarPath.active.Scan();
-                
-                // Move the player to the spawn point in the new scene
-                MovePlayerToScene(new Vector3(spawnPoint.x, spawnPoint.y, 0), nodeData.MapName);
-                
-                //Spawn bonfire at the spawn point
-                Instantiate(_spawnBonfirePrefab, new Vector3(endPoint.x, endPoint.y, 0), Quaternion.identity);
+                updater.Refresh();
             }
         }
 
-        private IEnumerator UnloadSceneAsync(string sceneName)
+        public void RegisterGlobalUpdater(IGlobalUpdate updater)
         {
-            if (SceneManager.GetSceneByName(sceneName).isLoaded)
-            {
-                // Set a fallback scene if the scene being unloaded is the active scene
-                if (SceneManager.GetActiveScene().name == sceneName && !string.IsNullOrEmpty(currentMainScene))
-                {
-                    SceneManager.SetActiveScene(SceneManager.GetSceneByName(currentMainScene));
-                }
-
-                AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync(sceneName);
-                while (asyncUnload != null && !asyncUnload.isDone)
-                {
-                    Debug.Log($"Unloading scene {sceneName}: {asyncUnload.progress * 100}%");
-                    yield return null;
-                }
-
-                loadedAdditiveScenes.Remove(sceneName);
-                Debug.Log($"Scene {sceneName} has been unloaded.");
-            }
+            _globalUpdaters.Add(updater);
         }
 
-        private IEnumerator ReloadMainSceneAsync(string sceneName)
+        public void UnregisterGlobalUpdater(IGlobalUpdate updater)
         {
-            yield return SceneManager.UnloadSceneAsync(sceneName);
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-
-            while (!asyncLoad.isDone)
-            {
-                Debug.Log($"Reloading {sceneName}: {asyncLoad.progress * 100}%");
-                yield return null;
-            }
-
-            currentMainScene = sceneName;
-            Debug.Log($"{sceneName} has been reloaded.");
+            _globalUpdaters.Remove(updater);
         }
-        
-        /// <summary>
-        /// Unloads all currently loaded additive scenes.
-        /// </summary>
-        private void UnloadAllAdditiveScenes()
+
+        // Methods to interface with the LevelManager
+        public void LoadSelectedScene(NodeData nodeData)
         {
-            foreach (var scene in loadedAdditiveScenes)
-            {
-                StartCoroutine(UnloadSceneAsync(scene));
-            }
+            _levelManager.LoadSelectedScene(nodeData);
         }
-        #endregion
+
+        public void UnloadCurrentAdditiveScene()
+        {
+            _levelManager.UnloadCurrentAdditiveScene();
+            UpdateGlobalUpdaters();
+        }
+
+        public void MovePlayerToScene(Vector3 spawnPosition, string targetScene)
+        {
+            _levelManager.MovePlayerToScene(spawnPosition, targetScene);
+        }
     }
 }
