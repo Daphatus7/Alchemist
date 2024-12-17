@@ -389,7 +389,39 @@ MonoBehaviour:
     _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
     _AreaColors:
     - {r: 0, g: 0, b: 0, a: 0}
-  tagNames: []
+  tagNames:
+  - Basic Ground
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
   heuristic: 2
   heuristicScale: 1
   threadCount: 1
@@ -1394,7 +1426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _astarPath: {fileID: 204868120}
-  _spawnBonfirePrefab: {fileID: 379468172664703565, guid: 7f7e98fb9779a4befaf90666cfa5488a,
+  _spawnBonfirePrefab: {fileID: 379468172664703565, guid: def4f0ec6ac2a4d03a04be467d6e0406,
     type: 3}
   _townScene: TownMap
 --- !u!1 &1008984777
@@ -2513,6 +2545,16 @@ PrefabInstance:
       objectReference: {fileID: 1361047259}
     - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
         type: 3}
+      propertyPath: health
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: healthMax
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
       propertyPath: _actionBarUI
       value: 
       objectReference: {fileID: 762694988}
@@ -2526,6 +2568,11 @@ PrefabInstance:
       propertyPath: _rigidbody2D
       value: 
       objectReference: {fileID: 1361047259}
+    - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: foodDuration
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
         type: 3}
       propertyPath: _inventoryManager

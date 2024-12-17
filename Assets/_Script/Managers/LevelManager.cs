@@ -123,7 +123,6 @@ namespace _Script.Managers
 
             loadedAdditiveScenes.Add(nodeData.MapName);
             Debug.Log($"Additive scene {nodeData.MapName} has been loaded.");
-
             
             if (!string.IsNullOrEmpty(currentMainScene))
             {
@@ -131,7 +130,7 @@ namespace _Script.Managers
                 currentMainScene = null;
             }
             
-            OnMapLoaded(nodeData);
+            OnMapFinishedLoading(nodeData);
         }
 
         
@@ -193,10 +192,18 @@ namespace _Script.Managers
 
         #region Map Generation and Setup
 
-        private void OnMapLoaded(NodeData nodeData)
+        private void OnMapFinishedLoading(NodeData nodeData)
+        {
+            StartCoroutine(OnMapFinishedLoadingRoutine(nodeData));
+        }
+        
+        private IEnumerator OnMapFinishedLoadingRoutine(NodeData nodeData)
         {
             if (SubGameManager.Instance.GenerateMap(nodeData, out Vector2Int spawnPoint, out Vector2Int endPoint))
             {
+                // Wait for the map to be generated
+                yield return null;
+        
                 var graph = _astarPath.data.gridGraph;
                 graph.nodeSize = 0.5f;
                 graph.width = SubGameManager.Instance.MapSize.x * 2;
@@ -213,7 +220,6 @@ namespace _Script.Managers
                 Instantiate(_spawnBonfirePrefab, new Vector3(endPoint.x, endPoint.y, 0), Quaternion.identity);
             }
         }
-
         #endregion
     }
 }

@@ -14,8 +14,9 @@ namespace _Script.NPC.NpcBackend.Gates
         {
             base.OnDialogueEnd();
             Debug.Log("Bonfire is lit");
-            PlaceManager.Instance.TeleportPlayerToTown(GameManager.Instance.GetPlayer());
             
+            GameManager.Instance.LoadMainScene("TownMap");
+            PlaceManager.Instance.TeleportPlayerToTown(GameManager.Instance.GetPlayer());
             //Mark the current dungeon as completed
             GameManager.Instance.UnloadCurrentAdditiveScene();
             //MapExplorerUI.Instance.MarkExploringNodeAsCompleted();

@@ -85,5 +85,10 @@ namespace _Script.Managers
         {
             _levelManager.MovePlayerToScene(spawnPosition, targetScene);
         }
+
+        public void LoadMainScene(string townMap)
+        {
+            _levelManager.LoadMainScene(townMap);
+        }
     }
 }
