@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using _Script.Map.WorldMap.MapNode;
 using UnityEngine;
 
-namespace _Script.Map.Hexagon_Graph
+namespace _Script.Map.WorldMap
 {
     public class HexGrid
     {
@@ -11,7 +12,6 @@ namespace _Script.Map.Hexagon_Graph
 
         private const int ViewRadius = 2;
         private readonly int _gridRadius;
-        public float HexSize;
         private readonly GridConfiguration _gridConfiguration;
 
         private int _weightSum;
@@ -23,10 +23,9 @@ namespace _Script.Map.Hexagon_Graph
 
         private Vector3Int _playerPosition;
 
-        public HexGrid(int gridRadius, float hexSize, GridConfiguration gridConfiguration)
+        public HexGrid(int gridRadius, GridConfiguration gridConfiguration)
         {
             _gridRadius = gridRadius;
-            HexSize = hexSize;
             _gridConfiguration = gridConfiguration;
             CalculateWeightDistribution();
             GenerateGrid();
@@ -49,7 +48,7 @@ namespace _Script.Map.Hexagon_Graph
             if (rand < _obstacleWeight) return NodeType.Obstacle;
             if (rand < _resourceWeight) return NodeType.Resource;
             if (rand < _enemyWeight) return NodeType.Enemy;
-            if (rand < _campfireWeight) return NodeType.Campfire;
+            if (rand < _campfireWeight) return NodeType.Bonfire;
             return NodeType.Boss;
         }
 
@@ -62,12 +61,18 @@ namespace _Script.Map.Hexagon_Graph
                 {
                     int z = -x - y;
                     NodeType newNodeType = GenerateHexType();
-                    HexNode hexNode = new HexNode(new Vector3Int(x, y, z), newNodeType, new MapNode());
+                    HexNode hexNode = new HexNode(new Vector3Int(x, y, z), newNodeType, GenerateNodeData(newNodeType));
                     hexNodes.Add((x, y, z), hexNode);
                 }
             }
         }
 
+        private NodeData GenerateNodeData(NodeType nodeType)
+        {
+            return MapNodeFactory.Instance.CreateNode(nodeType, "Resource", 0);
+        }
+        
+        
         private void PrecomputeNeighbors()
         {
             foreach (var kvp in hexNodes)

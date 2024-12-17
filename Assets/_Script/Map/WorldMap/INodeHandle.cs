@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _Script.Map.Hexagon_Graph
+namespace _Script.Map.WorldMap
 {
     public interface INodeHandle
     {

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using _Script.Character;
 using _Script.Managers.GlobalUpdater;
 using _Script.Map;
+using _Script.Map.WorldMap;
+using _Script.Map.WorldMap.MapNode;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -76,17 +78,17 @@ namespace _Script.Managers
         /// <summary>
         /// Loads a scene additively (in addition to the current main scene and other additive scenes).
         /// </summary>
-        public void LoadSelectedScene(MapNode sceneData)
+        public void LoadSelectedScene(NodeData nodeData)
         {
             // Avoid adding a scene that's already loaded
-            if (loadedAdditiveScenes.Contains(sceneData.MapName))
+            if (loadedAdditiveScenes.Contains(nodeData.MapName))
             {
-                Debug.LogWarning($"Scene {sceneData.MapName} is already loaded.");
+                Debug.LogWarning($"Scene {nodeData.MapName} is already loaded.");
                 return;
             }
-
-            currentAdditiveScene = sceneData.MapName;
-            StartCoroutine(AddSceneAsync(sceneData.MapName));
+            
+            currentAdditiveScene = nodeData.MapName;
+            StartCoroutine(AddSceneAsync(nodeData));
         }
         
         public void UnloadCurrentAdditiveScene()
@@ -160,47 +162,43 @@ namespace _Script.Managers
 
             currentMainScene = sceneName;
             Debug.Log($"Main scene {sceneName} has been loaded.");
-
-            // Optionally load a random dungeon scene additively after main scene load
-            if (dungeonLevels != null && dungeonLevels.Count > 0)
-            {
-                var randomIndex = Random.Range(0, dungeonLevels.Count);
-                string randomDungeonScene = dungeonLevels[randomIndex];
-                Debug.Log($"Loading random dungeon scene: {randomDungeonScene}");
-                StartCoroutine(AddSceneAsync(randomDungeonScene));
-            }
         }
         
-        private IEnumerator AddSceneAsync(string sceneName)
+        private IEnumerator AddSceneAsync(NodeData nodeData)
         {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nodeData.MapName, LoadSceneMode.Additive);
             while (!asyncLoad.isDone)
             {
-                Debug.Log($"Loading additive scene {sceneName}: {asyncLoad.progress * 100}%");
+                Debug.Log($"Loading additive scene {nodeData.MapName}: {asyncLoad.progress * 100}%");
                 yield return null;
             }
 
             // Ensure the scene is active if required
-            Scene loadedScene = SceneManager.GetSceneByName(sceneName);
+            Scene loadedScene = SceneManager.GetSceneByName(nodeData.MapName);
             if (loadedScene.IsValid())
             {
                 SceneManager.SetActiveScene(loadedScene);
             }
 
-            loadedAdditiveScenes.Add(sceneName);
-            Debug.Log($"Additive scene {sceneName} has been loaded.");
+            loadedAdditiveScenes.Add(nodeData.MapName);
+            Debug.Log($"Additive scene {nodeData.MapName} has been loaded.");
             
             //The scene is loaded but not the map, now generate the map
             //wait
-            OnMapLoaded(sceneName);
+            OnMapLoaded(nodeData);
         }
 
         [SerializeField] private GameObject _spawnBonfirePrefab;
         
-        private void OnMapLoaded(string newScene)
+        
+        /// <summary>
+        /// When generating an procedural map
+        /// </summary>
+        private void OnMapLoaded(NodeData nodeData)
         {
-            if (SubGameManager.Instance.GenerateMap(out Vector2Int spawnPoint, out Vector2Int endPoint))
+            if (SubGameManager.Instance.GenerateMap(nodeData, out Vector2Int spawnPoint, out Vector2Int endPoint))
             {
+                // Set up the A* pathfinding grid graph
                 var graph = _astarPath.data.gridGraph;
                 graph.nodeSize = 0.5f;
                 graph.width = SubGameManager.Instance.MapSize.x * 2;
@@ -214,7 +212,8 @@ namespace _Script.Managers
                 graph.SetDimensions(graph.width, graph.depth, graph.nodeSize);
                 AstarPath.active.Scan();
                 
-                MovePlayerToScene(new Vector3(spawnPoint.x, spawnPoint.y, 0), newScene);
+                // Move the player to the spawn point in the new scene
+                MovePlayerToScene(new Vector3(spawnPoint.x, spawnPoint.y, 0), nodeData.MapName);
                 
                 //Spawn bonfire at the spawn point
                 Instantiate(_spawnBonfirePrefab, new Vector3(endPoint.x, endPoint.y, 0), Quaternion.identity);

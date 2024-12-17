@@ -1,7 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 16 12 2024 12 07
 
-using _Script.Map.Hexagon_Graph;
+using _Script.Map.WorldMap;
 
 namespace _Script.NPC.NpcBackend.Gates
 {

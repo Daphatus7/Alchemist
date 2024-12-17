@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace _Script.Map.Hexagon_Graph
+namespace _Script.Map.WorldMap
 {
     [System.Serializable] public class NodeEvent : UnityEvent<INodeHandle> { }
 

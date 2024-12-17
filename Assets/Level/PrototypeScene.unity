@@ -2139,6 +2139,7 @@ GameObject:
   - component: {fileID: 969537177}
   - component: {fileID: 969537178}
   - component: {fileID: 969537179}
+  - component: {fileID: 969537180}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2178,7 +2179,7 @@ MonoBehaviour:
   startingScene: PrototypeScene
   dungeonLevels:
   - AlphaDungeon2
-  _spawnBonfirePrefab: {fileID: 379468172664703565, guid: 7f7e98fb9779a4befaf90666cfa5488a,
+  _spawnBonfirePrefab: {fileID: 379468172664703565, guid: def4f0ec6ac2a4d03a04be467d6e0406,
     type: 3}
 --- !u!114 &969537174
 MonoBehaviour:
@@ -2295,6 +2296,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0bd894eed164dca896f89df223ef832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &969537180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969537171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ab8eb76415a4951a4c7aeda8db98b4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bossNodes:
+  - {fileID: 11400000, guid: beea05897242a475e88e0d8eb2380c54, type: 2}
+  _enemyNodes:
+  - {fileID: 11400000, guid: c3f95205b3d38401db1e091540407d4c, type: 2}
+  _resourceNodes:
+  - {fileID: 11400000, guid: acd8d0c84e5844cc0bd41fc53a4a02c0, type: 2}
+  _bonfireNodes:
+  - {fileID: 11400000, guid: fdb95bae769e5495ebdc45e4601c8444, type: 2}
 --- !u!1 &1008984777
 GameObject:
   m_ObjectHideFlags: 0

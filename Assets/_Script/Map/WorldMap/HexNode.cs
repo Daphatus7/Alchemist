@@ -1,7 +1,8 @@
 using System;
+using _Script.Map.WorldMap.MapNode;
 using UnityEngine;
 
-namespace _Script.Map.Hexagon_Graph
+namespace _Script.Map.WorldMap
 {
     public enum NodeType
     {
@@ -10,7 +11,7 @@ namespace _Script.Map.Hexagon_Graph
         Resource,
         Enemy,
         Boss,
-        Campfire,
+        Bonfire,
     }
 
     public enum NodeExplorationState
@@ -29,11 +30,10 @@ namespace _Script.Map.Hexagon_Graph
 
         public HexNode Parent; // For retracing the path
         
-        private readonly NodeType _nodeType = NodeType.Empty;
-        public NodeType NodeType => _nodeType;
+        private readonly NodeType _nodeType = NodeType.Empty; public NodeType NodeType => _nodeType;
         
-        private readonly MapNode _mapNode; 
-        public MapNode MapNode => _mapNode;
+        private readonly NodeData _nodeData; 
+        public NodeData NodeData => _nodeData;
         
         public int gCost; // Cost from the start node
         public int hCost; // Cost to the goal node
@@ -56,15 +56,15 @@ namespace _Script.Map.Hexagon_Graph
         };
 
         // Constructor
-        public HexNode(Vector3Int position, NodeType nodeType, MapNode mapNode)
+        public HexNode(Vector3Int position, NodeType nodeType, NodeData nodeData)
         {
-            this._position = position;
-            if (this._position.x + this._position.y + this._position.z != 0)
+            _position = position;
+            if (_position.x + _position.y + _position.z != 0)
                 throw new ArgumentException("Invalid cube coordinates");
-            this._nodeType = nodeType;
+            _nodeType = nodeType;
             if (nodeType == NodeType.Obstacle)
                 IsBlocked = true;
-            this._mapNode = mapNode;
+            _nodeData = nodeData;
         }
 
         // Update exploration state
@@ -86,7 +86,6 @@ namespace _Script.Map.Hexagon_Graph
         {
             if (obj == null || GetType() != obj.GetType())
                 return false;
-
             HexNode other = (HexNode)obj;
             return _position.x == other.Position.x && _position.y == other.Position.y && _position.z == other.Position.z;
         }

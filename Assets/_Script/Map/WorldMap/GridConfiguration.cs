@@ -1,4 +1,4 @@
-namespace _Script.Map.Hexagon_Graph
+namespace _Script.Map.WorldMap
 {
     public class GridConfiguration
     {

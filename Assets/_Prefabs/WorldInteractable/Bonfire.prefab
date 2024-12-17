@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4575509400686199422}
   - component: {fileID: 6387574599359779653}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 856281767451300328}
   - component: {fileID: 7494229358711420820}
   - component: {fileID: 6649818845267863089}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bonfire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,6 @@ MonoBehaviour:
   dialogueModule:
     dialogueLines:
     - You are safe
-  dialogueUI: {fileID: 0}
 --- !u!58 &6649818845267863089
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -241,7 +240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4947490708763396285}
   - component: {fileID: 4406872725578204620}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Fire (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

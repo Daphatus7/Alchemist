@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 using _Script.Managers;
+using UnityEngine;
 
-namespace _Script.Map.Hexagon_Graph
+namespace _Script.Map.WorldMap
 {
     public class MapExplorerUI : Singleton<MapExplorerUI>
     {
@@ -29,7 +28,7 @@ namespace _Script.Map.Hexagon_Graph
         private void Start()
         {
             // 1. Generate the grid
-            _hexGrid = new HexGrid(gridRadius, hexSize, new GridConfiguration(hexSize));
+            _hexGrid = new HexGrid(gridRadius, new GridConfiguration(hexSize));
 
             // 2. Generate the spawn point
             var spawnPoint = _hexGrid.GenerateSpawnPoint();
@@ -128,7 +127,7 @@ namespace _Script.Map.Hexagon_Graph
                 node.SetExplorationState(NodeExplorationState.Exploring);
                 handle.SetNodeExploring();
                 // Typically load a scene:
-                GameManager.Instance.LoadSelectedScene(node.MapNode);
+                GameManager.Instance.LoadSelectedScene(node.NodeData);
             }
             else if (node.ExplorationState == NodeExplorationState.Explored)
             {
@@ -177,7 +176,7 @@ namespace _Script.Map.Hexagon_Graph
                 case NodeType.Empty: return emptyNodeSprite;
                 case NodeType.Resource: return resourceNodeSprite;
                 case NodeType.Enemy: return enemyNodeSprite;
-                case NodeType.Campfire: return campfireNodeSprite;
+                case NodeType.Bonfire: return campfireNodeSprite;
                 case NodeType.Obstacle: return obstacleNodeSprite;
                 case NodeType.Boss: return bossNodeSprite;
                 default: return emptyNodeSprite;

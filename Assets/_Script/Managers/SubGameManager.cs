@@ -3,19 +3,13 @@
 
 using System;
 using _Script.Map.Procedural;
+using _Script.Map.WorldMap;
+using _Script.Map.WorldMap.MapNode;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Script.Managers
 {
-
-    public enum SubGameType
-    {
-        ResourceGathering, // Harvesting, Mining, Lumbering, etc.
-        Dungeon, // Dungeon crawling with enemies and loot
-        BossFight, // Boss fight with unique mechanics
-        Bonfire, // Resting and upgrading
-    }
     
     public class SubGameManager: Singleton<SubGameManager>
     {
@@ -25,24 +19,24 @@ namespace _Script.Managers
         [SerializeField] private Vector2Int _mapSize; public Vector2Int MapSize => _mapSize;
         [SerializeField] private int _minMapSize = 10;
         [SerializeField] private int _maxMapSize = 100;
-        [SerializeField] private SubGameType _subGameType = SubGameType.ResourceGathering;
+        [ReadOnly] private NodeType _subGameType;
         
-        
-        public bool GenerateMap(out Vector2Int spawnPoint, out Vector2Int endPoint)
+        public bool GenerateMap(NodeData nodeData,out Vector2Int spawnPoint, out Vector2Int endPoint)
         {
+            _subGameType = nodeData.NodeType;
             // Now that the pathfinder is set up, run your map generation based on _subGameType
             switch (_subGameType)
             {
-                case SubGameType.ResourceGathering:
+                case NodeType.Resource:
                     return ResourceGathering_MapGeneration(out spawnPoint, out endPoint);
-                case SubGameType.Dungeon:
+                case NodeType.Enemy:
                     return Dungeon_MapGeneration(out spawnPoint, out endPoint);
-                case SubGameType.BossFight:
+                case NodeType.Boss:
                     return BossFight_MapGeneration(out spawnPoint, out endPoint);
-                case SubGameType.Bonfire:
-                    return BonfireMap_Generation(out spawnPoint, out endPoint);
+                case NodeType.Bonfire:
+                    return BonfireMap_MapGeneration(out spawnPoint, out endPoint);
                 default:
-                    return BonfireMap_Generation(out spawnPoint, out endPoint);
+                    throw new ArgumentOutOfRangeException();
             }
         }
         
@@ -60,14 +54,16 @@ namespace _Script.Managers
         
         private bool BossFight_MapGeneration(out Vector2Int spawnPoint, out Vector2Int endPoint)
         {
-            _mapSize = GenerateMapSize();
-            return _map.GenerateMap(_mapSize.x, _mapSize.y,  out spawnPoint, out endPoint);
+            spawnPoint = new Vector2Int(0, 0);
+            endPoint = spawnPoint;
+            return true;
         }
         
-        private bool BonfireMap_Generation(out Vector2Int spawnPoint, out Vector2Int endPoint)
+        private bool BonfireMap_MapGeneration(out Vector2Int spawnPoint, out Vector2Int endPoint)
         {
-            _mapSize = GenerateMapSize();
-            return _map.GenerateMap(_mapSize.x, _mapSize.y,  out spawnPoint, out endPoint);
+            spawnPoint = new Vector2Int(0, 0);
+            endPoint = spawnPoint;
+            return true;
         }
         
         private Vector2Int GenerateMapSize()
@@ -75,20 +71,37 @@ namespace _Script.Managers
             return new Vector2Int(UnityEngine.Random.Range(_minMapSize, _maxMapSize), UnityEngine.Random.Range(_minMapSize, _maxMapSize));
         }
         
-        [Button("Generate Map")]
-        private void EditorGenerateMap()
-        {
-            Vector2Int s, e;
-            if (GenerateMap(out s, out e))
-            {
-                _spawnPoint = s;
-                _endPoint = e;
-                Debug.Log($"Map generated with spawn at {_spawnPoint} and end at {_endPoint}.");
-            }
-            else
-            {
-                Debug.LogWarning("Failed to generate map.");
-            }
-        }
+        // [Button("Generate Map")]
+        // private void EditorGenerateMap()
+        // {
+        //     Vector2Int s, e;
+        //     if (GenerateMap(GenerateNodeData(), out s, out e))
+        //     {
+        //         _spawnPoint = s;
+        //         _endPoint = e;
+        //         Debug.Log($"Map generated with spawn at {_spawnPoint} and end at {_endPoint}.");
+        //     }
+        //     else
+        //     {
+        //         Debug.LogWarning("Failed to generate map.");
+        //     }
+        // }
+        //
+        // private static NodeData GenerateNodeData(NodeType nodeType, string description, int seed)
+        // {
+        //     switch (nodeType)
+        //     {
+        //         case NodeType.Resource:
+        //             return new ResourceMapNode(description, seed);
+        //         case NodeType.Enemy:
+        //             return new EnemyMapNode(description, seed);
+        //         case NodeType.Boss:
+        //             return new BossNode(description, seed, "Boss");
+        //         case NodeType.Bonfire:
+        //             return new BonfireMapNode(description, seed);
+        //         default:
+        //             throw new ArgumentOutOfRangeException();
+        //     }
+        // }
     }
 }
