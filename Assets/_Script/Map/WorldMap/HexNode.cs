@@ -39,6 +39,8 @@ namespace _Script.Map.WorldMap
         public int hCost; // Cost to the goal node
         public int fCost => gCost + hCost; // Total cost
 
+        public int NodeLevel => (Mathf.Abs(_position.x) + Mathf.Abs(_position.y) + Mathf.Abs(_position.z)) / 2;
+
         public bool IsBlocked { get; private set; }
 
         private NodeExplorationState _explorationState = NodeExplorationState.Unrevealed;

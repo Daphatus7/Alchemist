@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -10,8 +11,17 @@ namespace _Script.Map.WorldMap
 
     public class HexNodeDisplay : MonoBehaviour, INodeHandle, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        public HexNode HexNode;
+        private HexNode _hexNode; public HexNode HexNode
+        {
+            get => _hexNode;
+            set
+            {
+                _hexNode = value;
+                _nodeText.text = "L" + _hexNode.NodeLevel;
+            }
+        }
         private Image _nodeImage;
+        [SerializeField] private TextMeshProUGUI _nodeText;
         [SerializeField] private Sprite explorationSprite;
 
         [Range(0f, 1f)]
@@ -30,7 +40,7 @@ namespace _Script.Map.WorldMap
             }
         }
         
-        private bool isHighlighted = false;
+        private bool _isHighlighted = false;
 
         public void SetImage(Sprite sprite)
         {
@@ -42,12 +52,12 @@ namespace _Script.Map.WorldMap
 
         public void Highlight(bool state)
         {
-            if (HexNode.ExplorationState == NodeExplorationState.Explored)
+            if (_hexNode.ExplorationState == NodeExplorationState.Explored)
             {
                 return;
             }
 
-            isHighlighted = state;
+            _isHighlighted = state;
             if (_nodeImage != null)
             {
                 _nodeImage.color = state ? Color.yellow : Color.white;
@@ -78,13 +88,13 @@ namespace _Script.Map.WorldMap
 
         public Vector3Int GetPosition()
         {
-            return HexNode.Position;
+            return _hexNode.Position;
         }
 
         // IPointerClickHandler
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log("Clicked on node: " + HexNode.Position);
+            Debug.Log("Clicked on node: " + _hexNode.Position);
             OnNodeClicked.Invoke(this);
         }
 

@@ -2508,17 +2508,17 @@ PrefabInstance:
     - target: {fileID: 5516263826922473633, guid: f47f59d2fcdc84ceda5158f39079696d,
         type: 3}
       propertyPath: m_CellSize.x
-      value: 60
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5516263826922473633, guid: f47f59d2fcdc84ceda5158f39079696d,
         type: 3}
       propertyPath: m_CellSize.y
-      value: 60
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5516263826922473633, guid: f47f59d2fcdc84ceda5158f39079696d,
         type: 3}
       propertyPath: m_CellSize.z
-      value: 60
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
