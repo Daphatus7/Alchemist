@@ -18,7 +18,7 @@ namespace _Script.Map.WorldMap.MapNode
             switch (nodeType)
             {
                 case NodeType.Boss:
-                    return _enemyNodes[Random.Range(0, _bossNodes.Length)];
+                    return _bossNodes[Random.Range(0, _bossNodes.Length)];
                 case NodeType.Enemy:
                     return _enemyNodes[Random.Range(0, _enemyNodes.Length)];
                 case NodeType.Resource:

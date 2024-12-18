@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using _Script.Character;
 using _Script.Managers.GlobalUpdater;
+using _Script.Map.WorldMap;
 using _Script.Map.WorldMap.MapNode;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
@@ -89,6 +90,11 @@ namespace _Script.Managers
         public void LoadMainScene(string townMap)
         {
             _levelManager.LoadMainScene(townMap);
+        }
+
+        public void ResetHexMap()
+        {
+            MapExplorerUI.Instance.ResetHexMap();
         }
     }
 }

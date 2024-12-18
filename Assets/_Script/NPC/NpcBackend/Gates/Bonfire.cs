@@ -3,6 +3,7 @@
 
 using _Script.Character;
 using _Script.Managers;
+using _Script.Map.WorldMap;
 using _Script.Places;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace _Script.NPC.NpcBackend.Gates
             
             GameManager.Instance.LoadMainScene("TownMap");
             PlaceManager.Instance.TeleportPlayerToTown(GameManager.Instance.GetPlayer());
+            GameManager.Instance.ResetHexMap();
             //Mark the current dungeon as completed
             GameManager.Instance.UnloadCurrentAdditiveScene();
             //MapExplorerUI.Instance.MarkExploringNodeAsCompleted();

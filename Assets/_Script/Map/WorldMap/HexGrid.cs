@@ -21,7 +21,7 @@ namespace _Script.Map.WorldMap
         private int _campfireWeight;
         private int _bossWeight;
 
-        private Vector3Int _playerPosition;
+        private Vector3Int _playerPosition; public Vector3Int PlayerPosition => _playerPosition;
 
         public HexGrid(int gridRadius, GridConfiguration gridConfiguration)
         {
@@ -34,7 +34,6 @@ namespace _Script.Map.WorldMap
 
         private void CalculateWeightDistribution()
         {
-            _obstacleWeight = _gridConfiguration.ObstacleWeight;
             _resourceWeight = _obstacleWeight + _gridConfiguration.ResourceWeight;
             _enemyWeight = _resourceWeight + _gridConfiguration.EnemyWeight;
             _campfireWeight = _enemyWeight + _gridConfiguration.CampfireWeight;
@@ -45,7 +44,6 @@ namespace _Script.Map.WorldMap
         private NodeType GenerateHexType()
         {
             int rand = UnityEngine.Random.Range(0, _weightSum);
-            if (rand < _obstacleWeight) return NodeType.Obstacle;
             if (rand < _resourceWeight) return NodeType.Resource;
             if (rand < _enemyWeight) return NodeType.Enemy;
             if (rand < _campfireWeight) return NodeType.Bonfire;

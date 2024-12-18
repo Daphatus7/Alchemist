@@ -1,21 +1,21 @@
 using System.Collections.Generic;
 using _Script.Managers;
+using _Script.UserInterface;
+using _Script.Utilities;
 using UnityEngine;
 
 namespace _Script.Map.WorldMap
 {
-    public class MapExplorerUI : Singleton<MapExplorerUI>
+    public class MapExplorerUI : Singleton<MapExplorerUI>, IUIHandler
     {
         [Header("Grid Settings")]
-        public float hexSize = 0.5f;
-        public int gridRadius = 10;
-        public int gridVisibility = 2;
-        public GameObject hexPrefab;
-        public Grid mapGrid;
+        [SerializeField] private float hexSize = 0.5f;
+        [SerializeField] private int gridRadius = 10;
+        [SerializeField] private int gridVisibility = 2;
+        [SerializeField] private GameObject hexPrefab;
+        [SerializeField] private Grid mapGrid;
 
-        private HexGrid _hexGrid;
-        private Dictionary<HexNode, HexNodeDisplay> hexGameObjectMap = new Dictionary<HexNode, HexNodeDisplay>();
-
+        [Header("Node Sprites")]
         [SerializeField] private Sprite emptyNodeSprite;
         [SerializeField] private Sprite resourceNodeSprite;
         [SerializeField] private Sprite enemyNodeSprite;
@@ -23,87 +23,106 @@ namespace _Script.Map.WorldMap
         [SerializeField] private Sprite obstacleNodeSprite;
         [SerializeField] private Sprite bossNodeSprite;
 
-        private HexNode startHex;
+        private HexGrid _hexGrid;
+        private HexNode _startHex;
+        private ObjectPool<HexNodeDisplay> _hexNodePool;
+        
+        private readonly Dictionary<HexNode, HexNodeDisplay> _hexDisplayMap = new Dictionary<HexNode, HexNodeDisplay>();
 
         private void Start()
         {
-            // 1. Generate the grid
-            _hexGrid = new HexGrid(gridRadius, new GridConfiguration(hexSize));
-
-            // 2. Generate the spawn point
-            var spawnPoint = _hexGrid.GenerateSpawnPoint();
-
-            // 3. Reveal the grid around the spawn point
-            _hexGrid.RevealHexNodeInRange(spawnPoint.x, spawnPoint.y, spawnPoint.z, gridVisibility);
-
-            // 4. Get the start hex
-            startHex = _hexGrid.GetHexNode(spawnPoint.x, spawnPoint.y, spawnPoint.z);
-
-            // 5. Generate visual representations
-            GenerateGridVisuals();
-
-            // 6. Highlight the player's location
-            if (hexGameObjectMap.ContainsKey(startHex))
-            {
-                hexGameObjectMap[startHex].Highlight(true);
-            }
-            
-            //hide the grid initially
-            HideGrid();
+            InitializeNodePool();
+            InitializeHexGrid();
+            SetupInitialMapState();
+            HideUI();
         }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.M))
             {
-                HideGrid();
+                HideUI();
             }
         }
 
-        public void HideGrid()
+        private void InitializeNodePool()
         {
-            mapGrid.gameObject.SetActive(false);
+            var displayPrefab = hexPrefab.GetComponent<HexNodeDisplay>();
+            _hexNodePool = new ObjectPool<HexNodeDisplay>(displayPrefab, mapGrid.transform, initialCapacity: 50);
         }
-        
-        public void ShowGrid()
+
+        private void InitializeHexGrid()
         {
-            mapGrid.gameObject.SetActive(true);
+            _hexGrid = new HexGrid(gridRadius, new GridConfiguration(hexSize));
+        }
+
+        private void SetupInitialMapState()
+        {
+            var spawnPoint = _hexGrid.GenerateSpawnPoint();
+            _hexGrid.RevealHexNodeInRange(spawnPoint.x, spawnPoint.y, spawnPoint.z, gridVisibility);
+
+            _startHex = _hexGrid.GetHexNode(spawnPoint.x, spawnPoint.y, spawnPoint.z);
+            GenerateGridVisuals();
+
+            if (_hexDisplayMap.TryGetValue(_startHex, out var startDisplay))
+            {
+                startDisplay.Highlight(true);
+            }
+        }
+
+        public void HideUI()
+        {
+            if (mapGrid != null)
+            {
+                mapGrid.gameObject.SetActive(false);
+            }
+        }
+
+        public void ShowUI()
+        {
+            if (mapGrid != null)
+            {
+                mapGrid.gameObject.SetActive(true);
+            }
         }
 
         private void GenerateGridVisuals()
         {
             foreach (HexNode hexNode in _hexGrid.GetAllVisibleHexNodes())
             {
-                if (!hexGameObjectMap.ContainsKey(hexNode))
+                if (!_hexDisplayMap.ContainsKey(hexNode))
                 {
-                    // Convert cube coords (x,y,z) to offset coords (col,row)
-                    Vector2Int axial = CubeToAxial(hexNode.Position);
-                    Vector2Int offset = AxialToOddROffset(axial);
+                    var worldPosition = GetWorldPosition(hexNode.Position);
                     
-                    // mapGrid expects a Vector3Int for CellToWorld, z can be 0 as we're using a 2D layout
-                    Vector3Int cellPosition = new Vector3Int(offset.x, offset.y, 0);
+                    //get visual ref
+                    var nodeDisplay = _hexNodePool.Get();
                     
-                    // Use CellToWorld to get the world position from the hex grid
-                    Vector3 worldPosition = mapGrid.CellToWorld(cellPosition);
+                    //set position
+                    nodeDisplay.transform.position = worldPosition;
                     
-                    GameObject newNode = Instantiate(hexPrefab, worldPosition, Quaternion.identity, mapGrid.transform);
-                    hexGameObjectMap.Add(hexNode, GenerateNodeVisual(newNode, hexNode));
+                    //set node button
+                    _hexDisplayMap[hexNode] = ConfigureNodeDisplay(nodeDisplay, hexNode);
                 }
             }
         }
 
-        // Convert cube to axial
-        private Vector2Int CubeToAxial(Vector3Int cube)
+        private Vector3 GetWorldPosition(Vector3Int cubePosition)
         {
-            int q = cube.x;
-            int r = cube.z; 
-            return new Vector2Int(q, r);
+            var axial = CubeToAxial(cubePosition);
+            var offset = AxialToOddROffset(axial);
+            var cellPosition = new Vector3Int(offset.x, offset.y, 0);
+            return mapGrid.CellToWorld(cellPosition);
         }
 
-        // Convert axial to offset (odd-r) coordinates
-        // Adjust this if your grid orientation or layout differs
+        private Vector2Int CubeToAxial(Vector3Int cube)
+        {
+            // Cube to axial: q = x, r = z
+            return new Vector2Int(cube.x, cube.z);
+        }
+
         private Vector2Int AxialToOddROffset(Vector2Int axial)
         {
+            // Convert axial coords to odd-r offset coords.
             int q = axial.x;
             int r = axial.y;
             int col = q + (r - (r & 1)) / 2;
@@ -111,23 +130,16 @@ namespace _Script.Map.WorldMap
             return new Vector2Int(col, row);
         }
 
-        // This method is called when clicking on a node
         private void OnClickedOnNode(INodeHandle handle)
         {
-            var node = _hexGrid.GetHexNode(handle.GetPosition().x, handle.GetPosition().y, handle.GetPosition().z);
+            var pos = handle.GetPosition();
+            var node = _hexGrid.GetHexNode(pos.x, pos.y, pos.z);
 
             if (node == null) return;
 
             if (_hexGrid.IsAdjacentToPlayer(node) && node.ExplorationState == NodeExplorationState.Revealed)
             {
-                //This is a valid node to explore
-                HideGrid();
-                
-                _hexGrid.MovePlayer(node);
-                node.SetExplorationState(NodeExplorationState.Exploring);
-                handle.SetNodeExploring();
-                // Typically load a scene:
-                GameManager.Instance.LoadSelectedScene(node.NodeData);
+                ExploreNode(handle, node);
             }
             else if (node.ExplorationState == NodeExplorationState.Explored)
             {
@@ -139,23 +151,28 @@ namespace _Script.Map.WorldMap
             }
         }
 
-        public void FinishExploringNode(HexNode node)
+        private void ExploreNode(INodeHandle handle, HexNode node)
         {
+            HideUI();
+            _hexGrid.MovePlayer(node);
+            node.SetExplorationState(NodeExplorationState.Exploring);
+            handle.SetNodeExploring();
+            GameManager.Instance.LoadSelectedScene(node.NodeData);
+        }
+
+        public void MarkCurrentNodeAsExplored()
+        {
+            //get player position
+            var playerPos = _hexGrid.PlayerPosition;
+            var node = _hexGrid.GetHexNode(playerPos.x, playerPos.y, playerPos.z);
+            
             if (node.ExplorationState == NodeExplorationState.Exploring)
             {
                 node.SetExplorationState(NodeExplorationState.Explored);
-                hexGameObjectMap[node].SetNodeComplete();
+                
+                _hexDisplayMap[node].SetNodeComplete();
                 _hexGrid.RevealSurroundingNodes(node, gridVisibility);
                 GenerateGridVisuals();
-            }
-        }
-        
-        public void MarkNodeAsExplored(HexNode node)
-        {
-            if (node.ExplorationState == NodeExplorationState.Revealed)
-            {
-                node.SetExplorationState(NodeExplorationState.Explored);
-                hexGameObjectMap[node].MarkExploredVisual();
             }
         }
 
@@ -169,39 +186,60 @@ namespace _Script.Map.WorldMap
             handle.Highlight(false);
         }
 
-        private Sprite GetImageByNodeType(NodeType hexNodeNodeType)
+        private Sprite GetImageByNodeType(NodeType nodeType) => nodeType switch
         {
-            switch (hexNodeNodeType)
+            NodeType.Empty    => emptyNodeSprite,
+            NodeType.Resource => resourceNodeSprite,
+            NodeType.Enemy    => enemyNodeSprite,
+            NodeType.Bonfire  => campfireNodeSprite,
+            NodeType.Obstacle => obstacleNodeSprite,
+            NodeType.Boss     => bossNodeSprite,
+            _                 => emptyNodeSprite
+        };
+
+        private HexNodeDisplay ConfigureNodeDisplay(HexNodeDisplay display, HexNode hexNode)
+        {
+            if (hexNode.ExplorationState == NodeExplorationState.Explored)
             {
-                case NodeType.Empty: return emptyNodeSprite;
-                case NodeType.Resource: return resourceNodeSprite;
-                case NodeType.Enemy: return enemyNodeSprite;
-                case NodeType.Bonfire: return campfireNodeSprite;
-                case NodeType.Obstacle: return obstacleNodeSprite;
-                case NodeType.Boss: return bossNodeSprite;
-                default: return emptyNodeSprite;
+                display.SetImage(obstacleNodeSprite);
+                return display;
             }
+            
+            display.SetImage(GetImageByNodeType(hexNode.NodeType));
+            display.HexNode = hexNode;
+            display.OnNodeClicked.AddListener(OnClickedOnNode);
+            display.OnNodeEnter.AddListener(OnHoverOnNode);
+            display.OnNodeLeave.AddListener(OnLeaveNode);
+
+            return display;
         }
 
-        private HexNodeDisplay GenerateNodeVisual(GameObject newNode, HexNode hexNode)
+        public void ResetHexMap()
         {
-            HexNodeDisplay hexNodeDisplay = newNode.GetComponent<HexNodeDisplay>();
-            hexNodeDisplay.SetImage(GetImageByNodeType(hexNode.NodeType));
-            hexNodeDisplay.HexNode = hexNode;
-            hexNodeDisplay.OnNodeClicked.AddListener(OnClickedOnNode);
-            hexNodeDisplay.OnNodeEnter.AddListener(OnHoverOnNode);
-            hexNodeDisplay.OnNodeLeave.AddListener(OnLeaveNode);
-
-            switch (hexNode.ExplorationState)
+            // Return all currently active hex displays to the pool
+            foreach (var kvp in _hexDisplayMap)
             {
-                case NodeExplorationState.Revealed:
-                    // Just revealed, no special visuals needed
-                    break;
-                case NodeExplorationState.Explored:
-                    hexNodeDisplay.SetNodeComplete();
-                    break;
+                if (kvp.Value != null && kvp.Value.gameObject != null)
+                {
+                    _hexNodePool.ReturnToPool(kvp.Value);
+                }
             }
-            return hexNodeDisplay;
+            _hexDisplayMap.Clear();
+
+            // Re-initialize and refresh the map
+            InitializeHexGrid();
+            var spawnPoint = _hexGrid.GenerateSpawnPoint();
+            _hexGrid.RevealHexNodeInRange(spawnPoint.x, spawnPoint.y, spawnPoint.z, gridVisibility);
+
+            _startHex = _hexGrid.GetHexNode(spawnPoint.x, spawnPoint.y, spawnPoint.z);
+            GenerateGridVisuals();
+
+            if (_hexDisplayMap.TryGetValue(_startHex, out var startDisplay))
+            {
+                startDisplay.Highlight(true);
+            }
+
+            HideUI();
         }
     }
 }

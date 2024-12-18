@@ -44,8 +44,7 @@ namespace _Script.Map.WorldMap
 
         public void SetNodeComplete()
         {
-            // Mark visually as explored (e.g., change color to green)
-            nodeImage.color = Color.green;
+            // Mark visually as completed (e.g., change color to blue)
         }
 
         public void SetNodeExploring()
