@@ -14,7 +14,8 @@ namespace _Script.Map.WorldMap
         [SerializeField] private int gridVisibility = 2;
         [SerializeField] private GameObject hexPrefab;
         [SerializeField] private Grid mapGrid;
-
+        [SerializeField] private GameObject mapCanvas;
+        
         [Header("Node Sprites")]
         [SerializeField] private Sprite emptyNodeSprite;
         [SerializeField] private Sprite resourceNodeSprite;
@@ -23,6 +24,8 @@ namespace _Script.Map.WorldMap
         [SerializeField] private Sprite obstacleNodeSprite;
         [SerializeField] private Sprite bossNodeSprite;
 
+        [SerializeField] private bool debug = true;
+        
         private HexGrid _hexGrid;
         private HexNode _startHex;
         private ObjectPool<HexNodeDisplay> _hexNodePool;
@@ -41,7 +44,15 @@ namespace _Script.Map.WorldMap
         {
             if (Input.GetKeyDown(KeyCode.M))
             {
-                HideUI();
+                ToggleUI();
+            }
+        }
+        
+        private void ToggleUI()
+        {
+            if (mapCanvas != null)
+            {
+                mapCanvas.gameObject.SetActive(!mapCanvas.gameObject.activeSelf);
             }
         }
 
@@ -72,17 +83,17 @@ namespace _Script.Map.WorldMap
 
         public void HideUI()
         {
-            if (mapGrid != null)
+            if (mapCanvas != null)
             {
-                mapGrid.gameObject.SetActive(false);
+                mapCanvas.gameObject.SetActive(false);
             }
         }
 
         public void ShowUI()
         {
-            if (mapGrid != null)
+            if (mapCanvas != null)
             {
-                mapGrid.gameObject.SetActive(true);
+                mapCanvas.gameObject.SetActive(true);
             }
         }
 
@@ -153,6 +164,18 @@ namespace _Script.Map.WorldMap
 
         private void ExploreNode(INodeHandle handle, HexNode node)
         {
+            /*Debug section*/
+            if (debug)
+            {
+                _hexGrid.MovePlayer(node);
+                node.SetExplorationState(NodeExplorationState.Exploring);
+
+                MarkCurrentNodeAsExplored();
+                
+                return;
+            }
+            return;
+            /**/
             HideUI();
             _hexGrid.MovePlayer(node);
             node.SetExplorationState(NodeExplorationState.Exploring);
@@ -175,6 +198,7 @@ namespace _Script.Map.WorldMap
                 GenerateGridVisuals();
             }
         }
+        
 
         private void OnHoverOnNode(INodeHandle handle)
         {

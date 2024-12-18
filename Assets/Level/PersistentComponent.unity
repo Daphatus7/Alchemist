@@ -467,10 +467,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
+  m_BlockingObjects: 3
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 2153775607
+    m_Bits: 32
 --- !u!114 &333667426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,7 +503,7 @@ Canvas:
   m_GameObject: {fileID: 333667424}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 714712834}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -514,8 +514,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: -1465828381
-  m_SortingOrder: 0
+  m_SortingLayerID: 1641875569
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!224 &333667428
 RectTransform:
@@ -2375,20 +2375,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 333667428}
     m_Modifications:
-    - target: {fileID: 1265017803286737570, guid: f47f59d2fcdc84ceda5158f39079696d,
-        type: 3}
-      propertyPath: hexSize
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3556588023441221011, guid: f47f59d2fcdc84ceda5158f39079696d,
         type: 3}
       propertyPath: m_Name
       value: MapSelector
       objectReference: {fileID: 0}
-    - target: {fileID: 3556588023441221011, guid: f47f59d2fcdc84ceda5158f39079696d,
+    - target: {fileID: 3778412774537848712, guid: f47f59d2fcdc84ceda5158f39079696d,
         type: 3}
-      propertyPath: m_Layer
-      value: 5
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4718120455489658028, guid: f47f59d2fcdc84ceda5158f39079696d,
         type: 3}
@@ -2433,17 +2428,17 @@ PrefabInstance:
     - target: {fileID: 4718120455489658028, guid: f47f59d2fcdc84ceda5158f39079696d,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4718120455489658028, guid: f47f59d2fcdc84ceda5158f39079696d,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4718120455489658028, guid: f47f59d2fcdc84ceda5158f39079696d,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4718120455489658028, guid: f47f59d2fcdc84ceda5158f39079696d,
         type: 3}
@@ -2505,25 +2500,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4718120455489658028, guid: f47f59d2fcdc84ceda5158f39079696d,
+    - target: {fileID: 5516263826922473633, guid: f47f59d2fcdc84ceda5158f39079696d,
         type: 3}
-      propertyPath: m_ConstrainProportionsScale
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5516263826922473633, guid: f47f59d2fcdc84ceda5158f39079696d,
         type: 3}
       propertyPath: m_CellSize.x
-      value: 1
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 5516263826922473633, guid: f47f59d2fcdc84ceda5158f39079696d,
         type: 3}
       propertyPath: m_CellSize.y
-      value: 1
+      value: 60
       objectReference: {fileID: 0}
-    - target: {fileID: 5734593686168349105, guid: f47f59d2fcdc84ceda5158f39079696d,
+    - target: {fileID: 5516263826922473633, guid: f47f59d2fcdc84ceda5158f39079696d,
         type: 3}
-      propertyPath: m_Layer
-      value: 5
+      propertyPath: m_CellSize.z
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
