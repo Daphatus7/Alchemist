@@ -2570,6 +2570,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1265017803286737570, guid: f47f59d2fcdc84ceda5158f39079696d,
         type: 3}
+      propertyPath: debug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1265017803286737570, guid: f47f59d2fcdc84ceda5158f39079696d,
+        type: 3}
       propertyPath: mapCamera
       value: 
       objectReference: {fileID: 1025918320}
