@@ -15,55 +15,45 @@ namespace _Script.Map.WorldMap
         private readonly int _gridRadius;
         private readonly GridConfiguration _gridConfiguration;
 
-        private int _weightSum;
-        private int _obstacleWeight;
-        private int _resourceWeight;
-        private int _enemyWeight;
-        private int _campfireWeight;
-        private int _bossWeight;
-        
-        private Vector3Int _playerPosition; public Vector3Int PlayerPosition => _playerPosition;
+        private Vector3Int _playerPosition;
+        public Vector3Int PlayerPosition => _playerPosition;
 
-        
         public event Action<HexNode> OnNodeChanged;
 
         private void NotifyNodeChanged(HexNode node)
         {
             OnNodeChanged?.Invoke(node);
         }
-        
 
         public HexGrid(int gridRadius, GridConfiguration gridConfiguration)
         {
             _gridRadius = gridRadius;
             _gridConfiguration = gridConfiguration;
-            
+
             GenerateGrid();
             PrecomputeNeighbors();
             GenerateBranchingStreams();
         }
-        
+
         private NodeType GenerateHexType()
         {
-            // Just use the utility to pick from the configuration's TypeWeights
             return _gridConfiguration.GetRandomType();
         }
-        
+
         public void DebugResetGrid()
         {
-            // 清空数据结构
+            // Clear data structures
             hexNodes.Clear();
             _neighborsCache.Clear();
 
-            // 重新生成网格和邻居
+            // Regenerate grid and neighbors
             GenerateGrid();
             PrecomputeNeighbors();
 
-            // 可根据需要重新执行分叉逻辑，或不执行
-            // 如果需要再次生成分叉路径：
+            // Optionally regenerate branching streams if needed
             GenerateBranchingStreams();
 
-            // 通知监听者节点更新（可选）
+            // Notify listeners that nodes have updated
             foreach (var node in hexNodes.Values)
             {
                 OnNodeChanged?.Invoke(node);
@@ -81,27 +71,27 @@ namespace _Script.Map.WorldMap
         private void GenerateBranchingStreams()
         {
             HexNode startNode = GetHexNode(0,0,0);
-    
+
             var firstForkEnds = Fork(Vector3.right, startNode.Position, 3, 3);
-    
+
             var queue = new Queue<HexNode>();
 
-            // 初始末端节点加入队列时检查是否在边界
+            // When adding initial end nodes to the queue, check if they are at the boundary
             foreach (var end in firstForkEnds)
             {
                 if (!IsAtBoundary(end.Position))
                     queue.Enqueue(end);
             }
-    
-            // 若没有达到边界的节点才会继续生成新路径
-            while(queue.Count is > 0 and < 30)
+
+            // Only continue generating new paths if nodes haven't reached the boundary
+            while (queue.Count > 0 && queue.Count < 30)
             {
                 var end = queue.Dequeue();
                 end.NodeType = NodeType.Bonfire;
                 var direction = DirectionVector(end.Position, startNode.Position);
                 var nextForkEnds = Fork(direction, end.Position, 4, RandomNumberOfFork(end.NodeLevel, 2));
-        
-                // 对每个新生成的终点检查是否在边界
+
+                // Check if newly generated end nodes are at the boundary
                 foreach (var nextEnd in nextForkEnds)
                 {
                     if (!IsAtBoundary(nextEnd.Position))
@@ -109,67 +99,63 @@ namespace _Script.Map.WorldMap
                 }
             }
         }
-        
+
         private int RandomNumberOfFork(int level, int max)
         {
-            var v = 1/(level+1);
-            var p = Mathf.Pow(v, 2);
-            if (UnityEngine.Random.value < p)
-                return 2;
-            return 1;
+            float v = 1f / (level + 1);
+            float p = v * v;
+            return UnityEngine.Random.value < p ? 2 : 1;
         }
-        
-        
+
         private Vector3 DirectionVector(Vector3Int end, Vector3Int start)
         {
             return new Vector3(end.x - start.x, end.y - start.y, end.z - start.z);
         }
-        
-        /// <summary>
-        /// 从给定方向和起点生成叉路，不局限于60度方向。
-        /// 给定的direction为立方坐标方向矢量(approx)。
-        /// 我们在direction上增加一个小随机角度（例如±30度），再映射回立方坐标。
-        /// </summary>
 
+        /// <summary>
+        /// Generate forks from a given direction and start point without restricting to 60-degree steps.
+        /// The given direction is an approximate cube coordinate direction vector.
+        /// We add a small random angle (e.g., ±30 degrees), and then map it back to cube coordinates.
+        /// </summary>
         private List<HexNode> Fork(Vector3 direction, Vector3Int start, int distance, int numberOfForks)
         {
-            List<HexNode> ends = new List<HexNode>();
+            var ends = new List<HexNode>();
             HexNode startNode = GetHexNode(start.x, start.y, start.z);
             if (startNode == null) return ends;
 
             for (int i = 0; i < numberOfForks; i++)
             {
-                // 在-90度到90度之间随机一个偏转角度
-                
-                //random bool
+                // Randomly choose an angle offset between -90 and 90 degrees
                 bool randomBool = UnityEngine.Random.value > 0.5f;
-                float angleDeg = randomBool ? UnityEngine.Random.Range(-90f, -60f) : UnityEngine.Random.Range(60f, 90f);
+                float angleDeg = randomBool 
+                    ? UnityEngine.Random.Range(-90f, -60f) 
+                    : UnityEngine.Random.Range(60f, 90f);
 
-                // 将direction归一化，使用x,z作为2D平面
+                // Normalize direction and treat x,z as a 2D plane
                 Vector3 dirNorm = direction.normalized;
                 float q = dirNorm.x;
                 float r = dirNorm.z;
 
-                // 将(q,r)在2D平面旋转angleDeg度
+                // Rotate (q,r) in the 2D plane by angleDeg
                 Vector2 rotated = Rotate2D(new Vector2(q, r), angleDeg * Mathf.Deg2Rad);
 
-                // 将旋转后的向量放大到distance长度
+                // Scale the rotated vector to the given distance
                 Vector2 final2D = rotated.normalized * distance;
 
-                // 将final2D(q,r)转回立方坐标
+                // Convert final2D(q,r) back to cube coordinates
                 float fx = final2D.x;
                 float fz = final2D.y;
                 float fy = -fx - fz;
 
-                // 基于start作为基准点，计算最终节点坐标
+                // Compute final node coordinates based on start
                 float finalX = start.x + fx;
                 float finalY = start.y + fy;
                 float finalZ = start.z + fz;
 
-                // 对浮点坐标进行四舍五入到最近的hex格点
+                // Cube-round the float coordinates to the nearest hex cell
                 Vector3Int endCube = CubeRound(finalX, finalY, finalZ);
 
-                // 寻找endNode并尝试寻路
+                // Find endNode and try to find a path
                 HexNode endNode = GetHexNode(endCube.x, endCube.y, endCube.z);
                 if (endNode != null)
                 {
@@ -186,8 +172,7 @@ namespace _Script.Map.WorldMap
         }
 
         /// <summary>
-        /// 2D向量旋转函数，以弧度为单位
-        /// angleRad: 旋转角度(弧度)
+        /// Rotate a 2D vector by a given angle in radians.
         /// </summary>
         private Vector2 Rotate2D(Vector2 v, float angleRad)
         {
@@ -199,8 +184,8 @@ namespace _Script.Map.WorldMap
         }
 
         /// <summary>
-        /// 将浮点cube坐标四舍五入到最近的立方格点
-        /// 算法参考：Red Blob Games: https://www.redblobgames.com/grids/hexagons/
+        /// Round float cube coordinates to the nearest hex cell.
+        /// Based on: https://www.redblobgames.com/grids/hexagons/
         /// </summary>
         private Vector3Int CubeRound(float x, float y, float z)
         {
@@ -213,30 +198,23 @@ namespace _Script.Map.WorldMap
             float dz = Mathf.Abs(rz - z);
 
             if (dx > dy && dx > dz)
-            {
                 rx = -ry - rz;
-            }
             else if (dy > dz)
-            {
                 ry = -rx - rz;
-            }
             else
-            {
                 rz = -rx - ry;
-            }
 
             return new Vector3Int(rx, ry, rz);
         }
 
         /// <summary>
-        /// 找到与给定Vector3方向最接近的基本六方向索引
+        /// Find the closest of the six main hex directions to the given 3D direction vector.
         /// </summary>
         private int FindClosestDirectionIndex(Vector3 direction)
         {
             int closestIndex = 0;
             float closestAngle = float.MaxValue;
 
-            // 与HexDirections对应的世界方向向量（根据项目需要可调整）
             Vector3[] directionVectors = {
                 new Vector3(1,-1,0), 
                 new Vector3(1,0,-1),
@@ -245,13 +223,12 @@ namespace _Script.Map.WorldMap
                 new Vector3(-1,0,1),
                 new Vector3(0,-1,1)
             };
-            
+
             Vector3 dirNorm = direction.normalized;
 
             for (int i = 0; i < 6; i++)
             {
-                Vector3 candidate = directionVectors[i].normalized;
-                float angle = Vector3.Angle(dirNorm, candidate);
+                float angle = Vector3.Angle(dirNorm, directionVectors[i].normalized);
                 if (angle < closestAngle)
                 {
                     closestAngle = angle;
@@ -264,34 +241,31 @@ namespace _Script.Map.WorldMap
 
         private static readonly Vector3Int[] HexDirections = new Vector3Int[]
         {
-            new Vector3Int(+1, -1, 0),  // D0
-            new Vector3Int(+1, 0, -1),  // D1
-            new Vector3Int(0, +1, -1),  // D2
-            new Vector3Int(-1, +1, 0),  // D3
-            new Vector3Int(-1, 0, +1),  // D4
-            new Vector3Int(0, -1, +1)   // D5
+            new Vector3Int(+1, -1, 0),
+            new Vector3Int(+1, 0, -1),
+            new Vector3Int(0, +1, -1),
+            new Vector3Int(-1, +1, 0),
+            new Vector3Int(-1, 0, +1),
+            new Vector3Int(0, -1, +1)
         };
-        
+
         public HexNode GenerateNodeAtLevel(int level)
         {
-            HexNode node = null;
-            
             for (int x = -_gridRadius; x <= _gridRadius; x++)
             {
                 for (int y = Mathf.Max(-_gridRadius, -x - _gridRadius); y <= Mathf.Min(_gridRadius, -x + _gridRadius); y++)
                 {
                     int z = -x - y;
-                    var checkNode = GetHexNode(x, y, z);
+                    HexNode checkNode = GetHexNode(x, y, z);
                     if (checkNode != null && checkNode.NodeLevel == level)
                     {
-                        node = checkNode;
-                        break;
+                        return checkNode;
                     }
                 }
             }
-            return node;
+            return null;
         }
-        
+
         private void SetPathNodes(List<HexNode> path)
         {
             foreach (var node in path)
@@ -306,12 +280,13 @@ namespace _Script.Map.WorldMap
             hexNodes.Clear();
             for (int x = -_gridRadius; x <= _gridRadius; x++)
             {
-                for (int y = Mathf.Max(-_gridRadius, -x - _gridRadius); y <= Mathf.Min(_gridRadius, -x + _gridRadius); y++)
+                int minY = Mathf.Max(-_gridRadius, -x - _gridRadius);
+                int maxY = Mathf.Min(_gridRadius, -x + _gridRadius);
+                for (int y = minY; y <= maxY; y++)
                 {
                     int z = -x - y;
-                    NodeType newNodeType = NodeType.Empty;
-                    HexNode hexNode = new HexNode(new Vector3Int(x, y, z), newNodeType, GenerateNodeData(newNodeType));
-                    hexNodes.Add((x, y, z), hexNode);
+                    var newNode = new HexNode(new Vector3Int(x, y, z), NodeType.Empty, GenerateNodeData(NodeType.Empty));
+                    hexNodes.Add((x, y, z), newNode);
                 }
             }
         }
@@ -320,25 +295,24 @@ namespace _Script.Map.WorldMap
         {
             return MapNodeFactory.Instance.CreateNode(nodeType, "Resource", 0);
         }
-        
-        
+
         private void PrecomputeNeighbors()
         {
             foreach (var kvp in hexNodes)
             {
-                (int x, int y, int z) = kvp.Key;
-                List<HexNode> neighbors = new List<HexNode>(6);
+                var key = kvp.Key;
+                var neighbors = new List<HexNode>(6);
                 foreach (var dir in HexNode.directions)
                 {
-                    int nx = x + dir.x;
-                    int ny = y + dir.y;
-                    int nz = z + dir.z;
+                    int nx = key.x + dir.x;
+                    int ny = key.y + dir.y;
+                    int nz = key.z + dir.z;
                     if (hexNodes.TryGetValue((nx, ny, nz), out var neighborNode))
                     {
                         neighbors.Add(neighborNode);
                     }
                 }
-                _neighborsCache[kvp.Key] = neighbors;
+                _neighborsCache[key] = neighbors;
             }
         }
 
@@ -366,17 +340,23 @@ namespace _Script.Map.WorldMap
 
         public List<HexNode> GetHexNodesInView(HexNode playerNode)
         {
-            List<HexNode> nodesInView = new List<HexNode>();
+            var nodesInView = new List<HexNode>();
             int radius = ViewRadius;
 
             for (int dx = -radius; dx <= radius; dx++)
             {
-                for (int dy = Mathf.Max(-radius, -dx - radius); dy <= Mathf.Min(radius, -dx + radius); dy++)
+                int startY = Mathf.Max(-radius, -dx - radius);
+                int endY = Mathf.Min(radius, -dx + radius);
+                int baseX = playerNode.Position.x;
+                int baseY = playerNode.Position.y;
+                int baseZ = playerNode.Position.z;
+
+                for (int dy = startY; dy <= endY; dy++)
                 {
                     int dz = -dx - dy;
-                    int x = playerNode.Position.x + dx;
-                    int y = playerNode.Position.y + dy;
-                    int z = playerNode.Position.z + dz;
+                    int x = baseX + dx;
+                    int y = baseY + dy;
+                    int z = baseZ + dz;
 
                     if (hexNodes.TryGetValue((x, y, z), out var hexNode))
                     {
@@ -403,7 +383,7 @@ namespace _Script.Map.WorldMap
             ResetPathfindingData();
 
             var openSet = new SortedSet<HexNode>(new NodeComparer());
-            HashSet<HexNode> closedSet = new HashSet<HexNode>();
+            var closedSet = new HashSet<HexNode>();
 
             startNode.gCost = 0;
             startNode.hCost = startNode.Distance(goalNode);
@@ -421,7 +401,9 @@ namespace _Script.Map.WorldMap
 
                 closedSet.Add(currentNode);
 
-                List<HexNode> neighbors = _neighborsCache[(currentNode.Position.x, currentNode.Position.y, currentNode.Position.z)];
+                if (!_neighborsCache.TryGetValue((currentNode.Position.x, currentNode.Position.y, currentNode.Position.z), out var neighbors))
+                    continue;
+
                 foreach (HexNode neighbor in neighbors)
                 {
                     if (neighbor.IsBlocked || closedSet.Contains(neighbor))
@@ -447,7 +429,7 @@ namespace _Script.Map.WorldMap
 
         private List<HexNode> RetracePath(HexNode startNode, HexNode endNode)
         {
-            List<HexNode> path = new List<HexNode>();
+            var path = new List<HexNode>();
             HexNode currentNode = endNode;
 
             while (currentNode != startNode)
@@ -479,8 +461,11 @@ namespace _Script.Map.WorldMap
                 return false;
             }
 
-            List<HexNode> playerNeighbors = _neighborsCache[(_playerPosition.x, _playerPosition.y, _playerPosition.z)];
-            return playerNeighbors.Contains(node);
+            if (_neighborsCache.TryGetValue((_playerPosition.x, _playerPosition.y, _playerPosition.z), out var playerNeighbors))
+            {
+                return playerNeighbors.Contains(node);
+            }
+            return false;
         }
 
         public void MovePlayer(HexNode node)
@@ -540,7 +525,9 @@ namespace _Script.Map.WorldMap
 
             for (int dx = -radius; dx <= radius; dx++)
             {
-                for (int dy = Mathf.Max(-radius, -dx - radius); dy <= Mathf.Min(radius, -dx + radius); dy++)
+                int startY = Mathf.Max(-radius, -dx - radius);
+                int endY = Mathf.Min(radius, -dx + radius);
+                for (int dy = startY; dy <= endY; dy++)
                 {
                     int dz = -dx - dy;
                     int nx = centerNode.Position.x + dx;
@@ -560,7 +547,9 @@ namespace _Script.Map.WorldMap
         {
             for (int dx = -radius; dx <= radius; dx++)
             {
-                for (int dy = Mathf.Max(-radius, -dx - radius); dy <= Mathf.Min(radius, -dx + radius); dy++)
+                int startY = Mathf.Max(-radius, -dx - radius);
+                int endY = Mathf.Min(radius, -dx + radius);
+                for (int dy = startY; dy <= endY; dy++)
                 {
                     int dz = -dx - dy;
                     int nx = centerNode.Position.x + dx;
