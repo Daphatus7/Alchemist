@@ -1,26 +1,69 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace _Script.Map.WorldMap
 {
     public class GridConfiguration
     {
         public float HexSize;
         public int GridRadius;
-        public readonly int ResourceWeight;
-        public readonly int EnemyWeight;
-        public readonly int CampfireWeight;
-        public readonly int BossWeight;
+        // Instead of a dictionary, store a list of KeyValuePairs or a custom struct
+        public readonly List<(NodeType type, int weight)> WeightedTypes;
         
-        public GridConfiguration(float hexSize, int gridRadius = 5, 
-            int resourceWeight = 3, 
-            int enemyWeight = 5, 
-            int campfireWeight = 2, 
+        // Precomputed cumulative weights
+        private readonly List<(NodeType type, int cumulativeWeight)> _cumulativeList;
+        private readonly int _totalWeight;
+
+        public GridConfiguration(
+            float hexSize,
+            int gridRadius = 10,
+            int resourceWeight = 15,
+            int enemyWeight = 5,
+            int campfireWeight = 1,
             int bossWeight = 1)
         {
             HexSize = hexSize;
             GridRadius = gridRadius;
-            ResourceWeight = resourceWeight;
-            EnemyWeight = enemyWeight;
-            CampfireWeight = campfireWeight;
-            BossWeight = bossWeight;
+
+            // Initialize the base weights
+            WeightedTypes = new List<(NodeType, int)>
+            {
+                (NodeType.Resource, resourceWeight),
+                (NodeType.Enemy, enemyWeight),
+                (NodeType.Bonfire, campfireWeight),
+                (NodeType.Boss, bossWeight)
+                // Add more NodeTypes here if needed
+            };
+
+            // Precompute cumulative weights
+            _cumulativeList = new List<(NodeType, int)>(WeightedTypes.Count);
+            int cumulative = 0;
+            foreach (var (type, w) in WeightedTypes)
+            {
+                cumulative += w;
+                _cumulativeList.Add((type, cumulative));
+            }
+
+            _totalWeight = cumulative;
+        }
+
+        public NodeType GetRandomType()
+        {
+            int rand = UnityEngine.Random.Range(0, _totalWeight);
+
+            // Since _cumulativeList is sorted by cumulativeWeight, we can do a binary search.
+            // For simplicity, we just do a linear pass here, but binary search is possible.
+            foreach (var (type, cWeight) in _cumulativeList)
+            {
+                if (rand < cWeight)
+                {
+                    return type;
+                }
+            }
+
+            // Fallback, should never reach here if totalWeight > 0
+            return NodeType.Boss;
         }
     }
 }

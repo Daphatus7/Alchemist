@@ -22,6 +22,9 @@ namespace _Script.Map.WorldMap
         private int _campfireWeight;
         private int _bossWeight;
         
+        private Vector3Int _playerPosition; public Vector3Int PlayerPosition => _playerPosition;
+
+        
         public event Action<HexNode> OnNodeChanged;
 
         private void NotifyNodeChanged(HexNode node)
@@ -29,17 +32,23 @@ namespace _Script.Map.WorldMap
             OnNodeChanged?.Invoke(node);
         }
         
-        private Vector3Int _playerPosition; 
-        public Vector3Int PlayerPosition => _playerPosition;
 
         public HexGrid(int gridRadius, GridConfiguration gridConfiguration)
         {
             _gridRadius = gridRadius;
             _gridConfiguration = gridConfiguration;
+            
             GenerateGrid();
             PrecomputeNeighbors();
             GenerateBranchingStreams();
         }
+        
+        private NodeType GenerateHexType()
+        {
+            // Just use the utility to pick from the configuration's TypeWeights
+            return _gridConfiguration.GetRandomType();
+        }
+        
         public void DebugResetGrid()
         {
             // 清空数据结构
@@ -88,8 +97,9 @@ namespace _Script.Map.WorldMap
             while(queue.Count is > 0 and < 30)
             {
                 var end = queue.Dequeue();
+                end.NodeType = NodeType.Bonfire;
                 var direction = DirectionVector(end.Position, startNode.Position);
-                var nextForkEnds = Fork(direction, end.Position, 4, RandomNumberOfFork(end.NodeLevel, 6));
+                var nextForkEnds = Fork(direction, end.Position, 4, RandomNumberOfFork(end.NodeLevel, 2));
         
                 // 对每个新生成的终点检查是否在边界
                 foreach (var nextEnd in nextForkEnds)
@@ -166,7 +176,7 @@ namespace _Script.Map.WorldMap
                     var path = FindPath(startNode, endNode);
                     if (path != null && path.Count > 0)
                     {
-                        SetPathNodes(path, NodeType.Resource);
+                        SetPathNodes(path);
                         ends.Add(endNode);
                     }
                 }
@@ -174,7 +184,7 @@ namespace _Script.Map.WorldMap
 
             return ends;
         }
-        
+
         /// <summary>
         /// 2D向量旋转函数，以弧度为单位
         /// angleRad: 旋转角度(弧度)
@@ -282,12 +292,11 @@ namespace _Script.Map.WorldMap
             return node;
         }
         
-        private void SetPathNodes(List<HexNode> path, NodeType nodeType)
+        private void SetPathNodes(List<HexNode> path)
         {
             foreach (var node in path)
             {
-                node.NodeType = nodeType;
-                Debug.Log($"Node at {node.Position} set to {nodeType}");
+                node.NodeType = GenerateHexType();
                 NotifyNodeChanged(node);
             }
         }
