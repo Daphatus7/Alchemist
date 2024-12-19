@@ -73,7 +73,7 @@ namespace _Script.Map.WorldMap
         {
             HexNode startNode = GetHexNode(0,0,0);
     
-            var firstForkEnds = Fork(Vector3.right, startNode.Position, 3, 1);
+            var firstForkEnds = Fork(Vector3.right, startNode.Position, 3, 3);
     
             var queue = new Queue<HexNode>();
 
@@ -89,7 +89,7 @@ namespace _Script.Map.WorldMap
             {
                 var end = queue.Dequeue();
                 var direction = DirectionVector(end.Position, startNode.Position);
-                var nextForkEnds = Fork(direction, end.Position, 5, RandomNumberOfFork(end.NodeLevel, 1));
+                var nextForkEnds = Fork(direction, end.Position, 4, RandomNumberOfFork(end.NodeLevel, 6));
         
                 // 对每个新生成的终点检查是否在边界
                 foreach (var nextEnd in nextForkEnds)
@@ -100,43 +100,14 @@ namespace _Script.Map.WorldMap
             }
         }
         
-        /// <summary>
-        /// 使用概率分布决定分叉数量:
-        /// - 候选分叉数量范围为[1, max]
-        /// - 概率权重 = 1/(i+level)，i为分叉数量
-        /// - 随着level增大，对大分叉数i的概率降低
-        /// </summary>
         private int RandomNumberOfFork(int level, int max)
         {
-            if (max <= 1) return 1;
-
-            float[] weights = new float[max];
-            float totalWeight = 0f;
-
-            for (int i = 0; i < max; i++)
-            {
-                // i表示分叉数量-1（因为数组从0开始）
-                int forksCount = i + 1;
-                float w = 1f / (forksCount + level);
-                weights[i] = w;
-                totalWeight += w;
-            }
-
-            // 标准化后抽取随机数
-            float randVal = UnityEngine.Random.value * totalWeight;
-            float cumulative = 0f;
-            for (int i = 0; i < max; i++)
-            {
-                cumulative += weights[i];
-                if (randVal <= cumulative)
-                {
-                    return i + 1; // i+1即实际分叉数
-                }
-            }
-
-            // 理论上不会走到这里，如果走到这里，返回max作为保底
-            return max;
-        }    
+            var v = 1/(level+1);
+            var p = Mathf.Pow(v, 2);
+            if (UnityEngine.Random.value < p)
+                return 2;
+            return 1;
+        }
         
         
         private Vector3 DirectionVector(Vector3Int end, Vector3Int start)
