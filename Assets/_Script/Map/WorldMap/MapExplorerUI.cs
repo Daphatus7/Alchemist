@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using _Script.Managers;
 using _Script.UserInterface;
 using _Script.Utilities;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Script.Map.WorldMap
@@ -14,7 +15,7 @@ namespace _Script.Map.WorldMap
 
         [Header("Grid Settings")]
         [SerializeField] private float hexSize = 0.5f;
-        [SerializeField] private int gridRadius = 10;
+        [SerializeField] private int gridRadius = 20;
         [SerializeField] private int gridVisibility = 2;
         [SerializeField] private GameObject hexPrefab;
         [SerializeField] private Grid mapGrid;        // UI Grid that holds hex nodes
@@ -48,6 +49,8 @@ namespace _Script.Map.WorldMap
         // Fields for dragging (panning) with the left mouse button
         private bool isDragging = false;
         private Vector3 lastMousePosition;
+        
+
 
         private void Start()
         {
@@ -75,6 +78,18 @@ namespace _Script.Map.WorldMap
                 HandleMapInteraction();
             }
         }
+
+        private void OnDisable()
+        {
+            if (_hexGrid != null)
+                _hexGrid.OnNodeChanged -= HandleNodeChanged;
+        }
+
+        private void HandleNodeChanged(HexNode node)
+        {
+            UpdateNodeVisual(node.Position);
+        }
+        
 
         /// <summary>
         /// Toggles between the main game view and the map view.
@@ -212,6 +227,7 @@ namespace _Script.Map.WorldMap
             if (mapCanvas != null)
             {
                 mapCanvas.gameObject.SetActive(false);
+                _hexGrid.OnNodeChanged -= HandleNodeChanged;
             }
         }
 
@@ -220,12 +236,13 @@ namespace _Script.Map.WorldMap
             if (mapCanvas != null)
             {
                 mapCanvas.gameObject.SetActive(true);
+                _hexGrid.OnNodeChanged += HandleNodeChanged;
             }
         }
 
         private void GenerateGridVisuals()
         {
-            foreach (HexNode hexNode in _hexGrid.GetAllVisibleHexNodes())
+            foreach (HexNode hexNode in _hexGrid.GetAllHexNodes())
             {
                 if (!_hexDisplayMap.ContainsKey(hexNode))
                 {
@@ -236,6 +253,8 @@ namespace _Script.Map.WorldMap
                 }
             }
         }
+        
+        
 
         private Vector3 GetWorldPosition(Vector3Int cubePosition)
         {
@@ -341,6 +360,12 @@ namespace _Script.Map.WorldMap
             _                 => emptyNodeSprite
         };
 
+        [Button]
+        public void ResetGrid()
+        {
+            _hexGrid.DebugResetGrid();
+        }
+
         private HexNodeDisplay ConfigureNodeDisplay(HexNodeDisplay display, HexNode hexNode)
         {
             if (hexNode.ExplorationState == NodeExplorationState.Explored)
@@ -357,6 +382,37 @@ namespace _Script.Map.WorldMap
 
             return display;
         }
+        
+        private void UpdateNodeVisual(Vector3Int nodePos)
+        {
+            // 查找对应的HexNode
+            var node = _hexGrid.GetHexNode(nodePos.x, nodePos.y, nodePos.z);
+            if (node == null) return;
+
+            // 检查该节点对应的显示对象
+            if (_hexDisplayMap.TryGetValue(node, out var nodeDisplay))
+            {
+                // 更新节点的Sprite等UI信息
+                nodeDisplay.SetImage(GetImageByNodeType(node.NodeType));
+            
+                // 如果需要根据节点的ExplorationState变化，对应执行一些UI操作
+                if (node.ExplorationState == NodeExplorationState.Explored)
+                {
+                    nodeDisplay.SetNodeComplete();
+                }
+                else
+                {
+                    nodeDisplay.Highlight(node.ExplorationState == NodeExplorationState.Exploring);
+                }
+            }
+            else
+            {
+                // 若当前节点还没有对应的显示对象（某些情况下可能出现）
+                // 则重新生成或调用GenerateGridVisuals()保证UI同步。
+                // 通常生成一次后就有对应映射，不需再次生成。
+            }
+        }
+        
 
         public void ResetHexMap()
         {

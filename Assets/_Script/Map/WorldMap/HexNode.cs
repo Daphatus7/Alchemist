@@ -25,15 +25,26 @@ namespace _Script.Map.WorldMap
     public class HexNode
     {
         // Cube coordinates
-        private readonly Vector3Int _position; 
+        private Vector3Int _position; 
         public Vector3Int Position => _position;
 
         public HexNode Parent; // For retracing the path
         
-        private readonly NodeType _nodeType = NodeType.Empty; public NodeType NodeType => _nodeType;
+        private NodeType _nodeType = NodeType.Empty;
+
+        public NodeType NodeType
+        {
+            get => _nodeType;
+            set => _nodeType = value;
+        }
         
-        private readonly NodeData _nodeData; 
-        public NodeData NodeData => _nodeData;
+        private NodeData _nodeData;
+
+        public NodeData NodeData
+        {
+            get => _nodeData;
+            set => _nodeData = value;
+        }
         
         public int gCost; // Cost from the start node
         public int hCost; // Cost to the goal node

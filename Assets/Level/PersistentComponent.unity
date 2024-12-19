@@ -2571,7 +2571,7 @@ PrefabInstance:
     - target: {fileID: 1265017803286737570, guid: f47f59d2fcdc84ceda5158f39079696d,
         type: 3}
       propertyPath: debug
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1265017803286737570, guid: f47f59d2fcdc84ceda5158f39079696d,
         type: 3}
@@ -2583,6 +2583,17 @@ PrefabInstance:
       propertyPath: gameCamera
       value: 
       objectReference: {fileID: 714712834}
+    - target: {fileID: 1265017803286737570, guid: f47f59d2fcdc84ceda5158f39079696d,
+        type: 3}
+      propertyPath: gridRadius
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1265017803286737570, guid: f47f59d2fcdc84ceda5158f39079696d,
+        type: 3}
+      propertyPath: emptyNodeSprite
+      value: 
+      objectReference: {fileID: -7799593173059350681, guid: 93833f8c1f1d54b0ba182be0e2e5d3cf,
+        type: 3}
     - target: {fileID: 3556588023441221011, guid: f47f59d2fcdc84ceda5158f39079696d,
         type: 3}
       propertyPath: m_Name
