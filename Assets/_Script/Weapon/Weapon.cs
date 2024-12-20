@@ -17,7 +17,9 @@ namespace _Script.Weapon
         [SerializeField] private float attackCooldown; public float AttackCooldown => attackCooldown;
         protected bool isCoolingDown = false; public bool IsCoolingDown => isCoolingDown;
         
-        public void SetWeaponItem(WeaponItem weaponItem, List<string> targetTags)
+        [SerializeField] private List<string> targetTags;
+        
+        public void SetWeaponItem(WeaponItem weaponItem)
         {
             SetDamage(weaponItem.damage);
             attackCooldown = weaponItem.attackSpeed;

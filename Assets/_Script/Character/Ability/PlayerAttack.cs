@@ -59,7 +59,7 @@ namespace _Script.Character.Ability
             
             // set new weapon
             currentWeapon = weapon.GetComponent<Weapon.Weapon>();
-            currentWeapon.SetWeaponItem(weaponItem, targetTags);
+            currentWeapon.SetWeaponItem(weaponItem);
         }
         
         public void RemoveWeapon()

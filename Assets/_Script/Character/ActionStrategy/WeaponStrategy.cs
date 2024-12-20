@@ -16,7 +16,6 @@ namespace _Script.Character.ActionStrategy
         {
             targetTags = new List<string> {"Enemy"};
             _currentWeapon = GetComponentInChildren<Weapon.Weapon>();
-            _currentWeapon?.SetTargetType(targetTags);
         }
 
         private void Update()
@@ -82,7 +81,7 @@ namespace _Script.Character.ActionStrategy
                     Destroy(_currentWeapon.gameObject);
                 }
                 _currentWeapon = weapon.GetComponent<Weapon.Weapon>();
-                _currentWeapon.SetWeaponItem(weaponItem, targetTags);
+                _currentWeapon.SetWeaponItem(weaponItem);
             }
         }
 
