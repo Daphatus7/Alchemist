@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 4693089734858851007}
   - component: {fileID: 971557233154606613}
   - component: {fileID: 4173733779503441914}
+  - component: {fileID: 5407041345588872174}
   m_Layer: 0
-  m_Name: Ore_Gold
+  m_Name: Ore_Iron
   m_TagString: Ore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,8 +48,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
-  orePrefab: {fileID: 5172278498976130515, guid: 8027738187db4584bbe5410edf0e2e69,
-    type: 3}
 --- !u!212 &971557233154606613
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -159,3 +158,16 @@ PolygonCollider2D:
       - {x: -0.18212867, y: 0.2686211}
       - {x: 0.018399954, y: 0.47840524}
   m_UseDelaunayMesh: 0
+--- !u!114 &5407041345588872174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8987468867407766592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61c744cf91ae40f8b29dd7d18f20b7ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropProviderObject: {fileID: 11400000, guid: cb13448bde3b74ef3a057cabbe4e8cc4, type: 2}

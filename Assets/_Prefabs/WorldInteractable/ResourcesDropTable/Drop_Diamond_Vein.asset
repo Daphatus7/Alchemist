@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d77b88c96164bd4925cdb1afad484d6, type: 3}
+  m_Name: Drop_Diamond_Vein
+  m_EditorClassIdentifier: 
+  drops:
+  - item: {fileID: 11400000, guid: 4eb040c67687b4f519f95a8189e62630, type: 2}
+    dropChance: 1.1
+    minAmount: 1
+    maxAmount: 2
+    isUnique: 0
+  - item: {fileID: 11400000, guid: 5c653fba37153457a98c54a75dea61d3, type: 2}
+    dropChance: 0.05
+    minAmount: 0
+    maxAmount: 1
+    isUnique: 0

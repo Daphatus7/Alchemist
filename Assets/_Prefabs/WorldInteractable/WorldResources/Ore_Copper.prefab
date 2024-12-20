@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 4693089734858851007}
   - component: {fileID: 971557233154606613}
   - component: {fileID: 4173733779503441914}
+  - component: {fileID: -2398234163426731194}
   m_Layer: 0
-  m_Name: Ore_Iron
+  m_Name: Ore_Copper
   m_TagString: Ore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,9 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b06893ccadb24db88788727b702fc269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1
-  orePrefab: {fileID: 5172278498976130515, guid: 8027738187db4584bbe5410edf0e2e69,
-    type: 3}
+  health: 5
 --- !u!212 &971557233154606613
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -93,7 +92,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 360050356498797049, guid: d9184dbb777e8e8489eb1e645a17d80a, type: 3}
+  m_Sprite: {fileID: -2540613011197712258, guid: d9184dbb777e8e8489eb1e645a17d80a,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -159,3 +159,16 @@ PolygonCollider2D:
       - {x: -0.18212867, y: 0.2686211}
       - {x: 0.018399954, y: 0.47840524}
   m_UseDelaunayMesh: 0
+--- !u!114 &-2398234163426731194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8987468867407766592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61c744cf91ae40f8b29dd7d18f20b7ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropProviderObject: {fileID: 11400000, guid: 315eb08a6f91c4ce6be51ccdfd714939, type: 2}

@@ -1,3 +1,4 @@
+using _Script.Map.Procedural.BiomeData;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -13,7 +14,6 @@ namespace _Script.Map.Procedural
         public TileBase waterTile;
         public TileBase wallTile;
         public TileBase grassTile;
-        public TileBase sandTile;
         public TileBase dirtTile;
 
         [BoxGroup("Thresholds & Noise")]
@@ -33,10 +33,7 @@ namespace _Script.Map.Procedural
         public float floraMaxNoise = 0.6f;
 
         [BoxGroup("Resource Settings")]
-        public GameObject resourcePrefab;
-        public int numberOfResources = 10;
-        public float resourceDensity = 0.25f;
-        public float minResourceDistance = 5f;
+        public BiomeResource biomeResource;
 
         [BoxGroup("Monster Settings")]
         public GameObject monsterPrefab;

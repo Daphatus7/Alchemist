@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 1150393813693523868}
   - component: {fileID: 1517139829594178872}
   - component: {fileID: 4496490976337068143}
+  - component: {fileID: 1229075457137671254}
   m_Layer: 8
   m_Name: ToughBoss
   m_TagString: Enemy
@@ -141,7 +142,6 @@ MonoBehaviour:
   health: 5
   healthMax: 5
   attackPrefab: {fileID: 0}
-  dropProviderObject: {fileID: 11400000, guid: a7a11b8417fcf467a8750da1287b8794, type: 2}
 --- !u!61 &29300319380929225
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -341,3 +341,16 @@ MonoBehaviour:
     type: 3}
   damageNumberPrefab: {fileID: 3418554337574669511, guid: 0de677f7bca764a82945a8a9e4c3f703,
     type: 3}
+--- !u!114 &1229075457137671254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8794507309829770285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61c744cf91ae40f8b29dd7d18f20b7ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropProviderObject: {fileID: 11400000, guid: 7486734bb941047a2a6640882114f7e2, type: 2}
