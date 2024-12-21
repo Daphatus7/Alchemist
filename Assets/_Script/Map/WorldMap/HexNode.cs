@@ -69,7 +69,7 @@ namespace _Script.Map.WorldMap
         };
 
         // Constructor
-        public HexNode(Vector3Int position, NodeType nodeType, NodeData nodeData)
+        public HexNode(Vector3Int position, NodeType nodeType)
         {
             _position = position;
             if (_position.x + _position.y + _position.z != 0)
@@ -77,7 +77,6 @@ namespace _Script.Map.WorldMap
             _nodeType = nodeType;
             if (nodeType == NodeType.Obstacle)
                 IsBlocked = true;
-            _nodeData = nodeData;
         }
 
         // Update exploration state

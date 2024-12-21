@@ -97,22 +97,12 @@ namespace _Script.Map.WorldMap
         private void ToggleMap()
         {
             isMapOpen = !isMapOpen;
-
             if (isMapOpen)
             {
-                // Switch to the map view
-                if (gameCamera) gameCamera.enabled = false;
-                if (mapCamera) mapCamera.enabled = true;
-
                 ShowUI();
-                CenterMapCameraOnMap();
             }
             else
             {
-                // Switch back to the game view
-                if (mapCamera != null) mapCamera.enabled = false;
-                if (gameCamera != null) gameCamera.enabled = true;
-
                 HideUI();
             }
         }
@@ -222,22 +212,50 @@ namespace _Script.Map.WorldMap
             }
         }
 
-        public void HideUI()
-        {
-            if (mapCanvas != null)
-            {
-                mapCanvas.gameObject.SetActive(false);
-                _hexGrid.OnNodeChanged -= HandleNodeChanged;
-            }
-        }
-
         public void ShowUI()
         {
-            if (mapCanvas != null)
+            if (!mapCanvas) return;      // Safety check
+    
+            // 1) Activate the canvas
+            mapCanvas.SetActive(true);
+
+            // 2) Re-subscribe (avoid double‐subscription)
+            if (_hexGrid != null)
             {
-                mapCanvas.gameObject.SetActive(true);
+                _hexGrid.OnNodeChanged -= HandleNodeChanged; 
                 _hexGrid.OnNodeChanged += HandleNodeChanged;
             }
+
+            // 3) Center the map camera (if needed)
+            CenterMapCameraOnMap();
+
+            // 4) Toggle cameras
+            if (gameCamera) gameCamera.enabled = false;
+            if (mapCamera)  mapCamera.enabled = true;
+
+            // 5) Reset flags
+            isDragging = false;
+        }
+
+        public void HideUI()
+        {
+            if (!mapCanvas) return;      // Safety check
+
+            // 1) Deactivate the canvas
+            mapCanvas.SetActive(false);
+
+            // 2) Unsubscribe event(s)
+            if (_hexGrid != null)
+            {
+                _hexGrid.OnNodeChanged -= HandleNodeChanged;
+            }
+
+            // 3) Toggle cameras
+            if (gameCamera) gameCamera.enabled = true;
+            if (mapCamera)  mapCamera.enabled = false;
+
+            // 4) Reset flags
+            isDragging = false;
         }
 
         private void GenerateGridVisuals()
@@ -311,17 +329,17 @@ namespace _Script.Map.WorldMap
                 return;
             }
 
-            // Normal: switch back to game view after exploring
             HideUI();
+            
+            // Normal: switch back to game view after exploring
             if (mapCamera != null) mapCamera.enabled = false;
             if (gameCamera != null) gameCamera.enabled = true;
 
             _hexGrid.MovePlayer(node);
             node.SetExplorationState(NodeExplorationState.Exploring);
-
-            MarkCurrentNodeAsExplored();
-
             isMapOpen = false;
+            GameManager.Instance.LoadSelectedScene(node.NodeData);
+            
         }
 
         public void MarkCurrentNodeAsExplored()

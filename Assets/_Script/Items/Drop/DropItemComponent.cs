@@ -20,13 +20,8 @@ namespace _Script.Items.Drop
             // Convert the ScriptableObject to IDropProvider
             _dropProvider = dropProviderObject as IDropProvider;
         }
-
-        private void OnDestroy()
-        {
-            DropItems();
-        }
-
-        private void DropItems()
+        
+        public void DropItems()
         {
             if (_dropProvider == null) return;
 

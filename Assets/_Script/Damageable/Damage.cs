@@ -37,7 +37,6 @@ namespace _Script.Damageable
         
         protected virtual void TryDamage(Collider2D other)
         {
-            Debug.Log("TryDamage");
             if(!CanDamage()) return;
             if (!IsTarget(other) || !other.TryGetComponent(out IDamageable d)) return;
             var actualDamage = d.ApplyDamage(damage);

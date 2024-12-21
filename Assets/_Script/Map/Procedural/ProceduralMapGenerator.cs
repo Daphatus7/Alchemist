@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using _Script.Map.Procedural.BiomeData;
+using Sirenix.OdinInspector; // 记得引入
 
 namespace _Script.Map.Procedural
 {
@@ -16,9 +19,9 @@ namespace _Script.Map.Procedural
         public Tilemap floraTilemap;
 
         [Header("Debug")]
-        public Tilemap debugTilemap;   // Assign in inspector for debugging
-        public TileBase debugTile;     // A simple white tile to tint with color
-        
+        public Tilemap debugTilemap;   
+        public TileBase debugTile;
+
         [Header("Biomes")]
         public Biome[] biomes;
 
@@ -33,17 +36,23 @@ namespace _Script.Map.Procedural
         private TileBase[,] _obstacleTiles;
         private Biome[,] _tileBiomes;
 
-        // Instead of just one big list, we now have regions of reachable tiles
         private List<List<Vector2Int>> reachableAreas;
-        // We'll choose tiles from the largest reachable area for spawn, end, monsters, etc.
         private List<Vector2Int> chosenRegion;
 
-        private Vector2Int _spawnPoint; public Vector2Int SpawnPoint => _spawnPoint;
-        private Vector2Int _endPoint; public Vector2Int EndPoint => _endPoint;
+        private Vector2Int _spawnPoint; 
+        public Vector2Int SpawnPoint => _spawnPoint;
+        private Vector2Int _endPoint; 
+        public Vector2Int EndPoint => _endPoint;
+
         [SerializeField] private int _minDistance = 10;
 
+        // 新增：Biome -> 该Biome所有可通行格子
+        private Dictionary<Biome, List<Vector2Int>> _biomeTilesDict;
+
+        [Button]
         public bool GenerateMap(int intWidth, int iniHeight, out Vector2Int sPoint, out Vector2Int ePoint)
         {
+            
             if (baseTilemap == null || floraTilemap == null || obstaclesTilemap == null)
             {
                 Debug.LogError("Assign baseTilemap, floraTilemap, and obstaclesTilemap.");
@@ -88,6 +97,11 @@ namespace _Script.Map.Procedural
             chosenRegion = SelectLargestRegion();
 
             PlaceMonstersFromBiomes();
+
+            // 1) 先建立Biome -> 可走地块的缓存
+            BuildBiomeTilesDictionary();
+
+            // 2) 在构建完后再调用资源放置
             PlaceResourcesFromBiomes();
 
             GenerateSpawnAndEndPoint(_minDistance, out Vector2Int spawnPoint, out Vector2Int endPoint);
@@ -95,13 +109,39 @@ namespace _Script.Map.Procedural
             sPoint = spawnPoint;
             _endPoint = endPoint;
             ePoint = endPoint;
-            
-            
-            // DebugPrintReachableAreas();
-            // HighlightReachableAreas();
-            // DebugHighlightChosenRegion();
-            // DebugMarkSpawnEndPoints();
+
             return true;
+        }
+        
+        [Button("Debug: Clear Map")]
+        public void DebugClearMap()
+        {
+            // 1) 清空 Tilemap
+            if(baseTilemap)      baseTilemap.ClearAllTiles();
+            if(obstaclesTilemap) obstaclesTilemap.ClearAllTiles();
+            if(floraTilemap)     floraTilemap.ClearAllTiles();
+            if(debugTilemap)     debugTilemap.ClearAllTiles();
+
+            // 2) 重置或清空相关内部数据
+            _mapTiles      = null;
+            _walkableArea  = null;
+            _obstacleTiles = null;
+            _tileBiomes    = null;
+
+            reachableAreas?.Clear();
+            chosenRegion?.Clear();
+            _biomeTilesDict?.Clear();
+
+            // 3) 重置 Spawn / End
+            _spawnPoint = Vector2Int.zero;
+            _endPoint   = Vector2Int.zero;
+
+            // 如需销毁场景中生成的怪物或资源对象，可在此处补充
+            // 例如：
+            // DestroyAllSpawnedObjectsWithTag("Monster");
+            // DestroyAllSpawnedObjectsWithTag("Resource");
+
+            Debug.Log("Map and internal data have been cleared.");
         }
 
         void InitializeBoundary()
@@ -125,7 +165,7 @@ namespace _Script.Map.Procedural
             {
                 for (int y = 1; y < height-1; y++)
                 {
-                    float n = Mathf.PerlinNoise((x+xOffset)*biomeNoiseScale,(y+yOffset)*biomeNoiseScale);
+                    float n = Mathf.PerlinNoise((x+xOffset)*biomeNoiseScale, (y+yOffset)*biomeNoiseScale);
                     _tileBiomes[x,y] = PickBiomeByNoise(n);
                 }
             }
@@ -227,7 +267,7 @@ namespace _Script.Map.Procedural
                     Biome b = _tileBiomes[x,y];
                     if (b == null || _mapTiles[x,y]==null || !_walkableArea[x,y]) continue;
 
-                    float val = Mathf.PerlinNoise((x+xOffset)*perlinScale,(y+yOffset)*perlinScale)*100f;
+                    float val = Mathf.PerlinNoise((x+xOffset)*perlinScale, (y+yOffset)*perlinScale)*100f;
                     if (val > b.forestThreshold && b.forestTile!=null)
                     {
                         _mapTiles[x,y] = b.forestTile;
@@ -453,11 +493,10 @@ namespace _Script.Map.Procedural
         {
             if(reachableAreas.Count==0)
             {
-                // No reachable areas? fallback
+                // fallback
                 return new List<Vector2Int>();
             }
 
-            // Pick largest by tile count
             List<Vector2Int> largest = reachableAreas[0];
             foreach(var area in reachableAreas)
             {
@@ -467,111 +506,8 @@ namespace _Script.Map.Procedural
             return largest;
         }
 
-        /// <summary>
-        /// Print information about the reachable areas to the console.
-        /// </summary>
-        void DebugPrintReachableAreas()
-        {
-            if (reachableAreas == null || reachableAreas.Count == 0)
-            {
-                Debug.Log("No reachable areas found.");
-                return;
-            }
-
-            Debug.Log($"Number of reachable areas: {reachableAreas.Count}");
-            for (int i = 0; i < reachableAreas.Count; i++)
-            {
-                Debug.Log($"Area {i}: Size = {reachableAreas[i].Count} tiles");
-            }
-        }
-
-        /// <summary>
-        /// Highlights each reachable area with a different color to visualize their locations.
-        /// </summary>
-        void HighlightReachableAreas()
-        {
-            if (debugTilemap == null || debugTile == null)
-            {
-                Debug.LogWarning("Debug Tilemap or Debug Tile not assigned, cannot highlight areas.");
-                return;
-            }
-
-            Color[] colors = new Color[] {
-                Color.red, Color.green, Color.blue,
-                Color.magenta, Color.cyan, Color.yellow,
-                Color.gray, new Color(1f,0.5f,0f), new Color(0.5f,0f,1f)
-            };
-
-            for (int i = 0; i < reachableAreas.Count; i++)
-            {
-                var area = reachableAreas[i];
-                Color c = (i < colors.Length) ? colors[i] : new Color(Random.value, Random.value, Random.value);
-
-                foreach (var tilePos in area)
-                {
-                    Vector3Int cellPos = new Vector3Int(tilePos.x, tilePos.y, 0);
-                    debugTilemap.SetTile(cellPos, debugTile);
-                    debugTilemap.SetColor(cellPos, c);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Highlights the chosen (largest) reachable region with a distinct border or color.
-        /// </summary>
-        void DebugHighlightChosenRegion()
-        {
-            if (debugTilemap == null || debugTile == null || chosenRegion == null || chosenRegion.Count == 0)
-                return;
-
-            // Use white color for chosen region as an overlay
-            Color chosenColor = Color.white;
-
-            foreach (var tilePos in chosenRegion)
-            {
-                Vector3Int cellPos = new Vector3Int(tilePos.x, tilePos.y, 0);
-                if (debugTilemap.GetTile(cellPos) != null)
-                {
-                    // Mix chosenColor with existing color?
-                    // For simplicity, just overwrite with chosenColor for clarity
-                    debugTilemap.SetColor(cellPos, chosenColor);
-                }
-                else
-                {
-                    debugTilemap.SetTile(cellPos, debugTile);
-                    debugTilemap.SetColor(cellPos, chosenColor);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Mark the spawn and end points with a distinct color or tile on the debug tilemap.
-        /// </summary>
-        void DebugMarkSpawnEndPoints()
-        {
-            if (debugTilemap == null || debugTile == null)
-                return;
-
-            // Spawn point as green, end point as red
-            if (_spawnPoint != Vector2Int.zero)
-            {
-                Vector3Int spawnCell = new Vector3Int(_spawnPoint.x, _spawnPoint.y, 0);
-                debugTilemap.SetTile(spawnCell, debugTile);
-                debugTilemap.SetColor(spawnCell, Color.green);
-            }
-
-            if (_endPoint != Vector2Int.zero)
-            {
-                Vector3Int endCell = new Vector3Int(_endPoint.x, _endPoint.y, 0);
-                debugTilemap.SetTile(endCell, debugTile);
-                debugTilemap.SetColor(endCell, Color.red);
-            }
-        }
-        
         void PlaceMonstersFromBiomes()
         {
-            // Now we choose from chosenRegion instead of validSpawnTiles
-            // chosenRegion is guaranteed to be walkable and reachable
             if(chosenRegion==null || chosenRegion.Count==0) return;
 
             foreach(var b in biomes)
@@ -582,7 +518,7 @@ namespace _Script.Map.Procedural
                 int attempts=0;
                 List<Vector2> placedM = new List<Vector2>();
 
-                while(placedM.Count<b.numberOfMonsters && candidateList.Count>0 && attempts< b.numberOfMonsters*100)
+                while(placedM.Count < b.numberOfMonsters && candidateList.Count>0 && attempts< b.numberOfMonsters*100)
                 {
                     attempts++;
                     int randIndex=Random.Range(0,candidateList.Count);
@@ -614,7 +550,6 @@ namespace _Script.Map.Procedural
 
         public void GenerateSpawnAndEndPoint(float minimumDistance, out Vector2Int spawnPoint, out Vector2Int endPoint)
         {
-            // Ensure chosenRegion is not empty and has at least 2 tiles
             if (chosenRegion == null || chosenRegion.Count < 2)
             {
                 Debug.LogWarning("No largest reachable area found or not enough tiles for spawn/end points. Using fallback.");
@@ -626,10 +561,7 @@ namespace _Script.Map.Procedural
             int maxAttempts = 500;
             for (int attempt = 0; attempt < maxAttempts; attempt++)
             {
-                // Pick a random spawn candidate from chosenRegion
                 Vector2Int candidateSpawn = chosenRegion[Random.Range(0, chosenRegion.Count)];
-
-                // Find tiles at least minimumDistance away within chosenRegion
                 List<Vector2Int> farEnoughTiles = new List<Vector2Int>();
                 foreach (var tile in chosenRegion)
                 {
@@ -641,7 +573,6 @@ namespace _Script.Map.Procedural
 
                 if (farEnoughTiles.Count > 0)
                 {
-                    // Pick a random end tile from farEnoughTiles
                     Vector2Int candidateEnd = farEnoughTiles[Random.Range(0, farEnoughTiles.Count)];
                     spawnPoint = candidateSpawn;
                     endPoint = candidateEnd;
@@ -649,50 +580,151 @@ namespace _Script.Map.Procedural
                 }
             }
 
-            // If no suitable pair found after maxAttempts, fallback
             Debug.LogWarning("Could not find suitable spawn/end within chosenRegion at required distance. Using fallback.");
             spawnPoint = chosenRegion[0];
             endPoint = chosenRegion[chosenRegion.Count - 1];
         }
 
+        // ===================== 新增/修改部分 ======================
+
+        /// <summary>
+        /// 建立Biome -> 可走地块列表 的字典，避免重复过滤
+        /// </summary>
+        void BuildBiomeTilesDictionary()
+        {
+            _biomeTilesDict = new Dictionary<Biome, List<Vector2Int>>();
+
+            // 在 chosenRegion 中挑选每个位置，看对应的 Biome
+            // 也可遍历全图，这里选择只遍历 chosenRegion
+            foreach (var pos in chosenRegion)
+            {
+                Biome b = _tileBiomes[pos.x, pos.y];
+                if (b == null) continue;
+
+                if (!_biomeTilesDict.ContainsKey(b))
+                {
+                    _biomeTilesDict[b] = new List<Vector2Int>();
+                }
+                _biomeTilesDict[b].Add(pos);
+            }
+        }
+
+        /// <summary>
+        /// 资源放置逻辑：使用噪声 + 分桶 + 距离检查
+        /// </summary>
         void PlaceResourcesFromBiomes()
         {
-            if(chosenRegion==null || chosenRegion.Count==0) return;
+            if (chosenRegion == null || chosenRegion.Count == 0) return;
+            if (_biomeTilesDict == null) return;
 
-            foreach(var b in biomes)
+            foreach (var b in biomes)
             {
-                if(b.resourcePrefab==null||b.numberOfResources<=0) continue;
+                if (b.biomeResource == null || b.numberOfResources <= 0) 
+                    continue;
+                if (!_biomeTilesDict.ContainsKey(b)) 
+                    continue;
 
-                var candidateList = new List<Vector2Int>(chosenRegion);
-                List<Vector2Int> placedR = new List<Vector2Int>();
-                int attempts=0;
+                // 取出该Biome可走位置
+                var candidateTiles = new List<Vector2Int>(_biomeTilesDict[b]);
+                // 打乱
+                Shuffle(candidateTiles);
 
-                while(placedR.Count<b.numberOfResources && candidateList.Count>0 && attempts<b.numberOfResources*100)
+                int placedCount = 0;
+                List<Vector2Int> placedPositions = new List<Vector2Int>();
+
+                // 遍历 candidateTiles
+                foreach (var tilePos in candidateTiles)
                 {
-                    attempts++;
-                    int randIndex=Random.Range(0,candidateList.Count);
-                    Vector2Int spot=candidateList[randIndex];
+                    if (placedCount >= b.numberOfResources)
+                        break;
 
-                    bool tooClose=false;
-                    foreach(var rPos in placedR)
+                    // 用噪声判定，这里仅做示例
+                    float noiseVal = Mathf.PerlinNoise(
+                        tilePos.x * b.resourceNoiseScale, 
+                        tilePos.y * b.resourceNoiseScale);
+
+                    // 如果噪声太小，就跳过
+                    if (noiseVal < 0.5f) 
+                        continue;
+
+                    // 结合resourceDensity做随机
+                    if (Random.value > b.resourceDensity)
+                        continue;
+
+                    // 检查与已放置资源的最小距离
+                    if (!IsTooCloseToAny(tilePos, placedPositions, b.minResourceDistance))
                     {
-                        if(Vector2Int.Distance(rPos,spot)<b.minResourceDistance)
+                        // 决定放置哪种资源(从 BiomeResource 中选一个)
+                        var chosenResource = PickResourceFromBiome(b);
+                        if (chosenResource != null && chosenResource.resourcePrefab != null)
                         {
-                            tooClose=true;
-                            break;
+                            // 获取Prefab
+                            GameObject prefab = b.biomeResource.GetRandomResourcePrefab();
+                            if (prefab != null)
+                            {
+                                Vector3 wPos = baseTilemap.CellToWorld(new Vector3Int(tilePos.x, tilePos.y, 0)) 
+                                               + new Vector3(0.5f, 0.5f, 0f);
+                                Instantiate(prefab, wPos, Quaternion.identity);
+
+                                placedPositions.Add(tilePos);
+                                placedCount++;
+                            }
                         }
                     }
-
-                    if(!tooClose && Random.value<b.resourceDensity)
-                    {
-                        Vector3 wPos=baseTilemap.CellToWorld(new Vector3Int(spot.x,spot.y,0));
-                        Instantiate(b.resourcePrefab,wPos+new Vector3(0.5f,0.5f,0f),Quaternion.identity);
-                        placedR.Add(spot);
-                    }
-
-                    candidateList.RemoveAt(randIndex);
                 }
             }
+        }
+
+        // ===================== 工具方法 ======================
+
+        /// <summary>
+        /// 随机打乱List
+        /// </summary>
+        void Shuffle<T>(List<T> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                int rand = Random.Range(i, list.Count);
+                T temp = list[i];
+                list[i] = list[rand];
+                list[rand] = temp;
+            }
+        }
+
+        /// <summary>
+        /// 从Biome的资源表中随机选一个资源条目 (示例)
+        /// </summary>
+        BiomeResource.BiomeResourceData PickResourceFromBiome(Biome b)
+        {
+            var table = b.biomeResource.GetResources();
+            if (table == null) return null;
+
+            var resList = new List<BiomeResource.BiomeResourceData>(table);
+            if (resList.Count == 0) return null;
+
+            int idx = Random.Range(0, resList.Count);
+            return resList[idx];
+        }
+
+        /// <summary>
+        /// 判断 tilePos 与 placedPositions 中任意点距离是否小于 minDist
+        /// </summary>
+        bool IsTooCloseToAny(Vector2Int tilePos, List<Vector2Int> placedPositions, float minDist)
+        {
+            foreach (var pp in placedPositions)
+            {
+                if (Vector2Int.Distance(pp, tilePos) < minDist)
+                    return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 判断某坐标是否可走 (也可直接查 _walkableArea[x,y])
+        /// </summary>
+        bool IsWalkable(int x, int y)
+        {
+            return _walkableArea[x,y];
         }
     }
 }

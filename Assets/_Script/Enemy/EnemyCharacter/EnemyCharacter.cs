@@ -10,6 +10,7 @@ namespace _Script.Enemy.EnemyCharacter
     
         protected override void OnDeath()
         {
+            GetComponent<DropItemComponent>()?.DropItems();
             Destroy(gameObject);
         }
     }

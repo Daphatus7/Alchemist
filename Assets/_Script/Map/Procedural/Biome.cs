@@ -18,9 +18,7 @@ namespace _Script.Map.Procedural
 
         [BoxGroup("Thresholds & Noise")]
         [Range(0f,1f)] public float selectionThreshold; 
-        // Used to determine if this biome is chosen from noise
-        // e.g., if biome A has threshold 0.3 and biome B has threshold 0.6,
-        // a noise value <0.3 picks A, <0.6 picks B, else another biome.
+        // 用于判断当前格子是否属于此Biome的阈值
 
         [Range(0,100)] public int forestThreshold = 50;
         [Range(0,100)] public int waterThreshold = 35;
@@ -34,6 +32,12 @@ namespace _Script.Map.Procedural
 
         [BoxGroup("Resource Settings")]
         public BiomeResource biomeResource;
+        [Range(0f,1f)] public float resourceDensity = 0.2f;       // 资源密度（示例）
+        [Range(0f,1f)] public float resourceNoiseScale = 0.05f;  // 资源噪声参考
+        
+        public GameObject resourcePrefab;    // 示例资源Prefab
+        public int numberOfResources = 10;   // 该Biome要放多少个资源
+        public float minResourceDistance = 3f;
 
         [BoxGroup("Monster Settings")]
         public GameObject monsterPrefab;
@@ -51,7 +55,5 @@ namespace _Script.Map.Procedural
         [Range(0f,1f)] public float rockNoiseScale = 0.05f;
         public float rockMinNoise = 0.5f;
         public float rockMaxNoise = 0.8f;
-
-        // Biome can have methods to help apply terrain rules if needed
     }
 }

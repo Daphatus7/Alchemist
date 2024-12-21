@@ -10,6 +10,9 @@ namespace _Script.NPC.NpcBackend.Gates
         protected override void OnDialogueEnd()
         {
             base.OnDialogueEnd();
+            
+            // need hard fix
+            
             MapExplorerUI.Instance.MarkCurrentNodeAsExplored();
             MapExplorerUI.Instance.ShowUI();
             AddMoreUIHandlers(MapExplorerUI.Instance);

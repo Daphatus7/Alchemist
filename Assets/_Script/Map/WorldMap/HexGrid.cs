@@ -33,6 +33,18 @@ namespace _Script.Map.WorldMap
             GenerateGrid();
             PrecomputeNeighbors();
             GenerateBranchingStreams();
+            GenerateDataForAllNodes();
+        }
+
+        private void GenerateDataForAllNodes()
+        {
+            foreach (var node in hexNodes)
+            {
+                if (node.Value.NodeType != NodeType.Obstacle && node.Value.NodeData == null)
+                {
+                    node.Value.NodeData = GenerateNodeData(node.Value.NodeType);
+                }
+            }
         }
 
         private NodeType GenerateHexType()
@@ -285,7 +297,7 @@ namespace _Script.Map.WorldMap
                 for (int y = minY; y <= maxY; y++)
                 {
                     int z = -x - y;
-                    var newNode = new HexNode(new Vector3Int(x, y, z), NodeType.Empty, GenerateNodeData(NodeType.Empty));
+                    var newNode = new HexNode(new Vector3Int(x, y, z), NodeType.Empty);
                     hexNodes.Add((x, y, z), newNode);
                 }
             }

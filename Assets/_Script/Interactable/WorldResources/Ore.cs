@@ -1,5 +1,6 @@
 using _Script.Damageable;
 using _Script.Items.AbstractItemTypes._Script.Items;
+using _Script.Items.Drop;
 using _Script.Items.Lootable;
 using UnityEngine;
 
@@ -27,6 +28,7 @@ namespace _Script.Interactable.WorldResources
         
         private void Die()
         {
+            GetComponent<DropItemComponent>()?.DropItems();
             Destroy(gameObject);
         }
     }

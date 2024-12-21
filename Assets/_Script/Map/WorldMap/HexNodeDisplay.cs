@@ -94,7 +94,6 @@ namespace _Script.Map.WorldMap
         // IPointerClickHandler
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log("Clicked on node: " + _hexNode.Position);
             OnNodeClicked.Invoke(this);
         }
 

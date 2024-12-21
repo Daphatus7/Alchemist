@@ -17,7 +17,6 @@ MonoBehaviour:
   waterTile: {fileID: 11400000, guid: 3ccc0959d691c46efa19f27e74bfa03d, type: 2}
   wallTile: {fileID: 11400000, guid: 74d33214d8663e14a9ff6f916f417124, type: 2}
   grassTile: {fileID: 11400000, guid: a9932c56762082e42ae3a877f0c79f7d, type: 2}
-  sandTile: {fileID: 11400000, guid: d086ec1a7551b4dce976c2ea22192976, type: 2}
   dirtTile: {fileID: 11400000, guid: a40dd03e3cb3b4b358bf946967e4cc67, type: 2}
   selectionThreshold: 0.4
   forestThreshold: 50
@@ -27,10 +26,12 @@ MonoBehaviour:
   floraNoiseScale: 0.05
   floraMinNoise: 0.4
   floraMaxNoise: 0.6
+  biomeResource: {fileID: 11400000, guid: 16709dc74314f4a4682b97f55b61c96c, type: 2}
+  resourceDensity: 0.25
+  resourceNoiseScale: 0.05
   resourcePrefab: {fileID: 5172278498976130515, guid: 6c249141a2dff4d60bca075673243f01,
     type: 3}
   numberOfResources: 5
-  resourceDensity: 0.25
   minResourceDistance: 5
   monsterPrefab: {fileID: 8794507309829770285, guid: 502a773631bb0460494fd8ba8814e964,
     type: 3}

@@ -29,12 +29,7 @@ namespace _Script.Map.WorldMap.MapNode
 
         [LabelText("Seed"), Tooltip("Seed used for procedural generation.")]
         public int Seed = 0;
-
-        protected NodeData()
-        {
-            // No need to assign MapName here as it is computed from NodeType.
-            // Description and Seed can be assigned via the Inspector.
-        }
+        
 
         // Optional: If you want a constructor that allows assigning description and seed:
         public NodeData(string description, int seed)
