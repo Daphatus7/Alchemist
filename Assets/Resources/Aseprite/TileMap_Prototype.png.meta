@@ -63,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -213,7 +213,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_Prototype_9
+      name: TileMap_Prototype_4
       rect:
         serializedVersion: 2
         x: 0
@@ -235,7 +235,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_Prototype_10
+      name: TileMap_Prototype_5
       rect:
         serializedVersion: 2
         x: 32
@@ -257,7 +257,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_Prototype_11
+      name: TileMap_Prototype_6
       rect:
         serializedVersion: 2
         x: 64
@@ -279,7 +279,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_Prototype_12
+      name: TileMap_Prototype_7
       rect:
         serializedVersion: 2
         x: 96
@@ -301,7 +301,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_Prototype_18
+      name: TileMap_Prototype_8
       rect:
         serializedVersion: 2
         x: 0
@@ -323,7 +323,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_Prototype_19
+      name: TileMap_Prototype_9
       rect:
         serializedVersion: 2
         x: 32
@@ -345,7 +345,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_Prototype_20
+      name: TileMap_Prototype_10
       rect:
         serializedVersion: 2
         x: 64
@@ -367,7 +367,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_Prototype_21
+      name: TileMap_Prototype_11
       rect:
         serializedVersion: 2
         x: 96
@@ -389,7 +389,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_Prototype_22
+      name: TileMap_Prototype_12
       rect:
         serializedVersion: 2
         x: 0
@@ -411,7 +411,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_Prototype_23
+      name: TileMap_Prototype_13
       rect:
         serializedVersion: 2
         x: 32
@@ -433,7 +433,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_Prototype_24
+      name: TileMap_Prototype_14
       rect:
         serializedVersion: 2
         x: 64
@@ -455,7 +455,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TileMap_Prototype_25
+      name: TileMap_Prototype_15
       rect:
         serializedVersion: 2
         x: 96
@@ -844,23 +844,15 @@ TextureImporter:
     nameFileIdTable:
       TileMap_Prototype_0: 5081555479945282339
       TileMap_Prototype_1: 742471976549490292
-      TileMap_Prototype_10: 1370940996
-      TileMap_Prototype_11: -125682293
-      TileMap_Prototype_12: -699768244
-      TileMap_Prototype_13: -1768534157
-      TileMap_Prototype_14: 508179379
-      TileMap_Prototype_15: -2078851033
+      TileMap_Prototype_10: 1258385568
+      TileMap_Prototype_11: -263541186
+      TileMap_Prototype_12: 1978791728
+      TileMap_Prototype_13: -7192563
+      TileMap_Prototype_14: 954755791
+      TileMap_Prototype_15: 2058262
       TileMap_Prototype_16: 1365807949
       TileMap_Prototype_17: 1606544086
-      TileMap_Prototype_18: 365821299
-      TileMap_Prototype_19: 1592626539
       TileMap_Prototype_2: -6768263189355891609
-      TileMap_Prototype_20: 1258385568
-      TileMap_Prototype_21: -263541186
-      TileMap_Prototype_22: 1978791728
-      TileMap_Prototype_23: -7192563
-      TileMap_Prototype_24: 954755791
-      TileMap_Prototype_25: 2058262
       TileMap_Prototype_26: -1670388126
       TileMap_Prototype_27: 1698389265
       TileMap_Prototype_28: -1847115464
@@ -876,14 +868,14 @@ TextureImporter:
       TileMap_Prototype_37: 1328209065
       TileMap_Prototype_38: 1390320235
       TileMap_Prototype_39: -230796915
-      TileMap_Prototype_4: 9130049487988488312
+      TileMap_Prototype_4: 496639321
       TileMap_Prototype_40: 1272677708
       TileMap_Prototype_41: -610184544
-      TileMap_Prototype_5: -1609226791
-      TileMap_Prototype_6: -214690310
-      TileMap_Prototype_7: -1022358416
-      TileMap_Prototype_8: -1641831208
-      TileMap_Prototype_9: 496639321
+      TileMap_Prototype_5: 1370940996
+      TileMap_Prototype_6: -125682293
+      TileMap_Prototype_7: -699768244
+      TileMap_Prototype_8: 365821299
+      TileMap_Prototype_9: 1592626539
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
