@@ -2,6 +2,7 @@
 // 09 12 2024 12 38
 
 using System;
+using _Script.Map.Generators;
 using _Script.Map.Procedural;
 using _Script.Map.WorldMap;
 using _Script.Map.WorldMap.MapNode;
