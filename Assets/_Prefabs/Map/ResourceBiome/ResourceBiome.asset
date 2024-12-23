@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6ddab620e2542b4b57188734b88b76b, type: 3}
   m_Name: ResourceBiome
   m_EditorClassIdentifier: 
-  mainGroundTile: {fileID: 11400000, guid: 7b6e368fc0ee90b4ca09e0f71344589a, type: 2}
-  forestTile: {fileID: 11400000, guid: 30ac4e308e14d40648750624db7a70cd, type: 2}
-  waterTile: {fileID: 11400000, guid: 3ccc0959d691c46efa19f27e74bfa03d, type: 2}
-  wallTile: {fileID: 11400000, guid: 74d33214d8663e14a9ff6f916f417124, type: 2}
-  grassTile: {fileID: 11400000, guid: a9932c56762082e42ae3a877f0c79f7d, type: 2}
-  dirtTile: {fileID: 11400000, guid: a40dd03e3cb3b4b358bf946967e4cc67, type: 2}
+  mainGroundTile: 1
+  forestTile: 0
+  waterTile: 0
+  wallTile: 0
+  grassTile: 0
+  dirtTile: 0
   selectionThreshold: 0.4
   forestThreshold: 50
   waterThreshold: 35
@@ -37,10 +37,10 @@ MonoBehaviour:
     type: 3}
   numberOfMonsters: 0
   minMonsterDistance: 10
-  poiTile: {fileID: 11400000, guid: 74fb019e61cfa1144910a53906988a6e, type: 2}
+  poiTile: 0
   numberOfPOIs: 3
   minDistanceBetweenPOIs: 8
-  rockTile: {fileID: 11400000, guid: 96945c2584c47b44ebe75d015b3cde49, type: 2}
+  rockTile: 0
   rockDensity: 0.453
   rockNoiseScale: 0.05
   rockMinNoise: 0.6

@@ -27,7 +27,8 @@ namespace _Script.Map.Tile.Tile_Base
         Soil,
         Rock,
         Dirt,
-        WetDirt,
+        Water,
+        Sand,
         WetSoil
     }
 }

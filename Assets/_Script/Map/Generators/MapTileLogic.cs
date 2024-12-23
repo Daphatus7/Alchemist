@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using _Script.Map.Procedural;
+using _Script.Map.Tile.Tile_Base;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace _Script.Map.Generators
 {
@@ -27,10 +27,17 @@ namespace _Script.Map.Generators
         private float _perlinScale;
 
         // 中间数据
-        private TileBase[,] _mapTiles;        // 地图主体的 TileBase
-        private bool[,] _walkableArea;        // 是否可行走
-        private TileBase[,] _obstacleTiles;   // 障碍物的 TileBase
-        private Biome[,] _tileBiomes;         // 每个坐标对应的 Biome
+        private TileType[,] _mapTiles; 
+        public TileType[,] MapTiles => _mapTiles;
+
+        private bool[,] _walkableArea; 
+        public bool[,] WalkableArea => _walkableArea;
+
+        private TileType[,] _obstacleTiles; 
+        public TileType[,] ObstacleTiles => _obstacleTiles;
+
+        private Biome[,] _tileBiomes; 
+        public Biome[,] TileBiomes => _tileBiomes;
         
         // 区域划分数据
         private List<List<Vector2Int>> _reachableAreas;
@@ -38,12 +45,6 @@ namespace _Script.Map.Generators
 
         // 辅助字段
         private Dictionary<Biome, List<Vector2Int>> _biomeTilesDict;
-
-        // ===== 对外只暴露只读属性 =====
-        public TileBase[,] MapTiles => _mapTiles;
-        public bool[,] WalkableArea => _walkableArea;
-        public TileBase[,] ObstacleTiles => _obstacleTiles;
-        public Biome[,] TileBiomes => _tileBiomes;
         public List<Vector2Int> ChosenRegion => _chosenRegion;
         public Dictionary<Biome, List<Vector2Int>> BiomeTilesDict => _biomeTilesDict;
 
@@ -74,9 +75,9 @@ namespace _Script.Map.Generators
                 Random.InitState(System.DateTime.Now.GetHashCode());
 
             // 分配数组
-            _mapTiles = new TileBase[_width, _height];
+            _mapTiles = new TileType[_width, _height];
             _walkableArea = new bool[_width, _height];
-            _obstacleTiles = new TileBase[_width, _height];
+            _obstacleTiles = new TileType[_width, _height];
             _tileBiomes = new Biome[_width, _height];
 
             // 1) 地图边界初始化
@@ -95,13 +96,13 @@ namespace _Script.Map.Generators
             ApplyPerlinBasedFeatures();
 
             // 6) 放置POI(建筑/特殊点)
-            PlacePOIsFromBiomes();
+            //PlacePoIsFromBiomes();
 
             // 7) 放置石头(Obstacle)
-            PlaceRocksFromBiomes();
+            //PlaceRocksFromBiomes();
 
             // 同步最终结果到 WalkableArea
-            SyncWalkableAreaWithFinalMap();
+            //SyncWalkableAreaWithFinalMap();
 
             // 分析可达区域 & 选一个最大的区域
             IdentifyReachableAreas();
@@ -115,11 +116,13 @@ namespace _Script.Map.Generators
 
         private void InitializeBoundary()
         {
+            // We only do a single pass to assign boundary tiles as non-walkable:
             for (int x = 0; x < _width; x++)
             {
                 for (int y = 0; y < _height; y++)
                 {
-                    _mapTiles[x, y] = null;
+                    _mapTiles[x, y] = TileType.None;
+                    // Only the outer ring is non-walkable
                     _walkableArea[x, y] = !(x == 0 || y == 0 || x == _width - 1 || y == _height - 1);
                 }
             }
@@ -127,15 +130,21 @@ namespace _Script.Map.Generators
 
         private void AssignBiomesToTiles()
         {
+            // Pre-calculate random offsets ONCE (instead of per-tile)
             float xOffset = Random.Range(0f, 9999f);
             float yOffset = Random.Range(0f, 9999f);
 
+            // For each cell in [1.._width-1, 1.._height-1], get Perlin
             for (int x = 1; x < _width - 1; x++)
             {
                 for (int y = 1; y < _height - 1; y++)
                 {
-                    float n = Mathf.PerlinNoise((x + xOffset) * _biomeNoiseScale,
-                                                (y + yOffset) * _biomeNoiseScale);
+                    float n = Mathf.PerlinNoise(
+                        (x + xOffset) * _biomeNoiseScale,
+                        (y + yOffset) * _biomeNoiseScale
+                    );
+
+                    // Store once to avoid repeated indexing
                     _tileBiomes[x, y] = PickBiomeByNoise(n);
                 }
             }
@@ -154,32 +163,38 @@ namespace _Script.Map.Generators
 
         private void GenerateWalkableArea()
         {
-            // 初始随机可行走
+            // 1) 初始随机可行走
             for (int x = 1; x < _width - 1; x++)
             {
                 for (int y = 1; y < _height - 1; y++)
                 {
-                    _walkableArea[x, y] = Random.value > 0.3f;
+                    // We only call Random.value once per cell
+                    float rv = Random.value;
+                    // 70% chance walkable
+                    _walkableArea[x, y] = (rv > 0.3f);
                 }
             }
 
-            // 多次平滑
+            // 2) 多次平滑
             for (int i = 0; i < 3; i++)
+            {
                 _walkableArea = SmoothWalkableArea(_walkableArea);
+            }
 
-            // 将不能走的用 Biome 的 wallTile 来替换
+            // 3) 将不能走的用 Biome 的 wallTile 来替换
             for (int x = 1; x < _width - 1; x++)
             {
                 for (int y = 1; y < _height - 1; y++)
                 {
                     if (_walkableArea[x, y])
                     {
-                        _mapTiles[x, y] = null;
+                        _mapTiles[x, y] = 0; // 0 means something like "empty"
                     }
                     else
                     {
+                        // Store the biome reference in a local variable
                         Biome b = _tileBiomes[x, y];
-                        _mapTiles[x, y] = b != null && b.wallTile != null ? b.wallTile : null;
+                        _mapTiles[x, y] = (b) ? b.wallTile : 0;
                     }
                 }
             }
@@ -193,6 +208,7 @@ namespace _Script.Map.Generators
                 for (int y = 1; y < _height - 1; y++)
                 {
                     int n = CountWalkableNeighbors(area, x, y);
+                    // If more than 4 neighbors are walkable, keep it walkable
                     newArea[x, y] = (n > 4);
                 }
             }
@@ -202,6 +218,7 @@ namespace _Script.Map.Generators
         private int CountWalkableNeighbors(bool[,] area, int cx, int cy)
         {
             int count = 0;
+            // We can unroll or keep it as is
             for (int nx = cx - 1; nx <= cx + 1; nx++)
             {
                 for (int ny = cy - 1; ny <= cy + 1; ny++)
@@ -222,33 +239,47 @@ namespace _Script.Map.Generators
                 for (int y = 1; y < _height - 1; y++)
                 {
                     Biome b = _tileBiomes[x, y];
-                    if (b == null) continue;
+                    if (!b) continue;
+                    
+                    // Only apply main ground tile if currently walkable
                     if (_walkableArea[x, y])
+                    {
                         _mapTiles[x, y] = b.mainGroundTile;
+                    }
                 }
             }
         }
 
         private void ApplyPerlinBasedFeatures()
         {
+            // Pre-calculate random offsets
             float xOffset = Random.Range(0f, 1000f);
             float yOffset = Random.Range(0f, 1000f);
-
+            
             for (int x = 1; x < _width - 1; x++)
             {
                 for (int y = 1; y < _height - 1; y++)
                 {
+                    // Store in local variable
                     Biome b = _tileBiomes[x, y];
-                    if (b == null || _mapTiles[x, y] == null || !_walkableArea[x, y]) continue;
+                    if (!b) continue;
 
-                    float val = Mathf.PerlinNoise((x + xOffset) * _perlinScale,
-                                                  (y + yOffset) * _perlinScale) * 100f;
-                    if (val > b.forestThreshold && b.forestTile != null)
+                    // If not walkable, no need to do Perlin check
+                    if (!_walkableArea[x, y]) 
+                        continue;
+
+                    float val = Mathf.PerlinNoise(
+                        (x + xOffset) * _perlinScale,
+                        (y + yOffset) * _perlinScale
+                    ) * 100f;
+
+                    // Compare val just once
+                    if (val > b.forestThreshold)
                     {
                         _mapTiles[x, y] = b.forestTile;
                         _walkableArea[x, y] = false;
                     }
-                    else if (val < b.waterThreshold && b.waterTile != null)
+                    else if (val < b.waterThreshold)
                     {
                         _mapTiles[x, y] = b.waterTile;
                         _walkableArea[x, y] = false;
@@ -257,7 +288,7 @@ namespace _Script.Map.Generators
             }
         }
 
-        private void PlacePOIsFromBiomes()
+        private void PlacePoIsFromBiomes()
         {
             foreach (var b in _biomes)
             {
@@ -272,12 +303,17 @@ namespace _Script.Map.Generators
                     attempts++;
                     int x = Random.Range(2, _width - 2);
                     int y = Random.Range(2, _height - 2);
-                    if (_mapTiles[x, y] == b.mainGroundTile ||
-                        _mapTiles[x, y] == b.forestTile ||
-                        _mapTiles[x, y] == b.dirtTile)
+
+                    // Store main map tile in local
+                    TileType t = _mapTiles[x, y];
+
+                    // Only place if it's mainGroundTile/forestTile/dirtTile
+                    if (t == b.mainGroundTile || t == b.forestTile || t == b.dirtTile)
                     {
                         bool tooClose = false;
                         Vector2Int cand = new Vector2Int(x, y);
+
+                        // Check distance to previously placed POIs
                         foreach (var p in placedPOIs)
                         {
                             if (Vector2Int.Distance(p, cand) < b.minDistanceBetweenPOIs)
@@ -290,30 +326,30 @@ namespace _Script.Map.Generators
                         {
                             _mapTiles[x, y] = b.poiTile;
                             placedPOIs.Add(cand);
-                            SurroundPOIWithTerrain(x, y, b);
+
+                            // Surround with terrain
+                            SurroundPoiWithTerrain(x, y, b);
                         }
                     }
                 }
             }
         }
 
-        private void SurroundPOIWithTerrain(int px, int py, Biome b)
+        private void SurroundPoiWithTerrain(int px, int py, Biome b)
         {
             for (int x = px - 1; x <= px + 1; x++)
             {
                 for (int y = py - 1; y <= py + 1; y++)
                 {
-                    if (!(x == px && y == py))
+                    // Only change if not the center tile
+                    if (x == px && y == py) continue;
+
+                    // If surrounding tile is grass/dirt, turn it into a wall
+                    TileType t = _mapTiles[x, y];
+                    if (t == b.grassTile || t == b.dirtTile)
                     {
-                        if (_mapTiles[x, y] == b.grassTile ||
-                            _mapTiles[x, y] == b.dirtTile)
-                        {
-                            if (b.wallTile != null)
-                            {
-                                _mapTiles[x, y] = b.wallTile;
-                                _walkableArea[x, y] = false;
-                            }
-                        }
+                        _mapTiles[x, y] = b.wallTile;
+                        _walkableArea[x, y] = false;
                     }
                 }
             }
@@ -321,6 +357,7 @@ namespace _Script.Map.Generators
 
         private void PlaceRocksFromBiomes()
         {
+            // Pre-calc random offsets
             float rockXOffset = Random.Range(0f, 1000f);
             float rockYOffset = Random.Range(0f, 1000f);
 
@@ -329,14 +366,19 @@ namespace _Script.Map.Generators
                 for (int y = 1; y < _height - 1; y++)
                 {
                     Biome b = _tileBiomes[x, y];
-                    if (b == null || b.rockTile == null) continue;
+                    if (b == null) continue;
 
-                    if (_mapTiles[x, y] == b.grassTile || _mapTiles[x, y] == b.dirtTile)
+                    TileType t = _mapTiles[x, y];
+                    // Only place rock if tile is grass or dirt
+                    if (t == b.grassTile || t == b.dirtTile)
                     {
-                        float val = Mathf.PerlinNoise((x + rockXOffset) * b.rockNoiseScale,
-                                                      (y + rockYOffset) * b.rockNoiseScale);
-                        if (val >= b.rockMinNoise && val <= b.rockMaxNoise &&
-                            Random.value < b.rockDensity)
+                        float val = Mathf.PerlinNoise(
+                            (x + rockXOffset) * b.rockNoiseScale,
+                            (y + rockYOffset) * b.rockNoiseScale
+                        );
+                        // Check min/max noise and random
+                        if (val >= b.rockMinNoise && val <= b.rockMaxNoise 
+                            && Random.value < b.rockDensity)
                         {
                             _obstacleTiles[x, y] = b.rockTile;
                             _walkableArea[x, y] = false;
@@ -346,36 +388,19 @@ namespace _Script.Map.Generators
             }
         }
 
+        /// <summary>
+        /// Sync walkable area with final map, ensuring obstacles, walls, water override walkable.
+        /// </summary>
         private void SyncWalkableAreaWithFinalMap()
         {
             for (int x = 0; x < _width; x++)
             {
                 for (int y = 0; y < _height; y++)
                 {
-                    // 若地图主体为空，则不可行走
-                    if (_mapTiles[x, y] == null)
-                    {
-                        _walkableArea[x, y] = false;
-                        continue;
-                    }
-
-                    Biome b = _tileBiomes[x, y];
-                    // 如果是水 / 墙，则不可行走
-                    if (b != null && (_mapTiles[x, y] == b.waterTile || _mapTiles[x, y] == b.wallTile))
-                    {
-                        _walkableArea[x, y] = false;
-                        continue;
-                    }
-
-                    // 如果 obstacleTiles 有放置，也不可行走
-                    if (_obstacleTiles[x, y] != null)
-                    {
-                        _walkableArea[x, y] = false;
-                        continue;
-                    }
-
-                    // 否则默认 true
-                    _walkableArea[x, y] = true;
+                    // 1) If there is an obstacle tile, it overrides anything else:
+                    TileType obstacle = _obstacleTiles[x, y];
+                    _mapTiles[x, y] = obstacle;
+                    _walkableArea[x, y] = false;
                 }
             }
         }
@@ -383,37 +408,48 @@ namespace _Script.Map.Generators
         private void IdentifyReachableAreas()
         {
             _reachableAreas = new List<List<Vector2Int>>();
-            bool[,] visited = new bool[_width, _height];
+            bool[][] visited = new bool[_width][];
+            for (int index = 0; index < _width; index++)
+            {
+                visited[index] = new bool[_height];
+            }
 
+            // BFS for each unvisited walkable tile
             for (int x = 1; x < _width - 1; x++)
             {
                 for (int y = 1; y < _height - 1; y++)
                 {
-                    if (_walkableArea[x, y] && !visited[x, y])
+                    if (_walkableArea[x, y] && !visited[x][y])
                     {
                         var area = new List<Vector2Int>();
                         Queue<Vector2Int> queue = new Queue<Vector2Int>();
+
                         queue.Enqueue(new Vector2Int(x, y));
-                        visited[x, y] = true;
+                        visited[x][y] = true;
 
                         while (queue.Count > 0)
                         {
                             Vector2Int current = queue.Dequeue();
                             area.Add(current);
 
+                            // Check 4 neighbors
                             foreach (var dir in new Vector2Int[]
                                      {
-                                         new Vector2Int(1, 0), new Vector2Int(-1, 0),
-                                         new Vector2Int(0, 1), new Vector2Int(0, -1)
+                                         new Vector2Int(1, 0), 
+                                         new Vector2Int(-1, 0),
+                                         new Vector2Int(0, 1), 
+                                         new Vector2Int(0, -1)
                                      })
                             {
                                 int nx = current.x + dir.x;
                                 int ny = current.y + dir.y;
+
+                                // Quick bounds check
                                 if (nx > 0 && nx < _width && ny > 0 && ny < _height)
                                 {
-                                    if (_walkableArea[nx, ny] && !visited[nx, ny])
+                                    if (_walkableArea[nx, ny] && !visited[nx][ny])
                                     {
-                                        visited[nx, ny] = true;
+                                        visited[nx][ny] = true;
                                         queue.Enqueue(new Vector2Int(nx, ny));
                                     }
                                 }
@@ -434,6 +470,7 @@ namespace _Script.Map.Generators
                 return new List<Vector2Int>(); // fallback
             }
 
+            // Track largest by area.Count
             List<Vector2Int> largest = _reachableAreas[0];
             foreach (var area in _reachableAreas)
             {
@@ -446,7 +483,6 @@ namespace _Script.Map.Generators
         private void BuildBiomeTilesDictionary()
         {
             _biomeTilesDict = new Dictionary<Biome, List<Vector2Int>>();
-
             if (_chosenRegion == null) return;
 
             foreach (var pos in _chosenRegion)

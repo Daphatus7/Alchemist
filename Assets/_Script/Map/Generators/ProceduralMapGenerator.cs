@@ -1,7 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using _Script.Map.Procedural;
+using _Script.Map.Tile.Tile_Base;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 namespace _Script.Map.Generators
 {
@@ -10,7 +15,16 @@ namespace _Script.Map.Generators
         [Header("Map Dimensions")]
         public int width = 50;
         public int height = 50;
-
+        
+        [Serializable]
+        public class TileTypeTileBasePair
+        {
+            public TileType tileType;
+            public TileBase tileBase;
+        }
+        
+        public List<TileTypeTileBasePair> tileSet;
+        
         [Header("Base Tilemap References")]
         public Tilemap baseTilemap;
         public Tilemap obstaclesTilemap;
@@ -44,6 +58,14 @@ namespace _Script.Map.Generators
         [SerializeField] private int _minDistance = 10;
 
         // ====== 主流程入口 ======
+        
+        
+        [Button("Generate Map")]
+        public void DebugGenerateMap()
+        {
+            GenerateMap(width, height, out _, out _);
+        }
+        
         public bool GenerateMap(int intWidth, int intHeight, out Vector2Int sPoint, out Vector2Int ePoint)
         {
             sPoint = Vector2Int.zero;
@@ -74,8 +96,14 @@ namespace _Script.Map.Generators
 
             // 5) 渲染层
             _mapRenderer = new MapTileRenderer(baseTilemap, obstaclesTilemap, floraTilemap);
-            _mapRenderer.RenderFinalMap(_mapLogic.MapTiles, _mapLogic.ObstacleTiles, _mapLogic.WalkableArea);
-            _mapRenderer.PlaceFlora(_mapLogic.MapTiles, _mapLogic.WalkableArea, _mapLogic.TileBiomes);
+            var TileDictionary = new Dictionary<TileType, TileBase>();
+            
+            foreach (var pair in tileSet)
+            {
+                TileDictionary.Add(pair.tileType, pair.tileBase);
+            }
+            _mapRenderer.RenderFinalMap(_mapLogic, TileDictionary);
+            //_mapRenderer.PlaceFlora(_mapLogic);
 
             // 6) 生成怪物（如果需要），这里保留原始逻辑或者你拆成一个 MonsterGenerator.cs
             PlaceMonstersFromBiomes();  // 示例保留
