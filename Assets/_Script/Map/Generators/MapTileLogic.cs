@@ -27,14 +27,14 @@ namespace _Script.Map.Generators
         private float _perlinScale;
 
         // 中间数据
-        private TileType[,] _mapTiles; 
-        public TileType[,] MapTiles => _mapTiles;
+        private TileData[,] _mapTiles; 
+        public TileData[,] MapTiles => _mapTiles;
 
         private bool[,] _walkableArea; 
         public bool[,] WalkableArea => _walkableArea;
 
-        private TileType[,] _obstacleTiles; 
-        public TileType[,] ObstacleTiles => _obstacleTiles;
+        private TileData[,] _obstacleTiles; 
+        public TileData[,] ObstacleTiles => _obstacleTiles;
 
         private Biome[,] _tileBiomes; 
         public Biome[,] TileBiomes => _tileBiomes;
@@ -75,9 +75,9 @@ namespace _Script.Map.Generators
                 Random.InitState(System.DateTime.Now.GetHashCode());
 
             // 分配数组
-            _mapTiles = new TileType[_width, _height];
+            _mapTiles = new TileData[_width, _height];
             _walkableArea = new bool[_width, _height];
-            _obstacleTiles = new TileType[_width, _height];
+            _obstacleTiles = new TileData[_width, _height];
             _tileBiomes = new Biome[_width, _height];
 
             // 1) 地图边界初始化
@@ -121,7 +121,7 @@ namespace _Script.Map.Generators
             {
                 for (int y = 0; y < _height; y++)
                 {
-                    _mapTiles[x, y] = TileType.None;
+                    _mapTiles[x, y] = new TileData();
                     // Only the outer ring is non-walkable
                     _walkableArea[x, y] = !(x == 0 || y == 0 || x == _width - 1 || y == _height - 1);
                 }
@@ -188,13 +188,16 @@ namespace _Script.Map.Generators
                 {
                     if (_walkableArea[x, y])
                     {
-                        _mapTiles[x, y] = 0; // 0 means something like "empty"
+                        _mapTiles[x, y].TileType = _tileBiomes[x, y].mainGroundTile;
                     }
                     else
                     {
                         // Store the biome reference in a local variable
                         Biome b = _tileBiomes[x, y];
-                        _mapTiles[x, y] = (b) ? b.wallTile : 0;
+                        _mapTiles[x, y] = new TileData
+                        {
+                            TileType = b.wallTile,
+                        };
                     }
                 }
             }
@@ -244,7 +247,10 @@ namespace _Script.Map.Generators
                     // Only apply main ground tile if currently walkable
                     if (_walkableArea[x, y])
                     {
-                        _mapTiles[x, y] = b.mainGroundTile;
+                        _mapTiles[x, y] = new TileData
+                        {
+                            TileType = b.mainGroundTile,
+                        };
                     }
                 }
             }
@@ -276,12 +282,12 @@ namespace _Script.Map.Generators
                     // Compare val just once
                     if (val > b.forestThreshold)
                     {
-                        _mapTiles[x, y] = b.forestTile;
+                        _mapTiles[x, y].TileType = b.forestTile;
                         _walkableArea[x, y] = false;
                     }
                     else if (val < b.waterThreshold)
                     {
-                        _mapTiles[x, y] = b.waterTile;
+                        _mapTiles[x, y].TileType = b.waterTile;
                         _walkableArea[x, y] = false;
                     }
                 }
@@ -305,10 +311,10 @@ namespace _Script.Map.Generators
                     int y = Random.Range(2, _height - 2);
 
                     // Store main map tile in local
-                    TileType t = _mapTiles[x, y];
+                    var t = _mapTiles[x, y];
 
                     // Only place if it's mainGroundTile/forestTile/dirtTile
-                    if (t == b.mainGroundTile || t == b.forestTile || t == b.dirtTile)
+                    if (t.TileType == b.mainGroundTile || t.TileType == b.forestTile || t.TileType == b.dirtTile)
                     {
                         bool tooClose = false;
                         Vector2Int cand = new Vector2Int(x, y);
@@ -324,7 +330,7 @@ namespace _Script.Map.Generators
                         }
                         if (!tooClose)
                         {
-                            _mapTiles[x, y] = b.poiTile;
+                            _mapTiles[x, y].TileType = b.poiTile;
                             placedPOIs.Add(cand);
 
                             // Surround with terrain
@@ -345,10 +351,10 @@ namespace _Script.Map.Generators
                     if (x == px && y == py) continue;
 
                     // If surrounding tile is grass/dirt, turn it into a wall
-                    TileType t = _mapTiles[x, y];
-                    if (t == b.grassTile || t == b.dirtTile)
+                    var t = _mapTiles[x, y];
+                    if (t.TileType == b.grassTile || t.TileType == b.dirtTile)
                     {
-                        _mapTiles[x, y] = b.wallTile;
+                        _mapTiles[x, y].TileType = b.wallTile;
                         _walkableArea[x, y] = false;
                     }
                 }
@@ -368,9 +374,9 @@ namespace _Script.Map.Generators
                     Biome b = _tileBiomes[x, y];
                     if (b == null) continue;
 
-                    TileType t = _mapTiles[x, y];
+                    var t = _mapTiles[x, y];
                     // Only place rock if tile is grass or dirt
-                    if (t == b.grassTile || t == b.dirtTile)
+                    if (t.TileType == b.grassTile || t.TileType == b.dirtTile)
                     {
                         float val = Mathf.PerlinNoise(
                             (x + rockXOffset) * b.rockNoiseScale,
@@ -380,7 +386,7 @@ namespace _Script.Map.Generators
                         if (val >= b.rockMinNoise && val <= b.rockMaxNoise 
                             && Random.value < b.rockDensity)
                         {
-                            _obstacleTiles[x, y] = b.rockTile;
+                            _obstacleTiles[x, y].TileType = b.rockTile;
                             _walkableArea[x, y] = false;
                         }
                     }
@@ -398,7 +404,7 @@ namespace _Script.Map.Generators
                 for (int y = 0; y < _height; y++)
                 {
                     // 1) If there is an obstacle tile, it overrides anything else:
-                    TileType obstacle = _obstacleTiles[x, y];
+                    var obstacle = _obstacleTiles[x, y];
                     _mapTiles[x, y] = obstacle;
                     _walkableArea[x, y] = false;
                 }
@@ -499,11 +505,24 @@ namespace _Script.Map.Generators
         }
 
         #endregion
-
-        // ===== 一些工具方法 =====
-        public bool IsWalkable(int x, int y)
+        
+    }
+    
+    public class TileData
+    {
+        public TileType TileType;
+        public TileState State;
+        
+        public TileData()
         {
-            return _walkableArea[x, y];
+            TileType = TileType.None;
+            State = TileState.Ground;
         }
+    }
+    
+    public enum TileState
+    {
+        Surface,
+        Ground
     }
 }

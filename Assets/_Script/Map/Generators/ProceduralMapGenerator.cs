@@ -5,6 +5,7 @@ using _Script.Map.Tile.Tile_Base;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.U2D;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
@@ -20,7 +21,8 @@ namespace _Script.Map.Generators
         public class TileTypeTileBasePair
         {
             public TileType tileType;
-            public TileBase tileBase;
+            public SpriteAtlas tileSet;
+            public string name;
         }
         
         public List<TileTypeTileBasePair> tileSet;
@@ -91,30 +93,45 @@ namespace _Script.Map.Generators
             _mapLogic = new MapTileLogic(width, height, seed, useRandomSeed, 
                                          biomes, biomeNoiseScale, perlinScale);
 
+            var tileSets = new Dictionary<TileType, TileBase[]>();
             // 4) 调用逻辑层生成
             _mapLogic.GenerateMapLogic();
 
-            // 5) 渲染层
-            _mapRenderer = new MapTileRenderer(baseTilemap, obstaclesTilemap, floraTilemap);
-            var TileDictionary = new Dictionary<TileType, TileBase>();
+            var tileDictionary = new Dictionary<TileType, TileBase[]>();
             
             foreach (var pair in tileSet)
             {
-                TileDictionary.Add(pair.tileType, pair.tileBase);
+                TileBase[] tileArray = new TileBase[pair.tileSet.spriteCount];
+                for (int i = 0; i < pair.tileSet.spriteCount; i++)
+                {
+                    string spriteName = $"{pair.name}_{i}";
+                    Sprite s = pair.tileSet.GetSprite(spriteName);
+
+                    // Create a new tile
+                    UnityEngine.Tilemaps.Tile tile = ScriptableObject.CreateInstance<UnityEngine.Tilemaps.Tile>();
+                    tile.sprite = s;
+                    tileArray[i] = tile;
+                }
+                tileDictionary[pair.tileType] = tileArray;
             }
-            _mapRenderer.RenderFinalMap(_mapLogic, TileDictionary);
+            
+            // 5) 渲染层
+            _mapRenderer = new MapTileRenderer(baseTilemap, obstaclesTilemap, floraTilemap, tileDictionary);
+            
+            
+            _mapRenderer.RenderFinalMap(_mapLogic, tileDictionary);
             //_mapRenderer.PlaceFlora(_mapLogic);
 
             // 6) 生成怪物（如果需要），这里保留原始逻辑或者你拆成一个 MonsterGenerator.cs
             PlaceMonstersFromBiomes();  // 示例保留
 
             // 7) 资源生成器
-            _resourceGenerator = new ResourceGenerator();
-            _resourceGenerator.PlaceResourcesFromBiomes(
-                biomes, 
-                _mapLogic.BiomeTilesDict, 
-                _mapLogic.ChosenRegion, 
-                baseTilemap);
+            // _resourceGenerator = new ResourceGenerator();
+            // _resourceGenerator.PlaceResourcesFromBiomes(
+            //     biomes, 
+            //     _mapLogic.BiomeTilesDict, 
+            //     _mapLogic.ChosenRegion, 
+            //     baseTilemap);
 
             // 8) 最后生成 Spawn / End
             GenerateSpawnAndEndPoint(_minDistance, out _spawnPoint, out _endPoint);

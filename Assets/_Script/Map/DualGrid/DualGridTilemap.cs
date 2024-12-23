@@ -32,7 +32,6 @@ namespace _Script.Map.DualGrid
 
         // Provide the 16 tiles in the inspector
         public UnityEngine.Tilemaps.Tile[] tiles;
-
         
         
         void Start()
@@ -98,16 +97,7 @@ namespace _Script.Map.DualGrid
 
             return neighbourTupleToTile[neighbourTuple];
         }
-
-        protected void SetDisplayTile(Vector3Int pos)
-        {
-            for (int i = 0; i < NEIGHBOURS.Length; i++)
-            {
-                Vector3Int newPos = pos + NEIGHBOURS[i];
-                displayTilemap.SetTile(newPos, CalculateDisplayTile(newPos));
-            }
-        }
-
+        
         // The tiles on the display tilemap will recalculate themselves based on the placeholder tilemap
         public void RefreshDisplayTilemap()
         {
@@ -119,5 +109,16 @@ namespace _Script.Map.DualGrid
                 }
             }
         }
+
+        protected void SetDisplayTile(Vector3Int pos)
+        {
+            for (int i = 0; i < NEIGHBOURS.Length; i++)
+            {
+                Vector3Int newPos = pos + NEIGHBOURS[i];
+                displayTilemap.SetTile(newPos, CalculateDisplayTile(newPos));
+            }
+        }
+
+        
     }
 }

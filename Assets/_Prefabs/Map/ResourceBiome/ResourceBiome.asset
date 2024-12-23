@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6ddab620e2542b4b57188734b88b76b, type: 3}
   m_Name: ResourceBiome
   m_EditorClassIdentifier: 
-  mainGroundTile: 1
-  forestTile: 0
-  waterTile: 0
+  mainGroundTile: 5
+  forestTile: 1
+  waterTile: 6
   wallTile: 0
-  grassTile: 0
-  dirtTile: 0
+  grassTile: 1
+  dirtTile: 5
   selectionThreshold: 0.4
   forestThreshold: 50
   waterThreshold: 35
