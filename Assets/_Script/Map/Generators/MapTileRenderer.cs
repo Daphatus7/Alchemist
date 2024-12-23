@@ -147,8 +147,7 @@ namespace _Script.Map.Generators
 
                     // 根据可行走区域决定是 baseTile 还是 obstaclesTile
                     var cellPos = new Vector3Int(x, y, 0);
-                    TileBase finalTile = GetDisplayTile(cellPos); // adjacency-based or fallback
-
+                    
                     if (mapTiles.WalkableArea[x, y])
                     {
                         _baseTilemap.SetTile(cellPos, finalTile);
@@ -240,21 +239,15 @@ namespace _Script.Map.Generators
 
             return Tuple.Create(topLeft, topRight, botLeft, botRight);
         }
-
-        /// <summary>
-        /// 示例：把坐标处的 TileType 转换成 (Surface / Ground)。
-        /// 实际上你还要检查是否越界。
-        /// </summary>
-        private TileState GetTileState(Vector3Int coords)
+        
+        protected static Vector3Int[] NEIGHBOURS = new Vector3Int[]
         {
-            // Just a placeholder for demonstration:
-            // If out of bounds, pretend it's Ground
-            // In a real scenario, you'd store a reference to MapTileLogic or
-            // some other data source to read the actual tile at coords.
-            // Then do: if tile == Grass => Surface, if tile == Dirt => Ground, etc.
+            new Vector3Int(0, 0, 0),
+            new Vector3Int(1, 0, 0),
+            new Vector3Int(0, 1, 0),
+            new Vector3Int(1, 1, 0)
+        };
 
-            return TileState.Surface; 
-        }
     }
 
     /// <summary>
