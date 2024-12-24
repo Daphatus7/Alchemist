@@ -19,13 +19,13 @@ namespace _Script.Map.Generators
         private readonly Tilemap _baseTilemap;
         private readonly Tilemap _obstaclesTilemap;
         private readonly Tilemap _floraTilemap;
-
+        private readonly MapTileLogic _mapLogic;
         // Example: dictionary mapping each TileType -> array of TileBase variants
         private readonly Dictionary<TileType, TileBase[]> _tileSets;
 
         // If you want adjacency-based corners/edges:
         // Key: (TileState, TileState, TileState, TileState) => Value: TileBase
-        private readonly Dictionary<Tuple<TileState, TileState, TileState, TileState>, TileBase> _neighbourTupleToTile;
+        private readonly Dictionary<Tuple<TileState, TileState, TileState, TileState>, int> _neighbourTupleToTile;
 
         // 2D array for debug text display
         private TextMesh[,] _debugTextArray;
@@ -34,82 +34,84 @@ namespace _Script.Map.Generators
             Tilemap baseTilemap,
             Tilemap obstaclesTilemap,
             Tilemap floraTilemap,
-            Dictionary<TileType, TileBase[]> tileSets
+            Dictionary<TileType, TileBase[]> tileSets,
+            MapTileLogic mapTiles
         )
         {
             _baseTilemap      = baseTilemap;
             _obstaclesTilemap = obstaclesTilemap;
             _floraTilemap     = floraTilemap;
             _tileSets         = tileSets;
+            _mapLogic         = mapTiles;
 
             // Example adjacency dictionary (you can adapt):
             // "Surface" corresponds to "Grass", "Ground" to "Dirt".
             // The indices (like [0], [1], [6], etc.) refer to whichever tile arrangement you have.
-            _neighbourTupleToTile = new Dictionary<Tuple<TileState, TileState, TileState, TileState>, TileBase>
+            _neighbourTupleToTile = new Dictionary<Tuple<TileState, TileState, TileState, TileState>, int>
             {
                 {
                     Tuple.Create(TileState.Surface, TileState.Surface, TileState.Surface, TileState.Surface),
-                    _tileSets[TileType.Grass][6]
+                    6
                 },
                 {
                     Tuple.Create(TileState.Ground, TileState.Ground, TileState.Ground, TileState.Surface),
-                    _tileSets[TileType.Grass][13]
+                    13
                 },
                 {
                     Tuple.Create(TileState.Ground, TileState.Ground, TileState.Surface, TileState.Ground),
-                    _tileSets[TileType.Grass][0]
+                    0
                 },
                 {
                     Tuple.Create(TileState.Ground, TileState.Surface, TileState.Ground, TileState.Ground),
-                    _tileSets[TileType.Grass][8]
+                    8
                 },
                 {
                     Tuple.Create(TileState.Surface, TileState.Ground, TileState.Ground, TileState.Ground),
-                    _tileSets[TileType.Grass][15]
+                    15
                 },
                 {
                     Tuple.Create(TileState.Ground, TileState.Surface, TileState.Ground, TileState.Surface),
-                    _tileSets[TileType.Grass][1]
+                    1
                 },
                 {
                     Tuple.Create(TileState.Surface, TileState.Ground, TileState.Surface, TileState.Ground),
-                    _tileSets[TileType.Grass][11]
+                   11
                 },
                 {
                     Tuple.Create(TileState.Ground, TileState.Ground, TileState.Surface, TileState.Surface),
-                    _tileSets[TileType.Grass][3]
+                    3
                 },
                 {
                     Tuple.Create(TileState.Surface, TileState.Surface, TileState.Ground, TileState.Ground),
-                    _tileSets[TileType.Grass][9]
+                    9
                 },
                 {
                     Tuple.Create(TileState.Ground, TileState.Surface, TileState.Surface, TileState.Surface),
-                    _tileSets[TileType.Grass][5]
+                    5
                 },
                 {
                     Tuple.Create(TileState.Surface, TileState.Ground, TileState.Surface, TileState.Surface),
-                    _tileSets[TileType.Grass][2]
+                    2
                 },
                 {
                     Tuple.Create(TileState.Surface, TileState.Surface, TileState.Ground, TileState.Surface),
-                    _tileSets[TileType.Grass][10]
+                    10
                 },
                 {
                     Tuple.Create(TileState.Surface, TileState.Surface, TileState.Surface, TileState.Ground),
-                    _tileSets[TileType.Grass][7]
+                    7
                 },
                 {
                     Tuple.Create(TileState.Ground, TileState.Surface, TileState.Surface, TileState.Ground),
-                    _tileSets[TileType.Grass][14]
+                    14
                 },
                 {
                     Tuple.Create(TileState.Surface, TileState.Ground, TileState.Ground, TileState.Surface),
-                    _tileSets[TileType.Grass][4]
+                   4
                 },
                 {
                     Tuple.Create(TileState.Ground, TileState.Ground, TileState.Ground, TileState.Ground),
-                    _tileSets[TileType.Grass][12]
+                    12
                 },
             };
         }
@@ -147,6 +149,7 @@ namespace _Script.Map.Generators
 
                     // 根据可行走区域决定是 baseTile 还是 obstaclesTile
                     var cellPos = new Vector3Int(x, y, 0);
+                    var finalTile = tileSet[tileData.TileType][_neighbourTupleToTile[CreateTileStateTuple(cellPos)]];
                     
                     if (mapTiles.WalkableArea[x, y])
                     {
@@ -158,7 +161,7 @@ namespace _Script.Map.Generators
                     }
 
                     // ------ Debug Lines & Text ------
-                    if (true)
+                    if (debug)
                     {
                         // 用白线绘制每个单元格的边框
                         Vector3 worldPos = new Vector3(x, y, 0);
@@ -183,6 +186,7 @@ namespace _Script.Map.Generators
                 }
             }
 
+            
             // 绘制最外面一条线
             if (debug)
             {
@@ -196,34 +200,11 @@ namespace _Script.Map.Generators
         /// <summary>
         /// 返回一个 TileBase，用于展示四方向/双方向等连接逻辑。
         /// </summary>
-        private TileBase GetDisplayTile(Vector3Int coords)
+        private TileState GetDisplayTileState(Vector3Int pos)
         {
-            // This is where you'd do adjacency checks if you want
-            // 1) Convert each neighbor cell to TileState (Surface/Ground)
-            // 2) Build a tuple
-            // 3) Look up in _neighbourTupleToTile
-
-            // For demonstration, let's do a quick example:
-            // We'll say "always pick index [0] of Grass if you don't do adjacency."
-            // return _tileSets[TileType.Grass][0];
-
-            // OR do something like:
-            var tuple = CreateTileStateTuple(coords);
-            if (_neighbourTupleToTile.TryGetValue(tuple, out TileBase tile))
-            {
-                return tile;
-            }
-            else
-            {
-                // fallback
-                return _tileSets[TileType.Grass][0];
-            }
+            return _mapLogic.MapTiles[pos.x, pos.y].State;
         }
 
-        /// <summary>
-        /// 以 (topLeft, topRight, botLeft, botRight) 的顺序，构建一个 TileState 4元组。
-        /// 你需要根据你实际项目中如何判定相邻格子而修改。
-        /// </summary>
         private Tuple<TileState, TileState, TileState, TileState> CreateTileStateTuple(Vector3Int coords)
         {
             // For example, we define offsets:
@@ -231,23 +212,14 @@ namespace _Script.Map.Generators
             // topRight => coords + (1,1)
             // botLeft => coords
             // botRight => coords + (1,0)
-
-            TileState topLeft  = GetTileState(coords + new Vector3Int(0, 1, 0));
-            TileState topRight = GetTileState(coords + new Vector3Int(1, 1, 0));
-            TileState botLeft  = GetTileState(coords);
-            TileState botRight = GetTileState(coords + new Vector3Int(1, 0, 0));
+            
+            TileState topLeft  = GetDisplayTileState(coords + new Vector3Int(0, 1, 0));
+            TileState topRight = GetDisplayTileState(coords + new Vector3Int(1, 1, 0));
+            TileState botLeft  = GetDisplayTileState(coords);
+            TileState botRight = GetDisplayTileState(coords + new Vector3Int(1, 0, 0));
 
             return Tuple.Create(topLeft, topRight, botLeft, botRight);
         }
-        
-        protected static Vector3Int[] NEIGHBOURS = new Vector3Int[]
-        {
-            new Vector3Int(0, 0, 0),
-            new Vector3Int(1, 0, 0),
-            new Vector3Int(0, 1, 0),
-            new Vector3Int(1, 1, 0)
-        };
-
     }
 
     /// <summary>

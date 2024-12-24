@@ -12,15 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6ddab620e2542b4b57188734b88b76b, type: 3}
   m_Name: ResourceBiome
   m_EditorClassIdentifier: 
-  mainGroundTile: 5
-  forestTile: 1
-  waterTile: 6
-  wallTile: 0
-  grassTile: 1
-  dirtTile: 5
+  mainGroundTile: 1
+  waterTile: 3
+  forestTile: 6
+  wallTile: 4
   selectionThreshold: 0.4
-  forestThreshold: 50
   waterThreshold: 35
+  mainGroundThreshold: 50
+  forestThreshold: 50
   floraTile: {fileID: 11400000, guid: b33146e6cee9d43309cc1f529575fddb, type: 2}
   floraDensity: 0.3
   floraNoiseScale: 0.05

@@ -27,17 +27,13 @@ namespace _Script.Map.Generators
         private float _perlinScale;
 
         // 中间数据
-        private TileData[,] _mapTiles; 
-        public TileData[,] MapTiles => _mapTiles;
+        private TileData[,] _mapTiles; public TileData[,] MapTiles => _mapTiles;
 
         private bool[,] _walkableArea; 
         public bool[,] WalkableArea => _walkableArea;
-
-        private TileData[,] _obstacleTiles; 
-        public TileData[,] ObstacleTiles => _obstacleTiles;
-
-        private Biome[,] _tileBiomes; 
-        public Biome[,] TileBiomes => _tileBiomes;
+        private TileData[,] _obstacleTiles; public TileData[,] ObstacleTiles => _obstacleTiles;
+        private Biome[,] _tileBiomes; public Biome[,] TileBiomes => _tileBiomes;
+        
         
         // 区域划分数据
         private List<List<Vector2Int>> _reachableAreas;
@@ -88,7 +84,7 @@ namespace _Script.Map.Generators
 
             // 3) 生成可行走区域 + 墙体
             GenerateWalkableArea();
-
+            
             // 4) 应用 Biome 地形(草地/泥土等)
             ApplyBiomeTerrain();
 
@@ -203,6 +199,10 @@ namespace _Script.Map.Generators
             }
         }
 
+        /**
+         * Counts walkable neighbors for a given cell.
+         * If more than 4 neighbors are walkable, keep it walkable
+         */
         private bool[,] SmoothWalkableArea(bool[,] area)
         {
             bool[,] newArea = new bool[_width, _height];
@@ -278,17 +278,24 @@ namespace _Script.Map.Generators
                         (x + xOffset) * _perlinScale,
                         (y + yOffset) * _perlinScale
                     ) * 100f;
-
+                    
+                    /*--------Perlin --------- Noise--------*/
                     // Compare val just once
-                    if (val > b.forestThreshold)
-                    {
-                        _mapTiles[x, y].TileType = b.forestTile;
-                        _walkableArea[x, y] = false;
-                    }
-                    else if (val < b.waterThreshold)
+                    if(val < b.waterThreshold)
                     {
                         _mapTiles[x, y].TileType = b.waterTile;
+                        _mapTiles[x, y].State = TileState.Surface;
                         _walkableArea[x, y] = false;
+                    }
+                    else if (val < b.mainGroundThreshold)
+                    {
+                        _mapTiles[x, y].TileType = b.mainGroundTile;
+                        _mapTiles[x, y].State = TileState.Surface;
+                        _walkableArea[x, y] = true;
+                    }
+                    else
+                    {
+                        _mapTiles[x, y].TileType = b.forestTile;
                     }
                 }
             }
@@ -314,7 +321,7 @@ namespace _Script.Map.Generators
                     var t = _mapTiles[x, y];
 
                     // Only place if it's mainGroundTile/forestTile/dirtTile
-                    if (t.TileType == b.mainGroundTile || t.TileType == b.forestTile || t.TileType == b.dirtTile)
+                    if (t.TileType == b.mainGroundTile || t.TileType == b.forestTile)
                     {
                         bool tooClose = false;
                         Vector2Int cand = new Vector2Int(x, y);
@@ -328,6 +335,7 @@ namespace _Script.Map.Generators
                                 break;
                             }
                         }
+                        
                         if (!tooClose)
                         {
                             _mapTiles[x, y].TileType = b.poiTile;
@@ -352,11 +360,11 @@ namespace _Script.Map.Generators
 
                     // If surrounding tile is grass/dirt, turn it into a wall
                     var t = _mapTiles[x, y];
-                    if (t.TileType == b.grassTile || t.TileType == b.dirtTile)
-                    {
-                        _mapTiles[x, y].TileType = b.wallTile;
-                        _walkableArea[x, y] = false;
-                    }
+                    // if (t.TileType == b.grassTile || t.TileType == b.dirtTile)
+                    // {
+                    //     _mapTiles[x, y].TileType = b.wallTile;
+                    //     _walkableArea[x, y] = false;
+                    // }
                 }
             }
         }
@@ -376,20 +384,20 @@ namespace _Script.Map.Generators
 
                     var t = _mapTiles[x, y];
                     // Only place rock if tile is grass or dirt
-                    if (t.TileType == b.grassTile || t.TileType == b.dirtTile)
-                    {
-                        float val = Mathf.PerlinNoise(
-                            (x + rockXOffset) * b.rockNoiseScale,
-                            (y + rockYOffset) * b.rockNoiseScale
-                        );
-                        // Check min/max noise and random
-                        if (val >= b.rockMinNoise && val <= b.rockMaxNoise 
-                            && Random.value < b.rockDensity)
-                        {
-                            _obstacleTiles[x, y].TileType = b.rockTile;
-                            _walkableArea[x, y] = false;
-                        }
-                    }
+                    // if (t.TileType == b.grassTile || t.TileType == b.dirtTile)
+                    // {
+                    //     float val = Mathf.PerlinNoise(
+                    //         (x + rockXOffset) * b.rockNoiseScale,
+                    //         (y + rockYOffset) * b.rockNoiseScale
+                    //     );
+                    //     // Check min/max noise and random
+                    //     if (val >= b.rockMinNoise && val <= b.rockMaxNoise 
+                    //         && Random.value < b.rockDensity)
+                    //     {
+                    //         _obstacleTiles[x, y].TileType = b.rockTile;
+                    //         _walkableArea[x, y] = false;
+                    //     }
+                    // }
                 }
             }
         }
@@ -510,14 +518,8 @@ namespace _Script.Map.Generators
     
     public class TileData
     {
-        public TileType TileType;
-        public TileState State;
-        
-        public TileData()
-        {
-            TileType = TileType.None;
-            State = TileState.Ground;
-        }
+        public TileType TileType = TileType.None;
+        public TileState State = TileState.Ground;
     }
     
     public enum TileState

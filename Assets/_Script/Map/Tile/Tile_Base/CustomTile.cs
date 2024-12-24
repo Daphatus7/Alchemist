@@ -23,12 +23,10 @@ namespace _Script.Map.Tile.Tile_Base
     {
         None,
         Grass,
-        Path,
         Soil,
+        Water,
         Rock,
         Dirt,
-        Water,
-        Sand,
-        WetSoil
+        Forest,
     }
 }

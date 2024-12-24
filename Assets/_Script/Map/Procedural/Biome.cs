@@ -11,22 +11,26 @@ namespace _Script.Map.Procedural
     {
         [BoxGroup("Basic Tiles")]
         public TileType mainGroundTile; // main ground tile for this biome
-        public TileType forestTile;
         public TileType waterTile;
+        public TileType forestTile;
         public TileType wallTile;
-        public TileType grassTile;
-        public TileType dirtTile;
 
         [BoxGroup("Thresholds & Noise")]
         [Range(0f, 1f)] 
         public float selectionThreshold; 
         // 用于判断当前格子是否属于此Biome的阈值
 
-        [Range(0, 100)]
-        public int forestThreshold = 50;
-        [Range(0, 100)]
-        public int waterThreshold = 35;
-
+        
+        /**
+         * Water: any below is water
+         * main ground
+         * forest
+         * others
+         */
+        [Range(0, 100)] public int waterThreshold = 35;
+        [Range(0, 100)] public int mainGroundThreshold = 50;
+        [Range(0, 100)] public int forestThreshold = 60;
+        
         [BoxGroup("Flora Settings")]
         public TileBase floraTile;       // 这里依然是 TileBase 用于实际渲染
         [Range(0f, 1f)] public float floraDensity = 0.3f;

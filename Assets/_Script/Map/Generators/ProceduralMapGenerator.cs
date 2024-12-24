@@ -6,7 +6,6 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.U2D;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 namespace _Script.Map.Generators
@@ -21,11 +20,12 @@ namespace _Script.Map.Generators
         public class TileTypeTileBasePair
         {
             public TileType tileType;
-            public SpriteAtlas tileSet;
             public string name;
         }
         
+        public SpriteAtlas spriteAtlas;
         public List<TileTypeTileBasePair> tileSet;
+        public Dictionary<TileType, TileBase[]> TileDictionary;
         
         [Header("Base Tilemap References")]
         public Tilemap baseTilemap;
@@ -65,6 +65,9 @@ namespace _Script.Map.Generators
         [Button("Generate Map")]
         public void DebugGenerateMap()
         {
+            baseTilemap.ClearAllTiles();
+            obstaclesTilemap.ClearAllTiles();
+            floraTilemap.ClearAllTiles();
             GenerateMap(width, height, out _, out _);
         }
         
@@ -97,29 +100,29 @@ namespace _Script.Map.Generators
             // 4) 调用逻辑层生成
             _mapLogic.GenerateMapLogic();
 
-            var tileDictionary = new Dictionary<TileType, TileBase[]>();
+            TileDictionary = new Dictionary<TileType, TileBase[]>();
             
             foreach (var pair in tileSet)
             {
-                TileBase[] tileArray = new TileBase[pair.tileSet.spriteCount];
-                for (int i = 0; i < pair.tileSet.spriteCount; i++)
+                TileBase[] tileArray = new TileBase[16];
+                for (int i = 0; i < 16; i++)
                 {
                     string spriteName = $"{pair.name}_{i}";
-                    Sprite s = pair.tileSet.GetSprite(spriteName);
+                    Sprite s = spriteAtlas.GetSprite(spriteName);
 
                     // Create a new tile
                     UnityEngine.Tilemaps.Tile tile = ScriptableObject.CreateInstance<UnityEngine.Tilemaps.Tile>();
                     tile.sprite = s;
                     tileArray[i] = tile;
                 }
-                tileDictionary[pair.tileType] = tileArray;
+                TileDictionary[pair.tileType] = tileArray;
             }
             
             // 5) 渲染层
-            _mapRenderer = new MapTileRenderer(baseTilemap, obstaclesTilemap, floraTilemap, tileDictionary);
+            _mapRenderer = new MapTileRenderer(baseTilemap, obstaclesTilemap, floraTilemap, TileDictionary, _mapLogic);
             
             
-            _mapRenderer.RenderFinalMap(_mapLogic, tileDictionary);
+            _mapRenderer.RenderFinalMap(_mapLogic, TileDictionary);
             //_mapRenderer.PlaceFlora(_mapLogic);
 
             // 6) 生成怪物（如果需要），这里保留原始逻辑或者你拆成一个 MonsterGenerator.cs
