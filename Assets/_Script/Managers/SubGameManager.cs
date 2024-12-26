@@ -1,107 +1,69 @@
-// Author : Peiyu Wang @ Daphatus
-// 09 12 2024 12 38
-
-using System;
-using _Script.Map.Generators;
-using _Script.Map.WorldMap;
-using _Script.Map.WorldMap.MapNode;
-using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections;
+using System.Diagnostics;
+using Edgar.Unity;
+using Edgar.Unity.Examples;
+using Edgar.Unity.Examples.Example2;
+using Debug = UnityEngine.Debug;
 
 namespace _Script.Managers
 {
-    
-    public class SubGameManager: Singleton<SubGameManager>
+    public class SubGameManager : GameManagerBase<SubGameManager>
     {
-        [SerializeField] private ProceduralMapGenerator _map;
-        [SerializeField] private Vector2Int _spawnPoint;
-        [SerializeField] private Vector2Int _endPoint;
-        [SerializeField] private Vector2Int _mapSize; public Vector2Int MapSize => _mapSize;
-        [SerializeField] private int _minMapSize = 10;
-        [SerializeField] private int _maxMapSize = 100;
-        [ReadOnly] private NodeType _subGameType;
+        [Header("Optional: Dungeon Generation Example")]
+        [SerializeField] private DungeonGeneratorGrid2D _dungeonGenerator;
         
-        public bool GenerateMap(NodeData nodeData,out Vector2Int spawnPoint, out Vector2Int endPoint)
+        public event System.Action OnLevelGenerated;
+
+        public override void LoadNextLevel()
         {
-            _subGameType = nodeData.NodeType;
-            // Now that the pathfinder is set up, run your map generation based on _subGameType
-            switch (_subGameType)
+            ShowLoadingScreen("SubGameManager", "Generating level...");
+
+            if (_dungeonGenerator == null)
             {
-                case NodeType.Resource:
-                    return ResourceGathering_MapGeneration(out spawnPoint, out endPoint);
-                case NodeType.Enemy:
-                    return Dungeon_MapGeneration(out spawnPoint, out endPoint);
-                case NodeType.Boss:
-                    return BossFight_MapGeneration(out spawnPoint, out endPoint);
-                case NodeType.Bonfire:
-                    return BonfireMap_MapGeneration(out spawnPoint, out endPoint);
-                default:
-                    throw new ArgumentOutOfRangeException();
+                Debug.LogWarning("No DungeonGenerator assigned to this SubGameManager!");
+                HideLoadingScreen();
+                return;
             }
+
+            StartCoroutine(GenerateLevelCoroutine());
         }
-        
-        private bool ResourceGathering_MapGeneration(out Vector2Int spawnPoint, out Vector2Int endPoint)
+
+        protected override void SingletonAwake()
         {
-            _mapSize = GenerateMapSize();
-            return _map.GenerateMap(_mapSize.x, _mapSize.y,  out spawnPoint, out endPoint);
+            // If you need something in Awake
         }
-        
-        private bool Dungeon_MapGeneration(out Vector2Int spawnPoint, out Vector2Int endPoint)
+
+        private IEnumerator GenerateLevelCoroutine()
         {
-            _mapSize = GenerateMapSize();
-            return _map.GenerateMap(_mapSize.x, _mapSize.y,  out spawnPoint, out endPoint);
+            // Ensure this SubGameManager's scene is the active scene
+            Scene myScene = gameObject.scene;    // The scene containing the SubGameManager MonoBehaviour
+            
+            SceneManager.SetActiveScene(myScene);
+
+            // 2. Wait one frame so the scene switch can fully register
+            yield return null;
+            
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            // Wait one frame so the loading screen becomes visible
+            yield return null;
+
+            // Now generate the dungeon
+            var payload = _dungeonGenerator.Generate();
+            
+            // Wait another frame to let newly spawned objects initialize
+            yield return null;
+
+            stopwatch.Stop();
+            double seconds = stopwatch.ElapsedMilliseconds / 1000d;
+
+            SetLevelInfo($"Generated in {seconds:F2}s");
+            HideLoadingScreen();
+
+            OnLevelGenerated?.Invoke();
         }
-        
-        private bool BossFight_MapGeneration(out Vector2Int spawnPoint, out Vector2Int endPoint)
-        {
-            spawnPoint = new Vector2Int(0, 0);
-            endPoint = spawnPoint;
-            return true;
-        }
-        
-        private bool BonfireMap_MapGeneration(out Vector2Int spawnPoint, out Vector2Int endPoint)
-        {
-            spawnPoint = new Vector2Int(0, 0);
-            endPoint = spawnPoint;
-            return true;
-        }
-        
-        private Vector2Int GenerateMapSize()
-        {
-            return new Vector2Int(UnityEngine.Random.Range(_minMapSize, _maxMapSize), UnityEngine.Random.Range(_minMapSize, _maxMapSize));
-        }
-        
-        // [Button("Generate Map")]
-        // private void EditorGenerateMap()
-        // {
-        //     Vector2Int s, e;
-        //     if (GenerateMap(GenerateNodeData(), out s, out e))
-        //     {
-        //         _spawnPoint = s;
-        //         _endPoint = e;
-        //         Debug.Log($"Map generated with spawn at {_spawnPoint} and end at {_endPoint}.");
-        //     }
-        //     else
-        //     {
-        //         Debug.LogWarning("Failed to generate map.");
-        //     }
-        // }
-        //
-        // private static NodeData GenerateNodeData(NodeType nodeType, string description, int seed)
-        // {
-        //     switch (nodeType)
-        //     {
-        //         case NodeType.Resource:
-        //             return new ResourceMapNode(description, seed);
-        //         case NodeType.Enemy:
-        //             return new EnemyMapNode(description, seed);
-        //         case NodeType.Boss:
-        //             return new BossNode(description, seed, "Boss");
-        //         case NodeType.Bonfire:
-        //             return new BonfireMapNode(description, seed);
-        //         default:
-        //             throw new ArgumentOutOfRangeException();
-        //     }
-        // }
     }
 }

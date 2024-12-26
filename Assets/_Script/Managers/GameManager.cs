@@ -12,89 +12,93 @@ using Sirenix.OdinInspector;
 
 namespace _Script.Managers
 {
-    public class GameManager : Singleton<GameManager>
+    /// <summary>
+    /// Persistent manager that lives throughout the entire game.
+    /// Holds a LevelManager (factory for scene loading) and references like the PlayerCharacter.
+    /// </summary>
+    public class GameManager : PersistentSingleton<GameManager>
     {
         private ServiceLocator _serviceLocator;
 
         [SerializeField] private PlayerCharacter _playerCharacter;
-        [SerializeField] private string startingScene = "TownMap";
+        [SerializeField] private string _startingScene = "TownMap";
 
+        // The non-static class that manages scene loading
+        private LevelManager _levelManager;
+
+        // Any "global updaters" you have
         private List<IGlobalUpdate> _globalUpdaters = new List<IGlobalUpdate>();
 
-        // Reference to the LevelManager
-        [SerializeField] private LevelManager _levelManager;
-        
         private void Start()
         {
-            // Initialize Service Locator
+            // Initialize Service Locator (if applicable)
             _serviceLocator = ServiceLocator.Instance;
 
-            // Ensure persistent objects like the player and manager
-            MakePersistentObjects();
-            
-            // Initialize LevelManager and pass references it needs (if not directly assigned via inspector)
-            _levelManager.Initialize(_playerCharacter, startingScene);
+            // Make sure the player is also persistent
+            if (_playerCharacter != null)
+            {
+                DontDestroyOnLoad(_playerCharacter.gameObject);
+            }
 
-            // Optionally load the starting scene or handle any other initial logic
-            _levelManager.LoadMainScene(startingScene);
+            // Create and initialize the LevelManager
+            _levelManager = new LevelManager();
+            _levelManager.Initialize(_playerCharacter, _startingScene);
+
+            // Optionally load the "starting" scene
+            _levelManager.LoadMainScene(_startingScene);
         }
 
-        public PlayerCharacter GetPlayer()
+        private void Update()
         {
-            return _playerCharacter;
+            // If needed, let the GameManager call global updaters each frame
+            UpdateGlobalUpdaters();
         }
 
-        private void MakePersistentObjects()
-        {
-            DontDestroyOnLoad(gameObject);
-            DontDestroyOnLoad(_playerCharacter.gameObject);
-        }
-
-        // Global updaters
         private void UpdateGlobalUpdaters()
         {
-            Debug.Log("Updating global updaters - Consider removing this log in production");
             foreach (var updater in _globalUpdaters)
             {
                 updater.Refresh();
             }
         }
 
-        public void RegisterGlobalUpdater(IGlobalUpdate updater)
-        {
-            _globalUpdaters.Add(updater);
-        }
+        public void RegisterGlobalUpdater(IGlobalUpdate updater) => _globalUpdaters.Add(updater);
+        public void UnregisterGlobalUpdater(IGlobalUpdate updater) => _globalUpdaters.Remove(updater);
 
-        public void UnregisterGlobalUpdater(IGlobalUpdate updater)
-        {
-            _globalUpdaters.Remove(updater);
-        }
+        #region Public methods that forward calls to the LevelManager
 
-        // Methods to interface with the LevelManager
+        public PlayerCharacter GetPlayer() => _playerCharacter;
+
+        /// <summary> Load a new additive scene based on NodeData. </summary>
         public void LoadSelectedScene(NodeData nodeData)
         {
             _levelManager.LoadSelectedScene(nodeData);
         }
 
+        /// <summary> Unload the current additive scene. </summary>
         public void UnloadCurrentAdditiveScene()
         {
             _levelManager.UnloadCurrentAdditiveScene();
-            UpdateGlobalUpdaters();
         }
 
+        /// <summary> Move the player to a position in the target scene (if loaded). </summary>
         public void MovePlayerToScene(Vector3 spawnPosition, string targetScene)
         {
             _levelManager.MovePlayerToScene(spawnPosition, targetScene);
         }
 
-        public void LoadMainScene(string townMap)
+        /// <summary> Load/replace the main scene (non-additive). </summary>
+        public void LoadMainScene(string sceneName)
         {
-            _levelManager.LoadMainScene(townMap);
+            _levelManager.LoadMainScene(sceneName);
         }
 
+        /// <summary> Example method to reset your hex map. </summary>
         public void ResetHexMap()
         {
             MapExplorerUI.Instance.ResetHexMap();
         }
+
+        #endregion
     }
 }

@@ -44,6 +44,9 @@ TagManager:
   - name: Background
     uniqueID: 2425651459
     locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
   - name: Level
     uniqueID: 4250941897
     locked: 0
@@ -68,12 +71,10 @@ TagManager:
   - name: Interactable
     uniqueID: 1960661667
     locked: 0
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: UI
     uniqueID: 1641875569
     locked: 0
   m_RenderingLayers:
   - Default
   - Obstacle
+  - Player

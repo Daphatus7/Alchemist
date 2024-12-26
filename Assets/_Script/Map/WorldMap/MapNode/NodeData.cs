@@ -21,7 +21,7 @@ namespace _Script.Map.WorldMap.MapNode
         public abstract NodeType NodeType { get; }
 
         [ShowInInspector, ReadOnly, LabelText("Map Name"), Tooltip("Automatically generated map name based on the node type.")]
-        public string MapName => NodeType + "Map";
+        public string MapName => "E_" + NodeType + "Map";
 
         [Title("Node Settings")]
         [TextArea, LabelText("Description"), Tooltip("A description of what this node represents or contains.")]
@@ -29,7 +29,6 @@ namespace _Script.Map.WorldMap.MapNode
 
         [LabelText("Seed"), Tooltip("Seed used for procedural generation.")]
         public int Seed = 0;
-        
 
         // Optional: If you want a constructor that allows assigning description and seed:
         public NodeData(string description, int seed)

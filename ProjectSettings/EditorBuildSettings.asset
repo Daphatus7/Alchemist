@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Level/TownMap.unity
     guid: fc0e98e84201448c0b790f6948db610c
+  - enabled: 1
+    path: Assets/Level/E_ResourceMap.unity
+    guid: b50f0eb1a456d410f991c401ba34f3b7
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: c2bcfefd6ac65425c983f6d7ced5aa3d,
       type: 2}
