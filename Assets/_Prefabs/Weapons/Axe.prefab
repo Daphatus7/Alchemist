@@ -75,8 +75,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1596155273
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300086, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -123,7 +123,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.045624256, y: 0.50062466}
+  m_Offset: {x: 0.041226745, y: 0.7527492}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.44592682, y: -0.0006246567}
@@ -133,7 +133,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.84375, y: 1}
+  m_Size: {x: 0.834955, y: 0.4957509}
   m_EdgeRadius: 0
 --- !u!114 &1089456852449133393
 MonoBehaviour:
@@ -149,11 +149,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCooldown: 0.5
   damage: 10
-  targetTags: []
-  weaponCollider: {fileID: 0}
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 256
+  targetTags:
+  - Enemy
   numberPrefab: {fileID: 3418554337574669511, guid: 0de677f7bca764a82945a8a9e4c3f703,
     type: 3}
   attackTime: 0.5

@@ -110,19 +110,19 @@ namespace _Script.Weapon
         /// <summary>
         /// Check if it's a valid target, then pass to OnDamageTarget() to handle actual damage logic.
         /// </summary>
-        protected virtual void TryDamage(Collider2D other)
+        protected virtual bool TryDamage(Collider2D other)
         {
             if (!CanDamage()) 
-                return;
+                return false;
 
             if (!IsTarget(other) || !other.TryGetComponent(out IDamageable damageable))
-                return;
+                return false;
 
             // Now let the child class handle the actual damage formula
             float actualDamage = OnDamageTarget(damageable);
-
             // Show floating numbers, etc.
             PlayDamageEffect(actualDamage, other);
+            return true;
         }
 
         /// <summary>

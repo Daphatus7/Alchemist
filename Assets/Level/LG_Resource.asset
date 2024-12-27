@@ -14,8 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Position: {x: 880, y: 640}
   Name: Room
-  IndividualRoomTemplates: []
+  IndividualRoomTemplates:
+  - {fileID: 4824408171863005527, guid: d92baacfa45ad4a52947ec59e806f0b9, type: 3}
   RoomTemplateSets: []
+--- !u!114 &-8071270255899651114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f692f83df7c1b5468af64edd22287dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  From: {fileID: -9200685146019807252}
+  To: {fileID: 8708480864078226548}
+  RoomTemplates: []
 --- !u!114 &-7712747912569560808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +144,7 @@ MonoBehaviour:
   - {fileID: 3162019947240327975}
   - {fileID: -4148229725761416483}
   - {fileID: 8885546743659648820}
+  - {fileID: -8071270255899651114}
   CorridorIndividualRoomTemplates:
   - {fileID: 1053086167283089978, guid: 2c0561a5f021a4f4097fde30ca53e3bd, type: 3}
   - {fileID: 1053086167283089978, guid: 9b43f41a937674c97bf462e116264894, type: 3}
@@ -143,6 +160,7 @@ MonoBehaviour:
   - {fileID: 4882190569078583809}
   - {fileID: -4098692664080447719}
   - {fileID: 4659773976776961874}
+  - {fileID: 8708480864078226548}
   EditorData:
     PanOffset: {x: -253.17906, y: -225.24562}
     Zoom: 1.0778588
@@ -241,6 +259,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Position: {x: 880, y: 448}
+  Name: Room
+  IndividualRoomTemplates: []
+  RoomTemplateSets: []
+--- !u!114 &8708480864078226548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8074dc491ddc34f4e83332d9eae76980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Position: {x: 1024, y: 640}
   Name: Room
   IndividualRoomTemplates: []
   RoomTemplateSets: []

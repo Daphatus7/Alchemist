@@ -83,7 +83,8 @@ namespace _Script.Weapon
             {
                 foreach (var hit in _results)
                 {
-                    TryDamage(hit);
+                    if(TryDamage(hit))
+                        break; 
                 }
             }
 

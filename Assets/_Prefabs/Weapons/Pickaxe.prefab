@@ -75,8 +75,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1596155273
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -55613607, guid: d9184dbb777e8e8489eb1e645a17d80a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -151,12 +151,8 @@ MonoBehaviour:
   damage: 10
   targetTags:
   - Ore
-  weaponCollider: {fileID: 0}
   numberPrefab: {fileID: 3418554337574669511, guid: 0de677f7bca764a82945a8a9e4c3f703,
     type: 3}
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 256
   attackTime: 0.5
   attackDistance: 3
   animationCurve:

@@ -159,7 +159,6 @@ namespace _Script.Managers
             // Suppose the SubGameManager has a public SpawnPoint property:
             var spawnPoint = SubGameManager.Instance.SpawnPoint.position;
             var targetScene = _currentAdditiveScene;
-
             MovePlayerToScene(spawnPoint, targetScene);
         }
 
