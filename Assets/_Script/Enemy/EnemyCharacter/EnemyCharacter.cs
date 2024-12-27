@@ -1,5 +1,5 @@
 using _Script.Attribute;
-using _Script.Items.Drop;
+using _Script.Drop;
 using UnityEngine;
 
 namespace _Script.Enemy.EnemyCharacter

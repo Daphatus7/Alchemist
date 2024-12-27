@@ -19,7 +19,7 @@ namespace _Script.Managers
         private string _currentMainScene;
         private string _currentAdditiveScene;
         private readonly List<string> _loadedAdditiveScenes = new List<string>();
-        
+
         /// <summary>
         /// Initialize references such as the PlayerCharacter and starting scene.
         /// Called once from GameManager.
@@ -73,6 +73,7 @@ namespace _Script.Managers
 
         /// <summary>
         /// Moves the player to a spawn position in a target scene (if that scene is loaded).
+        /// Also unsubscribes from OnLevelGenerated if we were subscribed.
         /// </summary>
         public void MovePlayerToScene(Vector3 spawnPosition, string targetScene)
         {
@@ -85,6 +86,9 @@ namespace _Script.Managers
             {
                 Debug.LogWarning($"Scene '{targetScene}' not loaded or PlayerCharacter is null. Cannot move player.");
             }
+
+            // Correctly unsubscribe using the named method!
+            SubGameManager.Instance.OnLevelGenerated -= OnSubGameManagerLevelGenerated;
         }
 
         #region Async Scene Loading Coroutines
@@ -138,7 +142,25 @@ namespace _Script.Managers
                 _currentMainScene = null;
             }
             
+            // Trigger generation in the SubGameManager
             SubGameManager.Instance.LoadNextLevel();
+
+            // Subscribe using a NAMED method, not an anonymous delegate
+            SubGameManager.Instance.OnLevelGenerated += OnSubGameManagerLevelGenerated;
+        }
+
+        /// <summary>
+        /// Named method for the OnLevelGenerated event.
+        /// Subscribing/unsubscribing with the same method ensures correct event handling.
+        /// </summary>
+        private void OnSubGameManagerLevelGenerated()
+        {
+            // Use SubGameManager's known spawn position or nodeData's mapName if needed.
+            // Suppose the SubGameManager has a public SpawnPoint property:
+            var spawnPoint = SubGameManager.Instance.SpawnPoint.position;
+            var targetScene = _currentAdditiveScene;
+
+            MovePlayerToScene(spawnPoint, targetScene);
         }
 
         private void UnloadAdditiveScene(string sceneName)

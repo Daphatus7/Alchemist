@@ -3,10 +3,10 @@
 
 using System.Collections.Generic;
 using _Script.Items.AbstractItemTypes._Script.Items;
-using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
-namespace _Script.Enemy.DropTable
+namespace _Script.Drop.DropTable
 {
     [CreateAssetMenu(fileName = "DropTable", menuName = "GameData/DropTable")]
     public class DropTable : ScriptableObject, IDropProvider 

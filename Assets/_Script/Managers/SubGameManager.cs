@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Diagnostics;
+using _Script.Map;
 using Edgar.Unity;
 using Edgar.Unity.Examples;
 using Edgar.Unity.Examples.Example2;
@@ -16,6 +17,11 @@ namespace _Script.Managers
         
         public event System.Action OnLevelGenerated;
 
+        public Transform SpawnPoint => SpawnerPoint.Instance ? .transform;
+
+        /**
+         * 加载下一个关卡
+         */
         public override void LoadNextLevel()
         {
             ShowLoadingScreen("SubGameManager", "Generating level...");
@@ -27,6 +33,7 @@ namespace _Script.Managers
                 return;
             }
 
+            //生成关卡
             StartCoroutine(GenerateLevelCoroutine());
         }
 
@@ -63,6 +70,7 @@ namespace _Script.Managers
             SetLevelInfo($"Generated in {seconds:F2}s");
             HideLoadingScreen();
 
+            //加载完毕
             OnLevelGenerated?.Invoke();
         }
     }

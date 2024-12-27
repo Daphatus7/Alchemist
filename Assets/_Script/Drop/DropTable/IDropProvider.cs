@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace _Script.Enemy.DropTable
+namespace _Script.Drop.DropTable
 {
     public interface IDropProvider
     {

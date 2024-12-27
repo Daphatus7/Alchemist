@@ -1,6 +1,6 @@
 using _Script.Damageable;
+using _Script.Drop;
 using _Script.Items.AbstractItemTypes._Script.Items;
-using _Script.Items.Drop;
 using _Script.Items.Lootable;
 using UnityEngine;
 

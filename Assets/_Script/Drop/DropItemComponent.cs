@@ -1,13 +1,12 @@
 // Author : Peiyu Wang @ Daphatus
 // 20 12 2024 12 25
 
-using System;
-using _Script.Enemy.DropTable;
+using _Script.Drop.DropTable;
 using _Script.Items.Lootable;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace _Script.Items.Drop
+namespace _Script.Drop
 {
     public class DropItemComponent : MonoBehaviour
     {
@@ -23,6 +22,11 @@ namespace _Script.Items.Drop
         
         public void DropItems()
         {
+            Drop(transform.position);
+        }
+        
+        protected virtual void Drop(Vector3 pos)
+        {
             if (_dropProvider == null) return;
 
             foreach (var drop in _dropProvider.GetDrops())
@@ -36,7 +40,7 @@ namespace _Script.Items.Drop
                     {
                         //create a game object at the enemy's position
                         GameObject itemObj = new GameObject("DroppedItem");
-                        itemObj.transform.position = transform.position + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
+                        itemObj.transform.position = pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
                         var loot = itemObj.AddComponent<ItemLootable>();
                         var co = itemObj.AddComponent<BoxCollider2D>();
                         var sr = itemObj.AddComponent<SpriteRenderer>();

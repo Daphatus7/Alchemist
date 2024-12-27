@@ -119,54 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &70639949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8074dc491ddc34f4e83332d9eae76980, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Position: {x: 0, y: 0}
-  Name: Corridor
-  IndividualRoomTemplates: []
-  RoomTemplateSets: []
---- !u!114 &160966515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8074dc491ddc34f4e83332d9eae76980, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Position: {x: 0, y: 0}
-  Name: Corridor
-  IndividualRoomTemplates: []
-  RoomTemplateSets: []
---- !u!114 &302709650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8074dc491ddc34f4e83332d9eae76980, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Position: {x: 0, y: 0}
-  Name: Corridor
-  IndividualRoomTemplates: []
-  RoomTemplateSets: []
 --- !u!1 &480979651
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,7 +168,7 @@ MonoBehaviour:
   InputType: 0
   CustomInputTask: {fileID: 0}
   FixedLevelGraphConfig:
-    LevelGraph: {fileID: 11400000, guid: a9d2bc3a32f074b35968f79c868c8c84, type: 2}
+    LevelGraph: {fileID: 11400000, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16, type: 2}
     UseCorridors: 1
   GeneratorConfig:
     RootGameObject: {fileID: 1348654201}
@@ -244,10 +196,10 @@ MonoBehaviour:
     ThrowExceptionsImmediately: 0
   UseRandomSeed: 1
   RandomGeneratorSeed: 0
-  GenerateOn: 2
+  GenerateOn: 0
   ThrowExceptionsImmediately: 0
   DisableCustomPostProcessing: 0
---- !u!114 &496113246
+--- !u!114 &767650198
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -263,7 +215,55 @@ MonoBehaviour:
   Name: Corridor
   IndividualRoomTemplates: []
   RoomTemplateSets: []
---- !u!114 &740862652
+--- !u!114 &1073317556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8074dc491ddc34f4e83332d9eae76980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Position: {x: 0, y: 0}
+  Name: Corridor
+  IndividualRoomTemplates: []
+  RoomTemplateSets: []
+--- !u!114 &1146529327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8074dc491ddc34f4e83332d9eae76980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Position: {x: 0, y: 0}
+  Name: Corridor
+  IndividualRoomTemplates: []
+  RoomTemplateSets: []
+--- !u!114 &1233953053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8074dc491ddc34f4e83332d9eae76980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Position: {x: 0, y: 0}
+  Name: Corridor
+  IndividualRoomTemplates: []
+  RoomTemplateSets: []
+--- !u!114 &1315907770
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -339,50 +339,97 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomInstances:
-  - room: {fileID: 7499029344354591900, guid: a9d2bc3a32f074b35968f79c868c8c84, type: 2}
+  - room: {fileID: -9200685146019807252, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16, type: 2}
     isCorridor: 0
     connection: {fileID: 0}
-    roomTemplatePrefab: {fileID: 4824408171863005527, guid: 3e24c12932fcc42e4a61a9866ce3dfeb,
+    roomTemplatePrefab: {fileID: 4824408171863005527, guid: 6dbc627d33d964a508b43a03d30721ae,
       type: 3}
     roomTemplateInstance: {fileID: 0}
-    position: {x: -62, y: -12, z: 0}
+    position: {x: -56, y: 40, z: 0}
     doors:
     - doorLine:
-        fromX: 2
-        fromY: -9
+        fromX: 19
+        fromY: -18
         fromZ: 0
-        toX: 2
-        toY: -8
+        toX: 20
+        toY: -18
         toZ: 0
-      facingDirection: {x: -1, y: 0}
-      isHorizontal: 0
-      connectedRoom: {fileID: 302709650}
-      socket: {fileID: 0}
-      direction: 0
-    - doorLine:
-        fromX: 21
-        fromY: -9
-        fromZ: 0
-        toX: 21
-        toY: -8
-        toZ: 0
-      facingDirection: {x: 1, y: 0}
-      isHorizontal: 0
-      connectedRoom: {fileID: 1619788214}
-      socket: {fileID: 0}
-      direction: 0
-    - doorLine:
-        fromX: 11
-        fromY: 1
-        fromZ: 0
-        toX: 12
-        toY: 1
-        toZ: 0
-      facingDirection: {x: 0, y: 1}
+      facingDirection: {x: 0, y: -1}
       isHorizontal: 1
-      connectedRoom: {fileID: 160966515}
+      connectedRoom: {fileID: 1233953053}
       socket: {fileID: 0}
       direction: 0
+    doorLines:
+    - doorLine:
+        From: {x: 2, y: -17, z: 0}
+        To: {x: 2, y: -1, z: 0}
+        Length: 2
+        Direction: 0
+        Socket: {fileID: 0}
+      direction:
+        x: 0
+        y: 1
+        z: 0
+      usedDoors: []
+    - doorLine:
+        From: {x: 3, y: 1, z: 0}
+        To: {x: 19, y: 1, z: 0}
+        Length: 2
+        Direction: 0
+        Socket: {fileID: 0}
+      direction:
+        x: 1
+        y: 0
+        z: 0
+      usedDoors: []
+    - doorLine:
+        From: {x: 21, y: 0, z: 0}
+        To: {x: 21, y: -16, z: 0}
+        Length: 2
+        Direction: 0
+        Socket: {fileID: 0}
+      direction:
+        x: 0
+        y: -1
+        z: 0
+      usedDoors: []
+    - doorLine:
+        From: {x: 20, y: -18, z: 0}
+        To: {x: 4, y: -18, z: 0}
+        Length: 2
+        Direction: 0
+        Socket: {fileID: 0}
+      direction:
+        x: -1
+        y: 0
+        z: 0
+      usedDoors:
+      - doorLine:
+          fromX: 19
+          fromY: -18
+          fromZ: 0
+          toX: 20
+          toY: -18
+          toZ: 0
+        facingDirection: {x: 0, y: -1}
+        isHorizontal: 1
+        connectedRoom: {fileID: 1233953053}
+        socket: {fileID: 0}
+        direction: 0
+    outlinePolygon:
+      points:
+      - {x: -54, y: 41}
+      - {x: -35, y: 41}
+      - {x: -35, y: 22}
+      - {x: -54, y: 22}
+  - room: {fileID: 1543291592732935148, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16, type: 2}
+    isCorridor: 0
+    connection: {fileID: 0}
+    roomTemplatePrefab: {fileID: 4824408171863005527, guid: ce540cf8d5e9e4be6b6e1bca65fbcca6,
+      type: 3}
+    roomTemplateInstance: {fileID: 0}
+    position: {x: -6, y: 56, z: 0}
+    doors:
     - doorLine:
         fromX: 11
         fromY: -18
@@ -392,7 +439,7 @@ MonoBehaviour:
         toZ: 0
       facingDirection: {x: 0, y: -1}
       isHorizontal: 1
-      connectedRoom: {fileID: 70639949}
+      connectedRoom: {fileID: 1757705528}
       socket: {fileID: 0}
       direction: 0
     doorLines:
@@ -406,19 +453,7 @@ MonoBehaviour:
         x: 0
         y: 1
         z: 0
-      usedDoors:
-      - doorLine:
-          fromX: 2
-          fromY: -9
-          fromZ: 0
-          toX: 2
-          toY: -8
-          toZ: 0
-        facingDirection: {x: -1, y: 0}
-        isHorizontal: 0
-        connectedRoom: {fileID: 302709650}
-        socket: {fileID: 0}
-        direction: 0
+      usedDoors: []
     - doorLine:
         From: {x: 21, y: -8, z: 0}
         To: {x: 21, y: -8, z: 0}
@@ -429,19 +464,7 @@ MonoBehaviour:
         x: 0
         y: -1
         z: 0
-      usedDoors:
-      - doorLine:
-          fromX: 21
-          fromY: -9
-          fromZ: 0
-          toX: 21
-          toY: -8
-          toZ: 0
-        facingDirection: {x: 1, y: 0}
-        isHorizontal: 0
-        connectedRoom: {fileID: 1619788214}
-        socket: {fileID: 0}
-        direction: 0
+      usedDoors: []
     - doorLine:
         From: {x: 11, y: 1, z: 0}
         To: {x: 11, y: 1, z: 0}
@@ -452,19 +475,7 @@ MonoBehaviour:
         x: 1
         y: 0
         z: 0
-      usedDoors:
-      - doorLine:
-          fromX: 11
-          fromY: 1
-          fromZ: 0
-          toX: 12
-          toY: 1
-          toZ: 0
-        facingDirection: {x: 0, y: 1}
-        isHorizontal: 1
-        connectedRoom: {fileID: 160966515}
-        socket: {fileID: 0}
-        direction: 0
+      usedDoors: []
     - doorLine:
         From: {x: 12, y: -18, z: 0}
         To: {x: 12, y: -18, z: 0}
@@ -485,550 +496,63 @@ MonoBehaviour:
           toZ: 0
         facingDirection: {x: 0, y: -1}
         isHorizontal: 1
-        connectedRoom: {fileID: 70639949}
+        connectedRoom: {fileID: 1757705528}
         socket: {fileID: 0}
         direction: 0
     outlinePolygon:
       points:
-      - {x: -60, y: -11}
-      - {x: -41, y: -11}
-      - {x: -41, y: -30}
-      - {x: -60, y: -30}
-  - room: {fileID: -9200685146019807252, guid: a9d2bc3a32f074b35968f79c868c8c84, type: 2}
+      - {x: -4, y: 57}
+      - {x: 15, y: 57}
+      - {x: 15, y: 38}
+      - {x: -4, y: 38}
+  - room: {fileID: 8374313632089172612, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16, type: 2}
     isCorridor: 0
     connection: {fileID: 0}
-    roomTemplatePrefab: {fileID: 4824408171863005527, guid: 3e24c12932fcc42e4a61a9866ce3dfeb,
-      type: 3}
-    roomTemplateInstance: {fileID: 0}
-    position: {x: -62, y: -42, z: 0}
-    doors:
-    - doorLine:
-        fromX: 21
-        fromY: -9
-        fromZ: 0
-        toX: 21
-        toY: -8
-        toZ: 0
-      facingDirection: {x: 1, y: 0}
-      isHorizontal: 0
-      connectedRoom: {fileID: 1537550887}
-      socket: {fileID: 0}
-      direction: 0
-    - doorLine:
-        fromX: 11
-        fromY: 1
-        fromZ: 0
-        toX: 12
-        toY: 1
-        toZ: 0
-      facingDirection: {x: 0, y: 1}
-      isHorizontal: 1
-      connectedRoom: {fileID: 70639949}
-      socket: {fileID: 0}
-      direction: 0
-    doorLines:
-    - doorLine:
-        From: {x: 2, y: -9, z: 0}
-        To: {x: 2, y: -9, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 0
-        y: 1
-        z: 0
-      usedDoors: []
-    - doorLine:
-        From: {x: 21, y: -8, z: 0}
-        To: {x: 21, y: -8, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 0
-        y: -1
-        z: 0
-      usedDoors:
-      - doorLine:
-          fromX: 21
-          fromY: -9
-          fromZ: 0
-          toX: 21
-          toY: -8
-          toZ: 0
-        facingDirection: {x: 1, y: 0}
-        isHorizontal: 0
-        connectedRoom: {fileID: 1537550887}
-        socket: {fileID: 0}
-        direction: 0
-    - doorLine:
-        From: {x: 11, y: 1, z: 0}
-        To: {x: 11, y: 1, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 1
-        y: 0
-        z: 0
-      usedDoors:
-      - doorLine:
-          fromX: 11
-          fromY: 1
-          fromZ: 0
-          toX: 12
-          toY: 1
-          toZ: 0
-        facingDirection: {x: 0, y: 1}
-        isHorizontal: 1
-        connectedRoom: {fileID: 70639949}
-        socket: {fileID: 0}
-        direction: 0
-    - doorLine:
-        From: {x: 12, y: -18, z: 0}
-        To: {x: 12, y: -18, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: -1
-        y: 0
-        z: 0
-      usedDoors: []
-    outlinePolygon:
-      points:
-      - {x: -60, y: -41}
-      - {x: -41, y: -41}
-      - {x: -41, y: -60}
-      - {x: -60, y: -60}
-  - room: {fileID: 1543291592732935148, guid: a9d2bc3a32f074b35968f79c868c8c84, type: 2}
-    isCorridor: 0
-    connection: {fileID: 0}
-    roomTemplatePrefab: {fileID: 4824408171863005527, guid: d92baacfa45ad4a52947ec59e806f0b9,
-      type: 3}
-    roomTemplateInstance: {fileID: 0}
-    position: {x: -32, y: -42, z: 0}
-    doors:
-    - doorLine:
-        fromX: 2
-        fromY: -9
-        fromZ: 0
-        toX: 2
-        toY: -8
-        toZ: 0
-      facingDirection: {x: -1, y: 0}
-      isHorizontal: 0
-      connectedRoom: {fileID: 1537550887}
-      socket: {fileID: 0}
-      direction: 0
-    doorLines:
-    - doorLine:
-        From: {x: 2, y: -9, z: 0}
-        To: {x: 2, y: -9, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 0
-        y: 1
-        z: 0
-      usedDoors:
-      - doorLine:
-          fromX: 2
-          fromY: -9
-          fromZ: 0
-          toX: 2
-          toY: -8
-          toZ: 0
-        facingDirection: {x: -1, y: 0}
-        isHorizontal: 0
-        connectedRoom: {fileID: 1537550887}
-        socket: {fileID: 0}
-        direction: 0
-    - doorLine:
-        From: {x: 21, y: -8, z: 0}
-        To: {x: 21, y: -8, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 0
-        y: -1
-        z: 0
-      usedDoors: []
-    - doorLine:
-        From: {x: 11, y: 1, z: 0}
-        To: {x: 11, y: 1, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 1
-        y: 0
-        z: 0
-      usedDoors: []
-    - doorLine:
-        From: {x: 12, y: -18, z: 0}
-        To: {x: 12, y: -18, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: -1
-        y: 0
-        z: 0
-      usedDoors: []
-    outlinePolygon:
-      points:
-      - {x: -30, y: -41}
-      - {x: -11, y: -41}
-      - {x: -11, y: -60}
-      - {x: -30, y: -60}
-  - room: {fileID: -8667485434903529145, guid: a9d2bc3a32f074b35968f79c868c8c84, type: 2}
-    isCorridor: 0
-    connection: {fileID: 0}
-    roomTemplatePrefab: {fileID: 4824408171863005527, guid: 3e24c12932fcc42e4a61a9866ce3dfeb,
-      type: 3}
-    roomTemplateInstance: {fileID: 0}
-    position: {x: -92, y: -12, z: 0}
-    doors:
-    - doorLine:
-        fromX: 21
-        fromY: -9
-        fromZ: 0
-        toX: 21
-        toY: -8
-        toZ: 0
-      facingDirection: {x: 1, y: 0}
-      isHorizontal: 0
-      connectedRoom: {fileID: 302709650}
-      socket: {fileID: 0}
-      direction: 0
-    doorLines:
-    - doorLine:
-        From: {x: 2, y: -9, z: 0}
-        To: {x: 2, y: -9, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 0
-        y: 1
-        z: 0
-      usedDoors: []
-    - doorLine:
-        From: {x: 21, y: -8, z: 0}
-        To: {x: 21, y: -8, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 0
-        y: -1
-        z: 0
-      usedDoors:
-      - doorLine:
-          fromX: 21
-          fromY: -9
-          fromZ: 0
-          toX: 21
-          toY: -8
-          toZ: 0
-        facingDirection: {x: 1, y: 0}
-        isHorizontal: 0
-        connectedRoom: {fileID: 302709650}
-        socket: {fileID: 0}
-        direction: 0
-    - doorLine:
-        From: {x: 11, y: 1, z: 0}
-        To: {x: 11, y: 1, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 1
-        y: 0
-        z: 0
-      usedDoors: []
-    - doorLine:
-        From: {x: 12, y: -18, z: 0}
-        To: {x: 12, y: -18, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: -1
-        y: 0
-        z: 0
-      usedDoors: []
-    outlinePolygon:
-      points:
-      - {x: -90, y: -11}
-      - {x: -71, y: -11}
-      - {x: -71, y: -30}
-      - {x: -90, y: -30}
-  - room: {fileID: -6690117815267487699, guid: a9d2bc3a32f074b35968f79c868c8c84, type: 2}
-    isCorridor: 0
-    connection: {fileID: 0}
-    roomTemplatePrefab: {fileID: 4824408171863005527, guid: 3e24c12932fcc42e4a61a9866ce3dfeb,
-      type: 3}
-    roomTemplateInstance: {fileID: 0}
-    position: {x: -32, y: -12, z: 0}
-    doors:
-    - doorLine:
-        fromX: 2
-        fromY: -9
-        fromZ: 0
-        toX: 2
-        toY: -8
-        toZ: 0
-      facingDirection: {x: -1, y: 0}
-      isHorizontal: 0
-      connectedRoom: {fileID: 1619788214}
-      socket: {fileID: 0}
-      direction: 0
-    - doorLine:
-        fromX: 21
-        fromY: -9
-        fromZ: 0
-        toX: 21
-        toY: -8
-        toZ: 0
-      facingDirection: {x: 1, y: 0}
-      isHorizontal: 0
-      connectedRoom: {fileID: 740862652}
-      socket: {fileID: 0}
-      direction: 0
-    - doorLine:
-        fromX: 11
-        fromY: 1
-        fromZ: 0
-        toX: 12
-        toY: 1
-        toZ: 0
-      facingDirection: {x: 0, y: 1}
-      isHorizontal: 1
-      connectedRoom: {fileID: 496113246}
-      socket: {fileID: 0}
-      direction: 0
-    doorLines:
-    - doorLine:
-        From: {x: 2, y: -9, z: 0}
-        To: {x: 2, y: -9, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 0
-        y: 1
-        z: 0
-      usedDoors:
-      - doorLine:
-          fromX: 2
-          fromY: -9
-          fromZ: 0
-          toX: 2
-          toY: -8
-          toZ: 0
-        facingDirection: {x: -1, y: 0}
-        isHorizontal: 0
-        connectedRoom: {fileID: 1619788214}
-        socket: {fileID: 0}
-        direction: 0
-    - doorLine:
-        From: {x: 21, y: -8, z: 0}
-        To: {x: 21, y: -8, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 0
-        y: -1
-        z: 0
-      usedDoors:
-      - doorLine:
-          fromX: 21
-          fromY: -9
-          fromZ: 0
-          toX: 21
-          toY: -8
-          toZ: 0
-        facingDirection: {x: 1, y: 0}
-        isHorizontal: 0
-        connectedRoom: {fileID: 740862652}
-        socket: {fileID: 0}
-        direction: 0
-    - doorLine:
-        From: {x: 11, y: 1, z: 0}
-        To: {x: 11, y: 1, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 1
-        y: 0
-        z: 0
-      usedDoors:
-      - doorLine:
-          fromX: 11
-          fromY: 1
-          fromZ: 0
-          toX: 12
-          toY: 1
-          toZ: 0
-        facingDirection: {x: 0, y: 1}
-        isHorizontal: 1
-        connectedRoom: {fileID: 496113246}
-        socket: {fileID: 0}
-        direction: 0
-    - doorLine:
-        From: {x: 12, y: -18, z: 0}
-        To: {x: 12, y: -18, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: -1
-        y: 0
-        z: 0
-      usedDoors: []
-    outlinePolygon:
-      points:
-      - {x: -30, y: -11}
-      - {x: -11, y: -11}
-      - {x: -11, y: -30}
-      - {x: -30, y: -30}
-  - room: {fileID: 8374313632089172612, guid: a9d2bc3a32f074b35968f79c868c8c84, type: 2}
-    isCorridor: 0
-    connection: {fileID: 0}
-    roomTemplatePrefab: {fileID: 4824408171863005527, guid: 3e24c12932fcc42e4a61a9866ce3dfeb,
-      type: 3}
-    roomTemplateInstance: {fileID: 0}
-    position: {x: -2, y: -12, z: 0}
-    doors:
-    - doorLine:
-        fromX: 2
-        fromY: -9
-        fromZ: 0
-        toX: 2
-        toY: -8
-        toZ: 0
-      facingDirection: {x: -1, y: 0}
-      isHorizontal: 0
-      connectedRoom: {fileID: 740862652}
-      socket: {fileID: 0}
-      direction: 0
-    - doorLine:
-        fromX: 11
-        fromY: 1
-        fromZ: 0
-        toX: 12
-        toY: 1
-        toZ: 0
-      facingDirection: {x: 0, y: 1}
-      isHorizontal: 1
-      connectedRoom: {fileID: 1677166353}
-      socket: {fileID: 0}
-      direction: 0
-    doorLines:
-    - doorLine:
-        From: {x: 2, y: -9, z: 0}
-        To: {x: 2, y: -9, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 0
-        y: 1
-        z: 0
-      usedDoors:
-      - doorLine:
-          fromX: 2
-          fromY: -9
-          fromZ: 0
-          toX: 2
-          toY: -8
-          toZ: 0
-        facingDirection: {x: -1, y: 0}
-        isHorizontal: 0
-        connectedRoom: {fileID: 740862652}
-        socket: {fileID: 0}
-        direction: 0
-    - doorLine:
-        From: {x: 21, y: -8, z: 0}
-        To: {x: 21, y: -8, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 0
-        y: -1
-        z: 0
-      usedDoors: []
-    - doorLine:
-        From: {x: 11, y: 1, z: 0}
-        To: {x: 11, y: 1, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 1
-        y: 0
-        z: 0
-      usedDoors:
-      - doorLine:
-          fromX: 11
-          fromY: 1
-          fromZ: 0
-          toX: 12
-          toY: 1
-          toZ: 0
-        facingDirection: {x: 0, y: 1}
-        isHorizontal: 1
-        connectedRoom: {fileID: 1677166353}
-        socket: {fileID: 0}
-        direction: 0
-    - doorLine:
-        From: {x: 12, y: -18, z: 0}
-        To: {x: 12, y: -18, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: -1
-        y: 0
-        z: 0
-      usedDoors: []
-    outlinePolygon:
-      points:
-      - {x: 0, y: -11}
-      - {x: 19, y: -11}
-      - {x: 19, y: -30}
-      - {x: 0, y: -30}
-  - room: {fileID: -7712747912569560808, guid: a9d2bc3a32f074b35968f79c868c8c84, type: 2}
-    isCorridor: 0
-    connection: {fileID: 0}
-    roomTemplatePrefab: {fileID: 4824408171863005527, guid: d313d05fbb88949f28a8788b5165ca29,
+    roomTemplatePrefab: {fileID: 4824408171863005527, guid: 6dbc627d33d964a508b43a03d30721ae,
       type: 3}
     roomTemplateInstance: {fileID: 0}
     position: {x: -2, y: 18, z: 0}
     doors:
     - doorLine:
-        fromX: 11
+        fromX: 2
+        fromY: -17
+        fromZ: 0
+        toX: 2
+        toY: -16
+        toZ: 0
+      facingDirection: {x: -1, y: 0}
+      isHorizontal: 0
+      connectedRoom: {fileID: 1315907770}
+      socket: {fileID: 0}
+      direction: 0
+    - doorLine:
+        fromX: 7
+        fromY: 1
+        fromZ: 0
+        toX: 8
+        toY: 1
+        toZ: 0
+      facingDirection: {x: 0, y: 1}
+      isHorizontal: 1
+      connectedRoom: {fileID: 1757705528}
+      socket: {fileID: 0}
+      direction: 0
+    - doorLine:
+        fromX: 19
         fromY: -18
         fromZ: 0
-        toX: 12
+        toX: 20
         toY: -18
         toZ: 0
       facingDirection: {x: 0, y: -1}
       isHorizontal: 1
-      connectedRoom: {fileID: 1677166353}
+      connectedRoom: {fileID: 1073317556}
       socket: {fileID: 0}
       direction: 0
     doorLines:
     - doorLine:
-        From: {x: 2, y: -9, z: 0}
-        To: {x: 2, y: -9, z: 0}
+        From: {x: 2, y: -17, z: 0}
+        To: {x: 2, y: -1, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -1036,10 +560,45 @@ MonoBehaviour:
         x: 0
         y: 1
         z: 0
-      usedDoors: []
+      usedDoors:
+      - doorLine:
+          fromX: 2
+          fromY: -17
+          fromZ: 0
+          toX: 2
+          toY: -16
+          toZ: 0
+        facingDirection: {x: -1, y: 0}
+        isHorizontal: 0
+        connectedRoom: {fileID: 1315907770}
+        socket: {fileID: 0}
+        direction: 0
     - doorLine:
-        From: {x: 21, y: -8, z: 0}
-        To: {x: 21, y: -8, z: 0}
+        From: {x: 3, y: 1, z: 0}
+        To: {x: 19, y: 1, z: 0}
+        Length: 2
+        Direction: 0
+        Socket: {fileID: 0}
+      direction:
+        x: 1
+        y: 0
+        z: 0
+      usedDoors:
+      - doorLine:
+          fromX: 7
+          fromY: 1
+          fromZ: 0
+          toX: 8
+          toY: 1
+          toZ: 0
+        facingDirection: {x: 0, y: 1}
+        isHorizontal: 1
+        connectedRoom: {fileID: 1757705528}
+        socket: {fileID: 0}
+        direction: 0
+    - doorLine:
+        From: {x: 21, y: 0, z: 0}
+        To: {x: 21, y: -16, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -1049,19 +608,8 @@ MonoBehaviour:
         z: 0
       usedDoors: []
     - doorLine:
-        From: {x: 11, y: 1, z: 0}
-        To: {x: 11, y: 1, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 1
-        y: 0
-        z: 0
-      usedDoors: []
-    - doorLine:
-        From: {x: 12, y: -18, z: 0}
-        To: {x: 12, y: -18, z: 0}
+        From: {x: 20, y: -18, z: 0}
+        To: {x: 4, y: -18, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -1071,15 +619,15 @@ MonoBehaviour:
         z: 0
       usedDoors:
       - doorLine:
-          fromX: 11
+          fromX: 19
           fromY: -18
           fromZ: 0
-          toX: 12
+          toX: 20
           toY: -18
           toZ: 0
         facingDirection: {x: 0, y: -1}
         isHorizontal: 1
-        connectedRoom: {fileID: 1677166353}
+        connectedRoom: {fileID: 1073317556}
         socket: {fileID: 0}
         direction: 0
     outlinePolygon:
@@ -1088,42 +636,54 @@ MonoBehaviour:
       - {x: 19, y: 19}
       - {x: 19, y: 0}
       - {x: 0, y: 0}
-  - room: {fileID: -6126022930870259691, guid: a9d2bc3a32f074b35968f79c868c8c84, type: 2}
+  - room: {fileID: -7712747912569560808, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16, type: 2}
     isCorridor: 0
     connection: {fileID: 0}
-    roomTemplatePrefab: {fileID: 4824408171863005527, guid: 3e24c12932fcc42e4a61a9866ce3dfeb,
+    roomTemplatePrefab: {fileID: 4824408171863005527, guid: 6dbc627d33d964a508b43a03d30721ae,
       type: 3}
     roomTemplateInstance: {fileID: 0}
-    position: {x: -62, y: 18, z: 0}
+    position: {x: -40, y: 2, z: 0}
     doors:
     - doorLine:
-        fromX: 21
-        fromY: -9
+        fromX: 3
+        fromY: 1
         fromZ: 0
-        toX: 21
-        toY: -8
+        toX: 4
+        toY: 1
         toZ: 0
-      facingDirection: {x: 1, y: 0}
-      isHorizontal: 0
-      connectedRoom: {fileID: 2084665185}
+      facingDirection: {x: 0, y: 1}
+      isHorizontal: 1
+      connectedRoom: {fileID: 1233953053}
       socket: {fileID: 0}
       direction: 0
     - doorLine:
-        fromX: 11
+        fromX: 21
+        fromY: -1
+        fromZ: 0
+        toX: 21
+        toY: 0
+        toZ: 0
+      facingDirection: {x: 1, y: 0}
+      isHorizontal: 0
+      connectedRoom: {fileID: 1315907770}
+      socket: {fileID: 0}
+      direction: 0
+    - doorLine:
+        fromX: 19
         fromY: -18
         fromZ: 0
-        toX: 12
+        toX: 20
         toY: -18
         toZ: 0
       facingDirection: {x: 0, y: -1}
       isHorizontal: 1
-      connectedRoom: {fileID: 160966515}
+      connectedRoom: {fileID: 1797871629}
       socket: {fileID: 0}
       direction: 0
     doorLines:
     - doorLine:
-        From: {x: 2, y: -9, z: 0}
-        To: {x: 2, y: -9, z: 0}
+        From: {x: 2, y: -17, z: 0}
+        To: {x: 2, y: -1, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -1133,8 +693,31 @@ MonoBehaviour:
         z: 0
       usedDoors: []
     - doorLine:
-        From: {x: 21, y: -8, z: 0}
-        To: {x: 21, y: -8, z: 0}
+        From: {x: 3, y: 1, z: 0}
+        To: {x: 19, y: 1, z: 0}
+        Length: 2
+        Direction: 0
+        Socket: {fileID: 0}
+      direction:
+        x: 1
+        y: 0
+        z: 0
+      usedDoors:
+      - doorLine:
+          fromX: 3
+          fromY: 1
+          fromZ: 0
+          toX: 4
+          toY: 1
+          toZ: 0
+        facingDirection: {x: 0, y: 1}
+        isHorizontal: 1
+        connectedRoom: {fileID: 1233953053}
+        socket: {fileID: 0}
+        direction: 0
+    - doorLine:
+        From: {x: 21, y: 0, z: 0}
+        To: {x: 21, y: -16, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -1145,30 +728,19 @@ MonoBehaviour:
       usedDoors:
       - doorLine:
           fromX: 21
-          fromY: -9
+          fromY: -1
           fromZ: 0
           toX: 21
-          toY: -8
+          toY: 0
           toZ: 0
         facingDirection: {x: 1, y: 0}
         isHorizontal: 0
-        connectedRoom: {fileID: 2084665185}
+        connectedRoom: {fileID: 1315907770}
         socket: {fileID: 0}
         direction: 0
     - doorLine:
-        From: {x: 11, y: 1, z: 0}
-        To: {x: 11, y: 1, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 1
-        y: 0
-        z: 0
-      usedDoors: []
-    - doorLine:
-        From: {x: 12, y: -18, z: 0}
-        To: {x: 12, y: -18, z: 0}
+        From: {x: 20, y: -18, z: 0}
+        To: {x: 4, y: -18, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -1178,59 +750,59 @@ MonoBehaviour:
         z: 0
       usedDoors:
       - doorLine:
-          fromX: 11
+          fromX: 19
           fromY: -18
           fromZ: 0
-          toX: 12
+          toX: 20
           toY: -18
           toZ: 0
         facingDirection: {x: 0, y: -1}
         isHorizontal: 1
-        connectedRoom: {fileID: 160966515}
+        connectedRoom: {fileID: 1797871629}
         socket: {fileID: 0}
         direction: 0
     outlinePolygon:
       points:
-      - {x: -60, y: 19}
-      - {x: -41, y: 19}
-      - {x: -41, y: 0}
-      - {x: -60, y: 0}
-  - room: {fileID: -1660855780896444002, guid: a9d2bc3a32f074b35968f79c868c8c84, type: 2}
+      - {x: -38, y: 3}
+      - {x: -19, y: 3}
+      - {x: -19, y: -16}
+      - {x: -38, y: -16}
+  - room: {fileID: 4882190569078583809, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16, type: 2}
     isCorridor: 0
     connection: {fileID: 0}
-    roomTemplatePrefab: {fileID: 4824408171863005527, guid: 3e24c12932fcc42e4a61a9866ce3dfeb,
+    roomTemplatePrefab: {fileID: 4824408171863005527, guid: 6dbc627d33d964a508b43a03d30721ae,
       type: 3}
     roomTemplateInstance: {fileID: 0}
-    position: {x: -32, y: 18, z: 0}
+    position: {x: 14, y: -20, z: 0}
     doors:
     - doorLine:
         fromX: 2
-        fromY: -9
+        fromY: -17
         fromZ: 0
         toX: 2
-        toY: -8
+        toY: -16
         toZ: 0
       facingDirection: {x: -1, y: 0}
       isHorizontal: 0
-      connectedRoom: {fileID: 2084665185}
+      connectedRoom: {fileID: 767650198}
       socket: {fileID: 0}
       direction: 0
     - doorLine:
-        fromX: 11
-        fromY: -18
+        fromX: 3
+        fromY: 1
         fromZ: 0
-        toX: 12
-        toY: -18
+        toX: 4
+        toY: 1
         toZ: 0
-      facingDirection: {x: 0, y: -1}
+      facingDirection: {x: 0, y: 1}
       isHorizontal: 1
-      connectedRoom: {fileID: 496113246}
+      connectedRoom: {fileID: 1073317556}
       socket: {fileID: 0}
       direction: 0
     doorLines:
     - doorLine:
-        From: {x: 2, y: -9, z: 0}
-        To: {x: 2, y: -9, z: 0}
+        From: {x: 2, y: -17, z: 0}
+        To: {x: 2, y: -1, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -1241,19 +813,42 @@ MonoBehaviour:
       usedDoors:
       - doorLine:
           fromX: 2
-          fromY: -9
+          fromY: -17
           fromZ: 0
           toX: 2
-          toY: -8
+          toY: -16
           toZ: 0
         facingDirection: {x: -1, y: 0}
         isHorizontal: 0
-        connectedRoom: {fileID: 2084665185}
+        connectedRoom: {fileID: 767650198}
         socket: {fileID: 0}
         direction: 0
     - doorLine:
-        From: {x: 21, y: -8, z: 0}
-        To: {x: 21, y: -8, z: 0}
+        From: {x: 3, y: 1, z: 0}
+        To: {x: 19, y: 1, z: 0}
+        Length: 2
+        Direction: 0
+        Socket: {fileID: 0}
+      direction:
+        x: 1
+        y: 0
+        z: 0
+      usedDoors:
+      - doorLine:
+          fromX: 3
+          fromY: 1
+          fromZ: 0
+          toX: 4
+          toY: 1
+          toZ: 0
+        facingDirection: {x: 0, y: 1}
+        isHorizontal: 1
+        connectedRoom: {fileID: 1073317556}
+        socket: {fileID: 0}
+        direction: 0
+    - doorLine:
+        From: {x: 21, y: 0, z: 0}
+        To: {x: 21, y: -16, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -1263,8 +858,188 @@ MonoBehaviour:
         z: 0
       usedDoors: []
     - doorLine:
-        From: {x: 11, y: 1, z: 0}
-        To: {x: 11, y: 1, z: 0}
+        From: {x: 20, y: -18, z: 0}
+        To: {x: 4, y: -18, z: 0}
+        Length: 2
+        Direction: 0
+        Socket: {fileID: 0}
+      direction:
+        x: -1
+        y: 0
+        z: 0
+      usedDoors: []
+    outlinePolygon:
+      points:
+      - {x: 16, y: -19}
+      - {x: 35, y: -19}
+      - {x: 35, y: -38}
+      - {x: 16, y: -38}
+  - room: {fileID: -4098692664080447719, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16, type: 2}
+    isCorridor: 0
+    connection: {fileID: 0}
+    roomTemplatePrefab: {fileID: 4824408171863005527, guid: 6dbc627d33d964a508b43a03d30721ae,
+      type: 3}
+    roomTemplateInstance: {fileID: 0}
+    position: {x: -24, y: -36, z: 0}
+    doors:
+    - doorLine:
+        fromX: 2
+        fromY: -17
+        fromZ: 0
+        toX: 2
+        toY: -16
+        toZ: 0
+      facingDirection: {x: -1, y: 0}
+      isHorizontal: 0
+      connectedRoom: {fileID: 1146529327}
+      socket: {fileID: 0}
+      direction: 0
+    - doorLine:
+        fromX: 3
+        fromY: 1
+        fromZ: 0
+        toX: 4
+        toY: 1
+        toZ: 0
+      facingDirection: {x: 0, y: 1}
+      isHorizontal: 1
+      connectedRoom: {fileID: 1797871629}
+      socket: {fileID: 0}
+      direction: 0
+    - doorLine:
+        fromX: 21
+        fromY: -1
+        fromZ: 0
+        toX: 21
+        toY: 0
+        toZ: 0
+      facingDirection: {x: 1, y: 0}
+      isHorizontal: 0
+      connectedRoom: {fileID: 767650198}
+      socket: {fileID: 0}
+      direction: 0
+    doorLines:
+    - doorLine:
+        From: {x: 2, y: -17, z: 0}
+        To: {x: 2, y: -1, z: 0}
+        Length: 2
+        Direction: 0
+        Socket: {fileID: 0}
+      direction:
+        x: 0
+        y: 1
+        z: 0
+      usedDoors:
+      - doorLine:
+          fromX: 2
+          fromY: -17
+          fromZ: 0
+          toX: 2
+          toY: -16
+          toZ: 0
+        facingDirection: {x: -1, y: 0}
+        isHorizontal: 0
+        connectedRoom: {fileID: 1146529327}
+        socket: {fileID: 0}
+        direction: 0
+    - doorLine:
+        From: {x: 3, y: 1, z: 0}
+        To: {x: 19, y: 1, z: 0}
+        Length: 2
+        Direction: 0
+        Socket: {fileID: 0}
+      direction:
+        x: 1
+        y: 0
+        z: 0
+      usedDoors:
+      - doorLine:
+          fromX: 3
+          fromY: 1
+          fromZ: 0
+          toX: 4
+          toY: 1
+          toZ: 0
+        facingDirection: {x: 0, y: 1}
+        isHorizontal: 1
+        connectedRoom: {fileID: 1797871629}
+        socket: {fileID: 0}
+        direction: 0
+    - doorLine:
+        From: {x: 21, y: 0, z: 0}
+        To: {x: 21, y: -16, z: 0}
+        Length: 2
+        Direction: 0
+        Socket: {fileID: 0}
+      direction:
+        x: 0
+        y: -1
+        z: 0
+      usedDoors:
+      - doorLine:
+          fromX: 21
+          fromY: -1
+          fromZ: 0
+          toX: 21
+          toY: 0
+          toZ: 0
+        facingDirection: {x: 1, y: 0}
+        isHorizontal: 0
+        connectedRoom: {fileID: 767650198}
+        socket: {fileID: 0}
+        direction: 0
+    - doorLine:
+        From: {x: 20, y: -18, z: 0}
+        To: {x: 4, y: -18, z: 0}
+        Length: 2
+        Direction: 0
+        Socket: {fileID: 0}
+      direction:
+        x: -1
+        y: 0
+        z: 0
+      usedDoors: []
+    outlinePolygon:
+      points:
+      - {x: -22, y: -35}
+      - {x: -3, y: -35}
+      - {x: -3, y: -54}
+      - {x: -22, y: -54}
+  - room: {fileID: 4659773976776961874, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16, type: 2}
+    isCorridor: 0
+    connection: {fileID: 0}
+    roomTemplatePrefab: {fileID: 4824408171863005527, guid: 6dbc627d33d964a508b43a03d30721ae,
+      type: 3}
+    roomTemplateInstance: {fileID: 0}
+    position: {x: -62, y: -52, z: 0}
+    doors:
+    - doorLine:
+        fromX: 21
+        fromY: -1
+        fromZ: 0
+        toX: 21
+        toY: 0
+        toZ: 0
+      facingDirection: {x: 1, y: 0}
+      isHorizontal: 0
+      connectedRoom: {fileID: 1146529327}
+      socket: {fileID: 0}
+      direction: 0
+    doorLines:
+    - doorLine:
+        From: {x: 2, y: -17, z: 0}
+        To: {x: 2, y: -1, z: 0}
+        Length: 2
+        Direction: 0
+        Socket: {fileID: 0}
+      direction:
+        x: 0
+        y: 1
+        z: 0
+      usedDoors: []
+    - doorLine:
+        From: {x: 3, y: 1, z: 0}
+        To: {x: 19, y: 1, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -1274,73 +1049,8 @@ MonoBehaviour:
         z: 0
       usedDoors: []
     - doorLine:
-        From: {x: 12, y: -18, z: 0}
-        To: {x: 12, y: -18, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: -1
-        y: 0
-        z: 0
-      usedDoors:
-      - doorLine:
-          fromX: 11
-          fromY: -18
-          fromZ: 0
-          toX: 12
-          toY: -18
-          toZ: 0
-        facingDirection: {x: 0, y: -1}
-        isHorizontal: 1
-        connectedRoom: {fileID: 496113246}
-        socket: {fileID: 0}
-        direction: 0
-    outlinePolygon:
-      points:
-      - {x: -30, y: 19}
-      - {x: -11, y: 19}
-      - {x: -11, y: 0}
-      - {x: -30, y: 0}
-  - room: {fileID: 1537550887}
-    isCorridor: 1
-    connection: {fileID: -6100057471711582423, guid: a9d2bc3a32f074b35968f79c868c8c84,
-      type: 2}
-    roomTemplatePrefab: {fileID: 1053086167283089978, guid: 6403657bfaa474eda8bdc2e4f2527498,
-      type: 3}
-    roomTemplateInstance: {fileID: 0}
-    position: {x: -35, y: -49, z: 0}
-    doors:
-    - doorLine:
-        fromX: 5
-        fromY: -2
-        fromZ: 0
-        toX: 5
-        toY: -1
-        toZ: 0
-      facingDirection: {x: 1, y: 0}
-      isHorizontal: 0
-      connectedRoom: {fileID: 1543291592732935148, guid: a9d2bc3a32f074b35968f79c868c8c84,
-        type: 2}
-      socket: {fileID: 0}
-      direction: 0
-    - doorLine:
-        fromX: -6
-        fromY: -2
-        fromZ: 0
-        toX: -6
-        toY: -1
-        toZ: 0
-      facingDirection: {x: -1, y: 0}
-      isHorizontal: 0
-      connectedRoom: {fileID: -9200685146019807252, guid: a9d2bc3a32f074b35968f79c868c8c84,
-        type: 2}
-      socket: {fileID: 0}
-      direction: 0
-    doorLines:
-    - doorLine:
-        From: {x: 5, y: -1, z: 0}
-        To: {x: 5, y: -1, z: 0}
+        From: {x: 21, y: 0, z: 0}
+        To: {x: 21, y: -16, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -1350,21 +1060,73 @@ MonoBehaviour:
         z: 0
       usedDoors:
       - doorLine:
-          fromX: 5
-          fromY: -2
+          fromX: 21
+          fromY: -1
           fromZ: 0
-          toX: 5
-          toY: -1
+          toX: 21
+          toY: 0
           toZ: 0
         facingDirection: {x: 1, y: 0}
         isHorizontal: 0
-        connectedRoom: {fileID: 1543291592732935148, guid: a9d2bc3a32f074b35968f79c868c8c84,
-          type: 2}
+        connectedRoom: {fileID: 1146529327}
         socket: {fileID: 0}
         direction: 0
     - doorLine:
-        From: {x: -6, y: -2, z: 0}
-        To: {x: -6, y: -2, z: 0}
+        From: {x: 20, y: -18, z: 0}
+        To: {x: 4, y: -18, z: 0}
+        Length: 2
+        Direction: 0
+        Socket: {fileID: 0}
+      direction:
+        x: -1
+        y: 0
+        z: 0
+      usedDoors: []
+    outlinePolygon:
+      points:
+      - {x: -60, y: -51}
+      - {x: -41, y: -51}
+      - {x: -41, y: -70}
+      - {x: -60, y: -70}
+  - room: {fileID: 1315907770}
+    isCorridor: 1
+    connection: {fileID: -6462048926507752860, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
+      type: 2}
+    roomTemplatePrefab: {fileID: 1053086167283089978, guid: 9b43f41a937674c97bf462e116264894,
+      type: 3}
+    roomTemplateInstance: {fileID: 0}
+    position: {x: -10, y: -2, z: 0}
+    doors:
+    - doorLine:
+        fromX: -9
+        fromY: 3
+        fromZ: 0
+        toX: -9
+        toY: 4
+        toZ: 0
+      facingDirection: {x: -1, y: 0}
+      isHorizontal: 0
+      connectedRoom: {fileID: -7712747912569560808, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
+        type: 2}
+      socket: {fileID: 0}
+      direction: 0
+    - doorLine:
+        fromX: 10
+        fromY: 3
+        fromZ: 0
+        toX: 10
+        toY: 4
+        toZ: 0
+      facingDirection: {x: 1, y: 0}
+      isHorizontal: 0
+      connectedRoom: {fileID: 8374313632089172612, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
+        type: 2}
+      socket: {fileID: 0}
+      direction: 0
+    doorLines:
+    - doorLine:
+        From: {x: -9, y: 3, z: 0}
+        To: {x: -9, y: 3, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -1374,63 +1136,87 @@ MonoBehaviour:
         z: 0
       usedDoors:
       - doorLine:
-          fromX: -6
-          fromY: -2
+          fromX: -9
+          fromY: 3
           fromZ: 0
-          toX: -6
-          toY: -1
+          toX: -9
+          toY: 4
           toZ: 0
         facingDirection: {x: -1, y: 0}
         isHorizontal: 0
-        connectedRoom: {fileID: -9200685146019807252, guid: a9d2bc3a32f074b35968f79c868c8c84,
+        connectedRoom: {fileID: -7712747912569560808, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
+          type: 2}
+        socket: {fileID: 0}
+        direction: 0
+    - doorLine:
+        From: {x: 10, y: 4, z: 0}
+        To: {x: 10, y: 4, z: 0}
+        Length: 2
+        Direction: 0
+        Socket: {fileID: 0}
+      direction:
+        x: 0
+        y: -1
+        z: 0
+      usedDoors:
+      - doorLine:
+          fromX: 10
+          fromY: 3
+          fromZ: 0
+          toX: 10
+          toY: 4
+          toZ: 0
+        facingDirection: {x: 1, y: 0}
+        isHorizontal: 0
+        connectedRoom: {fileID: 8374313632089172612, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
           type: 2}
         socket: {fileID: 0}
         direction: 0
     outlinePolygon:
       points:
-      - {x: -41, y: -41}
-      - {x: -30, y: -41}
-      - {x: -30, y: -60}
-      - {x: -41, y: -60}
-  - room: {fileID: 70639949}
+      - {x: -19, y: 11}
+      - {x: 0, y: 11}
+      - {x: 0, y: -8}
+      - {x: -19, y: -8}
+  - room: {fileID: 1757705528}
     isCorridor: 1
-    connection: {fileID: -7831895649764658156, guid: a9d2bc3a32f074b35968f79c868c8c84,
+    connection: {fileID: 4764264577242527726, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
       type: 2}
-    roomTemplatePrefab: {fileID: 1053086167283089978, guid: 4108799e2cde445a9aba31eef20e312f,
+    roomTemplatePrefab: {fileID: 1053086167283089978, guid: 2c0561a5f021a4f4097fde30ca53e3bd,
       type: 3}
     roomTemplateInstance: {fileID: 0}
-    position: {x: -50, y: -34, z: 0}
+    position: {x: 5, y: 25, z: 0}
     doors:
     - doorLine:
-        fromX: -1
-        fromY: 4
+        fromX: 0
+        fromY: 13
         fromZ: 0
-        toX: 0
-        toY: 4
+        toX: 1
+        toY: 13
         toZ: 0
       facingDirection: {x: 0, y: 1}
       isHorizontal: 1
-      connectedRoom: {fileID: 7499029344354591900, guid: a9d2bc3a32f074b35968f79c868c8c84,
+      connectedRoom: {fileID: 1543291592732935148, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
         type: 2}
       socket: {fileID: 0}
       direction: 0
     - doorLine:
-        fromX: -1
-        fromY: -7
+        fromX: 0
+        fromY: -6
         fromZ: 0
-        toX: 0
-        toY: -7
+        toX: 1
+        toY: -6
         toZ: 0
       facingDirection: {x: 0, y: -1}
       isHorizontal: 1
-      connectedRoom: {fileID: -9200685146019807252, guid: a9d2bc3a32f074b35968f79c868c8c84,
+      connectedRoom: {fileID: 8374313632089172612, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
         type: 2}
       socket: {fileID: 0}
       direction: 0
     doorLines:
     - doorLine:
-        From: {x: -1, y: 4, z: 0}
-        To: {x: -1, y: 4, z: 0}
+        From: {x: 0, y: 13, z: 0}
+        To: {x: 0, y: 13, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -1440,21 +1226,21 @@ MonoBehaviour:
         z: 0
       usedDoors:
       - doorLine:
-          fromX: -1
-          fromY: 4
+          fromX: 0
+          fromY: 13
           fromZ: 0
-          toX: 0
-          toY: 4
+          toX: 1
+          toY: 13
           toZ: 0
         facingDirection: {x: 0, y: 1}
         isHorizontal: 1
-        connectedRoom: {fileID: 7499029344354591900, guid: a9d2bc3a32f074b35968f79c868c8c84,
+        connectedRoom: {fileID: 1543291592732935148, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
           type: 2}
         socket: {fileID: 0}
         direction: 0
     - doorLine:
-        From: {x: 0, y: -7, z: 0}
-        To: {x: 0, y: -7, z: 0}
+        From: {x: 1, y: -6, z: 0}
+        To: {x: 1, y: -6, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -1464,333 +1250,63 @@ MonoBehaviour:
         z: 0
       usedDoors:
       - doorLine:
-          fromX: -1
-          fromY: -7
+          fromX: 0
+          fromY: -6
           fromZ: 0
-          toX: 0
-          toY: -7
+          toX: 1
+          toY: -6
           toZ: 0
         facingDirection: {x: 0, y: -1}
         isHorizontal: 1
-        connectedRoom: {fileID: -9200685146019807252, guid: a9d2bc3a32f074b35968f79c868c8c84,
+        connectedRoom: {fileID: 8374313632089172612, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
           type: 2}
         socket: {fileID: 0}
         direction: 0
     outlinePolygon:
       points:
-      - {x: -60, y: -30}
-      - {x: -41, y: -30}
-      - {x: -41, y: -41}
-      - {x: -60, y: -41}
-  - room: {fileID: 302709650}
+      - {x: -4, y: 38}
+      - {x: 15, y: 38}
+      - {x: 15, y: 19}
+      - {x: -4, y: 19}
+  - room: {fileID: 1233953053}
     isCorridor: 1
-    connection: {fileID: 7575813686706605973, guid: a9d2bc3a32f074b35968f79c868c8c84,
+    connection: {fileID: -3796382180745686183, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
       type: 2}
-    roomTemplatePrefab: {fileID: 1053086167283089978, guid: 6403657bfaa474eda8bdc2e4f2527498,
+    roomTemplatePrefab: {fileID: 1053086167283089978, guid: 2c0561a5f021a4f4097fde30ca53e3bd,
       type: 3}
     roomTemplateInstance: {fileID: 0}
-    position: {x: -65, y: -19, z: 0}
+    position: {x: -37, y: 9, z: 0}
     doors:
     - doorLine:
-        fromX: 5
-        fromY: -2
+        fromX: 0
+        fromY: 13
         fromZ: 0
-        toX: 5
-        toY: -1
-        toZ: 0
-      facingDirection: {x: 1, y: 0}
-      isHorizontal: 0
-      connectedRoom: {fileID: 7499029344354591900, guid: a9d2bc3a32f074b35968f79c868c8c84,
-        type: 2}
-      socket: {fileID: 0}
-      direction: 0
-    - doorLine:
-        fromX: -6
-        fromY: -2
-        fromZ: 0
-        toX: -6
-        toY: -1
-        toZ: 0
-      facingDirection: {x: -1, y: 0}
-      isHorizontal: 0
-      connectedRoom: {fileID: -8667485434903529145, guid: a9d2bc3a32f074b35968f79c868c8c84,
-        type: 2}
-      socket: {fileID: 0}
-      direction: 0
-    doorLines:
-    - doorLine:
-        From: {x: 5, y: -1, z: 0}
-        To: {x: 5, y: -1, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 0
-        y: -1
-        z: 0
-      usedDoors:
-      - doorLine:
-          fromX: 5
-          fromY: -2
-          fromZ: 0
-          toX: 5
-          toY: -1
-          toZ: 0
-        facingDirection: {x: 1, y: 0}
-        isHorizontal: 0
-        connectedRoom: {fileID: 7499029344354591900, guid: a9d2bc3a32f074b35968f79c868c8c84,
-          type: 2}
-        socket: {fileID: 0}
-        direction: 0
-    - doorLine:
-        From: {x: -6, y: -2, z: 0}
-        To: {x: -6, y: -2, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 0
-        y: 1
-        z: 0
-      usedDoors:
-      - doorLine:
-          fromX: -6
-          fromY: -2
-          fromZ: 0
-          toX: -6
-          toY: -1
-          toZ: 0
-        facingDirection: {x: -1, y: 0}
-        isHorizontal: 0
-        connectedRoom: {fileID: -8667485434903529145, guid: a9d2bc3a32f074b35968f79c868c8c84,
-          type: 2}
-        socket: {fileID: 0}
-        direction: 0
-    outlinePolygon:
-      points:
-      - {x: -71, y: -11}
-      - {x: -60, y: -11}
-      - {x: -60, y: -30}
-      - {x: -71, y: -30}
-  - room: {fileID: 1619788214}
-    isCorridor: 1
-    connection: {fileID: 6999864128299622114, guid: a9d2bc3a32f074b35968f79c868c8c84,
-      type: 2}
-    roomTemplatePrefab: {fileID: 1053086167283089978, guid: 6403657bfaa474eda8bdc2e4f2527498,
-      type: 3}
-    roomTemplateInstance: {fileID: 0}
-    position: {x: -35, y: -19, z: 0}
-    doors:
-    - doorLine:
-        fromX: 5
-        fromY: -2
-        fromZ: 0
-        toX: 5
-        toY: -1
-        toZ: 0
-      facingDirection: {x: 1, y: 0}
-      isHorizontal: 0
-      connectedRoom: {fileID: -6690117815267487699, guid: a9d2bc3a32f074b35968f79c868c8c84,
-        type: 2}
-      socket: {fileID: 0}
-      direction: 0
-    - doorLine:
-        fromX: -6
-        fromY: -2
-        fromZ: 0
-        toX: -6
-        toY: -1
-        toZ: 0
-      facingDirection: {x: -1, y: 0}
-      isHorizontal: 0
-      connectedRoom: {fileID: 7499029344354591900, guid: a9d2bc3a32f074b35968f79c868c8c84,
-        type: 2}
-      socket: {fileID: 0}
-      direction: 0
-    doorLines:
-    - doorLine:
-        From: {x: 5, y: -1, z: 0}
-        To: {x: 5, y: -1, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 0
-        y: -1
-        z: 0
-      usedDoors:
-      - doorLine:
-          fromX: 5
-          fromY: -2
-          fromZ: 0
-          toX: 5
-          toY: -1
-          toZ: 0
-        facingDirection: {x: 1, y: 0}
-        isHorizontal: 0
-        connectedRoom: {fileID: -6690117815267487699, guid: a9d2bc3a32f074b35968f79c868c8c84,
-          type: 2}
-        socket: {fileID: 0}
-        direction: 0
-    - doorLine:
-        From: {x: -6, y: -2, z: 0}
-        To: {x: -6, y: -2, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 0
-        y: 1
-        z: 0
-      usedDoors:
-      - doorLine:
-          fromX: -6
-          fromY: -2
-          fromZ: 0
-          toX: -6
-          toY: -1
-          toZ: 0
-        facingDirection: {x: -1, y: 0}
-        isHorizontal: 0
-        connectedRoom: {fileID: 7499029344354591900, guid: a9d2bc3a32f074b35968f79c868c8c84,
-          type: 2}
-        socket: {fileID: 0}
-        direction: 0
-    outlinePolygon:
-      points:
-      - {x: -41, y: -11}
-      - {x: -30, y: -11}
-      - {x: -30, y: -30}
-      - {x: -41, y: -30}
-  - room: {fileID: 740862652}
-    isCorridor: 1
-    connection: {fileID: 4867593488186169236, guid: a9d2bc3a32f074b35968f79c868c8c84,
-      type: 2}
-    roomTemplatePrefab: {fileID: 1053086167283089978, guid: 6403657bfaa474eda8bdc2e4f2527498,
-      type: 3}
-    roomTemplateInstance: {fileID: 0}
-    position: {x: -5, y: -19, z: 0}
-    doors:
-    - doorLine:
-        fromX: 5
-        fromY: -2
-        fromZ: 0
-        toX: 5
-        toY: -1
-        toZ: 0
-      facingDirection: {x: 1, y: 0}
-      isHorizontal: 0
-      connectedRoom: {fileID: 8374313632089172612, guid: a9d2bc3a32f074b35968f79c868c8c84,
-        type: 2}
-      socket: {fileID: 0}
-      direction: 0
-    - doorLine:
-        fromX: -6
-        fromY: -2
-        fromZ: 0
-        toX: -6
-        toY: -1
-        toZ: 0
-      facingDirection: {x: -1, y: 0}
-      isHorizontal: 0
-      connectedRoom: {fileID: -6690117815267487699, guid: a9d2bc3a32f074b35968f79c868c8c84,
-        type: 2}
-      socket: {fileID: 0}
-      direction: 0
-    doorLines:
-    - doorLine:
-        From: {x: 5, y: -1, z: 0}
-        To: {x: 5, y: -1, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 0
-        y: -1
-        z: 0
-      usedDoors:
-      - doorLine:
-          fromX: 5
-          fromY: -2
-          fromZ: 0
-          toX: 5
-          toY: -1
-          toZ: 0
-        facingDirection: {x: 1, y: 0}
-        isHorizontal: 0
-        connectedRoom: {fileID: 8374313632089172612, guid: a9d2bc3a32f074b35968f79c868c8c84,
-          type: 2}
-        socket: {fileID: 0}
-        direction: 0
-    - doorLine:
-        From: {x: -6, y: -2, z: 0}
-        To: {x: -6, y: -2, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 0
-        y: 1
-        z: 0
-      usedDoors:
-      - doorLine:
-          fromX: -6
-          fromY: -2
-          fromZ: 0
-          toX: -6
-          toY: -1
-          toZ: 0
-        facingDirection: {x: -1, y: 0}
-        isHorizontal: 0
-        connectedRoom: {fileID: -6690117815267487699, guid: a9d2bc3a32f074b35968f79c868c8c84,
-          type: 2}
-        socket: {fileID: 0}
-        direction: 0
-    outlinePolygon:
-      points:
-      - {x: -11, y: -11}
-      - {x: 0, y: -11}
-      - {x: 0, y: -30}
-      - {x: -11, y: -30}
-  - room: {fileID: 1677166353}
-    isCorridor: 1
-    connection: {fileID: -6462048926507752860, guid: a9d2bc3a32f074b35968f79c868c8c84,
-      type: 2}
-    roomTemplatePrefab: {fileID: 1053086167283089978, guid: 4108799e2cde445a9aba31eef20e312f,
-      type: 3}
-    roomTemplateInstance: {fileID: 0}
-    position: {x: 10, y: -4, z: 0}
-    doors:
-    - doorLine:
-        fromX: -1
-        fromY: 4
-        fromZ: 0
-        toX: 0
-        toY: 4
+        toX: 1
+        toY: 13
         toZ: 0
       facingDirection: {x: 0, y: 1}
       isHorizontal: 1
-      connectedRoom: {fileID: -7712747912569560808, guid: a9d2bc3a32f074b35968f79c868c8c84,
+      connectedRoom: {fileID: -9200685146019807252, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
         type: 2}
       socket: {fileID: 0}
       direction: 0
     - doorLine:
-        fromX: -1
-        fromY: -7
+        fromX: 0
+        fromY: -6
         fromZ: 0
-        toX: 0
-        toY: -7
+        toX: 1
+        toY: -6
         toZ: 0
       facingDirection: {x: 0, y: -1}
       isHorizontal: 1
-      connectedRoom: {fileID: 8374313632089172612, guid: a9d2bc3a32f074b35968f79c868c8c84,
+      connectedRoom: {fileID: -7712747912569560808, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
         type: 2}
       socket: {fileID: 0}
       direction: 0
     doorLines:
     - doorLine:
-        From: {x: -1, y: 4, z: 0}
-        To: {x: -1, y: 4, z: 0}
+        From: {x: 0, y: 13, z: 0}
+        To: {x: 0, y: 13, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -1800,21 +1316,21 @@ MonoBehaviour:
         z: 0
       usedDoors:
       - doorLine:
-          fromX: -1
-          fromY: 4
+          fromX: 0
+          fromY: 13
           fromZ: 0
-          toX: 0
-          toY: 4
+          toX: 1
+          toY: 13
           toZ: 0
         facingDirection: {x: 0, y: 1}
         isHorizontal: 1
-        connectedRoom: {fileID: -7712747912569560808, guid: a9d2bc3a32f074b35968f79c868c8c84,
+        connectedRoom: {fileID: -9200685146019807252, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
           type: 2}
         socket: {fileID: 0}
         direction: 0
     - doorLine:
-        From: {x: 0, y: -7, z: 0}
-        To: {x: 0, y: -7, z: 0}
+        From: {x: 1, y: -6, z: 0}
+        To: {x: 1, y: -6, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -1824,63 +1340,63 @@ MonoBehaviour:
         z: 0
       usedDoors:
       - doorLine:
-          fromX: -1
-          fromY: -7
+          fromX: 0
+          fromY: -6
           fromZ: 0
-          toX: 0
-          toY: -7
+          toX: 1
+          toY: -6
           toZ: 0
         facingDirection: {x: 0, y: -1}
         isHorizontal: 1
-        connectedRoom: {fileID: 8374313632089172612, guid: a9d2bc3a32f074b35968f79c868c8c84,
+        connectedRoom: {fileID: -7712747912569560808, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
           type: 2}
         socket: {fileID: 0}
         direction: 0
     outlinePolygon:
       points:
-      - {x: 0, y: 0}
-      - {x: 19, y: 0}
-      - {x: 19, y: -11}
-      - {x: 0, y: -11}
-  - room: {fileID: 160966515}
+      - {x: -46, y: 22}
+      - {x: -27, y: 22}
+      - {x: -27, y: 3}
+      - {x: -46, y: 3}
+  - room: {fileID: 1073317556}
     isCorridor: 1
-    connection: {fileID: -5463000129535034566, guid: a9d2bc3a32f074b35968f79c868c8c84,
+    connection: {fileID: -2186412567743366658, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
       type: 2}
-    roomTemplatePrefab: {fileID: 1053086167283089978, guid: 4108799e2cde445a9aba31eef20e312f,
+    roomTemplatePrefab: {fileID: 1053086167283089978, guid: 2c0561a5f021a4f4097fde30ca53e3bd,
       type: 3}
     roomTemplateInstance: {fileID: 0}
-    position: {x: -50, y: -4, z: 0}
+    position: {x: 17, y: -13, z: 0}
     doors:
     - doorLine:
-        fromX: -1
-        fromY: 4
+        fromX: 0
+        fromY: 13
         fromZ: 0
-        toX: 0
-        toY: 4
+        toX: 1
+        toY: 13
         toZ: 0
       facingDirection: {x: 0, y: 1}
       isHorizontal: 1
-      connectedRoom: {fileID: -6126022930870259691, guid: a9d2bc3a32f074b35968f79c868c8c84,
+      connectedRoom: {fileID: 8374313632089172612, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
         type: 2}
       socket: {fileID: 0}
       direction: 0
     - doorLine:
-        fromX: -1
-        fromY: -7
+        fromX: 0
+        fromY: -6
         fromZ: 0
-        toX: 0
-        toY: -7
+        toX: 1
+        toY: -6
         toZ: 0
       facingDirection: {x: 0, y: -1}
       isHorizontal: 1
-      connectedRoom: {fileID: 7499029344354591900, guid: a9d2bc3a32f074b35968f79c868c8c84,
+      connectedRoom: {fileID: 4882190569078583809, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
         type: 2}
       socket: {fileID: 0}
       direction: 0
     doorLines:
     - doorLine:
-        From: {x: -1, y: 4, z: 0}
-        To: {x: -1, y: 4, z: 0}
+        From: {x: 0, y: 13, z: 0}
+        To: {x: 0, y: 13, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -1890,21 +1406,21 @@ MonoBehaviour:
         z: 0
       usedDoors:
       - doorLine:
-          fromX: -1
-          fromY: 4
+          fromX: 0
+          fromY: 13
           fromZ: 0
-          toX: 0
-          toY: 4
+          toX: 1
+          toY: 13
           toZ: 0
         facingDirection: {x: 0, y: 1}
         isHorizontal: 1
-        connectedRoom: {fileID: -6126022930870259691, guid: a9d2bc3a32f074b35968f79c868c8c84,
+        connectedRoom: {fileID: 8374313632089172612, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
           type: 2}
         socket: {fileID: 0}
         direction: 0
     - doorLine:
-        From: {x: 0, y: -7, z: 0}
-        To: {x: 0, y: -7, z: 0}
+        From: {x: 1, y: -6, z: 0}
+        To: {x: 1, y: -6, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -1914,63 +1430,63 @@ MonoBehaviour:
         z: 0
       usedDoors:
       - doorLine:
-          fromX: -1
-          fromY: -7
+          fromX: 0
+          fromY: -6
           fromZ: 0
-          toX: 0
-          toY: -7
+          toX: 1
+          toY: -6
           toZ: 0
         facingDirection: {x: 0, y: -1}
         isHorizontal: 1
-        connectedRoom: {fileID: 7499029344354591900, guid: a9d2bc3a32f074b35968f79c868c8c84,
+        connectedRoom: {fileID: 4882190569078583809, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
           type: 2}
         socket: {fileID: 0}
         direction: 0
     outlinePolygon:
       points:
-      - {x: -60, y: 0}
-      - {x: -41, y: 0}
-      - {x: -41, y: -11}
-      - {x: -60, y: -11}
-  - room: {fileID: 496113246}
+      - {x: 8, y: 0}
+      - {x: 27, y: 0}
+      - {x: 27, y: -19}
+      - {x: 8, y: -19}
+  - room: {fileID: 1797871629}
     isCorridor: 1
-    connection: {fileID: -5158966685549284333, guid: a9d2bc3a32f074b35968f79c868c8c84,
+    connection: {fileID: 3162019947240327975, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
       type: 2}
-    roomTemplatePrefab: {fileID: 1053086167283089978, guid: 4108799e2cde445a9aba31eef20e312f,
+    roomTemplatePrefab: {fileID: 1053086167283089978, guid: 2c0561a5f021a4f4097fde30ca53e3bd,
       type: 3}
     roomTemplateInstance: {fileID: 0}
-    position: {x: -20, y: -4, z: 0}
+    position: {x: -21, y: -29, z: 0}
     doors:
     - doorLine:
-        fromX: -1
-        fromY: 4
+        fromX: 0
+        fromY: 13
         fromZ: 0
-        toX: 0
-        toY: 4
+        toX: 1
+        toY: 13
         toZ: 0
       facingDirection: {x: 0, y: 1}
       isHorizontal: 1
-      connectedRoom: {fileID: -1660855780896444002, guid: a9d2bc3a32f074b35968f79c868c8c84,
+      connectedRoom: {fileID: -7712747912569560808, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
         type: 2}
       socket: {fileID: 0}
       direction: 0
     - doorLine:
-        fromX: -1
-        fromY: -7
+        fromX: 0
+        fromY: -6
         fromZ: 0
-        toX: 0
-        toY: -7
+        toX: 1
+        toY: -6
         toZ: 0
       facingDirection: {x: 0, y: -1}
       isHorizontal: 1
-      connectedRoom: {fileID: -6690117815267487699, guid: a9d2bc3a32f074b35968f79c868c8c84,
+      connectedRoom: {fileID: -4098692664080447719, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
         type: 2}
       socket: {fileID: 0}
       direction: 0
     doorLines:
     - doorLine:
-        From: {x: -1, y: 4, z: 0}
-        To: {x: -1, y: 4, z: 0}
+        From: {x: 0, y: 13, z: 0}
+        To: {x: 0, y: 13, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -1980,21 +1496,21 @@ MonoBehaviour:
         z: 0
       usedDoors:
       - doorLine:
-          fromX: -1
-          fromY: 4
+          fromX: 0
+          fromY: 13
           fromZ: 0
-          toX: 0
-          toY: 4
+          toX: 1
+          toY: 13
           toZ: 0
         facingDirection: {x: 0, y: 1}
         isHorizontal: 1
-        connectedRoom: {fileID: -1660855780896444002, guid: a9d2bc3a32f074b35968f79c868c8c84,
+        connectedRoom: {fileID: -7712747912569560808, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
           type: 2}
         socket: {fileID: 0}
         direction: 0
     - doorLine:
-        From: {x: 0, y: -7, z: 0}
-        To: {x: 0, y: -7, z: 0}
+        From: {x: 1, y: -6, z: 0}
+        To: {x: 1, y: -6, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -2004,87 +1520,63 @@ MonoBehaviour:
         z: 0
       usedDoors:
       - doorLine:
-          fromX: -1
-          fromY: -7
+          fromX: 0
+          fromY: -6
           fromZ: 0
-          toX: 0
-          toY: -7
+          toX: 1
+          toY: -6
           toZ: 0
         facingDirection: {x: 0, y: -1}
         isHorizontal: 1
-        connectedRoom: {fileID: -6690117815267487699, guid: a9d2bc3a32f074b35968f79c868c8c84,
+        connectedRoom: {fileID: -4098692664080447719, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
           type: 2}
         socket: {fileID: 0}
         direction: 0
     outlinePolygon:
       points:
-      - {x: -30, y: 0}
-      - {x: -11, y: 0}
-      - {x: -11, y: -11}
-      - {x: -30, y: -11}
-  - room: {fileID: 2084665185}
+      - {x: -30, y: -16}
+      - {x: -11, y: -16}
+      - {x: -11, y: -35}
+      - {x: -30, y: -35}
+  - room: {fileID: 767650198}
     isCorridor: 1
-    connection: {fileID: -7860177829100134812, guid: a9d2bc3a32f074b35968f79c868c8c84,
+    connection: {fileID: -4148229725761416483, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
       type: 2}
-    roomTemplatePrefab: {fileID: 1053086167283089978, guid: 6403657bfaa474eda8bdc2e4f2527498,
+    roomTemplatePrefab: {fileID: 1053086167283089978, guid: 9b43f41a937674c97bf462e116264894,
       type: 3}
     roomTemplateInstance: {fileID: 0}
-    position: {x: -35, y: 11, z: 0}
+    position: {x: 6, y: -40, z: 0}
     doors:
     - doorLine:
-        fromX: 5
-        fromY: -2
+        fromX: -9
+        fromY: 3
         fromZ: 0
-        toX: 5
-        toY: -1
-        toZ: 0
-      facingDirection: {x: 1, y: 0}
-      isHorizontal: 0
-      connectedRoom: {fileID: -1660855780896444002, guid: a9d2bc3a32f074b35968f79c868c8c84,
-        type: 2}
-      socket: {fileID: 0}
-      direction: 0
-    - doorLine:
-        fromX: -6
-        fromY: -2
-        fromZ: 0
-        toX: -6
-        toY: -1
+        toX: -9
+        toY: 4
         toZ: 0
       facingDirection: {x: -1, y: 0}
       isHorizontal: 0
-      connectedRoom: {fileID: -6126022930870259691, guid: a9d2bc3a32f074b35968f79c868c8c84,
+      connectedRoom: {fileID: -4098692664080447719, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
+        type: 2}
+      socket: {fileID: 0}
+      direction: 0
+    - doorLine:
+        fromX: 10
+        fromY: 3
+        fromZ: 0
+        toX: 10
+        toY: 4
+        toZ: 0
+      facingDirection: {x: 1, y: 0}
+      isHorizontal: 0
+      connectedRoom: {fileID: 4882190569078583809, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
         type: 2}
       socket: {fileID: 0}
       direction: 0
     doorLines:
     - doorLine:
-        From: {x: 5, y: -1, z: 0}
-        To: {x: 5, y: -1, z: 0}
-        Length: 2
-        Direction: 0
-        Socket: {fileID: 0}
-      direction:
-        x: 0
-        y: -1
-        z: 0
-      usedDoors:
-      - doorLine:
-          fromX: 5
-          fromY: -2
-          fromZ: 0
-          toX: 5
-          toY: -1
-          toZ: 0
-        facingDirection: {x: 1, y: 0}
-        isHorizontal: 0
-        connectedRoom: {fileID: -1660855780896444002, guid: a9d2bc3a32f074b35968f79c868c8c84,
-          type: 2}
-        socket: {fileID: 0}
-        direction: 0
-    - doorLine:
-        From: {x: -6, y: -2, z: 0}
-        To: {x: -6, y: -2, z: 0}
+        From: {x: -9, y: 3, z: 0}
+        To: {x: -9, y: 3, z: 0}
         Length: 2
         Direction: 0
         Socket: {fileID: 0}
@@ -2094,25 +1586,139 @@ MonoBehaviour:
         z: 0
       usedDoors:
       - doorLine:
-          fromX: -6
-          fromY: -2
+          fromX: -9
+          fromY: 3
           fromZ: 0
-          toX: -6
-          toY: -1
+          toX: -9
+          toY: 4
           toZ: 0
         facingDirection: {x: -1, y: 0}
         isHorizontal: 0
-        connectedRoom: {fileID: -6126022930870259691, guid: a9d2bc3a32f074b35968f79c868c8c84,
+        connectedRoom: {fileID: -4098692664080447719, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
+          type: 2}
+        socket: {fileID: 0}
+        direction: 0
+    - doorLine:
+        From: {x: 10, y: 4, z: 0}
+        To: {x: 10, y: 4, z: 0}
+        Length: 2
+        Direction: 0
+        Socket: {fileID: 0}
+      direction:
+        x: 0
+        y: -1
+        z: 0
+      usedDoors:
+      - doorLine:
+          fromX: 10
+          fromY: 3
+          fromZ: 0
+          toX: 10
+          toY: 4
+          toZ: 0
+        facingDirection: {x: 1, y: 0}
+        isHorizontal: 0
+        connectedRoom: {fileID: 4882190569078583809, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
           type: 2}
         socket: {fileID: 0}
         direction: 0
     outlinePolygon:
       points:
-      - {x: -41, y: 19}
-      - {x: -30, y: 19}
-      - {x: -30, y: 0}
-      - {x: -41, y: 0}
---- !u!114 &1537550887
+      - {x: -3, y: -27}
+      - {x: 16, y: -27}
+      - {x: 16, y: -46}
+      - {x: -3, y: -46}
+  - room: {fileID: 1146529327}
+    isCorridor: 1
+    connection: {fileID: 8885546743659648820, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
+      type: 2}
+    roomTemplatePrefab: {fileID: 1053086167283089978, guid: 9b43f41a937674c97bf462e116264894,
+      type: 3}
+    roomTemplateInstance: {fileID: 0}
+    position: {x: -32, y: -56, z: 0}
+    doors:
+    - doorLine:
+        fromX: -9
+        fromY: 3
+        fromZ: 0
+        toX: -9
+        toY: 4
+        toZ: 0
+      facingDirection: {x: -1, y: 0}
+      isHorizontal: 0
+      connectedRoom: {fileID: 4659773976776961874, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
+        type: 2}
+      socket: {fileID: 0}
+      direction: 0
+    - doorLine:
+        fromX: 10
+        fromY: 3
+        fromZ: 0
+        toX: 10
+        toY: 4
+        toZ: 0
+      facingDirection: {x: 1, y: 0}
+      isHorizontal: 0
+      connectedRoom: {fileID: -4098692664080447719, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
+        type: 2}
+      socket: {fileID: 0}
+      direction: 0
+    doorLines:
+    - doorLine:
+        From: {x: -9, y: 3, z: 0}
+        To: {x: -9, y: 3, z: 0}
+        Length: 2
+        Direction: 0
+        Socket: {fileID: 0}
+      direction:
+        x: 0
+        y: 1
+        z: 0
+      usedDoors:
+      - doorLine:
+          fromX: -9
+          fromY: 3
+          fromZ: 0
+          toX: -9
+          toY: 4
+          toZ: 0
+        facingDirection: {x: -1, y: 0}
+        isHorizontal: 0
+        connectedRoom: {fileID: 4659773976776961874, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
+          type: 2}
+        socket: {fileID: 0}
+        direction: 0
+    - doorLine:
+        From: {x: 10, y: 4, z: 0}
+        To: {x: 10, y: 4, z: 0}
+        Length: 2
+        Direction: 0
+        Socket: {fileID: 0}
+      direction:
+        x: 0
+        y: -1
+        z: 0
+      usedDoors:
+      - doorLine:
+          fromX: 10
+          fromY: 3
+          fromZ: 0
+          toX: 10
+          toY: 4
+          toZ: 0
+        facingDirection: {x: 1, y: 0}
+        isHorizontal: 0
+        connectedRoom: {fileID: -4098692664080447719, guid: 4b5bf05e6618b4f4badc91e5aa6d4b16,
+          type: 2}
+        socket: {fileID: 0}
+        direction: 0
+    outlinePolygon:
+      points:
+      - {x: -41, y: -43}
+      - {x: -22, y: -43}
+      - {x: -22, y: -62}
+      - {x: -41, y: -62}
+--- !u!114 &1757705528
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2128,39 +1734,7 @@ MonoBehaviour:
   Name: Corridor
   IndividualRoomTemplates: []
   RoomTemplateSets: []
---- !u!114 &1619788214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8074dc491ddc34f4e83332d9eae76980, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Position: {x: 0, y: 0}
-  Name: Corridor
-  IndividualRoomTemplates: []
-  RoomTemplateSets: []
---- !u!114 &1677166353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8074dc491ddc34f4e83332d9eae76980, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Position: {x: 0, y: 0}
-  Name: Corridor
-  IndividualRoomTemplates: []
-  RoomTemplateSets: []
---- !u!114 &2084665185
+--- !u!114 &1797871629
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

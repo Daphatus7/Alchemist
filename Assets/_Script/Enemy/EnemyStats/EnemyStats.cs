@@ -15,11 +15,11 @@ namespace _Script.Enemy
         public int attackFrequency;
         public int attackRange;
         public MonsterType monsterType;
-        public DropTable.DropTable dropTable;
+        public Drop.DropTable.DropTable dropTable;
         public Sprite sprite;
 
         public EnemyStats(string monsterName, int health, int damage, int moveSpeed, int attackFrequency, int attackRange, 
-            MonsterType monsterType, DropTable.DropTable dropTable, Sprite sprite)
+            MonsterType monsterType, Drop.DropTable.DropTable dropTable, Sprite sprite)
         {
             this.monsterName = monsterName;
             this.health = health;
@@ -41,11 +41,11 @@ namespace _Script.Enemy
         public int attackFrequency;
         public int attackRange;
         public MonsterType monsterType;
-        public DropTable.DropTable dropTable;
+        public Drop.DropTable.DropTable dropTable;
         public Sprite sprite;
         
         public MonsterAttribute(int health, int damage, int moveSpeed, int attackFrequency, int attackRange, 
-            MonsterType monsterType, DropTable.DropTable dropTable, Sprite sprite)
+            MonsterType monsterType, Drop.DropTable.DropTable dropTable, Sprite sprite)
         {
             this.health = health;
             this.damage = damage;
