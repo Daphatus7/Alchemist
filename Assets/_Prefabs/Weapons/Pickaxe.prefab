@@ -147,12 +147,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd76070d075549528a2b67303eed19ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
-  numberPrefab: {fileID: 3418554337574669511, guid: 0de677f7bca764a82945a8a9e4c3f703,
-    type: 3}
   attackCooldown: 0.5
+  damage: 10
   targetTags:
   - Ore
+  weaponCollider: {fileID: 0}
+  numberPrefab: {fileID: 3418554337574669511, guid: 0de677f7bca764a82945a8a9e4c3f703,
+    type: 3}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
   attackTime: 0.5
   attackDistance: 3
   animationCurve:

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DamageNumbersPro;
@@ -19,7 +20,14 @@ namespace _Script.Damageable
         }
         [SerializeField] private DamageNumber numberPrefab;
         private List<string> _targetTags = new List<string>();
-        
+
+        public void Awake()
+        {
+            //set collider to only include _targetTags
+            var collider = GetComponent<Collider2D>();
+            
+        }
+
         public void SetTargetType(List<string> targetTags)
         {
             _targetTags = targetTags;
@@ -37,14 +45,20 @@ namespace _Script.Damageable
         
         protected virtual void TryDamage(Collider2D other)
         {
+            Debug.Log("TryDamage");
             if(!CanDamage()) return;
+            Debug.Log("CanDamage");
             if (!IsTarget(other) || !other.TryGetComponent(out IDamageable d)) return;
+            Debug.Log("IsTarget");
             var actualDamage = d.ApplyDamage(damage);
             PlayDamageEffect(actualDamage, other);
         }
         
         private bool IsTarget(Collider2D other)
         {
+            Debug.Log(other);
+            Debug.Log(other.tag);
+            Debug.Log(_targetTags);
             return _targetTags.Contains(other.tag);
         }
         

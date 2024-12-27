@@ -27,7 +27,7 @@ namespace _Script.Character.Ability
             targetTags = new List<string> {"Enemy"};
             currentWeapon = GetComponentInChildren<Weapon.Weapon>();
             Debug.LogWarning("Set target tags manually, should move to when weapon is equipped");
-            currentWeapon?.SetTargetType(targetTags);
+            //currentWeapon?.SetTargetType(targetTags);
         }
         
         private void Update()
