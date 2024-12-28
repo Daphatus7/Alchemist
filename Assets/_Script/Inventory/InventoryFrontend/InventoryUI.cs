@@ -76,7 +76,7 @@ namespace _Script.Inventory.InventoryFrontend
                 _slotDisplays[i] = inventorySlotDisplay;
 
                 // Set the initial item stack for this slot
-                inventorySlotDisplay.SetSlot(_playerContainer.slots[i]);
+                inventorySlotDisplay.SetSlot(_playerContainer.GetItemStackAt(i));
             }
 
             // Optionally update all slots here to ensure full sync
@@ -114,7 +114,7 @@ namespace _Script.Inventory.InventoryFrontend
             if (_slotDisplays == null) return;
             for (int i = 0; i < _slotDisplays.Length; i++)
             {
-                _slotDisplays[i].SetSlot(_playerContainer.Slots[i]);
+                _slotDisplays[i].SetSlot(_playerContainer.GetItemStackAt(i));
             }
         }
 
@@ -127,7 +127,7 @@ namespace _Script.Inventory.InventoryFrontend
                 return;
 
             InventorySlotDisplay slotDisplay = _slotDisplays[slotIndex];
-            slotDisplay.SetSlot(_playerContainer.Slots[slotIndex]);
+            slotDisplay.SetSlot(_playerContainer.GetItemStackAt(slotIndex));
         }
         
         /// <summary>

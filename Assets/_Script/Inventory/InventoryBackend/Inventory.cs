@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using _Script.Items;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using _Script.Inventory.SlotFrontend;
+using Unity.VisualScripting;
 
 namespace _Script.Inventory.InventoryBackend
 {
@@ -31,21 +33,7 @@ namespace _Script.Inventory.InventoryBackend
         /// Convenience property for referencing the slot's item data directly.
         /// </summary>
         public ItemData ItemData => _itemStack?.ItemData;
-
-        /// <summary>
-        /// How many items are currently in this slot's stack.
-        /// </summary>
-        public int Quantity
-        {
-            get => _itemStack == null ? 0 : _itemStack.Quantity;
-            set
-            {
-                if (_itemStack != null)
-                {
-                    _itemStack.Quantity = value;
-                }
-            }
-        }
+        
 
         /// <summary>
         /// Clears out the slot, making it empty.
@@ -53,21 +41,6 @@ namespace _Script.Inventory.InventoryBackend
         public void Clear()
         {
             _itemStack = null;
-        }
-
-        /// <summary>
-        /// Attempts to add another stack to this slot's stack (if same ItemData).
-        /// Returns remaining of 'other' after merging.
-        /// </summary>
-        public int TryAdd(ItemStack other)
-        {
-            if (other == null || other.IsEmpty || other.ItemData != this.ItemData)
-                return other?.Quantity ?? 0;
-
-            int space = ItemData.MaxStackSize - this.Quantity;
-            int toAdd = Mathf.Min(space, other.Quantity);
-            this.Quantity += toAdd;
-            return other.Quantity - toAdd;
         }
     }
 
@@ -82,7 +55,12 @@ namespace _Script.Inventory.InventoryBackend
          * The shape-based slots in the inventory.
          * Each slot is an InventorySlot that may or may not contain an ItemStack.
          */
-        protected readonly InventorySlot[] slots;
+        protected readonly InventorySlot[] slots; public InventorySlot[] Slots => slots;
+        
+        public ItemStack GetItemStackAt(int index)
+        {
+            return slots[index].ItemStack;
+        }
 
         /**
          * A parallel array used for partial stack merges (linear approach).
@@ -207,13 +185,14 @@ namespace _Script.Inventory.InventoryBackend
                 // If the top-left slot is empty, check if shape can fit
                 if (slots[i].IsEmpty)
                 {
-                    if (CanFitIn(SlotIndexToGrid(i), itemStackToAdd.ItemData.ItemShape))
+                    //checking if the item can fit in the inventory
+                    if (CanFitIn(SlotIndexToGrid(i), itemStackToAdd.ItemData.ItemShape, out List<Vector2Int> requiredSlots))
                     {
                         // Decide how many to place
                         int toAdd = Mathf.Min(itemStackToAdd.Quantity, itemStackToAdd.ItemData.MaxStackSize);
 
                         // Actually place the item
-                        ItemStack placedStack = CreateItemStackAtLocation(i, itemStackToAdd.ItemData, toAdd, itemStackToAdd);
+                        ItemStack placedStack = CreateItemStackAtLocation(requiredSlots, i, itemStackToAdd.ItemData, toAdd, itemStackToAdd);
                         if (placedStack != null)
                         {
                             // Adjust leftover
@@ -242,13 +221,13 @@ namespace _Script.Inventory.InventoryBackend
         /// Checks if the specified shape can fit, with top-left corner at 'pos' (in grid coords),
         /// by verifying every offset is in range and the slot is empty.
         /// </summary>
-        private bool CanFitIn(Vector2Int pos, ItemShape shape)
+        private bool CanFitIn(Vector2Int pos, ItemShape shape, out List<Vector2Int> requiredSlots)
         {
+            requiredSlots = new List<Vector2Int>();
+
             if (shape == null || shape.Positions == null || shape.Positions.Count == 0)
             {
-                // No shape => trivially fits if (pos) is empty
-                int index = GridToSlotIndex(pos.x, pos.y);
-                return slots[index].IsEmpty;
+                throw new ArgumentException("Invalid shape data.");
             }
 
             foreach (var offset in shape.Positions)
@@ -263,11 +242,12 @@ namespace _Script.Inventory.InventoryBackend
                 }
 
                 int finalIndex = GridToSlotIndex(gx, gy);
-                // If that slot is not empty, can't fit
                 if (!slots[finalIndex].IsEmpty)
                 {
                     return false;
                 }
+
+                requiredSlots.Add(new Vector2Int(gx, gy));
             }
 
             return true;
@@ -318,7 +298,8 @@ namespace _Script.Inventory.InventoryBackend
             {
                 int remaining = slot.TryAdd(itemStackToAdd);
                 _itemStacks[slotIndex] = slot.ItemStack; // keep in sync
-                OnInventorySlotChanged?.Invoke(slotIndex);
+                
+                OnInventorySlotChangedEvent(slotIndex);
                 return (remaining < itemStackToAdd.Quantity);
             }
 
@@ -327,8 +308,8 @@ namespace _Script.Inventory.InventoryBackend
                 int toAdd = Mathf.Min(itemStackToAdd.Quantity, itemStackToAdd.ItemData.MaxStackSize);
                 slot.ItemStack = CreateStack(itemStackToAdd.ItemData, toAdd, itemStackToAdd);
                 _itemStacks[slotIndex] = slot.ItemStack;
-                OnInventorySlotChanged?.Invoke(slotIndex);
-
+                
+                OnInventorySlotChangedEvent(slotIndex);
                 itemStackToAdd.Quantity -= toAdd;
                 return toAdd > 0;
             }
@@ -342,26 +323,42 @@ namespace _Script.Inventory.InventoryBackend
         // ----------------------------------------------
         public ItemStack RemoveAllItemsFromSlot(int slotIndex)
         {
+            //invalid slot index
             if (slotIndex < 0 || slotIndex >= Capacity)
             {
                 Debug.LogWarning("Invalid slot index.");
                 return null;
             }
 
+            // Slot is empty
             if (slots[slotIndex].IsEmpty)
             {
-                OnInventorySlotChanged?.Invoke(slotIndex);
+                //safe update
+                OnInventorySlotChangedEvent(slotIndex);
                 return null;
             }
 
             // Duplicate the stack (preserving specialized data if needed).
             ItemStack removed = CreateStack(slots[slotIndex].ItemData, slots[slotIndex].Quantity, slots[slotIndex].ItemStack);
-            slots[slotIndex].Clear();
-            _itemStacks[slotIndex] = new ItemStack(); // empty
+            
+            foreach (var pos in removed.ItemPositions)
+            {
+                var sIndex = GridToSlotIndex(pos.x, pos.y);
+                slots[sIndex].Clear();
+                OnInventorySlotChangedEvent(sIndex);
+            }
+            
+            _itemStacks[slotIndex] = null;
 
-            OnInventorySlotChanged?.Invoke(slotIndex);
+            OnInventorySlotChangedEvent(slotIndex);
             return removed;
         }
+        
+        private void OnRemovingItem(int slotIndex)
+        {
+            //1 remove the connection between the item and the container
+        }
+        
 
         // ----------------------------------------------
         // Remove item from the inventory by quantity
@@ -492,7 +489,7 @@ namespace _Script.Inventory.InventoryBackend
         // ----------------------------------------------
         // Shape-based item creation
         // ----------------------------------------------
-        public ItemStack CreateItemStackAtLocation(int slotIndex, ItemData itemData, int quantity, ItemStack template)
+        public ItemStack CreateItemStackAtLocation(List<Vector2Int> requiredSlots, int slotIndex, ItemData itemData, int quantity, ItemStack template)
         {
             // (x,y) of the top-left corner
             var position = SlotIndexToGrid(slotIndex);
@@ -502,37 +499,19 @@ namespace _Script.Inventory.InventoryBackend
             if (shapeOffsets == null || shapeOffsets.Count == 0)
             {
                 // 1×1 fallback
-                shapeOffsets = new System.Collections.Generic.List<Vector2Int> { Vector2Int.zero };
+                shapeOffsets = new List<Vector2Int> { Vector2Int.zero };
             }
 
             // Check availability
-            var requiredSlots = new System.Collections.Generic.List<int>();
-            foreach (var offset in shapeOffsets)
-            {
-                int gx = position.x + offset.x;
-                int gy = position.y + offset.y;
-
-                if (!IsInRange(gx, gy))
-                {
-                    Debug.LogWarning($"CreateItemStackAtLocation: shape goes out of range at offset ({offset.x},{offset.y}).");
-                    return null;
-                }
-
-                int finalIndex = GridToSlotIndex(gx, gy);
-                if (!slots[finalIndex].IsEmpty)
-                {
-                    Debug.LogWarning($"CreateItemStackAtLocation: slot {finalIndex} is already occupied.");
-                    return null;
-                }
-                requiredSlots.Add(finalIndex);
-            }
-
-            // All required slots free, create the new stack
             ItemStack newStack = CreateStack(itemData, quantity, template);
 
+            newStack.ItemPositions = requiredSlots;
+            // All required slots free, create the new stack
+
             // Fill each required slot
-            foreach (int sIndex in requiredSlots)
+            foreach (var slotPos in requiredSlots)
             {
+                var sIndex = GridToSlotIndex(slotPos.x, slotPos.y);
                 slots[sIndex].ItemStack = newStack;
                 _itemStacks[sIndex] = newStack;  // Keep parallel array in sync
                 OnInventorySlotChangedEvent(sIndex);

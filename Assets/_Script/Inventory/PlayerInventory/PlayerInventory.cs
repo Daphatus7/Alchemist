@@ -9,14 +9,15 @@ namespace _Script.Inventory.PlayerInventory
 {
     public class PlayerInventory : PlayerContainer
     {
+        
         private ItemStack _selectedItemStack;
         private int _selectedSlotIndex;
         public override SlotType SlotType => SlotType.PlayerInventory;
 
-        public PlayerInventory(PlayerCharacter owner, int capacity, int selectedSlotIndex = 0) : base(owner, capacity)
+        public PlayerInventory(PlayerCharacter owner, int width, int height, int selectedSlotIndex = 0) : base(owner, width, height)
         {
             _selectedSlotIndex = selectedSlotIndex;
-            _selectedItemStack = Slots[selectedSlotIndex];
+            _selectedItemStack = GetItemStackAt(selectedSlotIndex);
             
             Debug.Log("By default, the player will select the first item when loaded.");
             OnSelectItem(selectedSlotIndex);
@@ -36,7 +37,7 @@ namespace _Script.Inventory.PlayerInventory
             else
             {
                 _selectedSlotIndex = slotIndex;
-                _selectedItemStack = Slots[slotIndex];
+                _selectedItemStack = GetItemStackAt(slotIndex);
             }
         }
 

@@ -65,32 +65,29 @@ namespace _Script.Inventory.InventoryFrontendBase
                 Destroy(child.gameObject);
             }
             
-            int capacity = _inventory.Capacity;
-            _slotDisplays = new InventorySlotDisplay[capacity];
-
-            for (int i = 0; i < capacity; i++)
+            _slotDisplays = new InventorySlotDisplay[_inventory.Capacity];
+            
+            for (int i = 0; i < _inventory.ItemStacks.Length ; i++)
             {
                 GameObject slot = Instantiate(slotPrefab, inventoryPanel.transform);
+                
+                //new inventory slot
                 InventorySlotDisplay inventorySlotDisplay = slot.GetComponent<InventorySlotDisplay>();
-                inventorySlotDisplay.InitializeInventorySlot(GetContainerUIHandler(), i, _inventory.SlotType);
+                
+                // Initialize the slot
+                inventorySlotDisplay.InitializeInventorySlot(this, i, _inventory.SlotType);
                 _slotDisplays[i] = inventorySlotDisplay;
                 // Set the slot's initial item
-                inventorySlotDisplay.SetSlot(_inventory.Slots[i]);
+                inventorySlotDisplay.SetSlot(_inventory.GetItemStackAt(i));
             }
         }
-        
-        protected virtual IContainerUIHandle GetContainerUIHandler()
-        {
-            return this;
-        }
-        
         
         // Update all slots in the UI
         protected void UpdateAllSlotsUI()
         {
             for (int i = 0; i < _slotDisplays?.Length; i++)
             {
-                _slotDisplays[i].SetSlot(_inventory.Slots[i]);
+                _slotDisplays[i].SetSlot(_inventory.GetItemStackAt(i));
             }
         }
 
@@ -109,7 +106,7 @@ namespace _Script.Inventory.InventoryFrontendBase
                 return;
 
             InventorySlotDisplay slotDisplay = _slotDisplays[slotIndex];
-            slotDisplay.SetSlot(_inventory.Slots[slotIndex]);
+            slotDisplay.SetSlot(_inventory.GetItemStackAt(slotIndex));
         }
         
         public void OnSlotClicked(InventorySlotDisplay slotDisplay)

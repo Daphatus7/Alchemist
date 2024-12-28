@@ -45,6 +45,16 @@ namespace _Script.Inventory.SlotFrontend
 
         public void InitializeInventorySlot(IContainerUIHandle inventoryUI, int slotIndex, SlotType slotType)
         {
+            //ToDo: When the slot is initialized, it will move to the corresponding grid location
+            
+            /**
+             *
+             *
+             *
+             *
+             * 
+             */
+            
             _inventoryUI = inventoryUI;
             _slotIndex = slotIndex;
             _slotType = slotType;

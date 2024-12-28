@@ -17,11 +17,6 @@ namespace _Script.Inventory.MerchantInventoryFrontend
     {
         public NpcHandlerType HandlerName => NpcHandlerType.Merchant;
         public SlotType SlotType => SlotType.Merchant;
-
-        protected override IContainerUIHandle GetContainerUIHandler()
-        {
-            return this;
-        }
         
         protected override void Start()
         {

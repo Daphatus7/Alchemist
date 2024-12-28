@@ -29,19 +29,21 @@ namespace _Script.Inventory.ActionBarFrontend
             // _actionBar.OnInventoryChanged -= UpdateAllSlotsUI;
         }
 
-        public void InitializeInventoryUI(PlayerInventory.PlayerInventory playerInventory, int capacity, int selectedSlot = 0)
+        public void InitializeInventoryUI(PlayerInventory.PlayerInventory playerInventory, int width, int height, int selectedSlot = 0)
         {
+            int capacity = width * height;
+
             _playerInventory = playerInventory;
             _inventorySlotDisplays = new InventorySlotDisplay[capacity];
 
-            for (int i = 0; i < capacity; i++)
+            for (int i = 0; i < playerInventory.ItemStacks.Length; i++)
             {
                 GameObject slot = Instantiate(slotPrefab, inventoryPanel.transform);
                 InventorySlotDisplay inventorySlotDisplay = slot.GetComponent<InventorySlotDisplay>();
                 
                 // Initialize the slot
                 inventorySlotDisplay.InitializeInventorySlot(this, i, _playerInventory.SlotType);
-                inventorySlotDisplay.SetSlot(_playerInventory.Slots[i]);
+                inventorySlotDisplay.SetSlot(_playerInventory.GetItemStackAt(i));
 
                 // Store the slot display
                 _inventorySlotDisplays[i] = inventorySlotDisplay;
@@ -57,7 +59,7 @@ namespace _Script.Inventory.ActionBarFrontend
 
             Debug.Log("Updating slot " + slotIndex);
             InventorySlotDisplay slotDisplay = _inventorySlotDisplays[slotIndex];
-            slotDisplay.SetSlot(_playerInventory.Slots[slotIndex]);
+            slotDisplay.SetSlot(_playerInventory.GetItemStackAt(slotIndex));
         }
         
         /// <summary>

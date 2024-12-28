@@ -347,12 +347,13 @@ namespace _Script.Character
         #region Player Inventory & Gold
         [SerializeField] private int _gold = 10; public int Gold => _gold;
 
-        [SerializeField] private int playerActionbarCapacity = 6;
+        [SerializeField] private int playerActionbarWidth = 6;
+        [SerializeField] private int playerActionbarHeight = 2;
 
         private void InitializePlayerInventories()
         {
-            _playerInventory = new PlayerInventory(this, playerActionbarCapacity);
-            _actionBarUI.InitializeInventoryUI(_playerInventory, playerActionbarCapacity, 0);
+            _playerInventory = new PlayerInventory(this, playerActionbarWidth, playerActionbarHeight);
+            _actionBarUI.InitializeInventoryUI(_playerInventory, playerActionbarWidth, playerActionbarHeight, 0);
         }
         
         public void OpenContainerInstance(PlayerContainer containerItem)

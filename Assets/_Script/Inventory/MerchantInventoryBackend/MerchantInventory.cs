@@ -11,13 +11,13 @@ namespace _Script.Inventory.MerchantInventoryBackend
     {
         private readonly List<ItemStack> _itemsForSale;
         
-        public MerchantInventory(int capacity, List<ItemStack> itemsForSale) : base(capacity)
+        public MerchantInventory(List<ItemStack> itemsForSale, int width = 5, int height = 4) : base(width, height)
         {
             _itemsForSale = itemsForSale;
             InitializeMerchantInventory();
         }
 
-        public MerchantInventory(int capacity, ItemStack[] items, List<ItemStack> itemsForSale) : base(capacity, items)
+        public MerchantInventory(ItemStack[] items, List<ItemStack> itemsForSale, int width  = 5, int height = 4) : base(width, height, items)
         {
             _itemsForSale = itemsForSale;
             InitializeMerchantInventory();

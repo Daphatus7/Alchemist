@@ -48,7 +48,7 @@ namespace _Script.NPC.NpcBackend
             {
                 itemsToAdd.Add(new ItemStack(item, item.MaxStackSize));
             }
-            _merchantInventory = new MerchantInventory(20, itemsToAdd);
+            _merchantInventory = new MerchantInventory(itemsToAdd);
         }
         
         public void LoadNpcModule()
