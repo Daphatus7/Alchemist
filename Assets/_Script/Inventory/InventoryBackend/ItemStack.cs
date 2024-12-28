@@ -1,15 +1,25 @@
+using System.Collections.Generic;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Script.Inventory.InventoryBackend
 {
+    /**
+     * The entity that represents an item in the inventory
+     */
     [System.Serializable]
     public class ItemStack
     {
         public ItemData ItemData { get; private set; }
         public int Quantity { get; set; }
-
+        
+        /**
+         * all the positions of the item in the inventory
+         */
+        public List<Vector2Int> ItemPositions { get; set; } = new List<Vector2Int>();
+        
+        
         public bool IsEmpty => ItemData == null || Quantity <= 0;
 
         public ItemStack(ItemStack stack)

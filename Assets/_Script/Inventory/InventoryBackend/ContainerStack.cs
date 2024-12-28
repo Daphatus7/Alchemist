@@ -18,7 +18,7 @@ namespace _Script.Inventory.InventoryBackend
             if (AssociatedContainer == null)
             {
                 // If no container provided, create a new one
-                AssociatedContainer = new PlayerContainer(null, itemData.Capacity);
+                AssociatedContainer = new PlayerContainer(null, itemData.width, itemData.height);
             }
 //            Debug.Log("ContainerItemStack created with Container ID: " + AssociatedContainer.UniqueID);
         }

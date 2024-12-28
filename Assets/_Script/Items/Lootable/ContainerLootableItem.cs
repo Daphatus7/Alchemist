@@ -32,7 +32,7 @@ namespace _Script.Items.Lootable
         {
             if (itemData is ContainerItem containerItem)
             {
-                _runtimeContainer = new PlayerContainer(null, containerItem.Capacity);
+                _runtimeContainer = new PlayerContainer(null, containerItem.width, containerItem.height);
 
                 // Add debug items to the runtime container
                 foreach (var entry in debugItems)

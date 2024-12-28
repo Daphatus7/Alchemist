@@ -7,9 +7,8 @@ namespace _Script.Items
     [CreateAssetMenu(fileName = "New Container Item", menuName = "Items/Container Item")]
     public class ContainerItem : ItemData
     {
-        [SerializeField] private int _capacity = 6; 
-        public int Capacity => _capacity;
-
+        public int width = 3;
+        public int height = 3;
         public override ItemType ItemType => ItemType.Container;
         public override string ItemTypeString => "Container";
 

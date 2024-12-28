@@ -76,7 +76,7 @@ namespace _Script.Inventory.InventoryFrontend
                 _slotDisplays[i] = inventorySlotDisplay;
 
                 // Set the initial item stack for this slot
-                inventorySlotDisplay.SetSlot(_playerContainer.Slots[i]);
+                inventorySlotDisplay.SetSlot(_playerContainer.slots[i]);
             }
 
             // Optionally update all slots here to ensure full sync
