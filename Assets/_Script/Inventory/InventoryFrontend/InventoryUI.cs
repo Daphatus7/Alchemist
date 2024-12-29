@@ -173,6 +173,11 @@ namespace _Script.Inventory.InventoryFrontend
             return true;
         }
 
+        public bool CanFitItem(int targetSlotIndex, ItemStack comparingItemStack)
+        {
+            return _playerContainer.CanFitItem(targetSlotIndex, comparingItemStack);
+        }
+
         /// <summary>
         /// Increases the player's gold by the specified amount.
         /// </summary>

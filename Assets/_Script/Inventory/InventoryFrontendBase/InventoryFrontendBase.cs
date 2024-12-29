@@ -67,7 +67,8 @@ namespace _Script.Inventory.InventoryFrontendBase
             
             _slotDisplays = new InventorySlotDisplay[_inventory.Capacity];
             
-            for (int i = 0; i < _inventory.ItemStacks.Count ; i++)
+            
+            for (int i = 0; i < _inventory.Capacity; i++)
             {
                 GameObject slot = Instantiate(slotPrefab, inventoryPanel.transform);
                 
@@ -79,6 +80,11 @@ namespace _Script.Inventory.InventoryFrontendBase
                 _slotDisplays[i] = inventorySlotDisplay;
                 // Set the slot's initial item
                 inventorySlotDisplay.SetSlot(_inventory.GetItemStackAt(i));
+            }
+            
+            for (int i = 0; i < _inventory.ItemStacks.Count ; i++)
+            {
+                _slotDisplays[i].SetSlot(_inventory.GetItemStackAt(i));
             }
         }
         
@@ -132,6 +138,11 @@ namespace _Script.Inventory.InventoryFrontendBase
         public virtual bool AcceptsItem(ItemStack itemStack)
         {
             return true;
+        }
+
+        public bool CanFitItem(int targetSlotIndex, ItemStack comparingItemStack)
+        {
+            return _inventory.CanFitItem(targetSlotIndex, comparingItemStack);
         }
     }
 }

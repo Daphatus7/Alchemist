@@ -74,5 +74,10 @@ namespace _Script.Inventory.EquipmentFrontend
         {
             return itemStack.ItemData is EquipmentItem;
         }
+
+        public bool CanFitItem(int targetSlotIndex, ItemStack comparingItemStack)
+        {
+            return false;
+        }
     }
 }

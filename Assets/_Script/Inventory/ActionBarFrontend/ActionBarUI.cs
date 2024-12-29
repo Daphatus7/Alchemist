@@ -223,6 +223,11 @@ namespace _Script.Inventory.ActionBarFrontend
         {
             return true;
         }
+        
+        public bool CanFitItem(int targetSlotIndex, ItemStack comparingItemStack)
+        {
+            return _playerInventory.CanFitItem(targetSlotIndex, comparingItemStack);
+        }
 
         public void AddGold(int amount)
         {

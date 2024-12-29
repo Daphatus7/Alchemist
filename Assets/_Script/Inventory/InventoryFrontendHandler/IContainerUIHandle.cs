@@ -10,5 +10,7 @@ namespace _Script.Inventory.InventoryFrontendHandler
         public void AddItemToEmptySlot(ItemStack itemStack, int slotIndex);
         public ItemStack AddItem(ItemStack itemStack);
         bool AcceptsItem(ItemStack itemStack);
+        
+        bool CanFitItem(int targetSlotIndex, ItemStack comparingItemStack);
     }
 }

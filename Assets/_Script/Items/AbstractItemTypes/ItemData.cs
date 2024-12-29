@@ -126,28 +126,28 @@ namespace _Script.Items.AbstractItemTypes
         public class ItemShape
         {
             private List<Vector2Int> _positions;
+            private ItemShapeType _shapeType;
             private bool _isRotated = false;
 
+            
+            //comparing the two shapes
+            public bool CompareShapes(ItemShape other)
+            { 
+                return other._shapeType == _shapeType;
+            }
+            
             /// <summary>
             /// The current list of offsets that define this shape.
             /// </summary>
             public List<Vector2Int> Positions => _positions;
-
-            /// <summary>
-            /// Constructor that directly takes a set of shape offsets.
-            /// </summary>
-            public ItemShape(List<Vector2Int> shape)
-            {
-                if (shape == null)
-                    throw new ArgumentNullException(nameof(shape), "Shape list cannot be null.");
-                _positions = new List<Vector2Int>(shape);
-            }
+            
             
             /// <summary>
             /// Constructor that initializes shape based on a predefined type.
             /// </summary>
             public ItemShape(ItemShapeType shapeType)
             {
+                _shapeType = shapeType;
                 switch (shapeType)
                 {
                     case ItemShapeType.Square11:

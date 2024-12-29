@@ -250,7 +250,41 @@ namespace _Script.Inventory.InventoryBackend
             
             return true;
         }
-        
+
+
+        public bool CanFitItem(int mySlot, ItemStack comparingItemStack)
+        {
+            // //check overlapping
+            // var overlappedSlots = new List<Vector2Int>();
+            //
+            // var myItemShape = GetItemStackAt(mySlot).ItemData.ItemShape;
+            // var otherItemShape = comparingItemStack.ItemData.ItemShape;
+            //
+            // var pos = SlotIndexToGrid(mySlot);
+            //
+            // foreach (var offset in otherItemShape.Positions)
+            // {
+            //     int gx = pos.x + offset.x;
+            //     int gy = pos.y + offset.y;
+            //
+            //     // Check bounds
+            //     if (gx < 0 || gx >= _width || gy < 0 || gy >= _height)
+            //     {
+            //         return false;
+            //     }
+            //
+            //     int finalIndex = GridToSlotIndex(gx, gy);
+            //     if (!slots[finalIndex].IsEmpty)
+            //     {
+            //         return false;
+            //     }
+            //
+            //     requiredSlots.Add(new Vector2Int(gx, gy));
+            // }
+            // //if it has overlapping
+            //     //count the unique items in the slots
+            return CanFitIn(SlotIndexToGrid(mySlot), comparingItemStack.ItemData.ItemShape, out List<Vector2Int> requiredSlots);    
+        }
         
         // ----------------------------------------------
         // Remove entire stack from a slot
@@ -263,9 +297,9 @@ namespace _Script.Inventory.InventoryBackend
                 Debug.LogWarning("Invalid slot index.");
                 return null;
             }
-
-            // Slot is empty
-            if (slots[slotIndex].IsEmpty)
+            
+            // selected slot stack is empty
+            if (GetItemStackAt(slotIndex) == null || GetItemStackAt(slotIndex).IsEmpty)
             {
                 //safe update
                 OnInventorySlotChangedEvent(slotIndex);
@@ -274,7 +308,7 @@ namespace _Script.Inventory.InventoryBackend
 
             // Duplicate the stack (preserving specialized data if needed).
             ItemStack removed = CreateStack(GetItemStackAt(slotIndex).ItemData, GetItemStackAt(slotIndex).Quantity, GetItemStackAt(slotIndex));
- 
+            
             OnRemovingItem(slotIndex);
             
             OnInventorySlotChangedEvent(slotIndex);
@@ -291,6 +325,7 @@ namespace _Script.Inventory.InventoryBackend
             //clear the item connections of the stack item
             foreach(var pos in itemStack.ItemPositions)
             {
+                Debug.Log("Clearing item at position: " + pos);
                 var sIndex = GridToSlotIndex(pos.x, pos.y);
                 //remove information about the item in the slot
                 slots[sIndex].Clear();

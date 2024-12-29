@@ -166,6 +166,8 @@ namespace _Script.Inventory.PlayerInventory
         {
             RemoveAllItemsFromSlot(slotIndex);
         }
+
+
     }
 
     public class ActionBarContext

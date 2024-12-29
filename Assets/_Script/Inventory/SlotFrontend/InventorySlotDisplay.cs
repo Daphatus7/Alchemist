@@ -325,14 +325,48 @@ namespace _Script.Inventory.SlotFrontend
         /// </summary>
         private void SwapItems(InventorySlotDisplay source)
         {
-            var sourceItem = source._inventoryUI.RemoveAllItemsFromSlot(source._slotIndex);
-            var myItem = _inventoryUI.RemoveAllItemsFromSlot(_slotIndex);
+            //ToDo : Consider the case when where it is not possible to swap the items
+      
+            
+            //1. same size - swap
+            //2. different size - cannot swap
+            //3. if the target slot is empty, calculate if can fit
 
-            if (sourceItem?.IsEmpty == false)
-                _inventoryUI.AddItemToEmptySlot(sourceItem, _slotIndex);
+            //if the current slot is empty, just add the item to the slot
+            
+            if (_currentStack == null || _currentStack.IsEmpty)
+            {
+                //the item cannot be fit int the slot, but it can be fit if the original item is removed
+                
+                if(_inventoryUI.CanFitItem(_slotIndex, source._currentStack))
+                {
+                    _inventoryUI.AddItemToEmptySlot(source._currentStack, _slotIndex);
+                    source._inventoryUI.RemoveAllItemsFromSlot(source._slotIndex);
+                }
+            }
+            else
+            {
+                //check if it has the same size
+                if(_currentStack != null && _currentStack.ItemData.ItemShape.CompareShapes(source._currentStack.ItemData.ItemShape))
+                {
+                    var sourceItem = source._inventoryUI.RemoveAllItemsFromSlot(source._slotIndex);
+                    var myItem = _inventoryUI.RemoveAllItemsFromSlot(_slotIndex);
 
-            if (myItem?.IsEmpty == false)
-                source._inventoryUI.AddItemToEmptySlot(myItem, source._slotIndex);
+                    //if the source has removed an item
+                    if (sourceItem?.IsEmpty == false)
+                        //add the item to the current slot
+                        _inventoryUI.AddItemToEmptySlot(sourceItem, _slotIndex);
+
+                    //if the current slot has removed an item
+                    if (myItem?.IsEmpty == false)
+                        //add the item to the source slot
+                        source._inventoryUI.AddItemToEmptySlot(myItem, source._slotIndex);
+                }
+                else
+                {
+                    Debug.Log("Cannot swap items with different sizes.");
+                }
+            }
         }
 
         private void SetDragItemPosition(PointerEventData eventData)
