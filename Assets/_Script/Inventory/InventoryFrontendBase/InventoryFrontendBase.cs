@@ -67,7 +67,7 @@ namespace _Script.Inventory.InventoryFrontendBase
             
             _slotDisplays = new InventorySlotDisplay[_inventory.Capacity];
             
-            for (int i = 0; i < _inventory.ItemStacks.Length ; i++)
+            for (int i = 0; i < _inventory.ItemStacks.Count ; i++)
             {
                 GameObject slot = Instantiate(slotPrefab, inventoryPanel.transform);
                 

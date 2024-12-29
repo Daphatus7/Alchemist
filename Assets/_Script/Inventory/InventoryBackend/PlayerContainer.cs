@@ -194,5 +194,6 @@ namespace _Script.Inventory.InventoryBackend
         {
             UseItem(slotIndex);
         }
+        
     }
 }

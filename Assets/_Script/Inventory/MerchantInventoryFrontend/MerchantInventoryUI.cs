@@ -56,7 +56,7 @@ namespace _Script.Inventory.MerchantInventoryFrontend
 
         public ItemStack Purchase(IPlayerInventoryHandler playerInventory, int slotIndex, int quantity = 1)
         {
-            if(playerInventory.RemoveGold(_inventory.Slots[slotIndex].ItemData.Value * _inventory.Slots[slotIndex].Quantity))
+            if(playerInventory.RemoveGold(_inventory.GetItemStackAt(slotIndex).ItemData.Value * _inventory.GetItemStackAt(slotIndex).Quantity))
             {
                 return RemoveAllItemsFromSlot(slotIndex);;
             }

@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.SlotFrontend;
+using UnityEngine;
 
 namespace _Script.Inventory.MerchantInventoryBackend
 {
@@ -28,10 +29,11 @@ namespace _Script.Inventory.MerchantInventoryBackend
         /// </summary>
         private void InitializeMerchantInventory()
         {
+            Debug.Log("Initializing merchant inventory.");
             // Clear and populate inventory slots with items for sale
-            for (int i = 0; i < _itemsForSale.Count && i < Capacity; i++)
+            foreach (var t in _itemsForSale)
             {
-                AddItemToSlot(_itemsForSale[i], i);
+                AddItem(t);
             }
         }
 

@@ -4,6 +4,7 @@ using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontendHandler;
 using _Script.Items;
 using TMPro;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

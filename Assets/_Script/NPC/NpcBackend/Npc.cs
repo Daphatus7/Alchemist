@@ -139,7 +139,6 @@ namespace _Script.NPC.NpcBackend
     {
         private Npc _npc;
         private PlayerCharacter _player;
-        private bool _isActive = false;
         
         private readonly List<IUIHandler> _npcUIHandlers = new List<IUIHandler>();
 

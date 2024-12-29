@@ -47,12 +47,7 @@ namespace _Script.Managers
             // Optionally load the "starting" scene
             _levelManager.LoadMainScene(_startingScene);
         }
-
-        private void Update()
-        {
-            // If needed, let the GameManager call global updaters each frame
-            UpdateGlobalUpdaters();
-        }
+        
 
         private void UpdateGlobalUpdaters()
         {

@@ -29,7 +29,7 @@ namespace _Script.Inventory.PlayerInventory
 
         private void SetSelectedItem(int slotIndex)
         {
-            if (slotIndex < 0 || slotIndex >= Slots.Length)
+            if (slotIndex < 0 || slotIndex >= SlotCount)
             {
                 _selectedSlotIndex = -1;
                 _selectedItemStack = null;
@@ -49,6 +49,7 @@ namespace _Script.Inventory.PlayerInventory
         public void OnSelectItem(int slotIndex)
         {
             SetSelectedItem(slotIndex);
+            
             if (_selectedItemStack == null || _selectedItemStack.IsEmpty)
             {
                 Debug.LogWarning("No item selected in that slot.");
@@ -99,7 +100,7 @@ namespace _Script.Inventory.PlayerInventory
         /// <param name="slotIndex"></param>
         public void OnDeSelectItem(int slotIndex)
         {
-            if (slotIndex < 0 || slotIndex >= Slots.Length || Slots[slotIndex].IsEmpty)
+            if (slotIndex < 0 || slotIndex >= SlotCount || GetItemStackAt(slotIndex).IsEmpty)
             {
                 return;
             }
@@ -108,13 +109,13 @@ namespace _Script.Inventory.PlayerInventory
 
         private void RemoveStrategy(int slotIndex)
         {
-            if (slotIndex < 0 || slotIndex >= Slots.Length)
+            if (slotIndex < 0 || slotIndex >= SlotCount)
             {
-                Debug.LogError($"Invalid slotIndex: {slotIndex}. Slots count: {Slots.Length}");
+                Debug.LogError($"Invalid slotIndex: {slotIndex}. Slots count: {SlotCount}");
                 return;
             }
 
-            var itemTypeName = Slots[slotIndex].ItemData.ItemTypeString;
+            var itemTypeName = GetItemStackAt(slotIndex).ItemData.ItemTypeString;
 
             switch (itemTypeName)
             {

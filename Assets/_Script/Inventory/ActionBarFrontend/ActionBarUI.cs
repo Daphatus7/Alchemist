@@ -36,18 +36,17 @@ namespace _Script.Inventory.ActionBarFrontend
             _playerInventory = playerInventory;
             _inventorySlotDisplays = new InventorySlotDisplay[capacity];
 
-            for (int i = 0; i < playerInventory.ItemStacks.Length; i++)
+            //Initialize the inventory slot Displays
+            for(int i = 0; i < _playerInventory.SlotCount; i++)
             {
                 GameObject slot = Instantiate(slotPrefab, inventoryPanel.transform);
                 InventorySlotDisplay inventorySlotDisplay = slot.GetComponent<InventorySlotDisplay>();
-                
+                _inventorySlotDisplays[i] = inventorySlotDisplay;
                 // Initialize the slot
                 inventorySlotDisplay.InitializeInventorySlot(this, i, _playerInventory.SlotType);
-                inventorySlotDisplay.SetSlot(_playerInventory.GetItemStackAt(i));
-
-                // Store the slot display
-                _inventorySlotDisplays[i] = inventorySlotDisplay;
+                inventorySlotDisplay.ClearSlot();
             }
+            
             _playerInventory.OnInventorySlotChanged += UpdateSlotUI;
             SelectSlot(selectedSlot);
         }
@@ -56,10 +55,19 @@ namespace _Script.Inventory.ActionBarFrontend
         {
             if (slotIndex < 0 || slotIndex >= _inventorySlotDisplays.Length)
                 return;
-
-            Debug.Log("Updating slot " + slotIndex);
-            InventorySlotDisplay slotDisplay = _inventorySlotDisplays[slotIndex];
-            slotDisplay.SetSlot(_playerInventory.GetItemStackAt(slotIndex));
+            
+            var itemStack = _playerInventory.GetItemStackAt(slotIndex);
+            if(itemStack == null || itemStack.IsEmpty)
+            {
+                _inventorySlotDisplays[slotIndex].ClearSlot();
+                return;
+            }
+            foreach (var position in itemStack.ItemPositions)
+            {
+                Debug.Log("Item position: " + position);
+                var sIndex = position.x * _playerInventory.Height + position.y;
+                _inventorySlotDisplays[sIndex].SetSlot(itemStack);
+            }
         }
         
         /// <summary>
@@ -81,20 +89,21 @@ namespace _Script.Inventory.ActionBarFrontend
             //Case 2: Check if has an item
             //if the slot is empty, then try to deselect the previous item
             //and set selected item to null
-            if(_playerInventory.Slots[slotIndex].IsEmpty)
+            var itemStack = _playerInventory.GetItemStackAt(slotIndex);
+            if(itemStack == null || itemStack.IsEmpty)
             {
                 Debug.LogWarning("No item in slot.");
                 //still deselect the previous item
                 DeselectPreviousSlot();
                 _selectedSlotDisplay = _inventorySlotDisplays[slotIndex];
-                _selectedSlotDisplay.HighlightSlot();
+                _selectedSlotDisplay?.HighlightSlot();
                 
                 _playerInventory.OnSelectNone();
                 return;
             }
             
             //Case 3: Check if selecting the same slot and is not seed item
-            if (_selectedSlotDisplay && _selectedSlotDisplay.SlotIndex == slotIndex && _playerInventory.Slots[slotIndex].ItemData.ItemTypeString != "Seed")
+            if (_selectedSlotDisplay && _selectedSlotDisplay.SlotIndex == slotIndex && _playerInventory.GetItemStackAt(slotIndex).ItemData.ItemTypeString != "Seed")
             {
                 // Use the selected slot
                 _playerInventory.LeftClickItem(slotIndex);
