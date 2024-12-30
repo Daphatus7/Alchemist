@@ -23,18 +23,15 @@ namespace _Script.Inventory.SlotFrontend
         private static GameObject dragItem;
         private static Canvas canvas;
 
-        private int _slotIndex;  
-        public int SlotIndex => _slotIndex;
+        private int _slotIndex; public int SlotIndex => _slotIndex;
 
-        private int _inventoryIndex; 
-        public int InventoryIndex => _inventoryIndex;
 
         private SlotType _slotType; 
         public SlotType SlotType => _slotType;
 
         private IContainerUIHandle _inventoryUI;
-        private ItemStack _currentStack;
-
+        [SerializeField] private ItemStack _currentStack;
+        
         public string ItemTypeName => _currentStack?.IsEmpty == false ? _currentStack.ItemData.ItemName : "";
         public int Value => _currentStack?.IsEmpty == false ? _currentStack.ItemData.Value : 0;
         public int Quantity => _currentStack?.IsEmpty == false ? _currentStack.Quantity : 0;
@@ -66,7 +63,6 @@ namespace _Script.Inventory.SlotFrontend
         {
             _inventoryUI = inventoryUI;
             _slotIndex = slotIndex;
-            _inventoryIndex = inventoryIndex;
             _slotType = slotType;
             highlight.enabled = false;
         }
@@ -166,30 +162,42 @@ namespace _Script.Inventory.SlotFrontend
                 dragItem.SetActive(true);
 
             var dragItemImage = dragItem.GetComponent<Image>();
+            
             if (dragItemImage != null)
             {
                 dragItemImage.sprite = icon.sprite;
                 dragItemImage.raycastTarget = false; 
             }
-
+            
+            var removedItem = _inventoryUI.RemoveAllItemsFromSlot(_slotIndex);
+                
+            //Add the item to the dragItem
+            DragItem.Instance.AddItemToDrag(removedItem);
+            
             SetDragItemPosition(eventData);
             icon.color = new Color(1, 1, 1, 0);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
+            //DragItem Should Be Singleton in this case or can be accssed through Service Locator
             if (dragItem != null)
+            {
+                //Remove item from the slot
                 SetDragItemPosition(eventData);
+            }
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            
             if (!CanDrag()) return;
             if (dragItem != null)
             {
                 dragItem.SetActive(false);
                 icon.color = Color.white;
             }
+            
             icon.raycastTarget = true;
         }
 
@@ -197,23 +205,29 @@ namespace _Script.Inventory.SlotFrontend
         {
             // Drag end, release in this slot
             var sourceSlot = eventData.pointerDrag?.GetComponent<InventorySlotDisplay>();
-            if (sourceSlot?._currentStack?.IsEmpty != false)
+            if (sourceSlot == null)
                 return;
-
             // Cache itemData for performance
-            var itemData = sourceSlot._currentStack.ItemData;
+            
+            var itemData = DragItem.Instance.PeakItemStack().ItemData;
+            
             // Prevent placing a ContainerItem inside another Container (Bag)
             if (itemData is ContainerItem && _slotType == SlotType.Bag)
             {
                 Debug.LogWarning("Cannot place a ContainerItem inside another Container (Bag).");
                 return;
             }
-
-            if (!CanDrop(sourceSlot)) return;
+            
+            if (!CanDrop(sourceSlot))
+            {
+                //Return the item to where it was
+                ReturnItemToSourceSlot(sourceSlot);
+                return;
+            }
 
             // Determine drag type
             var dragType = GetDragType(sourceSlot);
-            Debug.Log("Drag Type: " + dragType);
+            
 
             switch (dragType)
             {
@@ -259,14 +273,18 @@ namespace _Script.Inventory.SlotFrontend
                         }
                     }
                     break;
-                default:
-                    // Do nothing
-                    break;
             }
 
             // Hide drag item visual
             if (dragItem != null)
                 dragItem.SetActive(false);
+        }
+        
+        
+        private void ReturnItemToSourceSlot(InventorySlotDisplay sourceSlot)
+        {
+            //Return the item to where it was
+            sourceSlot._inventoryUI.AddItem(dragItem.GetComponent<DragItem>().RemoveItemStack());
         }
 
         private DragType GetDragType(InventorySlotDisplay sourceSlot)
@@ -325,47 +343,39 @@ namespace _Script.Inventory.SlotFrontend
         /// </summary>
         private void SwapItems(InventorySlotDisplay source)
         {
-            //ToDo : Consider the case when where it is not possible to swap the items
-      
-            
-            //1. same size - swap
-            //2. different size - cannot swap
-            //3. if the target slot is empty, calculate if can fit
-
-            //if the current slot is empty, just add the item to the slot
-            
             if (_currentStack == null || _currentStack.IsEmpty)
             {
-                //the item cannot be fit int the slot, but it can be fit if the original item is removed
+                var pivot = DragItem.Instance.PeakItemStack().PivotPosition;
                 
-                if(_inventoryUI.CanFitItem(_slotIndex, source._currentStack))
+                var shiftVector = _inventoryUI.GetSlotPosition(_slotIndex) - source._inventoryUI.GetSlotPosition(source._slotIndex);
+                var shiftedPivot = shiftVector + pivot;
+                var shiftedPivotIndex = _inventoryUI.GetSlotIndex(shiftedPivot);
+                
+                // Debug.Log("Pivot: " + pivot);
+                // Debug.Log("Shift Vector: " + shiftVector);
+                // Debug.Log("Shifted Pivot: " + shiftedPivot);
+                // Debug.Log("shiftedPivotIndex: " + shiftedPivotIndex);
+                
+                if(_inventoryUI.CanFitItem(shiftedPivotIndex
+                       , DragItem.Instance.PeakItemStack()))
                 {
-                    _inventoryUI.AddItemToEmptySlot(source._currentStack, _slotIndex);
-                    source._inventoryUI.RemoveAllItemsFromSlot(source._slotIndex);
+                    _inventoryUI.AddItemToEmptySlot(DragItem.Instance.PeakItemStack(), shiftedPivotIndex);
+                    //Clear the removed item from the slot
+                    DragItem.Instance.PeakItemStack().Clear();
+                }
+                else
+                {
+                    Debug.Log("Put the item back to the source slot");
+                    //假如之前的slot 由于各种原因，不再是空的了，怎么办？
+                    //先尝试把Item 放回去，如果没有成功，那么就是找过一个新的位置
+                    //如果新的位置也没有了，那么就「掉地上」（还没运行）
+                    source._inventoryUI.AddItemToEmptySlot(DragItem.Instance.PeakItemStack(), 
+                        source._inventoryUI.GetSlotIndex(pivot));
                 }
             }
             else
             {
-                //check if it has the same size
-                if(_currentStack != null && _currentStack.ItemData.ItemShape.CompareShapes(source._currentStack.ItemData.ItemShape))
-                {
-                    var sourceItem = source._inventoryUI.RemoveAllItemsFromSlot(source._slotIndex);
-                    var myItem = _inventoryUI.RemoveAllItemsFromSlot(_slotIndex);
-
-                    //if the source has removed an item
-                    if (sourceItem?.IsEmpty == false)
-                        //add the item to the current slot
-                        _inventoryUI.AddItemToEmptySlot(sourceItem, _slotIndex);
-
-                    //if the current slot has removed an item
-                    if (myItem?.IsEmpty == false)
-                        //add the item to the source slot
-                        source._inventoryUI.AddItemToEmptySlot(myItem, source._slotIndex);
-                }
-                else
-                {
-                    Debug.Log("Cannot swap items with different sizes.");
-                }
+                Debug.Log("Error------");
             }
         }
 
@@ -379,7 +389,6 @@ namespace _Script.Inventory.SlotFrontend
             );
             dragItem.transform.localPosition = localPoint;
         }
-
         #endregion
     }
     

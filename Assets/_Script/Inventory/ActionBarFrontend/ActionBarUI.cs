@@ -64,7 +64,6 @@ namespace _Script.Inventory.ActionBarFrontend
             }
             foreach (var position in itemStack.ItemPositions)
             {
-                Debug.Log("Item position: " + position);
                 var sIndex = position.x * _playerInventory.Height + position.y;
                 _inventorySlotDisplays[sIndex].SetSlot(itemStack);
             }
@@ -237,6 +236,16 @@ namespace _Script.Inventory.ActionBarFrontend
         public bool RemoveGold(int amount)
         {
             return _playerInventory.InventoryOwner.RemoveGold(amount);
+        }
+        
+        public Vector2Int GetSlotPosition(int slotIndex)
+        {
+            return _playerInventory.SlotIndexToGrid(slotIndex);
+        }
+        
+        public int GetSlotIndex(Vector2Int position)
+        {
+            return _playerInventory.GridToSlotIndex(position.x , position.y);
         }
     }
 }

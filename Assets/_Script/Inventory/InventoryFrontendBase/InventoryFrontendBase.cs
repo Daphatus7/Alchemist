@@ -144,5 +144,15 @@ namespace _Script.Inventory.InventoryFrontendBase
         {
             return _inventory.CanFitItem(targetSlotIndex, comparingItemStack);
         }
+        
+        public Vector2Int GetSlotPosition(int slotIndex)
+        {
+            return _inventory.SlotIndexToGrid(slotIndex);
+        }
+        
+        public int GetSlotIndex(Vector2Int position)
+        {
+            return _inventory.GridToSlotIndex(position.x, position.y);
+        }
     }
 }

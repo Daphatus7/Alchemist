@@ -12,6 +12,7 @@ namespace _Script.Inventory.PlayerInventory
         
         private ItemStack _selectedItemStack;
         private int _selectedSlotIndex;
+        
         public override SlotType SlotType => SlotType.PlayerInventory;
 
         public PlayerInventory(PlayerCharacter owner, int width, int height, int selectedSlotIndex = 0) : base(owner, width, height)

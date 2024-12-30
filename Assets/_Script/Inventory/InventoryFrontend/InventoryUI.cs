@@ -193,5 +193,15 @@ namespace _Script.Inventory.InventoryFrontend
         {
             return _playerContainer.InventoryOwner.RemoveGold(amount);
         }
+        
+        public Vector2Int GetSlotPosition(int slotIndex)
+        {
+            return _playerContainer.SlotIndexToGrid(slotIndex);
+        }
+        
+        public int GetSlotIndex(Vector2Int position)
+        {
+            return _playerContainer.GridToSlotIndex(position.x, position.y);
+        }
     }
 }

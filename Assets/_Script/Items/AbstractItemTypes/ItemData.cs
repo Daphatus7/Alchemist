@@ -141,7 +141,6 @@ namespace _Script.Items.AbstractItemTypes
             /// </summary>
             public List<Vector2Int> Positions => _positions;
             
-            
             /// <summary>
             /// Constructor that initializes shape based on a predefined type.
             /// </summary>

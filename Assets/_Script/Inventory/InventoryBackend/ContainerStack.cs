@@ -11,8 +11,8 @@ namespace _Script.Inventory.InventoryBackend
         public PlayerContainer AssociatedContainer { get; private set; }
 
         // This constructor assumes you already have a PlayerContainer instance ready
-        public ContainerItemStack(ContainerItem itemData, int quantity, PlayerContainer container)
-            : base(itemData, quantity)
+        public ContainerItemStack(Vector2Int pivotPosition, ContainerItem itemData, int quantity, PlayerContainer container)
+            : base(pivotPosition, itemData, quantity)
         {
             AssociatedContainer = container;
             if (AssociatedContainer == null)

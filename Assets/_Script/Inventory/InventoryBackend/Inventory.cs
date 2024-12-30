@@ -181,12 +181,6 @@ namespace _Script.Inventory.InventoryBackend
                 //checking if the item can fit in the inventory
                 if (CanFitIn(SlotIndexToGrid(i), itemStackToAdd.ItemData.ItemShape, out List<Vector2Int> requiredSlots))
                 {
-                    Debug.Log("Can fit in inventory.");
-                     foreach (var requiredSlot in requiredSlots)
-                     {
-                         Debug.Log(requiredSlot);
-                     }
-                    
                     // Decide how many to place
                     int toAdd = Mathf.Min(itemStackToAdd.Quantity, itemStackToAdd.ItemData.MaxStackSize);
 
@@ -219,15 +213,14 @@ namespace _Script.Inventory.InventoryBackend
         /// Checks if the specified shape can fit, with top-left corner at 'pos' (in grid coords),
         /// by verifying every offset is in range and the slot is empty.
         /// </summary>
-        private bool CanFitIn(Vector2Int pos, ItemShape shape, out List<Vector2Int> requiredSlots)
+        private bool CanFitIn(Vector2Int pos //is the location of the cursor selected slot
+            , ItemShape shape, out List<Vector2Int> requiredSlots)
         {
+            
+            //Get Correct Slot Index
+            //Get pivot of the shape
             requiredSlots = new List<Vector2Int>();
-
-            if (shape?.Positions == null || shape.Positions.Count == 0)
-            {
-                throw new ArgumentException("Invalid shape data.");
-            }
-
+            
             foreach (var offset in shape.Positions)
             {
                 int gx = pos.x + offset.x;
@@ -254,35 +247,19 @@ namespace _Script.Inventory.InventoryBackend
 
         public bool CanFitItem(int mySlot, ItemStack comparingItemStack)
         {
-            // //check overlapping
-            // var overlappedSlots = new List<Vector2Int>();
-            //
-            // var myItemShape = GetItemStackAt(mySlot).ItemData.ItemShape;
-            // var otherItemShape = comparingItemStack.ItemData.ItemShape;
-            //
-            // var pos = SlotIndexToGrid(mySlot);
-            //
-            // foreach (var offset in otherItemShape.Positions)
-            // {
-            //     int gx = pos.x + offset.x;
-            //     int gy = pos.y + offset.y;
-            //
-            //     // Check bounds
-            //     if (gx < 0 || gx >= _width || gy < 0 || gy >= _height)
-            //     {
-            //         return false;
-            //     }
-            //
-            //     int finalIndex = GridToSlotIndex(gx, gy);
-            //     if (!slots[finalIndex].IsEmpty)
-            //     {
-            //         return false;
-            //     }
-            //
-            //     requiredSlots.Add(new Vector2Int(gx, gy));
-            // }
-            // //if it has overlapping
-            //     //count the unique items in the slots
+            if(mySlot < 0 || mySlot >= Capacity)
+            {
+                return false;
+            }
+            
+            if (comparingItemStack == null || comparingItemStack.IsEmpty)
+            {
+                Debug.Log("Invalid item stack to compare.");
+                return false;
+            }
+            
+            Debug.Log("Cp " + SlotIndexToGrid(mySlot));
+            
             return CanFitIn(SlotIndexToGrid(mySlot), comparingItemStack.ItemData.ItemShape, out List<Vector2Int> requiredSlots);    
         }
         
@@ -294,24 +271,28 @@ namespace _Script.Inventory.InventoryBackend
             //invalid slot index
             if (slotIndex < 0 || slotIndex >= Capacity)
             {
-                Debug.LogWarning("Invalid slot index.");
                 return null;
             }
-            
-            // selected slot stack is empty
-            if (GetItemStackAt(slotIndex) == null || GetItemStackAt(slotIndex).IsEmpty)
+            if (GetItemStackAt(slotIndex) == null)
+            {
+                return null;
+            }
+            if (GetItemStackAt(slotIndex).IsEmpty)
             {
                 //safe update
-                OnInventorySlotChangedEvent(slotIndex);
+                OnRemovingItem(slotIndex);
                 return null;
             }
 
             // Duplicate the stack (preserving specialized data if needed).
-            ItemStack removed = CreateStack(GetItemStackAt(slotIndex).ItemData, GetItemStackAt(slotIndex).Quantity, GetItemStackAt(slotIndex));
+
+            var pivotPosition =  GetItemStackAt(slotIndex).PivotPosition;
+            Debug.Log("Removing item from slot " + pivotPosition);
+            
+            ItemStack removed = CreateStack(pivotPosition, GetItemStackAt(slotIndex).ItemData, GetItemStackAt(slotIndex).Quantity, GetItemStackAt(slotIndex));
             
             OnRemovingItem(slotIndex);
             
-            OnInventorySlotChangedEvent(slotIndex);
             return removed;
         }
         
@@ -325,7 +306,6 @@ namespace _Script.Inventory.InventoryBackend
             //clear the item connections of the stack item
             foreach(var pos in itemStack.ItemPositions)
             {
-                Debug.Log("Clearing item at position: " + pos);
                 var sIndex = GridToSlotIndex(pos.x, pos.y);
                 //remove information about the item in the slot
                 slots[sIndex].Clear();
@@ -437,31 +417,33 @@ namespace _Script.Inventory.InventoryBackend
         
         public abstract void LeftClickItem(int slotIndex);
         
-        protected ItemStack CreateStack(ItemData itemData, int quantity, ItemStack template)
+        protected ItemStack CreateStack(Vector2Int pivotPosition, ItemData itemData, int quantity, ItemStack template)
         {
             var cItem = itemData as ContainerItem;
             var cStack = template as ContainerItemStack;
 
+            Debug.Log("Creating stack with " + itemData.ItemName + " at " + pivotPosition + " with quantity " + quantity);
+            
             if (cItem && cStack != null)
             {
                 // Preserve container data from cStack
-                return new ContainerItemStack(cItem, quantity, cStack.AssociatedContainer);
+                return new ContainerItemStack(pivotPosition, cItem, quantity, cStack.AssociatedContainer);
             }
             else if (cItem)
             {
                 // itemData is ContainerItem, template is not
-                return new ContainerItemStack(cItem, quantity, new PlayerContainer(null, cItem.width, cItem.height));
+                return new ContainerItemStack(pivotPosition, cItem, quantity, new PlayerContainer(null, cItem.width, cItem.height));
             }
             else if (cStack != null)
             {
                 // Template is ContainerItemStack but itemData not ContainerItem
                 Debug.LogWarning("Template was ContainerItemStack but itemData is not ContainerItem. Using normal ItemStack fallback.");
-                return new ItemStack(itemData, quantity);
+                return new ItemStack(pivotPosition, itemData, quantity);
             }
             else
             {
                 // Normal item
-                return new ItemStack(itemData, quantity);
+                return new ItemStack(pivotPosition, itemData, quantity);
             }
         }
         
@@ -472,16 +454,8 @@ namespace _Script.Inventory.InventoryBackend
                 throw new ArgumentException("Invalid required slots.");
             }
             
-            // Get shape offsets
-            var shapeOffsets = itemData.ItemShape?.Positions;
-            if (shapeOffsets == null || shapeOffsets.Count == 0)
-            {
-                // 1×1 fallback
-                shapeOffsets = new List<Vector2Int> { Vector2Int.zero };
-            }
-
             // Check availability
-            ItemStack newStack = CreateStack(itemData, quantity, template);
+            ItemStack newStack = CreateStack(SlotIndexToGrid(slotIndex), itemData, quantity, template);
 
             newStack.ItemPositions = requiredSlots;
             // All required slots free, create the new stack
@@ -508,12 +482,12 @@ namespace _Script.Inventory.InventoryBackend
         // ----------------------------------------------
         // Coord helpers
         // ----------------------------------------------
-        private int GridToSlotIndex(int x, int y)
+        public int GridToSlotIndex(int x, int y)
         {
             return x * _height + y;
         }
 
-        private Vector2Int SlotIndexToGrid(int slotIndex)
+        public Vector2Int SlotIndexToGrid(int slotIndex)
         {
             int gx = slotIndex / _height;
             int gy = slotIndex % _height;

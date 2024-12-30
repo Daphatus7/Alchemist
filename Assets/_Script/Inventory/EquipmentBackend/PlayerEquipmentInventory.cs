@@ -62,8 +62,8 @@ namespace _Script.Inventory.EquipmentBackend
                     break;
             }
             
-
-            _equipmentSlots[targetSlot] = new ItemStack(item, 1);
+            throw new NotImplementedException("Implement the equip item method");
+            //_equipmentSlots[targetSlot] = new ItemStack(pivotPosition, item, 1);
             
             OnOnEquipmentChanged();
             return tempSlotItemStack;

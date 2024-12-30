@@ -18,7 +18,7 @@ namespace _Script.Inventory.InventoryBackend
          * all the positions of the item in the inventory
          */
         public List<Vector2Int> ItemPositions { get; set; } = new List<Vector2Int>();
-        
+        public Vector2Int PivotPosition { get; set; }
         
         public bool IsEmpty => ItemData == null || Quantity <= 0;
 
@@ -40,7 +40,7 @@ namespace _Script.Inventory.InventoryBackend
             Clear();
         }
 
-        public ItemStack(ItemData itemData, int quantity = 1)
+        public ItemStack(Vector2Int pivotPosition, ItemData itemData, int quantity = 1)
         {
             if (itemData == null)
             {
@@ -48,6 +48,7 @@ namespace _Script.Inventory.InventoryBackend
                 return;
             }
 
+            PivotPosition = pivotPosition;
             ItemData = itemData;
             Quantity = Mathf.Clamp(quantity, 0, itemData.MaxStackSize);
         }
@@ -74,19 +75,19 @@ namespace _Script.Inventory.InventoryBackend
             return other.Quantity - toAdd;
         }
 
-        /// <summary>
-        /// Splits a specified quantity from this stack and returns it as a new stack.
-        /// If there isn’t enough quantity, it returns as many as possible.
-        /// After splitting, this stack’s quantity decreases accordingly.
-        /// </summary>
-        public ItemStack Split(int count)
-        {
-            if (IsEmpty || count <= 0)
-                return new ItemStack(); // Returns an empty stack
-
-            int actualCount = Mathf.Min(count, Quantity);
-            Quantity -= actualCount;
-            return new ItemStack(ItemData, actualCount);
-        }
+        // /// <summary>
+        // /// Splits a specified quantity from this stack and returns it as a new stack.
+        // /// If there isn’t enough quantity, it returns as many as possible.
+        // /// After splitting, this stack’s quantity decreases accordingly.
+        // /// </summary>
+        // public ItemStack Split(int count)
+        // {
+        //     if (IsEmpty || count <= 0)
+        //         return new ItemStack(); // Returns an empty stack
+        //
+        //     int actualCount = Mathf.Min(count, Quantity);
+        //     Quantity -= actualCount;
+        //     return new ItemStack(ItemData, actualCount);
+        // }
     }
 }

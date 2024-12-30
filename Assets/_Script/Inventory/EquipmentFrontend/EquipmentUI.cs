@@ -79,5 +79,15 @@ namespace _Script.Inventory.EquipmentFrontend
         {
             return false;
         }
+        
+        public Vector2Int GetSlotPosition(int slotIndex)
+        {
+            return Vector2Int.zero;
+        }
+
+        public int GetSlotIndex(Vector2Int position)
+        {
+            return 0;
+        }
     }
 }
