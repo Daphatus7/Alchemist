@@ -140,7 +140,7 @@ namespace _Script.Inventory.SlotFrontend
             }
         }
         
-        private bool CanDrop(InventorySlotDisplay sourceSlot)
+        private bool CanDrop()
         {
             // Determine if dropping into this slot is allowed
             switch (SlotType)
@@ -238,7 +238,7 @@ namespace _Script.Inventory.SlotFrontend
                 return;
             }
             
-            if (!CanDrop(sourceSlot))
+            if (!CanDrop())
             {
                 //Return the item to where it was
                 Debug.Log("Cannot drop item here, now returning to source slot");
@@ -390,12 +390,14 @@ namespace _Script.Inventory.SlotFrontend
                 //if there is only one item, then swap the items
                 if(count == 1)
                 {
-                    
+                    //Remove the item from the slot
+                    //Add the item in the DragItem to the slot
+                    //Add the Item from the slot to the DragItem
                 }
                 //if there are more than one item, Don't Swap Item and let the item hang in the air
                 else
                 {
-                    Debug.Log("Cannot swap item, there are more than one item in the area");
+                    //Do nothing, maybe add a visual feedback, in later versions
                 }
             }
         }
