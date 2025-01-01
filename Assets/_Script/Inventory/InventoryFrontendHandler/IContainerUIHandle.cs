@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.SlotFrontend;
 using UnityEngine;
@@ -17,5 +18,6 @@ namespace _Script.Inventory.InventoryFrontendHandler
         Vector2Int GetSlotPosition(int slotIndex);
         
         int GetSlotIndex(Vector2Int position);
+        int GetItemsCount(int shiftedPivotIndex, List<Vector2Int> peakItemStack);
     }
 }

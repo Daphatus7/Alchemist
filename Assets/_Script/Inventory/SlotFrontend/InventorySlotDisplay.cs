@@ -107,6 +107,11 @@ namespace _Script.Inventory.SlotFrontend
 
         public virtual void OnSlotClicked()
         {
+            if (_isDragging)
+            {
+                return;
+            }
+    
             Debug.Log("Slot clicked: " + _slotIndex);
             _inventoryUI.OnSlotClicked(this);
         }
@@ -118,6 +123,8 @@ namespace _Script.Inventory.SlotFrontend
 
         #region Drag and Drop
 
+        private bool _isDragging;
+        
         private bool CanDrag()
         {
             // Decide if dragging is allowed based on slot type
@@ -140,7 +147,9 @@ namespace _Script.Inventory.SlotFrontend
             {
                 case SlotType.Merchant:
                     if (_inventoryUI is IMerchantHandler merchant)
-                        return sourceSlot._currentStack?.IsEmpty == false && merchant.AcceptsItem(sourceSlot._currentStack);
+                    {
+                        return !DragItem.Instance.PeakItemStack().IsEmpty && merchant.AcceptsItem(DragItem.Instance.PeakItemStack());
+                    }
                     return false;
                 case SlotType.ActionBar:
                 case SlotType.PlayerInventory:
@@ -154,7 +163,8 @@ namespace _Script.Inventory.SlotFrontend
         public void OnBeginDrag(PointerEventData eventData)
         {
             if (!CanDrag() || _currentStack?.IsEmpty != false) return;
-
+            _isDragging = true;
+            
             icon.raycastTarget = false;
             if (dragItem == null)
                 dragItem = Instantiate(dragItemPrefab, canvas.transform);
@@ -190,23 +200,33 @@ namespace _Script.Inventory.SlotFrontend
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            
-            if (!CanDrag()) return;
+            // 1. 做最小化的 UI 收尾
             if (dragItem != null)
             {
                 dragItem.SetActive(false);
                 icon.color = Color.white;
             }
-            
             icon.raycastTarget = true;
+
+            // 2. 检查是否有有效的目标
+            var dropTarget = eventData.pointerEnter;
+            bool hasDropTarget = (dropTarget != null && dropTarget.GetComponent<IDropHandler>() != null);
+
+            // 3. 如果没有目标，就把物品还原
+            if (!hasDropTarget)
+            {
+                ReturnItemToSourceSlot(this);
+            }
+            // 如果有目标，让 OnDrop 去做真正的数据处理，这里就不清空/销毁
         }
 
         public void OnDrop(PointerEventData eventData)
         {
-            // Drag end, release in this slot
+            
             var sourceSlot = eventData.pointerDrag?.GetComponent<InventorySlotDisplay>();
-            if (sourceSlot == null)
-                return;
+            
+            if (sourceSlot == null) return;
+            
             // Cache itemData for performance
             
             var itemData = DragItem.Instance.PeakItemStack().ItemData;
@@ -214,13 +234,14 @@ namespace _Script.Inventory.SlotFrontend
             // Prevent placing a ContainerItem inside another Container (Bag)
             if (itemData is ContainerItem && _slotType == SlotType.Bag)
             {
-                Debug.LogWarning("Cannot place a ContainerItem inside another Container (Bag).");
+                Debug.Log("Cannot place a ContainerItem inside another Container (Bag).");
                 return;
             }
             
             if (!CanDrop(sourceSlot))
             {
                 //Return the item to where it was
+                Debug.Log("Cannot drop item here, now returning to source slot");
                 ReturnItemToSourceSlot(sourceSlot);
                 return;
             }
@@ -228,7 +249,7 @@ namespace _Script.Inventory.SlotFrontend
             // Determine drag type
             var dragType = GetDragType(sourceSlot);
             
-
+            Debug.Log("Drag Type: " + dragType);
             switch (dragType)
             {
                 case DragType.Swap:
@@ -237,35 +258,41 @@ namespace _Script.Inventory.SlotFrontend
                 case DragType.Buy:
                     if (sourceSlot._inventoryUI is IMerchantHandler merchant && _inventoryUI is IPlayerInventoryHandler player)
                     {
-                        var purchasedItem = merchant.Purchase(player, sourceSlot._slotIndex);
+                        var purchasedItem = DragItem.Instance.PeakItemStack();
                         //if the purchased item is not empty
                         if (purchasedItem?.IsEmpty == false)
                         {
-                            //if the current slot is not empty
-                            if (_currentStack?.IsEmpty == false)
+                            if (merchant.Purchase(player, purchasedItem, purchasedItem.Quantity))
                             {
-                                Debug.Log("Current slot is not empty");
-                                var remainingItem = _inventoryUI.AddItem(purchasedItem);
-
-                                if (remainingItem?.IsEmpty == false)
+                                //if can fit the item in the player inventory
+                                if (player.CanFitItem(_slotIndex, purchasedItem))
                                 {
-                                    Debug.Log("Not enough space in inventory!");
+                                    _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemStack(), _slotIndex);
+                                }
+                                else
+                                {
+                                    _inventoryUI.AddItem(DragItem.Instance.RemoveItemStack());
                                 }
                             }
                             else
                             {
-                                _inventoryUI.AddItemToEmptySlot(purchasedItem, _slotIndex);
+                                Debug.Log("You have no money");
                             }
+
+                        }
+                        else
+                        {
+                            throw new Exception("Purchased item is empty");
                         }
                     }
                     break;
                 case DragType.Sell:
+                    Debug.Log("Sell item");
                     if (sourceSlot._inventoryUI is IPlayerInventoryHandler playerInv && _inventoryUI is IMerchantHandler merchantSelf)
                     {
-                        if (merchantSelf.Sell(playerInv, sourceSlot))
+                        if (merchantSelf.Sell(playerInv, DragItem.Instance.PeakItemStack()))
                         {
-                            _inventoryUI.AddItem(sourceSlot._currentStack);
-                            sourceSlot._inventoryUI.RemoveAllItemsFromSlot(sourceSlot._slotIndex);
+                            _inventoryUI.AddItem(DragItem.Instance.RemoveItemStack());
                         }
                         else
                         {
@@ -343,39 +370,33 @@ namespace _Script.Inventory.SlotFrontend
         /// </summary>
         private void SwapItems(InventorySlotDisplay source)
         {
-            if (_currentStack == null || _currentStack.IsEmpty)
+            
+            //
+            var pivot = DragItem.Instance.PeakItemStack().PivotPosition;
+            var shiftVector = _inventoryUI.GetSlotPosition(_slotIndex) - source._inventoryUI.GetSlotPosition(source._slotIndex);
+            var shiftedPivot = shiftVector + pivot;
+            var shiftedPivotIndex = _inventoryUI.GetSlotIndex(shiftedPivot);
+                
+            if(_inventoryUI.CanFitItem(shiftedPivotIndex, DragItem.Instance.PeakItemStack()))
             {
-                var pivot = DragItem.Instance.PeakItemStack().PivotPosition;
-                
-                var shiftVector = _inventoryUI.GetSlotPosition(_slotIndex) - source._inventoryUI.GetSlotPosition(source._slotIndex);
-                var shiftedPivot = shiftVector + pivot;
-                var shiftedPivotIndex = _inventoryUI.GetSlotIndex(shiftedPivot);
-                
-                // Debug.Log("Pivot: " + pivot);
-                // Debug.Log("Shift Vector: " + shiftVector);
-                // Debug.Log("Shifted Pivot: " + shiftedPivot);
-                // Debug.Log("shiftedPivotIndex: " + shiftedPivotIndex);
-                
-                if(_inventoryUI.CanFitItem(shiftedPivotIndex
-                       , DragItem.Instance.PeakItemStack()))
-                {
-                    _inventoryUI.AddItemToEmptySlot(DragItem.Instance.PeakItemStack(), shiftedPivotIndex);
-                    //Clear the removed item from the slot
-                    DragItem.Instance.PeakItemStack().Clear();
-                }
-                else
-                {
-                    Debug.Log("Put the item back to the source slot");
-                    //假如之前的slot 由于各种原因，不再是空的了，怎么办？
-                    //先尝试把Item 放回去，如果没有成功，那么就是找过一个新的位置
-                    //如果新的位置也没有了，那么就「掉地上」（还没运行）
-                    source._inventoryUI.AddItemToEmptySlot(DragItem.Instance.PeakItemStack(), 
-                        source._inventoryUI.GetSlotIndex(pivot));
-                }
+                _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemStack(), shiftedPivotIndex);
+                //Clear the removed item from the slot
             }
+            //if cannot fit the item in the slot
             else
             {
-                Debug.Log("Error------");
+                //check how many items in the area,
+                int count = _inventoryUI.GetItemsCount(shiftedPivotIndex, DragItem.Instance.PeakItemStack().ItemData.ItemShape.Positions);
+                //if there is only one item, then swap the items
+                if(count == 1)
+                {
+                    
+                }
+                //if there are more than one item, Don't Swap Item and let the item hang in the air
+                else
+                {
+                    Debug.Log("Cannot swap item, there are more than one item in the area");
+                }
             }
         }
 

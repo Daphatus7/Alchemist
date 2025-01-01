@@ -150,9 +150,10 @@ namespace _Script.Inventory.InventoryBackend
             }
 
             // 1) Merge with existing partial stacks
-            for (int i = 0; i < _itemStacks.Capacity; i++)
+            
+            foreach(var item in _itemStacks)
             {
-                var existingStack = _itemStacks[i];
+                var existingStack = item;
                 if (!existingStack.IsEmpty &&
                     existingStack.ItemData == itemStackToAdd.ItemData &&
                     existingStack.Quantity < existingStack.ItemData.MaxStackSize)
@@ -164,7 +165,7 @@ namespace _Script.Inventory.InventoryBackend
                     if (remaining < oldQuantity)
                     {
                         // Some merging happened
-                        OnInventorySlotChangedEvent(i);
+                        OnInventorySlotChangedEvent(GridToSlotIndex(existingStack.PivotPosition.x, existingStack.PivotPosition.y));
                     }
                     
                     if (remaining == 0)
@@ -172,8 +173,8 @@ namespace _Script.Inventory.InventoryBackend
                         // Fully merged
                         return null;
                     }
-                }
-            }
+                }            }
+            
 
             // 2) Shape-based placement for leftover
             for (var i = 0; i < Capacity; i++)
@@ -469,8 +470,34 @@ namespace _Script.Inventory.InventoryBackend
             }
             return newStack;
         }
-        
-        
+
+
+        public int GetItemsCountAtPositions(int slotIndex, List<Vector2Int> ProjectedPositions)
+        {
+            if (slotIndex < 0 || slotIndex >= Capacity)
+            {
+                return 0;
+            }
+            
+            var foundItem = new Dictionary<ItemStack, int>();
+            foreach(var position in ProjectedPositions)
+            {
+                var realPosition = new Vector2Int(position.x + SlotIndexToGrid(slotIndex).x, position.y + SlotIndexToGrid(slotIndex).y);
+                var sIndex = GridToSlotIndex(realPosition.x, realPosition.y);
+                if (!slots[sIndex].IsEmpty)
+                {
+                    if (foundItem.ContainsKey(slots[sIndex].ItemStack))
+                    {
+                        foundItem[slots[sIndex].ItemStack]++;
+                    }
+                    else
+                    {
+                        foundItem.Add(slots[sIndex].ItemStack, 1);
+                    }
+                }
+            }
+            return foundItem.Count;
+        }
         
         
         

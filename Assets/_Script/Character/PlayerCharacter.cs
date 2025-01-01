@@ -345,7 +345,7 @@ namespace _Script.Character
         #endregion
 
         #region Player Inventory & Gold
-        [SerializeField] private int _gold = 10; public int Gold => _gold;
+        [SerializeField] private int _gold = 1000; public int Gold => _gold;
 
         [SerializeField] private int playerActionbarWidth = 6;
         [SerializeField] private int playerActionbarHeight = 2;

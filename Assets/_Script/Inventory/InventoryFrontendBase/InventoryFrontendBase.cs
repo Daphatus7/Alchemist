@@ -1,6 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 04 12 2024 12 31
 
+using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontend;
 using _Script.Inventory.InventoryFrontendHandler;
@@ -153,6 +154,11 @@ namespace _Script.Inventory.InventoryFrontendBase
         public int GetSlotIndex(Vector2Int position)
         {
             return _inventory.GridToSlotIndex(position.x, position.y);
+        }
+
+        public int GetItemsCount(int shiftedPivotIndex, List<Vector2Int> peakItemStack)
+        {
+            return _inventory.GetItemsCountAtPositions(shiftedPivotIndex, peakItemStack);
         }
     }
 }

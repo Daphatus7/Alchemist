@@ -8,8 +8,8 @@ namespace _Script.Inventory.InventoryFrontendHandler
 {
     public interface IMerchantHandler : IContainerUIHandle
     {
-        ItemStack Purchase(IPlayerInventoryHandler playerInventory, int slotIndex, int quantity = 1);
-        bool Sell(IPlayerInventoryHandler playerInventory, InventorySlotDisplay itemToSell);
+        bool Purchase(IPlayerInventoryHandler playerInventory, ItemStack itemToSell, int quantity = 1);
+        bool Sell(IPlayerInventoryHandler playerInventory, ItemStack itemToSell);
         bool AcceptTrade(string itemTypeString);
     }
 }

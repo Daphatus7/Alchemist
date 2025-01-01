@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontendHandler;
 using _Script.Inventory.SlotFrontend;
@@ -202,6 +203,11 @@ namespace _Script.Inventory.InventoryFrontend
         public int GetSlotIndex(Vector2Int position)
         {
             return _playerContainer.GridToSlotIndex(position.x, position.y);
+        }
+
+        public int GetItemsCount(int shiftedPivotIndex, List<Vector2Int> itemPositions)
+        {
+            return _playerContainer.GetItemsCountAtPositions(shiftedPivotIndex, itemPositions);
         }
     }
 }

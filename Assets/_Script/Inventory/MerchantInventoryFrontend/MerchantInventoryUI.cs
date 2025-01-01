@@ -10,6 +10,7 @@ using _Script.Managers;
 using _Script.NPC.NpcBackend;
 using _Script.UserInterface;
 using _Script.Utilities.ServiceLocator;
+using UnityEngine;
 
 namespace _Script.Inventory.MerchantInventoryFrontend
 {
@@ -54,13 +55,9 @@ namespace _Script.Inventory.MerchantInventoryFrontend
             return this;
         }
 
-        public ItemStack Purchase(IPlayerInventoryHandler playerInventory, int slotIndex, int quantity = 1)
+        public bool Purchase(IPlayerInventoryHandler playerInventory, ItemStack itemToSell, int quantity = 1)
         {
-            if(playerInventory.RemoveGold(_inventory.GetItemStackAt(slotIndex).ItemData.Value * _inventory.GetItemStackAt(slotIndex).Quantity))
-            {
-                return RemoveAllItemsFromSlot(slotIndex);;
-            }
-            return null;
+            return playerInventory.RemoveGold(itemToSell.ItemData.Value * itemToSell.Quantity);
         }
         
         
@@ -73,12 +70,14 @@ namespace _Script.Inventory.MerchantInventoryFrontend
         /// <param name="playerInventory"></param>
         /// <param name="itemToSell"></param>
         /// <returns></returns>
-        public bool Sell(IPlayerInventoryHandler playerInventory, InventorySlotDisplay itemToSell)
+        public bool Sell(IPlayerInventoryHandler playerInventory, ItemStack itemToSell)
         {
             //check if the merchant accepts the trade
-            if(AcceptTrade(itemToSell.ItemTypeName))
+            if(AcceptTrade(itemToSell.ItemData.ItemTypeString))
             {
-                playerInventory.AddGold(itemToSell.Value * itemToSell.Quantity);
+                var price = itemToSell.ItemData.Value * itemToSell.Quantity;
+                Debug.Log("Selling item for " + price + " gold.");
+                playerInventory.AddGold(price);
                 return true;
             }
             return false;
