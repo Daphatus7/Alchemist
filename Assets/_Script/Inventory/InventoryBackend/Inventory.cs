@@ -259,7 +259,7 @@ namespace _Script.Inventory.InventoryBackend
                 return false;
             }
             
-            Debug.Log("Cp " + SlotIndexToGrid(mySlot));
+//            Debug.Log("Cp " + SlotIndexToGrid(mySlot));
             
             return CanFitIn(SlotIndexToGrid(mySlot), comparingItemStack.ItemData.ItemShape, out List<Vector2Int> requiredSlots);    
         }
@@ -423,7 +423,7 @@ namespace _Script.Inventory.InventoryBackend
             var cItem = itemData as ContainerItem;
             var cStack = template as ContainerItemStack;
 
-            Debug.Log("Creating stack with " + itemData.ItemName + " at " + pivotPosition + " with quantity " + quantity);
+            //Debug.Log("Creating stack with " + itemData.ItemName + " at " + pivotPosition + " with quantity " + quantity);
             
             if (cItem && cStack != null)
             {
@@ -470,21 +470,30 @@ namespace _Script.Inventory.InventoryBackend
             }
             return newStack;
         }
-
-
-        public int GetItemsCountAtPositions(int slotIndex, List<Vector2Int> ProjectedPositions)
+        
+        public int GetItemsCountAtPositions(int pivotIndex
+            , List<Vector2Int> projectedPositions)
         {
-            if (slotIndex < 0 || slotIndex >= Capacity)
+
+            if (pivotIndex < 0 || pivotIndex >= Capacity)
             {
+                Debug.LogWarning("Invalid slot index.");
                 return 0;
             }
             
+            var itemPivot = SlotIndexToGrid(pivotIndex);
+            
             var foundItem = new Dictionary<ItemStack, int>();
-            foreach(var position in ProjectedPositions)
+            foreach(var offset in projectedPositions)
             {
-                var realPosition = new Vector2Int(position.x + SlotIndexToGrid(slotIndex).x, position.y + SlotIndexToGrid(slotIndex).y);
-                var sIndex = GridToSlotIndex(realPosition.x, realPosition.y);
-                if (!slots[sIndex].IsEmpty)
+                var offsetPos = itemPivot + offset;
+                var sIndex = GridToSlotIndex(offsetPos.x, offsetPos.y);
+                if(sIndex < 0 || sIndex >= Capacity)
+                {
+                    return Int32.MaxValue;
+                }
+                var slot = slots[sIndex];
+                if (!slot.IsEmpty)
                 {
                     if (foundItem.ContainsKey(slots[sIndex].ItemStack))
                     {

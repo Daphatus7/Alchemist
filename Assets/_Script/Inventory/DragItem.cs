@@ -17,7 +17,6 @@ namespace _Script.Inventory
         
         public void AddItemToDrag(ItemStack itemStack)
         {
-            Debug.Log("Adding item to drag" + itemStack.PivotPosition);
             _itemStack = itemStack;
             _image.sprite = itemStack.ItemData.itemIcon;
         }

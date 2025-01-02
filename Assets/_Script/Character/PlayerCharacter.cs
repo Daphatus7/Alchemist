@@ -477,7 +477,7 @@ namespace _Script.Character
 
         private bool AddSanity(float value)
         {
-            Debug.Log($"Adding {value} to sanity.");
+            //Debug.Log($"Adding {value} to sanity.");
             _sanity += value;
             if (_sanity < 0)
             {
@@ -574,7 +574,7 @@ namespace _Script.Character
             {
                 StopCoroutine(_playerSanityRoutine);
                 _playerSanityRoutine = null;
-                Debug.Log("Sanity routine stopped.");
+                //Debug.Log("Sanity routine stopped.");
             }
         }
 

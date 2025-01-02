@@ -200,6 +200,7 @@ namespace _Script.Inventory.SlotFrontend
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            _isDragging = false;
             // 1. 做最小化的 UI 收尾
             if (dragItem != null)
             {
@@ -207,17 +208,19 @@ namespace _Script.Inventory.SlotFrontend
                 icon.color = Color.white;
             }
             icon.raycastTarget = true;
-
+            
             // 2. 检查是否有有效的目标
-            var dropTarget = eventData.pointerEnter;
-            bool hasDropTarget = (dropTarget != null && dropTarget.GetComponent<IDropHandler>() != null);
-
-            // 3. 如果没有目标，就把物品还原
+            var dropTargetObj = eventData.pointerCurrentRaycast.gameObject;
+            bool hasDropTarget = dropTargetObj != null 
+                                 && dropTargetObj.GetComponent<IDropHandler>() != null;
+            
             if (!hasDropTarget)
             {
+                Debug.Log("No valid drop target found, returning item to source slot.");
                 ReturnItemToSourceSlot(this);
             }
-            // 如果有目标，让 OnDrop 去做真正的数据处理，这里就不清空/销毁
+
+            // Let OnDrop handle actual item placement logic if a valid target is found
         }
 
         public void OnDrop(PointerEventData eventData)
@@ -227,14 +230,14 @@ namespace _Script.Inventory.SlotFrontend
             
             if (sourceSlot == null) return;
             
-            // Cache itemData for performance
-            
-            var itemData = DragItem.Instance.PeakItemStack().ItemData;
+            var itemData = DragItem.Instance.PeakItemStack()?.ItemData;
+            if(itemData == null) return;
             
             // Prevent placing a ContainerItem inside another Container (Bag)
             if (itemData is ContainerItem && _slotType == SlotType.Bag)
             {
                 Debug.Log("Cannot place a ContainerItem inside another Container (Bag).");
+                ReturnItemToSourceSlot(sourceSlot);
                 return;
             }
             
@@ -310,8 +313,9 @@ namespace _Script.Inventory.SlotFrontend
         
         private void ReturnItemToSourceSlot(InventorySlotDisplay sourceSlot)
         {
-            //Return the item to where it was
-            sourceSlot._inventoryUI.AddItem(dragItem.GetComponent<DragItem>().RemoveItemStack());
+            if (DragItem.Instance.PeakItemStack() == null) return;
+            int pivotIndex = sourceSlot._inventoryUI.GetSlotIndex(DragItem.Instance.PeakItemStack().PivotPosition);
+            sourceSlot._inventoryUI.AddItemToEmptySlot(dragItem.GetComponent<DragItem>().RemoveItemStack(), pivotIndex);
         }
 
         private DragType GetDragType(InventorySlotDisplay sourceSlot)
@@ -371,35 +375,56 @@ namespace _Script.Inventory.SlotFrontend
         private void SwapItems(InventorySlotDisplay source)
         {
             
+            //目前假设两个物品在同一个背包里
             //
             var pivot = DragItem.Instance.PeakItemStack().PivotPosition;
             var shiftVector = _inventoryUI.GetSlotPosition(_slotIndex) - source._inventoryUI.GetSlotPosition(source._slotIndex);
             var shiftedPivot = shiftVector + pivot;
             var shiftedPivotIndex = _inventoryUI.GetSlotIndex(shiftedPivot);
-                
-            if(_inventoryUI.CanFitItem(shiftedPivotIndex, DragItem.Instance.PeakItemStack()))
+            
+            
+            //先检查是不是在同一个背包里
+            if (source.SlotType == SlotType)
             {
-                _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemStack(), shiftedPivotIndex);
-                //Clear the removed item from the slot
-            }
-            //if cannot fit the item in the slot
-            else
-            {
-                //check how many items in the area,
                 int count = _inventoryUI.GetItemsCount(shiftedPivotIndex, DragItem.Instance.PeakItemStack().ItemData.ItemShape.Positions);
-                //if there is only one item, then swap the items
-                if(count == 1)
+                if(count == 0)
                 {
-                    //Remove the item from the slot
-                    //Add the item in the DragItem to the slot
-                    //Add the Item from the slot to the DragItem
+                    if(_inventoryUI.CanFitItem(shiftedPivotIndex, DragItem.Instance.PeakItemStack()))
+                    {
+                        _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemStack(), shiftedPivotIndex);
+                    }
+                    else
+                    {
+                        Debug.Log("Can't fit the item");
+                        ReturnItemToSourceSlot(source);
+                    }
                 }
-                //if there are more than one item, Don't Swap Item and let the item hang in the air
+                else if (count == 1) //如果只有一个 物品，并且能放下。
+                {
+                    Debug.Log("Only one item and can fit");
+                    var removedItem = _inventoryUI.RemoveAllItemsFromSlot(shiftedPivotIndex);//先移除
+                    _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemStack(), shiftedPivotIndex);//再添加
+                    DragItem.Instance.AddItemToDrag(removedItem);//移除的物品添加到drag item 里面
+                }
                 else
                 {
-                    //Do nothing, maybe add a visual feedback, in later versions
+                    //把东西放回去
+                    ReturnItemToSourceSlot(source);
                 }
             }
+            //如果不是 先报错
+            else
+            {
+                throw new Exception("还没有应用跨背包交换物品的功能");
+            }
+            
+            
+            //先检查重叠多少物品
+            
+            // Index 是对的
+            
+            //但是
+            
         }
 
         private void SetDragItemPosition(PointerEventData eventData)
