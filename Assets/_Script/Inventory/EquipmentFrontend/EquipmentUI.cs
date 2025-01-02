@@ -91,8 +91,9 @@ namespace _Script.Inventory.EquipmentFrontend
             return 0;
         }
 
-        public int GetItemsCount(int shiftedPivotIndex, List<Vector2Int> peakItemStack)
+        public int GetItemsCount(int shiftedPivotIndex, List<Vector2Int> peakItemStack, out int onlyItemIndex)
         {
+            onlyItemIndex = -1;
             return 0;
         }
     }

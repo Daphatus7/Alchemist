@@ -156,9 +156,9 @@ namespace _Script.Inventory.InventoryFrontendBase
             return _inventory.GridToSlotIndex(position.x, position.y);
         }
 
-        public int GetItemsCount(int shiftedPivotIndex, List<Vector2Int> peakItemStack)
+        public int GetItemsCount(int shiftedPivotIndex, List<Vector2Int> peakItemStack, out int onlyItemIndex)
         {
-            return _inventory.GetItemsCountAtPositions(shiftedPivotIndex, peakItemStack);
+            return _inventory.GetItemsCountAtPositions(shiftedPivotIndex, peakItemStack, out onlyItemIndex);
         }
     }
 }

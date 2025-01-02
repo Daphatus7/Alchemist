@@ -12,7 +12,7 @@ using Object = UnityEngine.Object;
 
 namespace _Script.Inventory.SlotFrontend
 {
-    public class InventorySlotDisplay : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+    public class InventorySlotDisplay : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerClickHandler
     {
         [SerializeField] private Image icon;
         [SerializeField] private TextMeshProUGUI quantityText;
@@ -43,16 +43,6 @@ namespace _Script.Inventory.SlotFrontend
 
         public void InitializeInventorySlot(IContainerUIHandle inventoryUI, int slotIndex, SlotType slotType)
         {
-            //ToDo: When the slot is initialized, it will move to the corresponding grid location
-            
-            /**
-             *
-             *
-             *
-             *
-             * 
-             */
-            
             _inventoryUI = inventoryUI;
             _slotIndex = slotIndex;
             _slotType = slotType;
@@ -66,15 +56,15 @@ namespace _Script.Inventory.SlotFrontend
             _slotType = slotType;
             highlight.enabled = false;
         }
-
-        private void OnEnable()
+        
+        public void OnPointerClick(PointerEventData eventData)
         {
-            slotButton?.onClick.AddListener(OnSlotClicked);
-        }
-
-        private void OnDisable()
-        {
-            slotButton?.onClick.RemoveListener(OnSlotClicked);
+            Debug.Log("Click on slot: " + _slotIndex);
+            if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                Debug.Log("Right click on slot: " + _slotIndex);
+                OnSlotClicked();
+            }
         }
 
         /// <summary>
@@ -386,7 +376,7 @@ namespace _Script.Inventory.SlotFrontend
             //先检查是不是在同一个背包里
             if (source.SlotType == SlotType)
             {
-                int count = _inventoryUI.GetItemsCount(shiftedPivotIndex, DragItem.Instance.PeakItemStack().ItemData.ItemShape.Positions);
+                int count = _inventoryUI.GetItemsCount(shiftedPivotIndex, DragItem.Instance.PeakItemStack().ItemData.ItemShape.Positions, out var onlyItemIndex);
                 if(count == 0)
                 {
                     if(_inventoryUI.CanFitItem(shiftedPivotIndex, DragItem.Instance.PeakItemStack()))
@@ -398,13 +388,6 @@ namespace _Script.Inventory.SlotFrontend
                         Debug.Log("Can't fit the item");
                         ReturnItemToSourceSlot(source);
                     }
-                }
-                else if (count == 1) //如果只有一个 物品，并且能放下。
-                {
-                    Debug.Log("Only one item and can fit");
-                    var removedItem = _inventoryUI.RemoveAllItemsFromSlot(shiftedPivotIndex);//先移除
-                    _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemStack(), shiftedPivotIndex);//再添加
-                    DragItem.Instance.AddItemToDrag(removedItem);//移除的物品添加到drag item 里面
                 }
                 else
                 {

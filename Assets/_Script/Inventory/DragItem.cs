@@ -9,11 +9,14 @@ namespace _Script.Inventory
     {
         private Image _image;
         private ItemStack _itemStack;
+        
         protected override void Awake()
         {
             base.Awake();
             _image = GetComponent<Image>();
         }
+        
+        
         
         public void AddItemToDrag(ItemStack itemStack)
         {

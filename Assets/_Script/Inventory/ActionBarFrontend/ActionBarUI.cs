@@ -249,9 +249,9 @@ namespace _Script.Inventory.ActionBarFrontend
             return _playerInventory.GridToSlotIndex(position.x , position.y);
         }
 
-        public int GetItemsCount(int shiftedPivotIndex, List<Vector2Int> peakItemStack)
+        public int GetItemsCount(int shiftedPivotIndex, List<Vector2Int> peakItemStack, out int onlyItemIndex)
         {
-            return _playerInventory.GetItemsCountAtPositions(shiftedPivotIndex, peakItemStack);
+            return _playerInventory.GetItemsCountAtPositions(shiftedPivotIndex, peakItemStack, out onlyItemIndex);
         }
     }
 }

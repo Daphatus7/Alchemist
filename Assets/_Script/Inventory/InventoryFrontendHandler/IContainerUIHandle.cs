@@ -18,6 +18,6 @@ namespace _Script.Inventory.InventoryFrontendHandler
         Vector2Int GetSlotPosition(int slotIndex);
         
         int GetSlotIndex(Vector2Int position);
-        int GetItemsCount(int shiftedPivotIndex, List<Vector2Int> peakItemStack);
+        int GetItemsCount(int shiftedPivotIndex, List<Vector2Int> peakItemStack, out int onlyItemIndex);
     }
 }

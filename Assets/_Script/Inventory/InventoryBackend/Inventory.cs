@@ -472,8 +472,9 @@ namespace _Script.Inventory.InventoryBackend
         }
         
         public int GetItemsCountAtPositions(int pivotIndex
-            , List<Vector2Int> projectedPositions)
+            , List<Vector2Int> projectedPositions, out int overlapIndex)
         {
+            overlapIndex = -1;
 
             if (pivotIndex < 0 || pivotIndex >= Capacity)
             {
@@ -495,13 +496,10 @@ namespace _Script.Inventory.InventoryBackend
                 var slot = slots[sIndex];
                 if (!slot.IsEmpty)
                 {
-                    if (foundItem.ContainsKey(slots[sIndex].ItemStack))
+                    overlapIndex = sIndex; //Any overlap index, but only if the count is 1 will be considered
+                    if (!foundItem.TryAdd(slots[sIndex].ItemStack, 1))
                     {
                         foundItem[slots[sIndex].ItemStack]++;
-                    }
-                    else
-                    {
-                        foundItem.Add(slots[sIndex].ItemStack, 1);
                     }
                 }
             }
@@ -535,4 +533,6 @@ namespace _Script.Inventory.InventoryBackend
             return (x >= 0 && x < _width && y >= 0 && y < _height);
         }
     }
+
+ 
 }
