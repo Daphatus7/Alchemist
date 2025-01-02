@@ -12,7 +12,12 @@ using Object = UnityEngine.Object;
 
 namespace _Script.Inventory.SlotFrontend
 {
-    public class InventorySlotDisplay : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerClickHandler
+    public class InventorySlotDisplay : MonoBehaviour, 
+        IBeginDragHandler, 
+        IDragHandler, 
+        IEndDragHandler, 
+        IDropHandler, 
+        IPointerClickHandler
     {
         [SerializeField] private Image icon;
         [SerializeField] private TextMeshProUGUI quantityText;
@@ -59,11 +64,9 @@ namespace _Script.Inventory.SlotFrontend
         
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log("Click on slot: " + _slotIndex);
             if (eventData.button == PointerEventData.InputButton.Right)
             {
-                Debug.Log("Right click on slot: " + _slotIndex);
-                OnSlotClicked();
+                HandleRightClick();
             }
         }
 
@@ -95,7 +98,7 @@ namespace _Script.Inventory.SlotFrontend
             quantityText.text = "";
         }
 
-        public virtual void OnSlotClicked()
+        public virtual void HandleRightClick()
         {
             if (_isDragging)
             {

@@ -827,7 +827,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 100}
+  m_SizeDelta: {x: 300, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &570262570
 MonoBehaviour:
@@ -2920,6 +2920,11 @@ PrefabInstance:
       objectReference: {fileID: 1361047259}
     - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
         type: 3}
+      propertyPath: _gold
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
       propertyPath: health
       value: 100
       objectReference: {fileID: 0}
@@ -2953,6 +2958,11 @@ PrefabInstance:
       propertyPath: _inventoryManager
       value: 
       objectReference: {fileID: 1219950251}
+    - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: playerActionbarHeight
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
         type: 3}
       propertyPath: playerActionbarCapacity
