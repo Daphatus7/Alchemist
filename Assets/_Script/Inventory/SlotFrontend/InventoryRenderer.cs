@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using _Script.Inventory.InventoryFrontendBase;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -27,7 +28,8 @@ namespace _Script.Inventory.SlotFrontend
 
         private void Awake()
         {
-            _inventory = GetComponent<InventoryBackend.Inventory>();
+            var inv = GetComponent<InventoryUIBase<InventoryBackend.Inventory>>();
+            
         }
 
         private void Start()
