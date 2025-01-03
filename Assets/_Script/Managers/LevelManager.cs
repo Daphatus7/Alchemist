@@ -114,12 +114,12 @@ namespace _Script.Managers
             var asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             while (!asyncLoad.isDone)
             {
-                Debug.Log($"Loading main scene {sceneName}: {asyncLoad.progress * 100}%");
+               // Debug.Log($"Loading main scene {sceneName}: {asyncLoad.progress * 100}%");
                 yield return null;
             }
 
             _currentMainScene = sceneName;
-            Debug.Log($"Main scene '{sceneName}' loaded.");
+            //Debug.Log($"Main scene '{sceneName}' loaded.");
         }
 
         private IEnumerator AddSceneAsync(NodeData nodeData)

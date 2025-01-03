@@ -24,7 +24,7 @@ namespace _Script.Inventory.InventoryFrontendBase
         private readonly List<InventorySlotDisplay> _slotUIs = new List<InventorySlotDisplay>();
 
         
-        protected InventorySlotInteraction[] _slotDisplays;
+        protected InventorySlotInteraction[] _slotInteractions;
 
         protected void Awake()
         {
@@ -38,25 +38,29 @@ namespace _Script.Inventory.InventoryFrontendBase
         public void ShowUI()
         {
             gameObject.SetActive(true);
+            inventory.OnItemStackChanged -= UpdateItemStacks;
             inventory.OnItemStackChanged += UpdateItemStacks;
+            
+            inventory.OnInventorySlotChanged -= UpdateSlotUI;
+            inventory.OnInventorySlotChanged += UpdateSlotUI;
         }
         
         public void HideUI()
         {
             inventory.OnItemStackChanged -= UpdateItemStacks;
+            inventory.OnInventorySlotChanged -= UpdateSlotUI;
+            
             gameObject.SetActive(false);
         }
         
         protected virtual void AssignInventory(TInventory inventory)
         {
             this.inventory = inventory;
-            inventory.OnInventorySlotChanged += UpdateSlotUI;
         }
 
         protected virtual void ClearInventory()
         {
             //remove inventory slots
-            inventory.OnInventorySlotChanged -= UpdateSlotUI;
             inventory = null;
             ClearAllSlotsUI();
         }
@@ -64,6 +68,7 @@ namespace _Script.Inventory.InventoryFrontendBase
         private void OnDestroy()
         {
             inventory.OnInventorySlotChanged -= UpdateSlotUI;
+            inventory.OnItemStackChanged -= UpdateItemStacks;
         }
         
         
@@ -75,7 +80,7 @@ namespace _Script.Inventory.InventoryFrontendBase
                 Destroy(child.gameObject);
             }
             
-            _slotDisplays = new InventorySlotInteraction[inventory.Capacity];
+            _slotInteractions = new InventorySlotInteraction[inventory.Capacity];
             
             
             for (int i = 0; i < inventory.Capacity; i++)
@@ -84,41 +89,41 @@ namespace _Script.Inventory.InventoryFrontendBase
                 InventorySlotInteraction inventorySlotInteraction = slot.GetComponent<InventorySlotInteraction>();
                 // Initialize the slot
                 inventorySlotInteraction.InitializeInventorySlot(this, i, inventory.SlotType);
-                _slotDisplays[i] = inventorySlotInteraction;
+                _slotInteractions[i] = inventorySlotInteraction;
                 // Set the slot's initial item
                 inventorySlotInteraction.SetSlot(inventory.GetItemStackAt(i));
             }
             
             for (int i = 0; i < inventory.ItemStacks.Count ; i++)
             {
-                _slotDisplays[i].SetSlot(inventory.GetItemStackAt(i));
+                _slotInteractions[i].SetSlot(inventory.GetItemStackAt(i));
             }
         }
         
         // Update all slots in the UI
         protected void UpdateAllSlotsUI()
         {
-            for (int i = 0; i < _slotDisplays?.Length; i++)
+            for (int i = 0; i < _slotInteractions?.Length; i++)
             {
-                _slotDisplays[i].SetSlot(inventory.GetItemStackAt(i));
+                _slotInteractions[i].SetSlot(inventory.GetItemStackAt(i));
             }
         }
 
         private void ClearAllSlotsUI()
         {
-            for (int i = 0; i < _slotDisplays?.Length; i++)
+            for (int i = 0; i < _slotInteractions?.Length; i++)
             {
-                _slotDisplays[i].ClearSlot();
+                _slotInteractions[i].ClearSlot();
             }
         }
         
         // Update a single slot in the UI
         protected virtual void UpdateSlotUI(int slotIndex)
         {
-            if (slotIndex < 0 || slotIndex >= _slotDisplays.Length)
+            if (slotIndex < 0 || slotIndex >= _slotInteractions.Length)
                 return;
 
-            InventorySlotInteraction slotInteraction = _slotDisplays[slotIndex];
+            InventorySlotInteraction slotInteraction = _slotInteractions[slotIndex];
             slotInteraction.SetSlot(inventory.GetItemStackAt(slotIndex));
         }
         
@@ -202,17 +207,44 @@ namespace _Script.Inventory.InventoryFrontendBase
         private void UpdateItemStacks()
         {
             Debug.Log("Updating item stacks");
+
+            // Clear old visuals if you always recreate
+            foreach (var slot in _slotUIs)
+            {
+                Destroy(slot.gameObject);
+            }
+            _slotUIs.Clear();
+
             foreach (var item in inventory.ItemStacks)
             {
+                if (item == null || item.IsEmpty) continue;
+
                 var newItemDisplay = Instantiate(slotVisualPrefab, slotVisualParent.transform);
-                newItemDisplay.transform.localPosition = Vector3.zero;
-                //May need to update location later
+
+                // Use anchoredPosition on the newItem's RectTransform
+                var rect = newItemDisplay.GetComponent<RectTransform>();
+                
+                rect.anchoredPosition = GetSlotVisualPosition(item.PivotPosition);
+
+                // For debugging
+                Debug.Log($"Pivot={item.PivotPosition}, anchoredPos={rect.anchoredPosition}");
+
                 var slotUI = newItemDisplay.GetComponent<InventorySlotDisplay>();
                 slotUI.SetSlotImage(item.ItemData.ItemSprite);
                 _slotUIs.Add(slotUI);
             }
         }
+
+        private Vector2 GetSlotVisualPosition(Vector2Int pivotPosition)
+        {
+            const float cellSize = 50f;
+
+            // If row 0 is top, invert y
+            float posX = pivotPosition.y * cellSize + cellSize/2;
+            float posY = - cellSize/2 - pivotPosition.x * cellSize;
+
+            return new Vector2(posX, posY);
+        }
         #endregion
-        
     }
 }

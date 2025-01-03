@@ -3,20 +3,14 @@
 
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 namespace _Script.Inventory.SlotFrontend
 {
     public class InventorySlotDisplay : MonoBehaviour
     {
-        private Image _slotImage;
-        private TextMeshProUGUI _slotText;
-        
-        private void Awake()
-        {
-            _slotImage = GetComponent<Image>();
-            _slotText = GetComponentInChildren<TextMeshProUGUI>();
-        }
+        [SerializeField] private Image _slotImage;
+        [SerializeField] private TextMeshProUGUI _slotText;
         
         public void SetSlotImage(Sprite sprite)
         {

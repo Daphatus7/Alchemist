@@ -24,6 +24,9 @@ namespace _Script.Inventory.SlotFrontend
         private static GameObject dragItem;
         private static Canvas canvas;
 
+        [SerializeField] private bool isDebug;
+        [SerializeField] private TextMeshProUGUI debugText;
+        
         private int _slotIndex; public int SlotIndex => _slotIndex;
 
 
@@ -40,6 +43,14 @@ namespace _Script.Inventory.SlotFrontend
         private void Start()
         {
             canvas = GetComponentInParent<Canvas>();
+            if (isDebug)
+            {
+                debugText.gameObject.SetActive(true);
+            }
+            else
+            {
+                debugText.gameObject.SetActive(false);
+            }
         }
 
         public void InitializeInventorySlot(IContainerUIHandle inventoryUI, int slotIndex, SlotType slotType)
@@ -65,11 +76,24 @@ namespace _Script.Inventory.SlotFrontend
             _currentStack = stack;
             if (_currentStack?.IsEmpty == false)
             {
-        
             }
             else
             {
                 ClearSlot();
+            }
+
+       
+            // If we're debugging, show slot & item info in the debugText
+            if (isDebug && debugText != null)
+            {
+                // Build a multi-line string showing relevant data
+                string itemName = (_currentStack != null && !_currentStack.IsEmpty)
+                    ? _currentStack.ItemData.ItemName
+                    : "Empty";
+
+                debugText.text =
+                    $"<b></b> {itemName}\n" +
+                    $"<b></b> {(_currentStack?.Quantity ?? 0)}";
             }
         }
         
@@ -204,12 +228,13 @@ namespace _Script.Inventory.SlotFrontend
 
         public void OnDrop(PointerEventData eventData)
         {
-            
             var sourceSlot = eventData.pointerDrag?.GetComponent<InventorySlotInteraction>();
             
             if (sourceSlot == null) return;
-            
+            Debug.Log("Dropped item on slot: " + DragItem.Instance);
+            Debug.Log("Dropped item on slot: " + DragItem.Instance.PeakItemStack());
             var itemData = DragItem.Instance.PeakItemStack()?.ItemData;
+            Debug.Log("ItemData: " + itemData);
             if(itemData == null) return;
             
             // Prevent placing a ContainerItem inside another Container (Bag)

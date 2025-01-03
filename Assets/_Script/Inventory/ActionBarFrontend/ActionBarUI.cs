@@ -29,7 +29,7 @@ namespace _Script.Inventory.ActionBarFrontend
         {
             //Case 1: Invalid slot index
             // do nothing
-            if (slotIndex < 0 || slotIndex >= _slotDisplays.Length)
+            if (slotIndex < 0 || slotIndex >= _slotInteractions.Length)
             {
                 Debug.LogWarning("Invalid slot index.");
                 return;
@@ -44,7 +44,7 @@ namespace _Script.Inventory.ActionBarFrontend
                 Debug.LogWarning("No item in slot.");
                 //still deselect the previous item
                 DeselectPreviousSlot();
-                _selectedSlotInteraction = _slotDisplays[slotIndex];
+                _selectedSlotInteraction = _slotInteractions[slotIndex];
                 _selectedSlotInteraction?.HighlightSlot();
                 
                 inventory.OnSelectNone();
@@ -71,7 +71,7 @@ namespace _Script.Inventory.ActionBarFrontend
         
         private void SetSelectedSlot(int slotIndex)
         {
-            _selectedSlotInteraction = _slotDisplays[slotIndex];
+            _selectedSlotInteraction = _slotInteractions[slotIndex];
             _selectedSlotInteraction.HighlightSlot();
             inventory.OnSelectItem(slotIndex);
         }

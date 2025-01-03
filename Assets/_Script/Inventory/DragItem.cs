@@ -20,6 +20,7 @@ namespace _Script.Inventory
         
         public void AddItemToDrag(ItemStack itemStack)
         {
+            Debug.Log("Adding item to drag" + itemStack.ItemData.itemName);
             _itemStack = itemStack;
             _image.sprite = itemStack.ItemData.itemIcon;
         }

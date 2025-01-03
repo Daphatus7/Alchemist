@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 39.3, y: -53.3}
+  m_AnchoredPosition: {x: 14.6, y: -21.9}
   m_SizeDelta: {x: 32.652, y: 11.1054}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &132348167840443086
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 7444709448424529558}
   - component: {fileID: 3650354680517493879}
   m_Layer: 5
-  m_Name: InventorySlotVisual
+  m_Name: InventorySlotDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -173,10 +173,10 @@ RectTransform:
   - {fileID: 3554926243876566066}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8403968276971750189
 MonoBehaviour:
@@ -190,6 +190,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8c35c9368864215b3f9e209e405e16d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slotImage: {fileID: 3650354680517493879}
+  _slotText: {fileID: 8957790987737646131}
 --- !u!222 &7444709448424529558
 CanvasRenderer:
   m_ObjectHideFlags: 0
