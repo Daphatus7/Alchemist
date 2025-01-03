@@ -10,18 +10,18 @@ namespace _Script.Inventory.EquipmentFrontend
 {
     public class EquipmentUI : MonoBehaviour, IEquipmentUIHandle
     {
-        private InventorySlotDisplay _headSlot;
-        private InventorySlotDisplay _chestSlot;
-        private InventorySlotDisplay _weaponSlot;
+        private InventorySlotInteraction _headSlot;
+        private InventorySlotInteraction _chestSlot;
+        private InventorySlotInteraction _weaponSlot;
         [SerializeField] private GameObject slotPrefab;
         [SerializeField] private PlayerEquipmentInventory playerEquipmentInventory;
         [SerializeField] private GameObject equipmentPanel;
 
         private void Awake()
         {
-            _headSlot = Instantiate(slotPrefab, equipmentPanel.transform).GetComponent<InventorySlotDisplay>();
-            _chestSlot = Instantiate(slotPrefab, equipmentPanel.transform).GetComponent<InventorySlotDisplay>();
-            _weaponSlot = Instantiate(slotPrefab, equipmentPanel.transform).GetComponent<InventorySlotDisplay>();
+            _headSlot = Instantiate(slotPrefab, equipmentPanel.transform).GetComponent<InventorySlotInteraction>();
+            _chestSlot = Instantiate(slotPrefab, equipmentPanel.transform).GetComponent<InventorySlotInteraction>();
+            _weaponSlot = Instantiate(slotPrefab, equipmentPanel.transform).GetComponent<InventorySlotInteraction>();
             
             _headSlot.InitializeInventorySlot(this, (int)PlayerEquipmentSlotType.Head, SlotType.Equipment);
             _chestSlot.InitializeInventorySlot(this, (int)PlayerEquipmentSlotType.Chest, SlotType.Equipment);
@@ -44,9 +44,9 @@ namespace _Script.Inventory.EquipmentFrontend
             _weaponSlot.SetSlot(playerEquipmentInventory.GetEquipment(PlayerEquipmentSlotType.Weapon));
         }
         
-        public void OnSlotClicked(InventorySlotDisplay slotDisplay)
+        public void OnSlotClicked(InventorySlotInteraction slotInteraction)
         {
-            playerEquipmentInventory.UnequipItem(slotDisplay.SlotIndex);
+            playerEquipmentInventory.UnequipItem(slotInteraction.SlotIndex);
         }
 
         public ItemStack RemoveAllItemsFromSlot(int slotIndex)

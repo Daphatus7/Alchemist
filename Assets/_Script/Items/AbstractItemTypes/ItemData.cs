@@ -36,6 +36,7 @@ namespace _Script.Items.AbstractItemTypes
             public ItemShapeType itemShapeType = ItemShapeType.Square11;
             public ItemShape ItemShape => new ItemShape(itemShapeType);
 
+            
 
             [SerializeField, Tooltip("Rarity of the item")]
             public Rarity rarity;
@@ -134,6 +135,33 @@ namespace _Script.Items.AbstractItemTypes
             public bool CompareShapes(ItemShape other)
             { 
                 return other._shapeType == _shapeType;
+            }
+            
+            
+            public Vector2 IconScale
+            {
+                get
+                {
+                    switch (_shapeType)
+                    {
+                        case ItemShapeType.Square11:
+                            return new Vector2(1, 1);
+                        case ItemShapeType.Square22:
+                            return new Vector2(2, 2);
+                        case ItemShapeType.Rectangle12:
+                            return _isRotated ? new Vector2(2, 1) : new Vector2(1, 2);
+                        case ItemShapeType.Rectangle23:
+                            return _isRotated ? new Vector2(3, 2) : new Vector2(2, 3);
+                        case ItemShapeType.Circle1:
+                            return new Vector2(3, 3);
+                        case ItemShapeType.LShape2:
+                            return new Vector2(2, 2);
+                        case ItemShapeType.LShape3:
+                            return new Vector2(3, 3);
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
             }
             
             /// <summary>

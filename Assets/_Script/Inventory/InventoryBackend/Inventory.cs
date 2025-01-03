@@ -125,6 +125,8 @@ namespace _Script.Inventory.InventoryBackend
 
         // Event: inventory changed at a slot index
         public event Action<int> OnInventorySlotChanged;
+        
+        public event Action OnItemStackChanged;
 
         // Helper method to invoke the event
         public void OnInventorySlotChangedEvent(int slotIndex)
@@ -173,7 +175,8 @@ namespace _Script.Inventory.InventoryBackend
                         // Fully merged
                         return null;
                     }
-                }            }
+                }            
+            }
             
 
             // 2) Shape-based placement for leftover
@@ -313,6 +316,7 @@ namespace _Script.Inventory.InventoryBackend
                 OnInventorySlotChangedEvent(sIndex);
             }
             _itemStacks.Remove(itemStack);
+            OnOnItemStackChanged();
         }
 
         public void AddItemToEmptySlot(ItemStack itemStack, int slotIndex)
@@ -322,6 +326,7 @@ namespace _Script.Inventory.InventoryBackend
                 // Actually place the item
                 ItemStack placedStack = CreateItemStackAtLocation(requiredSlots, slotIndex, itemStack.ItemData, itemStack.Quantity, itemStack);
                 _itemStacks.Add(placedStack);
+                OnOnItemStackChanged();
                 OnInventorySlotChangedEvent(slotIndex);
             }
         }
@@ -531,6 +536,11 @@ namespace _Script.Inventory.InventoryBackend
         private bool IsInRange(int x, int y)
         {
             return (x >= 0 && x < _width && y >= 0 && y < _height);
+        }
+
+        protected void OnOnItemStackChanged()
+        {
+            OnItemStackChanged?.Invoke();
         }
     }
 

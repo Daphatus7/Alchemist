@@ -18,7 +18,7 @@ namespace _Script.Inventory.InventoryFrontend
         [SerializeField] private GameObject inventoryPanel;
         [SerializeField] private GameObject slotPrefab;
 
-        private InventorySlotDisplay[] _slotDisplays;
+        private InventorySlotInteraction[] _slotDisplays;
         private bool _initialized = false;
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace _Script.Inventory.InventoryFrontend
             _playerContainer.OnInventorySlotChanged += UpdateSlotUI;
 
             int capacity = _playerContainer.Capacity;
-            _slotDisplays = new InventorySlotDisplay[capacity];
+            _slotDisplays = new InventorySlotInteraction[capacity];
 
             // Initialize the slot pool if not yet done (implementation not shown).
             if (!_initialized)
@@ -69,15 +69,15 @@ namespace _Script.Inventory.InventoryFrontend
 
             for (int i = 0; i < capacity; i++)
             {
-                InventorySlotDisplay inventorySlotDisplay = SlotPool.GetSlot();
-                inventorySlotDisplay.transform.SetParent(inventoryPanel.transform, false);
-                inventorySlotDisplay.transform.localScale = Vector3.one;
-                inventorySlotDisplay.InitializeInventorySlot(this, i, _playerContainer.SlotType);
-                inventorySlotDisplay.gameObject.SetActive(true);
-                _slotDisplays[i] = inventorySlotDisplay;
+                InventorySlotInteraction inventorySlotInteraction = SlotPool.GetSlot();
+                inventorySlotInteraction.transform.SetParent(inventoryPanel.transform, false);
+                inventorySlotInteraction.transform.localScale = Vector3.one;
+                inventorySlotInteraction.InitializeInventorySlot(this, i, _playerContainer.SlotType);
+                inventorySlotInteraction.gameObject.SetActive(true);
+                _slotDisplays[i] = inventorySlotInteraction;
 
                 // Set the initial item stack for this slot
-                inventorySlotDisplay.SetSlot(_playerContainer.GetItemStackAt(i));
+                inventorySlotInteraction.SetSlot(_playerContainer.GetItemStackAt(i));
             }
 
             // Optionally update all slots here to ensure full sync
@@ -127,17 +127,17 @@ namespace _Script.Inventory.InventoryFrontend
             if (_slotDisplays == null || slotIndex < 0 || slotIndex >= _slotDisplays.Length)
                 return;
 
-            InventorySlotDisplay slotDisplay = _slotDisplays[slotIndex];
-            slotDisplay.SetSlot(_playerContainer.GetItemStackAt(slotIndex));
+            InventorySlotInteraction slotInteraction = _slotDisplays[slotIndex];
+            slotInteraction.SetSlot(_playerContainer.GetItemStackAt(slotIndex));
         }
         
         /// <summary>
         /// Called when a slot is clicked. Forwards the event to the player container 
         /// to handle item usage or selection logic.
         /// </summary>
-        public void OnSlotClicked(InventorySlotDisplay slotDisplay)
+        public void OnSlotClicked(InventorySlotInteraction slotInteraction)
         {
-            _playerContainer.LeftClickItem(slotDisplay.SlotIndex);
+            _playerContainer.LeftClickItem(slotInteraction.SlotIndex);
         }
 
         /// <summary>

@@ -12,9 +12,9 @@ namespace _Script.Inventory.ActionBarFrontend
         [SerializeField] private GameObject inventoryPanel;
         [SerializeField] private GameObject slotPrefab;
         
-        private InventorySlotDisplay[] _inventorySlotDisplays;
+        private InventorySlotInteraction[] _inventorySlotDisplays;
         
-        private InventorySlotDisplay _selectedSlotDisplay;
+        private InventorySlotInteraction _selectedSlotInteraction;
 
         // private void OnEnable()
         // {
@@ -35,17 +35,17 @@ namespace _Script.Inventory.ActionBarFrontend
             int capacity = width * height;
 
             _playerInventory = playerInventory;
-            _inventorySlotDisplays = new InventorySlotDisplay[capacity];
+            _inventorySlotDisplays = new InventorySlotInteraction[capacity];
 
             //Initialize the inventory slot Displays
             for(int i = 0; i < _playerInventory.SlotCount; i++)
             {
                 GameObject slot = Instantiate(slotPrefab, inventoryPanel.transform);
-                InventorySlotDisplay inventorySlotDisplay = slot.GetComponent<InventorySlotDisplay>();
-                _inventorySlotDisplays[i] = inventorySlotDisplay;
+                InventorySlotInteraction inventorySlotInteraction = slot.GetComponent<InventorySlotInteraction>();
+                _inventorySlotDisplays[i] = inventorySlotInteraction;
                 // Initialize the slot
-                inventorySlotDisplay.InitializeInventorySlot(this, i, _playerInventory.SlotType);
-                inventorySlotDisplay.ClearSlot();
+                inventorySlotInteraction.InitializeInventorySlot(this, i, _playerInventory.SlotType);
+                inventorySlotInteraction.ClearSlot();
             }
             
             _playerInventory.OnInventorySlotChanged += UpdateSlotUI;
@@ -95,15 +95,15 @@ namespace _Script.Inventory.ActionBarFrontend
                 Debug.LogWarning("No item in slot.");
                 //still deselect the previous item
                 DeselectPreviousSlot();
-                _selectedSlotDisplay = _inventorySlotDisplays[slotIndex];
-                _selectedSlotDisplay?.HighlightSlot();
+                _selectedSlotInteraction = _inventorySlotDisplays[slotIndex];
+                _selectedSlotInteraction?.HighlightSlot();
                 
                 _playerInventory.OnSelectNone();
                 return;
             }
             
             //Case 3: Check if selecting the same slot and is not seed item
-            if (_selectedSlotDisplay && _selectedSlotDisplay.SlotIndex == slotIndex && _playerInventory.GetItemStackAt(slotIndex).ItemData.ItemTypeString != "Seed")
+            if (_selectedSlotInteraction && _selectedSlotInteraction.SlotIndex == slotIndex && _playerInventory.GetItemStackAt(slotIndex).ItemData.ItemTypeString != "Seed")
             {
                 // Use the selected slot
                 _playerInventory.LeftClickItem(slotIndex);
@@ -122,21 +122,21 @@ namespace _Script.Inventory.ActionBarFrontend
         
         private void SetSelectedSlot(int slotIndex)
         {
-            _selectedSlotDisplay = _inventorySlotDisplays[slotIndex];
-            _selectedSlotDisplay.HighlightSlot();
+            _selectedSlotInteraction = _inventorySlotDisplays[slotIndex];
+            _selectedSlotInteraction.HighlightSlot();
             _playerInventory.OnSelectItem(slotIndex);
         }
 
         
         private void DeselectPreviousSlot()
         {
-            if (_selectedSlotDisplay)
+            if (_selectedSlotInteraction)
             {
                 //Visual
-                _selectedSlotDisplay.UnhighlightSlot();
+                _selectedSlotInteraction.UnhighlightSlot();
                 //Logic
-                _playerInventory.OnDeSelectItem(_selectedSlotDisplay.SlotIndex);
-                _selectedSlotDisplay = null;
+                _playerInventory.OnDeSelectItem(_selectedSlotInteraction.SlotIndex);
+                _selectedSlotInteraction = null;
             }
         }
         
@@ -189,9 +189,9 @@ namespace _Script.Inventory.ActionBarFrontend
 
         #endregion
 
-        public void OnSlotClicked(InventorySlotDisplay slotDisplay)
+        public void OnSlotClicked(InventorySlotInteraction slotInteraction)
         {
-            _playerInventory.LeftClickItem(slotDisplay.SlotIndex);
+            _playerInventory.LeftClickItem(slotInteraction.SlotIndex);
         }
 
         public ItemStack RemoveAllItemsFromSlot(int slotIndex)

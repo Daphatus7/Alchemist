@@ -20,7 +20,7 @@ namespace _Script.Inventory.InventoryFrontendBase
         [SerializeField] private GameObject inventoryPanel;
         [SerializeField] private GameObject slotPrefab;
 
-        private InventorySlotDisplay[] _slotDisplays;
+        private InventorySlotInteraction[] _slotDisplays;
         
         protected virtual void Start()
         {
@@ -66,7 +66,7 @@ namespace _Script.Inventory.InventoryFrontendBase
                 Destroy(child.gameObject);
             }
             
-            _slotDisplays = new InventorySlotDisplay[_inventory.Capacity];
+            _slotDisplays = new InventorySlotInteraction[_inventory.Capacity];
             
             
             for (int i = 0; i < _inventory.Capacity; i++)
@@ -74,13 +74,13 @@ namespace _Script.Inventory.InventoryFrontendBase
                 GameObject slot = Instantiate(slotPrefab, inventoryPanel.transform);
                 
                 //new inventory slot
-                InventorySlotDisplay inventorySlotDisplay = slot.GetComponent<InventorySlotDisplay>();
+                InventorySlotInteraction inventorySlotInteraction = slot.GetComponent<InventorySlotInteraction>();
                 
                 // Initialize the slot
-                inventorySlotDisplay.InitializeInventorySlot(this, i, _inventory.SlotType);
-                _slotDisplays[i] = inventorySlotDisplay;
+                inventorySlotInteraction.InitializeInventorySlot(this, i, _inventory.SlotType);
+                _slotDisplays[i] = inventorySlotInteraction;
                 // Set the slot's initial item
-                inventorySlotDisplay.SetSlot(_inventory.GetItemStackAt(i));
+                inventorySlotInteraction.SetSlot(_inventory.GetItemStackAt(i));
             }
             
             for (int i = 0; i < _inventory.ItemStacks.Count ; i++)
@@ -112,13 +112,13 @@ namespace _Script.Inventory.InventoryFrontendBase
             if (slotIndex < 0 || slotIndex >= _slotDisplays.Length)
                 return;
 
-            InventorySlotDisplay slotDisplay = _slotDisplays[slotIndex];
-            slotDisplay.SetSlot(_inventory.GetItemStackAt(slotIndex));
+            InventorySlotInteraction slotInteraction = _slotDisplays[slotIndex];
+            slotInteraction.SetSlot(_inventory.GetItemStackAt(slotIndex));
         }
         
-        public void OnSlotClicked(InventorySlotDisplay slotDisplay)
+        public void OnSlotClicked(InventorySlotInteraction slotInteraction)
         {
-            _inventory.LeftClickItem(slotDisplay.SlotIndex);
+            _inventory.LeftClickItem(slotInteraction.SlotIndex);
         }
         
         public ItemStack RemoveAllItemsFromSlot(int slotIndex)

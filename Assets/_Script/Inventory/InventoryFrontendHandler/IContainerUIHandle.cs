@@ -7,7 +7,7 @@ namespace _Script.Inventory.InventoryFrontendHandler
 {
     public interface IContainerUIHandle
     {
-        public void OnSlotClicked(InventorySlotDisplay slotDisplay);
+        public void OnSlotClicked(InventorySlotInteraction slotInteraction);
         public ItemStack RemoveAllItemsFromSlot(int slotIndex);
         public void AddItemToEmptySlot(ItemStack itemStack, int slotIndex);
         public ItemStack AddItem(ItemStack itemStack);
