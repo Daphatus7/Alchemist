@@ -194,7 +194,8 @@ namespace _Script.Inventory.InventoryBackend
                     {
                         // Adjust leftover
                         itemStackToAdd.Quantity -= toAdd;
-
+                        _itemStacks.Add(placedStack);
+                        OnOnItemStackChanged();
                         if (itemStackToAdd.Quantity <= 0)
                         {
                             // Done

@@ -1,6 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 04 12 2024 12 31
 
+using System;
 using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontendHandler;
@@ -14,30 +15,41 @@ namespace _Script.Inventory.InventoryFrontendBase
         MonoBehaviour, IContainerUIHandle, IUIHandler
         where TInventory : InventoryBackend.Inventory
     {
-        [SerializeField] protected TInventory inventory;
+        [SerializeField] protected TInventory inventory; public TInventory Inventory => inventory;
         [SerializeField] protected GameObject inventoryPanel;
         [SerializeField] protected GameObject slotPrefab;
-
-        protected InventorySlotInteraction[] _slotDisplays;
+        [SerializeField] private GameObject slotVisualPrefab;
+        [SerializeField] private GameObject slotVisualParent;
         
-        protected virtual void Start()
+        private readonly List<InventorySlotDisplay> _slotUIs = new List<InventorySlotDisplay>();
+
+        
+        protected InventorySlotInteraction[] _slotDisplays;
+
+        protected void Awake()
         {
             gameObject.SetActive(false);
         }
         
+        protected virtual void Start()
+        {
+        }
+
         public void ShowUI()
         {
             gameObject.SetActive(true);
+            inventory.OnItemStackChanged += UpdateItemStacks;
         }
         
         public void HideUI()
         {
+            inventory.OnItemStackChanged -= UpdateItemStacks;
             gameObject.SetActive(false);
         }
         
         protected virtual void AssignInventory(TInventory inventory)
         {
-            inventory = inventory;
+            this.inventory = inventory;
             inventory.OnInventorySlotChanged += UpdateSlotUI;
         }
 
@@ -164,5 +176,43 @@ namespace _Script.Inventory.InventoryFrontendBase
             if (item1 == null || item1.IsEmpty || item2 == null || item2.IsEmpty) return false;
             return item1.ItemData == item2.ItemData;
         }
+
+
+        #region Inventory Renderer
+
+        // A local cache: slotIndex -> the UI GameObject we created
+        
+
+        /// <summary>
+        /// Creates UI objects for all slots in the inventory.
+        /// Typically called once at start or inventory re-init.
+        /// </summary>
+        protected void CreateVisualSlots()
+        {
+            // Clean up old if any
+            foreach (var slotUI in _slotUIs)
+            {
+                Destroy(slotUI);
+            }
+            _slotUIs.Clear();
+
+            UpdateItemStacks();
+        }
+
+        private void UpdateItemStacks()
+        {
+            Debug.Log("Updating item stacks");
+            foreach (var item in inventory.ItemStacks)
+            {
+                var newItemDisplay = Instantiate(slotVisualPrefab, slotVisualParent.transform);
+                newItemDisplay.transform.localPosition = Vector3.zero;
+                //May need to update location later
+                var slotUI = newItemDisplay.GetComponent<InventorySlotDisplay>();
+                slotUI.SetSlotImage(item.ItemData.ItemSprite);
+                _slotUIs.Add(slotUI);
+            }
+        }
+        #endregion
+        
     }
 }

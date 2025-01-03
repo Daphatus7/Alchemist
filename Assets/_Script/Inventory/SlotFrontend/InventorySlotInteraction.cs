@@ -19,12 +19,8 @@ namespace _Script.Inventory.SlotFrontend
         IDropHandler, 
         IPointerClickHandler
     {
-        [SerializeField] private Button slotButton;
         [SerializeField] private GameObject dragItemPrefab;
-        
-        
-        public event Action<int> OnUpdateSlotUI;
-        
+
         private static GameObject dragItem;
         private static Canvas canvas;
 

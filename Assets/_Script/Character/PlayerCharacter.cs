@@ -354,6 +354,8 @@ namespace _Script.Character
         {
             _playerInventory = new PlayerInventory(this, playerActionbarWidth, playerActionbarHeight);
             _actionBarUI.InitializeInventoryUI(_playerInventory, 0);
+            
+            _actionBarUI.ShowUI();
         }
         
         public void OpenContainerInstance(PlayerContainer containerItem)

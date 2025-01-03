@@ -11,17 +11,12 @@ namespace _Script.Inventory.ActionBarFrontend
     {
         
         private InventorySlotInteraction _selectedSlotInteraction;
-
-
-        private void OnDisable()
-        {
-            inventory.OnInventorySlotChanged -= UpdateSlotUI;
-        }
-
+        
         public void InitializeInventoryUI(PlayerInventory.PlayerInventory playerInventory, int selectedSlot = 0)
         {
             inventory = playerInventory;
             InitializeInventoryUI();
+            CreateVisualSlots();
         }
         
         /// <summary>
