@@ -23,6 +23,7 @@ namespace _Script.Inventory.InventoryFrontendBase
         
         private readonly List<InventorySlotDisplay> _slotUIs = new List<InventorySlotDisplay>();
 
+        public const int CellSize = 50;
         
         protected InventorySlotInteraction[] _slotInteractions;
 
@@ -197,7 +198,7 @@ namespace _Script.Inventory.InventoryFrontendBase
             // Clean up old if any
             foreach (var slotUI in _slotUIs)
             {
-                Destroy(slotUI);
+                Destroy(slotUI.gameObject);
             }
             _slotUIs.Clear();
 
@@ -206,15 +207,15 @@ namespace _Script.Inventory.InventoryFrontendBase
 
         private void UpdateItemStacks()
         {
-            Debug.Log("Updating item stacks");
-
-            // Clear old visuals if you always recreate
-            foreach (var slot in _slotUIs)
+            // Clean up old if any
+            foreach (var slotUI in _slotUIs)
             {
-                Destroy(slot.gameObject);
+                Destroy(slotUI.gameObject);
             }
+            
             _slotUIs.Clear();
-
+            
+            
             foreach (var item in inventory.ItemStacks)
             {
                 if (item == null || item.IsEmpty) continue;
@@ -223,25 +224,26 @@ namespace _Script.Inventory.InventoryFrontendBase
 
                 // Use anchoredPosition on the newItem's RectTransform
                 var rect = newItemDisplay.GetComponent<RectTransform>();
+                var itemSize =item.ItemData.ItemShape.IconScale;
+
+                rect.anchoredPosition = GetSlotVisualPosition(item.PivotPosition, itemSize);
+                //modify the width and height of the slot
                 
-                rect.anchoredPosition = GetSlotVisualPosition(item.PivotPosition);
-
-                // For debugging
-                Debug.Log($"Pivot={item.PivotPosition}, anchoredPos={rect.anchoredPosition}");
-
+                rect.sizeDelta = new Vector2(CellSize * itemSize.x, CellSize * itemSize.y);
+                
                 var slotUI = newItemDisplay.GetComponent<InventorySlotDisplay>();
                 slotUI.SetSlotImage(item.ItemData.ItemSprite);
                 _slotUIs.Add(slotUI);
             }
         }
 
-        private Vector2 GetSlotVisualPosition(Vector2Int pivotPosition)
+        private Vector2 GetSlotVisualPosition(Vector2Int pivotPosition, Vector2 itemSize)
         {
-            const float cellSize = 50f;
-
             // If row 0 is top, invert y
-            float posX = pivotPosition.y * cellSize + cellSize/2;
-            float posY = - cellSize/2 - pivotPosition.x * cellSize;
+            var cellSizeX = CellSize * itemSize.x;
+            var cellSizeY = CellSize * itemSize.y;
+            var posX = pivotPosition.y * CellSize + cellSizeX/2;
+            var posY = - cellSizeY/2 - pivotPosition.x * CellSize;
 
             return new Vector2(posX, posY);
         }
