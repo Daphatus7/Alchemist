@@ -27,8 +27,9 @@ namespace _Script.Inventory.InventoryFrontendBase
         
         protected InventorySlotInteraction[] _slotInteractions;
 
-        protected void Awake()
+        protected virtual void Awake()
         {
+            //cause problems with loading sequence
             gameObject.SetActive(false);
         }
         
@@ -39,8 +40,8 @@ namespace _Script.Inventory.InventoryFrontendBase
         public void ShowUI()
         {
             gameObject.SetActive(true);
-            inventory.OnItemStackChanged -= UpdateItemStacks;
-            inventory.OnItemStackChanged += UpdateItemStacks;
+            inventory.OnItemStackChanged -= RenderSlotIcons;
+            inventory.OnItemStackChanged += RenderSlotIcons;
             
             inventory.OnInventorySlotChanged -= UpdateSlotUI;
             inventory.OnInventorySlotChanged += UpdateSlotUI;
@@ -48,7 +49,7 @@ namespace _Script.Inventory.InventoryFrontendBase
         
         public void HideUI()
         {
-            inventory.OnItemStackChanged -= UpdateItemStacks;
+            inventory.OnItemStackChanged -= RenderSlotIcons;
             inventory.OnInventorySlotChanged -= UpdateSlotUI;
             
             gameObject.SetActive(false);
@@ -69,7 +70,7 @@ namespace _Script.Inventory.InventoryFrontendBase
         private void OnDestroy()
         {
             inventory.OnInventorySlotChanged -= UpdateSlotUI;
-            inventory.OnItemStackChanged -= UpdateItemStacks;
+            inventory.OnItemStackChanged -= RenderSlotIcons;
         }
         
         
@@ -99,6 +100,8 @@ namespace _Script.Inventory.InventoryFrontendBase
             {
                 _slotInteractions[i].SetSlot(inventory.GetItemStackAt(i));
             }
+            
+            RenderSlotIcons();
         }
         
         // Update all slots in the UI
@@ -187,25 +190,9 @@ namespace _Script.Inventory.InventoryFrontendBase
         #region Inventory Renderer
 
         // A local cache: slotIndex -> the UI GameObject we created
-        
 
-        /// <summary>
-        /// Creates UI objects for all slots in the inventory.
-        /// Typically called once at start or inventory re-init.
-        /// </summary>
-        protected void CreateVisualSlots()
-        {
-            // Clean up old if any
-            foreach (var slotUI in _slotUIs)
-            {
-                Destroy(slotUI.gameObject);
-            }
-            _slotUIs.Clear();
 
-            UpdateItemStacks();
-        }
-
-        private void UpdateItemStacks()
+        protected void RenderSlotIcons()
         {
             // Clean up old if any
             foreach (var slotUI in _slotUIs)

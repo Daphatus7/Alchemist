@@ -16,7 +16,12 @@ namespace _Script.Inventory.ActionBarFrontend
         {
             inventory = playerInventory;
             InitializeInventoryUI();
-            CreateVisualSlots();
+        }
+        
+        public new void OnSlotClicked(InventorySlotInteraction slotInteraction)
+        {
+            Debug.Log("Slot clicked in action bar.");
+            SelectSlot(slotInteraction.SlotIndex);
         }
         
         /// <summary>
@@ -45,7 +50,6 @@ namespace _Script.Inventory.ActionBarFrontend
                 //still deselect the previous item
                 DeselectPreviousSlot();
                 _selectedSlotInteraction = _slotInteractions[slotIndex];
-                _selectedSlotInteraction?.HighlightSlot();
                 
                 inventory.OnSelectNone();
                 return;
@@ -72,7 +76,6 @@ namespace _Script.Inventory.ActionBarFrontend
         private void SetSelectedSlot(int slotIndex)
         {
             _selectedSlotInteraction = _slotInteractions[slotIndex];
-            _selectedSlotInteraction.HighlightSlot();
             inventory.OnSelectItem(slotIndex);
         }
 
@@ -82,7 +85,6 @@ namespace _Script.Inventory.ActionBarFrontend
             if (_selectedSlotInteraction)
             {
                 //Visual
-                _selectedSlotInteraction.UnhighlightSlot();
                 //Logic
                 inventory.OnDeSelectItem(_selectedSlotInteraction.SlotIndex);
                 _selectedSlotInteraction = null;
@@ -91,49 +93,49 @@ namespace _Script.Inventory.ActionBarFrontend
         
         #region Keyboard Input
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                SelectSlot(0);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                SelectSlot(1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                SelectSlot(2);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                SelectSlot(3);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha5))
-            {
-                SelectSlot(4);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha6))
-            {
-                SelectSlot(5); 
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha7))
-            {
-                SelectSlot(6);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha8))
-            {
-                SelectSlot(7);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha9))
-            {
-                SelectSlot(8);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha0))
-            {
-                SelectSlot(9);
-            }
-        }
+        // private void Update()
+        // {
+        //     if (Input.GetKeyDown(KeyCode.Alpha1))
+        //     {
+        //         SelectSlot(0);
+        //     }
+        //     else if (Input.GetKeyDown(KeyCode.Alpha2))
+        //     {
+        //         SelectSlot(1);
+        //     }
+        //     else if (Input.GetKeyDown(KeyCode.Alpha3))
+        //     {
+        //         SelectSlot(2);
+        //     }
+        //     else if (Input.GetKeyDown(KeyCode.Alpha4))
+        //     {
+        //         SelectSlot(3);
+        //     }
+        //     else if (Input.GetKeyDown(KeyCode.Alpha5))
+        //     {
+        //         SelectSlot(4);
+        //     }
+        //     else if (Input.GetKeyDown(KeyCode.Alpha6))
+        //     {
+        //         SelectSlot(5); 
+        //     }
+        //     else if (Input.GetKeyDown(KeyCode.Alpha7))
+        //     {
+        //         SelectSlot(6);
+        //     }
+        //     else if (Input.GetKeyDown(KeyCode.Alpha8))
+        //     {
+        //         SelectSlot(7);
+        //     }
+        //     else if (Input.GetKeyDown(KeyCode.Alpha9))
+        //     {
+        //         SelectSlot(8);
+        //     }
+        //     else if (Input.GetKeyDown(KeyCode.Alpha0))
+        //     {
+        //         SelectSlot(9);
+        //     }
+        // }
 
 
         #endregion

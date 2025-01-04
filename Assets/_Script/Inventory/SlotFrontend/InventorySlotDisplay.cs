@@ -16,7 +16,5 @@ namespace _Script.Inventory.SlotFrontend
         {
             _slotImage.sprite = sprite;
         }
-        
-        
     }
 }

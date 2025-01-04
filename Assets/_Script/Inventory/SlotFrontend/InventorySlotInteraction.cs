@@ -108,21 +108,8 @@ namespace _Script.Inventory.SlotFrontend
             {
                 return;
             }
-    
-            Debug.Log("Slot clicked: " + _slotIndex);
             _inventoryUI.OnSlotClicked(this);
         }
-
-        #region Highlight Methods
-        public void HighlightSlot()
-        {
-        }
-
-        public void UnhighlightSlot()
-        {
-            
-        }
-        #endregion
 
         #region Drag and Drop
 

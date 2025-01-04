@@ -19,10 +19,14 @@ namespace _Script.Inventory.MerchantInventoryFrontend
         public NpcHandlerType HandlerName => NpcHandlerType.Merchant;
         public SlotType SlotType => SlotType.Merchant;
         
+        protected override void Awake()
+        {
+        }
+        
         protected override void Start()
         {
-            base.Start();
             ServiceLocator.Instance.Register<IMerchantInventoryService>(this);
+            gameObject.SetActive(false);
         }
         
         private void OnDestroy()
@@ -33,9 +37,9 @@ namespace _Script.Inventory.MerchantInventoryFrontend
         
         public void LoadMerchantInventory(MerchantInventory merchantInventory)
         {
-            ShowUI();
             AssignInventory(merchantInventory);
             InitializeInventoryUI();
+            ShowUI();
         }
 
         public void CloseMerchantInventory()

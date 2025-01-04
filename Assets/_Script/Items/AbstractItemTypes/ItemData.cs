@@ -122,6 +122,7 @@ namespace _Script.Items.AbstractItemTypes
              * L shape with 5 blocks
              */
             LShape3,
+            Stick13,
         }
         
         public class ItemShape
@@ -142,25 +143,18 @@ namespace _Script.Items.AbstractItemTypes
             {
                 get
                 {
-                    switch (_shapeType)
+                    return _shapeType switch
                     {
-                        case ItemShapeType.Square11:
-                            return new Vector2(1, 1);
-                        case ItemShapeType.Square22:
-                            return new Vector2(2, 2);
-                        case ItemShapeType.Rectangle12:
-                            return _isRotated ? new Vector2(2, 1) : new Vector2(1, 2);
-                        case ItemShapeType.Rectangle23:
-                            return _isRotated ? new Vector2(3, 2) : new Vector2(2, 3);
-                        case ItemShapeType.Circle1:
-                            return new Vector2(3, 3);
-                        case ItemShapeType.LShape2:
-                            return new Vector2(2, 2);
-                        case ItemShapeType.LShape3:
-                            return new Vector2(3, 3);
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
+                        ItemShapeType.Square11 => new Vector2(1, 1),
+                        ItemShapeType.Square22 => new Vector2(2, 2),
+                        ItemShapeType.Rectangle12 => _isRotated ? new Vector2(2, 1) : new Vector2(1, 2),
+                        ItemShapeType.Rectangle23 => _isRotated ? new Vector2(3, 2) : new Vector2(2, 3),
+                        ItemShapeType.Circle1 => new Vector2(3, 3),
+                        ItemShapeType.LShape2 => new Vector2(2, 2),
+                        ItemShapeType.LShape3 => new Vector2(3, 3),
+                        ItemShapeType.Stick13 => new Vector2(1, 3),
+                        _ => throw new ArgumentOutOfRangeException()
+                    };
                 }
             }
             
@@ -175,33 +169,20 @@ namespace _Script.Items.AbstractItemTypes
             public ItemShape(ItemShapeType shapeType)
             {
                 _shapeType = shapeType;
-                switch (shapeType)
+                _positions = shapeType switch
                 {
-                    case ItemShapeType.Square11:
-                        _positions = GetSquareShape(1);
-                        break;
-                    case ItemShapeType.Square22:
-                        _positions = GetSquareShape(2);
-                        break;
-                    case ItemShapeType.Rectangle12:
-                        _positions = GetRectangleShape(1, 2);
-                        break;
-                    case ItemShapeType.Rectangle23:
-                        _positions = GetRectangleShape(2, 3);
-                        break;
-                    case ItemShapeType.Circle1:
+                    ItemShapeType.Square11 => GetSquareShape(1),
+                    ItemShapeType.Square22 => GetSquareShape(2),
+                    ItemShapeType.Rectangle12 => GetRectangleShape(1, 2),
+                    ItemShapeType.Rectangle23 => GetRectangleShape(2, 3),
+                    ItemShapeType.Circle1 =>
                         // For "Circle2", radius=1 => yields a rough 3x3 disk shape
-                        _positions = GetCircleShape(1);
-                        break;
-                    case ItemShapeType.LShape2:
-                        _positions = GetLShape(2);
-                        break;
-                    case ItemShapeType.LShape3:
-                        _positions = GetLShape(3);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(shapeType), shapeType, null);
-                }
+                        GetCircleShape(1),
+                    ItemShapeType.LShape2 => GetLShape(2),
+                    ItemShapeType.LShape3 => GetLShape(3),
+                    ItemShapeType.Stick13 => GetRectangleShape(1, 3),
+                    _ => throw new ArgumentOutOfRangeException(nameof(shapeType), shapeType, null)
+                };
             }
 
             /// <summary>

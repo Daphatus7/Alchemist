@@ -53,6 +53,7 @@ namespace _Script.NPC.NpcBackend
         
         public void LoadNpcModule()
         {
+
             ServiceLocator.Instance.Get<IMerchantInventoryService>().LoadMerchantInventory(_merchantInventory);
             _npc.AddMoreUIHandlers(ServiceLocator.Instance.Get<IMerchantInventoryService>() as IUIHandler);
         }
