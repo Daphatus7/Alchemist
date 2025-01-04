@@ -246,9 +246,9 @@ namespace _Script.Items.AbstractItemTypes
                     throw new ArgumentException("Width and height must be greater than 0.");
 
                 List<Vector2Int> rectangle = new List<Vector2Int>();
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < height; x++)
                 {
-                    for (int y = 0; y < height; y++)
+                    for (int y = 0; y < width; y++)
                     {
                         rectangle.Add(new Vector2Int(x, y));
                     }
