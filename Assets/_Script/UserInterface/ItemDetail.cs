@@ -16,7 +16,6 @@ namespace _Script.UserInterface
         [SerializeField] private TextMeshProUGUI itemDescription;
         [SerializeField] private TextMeshProUGUI itemType;
         [SerializeField] private TextMeshProUGUI itemValue;
-        [SerializeField] private VerticalLayoutGroup layoutGroup;
         public void Start()
         {
             HideUI();
