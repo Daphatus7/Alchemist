@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontendHandler;
 using _Script.Items;
+using _Script.UserInterface;
 using TMPro;
 using Unity.Collections;
 using UnityEngine;
@@ -17,7 +18,9 @@ namespace _Script.Inventory.SlotFrontend
         IDragHandler, 
         IEndDragHandler, 
         IDropHandler, 
-        IPointerClickHandler
+        IPointerClickHandler,
+        IPointerEnterHandler,
+        IPointerExitHandler
     {
         [SerializeField] private GameObject dragItemPrefab;
 
@@ -421,7 +424,20 @@ namespace _Script.Inventory.SlotFrontend
             dragItem.transform.localPosition = localPoint;
         }
         #endregion
-        
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            ItemDetail.Instance.ShowUI();
+            if (_currentStack != null && !_currentStack.IsEmpty)
+            {
+                ItemDetail.Instance.ShowItemDetail(_currentStack.ItemData);
+            }
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            ItemDetail.Instance.HideUI();
+        }
     }
     
     public static class SlotPool
