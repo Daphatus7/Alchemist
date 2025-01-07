@@ -78,7 +78,6 @@ namespace _Script.Weapon
             
             _results.Clear();
             int count = Physics2D.OverlapCollider(weaponCollider, _filter, _results);
-            Debug.Log($"MeleeWeapon AttackRoutine count: {count}");
             if (count > 0)
             {
                 foreach (var hit in _results)

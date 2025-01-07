@@ -21,7 +21,7 @@ namespace _Script.Items.AbstractItemTypes
 
             [SerializeField, TextArea, Tooltip("Detailed description of the item")]
             public string itemDescription;
-
+            
             [Title("Visuals")]
             [SerializeField, Tooltip("Icon representing the item"), PreviewField(75)]
             public Sprite itemIcon;
@@ -35,8 +35,6 @@ namespace _Script.Items.AbstractItemTypes
             }
             public ItemShapeType itemShapeType = ItemShapeType.Square11;
             public ItemShape ItemShape => new ItemShape(itemShapeType);
-
-            
 
             [SerializeField, Tooltip("Rarity of the item")]
             public Rarity rarity;
@@ -72,7 +70,6 @@ namespace _Script.Items.AbstractItemTypes
             }
 
             [ReadOnly, ShowInInspector]
-
             public abstract ItemType ItemType { get; }
             public abstract string ItemTypeString { get; }
 
@@ -83,6 +80,7 @@ namespace _Script.Items.AbstractItemTypes
             /// <returns>True if the item was used successfully; false otherwise.</returns>
             public abstract bool Use(PlayerCharacter playerCharacter);
         }
+        
         public enum ItemType
         {
             Equipment,

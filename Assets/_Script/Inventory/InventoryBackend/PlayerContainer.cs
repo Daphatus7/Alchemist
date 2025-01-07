@@ -65,9 +65,7 @@ namespace _Script.Inventory.InventoryBackend
 
         private ItemStack OnUseEquipmentItem(EquipmentItem itemData)
         {
-            // Logic for equipping the item to the player, e.g.:
-            // PlayerEquipment might have headSlot / bodySlot / weaponSlot, etc.
-            return inventoryOwner?.PlayerEquipment?.Handle_Equip(itemData);
+            throw new NotImplementedException("Implement the equip item method");
         }
 
         private bool OnUseConsumableItem(ConsumableItem itemData)
@@ -81,6 +79,7 @@ namespace _Script.Inventory.InventoryBackend
         {
             // Using a material might just call itemData.Use(...) or do crafting, etc.
             if (itemData != null) itemData.Use(inventoryOwner);
+            
             return null;
         }
 
@@ -108,7 +107,8 @@ namespace _Script.Inventory.InventoryBackend
 
             if (itemType == "Equipment")
             {
-                // Example: equip the item, remove one from slot
+
+                throw new NotImplementedException("Implement the equip item method");
                 var eqItem = slotStack.ItemData as EquipmentItem;
                 if (eqItem != null)
                 {
@@ -166,7 +166,7 @@ namespace _Script.Inventory.InventoryBackend
         /// When we left-click on a slot, we attempt to "use" the item there.
         /// Could also handle e.g. dragging logic, but that might be in the UI layer.
         /// </summary>
-        protected bool UseItem(int slotIndex)
+        public bool UseItem(int slotIndex)
         {
             if (slotIndex < 0 || slotIndex >= Capacity)
             {
@@ -174,7 +174,7 @@ namespace _Script.Inventory.InventoryBackend
                 return false;
             }
 
-            ItemStack slotStack = slots[slotIndex].ItemStack;
+            ItemStack slotStack = Slots[slotIndex].ItemStack;
             if (slotStack.IsEmpty)
             {
                 // e.g. no item to use

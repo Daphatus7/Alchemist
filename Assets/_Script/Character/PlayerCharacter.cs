@@ -55,7 +55,6 @@ namespace _Script.Character
         private IInteractable _currentlyHighlightedObject = null;
 
         private PlayerInventory _playerInventory; public PlayerInventory PlayerInventory => _playerInventory;
-        private PlayerEquipmentInventory _playerEquipment; public PlayerEquipmentInventory PlayerEquipment => _playerEquipment;
         private WeaponStrategy _weaponStrategy; public WeaponStrategy WeaponStrategy => _weaponStrategy;
         private GenericItemStrategy _genericStrategy; public GenericItemStrategy GenericStrategy => _genericStrategy;
         private TorchItemStrategy _torchStrategy; public TorchItemStrategy TorchStrategy => _torchStrategy;

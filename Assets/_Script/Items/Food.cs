@@ -20,6 +20,7 @@ namespace _Script.Items
         {
             foreach (var foodValue in foodValues)
             {
+                Debug.Log($"Eating {foodValue.Value} {foodValue.FoodType}");
                 playerCharacter.EatFood(foodValue.FoodType, foodValue.Value);
             }
             return true;

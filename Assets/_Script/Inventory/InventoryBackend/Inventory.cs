@@ -49,9 +49,9 @@ namespace _Script.Inventory.InventoryBackend
          * The shape-based slots in the inventory.
          * Each slot is an InventorySlot that may or may not contain an ItemStack.
          */
-        protected private InventorySlot[] slots;
+        protected readonly InventorySlot[] Slots;
         
-        public int SlotCount => slots.Length;
+        public int SlotCount => Slots.Length;
         
         public ItemStack GetItemStackAt(int index)
         {
@@ -60,7 +60,12 @@ namespace _Script.Inventory.InventoryBackend
                 Debug.LogWarning("Invalid slot index.");
                 return null;
             }
-            return slots[index].ItemStack;
+            if(Slots[index] == null)
+            {
+                Debug.LogWarning("Invalid slot index.");
+                return null;
+            }
+            return Slots[index] == null ? null : Slots[index].ItemStack;
         }
 
         /**
@@ -84,13 +89,13 @@ namespace _Script.Inventory.InventoryBackend
             _height = height;
             _width = width;
 
-            slots = new InventorySlot[Capacity];
+            Slots = new InventorySlot[Capacity];
             _itemStacks = new List<ItemStack>();
 
             // Initialize slots
             for (int i = 0; i < Capacity; i++)
             {
-                slots[i] = new InventorySlot();
+                Slots[i] = new InventorySlot();
             }
         }
 
@@ -102,13 +107,13 @@ namespace _Script.Inventory.InventoryBackend
             _height = height;
             _width = width;
 
-            slots = new InventorySlot[Capacity];
+            Slots = new InventorySlot[Capacity];
             _itemStacks = new List<ItemStack>();
 
             // Initialize slots
             for (int i = 0; i < Capacity; i++)
             {
-                slots[i] = new InventorySlot();
+                Slots[i] = new InventorySlot();
             }
             
             // Load items
@@ -238,7 +243,7 @@ namespace _Script.Inventory.InventoryBackend
                 }
 
                 int finalIndex = GridToSlotIndex(gx, gy);
-                if (!slots[finalIndex].IsEmpty)
+                if (!Slots[finalIndex].IsEmpty)
                 {
                     return false;
                 }
@@ -292,7 +297,7 @@ namespace _Script.Inventory.InventoryBackend
             // Duplicate the stack (preserving specialized data if needed).
 
             var pivotPosition =  GetItemStackAt(slotIndex).PivotPosition;
-            Debug.Log("Removing item from slot " + pivotPosition);
+            //Debug.Log("Removing item from slot " + pivotPosition);
             
             ItemStack removed = CreateStack(pivotPosition, GetItemStackAt(slotIndex).ItemData, GetItemStackAt(slotIndex).Quantity, GetItemStackAt(slotIndex));
             
@@ -313,7 +318,7 @@ namespace _Script.Inventory.InventoryBackend
             {
                 var sIndex = GridToSlotIndex(pos.x, pos.y);
                 //remove information about the item in the slot
-                slots[sIndex].Clear();
+                Slots[sIndex].Clear();
                 OnInventorySlotChangedEvent(sIndex);
             }
             _itemStacks.Remove(itemStack);
@@ -471,7 +476,7 @@ namespace _Script.Inventory.InventoryBackend
             foreach (var slotPos in requiredSlots)
             {
                 var sIndex = GridToSlotIndex(slotPos.x, slotPos.y);
-                slots[sIndex].ItemStack = newStack;
+                Slots[sIndex].ItemStack = newStack;
                 OnInventorySlotChangedEvent(sIndex);
             }
             return newStack;
@@ -499,13 +504,13 @@ namespace _Script.Inventory.InventoryBackend
                 {
                     return Int32.MaxValue;
                 }
-                var slot = slots[sIndex];
+                var slot = Slots[sIndex];
                 if (!slot.IsEmpty)
                 {
                     overlapIndex = sIndex; //Any overlap index, but only if the count is 1 will be considered
-                    if (!foundItem.TryAdd(slots[sIndex].ItemStack, 1))
+                    if (!foundItem.TryAdd(Slots[sIndex].ItemStack, 1))
                     {
-                        foundItem[slots[sIndex].ItemStack]++;
+                        foundItem[Slots[sIndex].ItemStack]++;
                     }
                 }
             }

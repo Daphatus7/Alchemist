@@ -26,7 +26,8 @@ namespace _Script.Weapon
         [Header("Damage Settings")]
         [SerializeField] protected float damage = 1f;  // base damage
         [SerializeField] private List<string> targetTags; // only these tags can be damaged
-        
+        private int _durability; public int Durability => _durability; // current durability for weapon
+        private int _durabilityMax; public int DurabilityMax => _durabilityMax; // max durability for weapon
         protected Collider2D weaponCollider;
 
         [Tooltip("Prefab or system for displaying floating damage numbers.")]
@@ -38,6 +39,8 @@ namespace _Script.Weapon
         protected ContactFilter2D _filter;
         protected readonly List<Collider2D> _results = new List<Collider2D>();
 
+        public event Action<int> onHitTarget;
+        
         /// <summary>
         /// Assign stats from a WeaponItem ScriptableObject (if desired).
         /// </summary>
@@ -45,6 +48,8 @@ namespace _Script.Weapon
         {
             damage = weaponItem.damage;
             attackCooldown = weaponItem.attackSpeed;
+            _durability = weaponItem.durability;
+            _durabilityMax = _durability;
         }
 
         protected virtual void Awake()
@@ -79,6 +84,7 @@ namespace _Script.Weapon
         /// </summary>
         public virtual void OnReleased(Vector2 direction)
         {
+            
         }
 
         #endregion
@@ -88,6 +94,7 @@ namespace _Script.Weapon
         /// </summary>
         protected virtual void Attack(Vector2 direction)
         {
+            
         }
 
         /// <summary>
@@ -122,6 +129,7 @@ namespace _Script.Weapon
             float actualDamage = OnDamageTarget(damageable);
             // Show floating numbers, etc.
             PlayDamageEffect(actualDamage, other);
+            OnOnHitTarget((int)actualDamage);
             return true;
         }
 
@@ -150,5 +158,17 @@ namespace _Script.Weapon
                 numberPrefab.Spawn(other.transform.position, actualDamage);
             }
         }
+
+        protected virtual void OnOnHitTarget(int damage)
+        {
+            _durability--;
+            onHitTarget?.Invoke(damage);
+        }
+    }
+
+    public class WeaponData
+    {
+        public WeaponItem WeaponItem;
+        public int Durability;
     }
 }

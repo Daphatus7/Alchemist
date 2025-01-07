@@ -70,7 +70,6 @@ namespace _Script.Character.ActionStrategy
                 // If there's already a weapon equipped, prevent change
                 if (_currentWeapon)
                 {
-                    Debug.LogError("Cannot change weapon, there is already a weapon equipped");
                     return;
                 }
 
@@ -78,10 +77,21 @@ namespace _Script.Character.ActionStrategy
                 var weapon = Instantiate(weaponPrefab, weaponSlot.transform.position, Quaternion.identity, weaponSlot.transform);
                 if (_currentWeapon != null)
                 {
+                    _currentWeapon.onHitTarget -= OnWeaponHit;
                     Destroy(_currentWeapon.gameObject);
                 }
                 _currentWeapon = weapon.GetComponent<Weapon.Weapon>();
                 _currentWeapon.SetWeaponItem(weaponItem);
+                _currentWeapon.onHitTarget += OnWeaponHit;
+            }
+        }
+
+        private void OnWeaponHit(int obj)
+        {
+            if (_currentWeapon.Durability <= 0)
+            {
+                RemoveItem();
+                //ToDo: play sound
             }
         }
 
@@ -89,6 +99,7 @@ namespace _Script.Character.ActionStrategy
         {
             if(_currentWeapon)
             {
+                _currentWeapon.onHitTarget -= OnWeaponHit;
                 Destroy(_currentWeapon.gameObject);
                 _currentWeapon = null;
             }

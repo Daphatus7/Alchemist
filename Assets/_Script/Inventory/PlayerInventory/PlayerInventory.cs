@@ -21,11 +21,16 @@ namespace _Script.Inventory.PlayerInventory
             _selectedItemStack = GetItemStackAt(selectedSlotIndex);
             
             Debug.Log("By default, the player will select the first item when loaded.");
+            
             OnSelectItem(selectedSlotIndex);
         }
 
-        public int SelectedSlotIndex => _selectedSlotIndex;
-        
+        public int SelectedSlotIndex
+        {
+            get => _selectedSlotIndex;
+            set => _selectedSlotIndex = value;
+        }
+
         private ActionBarContext _actionBarContext;
 
         private void SetSelectedItem(int slotIndex)
@@ -70,11 +75,15 @@ namespace _Script.Inventory.PlayerInventory
                     inventoryOwner.SetGenericStrategy();
                     inventoryOwner.GenericStrategy.ChangeItem(_actionBarContext);
                     break;
-                
                 case "Weapon":
                     // Use weapon strategy for weapons
                     inventoryOwner.SetWeaponStrategy();
                     inventoryOwner.WeaponStrategy.ChangeItem(_actionBarContext);
+                    break;
+                case "Torch":
+                    // Use torch strategy for torches
+                    inventoryOwner.SetTorchStrategy();
+                    inventoryOwner.TorchStrategy.ChangeItem(_actionBarContext);
                     break;
                 default:
                     // For any other item type, fallback to a generic strategy
@@ -101,7 +110,11 @@ namespace _Script.Inventory.PlayerInventory
         /// <param name="slotIndex"></param>
         public void OnDeSelectItem(int slotIndex)
         {
-            if (slotIndex < 0 || slotIndex >= SlotCount || GetItemStackAt(slotIndex).IsEmpty)
+            if (slotIndex < 0 || slotIndex >= SlotCount)
+            {
+                return;
+            }
+            if(GetItemStackAt(slotIndex) == null || GetItemStackAt(slotIndex).IsEmpty)
             {
                 return;
             }

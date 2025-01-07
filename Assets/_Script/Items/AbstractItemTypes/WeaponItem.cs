@@ -8,6 +8,7 @@ namespace _Script.Items.AbstractItemTypes
     {
         public WeaponType weaponType = WeaponType.None;
         public override EquipmentType EquipmentType => EquipmentType.Weapon;
+        public int durability = 20;
         public float damage = 1;
         public float attackSpeed = 1f;
         public float range = 1f;

@@ -8,7 +8,8 @@ namespace _Script.Items
     {
         Armour,
         Weapon,
-        Accessory
+        Accessory,
+        Torch
     }
 
     public abstract class EquipmentItem : ItemData

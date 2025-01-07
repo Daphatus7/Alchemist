@@ -3,148 +3,156 @@ using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontendBase;
 using _Script.Inventory.InventoryFrontendHandler;
 using _Script.Inventory.SlotFrontend;
+using _Script.Items;
 using UnityEngine;
 
 namespace _Script.Inventory.ActionBarFrontend
 {
     public class ActionBarUI : InventoryUIBase<PlayerInventory.PlayerInventory>, IPlayerInventoryHandler
     {
-        
         private InventorySlotInteraction _selectedSlotInteraction;
-        
+
+        /// <summary>
+        /// Initializes the player inventory UI.
+        /// </summary>
+        /// <param name="playerInventory">The player's inventory instance.</param>
+        /// <param name="selectedSlot">Which slot to select by default.</param>
         public void InitializeInventoryUI(PlayerInventory.PlayerInventory playerInventory, int selectedSlot = 0)
         {
             inventory = playerInventory;
             InitializeInventoryUI();
+
+            // Optionally select the initial slot if it’s in valid range
+            if (selectedSlot >= 0 && selectedSlot < _slotInteractions.Length)
+            {
+                SelectSlot(selectedSlot);
+            }
         }
-        
+
+        /// <summary>
+        /// Override the base OnSlotClicked (if in the base class it’s virtual).
+        /// If the base class method is *not* virtual, then use 'new' carefully.
+        /// </summary>
+        /// <param name="slotInteraction"></param>
         public new void OnSlotClicked(InventorySlotInteraction slotInteraction)
         {
-            Debug.Log("Slot clicked in action bar.");
             SelectSlot(slotInteraction.SlotIndex);
         }
-        
+
         /// <summary>
-        /// Select the slot at the given index.
-        /// if the slot is already selected, use the item.
-        /// if the previous slot is not empty, deselect it.
+        /// Selects the slot at the given index.
+        /// If the slot is already selected, use the item.
+        /// If the previous slot has an item and is different, it gets deselected first.
         /// </summary>
         /// <param name="slotIndex"></param>
         public void SelectSlot(int slotIndex)
         {
-            //Case 1: Invalid slot index
-            // do nothing
+            // 1) Validate index
             if (slotIndex < 0 || slotIndex >= _slotInteractions.Length)
             {
                 Debug.LogWarning("Invalid slot index.");
                 return;
             }
-            
-            //Case 2: Check if has an item
-            //if the slot is empty, then try to deselect the previous item
-            //and set selected item to null
+
+            // 2) If there is a previously selected slot (i.e., if inventory.SelectedSlotIndex is valid), 
+            //    check if the new slot is different from the previous one and if so, deselect the previous.
+            if (inventory.SelectedSlotIndex != -1 && slotIndex != inventory.SelectedSlotIndex)
+            {
+                var previousItemStack = inventory.GetItemStackAt(inventory.SelectedSlotIndex);
+                var newItemStack = inventory.GetItemStackAt(slotIndex);
+
+                var selectedItem = newItemStack.ItemData as ConsumableItem;
+                if(selectedItem != null)
+                {
+                    inventory.UseItem(slotIndex);
+                    return;
+                }
+                else if (previousItemStack != null && !previousItemStack.IsEmpty &&
+                    previousItemStack != newItemStack)
+                {
+                    DeselectPreviousSlot();
+                }
+            }
+
+            // 3) Check if the new slot actually has an item
             var itemStack = inventory.GetItemStackAt(slotIndex);
-            if(itemStack == null || itemStack.IsEmpty)
+            if (itemStack == null || itemStack.IsEmpty)
             {
-                Debug.LogWarning("No item in slot.");
-                //still deselect the previous item
-                DeselectPreviousSlot();
-                _selectedSlotInteraction = _slotInteractions[slotIndex];
-                
-                inventory.OnSelectNone();
+                // If empty, we might want to also deselect any previously selected slot
+                // but that depends on your intended behavior.
+                // For now, we’ll just do nothing further.
                 return;
             }
-            
-            //Case 3: Check if selecting the same slot and is not seed item
-            if (_selectedSlotInteraction && _selectedSlotInteraction.SlotIndex == slotIndex && inventory.GetItemStackAt(slotIndex).ItemData.ItemTypeString != "Seed")
+
+            // 4) Decide whether to use or equip the item
+            //    Usually you'd also want to set the inventory.SelectedSlotIndex = slotIndex here
+            inventory.SelectedSlotIndex = slotIndex;
+
+            if (itemStack.ItemData is EquipmentItem)
             {
-                // Use the selected slot
-                inventory.LeftClickItem(slotIndex);
-                return;
+                // If the item is equipment, we "equip" or "activate" it
+                inventory.OnSelectItem(slotIndex);
+                // Optionally track which slot UI is selected
+                SetSelectedSlot(slotIndex);
             }
-            
-            /*Deselect previous item*/
-            // Unhighlight the previous slot
-            DeselectPreviousSlot();
-            
-            /*Select new item*/
-            // Highlight the new slot
-            SetSelectedSlot(slotIndex);
-            // Update selected slot item
+            else
+            {
+                // If the item is consumable, we "use" it
+                // In some designs, using the item does *not* necessarily select it
+                inventory.UseItem(slotIndex);
+                // If we do want to show a "selection" visually, call SetSelectedSlot
+                SetSelectedSlot(slotIndex);
+            }
         }
-        
+
+        /// <summary>
+        /// Sets the currently selected slot in the UI layer.
+        /// Also triggers the logical OnSelectItem if not already triggered.
+        /// </summary>
+        /// <param name="slotIndex"></param>
         private void SetSelectedSlot(int slotIndex)
         {
             _selectedSlotInteraction = _slotInteractions[slotIndex];
-            inventory.OnSelectItem(slotIndex);
         }
 
-        
+        /// <summary>
+        /// Deselects the previously selected slot, if any.
+        /// </summary>
         private void DeselectPreviousSlot()
         {
+            // If we have a valid selected slot
             if (_selectedSlotInteraction)
             {
-                //Visual
-                //Logic
+                // Logic: tell the inventory to deselect that slot
                 inventory.OnDeSelectItem(_selectedSlotInteraction.SlotIndex);
+
+                // Clear references
                 _selectedSlotInteraction = null;
+                inventory.SelectedSlotIndex = -1; 
             }
         }
-        
+
         #region Keyboard Input
-
-        // private void Update()
-        // {
-        //     if (Input.GetKeyDown(KeyCode.Alpha1))
-        //     {
-        //         SelectSlot(0);
-        //     }
-        //     else if (Input.GetKeyDown(KeyCode.Alpha2))
-        //     {
-        //         SelectSlot(1);
-        //     }
-        //     else if (Input.GetKeyDown(KeyCode.Alpha3))
-        //     {
-        //         SelectSlot(2);
-        //     }
-        //     else if (Input.GetKeyDown(KeyCode.Alpha4))
-        //     {
-        //         SelectSlot(3);
-        //     }
-        //     else if (Input.GetKeyDown(KeyCode.Alpha5))
-        //     {
-        //         SelectSlot(4);
-        //     }
-        //     else if (Input.GetKeyDown(KeyCode.Alpha6))
-        //     {
-        //         SelectSlot(5); 
-        //     }
-        //     else if (Input.GetKeyDown(KeyCode.Alpha7))
-        //     {
-        //         SelectSlot(6);
-        //     }
-        //     else if (Input.GetKeyDown(KeyCode.Alpha8))
-        //     {
-        //         SelectSlot(7);
-        //     }
-        //     else if (Input.GetKeyDown(KeyCode.Alpha9))
-        //     {
-        //         SelectSlot(8);
-        //     }
-        //     else if (Input.GetKeyDown(KeyCode.Alpha0))
-        //     {
-        //         SelectSlot(9);
-        //     }
-        // }
-
-
+        /*
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                SelectSlot(0);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                SelectSlot(1);
+            }
+            // etc...
+        }
+        */
         #endregion
-        
 
         public override ItemStack RemoveAllItemsFromSlot(int slotIndex)
         {
-            //if the slot is selected, deselect it
-            if(slotIndex == inventory.SelectedSlotIndex)
+            // If the slot is currently selected, deselect it first
+            if (slotIndex == inventory.SelectedSlotIndex)
             {
                 DeselectPreviousSlot();
             }
@@ -154,13 +162,14 @@ namespace _Script.Inventory.ActionBarFrontend
         public override void AddItemToEmptySlot(ItemStack itemStack, int slotIndex)
         {
             base.AddItemToEmptySlot(itemStack, slotIndex);
-            //Debug.Log("Item added to slot " + slotIndex + " in action bar." +_actionBar.SelectedSlotIndex);
-            if(slotIndex == inventory.SelectedSlotIndex)
+
+            // If the newly added item goes into the selected slot, we can re-select
+            if (slotIndex == inventory.SelectedSlotIndex)
             {
                 SelectSlot(slotIndex);
             }
         }
-  
+
         public void AddGold(int amount)
         {
             inventory.InventoryOwner.AddGold(amount);
