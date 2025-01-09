@@ -2,6 +2,7 @@
 // 27 12 2024
 
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace _Script.Map.ResourceSpawnVolume
@@ -15,9 +16,8 @@ namespace _Script.Map.ResourceSpawnVolume
             [Tooltip("Prefab to spawn (e.g., a tree, rock, ore deposit, etc.)")]
             public GameObject resourcePrefab;
 
-            [Range(0f, 100f), Tooltip("Weight or chance for this resource (0..1).")]
-            public float spawnChance = 5f;
-            
+            [Tooltip("More weight the higher the chance of spawning.")]
+            public int weight = 5;
         }
 
         [SerializeField, Tooltip("All possible resource types that can spawn.")]
@@ -29,6 +29,51 @@ namespace _Script.Map.ResourceSpawnVolume
         public IEnumerable<ResourceItem> GetResources()
         {
             return resourceItems;
+        }
+        
+        //get weight sum
+        public int GetWeightSum()
+        {
+            int sum = 0;
+            foreach (var item in resourceItems)
+            {
+                sum += item.weight;
+            }
+
+            return sum;
+        }
+        
+        //get random resource
+        public List<GameObject> GetResourceToSpawn(float rate)
+        {
+            var result = new List<GameObject>();
+            if(rate <= 0) return result;
+            
+            //Put all resources into a weighted list
+            var weightedList = new int[resourceItems.Count()];
+            for (int i = 0; i < resourceItems.Count(); i++)
+            {
+                weightedList[i] = resourceItems[i].weight;
+            }
+
+            var count = rate - (rate % 100) +  (Random.value < rate ? 1 : 0);  
+            
+            var totalWeight = GetWeightSum();
+            for(var i = 0; i < count; i++)
+            {
+                var random = Random.Range(0, totalWeight);
+                var sum = 0;
+                for (int j = 0; j < resourceItems.Count(); j++)
+                {
+                    sum += weightedList[j];
+                    if (random < sum)
+                    {
+                        result.Add(resourceItems[j].resourcePrefab);
+                        break;
+                    }
+                }
+            }
+            return result;
         }
     }
 

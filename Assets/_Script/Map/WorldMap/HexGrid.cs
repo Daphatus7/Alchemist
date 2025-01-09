@@ -96,7 +96,7 @@ namespace _Script.Map.WorldMap
             }
 
             // Only continue generating new paths if nodes haven't reached the boundary
-            while (queue.Count > 0 && queue.Count < 30)
+            while (queue.Count > 0 && queue.Count < 100)
             {
                 var end = queue.Dequeue();
                 end.NodeType = NodeType.Bonfire;

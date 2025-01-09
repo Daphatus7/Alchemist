@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace _Script.Map
 {
+    //Spawn point for player
     public class SpawnerPoint : Singleton<SpawnerPoint>
     {
         private Transform _spawnPoint;

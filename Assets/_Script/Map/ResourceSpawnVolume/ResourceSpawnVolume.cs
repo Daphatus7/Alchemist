@@ -16,10 +16,34 @@ namespace _Script.Map.ResourceSpawnVolume
 
         [Header("Spawn Density")]
         [Tooltip("Spawns per unit area. For example, 1 => For an area=10, we expect about 10 * (resource.spawnChance) spawns of that resource.")]
-        [Range(0f, 5f)]
+        [Range(0f, 100f)]
         [SerializeField]
-        private float spawnDensity = 1f;
-
+        private float spawnDensity = 2f;
+        
+        
+        private float BoxArea
+        {
+            get
+            {
+                if (_box2D == null)
+                {
+                    _box2D = GetComponent<BoxCollider2D>();
+                }
+                return _box2D.size.x * _box2D.size.y;
+            }
+        }
+        
+        
+        [Header("Monster Spawn Density")]
+        
+        [SerializeField]
+        private ScriptableObject monsterSpawnScript;
+        
+        [Tooltip("0 -> no monster, 100 -> 1 monster every 1 unit area")]
+        [Range(0f, 100f)]
+        [SerializeField] private float monsterSpawnDensity = 1f; 
+        
+        
         private IResourceSpawnProvider _resourceProvider;
         private BoxCollider2D _box2D;
 
@@ -36,6 +60,7 @@ namespace _Script.Map.ResourceSpawnVolume
             StartCoroutine(SpawnResources());
 
         }
+        
 
         private IEnumerator SpawnResources()
         {
@@ -44,27 +69,44 @@ namespace _Script.Map.ResourceSpawnVolume
 
             // Calculate the area of the box
             // (simple approach assuming no rotation)
-            float boxArea = _box2D.size.x * _box2D.size.y;
-            var resourceList = new List<ResourceSpawnScript.ResourceItem>(_resourceProvider.GetResources());
-
             // For each resource, multiply its spawnChance by (area * density)
             // to get how many times we attempt to spawn that resource.
-            foreach (var resource in resourceList)
-            {
-                if (resource.resourcePrefab == null || resource.spawnChance <= 0f)
-                    continue;
 
-                // Expected number of "spawn attempts" for this resource
-                float expectedSpawns = resource.spawnChance * spawnDensity * boxArea / 100;
-                int spawnCount = Mathf.RoundToInt(expectedSpawns);
-                
-                for(int i = 0; i < spawnCount; i++)
+            if (resourceSpawnScript)
+            {
+                List<GameObject> itemToSpawn = ((ResourceSpawnScript)resourceSpawnScript).GetResourceToSpawn(BoxArea * spawnDensity / 100);
+                if (itemToSpawn.Count > 0)
                 {
-                    Vector3 spawnPos = GetRandomPointInsideBox(_box2D);
-                    GameObject resourceObj = Instantiate(resource.resourcePrefab, spawnPos, Quaternion.identity);
-                    resourceObj.transform.parent = transform;
+                    foreach (var resource in itemToSpawn)
+                    {
+                        if (!resource)
+                            continue;
+
+                        Vector3 spawnPos = GetRandomPointInsideBox(_box2D);
+                        GameObject resourceObj = Instantiate(resource, spawnPos, Quaternion.identity);
+                        resourceObj.transform.parent = transform;
+                    }
                 }
             }
+            
+            if (monsterSpawnScript)
+            {
+                List<GameObject> monsterList = ((ResourceSpawnScript)monsterSpawnScript).GetResourceToSpawn(BoxArea * monsterSpawnDensity / 100);
+
+                if (monsterList.Count <= 0) yield break;
+                {
+                    foreach (var monster in monsterList)
+                    {
+                        if (!monster)
+                            continue;
+
+                        Vector3 spawnPos = GetRandomPointInsideBox(_box2D);
+                        GameObject resourceObj = Instantiate(monster, spawnPos, Quaternion.identity);
+                        resourceObj.transform.parent = transform;
+                    }
+                }
+            }
+
         }
 
         /// <summary>
