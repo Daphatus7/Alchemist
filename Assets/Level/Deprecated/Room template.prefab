@@ -6428,23 +6428,7 @@ MonoBehaviour:
       Direction: 0
       Socket: {fileID: 0}
   ManualDoorModeData:
-    DoorsList:
-    - From: {x: 2, y: -8, z: 0}
-      To: {x: 2, y: -9, z: 0}
-      Direction: 0
-      Socket: {fileID: 0}
-    - From: {x: 21, y: -8, z: 0}
-      To: {x: 21, y: -9, z: 0}
-      Direction: 0
-      Socket: {fileID: 0}
-    - From: {x: 11, y: 1, z: 0}
-      To: {x: 12, y: 1, z: 0}
-      Direction: 0
-      Socket: {fileID: 0}
-    - From: {x: 11, y: -18, z: 0}
-      To: {x: 12, y: -18, z: 0}
-      Direction: 0
-      Socket: {fileID: 0}
+    DoorsList: []
   SimpleDoorModeData:
     DistanceFromCorners: 1
     DoorLength: 1

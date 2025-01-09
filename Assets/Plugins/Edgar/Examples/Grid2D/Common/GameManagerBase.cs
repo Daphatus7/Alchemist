@@ -114,7 +114,7 @@ namespace Edgar.Unity.Examples
         {
             var canvas = Canvas ?? GameObject.Find("Canvas");
 
-            if (canvas == null)
+            if (!canvas)
             {
                 Debug.LogError($"Canvas was not found. Please set the {nameof(Canvas)} variable of the GameManager");
             }

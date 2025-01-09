@@ -2001,7 +2001,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -2032,3 +2032,5 @@ MonoBehaviour:
   resourceSpawnScript: {fileID: 11400000, guid: 457379d34972b4aa6ae6a5f738c34040,
     type: 2}
   spawnDensity: 2
+  monsterSpawnScript: {fileID: 0}
+  monsterSpawnDensity: 1
