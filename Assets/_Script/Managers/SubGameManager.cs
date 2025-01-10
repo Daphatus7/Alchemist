@@ -11,7 +11,7 @@ using _Script.Map.Volume;
 using Edgar.Unity;
 using Edgar.Unity.Examples;
 using Edgar.Unity.Examples.Example2;
-using ResourceSpawnVolume = _Script.Map.ResourceSpawnVolume.ResourceSpawnVolume;
+using Sirenix.OdinInspector;
 
 namespace _Script.Managers
 {
@@ -24,6 +24,7 @@ namespace _Script.Managers
 
         public Transform SpawnPoint => SpawnerPoint.Instance?.transform;
 
+        [Button]
         public override void LoadNextLevel()
         {
             ShowLoadingScreen("SubGameManager", "Generating level...");
@@ -73,8 +74,9 @@ namespace _Script.Managers
             
             // Once generation is done, calculate reachable area
             _reachableArea = GenerateReachableArea();
-            
-            //ToDo: make this work spawn from spawner volume
+
+            var spawner = GetComponent<ResourceSpawnVolume>();
+            spawner.Spawn(_reachableArea);
             
             OnLevelGenerated?.Invoke();
         }
@@ -112,7 +114,7 @@ namespace _Script.Managers
             }
 
             // 3. Build a ReachableArea object to find the largest region
-            var largestArea = new ReachableArea(baseTileMap, wallTileMap, colliderTileMap);
+            var largestArea = new ReachableArea(tilemaps.transform.position, baseTileMap, wallTileMap, colliderTileMap);
 
             // 4. Visual debug: draw lines around each tile in the largest reachable area
             VisualDebugReachableArea(baseTileMap, largestArea.reachableArea, Color.red);

@@ -290,6 +290,7 @@ GameObject:
   - component: {fileID: 1348654202}
   - component: {fileID: 1348654203}
   - component: {fileID: 1348654204}
+  - component: {fileID: 1348654205}
   m_Layer: 0
   m_Name: SubManager
   m_TagString: Untagged
@@ -1718,6 +1719,23 @@ MonoBehaviour:
       - {x: -22, y: -43}
       - {x: -22, y: -62}
       - {x: -41, y: -62}
+--- !u!114 &1348654205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348654201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c28dc624094b478814f0b5b8f927a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceSpawnScript: {fileID: 11400000, guid: 457379d34972b4aa6ae6a5f738c34040,
+    type: 2}
+  spawnDensity: 5
+  monsterSpawnScript: {fileID: 11400000, guid: 457379d34972b4aa6ae6a5f738c34040, type: 2}
+  monsterSpawnDensity: 1
 --- !u!114 &1757705528
 MonoBehaviour:
   m_ObjectHideFlags: 0

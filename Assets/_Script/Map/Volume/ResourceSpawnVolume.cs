@@ -9,7 +9,6 @@ using Random = UnityEngine.Random;
 
 namespace _Script.Map.Volume
 {
-    [RequireComponent(typeof(BoxCollider2D))]
     public class ResourceSpawnVolume : MonoBehaviour
     {
         [Header("Resource Data (ScriptableObject)")]
@@ -24,18 +23,6 @@ namespace _Script.Map.Volume
         private float spawnDensity = 2f;
         
         
-        private float BoxArea
-        {
-            get
-            {
-                if (!_box2D)
-                {
-                    _box2D = GetComponent<BoxCollider2D>();
-                }
-                return _box2D.size.x * _box2D.size.y;
-            }
-        }
-        
         
         [Header("Monster Spawn Density")]
         
@@ -48,24 +35,15 @@ namespace _Script.Map.Volume
         
         
         private IResourceSpawnProvider _resourceProvider;
-        private BoxCollider2D _box2D;
-
-        private void Start()
-        {
-            Spawn();
-        }
 
         [Button]
-        public void Spawn()
+        public void Spawn(ReachableArea reachableArea)
         {
-            _box2D = GetComponent<BoxCollider2D>();
             _resourceProvider = resourceSpawnScript as IResourceSpawnProvider;
-            StartCoroutine(SpawnResources());
-
+            StartCoroutine(SpawnResources(reachableArea));
         }
         
-
-        private IEnumerator SpawnResources()
+        private IEnumerator SpawnResources(ReachableArea reachableArea)
         {
             // Small delay to ensure things are ready
             yield return new WaitForSeconds(0.1f);
@@ -77,7 +55,7 @@ namespace _Script.Map.Volume
 
             if (resourceSpawnScript)
             {
-                List<GameObject> itemToSpawn = ((ResourceSpawnScript)resourceSpawnScript).GetResourceToSpawn(BoxArea * spawnDensity / 100);
+                List<GameObject> itemToSpawn = ((ResourceSpawnScript)resourceSpawnScript).GetResourceToSpawn(reachableArea.AreaSize * spawnDensity / 100);
                 if (itemToSpawn.Count > 0)
                 {
                     foreach (var resource in itemToSpawn)
@@ -85,7 +63,7 @@ namespace _Script.Map.Volume
                         if (!resource)
                             continue;
 
-                        Vector3 spawnPos = GetRandomPointInsideBox(_box2D);
+                        Vector3 spawnPos = GetRandomPointInsideBox(reachableArea);
                         GameObject resourceObj = Instantiate(resource, spawnPos, Quaternion.identity);
                         resourceObj.transform.parent = transform;
                     }
@@ -94,7 +72,7 @@ namespace _Script.Map.Volume
             
             if (monsterSpawnScript)
             {
-                List<GameObject> monsterList = ((ResourceSpawnScript)monsterSpawnScript).GetResourceToSpawn(BoxArea * monsterSpawnDensity / 100);
+                List<GameObject> monsterList = ((ResourceSpawnScript)monsterSpawnScript).GetResourceToSpawn(reachableArea.AreaSize * monsterSpawnDensity / 100);
 
                 if (monsterList.Count <= 0) yield break;
                 {
@@ -103,7 +81,7 @@ namespace _Script.Map.Volume
                         if (!monster)
                             continue;
 
-                        Vector3 spawnPos = GetRandomPointInsideBox(_box2D);
+                        Vector3 spawnPos = GetRandomPointInsideBox(reachableArea);
                         GameObject resourceObj = Instantiate(monster, spawnPos, Quaternion.identity);
                         resourceObj.transform.parent = transform;
                     }
@@ -115,18 +93,11 @@ namespace _Script.Map.Volume
         /// <summary>
         /// Returns a random point inside the BoxCollider2D's area (ignoring rotation).
         /// </summary>
-        private Vector3 GetRandomPointInsideBox(BoxCollider2D box)
+        private Vector3 GetRandomPointInsideBox(ReachableArea reachableArea)
         {
-            Vector2 boxSize = box.size;
-            Vector2 boxOffset = box.offset;
-            Vector2 boxCenter = (Vector2)box.transform.position + boxOffset;
-
-            float randomX = Random.Range(boxCenter.x - boxSize.x / 2f,
-                                         boxCenter.x + boxSize.x / 2f);
-            float randomY = Random.Range(boxCenter.y - boxSize.y / 2f,
-                                         boxCenter.y + boxSize.y / 2f);
-
-            return new Vector3(randomX, randomY, 0f);
+            
+            var randomPosition = reachableArea.GetARandomPosition();
+            return randomPosition;
         }
     }
 }

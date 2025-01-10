@@ -12,45 +12,64 @@ namespace _Script.Map
     /// </summary>
     public class ReachableArea
     {
-        // The largest contiguous walkable region, stored as local indices [0..Width-1, 0..Height-1]
-        private List<Vector2Int> _reachableArea; public List<Vector2Int> reachableArea => _reachableArea;
+        // The largest contiguous walkable region, stored as local indices [0..Width-1, 0..Height-1].
+        // "Local indices" means relative to the tilemap's bounding box.
+        public List<Vector2Int> reachableArea { get; }
 
+        private readonly Vector3 _pivot; public Vector3 Pivot => _pivot;
+        
+        public Vector3 GetARandomPosition()
+        {
+            if (reachableArea.Count == 0)
+            {
+                Debug.LogError("No reachable area found!");
+                return Vector3.zero;
+            }
+
+            var randomIndex = Random.Range(0, reachableArea.Count);
+            return LocalToTilemapCoords(reachableArea[randomIndex]);
+        }
+        
         // Overall dimensions derived from the Floor tilemap's bounding box
-        private int _width; public int Width => _width;
+        public int Width { get; }
 
-        private int _height; public int Height => _height;
-        
+        public int Height { get; }
+
         // The count of tiles in the largest region
-        private int _areaSize; public int AreaSize => _areaSize;
-        
-        // Internal 2D array marking walkable vs. blocked for each cell
-        private bool[,] _walkableArea;
+        public int AreaSize { get; }
 
+        // 2D array marking walkable (true) vs. blocked (false) for each cell
+        private readonly bool[,] _walkableArea;
+        
+        private Tilemap baseTileMap;
+        
         /// <summary>
         /// Constructs a ReachableArea by scanning the provided Tilemaps
         /// and finding the largest walkable region.
         /// </summary>
-        public ReachableArea(Tilemap floorTileMap, Tilemap wallsTileMap, Tilemap colliderTileMap)
+        public ReachableArea(Vector3 pivot, Tilemap floorTileMap, Tilemap wallsTileMap, Tilemap colliderTileMap)
         {
             if (floorTileMap == null || wallsTileMap == null || colliderTileMap == null)
             {
                 Debug.LogError("One or more required Tilemaps are null in ReachableArea constructor!");
-                _reachableArea = new List<Vector2Int>();
+                reachableArea = new List<Vector2Int>();
                 return;
             }
             
             // 1. Determine the bounding region from the Floor tilemap
             BoundsInt bounds = floorTileMap.cellBounds;
-            _width = bounds.size.x;
-            _height = bounds.size.y;
 
+            Width = bounds.size.x;
+            Height = bounds.size.y;
+            _pivot = pivot;
+            baseTileMap = floorTileMap;
             // 2. Allocate and fill the _walkableArea array
-            _walkableArea = new bool[_width, _height];
+            _walkableArea = new bool[Width, Height];
             FillWalkableArea(floorTileMap, wallsTileMap, colliderTileMap, bounds);
 
             // 3. Run BFS to find the single largest reachable region
-            _reachableArea = FindLargestReachableAreaBFS();
-            _areaSize = _reachableArea.Count;
+            reachableArea = FindLargestReachableAreaBFS();
+            AreaSize = reachableArea.Count;
         }
 
         /// <summary>
@@ -58,6 +77,10 @@ namespace _Script.Map
         ///     - There's a tile in Floor
         ///     - AND no tile in Walls or Collideable
         /// Then stores the result in _walkableArea.
+        /// 
+        /// localX, localY are in [0..Width-1, 0..Height-1], so we do:
+        ///   localX = x - bounds.xMin,
+        ///   localY = y - bounds.yMin.
         /// </summary>
         private void FillWalkableArea(Tilemap floor, Tilemap walls, Tilemap coll, BoundsInt bounds)
         {
@@ -80,22 +103,24 @@ namespace _Script.Map
         /// <summary>
         /// Finds the single largest connected component in _walkableArea
         /// using a BFS approach (4-directional).
+        /// The BFS works on local coordinates [0.._width-1, 0.._height-1].
         /// </summary>
         private List<Vector2Int> FindLargestReachableAreaBFS()
         {
-            bool[,] visited = new bool[_width, _height];
+            bool[,] visited = new bool[Width, Height];
             List<Vector2Int> largestArea = new List<Vector2Int>();
             int maxCount = 0;
 
-            for (int x = 0; x < _width; x++)
+            for (int x = 0; x < Width; x++)
             {
-                for (int y = 0; y < _height; y++)
+                for (int y = 0; y < Height; y++)
                 {
+                    // If this cell is walkable and not visited, we BFS from here
                     if (_walkableArea[x, y] && !visited[x, y])
                     {
-                        // BFS for this new region
                         List<Vector2Int> currentArea = new List<Vector2Int>();
                         Queue<Vector2Int> queue = new Queue<Vector2Int>();
+                        
                         queue.Enqueue(new Vector2Int(x, y));
                         visited[x, y] = true;
 
@@ -104,7 +129,7 @@ namespace _Script.Map
                             Vector2Int cell = queue.Dequeue();
                             currentArea.Add(cell);
 
-                            // Check 4 neighbors
+                            // Check the 4 orthogonal neighbors
                             foreach (var dir in new[]
                             {
                                 new Vector2Int( 1,  0),
@@ -116,7 +141,9 @@ namespace _Script.Map
                                 int nx = cell.x + dir.x;
                                 int ny = cell.y + dir.y;
 
-                                if (nx >= 0 && nx < _width && ny >= 0 && ny < _height)
+                                // In-bounds check
+                                if (nx >= 0 && nx < Width &&
+                                    ny >= 0 && ny < Height)
                                 {
                                     if (_walkableArea[nx, ny] && !visited[nx, ny])
                                     {
@@ -127,11 +154,11 @@ namespace _Script.Map
                             }
                         }
 
-                        // Compare with current largest
+                        // Compare this region's size with the largest found so far
                         if (currentArea.Count > maxCount)
                         {
                             maxCount = currentArea.Count;
-                            largestArea = currentArea; // store the new largest
+                            largestArea = currentArea;
                         }
                     }
                 }
@@ -139,6 +166,27 @@ namespace _Script.Map
 
             Debug.Log($"Largest reachable area tile count = {maxCount}");
             return largestArea;
+        }
+
+        /*
+         * Example helper (if you need it):
+         * Convert a local BFS coordinate to the actual tilemap cell coordinate.
+         *
+         *   Vector2Int localCoord  = new Vector2Int( x, y );
+         *   Vector3Int tileCoord  = LocalToTilemapCoords(localCoord);
+         *   Vector3   worldCenter = floorTilemap.GetCellCenterWorld(tileCoord);
+         */
+        private Vector3 LocalToTilemapCoords(Vector2Int localCoord)
+        {
+            Vector3Int tilePosition = new Vector3Int(
+                localCoord.x + baseTileMap.cellBounds.xMin,
+                localCoord.y + baseTileMap.cellBounds.yMin,
+                0
+            );
+                
+            // Get the tile center in world space
+            Vector3 worldPosition = baseTileMap.GetCellCenterWorld(tilePosition);
+            return worldPosition;
         }
     }
 }
