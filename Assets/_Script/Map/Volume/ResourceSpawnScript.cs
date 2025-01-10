@@ -47,19 +47,30 @@ namespace _Script.Map.Volume
         public List<GameObject> GetResourceToSpawn(float rate)
         {
             var result = new List<GameObject>();
-            if(rate <= 0) return result;
-            
-            //Put all resources into a weighted list
+            if (rate <= 0) return result;
+
+            // Put all resources into a weighted list
             var weightedList = new int[resourceItems.Count()];
             for (int i = 0; i < resourceItems.Count(); i++)
             {
                 weightedList[i] = resourceItems[i].weight;
             }
+            Debug.Log($"Rate: {rate}");
 
-            var count = rate - (rate % 100) +  (Random.value < rate ? 1 : 0);  
-            
+            // Calculate the integer and fractional parts of the rate
+            int integerPart = Mathf.FloorToInt(rate); // Integer part of the rate
+            float fractionalPart = rate - integerPart; // Fractional part of the rate
+
+            // Determine if an extra unit should be spawned based on the fractional part
+            int count = integerPart + (Random.value < fractionalPart ? 1 : 0);
+
+            Debug.Log($"Count: {count}");
+
+            // Total weight of all resources
             var totalWeight = GetWeightSum();
-            for(var i = 0; i < count; i++)
+
+            // Spawn resources based on the calculated count
+            for (var i = 0; i < count; i++)
             {
                 var random = Random.Range(0, totalWeight);
                 var sum = 0;
@@ -73,6 +84,7 @@ namespace _Script.Map.Volume
                     }
                 }
             }
+
             return result;
         }
     }

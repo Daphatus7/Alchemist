@@ -75,7 +75,7 @@ namespace _Script.Managers
             // Once generation is done, calculate reachable area
             _reachableArea = GenerateReachableArea();
 
-            var spawner = GetComponent<ResourceSpawnVolume>();
+            var spawner = GetComponent<MapSpawner>();
             spawner.Spawn(_reachableArea);
             
             OnLevelGenerated?.Invoke();

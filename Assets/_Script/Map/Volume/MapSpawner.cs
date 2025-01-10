@@ -5,11 +5,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace _Script.Map.Volume
 {
-    public class ResourceSpawnVolume : MonoBehaviour
+    public class MapSpawner : MonoBehaviour
     {
         [Header("Resource Data (ScriptableObject)")]
         [Tooltip("A ScriptableObject implementing IResourceSpawnProvider (e.g., ResourceSpawnScript).")]
