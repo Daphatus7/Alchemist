@@ -219,7 +219,7 @@ namespace _Script.Inventory.InventoryFrontendBase
                 rect.sizeDelta = new Vector2(CellSize * itemSize.x, CellSize * itemSize.y);
                 
                 var slotUI = newItemDisplay.GetComponent<InventorySlotDisplay>();
-                slotUI.SetSlotImage(item.ItemData.ItemSprite);
+                slotUI.SetDisplay(item.ItemData, item.Quantity);
                 _slotUIs.Add(slotUI);
             }
         }
