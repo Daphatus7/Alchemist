@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace _Script.Map.ResourceSpawnVolume
+namespace _Script.Map.Volume
 {
     [CreateAssetMenu(fileName = "ResourceSpawnScript", menuName = "GameData/ResourceSpawnScript")]
     public class ResourceSpawnScript : ScriptableObject, IResourceSpawnProvider

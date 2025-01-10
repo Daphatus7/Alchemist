@@ -1,11 +1,13 @@
+// Author : Peiyu Wang @ Daphatus
+// 10 01 2025 01 31
+
 using System.Collections;
 using System.Collections.Generic;
-using _Script.Map.Volume;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace _Script.Map.ResourceSpawnVolume
+namespace _Script.Map.Volume
 {
     [RequireComponent(typeof(BoxCollider2D))]
     public class ResourceSpawnVolume : MonoBehaviour
@@ -26,7 +28,7 @@ namespace _Script.Map.ResourceSpawnVolume
         {
             get
             {
-                if (_box2D == null)
+                if (!_box2D)
                 {
                     _box2D = GetComponent<BoxCollider2D>();
                 }
