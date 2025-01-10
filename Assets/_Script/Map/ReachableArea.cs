@@ -47,7 +47,7 @@ namespace _Script.Map
         /// Constructs a ReachableArea by scanning the provided Tilemaps
         /// and finding the largest walkable region.
         /// </summary>
-        public ReachableArea(Vector3 pivot, Tilemap floorTileMap, Tilemap wallsTileMap, Tilemap colliderTileMap)
+        public ReachableArea(Tilemap floorTileMap, Tilemap wallsTileMap, Tilemap colliderTileMap)
         {
             if (floorTileMap == null || wallsTileMap == null || colliderTileMap == null)
             {
@@ -61,7 +61,11 @@ namespace _Script.Map
 
             Width = bounds.size.x;
             Height = bounds.size.y;
-            _pivot = pivot;
+            _pivot = floorTileMap.GetCellCenterWorld(new Vector3Int(
+                bounds.xMin + bounds.size.x / 2,
+                bounds.yMin + bounds.size.y / 2,
+                0
+            ));
             baseTileMap = floorTileMap;
             // 2. Allocate and fill the _walkableArea array
             _walkableArea = new bool[Width, Height];

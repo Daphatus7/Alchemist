@@ -82,7 +82,10 @@ namespace _Script.Managers
         }
 
         private ReachableArea _reachableArea;
+        private Tilemap _baseTileMap;
+        public Vector3 MapCenter => _reachableArea.Pivot;
         
+        public Vector2Int MapBounds => new Vector2Int(_reachableArea.Width, _reachableArea.Height);
         public ReachableArea GenerateReachableArea()
         {
             // 1. Find the "Tilemaps" child under this GameObject
@@ -104,20 +107,20 @@ namespace _Script.Managers
             }
 
             // 2. Get references to specific Tilemaps
-            var baseTileMap = tilemaps.transform.Find("Floor").GetComponent<Tilemap>();
+            _baseTileMap = tilemaps.transform.Find("Floor").GetComponent<Tilemap>();
             var wallTileMap = tilemaps.transform.Find("Walls").GetComponent<Tilemap>();
             var colliderTileMap = tilemaps.transform.Find("Collideable").GetComponent<Tilemap>();
 
-            if (!baseTileMap || !wallTileMap || !colliderTileMap)
+            if (!_baseTileMap || !wallTileMap || !colliderTileMap)
             {
                 throw new Exception("One or more required Tilemaps are null in ReachableArea constructor!");
             }
 
             // 3. Build a ReachableArea object to find the largest region
-            var largestArea = new ReachableArea(tilemaps.transform.position, baseTileMap, wallTileMap, colliderTileMap);
+            var largestArea = new ReachableArea(_baseTileMap, wallTileMap, colliderTileMap);
 
             // 4. Visual debug: draw lines around each tile in the largest reachable area
-            VisualDebugReachableArea(baseTileMap, largestArea.reachableArea, Color.red);
+            VisualDebugReachableArea(_baseTileMap, largestArea.reachableArea, Color.red);
             
             Debug.Log(
                 $"Largest reachable area size: {largestArea.AreaSize}, " +

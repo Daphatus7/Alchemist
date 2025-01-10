@@ -21,10 +21,7 @@ namespace _Script.Map.Volume
         [SerializeField]
         private float spawnDensity = 2f;
         
-        
-        
         [Header("Monster Spawn Density")]
-        
         [SerializeField]
         private ScriptableObject monsterSpawnScript;
         

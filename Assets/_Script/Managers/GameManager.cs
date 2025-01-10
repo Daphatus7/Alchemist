@@ -19,6 +19,8 @@ namespace _Script.Managers
     public class GameManager : PersistentSingleton<GameManager>
     {
         private ServiceLocator _serviceLocator;
+        
+        [SerializeField] private AstarPath _astarPath;
 
         [SerializeField] private PlayerCharacter _playerCharacter;
         [SerializeField] private string _startingScene = "TownMap";
@@ -42,7 +44,8 @@ namespace _Script.Managers
 
             // Create and initialize the LevelManager
             _levelManager = new LevelManager();
-            _levelManager.Initialize(_playerCharacter, _startingScene);
+            
+            _levelManager.Initialize(_playerCharacter, _startingScene, _astarPath);
 
             // Optionally load the "starting" scene
             _levelManager.LoadMainScene(_startingScene);

@@ -19,15 +19,16 @@ namespace _Script.Managers
         private string _currentMainScene;
         private string _currentAdditiveScene;
         private readonly List<string> _loadedAdditiveScenes = new List<string>();
-
+        private AstarPath _astarPath;
         /// <summary>
         /// Initialize references such as the PlayerCharacter and starting scene.
         /// Called once from GameManager.
         /// </summary>
-        public void Initialize(PlayerCharacter playerCharacter, string startingScene)
+        public void Initialize(PlayerCharacter playerCharacter, string startingScene, AstarPath astarPath)
         {
             _playerCharacter = playerCharacter;
             _startingScene = startingScene;
+            _astarPath = astarPath;
         }
 
         /// <summary>
@@ -159,6 +160,22 @@ namespace _Script.Managers
             // Suppose the SubGameManager has a public SpawnPoint property:
             var spawnPoint = SubGameManager.Instance.SpawnPoint.position;
             var targetScene = _currentAdditiveScene;
+            
+            var gridGraph = AstarPath.active.data.gridGraph;
+
+            if (gridGraph != null)
+            {
+                // Set the size of the graph
+                gridGraph.center = SubGameManager.Instance.MapCenter;
+                gridGraph.width = SubGameManager.Instance.MapBounds.x;
+                gridGraph.depth = SubGameManager.Instance.MapBounds.y;
+                gridGraph.nodeSize = 1;        // Size of each node in world units
+
+                // Optionally adjust boundaries
+                gridGraph.UpdateSizeFromWidthDepth();
+            }
+            
+            _astarPath.Scan();
             MovePlayerToScene(spawnPoint, targetScene);
         }
 
