@@ -17,22 +17,21 @@ namespace _Script.Map.Volume
 
         [Header("Spawn Density")]
         [Tooltip("Spawns per unit area. For example, 1 => For an area=10, we expect about 10 * (resource.spawnChance) spawns of that resource.")]
-        [Range(0f, 100f)]
+        [Range(0f, 1f)]
         [SerializeField]
-        private float spawnDensity = 2f;
+        private float spawnDensity = 0.5f;
         
         [Header("Monster Spawn Density")]
         [SerializeField]
         private ScriptableObject monsterSpawnScript;
         
         [Tooltip("0 -> no monster, 100 -> 1 monster every 1 unit area")]
-        [Range(0f, 100f)]
+        [Range(0f, 1f)]
         [SerializeField] private float monsterSpawnDensity = 1f; 
         
         
         private IResourceSpawnProvider _resourceProvider;
 
-        [Button]
         public void Spawn(ReachableArea reachableArea)
         {
             _resourceProvider = resourceSpawnScript as IResourceSpawnProvider;

@@ -14,7 +14,7 @@ namespace Edgar.Unity.Examples.FogOfWarExample
             }
         }
 
-        public override void LoadNextLevel()
+        public override bool LoadNextLevel()
         {
             // Show loading screen
             ShowLoadingScreen("Fog of War", "loading..");
@@ -24,6 +24,8 @@ namespace Edgar.Unity.Examples.FogOfWarExample
 
             // Start the generator coroutine
             StartCoroutine(GeneratorCoroutine(generator));
+            return true;
+
         }
 
         /// <summary>

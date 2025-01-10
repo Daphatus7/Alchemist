@@ -49,7 +49,7 @@ namespace Edgar.Unity.Examples
         /// <summary>
         /// Load next level.
         /// </summary>
-        public abstract void LoadNextLevel();
+        public abstract bool LoadNextLevel();
 
         /// <summary>
         /// Display information about the level like time to generate the level, etc.

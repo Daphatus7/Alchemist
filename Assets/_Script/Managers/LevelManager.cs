@@ -144,10 +144,16 @@ namespace _Script.Managers
             }
             
             // Trigger generation in the SubGameManager
-            SubGameManager.Instance.LoadNextLevel();
-
+            if (SubGameManager.Instance.LoadNextLevel())
+            {
+                SubGameManager.Instance.OnLevelGenerated += OnSubGameManagerLevelGenerated;
+            }
+            else
+            {
+                _astarPath.Scan();
+                MovePlayerToScene(SubGameManager.Instance.SpawnPoint.position, _currentAdditiveScene);
+            }
             // Subscribe using a NAMED method, not an anonymous delegate
-            SubGameManager.Instance.OnLevelGenerated += OnSubGameManagerLevelGenerated;
         }
 
         /// <summary>

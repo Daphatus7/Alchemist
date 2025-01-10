@@ -36,6 +36,7 @@ namespace _Script.Items.Lootable
             gameObject.layer = LayerMask.NameToLayer("Interactable");
             _collider = col;
             _spriteRenderer = spriteRenderer;
+            _spriteRenderer.sortingLayerName = "Interactable";
             this.itemData = itemData;
             this.quantity = quantity;
             _spriteRenderer.sprite = itemData.itemIcon;

@@ -209,6 +209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1348654202}
   - component: {fileID: 1348654203}
+  - component: {fileID: 1348654204}
   m_Layer: 0
   m_Name: SubManager
   m_TagString: Untagged
@@ -245,6 +246,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Canvas: {fileID: 0}
   _dungeonGenerator: {fileID: 480979653}
+--- !u!114 &1348654204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348654201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c28dc624094b478814f0b5b8f927a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceSpawnScript: {fileID: 11400000, guid: 457379d34972b4aa6ae6a5f738c34040,
+    type: 2}
+  spawnDensity: 0.18
+  monsterSpawnScript: {fileID: 11400000, guid: 66d0c724333bc462ca83d50c8d017e52, type: 2}
+  monsterSpawnDensity: 0.151
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

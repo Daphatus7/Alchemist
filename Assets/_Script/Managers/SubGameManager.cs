@@ -10,7 +10,6 @@ using _Script.Map;
 using _Script.Map.Volume;
 using Edgar.Unity;
 using Edgar.Unity.Examples;
-using Edgar.Unity.Examples.Example2;
 using Sirenix.OdinInspector;
 
 namespace _Script.Managers
@@ -22,10 +21,23 @@ namespace _Script.Managers
         
         public event Action OnLevelGenerated;
 
-        public Transform SpawnPoint => SpawnerPoint.Instance?.transform;
+        public Transform SpawnPoint
+        {
+            get
+            {
+                var spawnerPoint = SpawnerPoint.Instance;
+                if (spawnerPoint)
+                {
+                    Debug.Log("SpawnerPoint found!");
+                    return spawnerPoint.GetSpawnPoint();
+                }
+                Debug.LogWarning("No SpawnerPoint found! Using this GameObject's transform instead.");
+                return transform;
+            }
+        }
 
         [Button]
-        public override void LoadNextLevel()
+        public override bool LoadNextLevel()
         {
             ShowLoadingScreen("SubGameManager", "Generating level...");
 
@@ -33,11 +45,12 @@ namespace _Script.Managers
             {
                 Debug.LogWarning("No DungeonGenerator assigned to this SubGameManager!");
                 HideLoadingScreen();
-                return;
+                return false;
             }
 
             // Generate the dungeon/level
             StartCoroutine(GenerateLevelCoroutine());
+            return true;
         }
 
         protected override void SingletonAwake()

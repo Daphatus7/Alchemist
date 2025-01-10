@@ -21,7 +21,7 @@ namespace Edgar.Unity.Examples.CurrentRoomDetection
             }
         }
 
-        public override void LoadNextLevel()
+        public override bool LoadNextLevel()
         {
             currentRoom = null;
             nextCurrentRoom = null;
@@ -34,6 +34,7 @@ namespace Edgar.Unity.Examples.CurrentRoomDetection
 
             // Start the generator coroutine
             StartCoroutine(GeneratorCoroutine(generator));
+            return true;
         }
 
         /// <summary>

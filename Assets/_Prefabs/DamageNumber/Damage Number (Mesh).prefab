@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7750627815352757854}
   - component: {fileID: 3418554337574669511}
   - component: {fileID: 6741747403293869178}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Damage Number (Mesh)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,9 +481,9 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2002279347806175327}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1000
+  m_SortingLayerID: 1641875569
+  m_SortingLayer: 9
+  m_SortingOrder: 0
   m_SortAtRoot: 0
 --- !u!1 &2886464701688830224
 GameObject:
@@ -496,7 +496,7 @@ GameObject:
   - component: {fileID: 95689935081991711}
   - component: {fileID: 8337922100902587846}
   - component: {fileID: 7154960883940153827}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MeshB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -535,6 +535,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -579,7 +582,7 @@ GameObject:
   - component: {fileID: 8410498649704219966}
   - component: {fileID: 6590010501598658388}
   - component: {fileID: 8201626366041358472}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MeshA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -618,6 +621,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -662,7 +668,7 @@ GameObject:
   - component: {fileID: 1741379228668499397}
   - component: {fileID: 5092219069272589183}
   - component: {fileID: 5398038525542441557}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -705,6 +711,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -793,15 +802,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 0
   m_isCullingEnabled: 0

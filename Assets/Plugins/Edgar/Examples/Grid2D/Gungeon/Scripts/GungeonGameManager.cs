@@ -43,7 +43,7 @@ namespace Edgar.Unity.Examples.Gungeon
             }
         }
 
-        public override void LoadNextLevel()
+        public override bool LoadNextLevel()
         {
             isGenerating = true;
 
@@ -55,6 +55,7 @@ namespace Edgar.Unity.Examples.Gungeon
 
             // Start the generator coroutine
             StartCoroutine(GeneratorCoroutine(generator));
+            return true;
         }
 
         /// <summary>

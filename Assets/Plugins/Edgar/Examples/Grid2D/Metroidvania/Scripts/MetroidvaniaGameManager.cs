@@ -40,7 +40,7 @@ namespace Edgar.Unity.Examples.Metroidvania
             }
         }
 
-        public override void LoadNextLevel()
+        public override bool LoadNextLevel()
         {
             isGenerating = true;
 
@@ -52,6 +52,8 @@ namespace Edgar.Unity.Examples.Metroidvania
 
             // Start the generator coroutine
             StartCoroutine(GeneratorCoroutine(generator));
+            return true;
+
         }
 
 

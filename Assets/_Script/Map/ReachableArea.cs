@@ -41,7 +41,7 @@ namespace _Script.Map
         // 2D array marking walkable (true) vs. blocked (false) for each cell
         private readonly bool[,] _walkableArea;
         
-        private Tilemap baseTileMap;
+        private Tilemap _baseTileMap;
         
         /// <summary>
         /// Constructs a ReachableArea by scanning the provided Tilemaps
@@ -66,7 +66,7 @@ namespace _Script.Map
                 bounds.yMin + bounds.size.y / 2,
                 0
             ));
-            baseTileMap = floorTileMap;
+            _baseTileMap = floorTileMap;
             // 2. Allocate and fill the _walkableArea array
             _walkableArea = new bool[Width, Height];
             FillWalkableArea(floorTileMap, wallsTileMap, colliderTileMap, bounds);
@@ -183,13 +183,13 @@ namespace _Script.Map
         private Vector3 LocalToTilemapCoords(Vector2Int localCoord)
         {
             Vector3Int tilePosition = new Vector3Int(
-                localCoord.x + baseTileMap.cellBounds.xMin,
-                localCoord.y + baseTileMap.cellBounds.yMin,
+                localCoord.x + _baseTileMap.cellBounds.xMin,
+                localCoord.y + _baseTileMap.cellBounds.yMin,
                 0
             );
                 
             // Get the tile center in world space
-            Vector3 worldPosition = baseTileMap.GetCellCenterWorld(tilePosition);
+            Vector3 worldPosition = _baseTileMap.GetCellCenterWorld(tilePosition);
             return worldPosition;
         }
     }
