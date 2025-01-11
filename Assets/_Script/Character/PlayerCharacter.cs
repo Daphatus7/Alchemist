@@ -478,6 +478,7 @@ namespace _Script.Character
 
         private bool AddSanity(float value)
         {
+            return false;
             //Debug.Log($"Adding {value} to sanity.");
             _sanity += value;
             if (_sanity < 0)
