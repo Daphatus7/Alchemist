@@ -121,8 +121,17 @@ namespace _Script.Managers
 
             // 2. Get references to specific Tilemaps
             _baseTileMap = tilemaps.transform.Find("Floor").GetComponent<Tilemap>();
-            var wallTileMap = tilemaps.transform.Find("Walls").GetComponent<Tilemap>();
-            var colliderTileMap = tilemaps.transform.Find("Collideable").GetComponent<Tilemap>();
+            var wallTile = tilemaps.transform.Find("Walls");
+            
+            wallTile.gameObject.layer = LayerMask.NameToLayer("Obstacle");
+
+            var wallTileMap = wallTile.GetComponent<Tilemap>();
+
+            var colliderTile = tilemaps.transform.Find("Collideable");
+            
+            colliderTile.gameObject.layer = LayerMask.NameToLayer("Obstacle");
+
+            var colliderTileMap = colliderTile.GetComponent<Tilemap>();
 
             if (!_baseTileMap || !wallTileMap || !colliderTileMap)
             {
