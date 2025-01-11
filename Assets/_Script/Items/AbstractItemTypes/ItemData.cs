@@ -82,7 +82,7 @@ namespace _Script.Items.AbstractItemTypes
 
             public bool Equals(ItemData other)
             {
-                return other != null && itemID == other.itemID;
+                return other != null && itemName == other.itemName;
             }
         }
         

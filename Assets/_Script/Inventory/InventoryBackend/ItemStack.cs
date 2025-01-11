@@ -69,7 +69,8 @@ namespace _Script.Inventory.InventoryBackend
         {
             if (other == null || other.IsEmpty || !ItemData.Equals(other.ItemData))
                 return other?.Quantity ?? 0;
-
+            
+            Debug.Log("Adding " + other.Quantity + " of " + ItemData.ItemName + " to " + Quantity);
             int space = ItemData.MaxStackSize - Quantity;
             int toAdd = Mathf.Min(space, other.Quantity);
             Quantity += toAdd;

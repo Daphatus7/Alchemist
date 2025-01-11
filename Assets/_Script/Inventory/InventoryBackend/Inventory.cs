@@ -157,12 +157,11 @@ namespace _Script.Inventory.InventoryBackend
             }
 
             // 1) Merge with existing partial stacks
-            
             foreach(var item in _itemStacks)
             {
                 var existingStack = item;
                 if (!existingStack.IsEmpty &&
-                    existingStack.ItemData == itemStackToAdd.ItemData &&
+                    existingStack.ItemData.Equals(itemStackToAdd.ItemData) &&
                     existingStack.Quantity < existingStack.ItemData.MaxStackSize)
                 {
                     int oldQuantity = itemStackToAdd.Quantity;
