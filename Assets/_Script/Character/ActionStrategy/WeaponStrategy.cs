@@ -62,9 +62,12 @@ namespace _Script.Character.ActionStrategy
             _currentWeapon?.OnReleased(direction);
         }
 
-        public void ChangeItem(ActionBarContext useItem)
+        
+        private ActionBarContext _actionBarContext;
+        
+        public void ChangeItem(ActionBarContext actionBarContext)
         {
-            var weaponItem = useItem.ItemData as WeaponItem;
+            var weaponItem = actionBarContext.ItemData as WeaponItem;
             if (weaponItem != null)
             {
                 // If there's already a weapon equipped, prevent change
@@ -72,7 +75,7 @@ namespace _Script.Character.ActionStrategy
                 {
                     return;
                 }
-
+                _actionBarContext = actionBarContext;
                 var weaponPrefab = weaponItem.weaponPrefab;
                 var weapon = Instantiate(weaponPrefab, weaponSlot.transform.position, Quaternion.identity, weaponSlot.transform);
                 if (_currentWeapon != null)
@@ -85,16 +88,12 @@ namespace _Script.Character.ActionStrategy
                 _currentWeapon.onHitTarget += OnWeaponHit;
             }
         }
-
+        
         private void OnWeaponHit(int obj)
         {
-            if (_currentWeapon.Durability <= 0)
-            {
-                RemoveItem();
-                //ToDo: play sound
-            }
+            _actionBarContext.UseItem();
         }
-
+        
         public void RemoveItem()
         {
             if(_currentWeapon)

@@ -65,7 +65,9 @@ namespace _Script.Inventory.PlayerInventory
             var itemType = _selectedItemStack.ItemData.ItemTypeString;
             
             // Create context to handle item usage
-            _actionBarContext = new ActionBarContext(LeftClickItem, RemoveWeaponOrTorchItem, slotIndex, _selectedItemStack.ItemData);
+            _actionBarContext = new ActionBarContext(OnUseSelectedItem, 
+                RemoveWeaponOrTorchItem, 
+                slotIndex, _selectedItemStack.ItemData);
 
             // Now select strategy based on item type
             switch (itemType)
@@ -181,7 +183,10 @@ namespace _Script.Inventory.PlayerInventory
             RemoveAllItemsFromSlot(slotIndex);
         }
 
-
+        public void OnUseSelectedItem(int slotIndex)
+        {
+            UseItem(slotIndex);
+        }
     }
 
     public class ActionBarContext
@@ -202,7 +207,7 @@ namespace _Script.Inventory.PlayerInventory
         }
 
         public void UseItem()
-        {
+        { 
             _use(_selectedSlotIndex);
         }
         

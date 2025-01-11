@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace _Script.Inventory.InventoryBackend
@@ -30,7 +31,7 @@ namespace _Script.Inventory.InventoryBackend
             }
             else
             {
-                ItemData = stack.ItemData;
+                ItemData = Object.Instantiate(stack.ItemData);
                 Quantity = Mathf.Clamp(stack.Quantity, 0, stack.ItemData.MaxStackSize);
             }
         }
@@ -49,7 +50,7 @@ namespace _Script.Inventory.InventoryBackend
             }
 
             PivotPosition = pivotPosition;
-            ItemData = itemData;
+            ItemData = Object.Instantiate(itemData);
             Quantity = Mathf.Clamp(quantity, 0, itemData.MaxStackSize);
         }
 
@@ -66,7 +67,7 @@ namespace _Script.Inventory.InventoryBackend
         /// </summary>
         public int TryAdd(ItemStack other)
         {
-            if (other == null || other.IsEmpty || other.ItemData != this.ItemData)
+            if (other == null || other.IsEmpty || !ItemData.Equals(other.ItemData))
                 return other?.Quantity ?? 0;
 
             int space = ItemData.MaxStackSize - Quantity;

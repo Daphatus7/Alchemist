@@ -3,6 +3,7 @@ using UnityEngine;
 using _Script.Character;
 using _Script.Inventory.SlotFrontend;
 using _Script.Items;
+using _Script.Items.AbstractItemTypes;
 using _Script.Items.AbstractItemTypes._Script.Items;
 
 namespace _Script.Inventory.InventoryBackend
@@ -105,21 +106,18 @@ namespace _Script.Inventory.InventoryBackend
             // Alternatively, you could do 'if (slotStack.ItemData.ItemType == ItemType.Consumable)' etc.
             var itemType = slotStack.ItemData.ItemTypeString;
 
-            if (itemType == "Equipment")
+            
+            //当物品被「使用」的时候，不同的物品种类的表现方式不同
+            //当武器类被使用
+            
+            if (itemType == "Weapon")
             {
-
-                throw new NotImplementedException("Implement the equip item method");
-                var eqItem = slotStack.ItemData as EquipmentItem;
-                if (eqItem != null)
+                if(slotStack.ItemData is WeaponItem weapon)
                 {
-                    var removedItemStack = OnUseEquipmentItem(eqItem);
-                    // If eq system returns an item that was replaced, consider re-inserting it
-                    // or removing one from the slot. Up to your design.
-                    RemoveItemFromSlot(slotIndex, 1); 
-                    if (removedItemStack != null)
+                    weapon.durability--;
+                    if(weapon.durability <= 0)
                     {
-                        // e.g. put it back in inventory
-                        AddItem(removedItemStack);
+                        RemoveItemFromSlot(slotIndex, 1);
                     }
                 }
             }

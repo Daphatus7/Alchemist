@@ -79,6 +79,11 @@ namespace _Script.Items.AbstractItemTypes
             /// <param name="playerCharacter">The player character to apply effects to.</param>
             /// <returns>True if the item was used successfully; false otherwise.</returns>
             public abstract bool Use(PlayerCharacter playerCharacter);
+
+            public bool Equals(ItemData other)
+            {
+                return other != null && itemID == other.itemID;
+            }
         }
         
         public enum ItemType

@@ -93,7 +93,6 @@ namespace _Script.Inventory.ActionBarFrontend
                 // If the item is equipment, we "equip" or "activate" it
                 inventory.OnSelectItem(slotIndex);
                 // Optionally track which slot UI is selected
-                SetSelectedSlot(slotIndex);
             }
             else
             {
@@ -101,8 +100,9 @@ namespace _Script.Inventory.ActionBarFrontend
                 // In some designs, using the item does *not* necessarily select it
                 inventory.UseItem(slotIndex);
                 // If we do want to show a "selection" visually, call SetSelectedSlot
-                SetSelectedSlot(slotIndex);
             }
+
+            SetSelectedSlot(slotIndex);
         }
 
         /// <summary>
