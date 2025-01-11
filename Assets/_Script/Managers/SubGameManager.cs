@@ -99,7 +99,8 @@ namespace _Script.Managers
         public Vector3 MapCenter => _reachableArea.Pivot;
         
         public Vector2Int MapBounds => new Vector2Int(_reachableArea.Width, _reachableArea.Height);
-        public ReachableArea GenerateReachableArea()
+
+        private ReachableArea GenerateReachableArea()
         {
             // 1. Find the "Tilemaps" child under this GameObject
             GameObject tilemaps = null;

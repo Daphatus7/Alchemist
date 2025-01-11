@@ -173,9 +173,9 @@ namespace _Script.Managers
             {
                 // Set the size of the graph
                 gridGraph.center = SubGameManager.Instance.MapCenter;
-                gridGraph.width = SubGameManager.Instance.MapBounds.x;
-                gridGraph.depth = SubGameManager.Instance.MapBounds.y;
-                gridGraph.nodeSize = 1;        // Size of each node in world units
+                gridGraph.width = SubGameManager.Instance.MapBounds.x * 2;
+                gridGraph.depth = SubGameManager.Instance.MapBounds.y * 2;
+                gridGraph.nodeSize = 0.5f;        // Size of each node in world units
 
                 // Optionally adjust boundaries
                 gridGraph.UpdateSizeFromWidthDepth();
