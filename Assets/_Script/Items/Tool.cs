@@ -8,7 +8,6 @@ namespace _Script.Items
     public class Tool : WeaponItem
     {
         public ToolType toolType = ToolType.None;
-        public float durability = 1;
     }
     
     public enum ToolType
