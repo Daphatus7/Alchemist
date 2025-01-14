@@ -22,6 +22,8 @@ namespace _Script.NPC.NpcBackend
         private Npc _npc;
         private MerchantInventory _merchantInventory;
         [SerializeField] private List<ItemData> itemsForSale;
+        [SerializeField] private int inventoryWidth = 5;
+        [SerializeField] private int inventoryHeight = 5;
         
         private void Awake()
         {
@@ -48,7 +50,7 @@ namespace _Script.NPC.NpcBackend
             {
                 itemsToAdd.Add(new ItemStack(Vector2Int.zero, item, 1));
             }
-            _merchantInventory = new MerchantInventory(itemsToAdd);
+            _merchantInventory = new MerchantInventory(itemsToAdd, inventoryWidth, inventoryHeight);
         }
         
         public void LoadNpcModule()
