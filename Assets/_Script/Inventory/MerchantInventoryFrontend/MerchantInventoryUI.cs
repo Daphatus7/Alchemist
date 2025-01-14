@@ -44,12 +44,12 @@ namespace _Script.Inventory.MerchantInventoryFrontend
 
         public void CloseMerchantInventory()
         {
-            HideUI();
+            //HideUI();
             ConversationManager.Instance.EndConversation();
         }
-        
-        
-        public new void HideUI()
+
+
+        private new void HideUI()
         {
             ClearInventory();
             base.HideUI();

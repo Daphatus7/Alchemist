@@ -264,7 +264,7 @@ namespace _Script.Inventory.SlotFrontend
                                 //if it can fit the item in the player inventory
                                 if (player.CanFitItem(_slotIndex, purchasedItem))
                                 {
-                                    _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemStack(), _slotIndex);
+                                    _inventoryUI.AddItemToEmptySlot(DragItem.Instance.PeakItemStack(), _slotIndex);
                                 }
                                 else
                                 {

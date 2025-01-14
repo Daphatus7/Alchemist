@@ -16,12 +16,10 @@ MonoBehaviour:
   itemID: 0
   itemDescription: Every Day An Apple
   itemIcon: {fileID: 21300000, guid: 1a58749f555f75e48baa41893215b26e, type: 3}
-  maxStackSize: 10
+  maxStackSize: 1
   itemShapeType: 0
   rarity: 0
   _value: 2
   foodValues:
-  - FoodType: 0
-    Value: 1
   - FoodType: 4
-    Value: 3
+    Value: 5

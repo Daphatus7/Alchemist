@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93ed646ed7e940b99cae63fcee36f558, type: 3}
-  m_Name: Apple
+  m_Name: Long_Bread
   m_EditorClassIdentifier: 
-  itemName: Apple
+  itemName: Long_Bread
   itemID: 0
-  itemDescription: Every Day An Apple
-  itemIcon: {fileID: 21300000, guid: da7129ed6a246f048a49d8d97de2d2d4, type: 3}
+  itemDescription: 'Long bread
+
+'
+  itemIcon: {fileID: -1242747153, guid: d9184dbb777e8e8489eb1e645a17d80a, type: 3}
   maxStackSize: 1
-  itemShapeType: 0
+  itemShapeType: 2
   rarity: 0
   _value: 2
   foodValues:
-  - FoodType: 0
-    Value: 1
+  - FoodType: 4
+    Value: 12
