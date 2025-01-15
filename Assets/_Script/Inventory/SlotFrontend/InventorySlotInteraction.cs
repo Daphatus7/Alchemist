@@ -327,9 +327,7 @@ namespace _Script.Inventory.SlotFrontend
                 return;
             }
             int pivotIndex = sourceSlot._inventoryUI.GetSlotIndex(DragItem.Instance.PeakItemStack().PivotPosition);
-            Debug.Log("Returning item to source slot: " + pivotIndex);
             var itemToAdd = dragItem.GetComponent<DragItem>().RemoveItemStackOnFail();
-            Debug.Log("Item to add: " + itemToAdd);
             sourceSlot._inventoryUI.AddItemToEmptySlot(itemToAdd, pivotIndex);
         }
 

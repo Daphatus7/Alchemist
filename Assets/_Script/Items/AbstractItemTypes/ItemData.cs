@@ -34,7 +34,11 @@ namespace _Script.Items.AbstractItemTypes
                 set => maxStackSize = value;
             }
             public ItemShapeType itemShapeType = ItemShapeType.Square11;
-            private ItemShape _itemShape; public ItemShape ItemShape => _itemShape ??= new ItemShape(itemShapeType);
+            private ItemShape _itemShape; public ItemShape ItemShape
+            {
+                get => _itemShape ??= new ItemShape(itemShapeType);
+                set => _itemShape = value;
+            }
 
             [SerializeField, Tooltip("Rarity of the item")]
             public Rarity rarity;
@@ -187,6 +191,13 @@ namespace _Script.Items.AbstractItemTypes
                     ItemShapeType.Stick13 => GetRectangleShape(1, 3),
                     _ => throw new ArgumentOutOfRangeException(nameof(shapeType), shapeType, null)
                 };
+            }
+            
+            public ItemShape(ItemShape itemShape)
+            {
+                _shapeType = itemShape._shapeType;
+                _positions = new List<Vector2Int>(itemShape._positions);
+                _isRotated = itemShape._isRotated;
             }
 
             /// <summary>

@@ -208,8 +208,15 @@ namespace _Script.Inventory.InventoryFrontendBase
                 if (item == null || item.IsEmpty) continue;
 
                 var newItemDisplay = Instantiate(slotVisualPrefab, slotVisualParent.transform);
-                // Use anchoredPosition on the newItem's RectTransform
                 var rect = newItemDisplay.GetComponent<RectTransform>();
+
+                if(item.ItemData.ItemShape.IsRotated)
+                {
+                    Debug.Log("Rotated");
+                    rect.localRotation = Quaternion.Euler(0, 0, -90);
+                }
+                
+                // Use anchoredPosition on the newItem's RectTransform
                 var itemSize =item.ItemData.ItemShape.IconScale;
 
                 rect.anchoredPosition = GetSlotVisualPosition(item.PivotPosition, itemSize);

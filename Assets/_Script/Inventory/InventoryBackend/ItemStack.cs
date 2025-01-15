@@ -42,14 +42,29 @@ namespace _Script.Inventory.InventoryBackend
 
         public ItemStack(Vector2Int pivotPosition, ItemData itemData, int quantity = 1)
         {
-            if (itemData == null)
+            if (!itemData)
             {
                 Clear();
                 return;
             }
 
             PivotPosition = pivotPosition;
+
+            Debug.Log("Creating item stack with rotation---- " + itemData.ItemShape.IsRotated);
+            foreach (var pos in itemData.ItemShape.Positions)
+            {
+                Debug.Log("Position: " + pos);
+            }
+            
             ItemData = Object.Instantiate(itemData);
+            
+            ItemData.ItemShape = new ItemShape(itemData.ItemShape);
+            
+            Debug.Log("Creating item stack with rotation---- " + ItemData.ItemShape.IsRotated);
+            foreach (var pos in ItemData.ItemShape.Positions)
+            {
+                Debug.Log("Position: " + pos);
+            }
             Quantity = Mathf.Clamp(quantity, 0, itemData.MaxStackSize);
         }
 
