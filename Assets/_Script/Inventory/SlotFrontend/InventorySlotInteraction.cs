@@ -175,10 +175,22 @@ namespace _Script.Inventory.SlotFrontend
             var removedItem = _inventoryUI.RemoveAllItemsFromSlot(_slotIndex);
                 
             //Add the item to the dragItem
-            DragItem.Instance.AddItemToDrag(removedItem);
+            var pivotPosition = CalculatePivotPosition(removedItem);
+            DragItem.Instance.AddItemToDrag(removedItem, pivotPosition);
             
             SetDragItemPosition(eventData);
            //******** icon.color = new Color(1, 1, 1, 0);
+        }
+
+        private Vector2Int CalculatePivotPosition(ItemStack itemStack)
+        {
+            //先得到物品的Pivot
+            var itemPivot = itemStack.PivotPosition;
+            //获取当前背包选中的位置
+            var slotPosition = _inventoryUI.GetSlotPosition(_slotIndex);
+            //计算出物品的偏移量
+            
+            return slotPosition - itemPivot;
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -205,9 +217,6 @@ namespace _Script.Inventory.SlotFrontend
             // 2. 检查是否有有效的目标
             var dropTargetObj = eventData.pointerCurrentRaycast.gameObject;
             bool hasDropTarget = dropTargetObj != null && dropTargetObj.GetComponent<IDropHandler>() != null;
-            
-            Debug.Log("Drop Target: " + dropTargetObj);
-            Debug.Log("Has Drop Target: " + dropTargetObj.GetComponent<IDropHandler>());
             
             if (!hasDropTarget)
             {
@@ -318,7 +327,10 @@ namespace _Script.Inventory.SlotFrontend
                 return;
             }
             int pivotIndex = sourceSlot._inventoryUI.GetSlotIndex(DragItem.Instance.PeakItemStack().PivotPosition);
-            sourceSlot._inventoryUI.AddItemToEmptySlot(dragItem.GetComponent<DragItem>().RemoveItemStackOnFail(), pivotIndex);
+            Debug.Log("Returning item to source slot: " + pivotIndex);
+            var itemToAdd = dragItem.GetComponent<DragItem>().RemoveItemStackOnFail();
+            Debug.Log("Item to add: " + itemToAdd);
+            sourceSlot._inventoryUI.AddItemToEmptySlot(itemToAdd, pivotIndex);
         }
 
         private DragType GetDragType(InventorySlotInteraction sourceSlot)
@@ -379,10 +391,13 @@ namespace _Script.Inventory.SlotFrontend
         {
             
             //目前假设两个物品在同一个背包里
-            //
+            //这里的pivot 指的是物品的起始点
             var pivot = DragItem.Instance.PeakItemStack().PivotPosition;
+            //计算出物品的偏移量 也就是物品的起始点和终点的距离
             var shiftVector = _inventoryUI.GetSlotPosition(_slotIndex) - source._inventoryUI.GetSlotPosition(source._slotIndex);
+            //计算想防止位置的终点
             var shiftedPivot = shiftVector + pivot;
+            //实际想要放置的位置的index
             var shiftedPivotIndex = _inventoryUI.GetSlotIndex(shiftedPivot);
             
             //先检查是不是在同一个背包里
@@ -391,6 +406,7 @@ namespace _Script.Inventory.SlotFrontend
                 int count = _inventoryUI.GetItemsCount(shiftedPivotIndex, DragItem.Instance.PeakItemStack().ItemData.ItemShape.Positions, out var onlyItemIndex);
                 if(count == 0)
                 {
+                    Debug.Log("Shifted Pivot Index: " + shiftedPivotIndex);
                     if(_inventoryUI.CanFitItem(shiftedPivotIndex, DragItem.Instance.PeakItemStack()))
                     {
                         _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemStack(), shiftedPivotIndex);
@@ -403,7 +419,8 @@ namespace _Script.Inventory.SlotFrontend
                 }
                 else
                 {
-                    //把东西放回去
+                    //overlaps with other items
+                    Debug.Log("Overlaps with other items");
                     ReturnItemToSourceSlot(source);
                 }
             }

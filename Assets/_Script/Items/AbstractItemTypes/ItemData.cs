@@ -132,7 +132,7 @@ namespace _Script.Items.AbstractItemTypes
         public class ItemShape
         {
             private List<Vector2Int> _positions;
-            private ItemShapeType _shapeType;
+            private readonly ItemShapeType _shapeType;
 
             private bool _isRotated = false; public bool IsRotated => _isRotated;
 
@@ -190,21 +190,40 @@ namespace _Script.Items.AbstractItemTypes
             }
 
             /// <summary>
-            /// Rotates the shape by 90 degrees (clockwise).
-            /// Example transform: (x, y) => ( -y, x )
-            /// After rotation, assigns back to the original _shape list.
+            /// 在 pivot 点基础上进行 90 度旋转（默认为顺时针）。
+            /// 如果想恢复，可再次调用此方法；
+            /// 也可以根据 _isRotated 做双向切换。
             /// </summary>
-            public bool ToggleRotate()
+            /// <param name="pivot">旋转基准点（例如玩家选中的某一格坐标）</param>
+            /// <returns>返回当前是否处于“已旋转”状态</returns>
+            public bool ToggleRotate(Vector2Int pivot)
             {
-                List<Vector2Int> rotated = new List<Vector2Int>();
+                // 准备一个新的容器来存储旋转后的结果
+                List<Vector2Int> rotatedPositions = new List<Vector2Int>();
+
                 foreach (Vector2Int pos in _positions)
                 {
-                    rotated.Add(new Vector2Int(IsRotated ? -pos.y : pos.y, IsRotated ? pos.x : -pos.x));
+                    // 1. 将原坐标转换为相对于 pivot 的“局部坐标”
+                    Vector2Int relative = pos - pivot;
+
+                    // 2. 执行 90 度顺时针旋转 (x, y) -> (-y, x)
+                    //   如果想要逆时针，可使用 (x, y) -> (y, -x)
+                    Vector2Int rotated = new Vector2Int(-relative.y, relative.x);
+
+                    // 3. 将旋转后的“局部坐标”再平移回 pivot 所在的“世界坐标”
+                    Vector2Int newPos = pivot + rotated;
+                    rotatedPositions.Add(newPos);
                 }
-                _positions = rotated;
+
+                // 将最终结果更新回 _positions
+                _positions = rotatedPositions;
+
+                // 切换 _isRotated 状态
                 _isRotated = !_isRotated;
-                return IsRotated;
+
+                return _isRotated;
             }
+            
 
             /// <summary>
             /// Generates a square shape of side length 'size'.

@@ -12,6 +12,10 @@ namespace _Script.Inventory
         private bool _isDragItemRotated;
         private RectTransform _rectTransform;
         
+        //the position where the player initiate the drag action
+        //Updated when the player start dragging
+        private Vector2Int _pivotPosition;
+        
         protected override void Awake()
         {
             base.Awake();
@@ -31,14 +35,17 @@ namespace _Script.Inventory
         private void RotateDragItem()
         {
             _isDragItemRotated = !_isDragItemRotated;
-            var isRotated = _itemStack.ItemData.ItemShape.ToggleRotate();
-            _rectTransform.localRotation = Quaternion.Euler(0, 0, isRotated ? -90 : 0);
+
+            var isRotated = _itemStack.ItemData.ItemShape.ToggleRotate(_pivotPosition);
+            _rectTransform.localRotation = Quaternion.Euler(0, 0, isRotated ? - 90 : 0);
             //Update the sprite
         }
         
-        public void AddItemToDrag(ItemStack itemStack)
+        public void AddItemToDrag(ItemStack itemStack, Vector2Int pivotPosition)
         {
             Debug.Log("Adding item to drag" + itemStack.ItemData.itemName);
+            _pivotPosition = pivotPosition;
+            Debug.Log("Pivot position: " + _pivotPosition);
             _itemStack = itemStack;
             _image.sprite = itemStack.ItemData.itemIcon;
             //reset rotation
@@ -70,7 +77,7 @@ namespace _Script.Inventory
         {
             if(_isDragItemRotated)
             {
-                _itemStack.ItemData.ItemShape.ToggleRotate();
+                _itemStack.ItemData.ItemShape.ToggleRotate(_pivotPosition);
             }
             var result = _itemStack;
             _image.sprite = null;

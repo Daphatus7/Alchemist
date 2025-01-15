@@ -208,7 +208,6 @@ namespace _Script.Inventory.InventoryFrontendBase
                 if (item == null || item.IsEmpty) continue;
 
                 var newItemDisplay = Instantiate(slotVisualPrefab, slotVisualParent.transform);
-
                 // Use anchoredPosition on the newItem's RectTransform
                 var rect = newItemDisplay.GetComponent<RectTransform>();
                 var itemSize =item.ItemData.ItemShape.IconScale;
