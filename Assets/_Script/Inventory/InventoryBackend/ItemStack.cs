@@ -35,6 +35,18 @@ namespace _Script.Inventory.InventoryBackend
             }
         }
         
+        public bool ToggleRotate(Vector2Int rotatePivot, bool rotated)
+        {
+            if (!ItemData) return false;
+            if (!rotated)
+            {
+                //
+                //PivotPosition = 
+            }
+            ItemData.ItemShape.ToggleRotate(rotatePivot);
+            return ItemData.ItemShape.IsRotated;
+        }
+        
         public ItemStack()
         {
             Clear();
@@ -49,22 +61,10 @@ namespace _Script.Inventory.InventoryBackend
             }
 
             PivotPosition = pivotPosition;
-
-            Debug.Log("Creating item stack with rotation---- " + itemData.ItemShape.IsRotated);
-            foreach (var pos in itemData.ItemShape.Positions)
-            {
-                Debug.Log("Position: " + pos);
-            }
             
             ItemData = Object.Instantiate(itemData);
-            
             ItemData.ItemShape = new ItemShape(itemData.ItemShape);
             
-            Debug.Log("Creating item stack with rotation---- " + ItemData.ItemShape.IsRotated);
-            foreach (var pos in ItemData.ItemShape.Positions)
-            {
-                Debug.Log("Position: " + pos);
-            }
             Quantity = Mathf.Clamp(quantity, 0, itemData.MaxStackSize);
         }
 

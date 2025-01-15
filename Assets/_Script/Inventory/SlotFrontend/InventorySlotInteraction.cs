@@ -391,12 +391,16 @@ namespace _Script.Inventory.SlotFrontend
             //目前假设两个物品在同一个背包里
             //这里的pivot 指的是物品的起始点
             var pivot = DragItem.Instance.PeakItemStack().PivotPosition;
+            Debug.Log("Pivot: " + pivot);
             //计算出物品的偏移量 也就是物品的起始点和终点的距离
             var shiftVector = _inventoryUI.GetSlotPosition(_slotIndex) - source._inventoryUI.GetSlotPosition(source._slotIndex);
+            Debug.Log("Shift Vector: " + shiftVector);
             //计算想防止位置的终点
             var shiftedPivot = shiftVector + pivot;
+            Debug.Log("Shifted Pivot: " + shiftedPivot);
             //实际想要放置的位置的index
             var shiftedPivotIndex = _inventoryUI.GetSlotIndex(shiftedPivot);
+            Debug.Log("Shifted Pivot Index: " + shiftedPivotIndex);
             
             //先检查是不是在同一个背包里
             if (source.SlotType == SlotType)
