@@ -60,9 +60,16 @@ namespace _Script.Inventory
          */
         public ItemStack RemoveItemStack()
         {
+            var result = _itemStack;
+            _image.sprite = null;
+            _itemStack = null;
+            return result;
+        }
+
+        public ItemStack RemoveItemStackOnFail()
+        {
             if(_isDragItemRotated)
             {
-                //rotate back
                 _itemStack.ItemData.ItemShape.ToggleRotate();
             }
             var result = _itemStack;

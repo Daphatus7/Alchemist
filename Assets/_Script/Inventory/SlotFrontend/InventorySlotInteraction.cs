@@ -253,6 +253,7 @@ namespace _Script.Inventory.SlotFrontend
             var dragType = GetDragType(sourceSlot);
             
             Debug.Log("Drag Type: " + dragType);
+            
             switch (dragType)
             {
                 case DragType.Swap:
@@ -317,7 +318,7 @@ namespace _Script.Inventory.SlotFrontend
                 return;
             }
             int pivotIndex = sourceSlot._inventoryUI.GetSlotIndex(DragItem.Instance.PeakItemStack().PivotPosition);
-            sourceSlot._inventoryUI.AddItemToEmptySlot(dragItem.GetComponent<DragItem>().RemoveItemStack(), pivotIndex);
+            sourceSlot._inventoryUI.AddItemToEmptySlot(dragItem.GetComponent<DragItem>().RemoveItemStackOnFail(), pivotIndex);
         }
 
         private DragType GetDragType(InventorySlotInteraction sourceSlot)
@@ -383,6 +384,7 @@ namespace _Script.Inventory.SlotFrontend
             var shiftVector = _inventoryUI.GetSlotPosition(_slotIndex) - source._inventoryUI.GetSlotPosition(source._slotIndex);
             var shiftedPivot = shiftVector + pivot;
             var shiftedPivotIndex = _inventoryUI.GetSlotIndex(shiftedPivot);
+            
             //先检查是不是在同一个背包里
             if (source.SlotType == SlotType)
             {
