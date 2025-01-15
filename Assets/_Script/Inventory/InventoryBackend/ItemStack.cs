@@ -14,7 +14,6 @@ namespace _Script.Inventory.InventoryBackend
     {
         public ItemData ItemData { get; private set; }
         public int Quantity { get; set; }
-        
         /**
          * all the positions of the item in the inventory
          */
@@ -35,7 +34,7 @@ namespace _Script.Inventory.InventoryBackend
                 Quantity = Mathf.Clamp(stack.Quantity, 0, stack.ItemData.MaxStackSize);
             }
         }
-
+        
         public ItemStack()
         {
             Clear();

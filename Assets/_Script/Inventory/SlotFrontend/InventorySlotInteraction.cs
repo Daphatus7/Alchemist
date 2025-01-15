@@ -204,27 +204,33 @@ namespace _Script.Inventory.SlotFrontend
             
             // 2. 检查是否有有效的目标
             var dropTargetObj = eventData.pointerCurrentRaycast.gameObject;
-            bool hasDropTarget = dropTargetObj != null 
-                                 && dropTargetObj.GetComponent<IDropHandler>() != null;
+            bool hasDropTarget = dropTargetObj != null && dropTargetObj.GetComponent<IDropHandler>() != null;
+            
+            Debug.Log("Drop Target: " + dropTargetObj);
+            Debug.Log("Has Drop Target: " + dropTargetObj.GetComponent<IDropHandler>());
             
             if (!hasDropTarget)
             {
                 Debug.Log("No valid drop target found, returning item to source slot.");
                 ReturnItemToSourceSlot(this);
             }
-
-            // Let OnDrop handle actual item placement logic if a valid target is found
+            else if (dropTargetObj == gameObject)
+            {
+                OnDrop(eventData);
+            }
         }
-
+        
+        
+        /**
+         * This triggers target slot's OnDrop
+         */
         public void OnDrop(PointerEventData eventData)
         {
             var sourceSlot = eventData.pointerDrag?.GetComponent<InventorySlotInteraction>();
             
             if (sourceSlot == null) return;
-            Debug.Log("Dropped item on slot: " + DragItem.Instance);
             Debug.Log("Dropped item on slot: " + DragItem.Instance.PeakItemStack());
             var itemData = DragItem.Instance.PeakItemStack()?.ItemData;
-            Debug.Log("ItemData: " + itemData);
             if(itemData == null) return;
             
             // Prevent placing a ContainerItem inside another Container (Bag)
@@ -301,12 +307,15 @@ namespace _Script.Inventory.SlotFrontend
             // Hide drag item visual
             if (dragItem != null)
                 dragItem.SetActive(false);
+            
         }
-        
         
         private void ReturnItemToSourceSlot(InventorySlotInteraction sourceSlot)
         {
-            if (DragItem.Instance.PeakItemStack() == null) return;
+            if (DragItem.Instance.PeakItemStack() == null)
+            {
+                return;
+            }
             int pivotIndex = sourceSlot._inventoryUI.GetSlotIndex(DragItem.Instance.PeakItemStack().PivotPosition);
             sourceSlot._inventoryUI.AddItemToEmptySlot(dragItem.GetComponent<DragItem>().RemoveItemStack(), pivotIndex);
         }
@@ -374,8 +383,6 @@ namespace _Script.Inventory.SlotFrontend
             var shiftVector = _inventoryUI.GetSlotPosition(_slotIndex) - source._inventoryUI.GetSlotPosition(source._slotIndex);
             var shiftedPivot = shiftVector + pivot;
             var shiftedPivotIndex = _inventoryUI.GetSlotIndex(shiftedPivot);
-            
-            
             //先检查是不是在同一个背包里
             if (source.SlotType == SlotType)
             {

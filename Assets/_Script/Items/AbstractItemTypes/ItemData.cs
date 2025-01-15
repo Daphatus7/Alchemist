@@ -34,11 +34,12 @@ namespace _Script.Items.AbstractItemTypes
                 set => maxStackSize = value;
             }
             public ItemShapeType itemShapeType = ItemShapeType.Square11;
-            public ItemShape ItemShape => new ItemShape(itemShapeType);
+            private ItemShape _itemShape; public ItemShape ItemShape => _itemShape ??= new ItemShape(itemShapeType);
 
             [SerializeField, Tooltip("Rarity of the item")]
             public Rarity rarity;
 
+            
             [SerializeField] private int _value = 1; public int Value
             {
                 get => _value;
@@ -132,9 +133,9 @@ namespace _Script.Items.AbstractItemTypes
         {
             private List<Vector2Int> _positions;
             private ItemShapeType _shapeType;
-            private bool _isRotated = false;
 
-            
+            private bool _isRotated = false; public bool IsRotated => _isRotated;
+
             //comparing the two shapes
             public bool CompareShapes(ItemShape other)
             { 
@@ -150,8 +151,8 @@ namespace _Script.Items.AbstractItemTypes
                     {
                         ItemShapeType.Square11 => new Vector2(1, 1),
                         ItemShapeType.Square22 => new Vector2(2, 2),
-                        ItemShapeType.Rectangle12 => _isRotated ? new Vector2(2, 1) : new Vector2(1, 2),
-                        ItemShapeType.Rectangle23 => _isRotated ? new Vector2(3, 2) : new Vector2(2, 3),
+                        ItemShapeType.Rectangle12 => IsRotated ? new Vector2(2, 1) : new Vector2(1, 2),
+                        ItemShapeType.Rectangle23 => IsRotated ? new Vector2(3, 2) : new Vector2(2, 3),
                         ItemShapeType.Circle1 => new Vector2(3, 3),
                         ItemShapeType.LShape2 => new Vector2(2, 2),
                         ItemShapeType.LShape3 => new Vector2(3, 3),
@@ -193,21 +194,16 @@ namespace _Script.Items.AbstractItemTypes
             /// Example transform: (x, y) => ( -y, x )
             /// After rotation, assigns back to the original _shape list.
             /// </summary>
-            public void RotateShape90Degrees()
+            public bool ToggleRotate()
             {
-                List<Vector2Int> newShape = new List<Vector2Int>();
+                List<Vector2Int> rotated = new List<Vector2Int>();
                 foreach (Vector2Int pos in _positions)
                 {
-                    // Clockwise rotation by 90 degrees:
-                    // (x, y) -> ( -y, x )
-                    newShape.Add(new Vector2Int(-pos.y, pos.x));
+                    rotated.Add(new Vector2Int(IsRotated ? -pos.y : pos.y, IsRotated ? pos.x : -pos.x));
                 }
-
-                // Assign back to the field
-                _positions = newShape;
-
-                // Toggle the rotated state (optional usage)
+                _positions = rotated;
                 _isRotated = !_isRotated;
+                return IsRotated;
             }
 
             /// <summary>

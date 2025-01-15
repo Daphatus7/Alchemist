@@ -173,7 +173,7 @@ namespace _Script.Inventory.InventoryBackend
             }
 
             ItemStack slotStack = Slots[slotIndex].ItemStack;
-            if (slotStack.IsEmpty)
+            if (slotStack != null && slotStack.IsEmpty)
             {
                 // e.g. no item to use
                 return false;
