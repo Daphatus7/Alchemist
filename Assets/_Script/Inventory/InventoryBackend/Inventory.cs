@@ -187,13 +187,14 @@ namespace _Script.Inventory.InventoryBackend
             for (var i = 0; i < Capacity; i++)
             {
                 //checking if the item can fit in the inventory
-                if (CanFitIn(itemStackToAdd.ItemData.ItemShape.ProjectedPositions(SlotIndexToGrid(i))))
+                var projectedPositions = itemStackToAdd.ItemData.ItemShape.ProjectedPositions(SlotIndexToGrid(i));
+                if (CanFitIn(projectedPositions))
                 {
                     // Decide how many to place
                     int toAdd = Mathf.Min(itemStackToAdd.Quantity, itemStackToAdd.ItemData.MaxStackSize);
 
                     // Actually place the item
-                    ItemStack placedStack = CreateItemStackAtLocation(itemStackToAdd.ItemData.ItemShape.ProjectedPositions(SlotIndexToGrid(i)), i, itemStackToAdd.ItemData, toAdd, itemStackToAdd);
+                    ItemStack placedStack = CreateItemStackAtLocation(projectedPositions, i, itemStackToAdd.ItemData, toAdd, itemStackToAdd);
                     if (placedStack != null)
                     {
                         // Adjust leftover
@@ -316,15 +317,12 @@ namespace _Script.Inventory.InventoryBackend
         public void AddItemToEmptySlot(ItemStack itemStack, int selectedSlotIndex)
         {
             var pos = SlotIndexToGrid(selectedSlotIndex);
+            
             var projectedPositions = itemStack.ItemData.ItemShape.ProjectedPositions(pos);
-            if(CanFitIn(projectedPositions))
-            {
-                // Actually place the item
-                ItemStack placedStack = CreateItemStackAtLocation(projectedPositions, selectedSlotIndex, itemStack.ItemData, itemStack.Quantity, itemStack);
-                _itemStacks.Add(placedStack);
-                OnOnItemStackChanged();
-                OnInventorySlotChangedEvent(selectedSlotIndex);
-            }
+            ItemStack placedStack = CreateItemStackAtLocation(projectedPositions, selectedSlotIndex, itemStack.ItemData, itemStack.Quantity, itemStack);
+            _itemStacks.Add(placedStack);
+            OnOnItemStackChanged();
+            OnInventorySlotChangedEvent(selectedSlotIndex);
         }
         
         // ----------------------------------------------

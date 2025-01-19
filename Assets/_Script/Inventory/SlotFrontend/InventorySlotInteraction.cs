@@ -278,7 +278,7 @@ namespace _Script.Inventory.SlotFrontend
                             if (merchant.Purchase(player, purchasedItem, purchasedItem.Quantity))
                             {
                                 //if it can fit the item in the player inventory
-                                var projectedPositions = purchasedItem.ItemData.ItemShape.ProjectedPositions(_inventoryUI.GetSlotPosition(_slotIndex));
+                                var projectedPositions = DragItem.Instance.ProjectedPositions(_inventoryUI.GetSlotPosition(_slotIndex));
                                 if (player.CanFitItem(projectedPositions))
                                 {
                                     _inventoryUI.AddItemToEmptySlot(DragItem.Instance.PeakItemStack(), _slotIndex);
@@ -398,15 +398,8 @@ namespace _Script.Inventory.SlotFrontend
             //先检查是不是在同一个背包里
             if (source.SlotType == SlotType)
             {
-                
-                //debug projected positions
-                foreach (var projectedPosition in DragItem.Instance.PeakItemStack().ItemData.ItemShape.ProjectedPositions(targetSlotPosition))
-                {
-                    Debug.Log("Projected Position: " + projectedPosition);
-                }
-                
                 //Debug.Log("Shifted Pivot Index: " + shiftedPivotIndex);
-                if(_inventoryUI.CanFitItem(DragItem.Instance.PeakItemStack().ItemData.ItemShape.ProjectedPositions(targetSlotPosition)))
+                if(_inventoryUI.CanFitItem(DragItem.Instance.ProjectedPositions(targetSlotPosition)))
                 {
                     _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemStack(), 
                         //change to positions

@@ -12,8 +12,7 @@ namespace _Script.Items.AbstractItemTypes
         [System.Serializable]
         public abstract class ItemData : ScriptableObject
         {
-            [Title("Basic Info")]
-            [SerializeField, Tooltip("Name of the item")]
+            [Title("Basic Info")] [SerializeField, Tooltip("Name of the item")]
             public string itemName;
 
             [SerializeField, Tooltip("Unique ID of the item")]
@@ -21,20 +20,23 @@ namespace _Script.Items.AbstractItemTypes
 
             [SerializeField, TextArea, Tooltip("Detailed description of the item")]
             public string itemDescription;
-            
-            [Title("Visuals")]
-            [SerializeField, Tooltip("Icon representing the item"), PreviewField(75)]
+
+            [Title("Visuals")] [SerializeField, Tooltip("Icon representing the item"), PreviewField(75)]
             public Sprite itemIcon;
 
-            [Title("Stacking & Rarity")]
-            [SerializeField, Tooltip("Maximum stack size for this item")]
-            public int maxStackSize = 1; public int MaxStackSize
+            [Title("Stacking & Rarity")] [SerializeField, Tooltip("Maximum stack size for this item")]
+            public int maxStackSize = 1;
+
+            public int MaxStackSize
             {
                 get => maxStackSize;
                 set => maxStackSize = value;
             }
+
             public ItemShapeType itemShapeType = ItemShapeType.Square11;
-            private ItemShape _itemShape; public ItemShape ItemShape
+            private ItemShape _itemShape;
+
+            public ItemShape ItemShape
             {
                 get => _itemShape ??= new ItemShape(itemShapeType);
                 set => _itemShape = value;
@@ -43,8 +45,10 @@ namespace _Script.Items.AbstractItemTypes
             [SerializeField, Tooltip("Rarity of the item")]
             public Rarity rarity;
 
-            
-            [SerializeField] private int _value = 1; public int Value
+
+            [SerializeField] private int _value = 1;
+
+            public int Value
             {
                 get => _value;
                 set => _value = value;
@@ -74,8 +78,7 @@ namespace _Script.Items.AbstractItemTypes
                 set => itemDescription = value;
             }
 
-            [ReadOnly, ShowInInspector]
-            public abstract ItemType ItemType { get; }
+            [ReadOnly, ShowInInspector] public abstract ItemType ItemType { get; }
             public abstract string ItemTypeString { get; }
 
             /// <summary>
@@ -90,7 +93,7 @@ namespace _Script.Items.AbstractItemTypes
                 return other != null && itemName == other.itemName;
             }
         }
-        
+
         public enum ItemType
         {
             Equipment,
@@ -101,7 +104,7 @@ namespace _Script.Items.AbstractItemTypes
             Torch,
             Container
         }
-        
+
         public enum Rarity
         {
             Common,
@@ -110,43 +113,47 @@ namespace _Script.Items.AbstractItemTypes
             Epic,
             Legendary
         }
-        
-        
+
+
         public enum ItemShapeType
         {
             Square11,
             Square22,
             Rectangle12,
             Rectangle23,
+
             /**
              * Circle with radius 1
              */
             Circle1,
+
             /**
              * L shape with 3 blocks
              */
             LShape2,
+
             /**
              * L shape with 5 blocks
              */
             LShape3,
             Stick13,
         }
-        
+
         public class ItemShape
         {
             private List<Vector2Int> _positions;
             private readonly ItemShapeType _shapeType;
 
-            private bool _isRotated = false; public bool IsRotated => _isRotated;
+            private bool _isRotated = false;
+            public bool IsRotated => _isRotated;
 
             //comparing the two shapes
             public bool CompareShapes(ItemShape other)
-            { 
+            {
                 return other._shapeType == _shapeType;
             }
-            
-            
+
+
             public Vector2 IconScale
             {
                 get
@@ -165,26 +172,12 @@ namespace _Script.Items.AbstractItemTypes
                     };
                 }
             }
-            
+
             /// <summary>
             /// The current list of offsets that define this shape.
             /// </summary>
             public List<Vector2Int> Positions => _positions;
-            
-            /// <summary>
-            /// 投射的坐标， 这个坐标是
-            /// </summary>
-            /// <param name="pivot"></param>
-            /// <returns></returns>
-            public List<Vector2Int> ProjectedPositions(Vector2Int pivot)
-            {
-                List<Vector2Int> projected = new List<Vector2Int>();
-                foreach (Vector2Int pos in _positions)
-                {
-                    projected.Add(pivot + pos);
-                }
-                return projected;
-            }
+
             /// <summary>
             /// Constructor that initializes shape based on a predefined type.
             /// </summary>
@@ -206,7 +199,7 @@ namespace _Script.Items.AbstractItemTypes
                     _ => throw new ArgumentOutOfRangeException(nameof(shapeType), shapeType, null)
                 };
             }
-            
+
             public ItemShape(ItemShape itemShape)
             {
                 _shapeType = itemShape._shapeType;
@@ -222,12 +215,12 @@ namespace _Script.Items.AbstractItemTypes
                 foreach (Vector2Int pos in _positions)
                 {
                     Vector2Int relative = pos - pivot;
-        
+
                     // 如果尚未旋转，则执行顺时针 90 度 (x, y) -> (-y, x)
                     // 如果已经旋转过了，则执行逆时针 90 度 (x, y) -> (y, -x)
                     // _isRotated 反了一下
-                    Vector2Int rotated = _isRotated 
-                        ? new Vector2Int(-relative.y, relative.x) 
+                    Vector2Int rotated = _isRotated
+                        ? new Vector2Int(-relative.y, relative.x)
                         : new Vector2Int(relative.y, -relative.x);
 
                     rotatedPositions.Add(pivot + rotated);
@@ -238,7 +231,7 @@ namespace _Script.Items.AbstractItemTypes
 
                 return _isRotated;
             }
-            
+
 
             /// <summary>
             /// Generates a square shape of side length 'size'.
@@ -267,6 +260,7 @@ namespace _Script.Items.AbstractItemTypes
                         rectangle.Add(new Vector2Int(x, y));
                     }
                 }
+
                 return rectangle;
             }
 
@@ -290,6 +284,7 @@ namespace _Script.Items.AbstractItemTypes
                         }
                     }
                 }
+
                 return circle;
             }
 
@@ -308,11 +303,12 @@ namespace _Script.Items.AbstractItemTypes
                 // Extending in four directions
                 for (int i = 1; i <= size; i++)
                 {
-                    cross.Add(new Vector2Int(i, 0));   // right
-                    cross.Add(new Vector2Int(-i, 0));  // left
-                    cross.Add(new Vector2Int(0, i));   // up/down, depending on coordinate system
+                    cross.Add(new Vector2Int(i, 0)); // right
+                    cross.Add(new Vector2Int(-i, 0)); // left
+                    cross.Add(new Vector2Int(0, i)); // up/down, depending on coordinate system
                     cross.Add(new Vector2Int(0, -i));
                 }
+
                 return cross;
             }
 
@@ -332,6 +328,7 @@ namespace _Script.Items.AbstractItemTypes
                 {
                     lShape.Add(new Vector2Int(x, 0));
                 }
+
                 // Vertical part
                 for (int y = 1; y < size; y++)
                 {
@@ -350,7 +347,19 @@ namespace _Script.Items.AbstractItemTypes
                         return i;
                     }
                 }
+
                 return -1;
+            }
+
+            public List<Vector2Int> ProjectedPositions(Vector2Int pivot)
+            {
+                List<Vector2Int> projected = new List<Vector2Int>();
+                foreach (Vector2Int pos in _positions)
+                {
+                    projected.Add(pivot + pos);
+                }
+
+                return projected;
             }
         }
     }

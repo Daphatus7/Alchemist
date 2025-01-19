@@ -42,6 +42,11 @@ namespace _Script.Inventory.InventoryBackend
             set => _pivotPosition = value;
         }
         
+        public List<Vector2Int> GetItemPositions()
+        {
+            return ItemPositions;
+        }
+        
         public bool IsEmpty => ItemData == null || Quantity <= 0;
 
         public ItemStack(ItemStack stack)

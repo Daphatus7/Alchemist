@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +17,7 @@ namespace _Script.Inventory
         //Updated when the player start dragging
         private Vector2Int _dragStartPosition;
         //slot position 的index
-        private int _dragOnItemSlotIndex; public int DragOnItemSlotIndex => _dragOnItemSlotIndex;
+        private Vector2Int _dragRelativePosition; public Vector2Int DragRelativePosition => _dragRelativePosition;
         
         protected override void Awake()
         {
@@ -46,8 +47,7 @@ namespace _Script.Inventory
         {
             Debug.Log("Adding item to drag" + itemStack.ItemData.itemName);
             _dragStartPosition = dragStartPosition;
-            var relativePosition = dragStartPosition - itemStack.PivotPosition;
-            _dragOnItemSlotIndex = itemStack.ItemData.ItemShape.GetSelectedSlotIndex(relativePosition);
+            _dragRelativePosition = dragStartPosition - itemStack.PivotPosition;
             Debug.Log("Pivot position: " + _dragStartPosition);
             _itemStack = itemStack;
             _image.sprite = itemStack.ItemData.itemIcon;
@@ -63,6 +63,17 @@ namespace _Script.Inventory
         public ItemStack PeakItemStack()
         {
             return _itemStack;
+        }
+
+        public List<Vector2Int> ProjectedPositions(Vector2Int targetSlotPosition)
+        {
+            var projectedPositions = new List<Vector2Int>();
+            var itemPositions = _itemStack.ItemData.ItemShape.Positions;
+            foreach (var pos in itemPositions)
+            {
+                projectedPositions.Add(pos -_dragRelativePosition + targetSlotPosition);
+            }
+            return projectedPositions;
         }
         
         /**
