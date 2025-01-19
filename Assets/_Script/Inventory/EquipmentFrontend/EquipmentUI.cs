@@ -54,7 +54,7 @@ namespace _Script.Inventory.EquipmentFrontend
             return playerEquipmentInventory.RemoveEquipmentFromSlot(slotIndex);
         }
 
-        public void AddItemToEmptySlot(ItemStack itemStack, int slotIndex)
+        public void AddItemToEmptySlot(ItemStack itemStack, List<Vector2Int> projectedPositions)
         {
             //check if is equipment item
             if(itemStack.ItemData is EquipmentItem equipmentItem)

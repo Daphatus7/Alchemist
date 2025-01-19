@@ -147,13 +147,14 @@ namespace _Script.Inventory.InventoryFrontend
         {
             return _playerContainer.RemoveAllItemsFromSlot(slotIndex);
         }
+        
 
         /// <summary>
         /// Adds the specified ItemStack into an empty slot at the given index.
         /// </summary>
-        public void AddItemToEmptySlot(ItemStack itemStack, int slotIndex)
+        public void AddItemToEmptySlot(ItemStack itemStack, List<Vector2Int> peakItemStack)
         {
-            _playerContainer.AddItemToEmptySlot(itemStack, slotIndex);
+            _playerContainer.AddItemToEmptySlot(itemStack, peakItemStack);
         }
 
         /// <summary>

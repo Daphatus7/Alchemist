@@ -15,6 +15,8 @@ namespace _Script.Inventory
         
         //the position where the player initiate the drag action
         //Updated when the player start dragging
+        
+        //鼠标选中的位置
         private Vector2Int _dragStartPosition;
         //slot position 的index
         private Vector2Int _dragRelativePosition; public Vector2Int DragRelativePosition => _dragRelativePosition;
@@ -45,12 +47,11 @@ namespace _Script.Inventory
         
         public void AddItemToDrag(ItemStack itemStack, Vector2Int dragStartPosition)
         {
-            Debug.Log("Adding item to drag" + itemStack.ItemData.itemName);
-            _dragStartPosition = dragStartPosition;
-            _dragRelativePosition = dragStartPosition - itemStack.PivotPosition;
-            Debug.Log("Pivot position: " + _dragStartPosition);
             _itemStack = itemStack;
             _image.sprite = itemStack.ItemData.itemIcon;
+            _dragStartPosition = dragStartPosition; //
+            _dragRelativePosition = dragStartPosition - itemStack.ItemData.ItemShape.Positions[0];
+                
             //reset rotation
             _rectTransform.localRotation = Quaternion.Euler(0, 0, 0);
             _isDragItemRotated = false;
@@ -65,13 +66,18 @@ namespace _Script.Inventory
             return _itemStack;
         }
 
-        public List<Vector2Int> ProjectedPositions(Vector2Int targetSlotPosition)
+        public List<Vector2Int> ProjectedPositions(Vector2Int targetSlotPosition //放置的位置
+        )
         {
             var projectedPositions = new List<Vector2Int>();
-            var itemPositions = _itemStack.ItemData.ItemShape.Positions;
-            foreach (var pos in itemPositions)
+            var inventoryOffset = _itemStack.ItemPositions;
+            var shiftVector = targetSlotPosition - _dragStartPosition;
+            
+            //position after shift
+            for(int i = 0; i < inventoryOffset.Count; i++)
             {
-                projectedPositions.Add(pos -_dragRelativePosition + targetSlotPosition);
+                var projectedPosition = inventoryOffset[i] + shiftVector;
+                projectedPositions.Add(projectedPosition);
             }
             return projectedPositions;
         }

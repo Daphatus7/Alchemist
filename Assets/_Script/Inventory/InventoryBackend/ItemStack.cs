@@ -19,29 +19,6 @@ namespace _Script.Inventory.InventoryBackend
          */
         public List<Vector2Int> ItemPositions { get; set; } = new List<Vector2Int>();
         
-        
-        //当前item 的invnetory 起点
-        private Vector2Int _pivotPosition;
-
-        public Vector2Int PivotPosition
-        {
-            get
-            {
-                if(ItemData.ItemShape.IsRotated)
-                {
-                    //计算旋转后的pivotPosition
-                    var offset = ItemData.ItemShape.Positions[0];
-                    Debug.Log("Offset: " + offset);
-                    return _pivotPosition + offset;
-                }
-                else 
-                {
-                    return _pivotPosition;
-                }
-            } 
-            set => _pivotPosition = value;
-        }
-        
         public List<Vector2Int> GetItemPositions()
         {
             return ItemPositions;
@@ -79,16 +56,28 @@ namespace _Script.Inventory.InventoryBackend
             Clear();
         }
 
-        public ItemStack(Vector2Int pivotPosition, ItemData itemData, int quantity = 1)
+        public ItemStack(ItemData itemData, int quantity = 1)
         {
             if (!itemData)
             {
                 Clear();
                 return;
             }
-
-            PivotPosition = pivotPosition;
             
+            ItemData = Object.Instantiate(itemData);
+            ItemData.ItemShape = new ItemShape(itemData.ItemShape);
+            Quantity = Mathf.Clamp(quantity, 0, itemData.MaxStackSize);
+        }
+        
+        public ItemStack(List<Vector2Int> projectedPositions, ItemData itemData, int quantity = 1)
+        {
+            if (!itemData)
+            {
+                Clear();
+                return;
+            }
+            
+            ItemPositions = new List<Vector2Int>(projectedPositions);
             ItemData = Object.Instantiate(itemData);
             ItemData.ItemShape = new ItemShape(itemData.ItemShape);
             

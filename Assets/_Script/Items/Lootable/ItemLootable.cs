@@ -105,7 +105,7 @@ namespace _Script.Items.Lootable
             if (player.TryGetComponent(out PlayerCharacter playerCharacter))
             {
                 // For a normal item (non-container), create a normal stack
-                var stack = new ItemStack(Vector2Int.zero, itemData, quantity);
+                var stack = new ItemStack(itemData, quantity);
                 if (playerCharacter.PlayerInventory.AddItem(stack) == null)
                 {
                     Destroy(gameObject);

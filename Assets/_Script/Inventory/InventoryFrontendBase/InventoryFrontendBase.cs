@@ -141,9 +141,9 @@ namespace _Script.Inventory.InventoryFrontendBase
             return inventory.RemoveAllItemsFromSlot(slotIndex);
         }
 
-        public virtual void AddItemToEmptySlot(ItemStack itemStack, int slotIndex)
+        public virtual void AddItemToEmptySlot(ItemStack itemStack, List<Vector2Int> peakItemStack)
         {
-            inventory.AddItemToEmptySlot(itemStack, slotIndex);
+            inventory.AddItemToEmptySlot(itemStack, peakItemStack);
         }
 
         public ItemStack AddItem(ItemStack itemStack)
@@ -219,7 +219,7 @@ namespace _Script.Inventory.InventoryFrontendBase
                 // Use anchoredPosition on the newItem's RectTransform
                 var itemSize =item.ItemData.ItemShape.IconScale;
 
-                rect.anchoredPosition = GetSlotVisualPosition(item.PivotPosition, itemSize);
+                rect.anchoredPosition = GetSlotVisualPosition(item.ItemPositions[0], itemSize);
                 //modify the width and height of the slot
                 
                 rect.sizeDelta = new Vector2(CellSize * itemSize.x, CellSize * itemSize.y);

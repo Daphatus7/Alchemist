@@ -9,7 +9,7 @@ namespace _Script.Inventory.InventoryFrontendHandler
     {
         public void OnSlotClicked(InventorySlotInteraction slotInteraction);
         public ItemStack RemoveAllItemsFromSlot(int slotIndex);
-        public void AddItemToEmptySlot(ItemStack itemStack, int slotIndex);
+        public void AddItemToEmptySlot(ItemStack itemStack, List<Vector2Int> projectedPositions);
         public ItemStack AddItem(ItemStack itemStack);
         bool AcceptsItem(ItemStack itemStack);
         

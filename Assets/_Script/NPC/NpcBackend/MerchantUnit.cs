@@ -48,7 +48,7 @@ namespace _Script.NPC.NpcBackend
             var itemsToAdd = new List<ItemStack>();
             foreach(var item in itemsForSale)
             {
-                itemsToAdd.Add(new ItemStack(Vector2Int.zero, item, 1));
+                itemsToAdd.Add(new ItemStack(item, 1));
             }
             _merchantInventory = new MerchantInventory(itemsToAdd, inventoryWidth, inventoryHeight);
         }

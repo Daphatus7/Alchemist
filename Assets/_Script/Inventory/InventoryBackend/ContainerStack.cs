@@ -1,6 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 12 12 2024 12 12
 
+using System.Collections.Generic;
 using _Script.Items;
 using UnityEngine;
 
@@ -11,8 +12,8 @@ namespace _Script.Inventory.InventoryBackend
         public PlayerContainer AssociatedContainer { get; private set; }
 
         // This constructor assumes you already have a PlayerContainer instance ready
-        public ContainerItemStack(Vector2Int pivotPosition, ContainerItem itemData, int quantity, PlayerContainer container)
-            : base(pivotPosition, itemData, quantity)
+        public ContainerItemStack(ContainerItem itemData, int quantity, PlayerContainer container)
+            : base(itemData, quantity)
         {
             AssociatedContainer = container;
             if (AssociatedContainer == null)

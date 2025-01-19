@@ -175,23 +175,22 @@ namespace _Script.Inventory.SlotFrontend
             var removedItem = _inventoryUI.RemoveAllItemsFromSlot(_slotIndex);
                 
             //Add the item to the dragItem
-            var pivotPosition = CalculatePivotPosition(removedItem);
-            DragItem.Instance.AddItemToDrag(removedItem, pivotPosition);
+            DragItem.Instance.AddItemToDrag(removedItem, _inventoryUI.GetSlotPosition(_slotIndex));
             
             SetDragItemPosition(eventData);
            //******** icon.color = new Color(1, 1, 1, 0);
         }
 
-        private Vector2Int CalculatePivotPosition(ItemStack itemStack)
-        {
-            //先得到物品的Pivot
-            var itemPivot = itemStack.PivotPosition;
-            //获取当前背包选中的位置
-            var slotPosition = _inventoryUI.GetSlotPosition(_slotIndex);
-            //计算出物品的偏移量
-            
-            return slotPosition - itemPivot;
-        }
+        // private Vector2Int CalculatePivotPosition(ItemStack itemStack)
+        // {
+        //     //先得到物品的Pivot
+        //     var itemPivot = itemStack.PivotPosition;
+        //     //获取当前背包选中的位置
+        //     var slotPosition = _inventoryUI.GetSlotPosition(_slotIndex);
+        //     //计算出物品的偏移量
+        //     
+        //     return slotPosition - itemPivot;
+        // }
 
         public void OnDrag(PointerEventData eventData)
         {
@@ -220,7 +219,6 @@ namespace _Script.Inventory.SlotFrontend
             
             if (!hasDropTarget)
             {
-                Debug.Log("No valid drop target found, returning item to source slot.");
                 ReturnItemToSourceSlot(this);
             }
             else if (dropTargetObj == gameObject)
@@ -281,7 +279,7 @@ namespace _Script.Inventory.SlotFrontend
                                 var projectedPositions = DragItem.Instance.ProjectedPositions(_inventoryUI.GetSlotPosition(_slotIndex));
                                 if (player.CanFitItem(projectedPositions))
                                 {
-                                    _inventoryUI.AddItemToEmptySlot(DragItem.Instance.PeakItemStack(), _slotIndex);
+                                    _inventoryUI.AddItemToEmptySlot(DragItem.Instance.PeakItemStack(), projectedPositions);
                                 }
                                 else
                                 {
@@ -331,9 +329,8 @@ namespace _Script.Inventory.SlotFrontend
             {
                 return;
             }
-            int pivotIndex = sourceSlot._inventoryUI.GetSlotIndex(DragItem.Instance.PeakItemStack().PivotPosition);
             var itemToAdd = dragItem.GetComponent<DragItem>().RemoveItemStackOnFail();
-            sourceSlot._inventoryUI.AddItemToEmptySlot(itemToAdd, pivotIndex);
+            sourceSlot._inventoryUI.AddItemToEmptySlot(itemToAdd,itemToAdd.ItemPositions);
         }
 
         private DragType GetDragType(InventorySlotInteraction sourceSlot)
@@ -395,15 +392,22 @@ namespace _Script.Inventory.SlotFrontend
             
             var targetSlotPosition = _inventoryUI.GetSlotPosition(_slotIndex);
             
+            Debug.Log("Target Slot Position: " + targetSlotPosition);
+            
+            // foreach(var pos in DragItem.Instance.ProjectedPositions(targetSlotPosition))
+            // {
+            //     Debug.Log("Target Slot Position: " + pos);
+            // }
+            
             //先检查是不是在同一个背包里
             if (source.SlotType == SlotType)
             {
                 //Debug.Log("Shifted Pivot Index: " + shiftedPivotIndex);
                 if(_inventoryUI.CanFitItem(DragItem.Instance.ProjectedPositions(targetSlotPosition)))
                 {
-                    _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemStack(), 
-                        //change to positions
-                        _slotIndex);
+                    var projectedPositions = DragItem.Instance.ProjectedPositions(targetSlotPosition);
+                    var itemToAdd = DragItem.Instance.RemoveItemStack();
+                    _inventoryUI.AddItemToEmptySlot(itemToAdd, projectedPositions);
                 }
                 else
                 {

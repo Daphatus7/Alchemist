@@ -134,9 +134,12 @@ namespace _Script.Inventory.InventoryBackend
         public event Action OnItemStackChanged;
 
         // Helper method to invoke the event
-        public void OnInventorySlotChangedEvent(int slotIndex)
+        public void OnInventorySlotChangedEvent(List<Vector2Int> positions)
         {
-            OnInventorySlotChanged?.Invoke(slotIndex);
+            foreach (var pos in positions)
+            {
+                OnInventorySlotChanged?.Invoke(GridToSlotIndex(pos.x, pos.y));
+            }
         }
 
         // ----------------------------------------------
@@ -171,7 +174,7 @@ namespace _Script.Inventory.InventoryBackend
                     if (remaining < oldQuantity)
                     {
                         // Some merging happened
-                        OnInventorySlotChangedEvent(GridToSlotIndex(existingStack.PivotPosition.x, existingStack.PivotPosition.y));
+                        OnInventorySlotChangedEvent(existingStack.ItemPositions);
                     }
                     
                     if (remaining == 0)
@@ -194,7 +197,7 @@ namespace _Script.Inventory.InventoryBackend
                     int toAdd = Mathf.Min(itemStackToAdd.Quantity, itemStackToAdd.ItemData.MaxStackSize);
 
                     // Actually place the item
-                    ItemStack placedStack = CreateItemStackAtLocation(projectedPositions, i, itemStackToAdd.ItemData, toAdd, itemStackToAdd);
+                    ItemStack placedStack = CreateItemStackAtLocation(projectedPositions, toAdd, itemStackToAdd);
                     if (placedStack != null)
                     {
                         // Adjust leftover
@@ -272,23 +275,20 @@ namespace _Script.Inventory.InventoryBackend
             {
                 return null;
             }
-            if (GetItemStackAt(slotIndex) == null)
+            var itemAtSlot = GetItemStackAt(slotIndex);
+            if (itemAtSlot == null)
             {
                 return null;
             }
-            if (GetItemStackAt(slotIndex).IsEmpty)
+            if (itemAtSlot.IsEmpty)
             {
                 //safe update
                 OnRemovingItem(slotIndex);
                 return null;
             }
 
-            // Duplicate the stack (preserving specialized data if needed).
-
-            var pivotPosition =  GetItemStackAt(slotIndex).PivotPosition;
-            //Debug.Log("Removing item from slot " + pivotPosition);
             
-            ItemStack removed = CreateStack(pivotPosition, GetItemStackAt(slotIndex).ItemData, GetItemStackAt(slotIndex).Quantity, GetItemStackAt(slotIndex));
+            ItemStack removed = CreateStack(itemAtSlot.ItemPositions, itemAtSlot.Quantity, itemAtSlot);
             
             OnRemovingItem(slotIndex);
             
@@ -308,21 +308,19 @@ namespace _Script.Inventory.InventoryBackend
                 var sIndex = GridToSlotIndex(pos.x, pos.y);
                 //remove information about the item in the slot
                 Slots[sIndex].Clear();
-                OnInventorySlotChangedEvent(sIndex);
             }
+            OnInventorySlotChangedEvent(itemStack.ItemPositions);
             _itemStacks.Remove(itemStack);
             OnOnItemStackChanged();
+
         }
 
-        public void AddItemToEmptySlot(ItemStack itemStack, int selectedSlotIndex)
+        public void AddItemToEmptySlot(ItemStack itemStack, List<Vector2Int> projectedPositions)
         {
-            var pos = SlotIndexToGrid(selectedSlotIndex);
-            
-            var projectedPositions = itemStack.ItemData.ItemShape.ProjectedPositions(pos);
-            ItemStack placedStack = CreateItemStackAtLocation(projectedPositions, selectedSlotIndex, itemStack.ItemData, itemStack.Quantity, itemStack);
+            ItemStack placedStack = CreateItemStackAtLocation(projectedPositions, itemStack.Quantity, itemStack);
             _itemStacks.Add(placedStack);
             OnOnItemStackChanged();
-            OnInventorySlotChangedEvent(selectedSlotIndex);
+            OnInventorySlotChangedEvent(projectedPositions);
         }
         
         // ----------------------------------------------
@@ -400,7 +398,7 @@ namespace _Script.Inventory.InventoryBackend
                     OnRemovingItem(slotIndex);
                     itemStack = new ItemStack();
                 }
-                OnInventorySlotChangedEvent(slotIndex);
+                OnInventorySlotChangedEvent(itemStack.ItemPositions);
                 return true;
             }
             else
@@ -417,37 +415,37 @@ namespace _Script.Inventory.InventoryBackend
         
         public abstract void LeftClickItem(int slotIndex);
         
-        protected ItemStack CreateStack(Vector2Int pivotPosition, ItemData itemData, int quantity, ItemStack template)
+        protected ItemStack CreateStack(List<Vector2Int> projectedLocations, int quantity, ItemStack itemStack)
         {
-            var cItem = itemData as ContainerItem;
-            var cStack = template as ContainerItemStack;
+            var cItem = itemStack.ItemData as ContainerItem;
+            var cStack = itemStack as ContainerItemStack;
 
             //Debug.Log("Creating stack with " + itemData.ItemName + " at " + pivotPosition + " with quantity " + quantity);
             
             if (cItem && cStack != null)
             {
                 // Preserve container data from cStack
-                return new ContainerItemStack(pivotPosition, cItem, quantity, cStack.AssociatedContainer);
+                return new ContainerItemStack(cItem, quantity, cStack.AssociatedContainer);
             }
             else if (cItem)
             {
                 // itemData is ContainerItem, template is not
-                return new ContainerItemStack(pivotPosition, cItem, quantity, new PlayerContainer(null, cItem.width, cItem.height));
+                return new ContainerItemStack(cItem, quantity, new PlayerContainer(null, cItem.width, cItem.height));
             }
             else if (cStack != null)
             {
                 // Template is ContainerItemStack but itemData not ContainerItem
                 Debug.LogWarning("Template was ContainerItemStack but itemData is not ContainerItem. Using normal ItemStack fallback.");
-                return new ItemStack(pivotPosition, itemData, quantity);
+                return new ItemStack(projectedLocations, itemStack.ItemData, quantity);
             }
             else
             {
                 // Normal item
-                return new ItemStack(pivotPosition, itemData, quantity);
+                return new ItemStack(projectedLocations, itemStack.ItemData, quantity);
             }
         }
         
-        public ItemStack CreateItemStackAtLocation(List<Vector2Int> projectedLocations, int slotIndex, ItemData itemData, int quantity, ItemStack template)
+        public ItemStack CreateItemStackAtLocation(List<Vector2Int> projectedLocations, int quantity, ItemStack itemStack)
         {
             if (projectedLocations == null || projectedLocations.Count == 0)
             {
@@ -456,7 +454,7 @@ namespace _Script.Inventory.InventoryBackend
             }
             
             // Check availability
-            ItemStack newStack = CreateStack(SlotIndexToGrid(slotIndex), itemData, quantity, template);
+            ItemStack newStack = CreateStack(projectedLocations, quantity, itemStack);
 
             newStack.ItemPositions = projectedLocations;
             // All required slots free, create the new stack
@@ -466,8 +464,8 @@ namespace _Script.Inventory.InventoryBackend
             {
                 var sIndex = GridToSlotIndex(slotPos.x, slotPos.y);
                 Slots[sIndex].ItemStack = newStack;
-                OnInventorySlotChangedEvent(sIndex);
             }
+            OnInventorySlotChangedEvent(projectedLocations);
             return newStack;
         }
         
