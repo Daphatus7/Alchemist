@@ -18,7 +18,29 @@ namespace _Script.Inventory.InventoryBackend
          * all the positions of the item in the inventory
          */
         public List<Vector2Int> ItemPositions { get; set; } = new List<Vector2Int>();
-        public Vector2Int PivotPosition { get; set; }
+        
+        
+        //当前item 的invnetory 起点
+        private Vector2Int _pivotPosition;
+
+        public Vector2Int PivotPosition
+        {
+            get
+            {
+                if(ItemData.ItemShape.IsRotated)
+                {
+                    //计算旋转后的pivotPosition
+                    var offset = ItemData.ItemShape.Positions[0];
+                    Debug.Log("Offset: " + offset);
+                    return _pivotPosition + offset;
+                }
+                else 
+                {
+                    return _pivotPosition;
+                }
+            } 
+            set => _pivotPosition = value;
+        }
         
         public bool IsEmpty => ItemData == null || Quantity <= 0;
 

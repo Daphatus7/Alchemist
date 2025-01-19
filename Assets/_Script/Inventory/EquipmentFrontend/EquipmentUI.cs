@@ -76,7 +76,7 @@ namespace _Script.Inventory.EquipmentFrontend
             return itemStack.ItemData is EquipmentItem;
         }
 
-        public bool CanFitItem(int targetSlotIndex, ItemStack comparingItemStack)
+        public bool CanFitItem(List<Vector2Int> projectedPositions)
         {
             return false;
         }

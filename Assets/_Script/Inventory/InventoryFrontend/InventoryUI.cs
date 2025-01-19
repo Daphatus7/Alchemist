@@ -174,9 +174,9 @@ namespace _Script.Inventory.InventoryFrontend
             return true;
         }
 
-        public bool CanFitItem(int targetSlotIndex, ItemStack comparingItemStack)
+        public bool CanFitItem(List<Vector2Int> projectedPositions)
         {
-            return _playerContainer.CanFitItem(targetSlotIndex, comparingItemStack);
+            return _playerContainer.CanFitItem(projectedPositions);
         }
 
         /// <summary>

@@ -14,7 +14,9 @@ namespace _Script.Inventory
         
         //the position where the player initiate the drag action
         //Updated when the player start dragging
-        private Vector2Int _pivotPosition;
+        private Vector2Int _dragStartPosition;
+        //slot position 的index
+        private int _dragOnItemSlotIndex; public int DragOnItemSlotIndex => _dragOnItemSlotIndex;
         
         protected override void Awake()
         {
@@ -34,17 +36,19 @@ namespace _Script.Inventory
         
         private void RotateDragItem()
         {
-            var isRotated = _itemStack.ToggleRotate(_pivotPosition, _isDragItemRotated);
+            var isRotated = _itemStack.ToggleRotate(_dragStartPosition, _isDragItemRotated);
             _isDragItemRotated = !_isDragItemRotated;
             _rectTransform.localRotation = Quaternion.Euler(0, 0, isRotated ? - 90 : 0);
             //Update the sprite
         }
         
-        public void AddItemToDrag(ItemStack itemStack, Vector2Int pivotPosition)
+        public void AddItemToDrag(ItemStack itemStack, Vector2Int dragStartPosition)
         {
             Debug.Log("Adding item to drag" + itemStack.ItemData.itemName);
-            _pivotPosition = pivotPosition;
-            Debug.Log("Pivot position: " + _pivotPosition);
+            _dragStartPosition = dragStartPosition;
+            var relativePosition = dragStartPosition - itemStack.PivotPosition;
+            _dragOnItemSlotIndex = itemStack.ItemData.ItemShape.GetSelectedSlotIndex(relativePosition);
+            Debug.Log("Pivot position: " + _dragStartPosition);
             _itemStack = itemStack;
             _image.sprite = itemStack.ItemData.itemIcon;
             //reset rotation
@@ -76,7 +80,7 @@ namespace _Script.Inventory
         {
             if(_isDragItemRotated)
             {
-                _itemStack.ToggleRotate(_pivotPosition,_isDragItemRotated);
+                _itemStack.ToggleRotate(_dragStartPosition,_isDragItemRotated);
             }
             var result = _itemStack;
             _image.sprite = null;

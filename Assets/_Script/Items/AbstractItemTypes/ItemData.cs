@@ -172,6 +172,20 @@ namespace _Script.Items.AbstractItemTypes
             public List<Vector2Int> Positions => _positions;
             
             /// <summary>
+            /// 投射的坐标， 这个坐标是
+            /// </summary>
+            /// <param name="pivot"></param>
+            /// <returns></returns>
+            public List<Vector2Int> ProjectedPositions(Vector2Int pivot)
+            {
+                List<Vector2Int> projected = new List<Vector2Int>();
+                foreach (Vector2Int pos in _positions)
+                {
+                    projected.Add(pivot + pos);
+                }
+                return projected;
+            }
+            /// <summary>
             /// Constructor that initializes shape based on a predefined type.
             /// </summary>
             public ItemShape(ItemShapeType shapeType)
@@ -200,13 +214,6 @@ namespace _Script.Items.AbstractItemTypes
                 _isRotated = itemShape._isRotated;
             }
 
-            /// <summary>
-            /// 在 pivot 点基础上进行 90 度旋转（默认为顺时针）。
-            /// 如果想恢复，可再次调用此方法；
-            /// 也可以根据 _isRotated 做双向切换。
-            /// </summary>
-            /// <param name="pivot">旋转基准点（例如玩家选中的某一格坐标）</param>
-            /// <returns>返回当前是否处于“已旋转”状态</returns>
             public bool ToggleRotate(Vector2Int pivot)
             {
                 // 准备一个新的容器来存储旋转后的结果
@@ -214,22 +221,19 @@ namespace _Script.Items.AbstractItemTypes
 
                 foreach (Vector2Int pos in _positions)
                 {
-                    // 1. 将原坐标转换为相对于 pivot 的“局部坐标”
                     Vector2Int relative = pos - pivot;
+        
+                    // 如果尚未旋转，则执行顺时针 90 度 (x, y) -> (-y, x)
+                    // 如果已经旋转过了，则执行逆时针 90 度 (x, y) -> (y, -x)
+                    // _isRotated 反了一下
+                    Vector2Int rotated = _isRotated 
+                        ? new Vector2Int(-relative.y, relative.x) 
+                        : new Vector2Int(relative.y, -relative.x);
 
-                    // 2. 执行 90 度顺时针旋转 (x, y) -> (-y, x)
-                    //   如果想要逆时针，可使用 (x, y) -> (y, -x)
-                    Vector2Int rotated = new Vector2Int(-relative.y, relative.x);
-
-                    // 3. 将旋转后的“局部坐标”再平移回 pivot 所在的“世界坐标”
-                    Vector2Int newPos = pivot + rotated;
-                    rotatedPositions.Add(newPos);
+                    rotatedPositions.Add(pivot + rotated);
                 }
 
-                // 将最终结果更新回 _positions
                 _positions = rotatedPositions;
-
-                // 切换 _isRotated 状态
                 _isRotated = !_isRotated;
 
                 return _isRotated;
@@ -335,6 +339,18 @@ namespace _Script.Items.AbstractItemTypes
                 }
 
                 return lShape;
+            }
+
+            public int GetSelectedSlotIndex(Vector2Int relativePosition)
+            {
+                for (int i = 0; i < _positions.Count; i++)
+                {
+                    if (_positions[i] == relativePosition)
+                    {
+                        return i;
+                    }
+                }
+                return -1;
             }
         }
     }

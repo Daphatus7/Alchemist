@@ -87,7 +87,7 @@ namespace _Script.Inventory.SlotFrontend
 
        
             // If we're debugging, show slot & item info in the debugText
-            if (isDebug && debugText != null)
+            if (isDebug && debugText)
             {
                 // Build a multi-line string showing relevant data
                 string itemName = (_currentStack != null && !_currentStack.IsEmpty)
@@ -278,7 +278,8 @@ namespace _Script.Inventory.SlotFrontend
                             if (merchant.Purchase(player, purchasedItem, purchasedItem.Quantity))
                             {
                                 //if it can fit the item in the player inventory
-                                if (player.CanFitItem(_slotIndex, purchasedItem))
+                                var projectedPositions = purchasedItem.ItemData.ItemShape.ProjectedPositions(_inventoryUI.GetSlotPosition(_slotIndex));
+                                if (player.CanFitItem(projectedPositions))
                                 {
                                     _inventoryUI.AddItemToEmptySlot(DragItem.Instance.PeakItemStack(), _slotIndex);
                                 }
@@ -286,6 +287,10 @@ namespace _Script.Inventory.SlotFrontend
                                 {
                                     _inventoryUI.AddItem(DragItem.Instance.RemoveItemStack());
                                 }
+                                
+                                /**
+                                 * TODo: did not consider the case when the player can't fit the item in the inventory
+                                 */
                             }
                             else
                             {
@@ -388,50 +393,59 @@ namespace _Script.Inventory.SlotFrontend
         private void SwapItems(InventorySlotInteraction source)
         {
             
-            //目前假设两个物品在同一个背包里
-            //这里的pivot 指的是物品的起始点
-            var pivot = DragItem.Instance.PeakItemStack().PivotPosition;
-            Debug.Log("Pivot: " + pivot);
-            //计算出物品的偏移量 也就是物品的起始点和终点的距离
-            var shiftVector = _inventoryUI.GetSlotPosition(_slotIndex) - source._inventoryUI.GetSlotPosition(source._slotIndex);
-            Debug.Log("Shift Vector: " + shiftVector);
-            //计算想防止位置的终点
-            var shiftedPivot = shiftVector + pivot;
-            Debug.Log("Shifted Pivot: " + shiftedPivot);
-            //实际想要放置的位置的index
-            var shiftedPivotIndex = _inventoryUI.GetSlotIndex(shiftedPivot);
-            Debug.Log("Shifted Pivot Index: " + shiftedPivotIndex);
+            var targetSlotPosition = _inventoryUI.GetSlotPosition(_slotIndex);
             
             //先检查是不是在同一个背包里
             if (source.SlotType == SlotType)
             {
-                int count = _inventoryUI.GetItemsCount(shiftedPivotIndex, DragItem.Instance.PeakItemStack().ItemData.ItemShape.Positions, out var onlyItemIndex);
-                if(count == 0)
+                
+                //debug projected positions
+                foreach (var projectedPosition in DragItem.Instance.PeakItemStack().ItemData.ItemShape.ProjectedPositions(targetSlotPosition))
                 {
-                    Debug.Log("Shifted Pivot Index: " + shiftedPivotIndex);
-                    if(_inventoryUI.CanFitItem(shiftedPivotIndex, DragItem.Instance.PeakItemStack()))
-                    {
-                        _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemStack(), shiftedPivotIndex);
-                    }
-                    else
-                    {
-                        Debug.Log("Can't fit the item");
-                        ReturnItemToSourceSlot(source);
-                    }
+                    Debug.Log("Projected Position: " + projectedPosition);
+                }
+                
+                //Debug.Log("Shifted Pivot Index: " + shiftedPivotIndex);
+                if(_inventoryUI.CanFitItem(DragItem.Instance.PeakItemStack().ItemData.ItemShape.ProjectedPositions(targetSlotPosition)))
+                {
+                    _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemStack(), 
+                        //change to positions
+                        _slotIndex);
                 }
                 else
                 {
-                    //overlaps with other items
-                    Debug.Log("Overlaps with other items");
+                    Debug.Log("Can't fit the item");
                     ReturnItemToSourceSlot(source);
                 }
+                // int count = _inventoryUI.GetItemsCount(_slotIndex,//change to check the positions
+                //     DragItem.Instance.PeakItemStack().ItemData.ItemShape.ProjectedPositions(targetSlotPosition), out var onlyItemIndex);
+                // if(count == 0)
+                // {
+                //     //Debug.Log("Shifted Pivot Index: " + shiftedPivotIndex);
+                //     if(_inventoryUI.CanFitItem(DragItem.Instance.PeakItemStack().ItemData.ItemShape.ProjectedPositions(targetSlotPosition)))
+                //     {
+                //         _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemStack(), 
+                //             //change to positions
+                //             _slotIndex);
+                //     }
+                //     else
+                //     {
+                //         Debug.Log("Can't fit the item");
+                //         ReturnItemToSourceSlot(source);
+                //     }
+                // }
+                // else
+                // {
+                //     //overlaps with other items
+                //     Debug.Log("Overlaps with other items");
+                //     ReturnItemToSourceSlot(source);
+                // }
             }
             //如果不是 先报错
             else
             {
                 throw new Exception("还没有应用跨背包交换物品的功能");
             }
-            
             
             //先检查重叠多少物品
             

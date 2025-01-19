@@ -187,13 +187,13 @@ namespace _Script.Inventory.InventoryBackend
             for (var i = 0; i < Capacity; i++)
             {
                 //checking if the item can fit in the inventory
-                if (CanFitIn(SlotIndexToGrid(i), itemStackToAdd.ItemData.ItemShape, out List<Vector2Int> requiredSlots))
+                if (CanFitIn(itemStackToAdd.ItemData.ItemShape.ProjectedPositions(SlotIndexToGrid(i))))
                 {
                     // Decide how many to place
                     int toAdd = Mathf.Min(itemStackToAdd.Quantity, itemStackToAdd.ItemData.MaxStackSize);
 
                     // Actually place the item
-                    ItemStack placedStack = CreateItemStackAtLocation(requiredSlots, i, itemStackToAdd.ItemData, toAdd, itemStackToAdd);
+                    ItemStack placedStack = CreateItemStackAtLocation(itemStackToAdd.ItemData.ItemShape.ProjectedPositions(SlotIndexToGrid(i)), i, itemStackToAdd.ItemData, toAdd, itemStackToAdd);
                     if (placedStack != null)
                     {
                         // Adjust leftover
@@ -222,18 +222,13 @@ namespace _Script.Inventory.InventoryBackend
         /// Checks if the specified shape can fit, with top-left corner at 'pos' (in grid coords),
         /// by verifying every offset is in range and the slot is empty.
         /// </summary>
-        private bool CanFitIn(Vector2Int pos //is the location of the cursor selected slot
-            , ItemShape shape, out List<Vector2Int> requiredSlots)
+        private bool CanFitIn(List<Vector2Int> projectedPositions)
         {
             
-            //Get Correct Slot Index
-            //Get pivot of the shape
-            requiredSlots = new List<Vector2Int>();
-            
-            foreach (var offset in shape.Positions)
+            foreach (var pos in projectedPositions)
             {
-                int gx = pos.x + offset.x;
-                int gy = pos.y + offset.y;
+                int gx = pos.x;
+                int gy = pos.y;
 
                 // Check bounds
                 if (gx < 0 || gx >= _width || gy < 0 || gy >= _height)
@@ -246,22 +241,16 @@ namespace _Script.Inventory.InventoryBackend
                 {
                     return false;
                 }
-
-                requiredSlots.Add(new Vector2Int(gx, gy));
             }
             
             return true;
         }
 
 
-        public bool CanFitItem(int mySlot, ItemStack comparingItemStack)
+        public bool CanFitItem(List<Vector2Int> projectedPositions)
         {
-            if(mySlot < 0 || mySlot >= Capacity)
-            {
-                return false;
-            }
             
-            if (comparingItemStack == null || comparingItemStack.IsEmpty)
+            if (projectedPositions == null || projectedPositions.Count == 0)
             {
                 Debug.Log("Invalid item stack to compare.");
                 return false;
@@ -269,7 +258,7 @@ namespace _Script.Inventory.InventoryBackend
             
 //            Debug.Log("Cp " + SlotIndexToGrid(mySlot));
             
-            return CanFitIn(SlotIndexToGrid(mySlot), comparingItemStack.ItemData.ItemShape, out List<Vector2Int> requiredSlots);    
+            return CanFitIn(projectedPositions);    
         }
         
         // ----------------------------------------------
@@ -324,15 +313,17 @@ namespace _Script.Inventory.InventoryBackend
             OnOnItemStackChanged();
         }
 
-        public void AddItemToEmptySlot(ItemStack itemStack, int slotIndex)
+        public void AddItemToEmptySlot(ItemStack itemStack, int selectedSlotIndex)
         {
-            if(CanFitIn(SlotIndexToGrid(slotIndex), itemStack.ItemData.ItemShape, out List<Vector2Int> requiredSlots))
+            var pos = SlotIndexToGrid(selectedSlotIndex);
+            var projectedPositions = itemStack.ItemData.ItemShape.ProjectedPositions(pos);
+            if(CanFitIn(projectedPositions))
             {
                 // Actually place the item
-                ItemStack placedStack = CreateItemStackAtLocation(requiredSlots, slotIndex, itemStack.ItemData, itemStack.Quantity, itemStack);
+                ItemStack placedStack = CreateItemStackAtLocation(projectedPositions, selectedSlotIndex, itemStack.ItemData, itemStack.Quantity, itemStack);
                 _itemStacks.Add(placedStack);
                 OnOnItemStackChanged();
-                OnInventorySlotChangedEvent(slotIndex);
+                OnInventorySlotChangedEvent(selectedSlotIndex);
             }
         }
         
@@ -458,21 +449,22 @@ namespace _Script.Inventory.InventoryBackend
             }
         }
         
-        public ItemStack CreateItemStackAtLocation(List<Vector2Int> requiredSlots, int slotIndex, ItemData itemData, int quantity, ItemStack template)
+        public ItemStack CreateItemStackAtLocation(List<Vector2Int> projectedLocations, int slotIndex, ItemData itemData, int quantity, ItemStack template)
         {
-            if (requiredSlots == null || requiredSlots.Count == 0)
+            if (projectedLocations == null || projectedLocations.Count == 0)
             {
-                throw new ArgumentException("Invalid required slots.");
+                Debug.LogWarning("Invalid item stack to place.");
+                return null;
             }
             
             // Check availability
             ItemStack newStack = CreateStack(SlotIndexToGrid(slotIndex), itemData, quantity, template);
 
-            newStack.ItemPositions = requiredSlots;
+            newStack.ItemPositions = projectedLocations;
             // All required slots free, create the new stack
 
             // Fill each required slot
-            foreach (var slotPos in requiredSlots)
+            foreach (var slotPos in projectedLocations)
             {
                 var sIndex = GridToSlotIndex(slotPos.x, slotPos.y);
                 Slots[sIndex].ItemStack = newStack;
@@ -495,6 +487,8 @@ namespace _Script.Inventory.InventoryBackend
             var itemPivot = SlotIndexToGrid(pivotIndex);
             
             var foundItem = new Dictionary<ItemStack, int>();
+            
+            // check each slot by adding the offset to the pivot
             foreach(var offset in projectedPositions)
             {
                 var offsetPos = itemPivot + offset;

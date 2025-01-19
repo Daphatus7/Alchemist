@@ -156,9 +156,9 @@ namespace _Script.Inventory.InventoryFrontendBase
             return true;
         }
 
-        public bool CanFitItem(int targetSlotIndex, ItemStack comparingItemStack)
+        public bool CanFitItem(List<Vector2Int> projectedPositions)
         {
-            return inventory.CanFitItem(targetSlotIndex, comparingItemStack);
+            return inventory.CanFitItem(projectedPositions);
         }
         
         public Vector2Int GetSlotPosition(int slotIndex)
