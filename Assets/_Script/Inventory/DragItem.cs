@@ -39,8 +39,11 @@ namespace _Script.Inventory
         
         private void RotateDragItem()
         {
-            var isRotated = _itemStack.ToggleRotate(_dragStartPosition, _isDragItemRotated);
+            //Rotate the data
+            var isRotated = _itemStack.ToggleRotate(_dragStartPosition);
             _isDragItemRotated = !_isDragItemRotated;
+            
+            //Rotate the drag display
             _rectTransform.localRotation = Quaternion.Euler(0, 0, isRotated ? - 90 : 0);
             //Update the sprite
         }
@@ -55,7 +58,7 @@ namespace _Script.Inventory
             //reset rotation
             _rectTransform.localRotation = Quaternion.Euler(0, 0, 0);
             _isDragItemRotated = false;
-            if(itemStack.ItemData.ItemShape.IsRotated)
+            if(itemStack.IsRotated)
             {
                 RotateDragItem();
             }
@@ -97,7 +100,7 @@ namespace _Script.Inventory
         {
             if(_isDragItemRotated)
             {
-                _itemStack.ToggleRotate(_dragStartPosition,_isDragItemRotated);
+                _itemStack.ToggleRotate(_dragStartPosition);
             }
             var result = _itemStack;
             _image.sprite = null;

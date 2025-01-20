@@ -19,12 +19,9 @@ namespace _Script.Inventory.InventoryBackend
          */
         public List<Vector2Int> ItemPositions { get; set; } = new List<Vector2Int>();
         
-        public List<Vector2Int> GetItemPositions()
-        {
-            return ItemPositions;
-        }
-        
         public bool IsEmpty => ItemData == null || Quantity <= 0;
+        
+        private bool _rotated = false; public bool IsRotated => _rotated;
 
         public ItemStack(ItemStack stack)
         {
@@ -39,16 +36,34 @@ namespace _Script.Inventory.InventoryBackend
             }
         }
         
-        public bool ToggleRotate(Vector2Int rotatePivot, bool rotated)
+        public bool ToggleRotate(Vector2Int rotatePivot)
         {
+            // If there's no valid ItemData, do nothing.
             if (!ItemData) return false;
-            if (!rotated)
+
+            // Prepare a new list to hold the rotated positions.
+            var rotatedPositions = new List<Vector2Int>(ItemPositions.Count);
+
+            foreach (Vector2Int pos in ItemPositions)
             {
-                //
-                //PivotPosition = 
+                // Translate current position into pivot-relative coordinates.
+                Vector2Int relative = pos - rotatePivot;
+        
+                // If not rotated yet, rotate clockwise 90°: (x, y) -> (-y, x)
+                // If already rotated, rotate counterclockwise 90°: (x, y) -> (y, -x)
+                Vector2Int newRelative = _rotated
+                    ? new Vector2Int(relative.y, -relative.x)     // counterclockwise
+                    : new Vector2Int(-relative.y, relative.x);    // clockwise
+        
+                // Translate back by adding the pivot.
+                rotatedPositions.Add(rotatePivot + newRelative);
             }
-            ItemData.ItemShape.ToggleRotate(rotatePivot);
-            return ItemData.ItemShape.IsRotated;
+
+            // Update the item’s positions with the newly rotated ones.
+            ItemPositions = rotatedPositions;
+            _rotated = !_rotated;
+            // Flip the IsRotated state on the ItemShape and return the new value.
+            return _rotated;
         }
         
         public ItemStack()

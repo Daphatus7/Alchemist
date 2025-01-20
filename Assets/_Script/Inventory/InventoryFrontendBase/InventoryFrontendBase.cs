@@ -210,7 +210,7 @@ namespace _Script.Inventory.InventoryFrontendBase
                 var newItemDisplay = Instantiate(slotVisualPrefab, slotVisualParent.transform);
                 var rect = newItemDisplay.GetComponent<RectTransform>();
 
-                if(item.ItemData.ItemShape.IsRotated)
+                if(item.IsRotated)
                 {
                     Debug.Log("Rotated");
                     rect.localRotation = Quaternion.Euler(0, 0, -90);

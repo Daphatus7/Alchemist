@@ -143,10 +143,7 @@ namespace _Script.Items.AbstractItemTypes
         {
             private List<Vector2Int> _positions;
             private readonly ItemShapeType _shapeType;
-
-            private bool _isRotated = false;
-            public bool IsRotated => _isRotated;
-
+            
             //comparing the two shapes
             public bool CompareShapes(ItemShape other)
             {
@@ -162,8 +159,8 @@ namespace _Script.Items.AbstractItemTypes
                     {
                         ItemShapeType.Square11 => new Vector2(1, 1),
                         ItemShapeType.Square22 => new Vector2(2, 2),
-                        ItemShapeType.Rectangle12 => IsRotated ? new Vector2(2, 1) : new Vector2(1, 2),
-                        ItemShapeType.Rectangle23 => IsRotated ? new Vector2(3, 2) : new Vector2(2, 3),
+                        ItemShapeType.Rectangle12 => new Vector2(1, 2),
+                        ItemShapeType.Rectangle23 => new Vector2(2, 3),
                         ItemShapeType.Circle1 => new Vector2(3, 3),
                         ItemShapeType.LShape2 => new Vector2(2, 2),
                         ItemShapeType.LShape3 => new Vector2(3, 3),
@@ -204,34 +201,7 @@ namespace _Script.Items.AbstractItemTypes
             {
                 _shapeType = itemShape._shapeType;
                 _positions = new List<Vector2Int>(itemShape._positions);
-                _isRotated = itemShape._isRotated;
             }
-
-            public bool ToggleRotate(Vector2Int pivot)
-            {
-                // 准备一个新的容器来存储旋转后的结果
-                List<Vector2Int> rotatedPositions = new List<Vector2Int>();
-
-                foreach (Vector2Int pos in _positions)
-                {
-                    Vector2Int relative = pos - pivot;
-
-                    // 如果尚未旋转，则执行顺时针 90 度 (x, y) -> (-y, x)
-                    // 如果已经旋转过了，则执行逆时针 90 度 (x, y) -> (y, -x)
-                    // _isRotated 反了一下
-                    Vector2Int rotated = _isRotated
-                        ? new Vector2Int(-relative.y, relative.x)
-                        : new Vector2Int(relative.y, -relative.x);
-
-                    rotatedPositions.Add(pivot + rotated);
-                }
-
-                _positions = rotatedPositions;
-                _isRotated = !_isRotated;
-
-                return _isRotated;
-            }
-
 
             /// <summary>
             /// Generates a square shape of side length 'size'.
