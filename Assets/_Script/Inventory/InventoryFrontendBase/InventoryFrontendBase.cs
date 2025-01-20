@@ -214,17 +214,18 @@ namespace _Script.Inventory.InventoryFrontendBase
                 var itemSize =item.ItemData.ItemShape.IconScale;
                 if(item.IsRotated)
                 {
-                    Debug.Log("Rotated");
-                    rect.localRotation = Quaternion.Euler(0, 0, -90);
-
-                    itemSize = new Vector2(itemSize.y, itemSize.x);
+                    // itemSize = new Vector2(itemSize.X, itemSize.x);
+                    //rotate the item
+                    rect.Rotate(0, 0, -90);
                 }
                 
-                rect.anchoredPosition = GetSlotVisualPosition(item.ItemPositions[0], itemSize);
+                rect.anchoredPosition = GetSlotVisualPosition(item.RenderingPivot // pivot的位置可能需要手动设置
+                    , itemSize);
                 //modify the width and height of the slot
                 
                 rect.sizeDelta = new Vector2(CellSize * itemSize.x, CellSize * itemSize.y);
-                
+                var renderingOffset = item.RenderingOffset;
+                rect.localPosition = new Vector3(rect.localPosition.x + renderingOffset.x, rect.localPosition.y + renderingOffset.y, 0);
                 var slotUI = newItemDisplay.GetComponent<InventorySlotDisplay>();
                 slotUI.SetDisplay(item.ItemData, item.Quantity);
                 _slotUIs.Add(slotUI);

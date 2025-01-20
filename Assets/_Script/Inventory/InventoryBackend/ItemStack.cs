@@ -23,20 +23,17 @@ namespace _Script.Inventory.InventoryBackend
         
         private bool _rotated = false; public bool IsRotated => _rotated;
 
-        // public ItemStack(ItemStack stack)
-        // {
-        //     if (stack == null || stack.ItemData == null || stack.Quantity <= 0)
-        //     {
-        //         Clear();
-        //     }
-        //     else
-        //     {
-        //         ItemData = Object.Instantiate(stack.ItemData);
-        //         _rotated = stack.IsRotated;
-        //         Quantity = Mathf.Clamp(stack.Quantity, 0, stack.ItemData.MaxStackSize);
-        //     }
-        // }
+        /// <summary>
+        /// RenderingPivot is the pivot point for rendering the item.
+        /// Hardcoded solution
+        /// </summary>
+        public Vector2Int RenderingPivot => ItemPositions[ItemData.GetPivotIndex(_rotated)];
         
+        /// <summary>
+        /// Offset for rendering display of the item.
+        /// Hardcoded solution
+        /// </summary>
+        public Vector3 RenderingOffset => ItemData.GetRenderingOffset(_rotated);
         public bool ToggleRotate(Vector2Int rotatePivot)
         {
             // If there's no valid ItemData, do nothing.

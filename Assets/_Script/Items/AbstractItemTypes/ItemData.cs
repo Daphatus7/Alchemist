@@ -54,6 +54,22 @@ namespace _Script.Items.AbstractItemTypes
                 set => _value = value;
             }
 
+            public int GetPivotIndex(bool isRotated)
+            {
+                return ItemShape.GetShapePivotIndex(itemShapeType, isRotated);
+            }
+            
+            /// <summary>
+            /// Offset for rendering display of the item.
+            /// Hardcoded solution
+            /// </summary>
+            /// <param name="isRotated"></param>
+            /// <returns></returns>
+            public Vector3 GetRenderingOffset(bool isRotated)
+            {
+                return ItemShape.GetShapeRenderingOffset(itemShapeType, isRotated);
+            }
+            
             [Title("Read-Only Debug Info"), ReadOnly, ShowInInspector]
             public Sprite ItemSprite => itemIcon;
 
@@ -151,13 +167,82 @@ namespace _Script.Items.AbstractItemTypes
             }
 
 
+            public static int GetShapePivotIndex(ItemShapeType shape, bool isRotated)
+            {
+                if (!isRotated)
+                {
+                    return shape switch
+                    {
+                        ItemShapeType.Square11 => 0,
+                        ItemShapeType.Square22 => 0,
+                        ItemShapeType.Rectangle12 => 0,
+                        ItemShapeType.Rectangle23 => 0,
+                        ItemShapeType.Circle1 => 0,
+                        ItemShapeType.LShape2 => 0,
+                        ItemShapeType.LShape3 => 0,
+                        ItemShapeType.Stick13 => 0,
+                        _ => throw new ArgumentOutOfRangeException()
+                    };
+                }
+                else
+                {
+                    return shape switch
+                    {
+                        ItemShapeType.Square11 => 0,
+                        ItemShapeType.Square22 => 0,
+                        ItemShapeType.Rectangle12 => 0,
+                        ItemShapeType.Rectangle23 => 0,
+                        ItemShapeType.Circle1 => 0,
+                        ItemShapeType.LShape2 => 0,
+                        ItemShapeType.LShape3 => 0,
+                        ItemShapeType.Stick13 => 1,
+                        _ => throw new ArgumentOutOfRangeException()
+                    };
+                }
+            }
+
+            public static Vector3 GetShapeRenderingOffset(ItemShapeType shape, bool isRotated)
+            {
+                if (!isRotated)
+                {
+                    return shape switch
+                    {
+                        ItemShapeType.Square11 => new Vector3(0, 0, 0),
+                        ItemShapeType.Square22 => new Vector3(0, 0, 0),
+                        ItemShapeType.Rectangle12 => new Vector3(0, 0, 0),
+                        ItemShapeType.Rectangle23 => new Vector3(0, 0, 0),
+                        ItemShapeType.Circle1 => new Vector3(0, 0, 0),
+                        ItemShapeType.LShape2 => new Vector3(0, 0, 0),
+                        ItemShapeType.LShape3 => new Vector3(0, 0, 0),
+                        ItemShapeType.Stick13 => new Vector3(0, 0, 0),
+                        _ => throw new ArgumentOutOfRangeException()
+                    };
+                }
+                
+                //Default case, no offset
+                return shape switch
+                {
+                    ItemShapeType.Square11 => new Vector3(0, 0, 0),
+                    ItemShapeType.Square22 => new Vector3(0, 50, 0),
+                    ItemShapeType.Rectangle12 => new Vector3(0, 0, 0),
+                    ItemShapeType.Rectangle23 => new Vector3(0, 0, 0),
+                    ItemShapeType.Circle1 => new Vector3(0, 0, 0),
+                    ItemShapeType.LShape2 => new Vector3(0, 0, 0),
+                    ItemShapeType.LShape3 => new Vector3(0, 0, 0),
+                    ItemShapeType.Stick13 => new Vector3(0, 50, 0),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+
+            
+            
             public Vector2 IconScale
             {
                 get
                 {
                     return _shapeType switch
                     {
-                        ItemShapeType.Square11 => new Vector2(1, 1),
+                        ItemShapeType.Square11 => new Vector2(0, 1),
                         ItemShapeType.Square22 => new Vector2(2, 2),
                         ItemShapeType.Rectangle12 => new Vector2(1, 2),
                         ItemShapeType.Rectangle23 => new Vector2(2, 3),
