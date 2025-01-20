@@ -32,6 +32,7 @@ namespace _Script.Inventory.InventoryBackend
             else
             {
                 ItemData = Object.Instantiate(stack.ItemData);
+                _rotated = stack.IsRotated;
                 Quantity = Mathf.Clamp(stack.Quantity, 0, stack.ItemData.MaxStackSize);
             }
         }
@@ -84,19 +85,19 @@ namespace _Script.Inventory.InventoryBackend
             Quantity = Mathf.Clamp(quantity, 0, itemData.MaxStackSize);
         }
         
-        public ItemStack(List<Vector2Int> projectedPositions, ItemData itemData, int quantity = 1)
+        public ItemStack(List<Vector2Int> projectedPositions, ItemStack item, int quantity = 1)
         {
-            if (!itemData)
+            if (item == null || !item.ItemData || quantity <= 0)
             {
                 Clear();
                 return;
             }
             
             ItemPositions = new List<Vector2Int>(projectedPositions);
-            ItemData = Object.Instantiate(itemData);
-            ItemData.ItemShape = new ItemShape(itemData.ItemShape);
-            
-            Quantity = Mathf.Clamp(quantity, 0, itemData.MaxStackSize);
+            ItemData = Object.Instantiate(item.ItemData);
+            ItemData.ItemShape = new ItemShape(item.ItemData.ItemShape);
+            _rotated = item.IsRotated;
+            Quantity = Mathf.Clamp(quantity, 0, item.ItemData.MaxStackSize);
         }
 
         public void Clear()

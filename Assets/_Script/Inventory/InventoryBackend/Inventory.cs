@@ -415,10 +415,10 @@ namespace _Script.Inventory.InventoryBackend
         
         public abstract void LeftClickItem(int slotIndex);
         
-        protected ItemStack CreateStack(List<Vector2Int> projectedLocations, int quantity, ItemStack itemStack)
+        protected ItemStack CreateStack(List<Vector2Int> projectedLocations, int quantity, ItemStack item)
         {
-            var cItem = itemStack.ItemData as ContainerItem;
-            var cStack = itemStack as ContainerItemStack;
+            var cItem = item.ItemData as ContainerItem;
+            var cStack = item as ContainerItemStack;
 
             //Debug.Log("Creating stack with " + itemData.ItemName + " at " + pivotPosition + " with quantity " + quantity);
             
@@ -436,12 +436,12 @@ namespace _Script.Inventory.InventoryBackend
             {
                 // Template is ContainerItemStack but itemData not ContainerItem
                 Debug.LogWarning("Template was ContainerItemStack but itemData is not ContainerItem. Using normal ItemStack fallback.");
-                return new ItemStack(projectedLocations, itemStack.ItemData, quantity);
+                return new ItemStack(projectedLocations, item, quantity);
             }
             else
             {
                 // Normal item
-                return new ItemStack(projectedLocations, itemStack.ItemData, quantity);
+                return new ItemStack(projectedLocations, item, quantity);
             }
         }
         

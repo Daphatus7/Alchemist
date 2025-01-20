@@ -209,16 +209,17 @@ namespace _Script.Inventory.InventoryFrontendBase
 
                 var newItemDisplay = Instantiate(slotVisualPrefab, slotVisualParent.transform);
                 var rect = newItemDisplay.GetComponent<RectTransform>();
-
+                
+                // Use anchoredPosition on the newItem's RectTransform
+                var itemSize =item.ItemData.ItemShape.IconScale;
                 if(item.IsRotated)
                 {
                     Debug.Log("Rotated");
                     rect.localRotation = Quaternion.Euler(0, 0, -90);
+
+                    itemSize = new Vector2(itemSize.y, itemSize.x);
                 }
                 
-                // Use anchoredPosition on the newItem's RectTransform
-                var itemSize =item.ItemData.ItemShape.IconScale;
-
                 rect.anchoredPosition = GetSlotVisualPosition(item.ItemPositions[0], itemSize);
                 //modify the width and height of the slot
                 

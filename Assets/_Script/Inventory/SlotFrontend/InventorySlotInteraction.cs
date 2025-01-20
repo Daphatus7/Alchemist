@@ -392,7 +392,7 @@ namespace _Script.Inventory.SlotFrontend
             
             var targetSlotPosition = _inventoryUI.GetSlotPosition(_slotIndex);
             
-            Debug.Log("Target Slot Position: " + targetSlotPosition);
+           // Debug.Log("Target Slot Position: " + targetSlotPosition);
             
             // foreach(var pos in DragItem.Instance.ProjectedPositions(targetSlotPosition))
             // {
