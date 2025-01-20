@@ -19,6 +19,10 @@ namespace _Script.Inventory
         //鼠标选中的位置
         private Vector2Int _dragStartPosition;
         //slot position 的index
+        
+        /// <summary>
+        /// 选中的位置相对于item的位置
+        /// </summary>
         private Vector2Int _dragRelativePosition; public Vector2Int DragRelativePosition => _dragRelativePosition;
         
         protected override void Awake()
@@ -54,14 +58,9 @@ namespace _Script.Inventory
             _image.sprite = itemStack.ItemData.itemIcon;
             _dragStartPosition = dragStartPosition; //
             _dragRelativePosition = dragStartPosition - itemStack.ItemData.ItemShape.Positions[0];
-                
             //reset rotation
-            _rectTransform.localRotation = Quaternion.Euler(0, 0, 0);
-            _isDragItemRotated = false;
-            if(itemStack.IsRotated)
-            {
-                RotateDragItem();
-            }
+            _isDragItemRotated = itemStack.IsRotated;
+            _rectTransform.localRotation = Quaternion.Euler(0, 0, itemStack.IsRotated ? -90 : 0);
         }
         
         public ItemStack PeakItemStack()
@@ -69,6 +68,11 @@ namespace _Script.Inventory
             return _itemStack;
         }
 
+        /// <summary>
+        /// 获取想放置的位置
+        /// </summary>
+        /// <param name="targetSlotPosition"></param>
+        /// <returns></returns>
         public List<Vector2Int> ProjectedPositions(Vector2Int targetSlotPosition //放置的位置
         )
         {
@@ -80,6 +84,7 @@ namespace _Script.Inventory
             for(int i = 0; i < inventoryOffset.Count; i++)
             {
                 var projectedPosition = inventoryOffset[i] + shiftVector;
+                Debug.Log("projectedPosition: " + projectedPosition);
                 projectedPositions.Add(projectedPosition);
             }
             return projectedPositions;
@@ -98,10 +103,6 @@ namespace _Script.Inventory
 
         public ItemStack RemoveItemStackOnFail()
         {
-            if(_isDragItemRotated)
-            {
-                _itemStack.ToggleRotate(_dragStartPosition);
-            }
             var result = _itemStack;
             _image.sprite = null;
             _itemStack = null;

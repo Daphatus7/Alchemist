@@ -465,6 +465,7 @@ namespace _Script.Inventory.InventoryBackend
                 var sIndex = GridToSlotIndex(slotPos.x, slotPos.y);
                 Slots[sIndex].ItemStack = newStack;
             }
+            
             OnInventorySlotChangedEvent(projectedLocations);
             return newStack;
         }

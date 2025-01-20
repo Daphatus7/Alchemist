@@ -330,7 +330,8 @@ namespace _Script.Inventory.SlotFrontend
                 return;
             }
             var itemToAdd = dragItem.GetComponent<DragItem>().RemoveItemStackOnFail();
-            sourceSlot._inventoryUI.AddItemToEmptySlot(itemToAdd,itemToAdd.ItemPositions);
+            
+            sourceSlot._inventoryUI.AddItemToEmptySlot(itemToAdd, itemToAdd.ItemPositions);
         }
 
         private DragType GetDragType(InventorySlotInteraction sourceSlot)
@@ -392,20 +393,13 @@ namespace _Script.Inventory.SlotFrontend
             
             var targetSlotPosition = _inventoryUI.GetSlotPosition(_slotIndex);
             
-           // Debug.Log("Target Slot Position: " + targetSlotPosition);
-            
-            // foreach(var pos in DragItem.Instance.ProjectedPositions(targetSlotPosition))
-            // {
-            //     Debug.Log("Target Slot Position: " + pos);
-            // }
-            
             //先检查是不是在同一个背包里
             if (source.SlotType == SlotType)
             {
                 //Debug.Log("Shifted Pivot Index: " + shiftedPivotIndex);
-                if(_inventoryUI.CanFitItem(DragItem.Instance.ProjectedPositions(targetSlotPosition)))
+                var projectedPositions = DragItem.Instance.ProjectedPositions(targetSlotPosition);
+                if(_inventoryUI.CanFitItem(projectedPositions))
                 {
-                    var projectedPositions = DragItem.Instance.ProjectedPositions(targetSlotPosition);
                     var itemToAdd = DragItem.Instance.RemoveItemStack();
                     _inventoryUI.AddItemToEmptySlot(itemToAdd, projectedPositions);
                 }
@@ -414,29 +408,6 @@ namespace _Script.Inventory.SlotFrontend
                     Debug.Log("Can't fit the item");
                     ReturnItemToSourceSlot(source);
                 }
-                // int count = _inventoryUI.GetItemsCount(_slotIndex,//change to check the positions
-                //     DragItem.Instance.PeakItemStack().ItemData.ItemShape.ProjectedPositions(targetSlotPosition), out var onlyItemIndex);
-                // if(count == 0)
-                // {
-                //     //Debug.Log("Shifted Pivot Index: " + shiftedPivotIndex);
-                //     if(_inventoryUI.CanFitItem(DragItem.Instance.PeakItemStack().ItemData.ItemShape.ProjectedPositions(targetSlotPosition)))
-                //     {
-                //         _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemStack(), 
-                //             //change to positions
-                //             _slotIndex);
-                //     }
-                //     else
-                //     {
-                //         Debug.Log("Can't fit the item");
-                //         ReturnItemToSourceSlot(source);
-                //     }
-                // }
-                // else
-                // {
-                //     //overlaps with other items
-                //     Debug.Log("Overlaps with other items");
-                //     ReturnItemToSourceSlot(source);
-                // }
             }
             //如果不是 先报错
             else

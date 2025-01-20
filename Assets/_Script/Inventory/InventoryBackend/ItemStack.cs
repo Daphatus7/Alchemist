@@ -23,19 +23,19 @@ namespace _Script.Inventory.InventoryBackend
         
         private bool _rotated = false; public bool IsRotated => _rotated;
 
-        public ItemStack(ItemStack stack)
-        {
-            if (stack == null || stack.ItemData == null || stack.Quantity <= 0)
-            {
-                Clear();
-            }
-            else
-            {
-                ItemData = Object.Instantiate(stack.ItemData);
-                _rotated = stack.IsRotated;
-                Quantity = Mathf.Clamp(stack.Quantity, 0, stack.ItemData.MaxStackSize);
-            }
-        }
+        // public ItemStack(ItemStack stack)
+        // {
+        //     if (stack == null || stack.ItemData == null || stack.Quantity <= 0)
+        //     {
+        //         Clear();
+        //     }
+        //     else
+        //     {
+        //         ItemData = Object.Instantiate(stack.ItemData);
+        //         _rotated = stack.IsRotated;
+        //         Quantity = Mathf.Clamp(stack.Quantity, 0, stack.ItemData.MaxStackSize);
+        //     }
+        // }
         
         public bool ToggleRotate(Vector2Int rotatePivot)
         {
@@ -82,6 +82,7 @@ namespace _Script.Inventory.InventoryBackend
             
             ItemData = Object.Instantiate(itemData);
             ItemData.ItemShape = new ItemShape(itemData.ItemShape);
+            
             Quantity = Mathf.Clamp(quantity, 0, itemData.MaxStackSize);
         }
         
