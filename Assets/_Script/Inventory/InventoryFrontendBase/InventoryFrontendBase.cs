@@ -214,8 +214,6 @@ namespace _Script.Inventory.InventoryFrontendBase
                 var itemSize =item.ItemData.ItemShape.IconScale;
                 if(item.IsRotated)
                 {
-                    // itemSize = new Vector2(itemSize.X, itemSize.x);
-                    //rotate the item
                     rect.Rotate(0, 0, -90);
                 }
                 
@@ -223,6 +221,8 @@ namespace _Script.Inventory.InventoryFrontendBase
                     , itemSize);
                 //modify the width and height of the slot
                 
+                //debug item size
+                Debug.Log(itemSize);
                 rect.sizeDelta = new Vector2(CellSize * itemSize.x, CellSize * itemSize.y);
                 var renderingOffset = item.RenderingOffset;
                 rect.localPosition = new Vector3(rect.localPosition.x + renderingOffset.x, rect.localPosition.y + renderingOffset.y, 0);

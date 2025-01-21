@@ -242,7 +242,7 @@ namespace _Script.Items.AbstractItemTypes
                 {
                     return _shapeType switch
                     {
-                        ItemShapeType.Square11 => new Vector2(0, 1),
+                        ItemShapeType.Square11 => new Vector2(1, 1),
                         ItemShapeType.Square22 => new Vector2(2, 2),
                         ItemShapeType.Rectangle12 => new Vector2(1, 2),
                         ItemShapeType.Rectangle23 => new Vector2(2, 3),

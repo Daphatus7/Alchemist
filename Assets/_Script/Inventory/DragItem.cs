@@ -88,7 +88,7 @@ namespace _Script.Inventory
             for(int i = 0; i < inventoryOffset.Count; i++)
             {
                 var projectedPosition = inventoryOffset[i] + shiftVector;
-                Debug.Log("projectedPosition: " + projectedPosition);
+                //Debug.Log("projectedPosition: " + projectedPosition);
                 projectedPositions.Add(projectedPosition);
             }
             return projectedPositions;
