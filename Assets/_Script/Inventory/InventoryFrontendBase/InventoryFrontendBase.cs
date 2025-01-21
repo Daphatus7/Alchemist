@@ -222,7 +222,6 @@ namespace _Script.Inventory.InventoryFrontendBase
                 //modify the width and height of the slot
                 
                 //debug item size
-                Debug.Log(itemSize);
                 rect.sizeDelta = new Vector2(CellSize * itemSize.x, CellSize * itemSize.y);
                 var renderingOffset = item.RenderingOffset;
                 rect.localPosition = new Vector3(rect.localPosition.x + renderingOffset.x, rect.localPosition.y + renderingOffset.y, 0);

@@ -163,7 +163,7 @@ namespace _Script.Inventory.ActionBarFrontend
         {
             base.AddItemToEmptySlot(itemStack, projectedPositions);
 
-            Debug.Log("Not implemented: AddItemToEmptySlot");
+            // Debug.Log("Not implemented: AddItemToEmptySlot");
             SelectSlot(inventory.SelectedSlotIndex);
         }
 

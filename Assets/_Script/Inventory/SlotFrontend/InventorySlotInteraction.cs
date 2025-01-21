@@ -315,6 +315,13 @@ namespace _Script.Inventory.SlotFrontend
                         }
                     }
                     break;
+                case DragType.Add:
+                    break;
+                case DragType.DoNothing:
+                    ReturnItemToSourceSlot(sourceSlot);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             // Hide drag item visual
