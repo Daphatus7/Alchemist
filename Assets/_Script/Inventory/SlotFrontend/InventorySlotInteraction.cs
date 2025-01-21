@@ -329,6 +329,7 @@ namespace _Script.Inventory.SlotFrontend
             {
                 return;
             }
+            
             var itemToAdd = dragItem.GetComponent<DragItem>().RemoveItemStackOnFail();
             
             sourceSlot._inventoryUI.AddItemToEmptySlot(itemToAdd, itemToAdd.ItemPositions);

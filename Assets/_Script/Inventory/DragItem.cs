@@ -10,7 +10,7 @@ namespace _Script.Inventory
     {
         private Image _image;
         private ItemStack _itemStack;
-        private bool _isDragItemRotated;
+        private bool _isDragItemRotated = false;
         private RectTransform _rectTransform;
         
         //the position where the player initiate the drag action
@@ -19,6 +19,10 @@ namespace _Script.Inventory
         //鼠标选中的位置
         private Vector2Int _dragStartPosition;
         //slot position 的index
+        
+        /// <summary>
+        /// 物品的原始位置，在拖拽起始时记录
+        /// </summary>
         
         /// <summary>
         /// 选中的位置相对于item的位置
@@ -57,9 +61,9 @@ namespace _Script.Inventory
             _itemStack = itemStack;
             _image.sprite = itemStack.ItemData.itemIcon;
             _dragStartPosition = dragStartPosition; //
+            _isDragItemRotated = false;
             _dragRelativePosition = dragStartPosition - itemStack.ItemData.ItemShape.Positions[0];
             //reset rotation
-            _isDragItemRotated = itemStack.IsRotated;
             _rectTransform.localRotation = Quaternion.Euler(0, 0, itemStack.IsRotated ? -90 : 0);
         }
         
@@ -103,7 +107,17 @@ namespace _Script.Inventory
 
         public ItemStack RemoveItemStackOnFail()
         {
+            if (_isDragItemRotated)
+            {
+                _itemStack.ToggleRotate(_dragStartPosition);
+                
+                foreach(var position in _itemStack.ItemPositions)
+                {
+                    Debug.Log("position: " + position);
+                }
+            }
             var result = _itemStack;
+            
             _image.sprite = null;
             _itemStack = null;
             return result;
