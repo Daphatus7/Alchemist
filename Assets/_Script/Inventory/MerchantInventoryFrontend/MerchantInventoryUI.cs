@@ -63,8 +63,11 @@ namespace _Script.Inventory.MerchantInventoryFrontend
         {
             return playerInventory.RemoveGold(itemToSell.ItemData.Value * itemToSell.Quantity);
         }
-        
-        
+
+        public override ItemStack RemoveAllItemsFromSlot(int slotIndex)
+        {
+            return inventory.GetItemStackAt(slotIndex);
+        }
         
         /// <summary>
         /// Sell the item to the merchant.

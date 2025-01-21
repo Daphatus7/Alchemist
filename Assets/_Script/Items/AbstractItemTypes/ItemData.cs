@@ -224,7 +224,7 @@ namespace _Script.Items.AbstractItemTypes
                 {
                     ItemShapeType.Square11 => new Vector3(0, 0, 0),
                     ItemShapeType.Square22 => new Vector3(0, 50, 0),
-                    ItemShapeType.Rectangle12 => new Vector3(0, 0, 0),
+                    ItemShapeType.Rectangle12 => new Vector3(25, 25, 0),
                     ItemShapeType.Rectangle23 => new Vector3(0, 0, 0),
                     ItemShapeType.Circle1 => new Vector3(0, 0, 0),
                     ItemShapeType.LShape2 => new Vector3(0, 0, 0),

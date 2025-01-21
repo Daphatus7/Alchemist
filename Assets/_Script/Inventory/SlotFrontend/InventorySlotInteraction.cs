@@ -236,7 +236,7 @@ namespace _Script.Inventory.SlotFrontend
             var sourceSlot = eventData.pointerDrag?.GetComponent<InventorySlotInteraction>();
             
             if (sourceSlot == null) return;
-            Debug.Log("Dropped item on slot: " + DragItem.Instance.PeakItemStack());
+            //Debug.Log("Dropped item on slot: " + DragItem.Instance.PeakItemStack());
             var itemData = DragItem.Instance.PeakItemStack()?.ItemData;
             if(itemData == null) return;
             
