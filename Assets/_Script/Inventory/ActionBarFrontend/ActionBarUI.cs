@@ -159,14 +159,6 @@ namespace _Script.Inventory.ActionBarFrontend
             return base.RemoveAllItemsFromSlot(slotIndex);
         }
 
-        public override void AddItemToEmptySlot(ItemStack itemStack, List<Vector2Int> projectedPositions)
-        {
-            base.AddItemToEmptySlot(itemStack, projectedPositions);
-
-            // Debug.Log("Not implemented: AddItemToEmptySlot");
-            SelectSlot(inventory.SelectedSlotIndex);
-        }
-
         public void AddGold(int amount)
         {
             inventory.InventoryOwner.AddGold(amount);
