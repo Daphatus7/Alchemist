@@ -71,7 +71,7 @@ namespace _Script.Map.WorldMap
             {
                 ToggleMap();
             }
-
+            
             // If the map is open, handle panning and zooming by scaling the grid
             if (isMapOpen && mapCamera)
             {
@@ -96,7 +96,6 @@ namespace _Script.Map.WorldMap
         /// </summary>
         private void ToggleMap()
         {
-            isMapOpen = !isMapOpen;
             if (isMapOpen)
             {
                 ShowUI();
@@ -235,6 +234,9 @@ namespace _Script.Map.WorldMap
 
             // 5) Reset flags
             isDragging = false;
+            
+            
+            isMapOpen = true;
         }
 
         public void HideUI()
@@ -256,6 +258,9 @@ namespace _Script.Map.WorldMap
 
             // 4) Reset flags
             isDragging = false;
+            
+            isMapOpen = false;
+
         }
 
         private void GenerateGridVisuals()

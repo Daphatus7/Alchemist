@@ -273,17 +273,21 @@ namespace _Script.Inventory.SlotFrontend
                         //if the purchased item is not empty
                         if (purchasedItem?.IsEmpty == false)
                         {
-                            if (merchant.Purchase(player, purchasedItem, purchasedItem.Quantity))
+                            //can afford the item
+                            if (merchant.CanAfford(player, purchasedItem, purchasedItem.Quantity))
                             {
                                 //if it can fit the item in the player inventory
                                 var projectedPositions = DragItem.Instance.ProjectedPositions(_inventoryUI.GetSlotPosition(_slotIndex));
                                 if (player.CanFitItem(projectedPositions))
                                 {
-                                    _inventoryUI.AddItemToEmptySlot(DragItem.Instance.PeakItemStack(), projectedPositions);
+                                    merchant.RemoveGold(player, purchasedItem, purchasedItem.Quantity);
+                                    _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemStack(), projectedPositions);
+                                    //Deduct the money from the player
                                 }
+                                //如果不能放进玩家的背包，那么应该返回到商人的背包
                                 else
                                 {
-                                    _inventoryUI.AddItem(DragItem.Instance.RemoveItemStack());
+                                    DragItem.Instance.RemoveItemStack();
                                 }
                                 
                                 /**

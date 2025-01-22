@@ -64,6 +64,14 @@ namespace _Script.Inventory.InventoryBackend
             return _rotated;
         }
         
+        public static ItemStack Copy(ItemStack itemStack)
+        {
+            if (itemStack == null || itemStack.IsEmpty)
+                return null;
+            
+            return new ItemStack(itemStack.ItemPositions, itemStack, itemStack.Quantity);
+        }
+        
         public ItemStack()
         {
             Clear();

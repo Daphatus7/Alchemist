@@ -168,5 +168,10 @@ namespace _Script.Inventory.ActionBarFrontend
         {
             return inventory.InventoryOwner.RemoveGold(amount);
         }
+
+        public int GetGold()
+        {
+            return inventory.InventoryOwner.Gold;
+        }
     }
 }

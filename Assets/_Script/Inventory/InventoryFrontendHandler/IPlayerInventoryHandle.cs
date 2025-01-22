@@ -7,5 +7,6 @@ namespace _Script.Inventory.InventoryFrontendHandler
     {
         void AddGold(int amount);
         bool RemoveGold(int amount);
+        int GetGold();
     }
 }

@@ -59,14 +59,20 @@ namespace _Script.Inventory.MerchantInventoryFrontend
             return this;
         }
 
-        public bool Purchase(IPlayerInventoryHandler playerInventory, ItemStack itemToSell, int quantity = 1)
+        public bool RemoveGold(IPlayerInventoryHandler playerInventory, ItemStack itemToSell, int quantity = 1)
         {
             return playerInventory.RemoveGold(itemToSell.ItemData.Value * itemToSell.Quantity);
         }
 
+        /// <summary>
+        /// Merchant Inventory, will replicate current item, if the item could not be added or in any case
+        /// </summary>
+        /// <param name="slotIndex"></param>
+        /// <returns></returns>
         public override ItemStack RemoveAllItemsFromSlot(int slotIndex)
         {
-            return inventory.GetItemStackAt(slotIndex);
+            //should copy
+            return ItemStack.Copy(inventory.GetItemStackAt(slotIndex));
         }
         
         /// <summary>
@@ -93,6 +99,11 @@ namespace _Script.Inventory.MerchantInventoryFrontend
         public bool AcceptTrade(string itemTypeString)
         {
             return true;
+        }
+
+        public bool CanAfford(IPlayerInventoryHandler player, ItemStack purchasedItem, int purchasedItemQuantity)
+        {
+            return player.GetGold() >= purchasedItem.ItemData.Value * purchasedItemQuantity;
         }
 
         public override bool AcceptsItem(ItemStack itemStack)
