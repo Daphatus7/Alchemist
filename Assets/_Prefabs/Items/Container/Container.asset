@@ -17,6 +17,8 @@ MonoBehaviour:
   itemDescription: It's not a bag. It's a Birkin
   itemIcon: {fileID: 21300000, guid: 93dbc8f96dc6c00418ba8f1a8e8992e4, type: 3}
   maxStackSize: 1
+  itemShapeType: 0
   rarity: 2
   _value: 50
-  _capacity: 6
+  width: 3
+  height: 3
