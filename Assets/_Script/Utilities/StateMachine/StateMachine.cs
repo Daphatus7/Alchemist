@@ -1,28 +1,27 @@
 // Author : Peiyu Wang @ Daphatus
-// 18 12 2024 12 51
+// 25 01 2025 01 19
 
-namespace _Script.Utilities
+namespace _Script.Utilities.StateMachine
 {
-    public interface IState
-    {
-        void Enter();
-        void Exit();
-        void Update();
-    }
-
     public class StateMachine
     {
         private IState _currentState;
 
-        public void ChangeState(IState newState)
+        public void SetState(IState newState)
         {
+            // Exit the current state if there is one
             _currentState?.Exit();
+
+            // Set the new state
             _currentState = newState;
+
+            // Enter the new state
             _currentState.Enter();
         }
 
-        public void Update()
+        public void UpdateState()
         {
+            // Update the current state
             _currentState?.Update();
         }
     }

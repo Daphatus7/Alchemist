@@ -3,11 +3,11 @@
 
 using _Script.Character;
 using _Script.Managers;
-using _Script.Map.WorldMap;
+using _Script.NPC.NpcBackend;
 using _Script.Places;
 using UnityEngine;
 
-namespace _Script.NPC.NpcBackend.Gates
+namespace _Script.NPC.Gates
 {
     public class Bonfire : Npc
     {

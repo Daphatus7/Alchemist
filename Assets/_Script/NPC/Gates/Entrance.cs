@@ -2,8 +2,9 @@
 // 16 12 2024 12 07
 
 using _Script.Map.WorldMap;
+using _Script.NPC.NpcBackend;
 
-namespace _Script.NPC.NpcBackend.Gates
+namespace _Script.NPC.Gates
 {
     public class Entrance : Npc
     {
