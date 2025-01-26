@@ -10,12 +10,13 @@ namespace _Script.Character.ActionStrategy
     public class InteractionBase
     {
         private readonly LayerMask _interactableLayer = LayerMask.GetMask("Interactable");
-        [SerializeField] private float _maxDistance = 2f;
+        private readonly float _maxInteractDistance = 4f;
+        
         
         public InteractionContext InteractableRaycast(Vector2 origin, Vector2 destination)
         {
             var direction = (destination - origin).normalized;
-            var extent = Mathf.Min(Vector2.Distance(origin, destination), _maxDistance);
+            var extent = Mathf.Min(Vector2.Distance(origin, destination), _maxInteractDistance);
             var hit = Physics2D.Raycast(origin, direction, extent, _interactableLayer);
             
             Debug.DrawLine(origin, origin + direction * extent, Color.red, 1f);
@@ -36,9 +37,9 @@ namespace _Script.Character.ActionStrategy
             _hit = hit;
         }
 
-        public string GetInteractableName() => _hit.collider != null ? _hit.collider.name : "No Interactable";
+        public string GetInteractableName() => _hit.collider ? _hit.collider.name : "No Interactable";
 
-        public bool Interact(GameObject player)
+        public bool Interact(PlayerCharacter player)
         {
             if (!_hit.collider) return false;
             var interactable = _hit.collider.GetComponent<IInteractable>();

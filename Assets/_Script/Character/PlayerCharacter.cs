@@ -232,7 +232,7 @@ namespace _Script.Character
         public void LeftMouseButtonDown(Vector2 direction)
         {
             _actionStrategy?.LeftMouseButtonDown(direction);
-            _interactionContext?.Interact(gameObject);
+            _interactionContext?.Interact(this);
         }
 
         public void LeftMouseButtonUp(Vector2 direction)

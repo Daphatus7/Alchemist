@@ -13,7 +13,7 @@ namespace _Script.Utilities.StateMachine
         /// <summary>
         /// Called every frame (or FixedUpdate) while this state is active.
         /// </summary>
-        void Update();
+        void UpdateState();
 
         /// <summary>
         /// Called when the state machine exits this state.

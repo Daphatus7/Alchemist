@@ -81,7 +81,7 @@ namespace _Script.Items.Lootable
             transform.localScale = Vector3.one;
         }
 
-        public virtual void Interact(GameObject player)
+        public virtual void Interact(PlayerCharacter player)
         {
             PickupItem(player);
         }
@@ -100,13 +100,13 @@ namespace _Script.Items.Lootable
                 _spriteRenderer.color = Color.white;
         }
 
-        protected virtual void PickupItem(GameObject player)
+        protected virtual void PickupItem(PlayerCharacter player)
         {
-            if (player.TryGetComponent(out PlayerCharacter playerCharacter))
+            if (player)
             {
                 // For a normal item (non-container), create a normal stack
                 var stack = new ItemStack(itemData, quantity);
-                if (playerCharacter.PlayerInventory.AddItem(stack) == null)
+                if (player.PlayerInventory.AddItem(stack) == null)
                 {
                     Destroy(gameObject);
                 }

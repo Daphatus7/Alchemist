@@ -1,9 +1,10 @@
 // Author : Peiyu Wang @ Daphatus
 // 25 01 2025 01 19
 
+
 namespace _Script.Utilities.StateMachine
 {
-    public class StateMachine
+    public abstract class MyStateMachine
     {
         private IState _currentState;
 
@@ -22,7 +23,7 @@ namespace _Script.Utilities.StateMachine
         public void UpdateState()
         {
             // Update the current state
-            _currentState?.Update();
+            _currentState?.UpdateState();
         }
     }
 }

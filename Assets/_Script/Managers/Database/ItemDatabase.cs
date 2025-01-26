@@ -1,14 +1,11 @@
-using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
 using _Script.Items.AbstractItemTypes._Script.Items;
+using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
-
-namespace MyGame.Managers.Database
+namespace _Script.Managers.Database
 {
     /// <summary>
     /// ItemDatabase manages references to a collection of ItemData objects within the Inspector.
@@ -23,7 +20,7 @@ namespace MyGame.Managers.Database
         
         [ShowInInspector, DictionaryDrawerSettings(KeyLabel = "ItemType", ValueLabel = "NextIndex")]
         [InfoBox("How many IDs have been assigned per ItemType so far. New items of that type will start from the next index.")]
-        public Dictionary<ItemType, int> itemTypeCounters = new Dictionary<ItemType, int>()
+        public Dictionary<ItemType, int> ItemTypeCounters = new Dictionary<ItemType, int>()
         {
             { ItemType.Equipment, 0 },
             { ItemType.Consumable, 0 },
@@ -370,13 +367,13 @@ namespace MyGame.Managers.Database
             if (!string.IsNullOrEmpty(item.ItemID)) return;
 
             var type = item.ItemType; 
-            if (!itemTypeCounters.ContainsKey(type))
+            if (!ItemTypeCounters.ContainsKey(type))
             {
-                itemTypeCounters[type] = 0;
+                ItemTypeCounters[type] = 0;
             }
 
-            itemTypeCounters[type]++;
-            int newIndex = itemTypeCounters[type];
+            ItemTypeCounters[type]++;
+            int newIndex = ItemTypeCounters[type];
             string newID = $"{type}_{newIndex:000}";
             item.ItemID = newID;
         }

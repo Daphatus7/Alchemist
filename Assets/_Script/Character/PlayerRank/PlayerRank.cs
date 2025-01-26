@@ -5,7 +5,7 @@ using _Script.Utilities.StateMachine;
 
 namespace _Script.Character.PlayerRank
 {
-    public class PlayerRank : StateMachine
+    public class PlayerRank : MyStateMachine
     {
         
     }
@@ -22,7 +22,7 @@ namespace _Script.Character.PlayerRank
             throw new System.NotImplementedException();
         }
 
-        public virtual void Update()
+        public virtual void UpdateState()
         {
             throw new System.NotImplementedException();
         }
@@ -40,9 +40,9 @@ namespace _Script.Character.PlayerRank
             base.Exit();
         }
 
-        public override void Update()
+        public override void UpdateState()
         {
-            base.Update();
+            base.UpdateState();
         }
     }
     

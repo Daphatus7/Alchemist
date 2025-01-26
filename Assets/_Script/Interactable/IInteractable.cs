@@ -16,7 +16,7 @@ namespace _Script.Interactable
         /// When the player hit the mouse button
         /// </summary>
         /// <param name="player"></param>
-        void Interact(GameObject player);
+        void Interact(PlayerCharacter player);
         
         /// <summary>
         /// When the player stops hitting the mouse button

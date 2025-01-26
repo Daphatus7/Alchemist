@@ -53,16 +53,16 @@ namespace _Script.Items.Lootable
             }
         }
 
-        protected override void PickupItem(GameObject player)
+        protected override void PickupItem(PlayerCharacter player)
         {
-            if (player.TryGetComponent(out PlayerCharacter playerCharacter))
+            if (player)
             {
                 if (itemData is ContainerItem cItem && _runtimeContainer != null)
                 {
                     // Create a ContainerItemStack with the pre-created container
                     var cStack = new ContainerItemStack(cItem, 1, _runtimeContainer);
                     // Attempt to add the container stack to the player's inventory
-                    if (playerCharacter.PlayerInventory.AddItem(cStack) == null)
+                    if (player.PlayerInventory.AddItem(cStack) == null)
                     {
                         Destroy(gameObject);
                     }

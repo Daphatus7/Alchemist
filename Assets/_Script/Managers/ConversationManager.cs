@@ -7,16 +7,16 @@ namespace _Script.Managers
 {
     public interface IConversationManager
     {
-        void RegisterConversationInstance(InteractionInstance instance);
+        void RegisterConversationInstance(ConversationInstance instance);
         void EndConversation();
     }
 
     public class ConversationManager : Singleton<ConversationManager>, IConversationManager
     {
         
-        private InteractionInstance _conversationInstance;
+        private ConversationInstance _conversationInstance;
         
-        public void RegisterConversationInstance(InteractionInstance instance)
+        public void RegisterConversationInstance(ConversationInstance instance)
         {
             if (_conversationInstance != null)
             {

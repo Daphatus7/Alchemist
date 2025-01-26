@@ -1,12 +1,18 @@
 // Author : Peiyu Wang @ Daphatus
-// 25 01 2025 01 53
+// 26 01 2025 01 36
 
 using _Script.Utilities.StateMachine;
+using UnityEngine;
 
-namespace _Script.GameState.NPC
+namespace _Script.NPC.NpcBackend.NpcState
 {
-    public class NPCBaseState : IState
+    public abstract class NpcState : MonoBehaviour, IState
     {
+        
+        public void Initialize()
+        {
+        }
+        
         public void Enter()
         {
             throw new System.NotImplementedException();
@@ -21,5 +27,5 @@ namespace _Script.GameState.NPC
         {
             throw new System.NotImplementedException();
         }
-    } 
+    }
 }

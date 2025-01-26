@@ -3,10 +3,10 @@
 
 using UnityEngine;
 
-namespace _Script.Enemy
+namespace _Script.Enemy.EnemyData
 {
     [CreateAssetMenu(fileName = "EnemyStats", menuName = "Data/EnemyStats")]
-    public class EnemyStats : ScriptableObject
+    public class EnemyData : ScriptableObject
     {
         public string monsterName;
         public int health;
@@ -18,7 +18,7 @@ namespace _Script.Enemy
         public Drop.DropTable.DropTable dropTable;
         public Sprite sprite;
 
-        public EnemyStats(string monsterName, int health, int damage, int moveSpeed, int attackFrequency, int attackRange, 
+        public EnemyData(string monsterName, int health, int damage, int moveSpeed, int attackFrequency, int attackRange, 
             MonsterType monsterType, Drop.DropTable.DropTable dropTable, Sprite sprite)
         {
             this.monsterName = monsterName;

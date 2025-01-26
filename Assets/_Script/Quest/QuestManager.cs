@@ -99,9 +99,9 @@ namespace _Script.Quest
             // In a real game, you'd add gold, experience, items to the player's inventory.
             // For demonstration:
             Debug.Log($"Reward granted: {reward.gold} gold, {reward.experience} XP");
-            foreach (var itemID in reward.itemIDs)
+            foreach (var itemID in reward.items)
             {
-                Debug.Log($"Item received: {itemID}");
+                Debug.Log($"Item received: {itemID.Item1} x{itemID.Item2}");
             }
         }
     }

@@ -2,47 +2,54 @@
 // 25 01 2025 01 46
 
 using System;
+using System.Collections.Generic;
+using _Script.Enemy.EnemyData;
+using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
 namespace _Script.Quest
 {
+    [Serializable]
     public class QuestObjective
     {
-        public ObjectiveType objectiveType;
-        public string targetID;
-        private int _requiredCount; public int RequiredCount => _requiredCount;
-        private int _currentCount; public int CurrentCount => _currentCount;
-        private string _npcID;
+        // Polymorphic reference to handle different objective types
+        [SerializeReference] // Allows referencing derived classes
+        public ObjectiveData objectiveData;
         public bool isComplete;
-        public event Action OnObjectiveUpdate;
+    }
+    
+    
+    [Serializable]
+    public abstract class ObjectiveData
+    {
+        public ObjectiveType type;
+        public int requiredCount; // Common to all objective types
+    }
 
-        public QuestState ParentQuestState;
+    [Serializable]
+    public class CollectObjective : ObjectiveData
+    {
+        public ItemData item; // The item to collect
+    }
 
-        public void StartTracking()
-        {
-            
-        }
+    [Serializable]
+    public class KillObjective : ObjectiveData
+    {
+        public EnemyData enemy; // The enemy to kill
+    }
 
-        public void StopTracking()
-        {
-           
-        }
-
-        private void OnItemCollected(string itemID)
-        {
-           
-        }
-
-        private void OnEnemyKilled(string enemyID)
-        {
-            
-        }
+// Add more specific objective types as needed
+    [Serializable]
+    public class ExplorationObjective : ObjectiveData
+    {
+        public string location; // Example: Area name or coordinates
     }
 
     public enum ObjectiveType
     {
         Kill,
-        Collect
+        Collect,
+        Explore
     }
     
     [Serializable]
@@ -50,6 +57,7 @@ namespace _Script.Quest
     {
         public int gold;
         public int experience;
-        public string [] itemIDs; // IDs of items to give as a reward
+        //Item IDs and amounts
+        public Tuple<string, int>[] items;
     }
 }
