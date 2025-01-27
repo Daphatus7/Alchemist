@@ -22,13 +22,13 @@ namespace _Script.NPC.NpcBackend
         
         [BoxGroup("Basic Info")]
         [LabelText("NPC Name"), Tooltip("Name of the NPC")]
-        [SerializeField] private string npcName;
+        
+        [SerializeField] private NpcInfo npcInfo;
         
         [SerializeField] private float dialogueDistance = 5f;
         
         protected PlayerCharacter CurrentPlayer;
-
-
+        
         private NpcModuleBase[] _npcModules;
         
         private ConversationInstance _conversationInstance;
@@ -154,8 +154,16 @@ namespace _Script.NPC.NpcBackend
         
     }
     
+    [Serializable]
+    public class NpcInfo
+    {
+        [SerializeField] private string npcName;
+        [SerializeField] private string [] npcDialogue;
+    }
+    
     public interface INpcDialogueHandler
     {
+        
         
         INpcDialogueHandler[] GetAddonModules();
     }

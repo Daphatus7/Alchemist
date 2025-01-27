@@ -19,52 +19,55 @@ namespace _Script.NPC.NPCFrontend
     {
         [Header("UI Elements")]
         [Tooltip("Panel for the dialogue box")]
-        public GameObject dialoguePanel;
-
+        [SerializeField] private GameObject dialoguePanel;
+        [SerializeField] private GameObject dialogueOptionsPanel;
+        [SerializeField] private GameObject dialogueOptionsButtonPrefab;
+        
         [Tooltip("Text field for displaying the dialogue")]
-        public TextMeshProUGUI dialogueText;
+        [SerializeField] private TextMeshProUGUI dialogueText;
 
         [Tooltip("Image for the pixel-style background")]
-        public Image backgroundImage;
-
-        [Tooltip("Next button to proceed in the dialogue")]
-        public Button nextButton;
+        [SerializeField] private Image backgroundImage;
+        
+        
 
         [Header("Dialogue Settings")]
         [Tooltip("Typing speed for dialogue text")]
-        public float typingSpeed = 0.05f;
-
-        private string[] dialogues; // List of dialogues to display
+        [SerializeField] private float typingSpeed = 0.05f;
+        
+        
+        //--------------------------------------------------------------------------------
+        
+        
+        //--------------------------------------------------------------------------------
+        
+        
+        //---------------------------------------Remove this-----------------------------------------
+        private string[] dialogues; // 改成从NpcDialogueHandler里面获取
         private int currentDialogueIndex; // Tracks the current dialogue
         private bool isTyping; // Tracks if text is currently typing
-
-        public event Action OnDialogueEnd;
-        
+        //--------------------------------------------------------------------------------
         private void Start()
         {
             // Hide the dialogue panel initially
             ServiceLocator.Instance.Register<INpcUIService>(this);
             HideUI();
         }
-
-        public void OnEnable()
+        
+        
+        private INpcDialogueHandler _currentDialogueHandler;
+        
+        public void StartDialogue(INpcDialogueHandler dialogueHandler)
         {
-            if (nextButton != null)
-            {
-                nextButton.onClick.AddListener(DisplayNextDialogue);
-            }
+            _currentDialogueHandler = dialogueHandler;
+            //Load the data from the dialogue handler
+            
+            //Load the NPC text
+            
+            
+            ShowUI();
         }
         
-        public void OnDisable()
-        {
-            if (nextButton != null)
-            {
-                nextButton.onClick.RemoveListener(DisplayNextDialogue);
-            }
-        }
-        
-
-
         private void DisplayDialogue(string dialogue)
         {
             if (isTyping)
@@ -109,7 +112,7 @@ namespace _Script.NPC.NPCFrontend
 
         private void EndDialogue()
         {
-            OnDialogueEnd?.Invoke();
+            //OnDialogueEnd?.Invoke();
             HideUI();
         }
 
@@ -124,18 +127,9 @@ namespace _Script.NPC.NPCFrontend
         }
 
         
-        public void StartDialogue(INpcDialogueHandler dialogueHandler)
-        {
-            
-        }
         
-        public void StartDialogue(string[] npcDialogues)
-        {
-            dialogues = npcDialogues;
-            currentDialogueIndex = 0;
-            ShowUI();
-            DisplayDialogue(dialogues[currentDialogueIndex]);
-        }
+        
+  
     }
 }
 

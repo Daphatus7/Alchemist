@@ -427,15 +427,77 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC_Merchant
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1028801686032175467, guid: 8fff471fd9cc248238692229ccf8e3a4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7294792953007767854, guid: 8fff471fd9cc248238692229ccf8e3a4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 666102242}
+    - targetCorrespondingSourceObject: {fileID: 7294792953007767854, guid: 8fff471fd9cc248238692229ccf8e3a4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 666102248}
+    - targetCorrespondingSourceObject: {fileID: 7294792953007767854, guid: 8fff471fd9cc248238692229ccf8e3a4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 666102247}
     - targetCorrespondingSourceObject: {fileID: 3227056992782631814, guid: 8fff471fd9cc248238692229ccf8e3a4,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 8fff471fd9cc248238692229ccf8e3a4, type: 3}
+--- !u!1 &666102241 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7294792953007767854, guid: 8fff471fd9cc248238692229ccf8e3a4,
+    type: 3}
+  m_PrefabInstance: {fileID: 666102240}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &666102242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666102241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec9160711774ffbaf67e0faae2e499e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcInfo:
+    npcName: 
+    npcDialogue:
+    - Hello there
+  dialogueDistance: 5
+--- !u!114 &666102247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666102241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1076e6400514226b339b9e09457ad75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueLines: []
+--- !u!114 &666102248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666102241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e63152cb31a49f1a13e698638f9d370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  optionName: Quest
 --- !u!1 &839957687
 GameObject:
   m_ObjectHideFlags: 0

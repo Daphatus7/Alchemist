@@ -25,6 +25,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
     {
         Merchant,
         QuestGiver,
-        Trainer
+        Trainer,
+        Dialogue
     }
 }
