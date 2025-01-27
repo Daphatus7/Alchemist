@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace _Script.NPC.Gates
 {
-    public class Bonfire : Npc
+    public class Bonfire : ModularNpcController
     {
         protected override void OnDialogueEnd()
         {
@@ -23,15 +23,13 @@ namespace _Script.NPC.Gates
             GameManager.Instance.UnloadCurrentAdditiveScene();
             //MapExplorerUI.Instance.MarkExploringNodeAsCompleted();
         }
-
-        private PlayerCharacter _player;
         
         protected void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
             {
-                _player = other.GetComponent<PlayerCharacter>();
-                _player.SetInSafeZone(true);
+                CurrentPlayer = other.GetComponent<PlayerCharacter>();
+                CurrentPlayer.SetInSafeZone(true);
             }
         }
         
@@ -39,8 +37,9 @@ namespace _Script.NPC.Gates
         {
             if(other.CompareTag("Player"))
             {
-                _player = other.GetComponent<PlayerCharacter>();
-                _player.SetInSafeZone(false);
+                CurrentPlayer = other.GetComponent<PlayerCharacter>();
+                CurrentPlayer.SetInSafeZone(false);
+                CurrentPlayer = null;
             }
         }
     }

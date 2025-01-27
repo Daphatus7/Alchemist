@@ -16,7 +16,6 @@ namespace _Script.Inventory.MerchantInventoryFrontend
 {
     public class MerchantInventoryUI : InventoryUIBase<MerchantInventory>, IMerchantInventoryService, IMerchantHandler   
     {
-        public NpcHandlerType HandlerName => NpcHandlerType.Merchant;
         public SlotType SlotType => SlotType.Merchant;
         
         protected override void Awake()

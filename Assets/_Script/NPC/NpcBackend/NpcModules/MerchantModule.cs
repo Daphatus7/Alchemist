@@ -1,9 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 04 12 2024 12 56
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.MerchantInventoryBackend;
 using _Script.Items.AbstractItemTypes._Script.Items;
@@ -13,21 +11,25 @@ using _Script.UserInterface;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 
-namespace _Script.NPC.NpcBackend
+namespace _Script.NPC.NpcBackend.NpcModules
 {
-    [DefaultExecutionOrder(500)]
-    public class MerchantUnit : MonoBehaviour, INpcHandler, IGlobalUpdate
+    public class MerchantModule : NpcModuleBase, INpcModuleHandler, IGlobalUpdate
     {
+        #region NpcModuleBase
+
+        public override NpcHandlerType HandlerType => NpcHandlerType.Merchant;
+        public override string ModuleName => "Show me your wares!";
+
+        #endregion
         
-        private Npc _npc;
         private MerchantInventory _merchantInventory;
         [SerializeField] private List<ItemData> itemsForSale;
         [SerializeField] private int inventoryWidth = 5;
         [SerializeField] private int inventoryHeight = 5;
         
-        private void Awake()
+        protected override void Awake()
         {
-            _npc = GetComponent<Npc>();
+            base.Awake();
             InitializeMerchantInventory();
         }
 
@@ -55,18 +57,19 @@ namespace _Script.NPC.NpcBackend
         
         public void LoadNpcModule()
         {
-
+            //Load merchant inventory UI
             ServiceLocator.Instance.Get<IMerchantInventoryService>().LoadMerchantInventory(_merchantInventory);
-            _npc.AddMoreUIHandlers(ServiceLocator.Instance.Get<IMerchantInventoryService>() as IUIHandler);
+            
+            //Register merchant inventory UI handler so it can be closed when the conversation ends
+            Npc.AddMoreUIHandler(ServiceLocator.Instance.Get<IMerchantInventoryService>() as IUIHandler);
         }
 
         public void UnloadNpcModule()
         {
             ServiceLocator.Instance.Get<IMerchantInventoryService>().CloseMerchantInventory();
-            _npc.RemoveUIHandler(ServiceLocator.Instance.Get<IMerchantInventoryService>() as IUIHandler);
+            Npc.RemoveUIHandler(ServiceLocator.Instance.Get<IMerchantInventoryService>() as IUIHandler);
         }
 
-        public NpcHandlerType HandlerType => NpcHandlerType.Merchant;
         public void Refresh()
         {
             //Refresh merchant inventory

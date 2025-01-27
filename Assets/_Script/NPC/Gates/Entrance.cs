@@ -6,7 +6,7 @@ using _Script.NPC.NpcBackend;
 
 namespace _Script.NPC.Gates
 {
-    public class Entrance : Npc
+    public class Entrance : ModularNpcController
     {
         protected override void OnDialogueEnd()
         {
@@ -16,7 +16,7 @@ namespace _Script.NPC.Gates
             
             MapExplorerUI.Instance.MarkCurrentNodeAsExplored();
             MapExplorerUI.Instance.ShowUI();
-            AddMoreUIHandlers(MapExplorerUI.Instance);
+            AddMoreUIHandler(MapExplorerUI.Instance);
         }
     }
 }

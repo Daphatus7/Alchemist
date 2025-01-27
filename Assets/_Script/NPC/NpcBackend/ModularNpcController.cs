@@ -5,8 +5,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Script.Character;
+using _Script.NPC.NpcBackend.NpcModules;
 using _Script.NPC.NPCFrontend._Script.NPC.NPCFrontend;
 using _Script.UserInterface;
+using _Script.Utilities.ServiceLocator;
 using _Script.Utilities.StateMachine;
 using Edgar.Unity.Examples;
 using Sirenix.OdinInspector;
@@ -15,23 +17,22 @@ using IInteractable = _Script.Interactable.IInteractable;
 
 namespace _Script.NPC.NpcBackend
 {
-    public sealed class ModularNpcController : MonStateMachine, IInteractable
+    public class ModularNpcController : MonStateMachine, IInteractable, INpcDialogueHandler, INpcModuleControlHandler
     {
         
         [BoxGroup("Basic Info")]
         [LabelText("NPC Name"), Tooltip("Name of the NPC")]
-        public string npcName;
-        [SerializeField] private DialogueModule dialogueModule;
+        [SerializeField] private string npcName;
         
         [SerializeField] private float dialogueDistance = 5f;
-        private PlayerCharacter _currentPlayer;
+        
+        protected PlayerCharacter CurrentPlayer;
+
+
+        private NpcModuleBase[] _npcModules;
+        
         private ConversationInstance _conversationInstance;
         private Coroutine _distanceCheckCoroutine;
-
-        public override void Awake()
-        {
-            base.Awake();
-        }
         
         protected override IState[] InitializeStateMachine()
         {
@@ -63,9 +64,9 @@ namespace _Script.NPC.NpcBackend
         {
             while (_conversationInstance != null)
             {
-                if (_currentPlayer)
+                if (CurrentPlayer)
                 {
-                    float distance = Vector3.Distance(transform.position, _currentPlayer.transform.position);
+                    float distance = Vector3.Distance(transform.position, CurrentPlayer.transform.position);
                     // If player goes beyond DialogueDistance, end the conversation.
                     if (distance > dialogueDistance)
                     {
@@ -75,7 +76,6 @@ namespace _Script.NPC.NpcBackend
                         yield break;
                     }
                 }
-                
                 yield return new WaitForSeconds(0.3f); 
             }
         }
@@ -87,21 +87,24 @@ namespace _Script.NPC.NpcBackend
         {
             StartConversation(player);
         }
+
+
+        protected virtual void OnDialogueEnd()
+        {
+            
+        }
         
         private void StartConversation(PlayerCharacter player)
         {
             if (_conversationInstance != null) return;
-            _currentPlayer = player;
+            CurrentPlayer = player;
             
             _conversationInstance = new ConversationInstance();
             _conversationInstance.OnInteractionTerminated += OnConversationTerminated;
             
-            // Start Dialogue
-            NpcDialogueUI.Instance.StartDialogue(dialogueModule.dialogueLines);
-            NpcDialogueUI.Instance.OnDialogueEnd += OnDialogueEnd;
             
-            // Register the dialogue UI as an IUIHandler so it can be closed automatically
-            AddMoreUIHandlers(NpcDialogueUI.Instance);
+            //Delegate to the NPC UI Service
+            ServiceLocator.Instance.Get<INpcUIService>().StartDialogue(this); //this displays all the possible options provided by the NPC
             
             // Start a coroutine to monitor player distance
             _distanceCheckCoroutine = StartCoroutine(CheckPlayerDistance());
@@ -112,11 +115,6 @@ namespace _Script.NPC.NpcBackend
             if(_conversationInstance == null) return;
             _conversationInstance.TerminateInteraction();
             // OnConversationTerminated will be called from within TerminateInteraction
-        }
-
-        private void OnDialogueEnd()
-        {
-            NpcDialogueUI.Instance.OnDialogueEnd -= OnDialogueEnd;
         }
 
         public void OnHighlight() { }
@@ -135,24 +133,36 @@ namespace _Script.NPC.NpcBackend
                 _distanceCheckCoroutine = null;
             }
 
-            _currentPlayer = null;
+            CurrentPlayer = null;
         }
 
         
-        public void AddMoreUIHandlers(IUIHandler handler)
+        public void AddMoreUIHandler(IUIHandler handler)
         {
-            if(_conversationInstance != null)
-            {
-                _conversationInstance.AddNpcUIHandler(handler);
-            }
+            _conversationInstance?.AddNpcUIHandler(handler);
         }
 
         public void RemoveUIHandler(IUIHandler handler)
         {
-            if(_conversationInstance != null)
-            {
-                _conversationInstance.RemoveNpcUIHandler(handler);
-            }
+            _conversationInstance?.RemoveNpcUIHandler(handler);
         }
+        
+        public INpcDialogueHandler[] GetAddonModules()
+        {
+            return GetComponents<INpcDialogueHandler>();
+        }
+        
+    }
+    
+    public interface INpcDialogueHandler
+    {
+        
+        INpcDialogueHandler[] GetAddonModules();
+    }
+
+    public interface INpcDialogueModuleHandler
+    {
+         string OptionName();
+         void LoadNpcModule();
     }
 }
