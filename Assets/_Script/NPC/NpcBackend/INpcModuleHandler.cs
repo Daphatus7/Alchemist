@@ -10,6 +10,7 @@ namespace _Script.NPC.NpcBackend
         void LoadNpcModule();
         void UnloadNpcModule();
         
+        NpcModuleInfo ModuleInfo { get; }
         NpcHandlerType HandlerType { get; }
     }
 }

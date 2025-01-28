@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using _Script.Character;
 using _Script.NPC.NpcBackend.NpcModules;
-using _Script.NPC.NPCFrontend._Script.NPC.NPCFrontend;
 using _Script.UserInterface;
 using _Script.Utilities.ServiceLocator;
 using _Script.Utilities.StateMachine;
@@ -147,25 +146,29 @@ namespace _Script.NPC.NpcBackend
             _conversationInstance?.RemoveNpcUIHandler(handler);
         }
         
-        public INpcDialogueHandler[] GetAddonModules()
+        public INpcModuleHandler[] GetAddonModules()
         {
-            return GetComponents<INpcDialogueHandler>();
+            return GetComponents<INpcModuleHandler>();
         }
-        
+
+        public NpcInfo GetNpcDialogue()
+        {
+            return npcInfo;
+        }
     }
     
     [Serializable]
     public class NpcInfo
     {
-        [SerializeField] private string npcName;
-        [SerializeField] private string [] npcDialogue;
+        [SerializeField] private string npcName; public string NpcName => npcName;
+        [SerializeField] private string npcDialogue; public string NpcDialogue => npcDialogue;
     }
     
     public interface INpcDialogueHandler
     {
         
-        
-        INpcDialogueHandler[] GetAddonModules();
+        INpcModuleHandler[] GetAddonModules();
+        NpcInfo GetNpcDialogue();
     }
 
     public interface INpcDialogueModuleHandler

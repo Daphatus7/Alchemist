@@ -8,9 +8,22 @@ namespace _Script.NPC.NpcBackend.NpcModules
 {
     
     [DefaultExecutionOrder(500)]
-    public abstract class NpcModuleBase : MonoBehaviour
+    public abstract class NpcModuleBase : MonoBehaviour, INpcModuleHandler
     {
+        public virtual void LoadNpcModule()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void UnloadNpcModule()
+        {
+            throw new NotImplementedException();
+        }
+
+        public NpcModuleInfo ModuleInfo { get; }
         public abstract NpcHandlerType HandlerType { get;}
+        
+        [SerializeField] private NpcModuleInfo moduleInfo;
         public abstract string ModuleName { get;}
         protected INpcModuleControlHandler Npc;
 
@@ -18,6 +31,14 @@ namespace _Script.NPC.NpcBackend.NpcModules
         {
             Npc = GetComponent<INpcModuleControlHandler>();
         }
+    }
+    
+    [Serializable]
+    public class NpcModuleInfo
+    {
+        [SerializeField] private string moduleName; public string ModuleName => moduleName;
+        [SerializeField] private string moduleDescription; public string ModuleDescription => moduleDescription;
+        [SerializeField] private NpcHandlerType handlerType; public NpcHandlerType HandlerType => handlerType;
     }
     
     [Serializable]

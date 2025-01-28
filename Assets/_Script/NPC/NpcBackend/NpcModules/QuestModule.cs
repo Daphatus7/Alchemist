@@ -14,15 +14,5 @@ namespace _Script.NPC.NpcBackend.NpcModules
         public override NpcHandlerType HandlerType => NpcHandlerType.QuestGiver;
         public override string ModuleName => optionName;
         
-        
-        public void LoadNpcModule()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void UnloadNpcModule()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

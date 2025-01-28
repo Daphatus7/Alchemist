@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace _Script.NPC.NpcBackend.NpcModules
 {
-    public class MerchantModule : NpcModuleBase, INpcModuleHandler, IGlobalUpdate
+    public class MerchantModule : NpcModuleBase, IGlobalUpdate
     {
         #region NpcModuleBase
 
@@ -55,7 +55,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
             _merchantInventory = new MerchantInventory(itemsToAdd, inventoryWidth, inventoryHeight);
         }
         
-        public void LoadNpcModule()
+        public override void LoadNpcModule()
         {
             //Load merchant inventory UI
             ServiceLocator.Instance.Get<IMerchantInventoryService>().LoadMerchantInventory(_merchantInventory);
@@ -64,7 +64,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
             Npc.AddMoreUIHandler(ServiceLocator.Instance.Get<IMerchantInventoryService>() as IUIHandler);
         }
 
-        public void UnloadNpcModule()
+        public override void UnloadNpcModule()
         {
             ServiceLocator.Instance.Get<IMerchantInventoryService>().CloseMerchantInventory();
             Npc.RemoveUIHandler(ServiceLocator.Instance.Get<IMerchantInventoryService>() as IUIHandler);

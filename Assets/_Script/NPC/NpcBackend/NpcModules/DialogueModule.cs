@@ -22,17 +22,6 @@ namespace _Script.NPC.NpcBackend
         {
             
         }
-
-        public void LoadNpcModule()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UnloadNpcModule()
-        {
-            throw new NotImplementedException();
-        }
-
-
+        
     }
 }
