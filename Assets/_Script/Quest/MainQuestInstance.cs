@@ -7,6 +7,7 @@ namespace _Script.Quest
     {
         public MainQuestInstance(QuestDefinition def) : base(def)
         {
+            
         }
     }
 }

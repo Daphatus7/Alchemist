@@ -1,6 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 27 01 2025 01 40
 
+using _Script.Quest;
 using _Script.UserInterface;
 using TMPro;
 using UnityEngine;
@@ -17,10 +18,10 @@ namespace _Script.NPC.NPCFrontend
         [SerializeField] private TextMeshProUGUI questRewardText;
         
         
-        public void LoadQuestData(string questDescription, string questReward)
+        public void LoadQuestData(QuestDefinition quest)
         {
-            questDescriptionText.text = questDescription;
-            questRewardText.text = questReward;
+            questDescriptionText.text = quest.questDescription;
+            questRewardText.text = quest.reward.ToString();
         }
         
         

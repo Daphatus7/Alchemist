@@ -7,6 +7,7 @@ namespace _Script.Quest.PlayerQuest
 {
     public interface IPlayerQuestService : IGameService
     {
-        
+        void AddNewSideQuest(QuestInstance quest);
+        void AddMainQuest(MainQuestInstance quest);
     }
 }

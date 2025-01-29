@@ -1,7 +1,9 @@
 // Author : Peiyu Wang @ Daphatus
 // 26 01 2025 01 09
 
+using _Script.NPC.NPCFrontend;
 using _Script.Quest;
+using _Script.Utilities.ServiceLocator;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -17,8 +19,12 @@ namespace _Script.NPC.NpcBackend.NpcModules
         
         public override void LoadNpcModule(INpcModuleHandler handler)
         {
-            //cast to QuestGiverUI and load the quest
-            
+            ServiceLocator.Instance.Get<INpcUiCallback>().LoadQuestUi(GetQuest());
+        }
+        
+        private QuestDefinition GetQuest()
+        {
+            return quests[Random.Range(0, quests.Length)];
         }
 
         public override void UnloadNpcModule(INpcModuleHandler handler)

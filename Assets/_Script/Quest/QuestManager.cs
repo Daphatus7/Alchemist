@@ -2,107 +2,69 @@
 // 25 01 2025 01 14
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using _Script.Character.PlayerRank;
+using _Script.Quest.PlayerQuest;
+using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 namespace _Script.Quest
 {
-    public class QuestManager : Singleton<QuestManager>
+    
+    public sealed class QuestManager : Singleton<QuestManager>
     {
-        // All quests the player has accepted (or is able to track).
-        private readonly List<QuestInstance> _activeQuests = new List<QuestInstance>();
-        
-        private Dictionary<PlayerRank, List<SideQuest>> _sideQuests = new Dictionary<PlayerRank, List<SideQuest>>();
+        /// <summary>
+        /// 当发生某种类型的目标更新时触发此事件
+        /// 参数1：ObjectiveType（如 Kill, Collect 等）
+        /// 参数2：string（敌人ID 或 物品ID）
+        /// </summary>
+        public event Action<string> onEnemyKilled;
+        public event Action<string, int> onItemCollected;
 
-        public event Action<QuestInstance> OnQuestUpdate;
-        
-        #region sideQuests
-        
-        public void AddSideQuest(PlayerRank rank, SideQuest quest)
-        {
-            if (!_sideQuests.ContainsKey(rank))
-            {
-                _sideQuests.Add(rank, new List<SideQuest>());
-            }
-            _sideQuests[rank].Add(quest);
-        }
-        
-        public void RemoveSideQuest(PlayerRank rank, SideQuest quest)
-        {
-            if (!_sideQuests.ContainsKey(rank))
-            {
-                return;
-            }
-            _sideQuests[rank].Remove(quest);
-        }
-        
-        public List<SideQuest> GetSideQuests(PlayerRank rank)
-        {
-            if (!_sideQuests.ContainsKey(rank))
-            {
-                return new List<SideQuest>();
-            }
-            return _sideQuests[rank];
-        }
+        private Dictionary<PlayerRank, List<SideQuestDefinition>> _sideQuests = new Dictionary<PlayerRank, List<SideQuestDefinition>>();
 
-        #endregion
+        [SerializeField] public QuestDefinition testQuest;
         
         
-        // Called when player accepts a new quest
+        
+        
         public void StartQuest(QuestDefinition questDef)
         {
-            // Check if already active
-            if (_activeQuests.Exists(q => q.Definition == questDef))
-            {
-                Debug.Log($"{questDef.questName} is already active.");
-                return;
-            }
-            //
-            // QuestState newQuest = new QuestState(questDef);
-            // _activeQuests.Add(newQuest);
-            // Debug.Log($"Quest started: {questDef.questName}");
+            ServiceLocator.Instance.Get<IPlayerQuestService>().AddNewSideQuest(new SideQuestInstance(questDef));
         }
 
-        // Called when the player picks up an item
-        public void OnItemCollected(string itemID)
+        /// <summary>
+        /// Triggered when an item is collected
+        /// Should be called by the inventory manager
+        /// </summary>
+        /// <param name="itemID"> item ID</param>
+        /// <param name="totalCount"> the number of items in the inventory</param>
+        public void OnItemCollected(string itemID, int totalCount)
         {
+            onItemCollected?.Invoke(itemID,totalCount);
         }
-        // Called when an enemy is killed
+
+        /// <summary>
+        /// Happens when an enemy is killed
+        /// </summary>
+        /// <param name="enemyID"></param>
         public void OnEnemyKilled(string enemyID)
         {
-           
+            onEnemyKilled?.Invoke(enemyID);
         }
+
         private void CheckQuestCompletion(QuestInstance quest)
         {
-            // // If all objectives complete, the quest is done
-            // bool allComplete = true;
-            // foreach (QuestObjective obj in quest.runtimeObjectives)
-            // {
-            //     if (!obj.isComplete)
-            //     {
-            //         allComplete = false;
-            //         break;
-            //     }
-            // }
-            //
-            // if (allComplete)
-            // {
-            //     quest.isCompleted = true;
-            //     Debug.Log($"Quest completed: {quest.Definition.questName}");
-            //     GiveReward(quest.Definition.reward);
-            //     // If you want to remove from active or keep it in a "completed" list:
-            //     // _activeQuests.Remove(quest);
-            // }
-        }
-        private void GiveReward(QuestReward reward)
-        {
-            // In a real game, you'd add gold, experience, items to the player's inventory.
-            // For demonstration:
-            Debug.Log($"Reward granted: {reward.gold} gold, {reward.experience} XP");
-            foreach (var itemID in reward.items)
+            if (quest.TryCompleteQuest())
             {
-                Debug.Log($"Item received: {itemID.Item1} x{itemID.Item2}");
+                //remove items from inventory etc.
             }
         }
+
+        private void GiveReward(QuestReward reward)
+        {
+            // TODO: 给予奖励
+        }
     }
+
 }

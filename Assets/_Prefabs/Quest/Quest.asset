@@ -12,16 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd4272b06cb0423890de0d1348e7f344, type: 3}
   m_Name: Quest
   m_EditorClassIdentifier: 
-  questID: 
-  questName: 
+  questID: q_0001
+  questName: Feathery feather
   questDescription: 
+  questGiver: {fileID: 0}
+  questReceiver: {fileID: 0}
   objectives:
   - objectiveData:
       rid: 5907273043284066455
     isComplete: 0
+    currentCount: 0
   reward:
-    gold: 0
-    experience: 0
+    gold: 500
+    experience: 100
+    items:
+    - item: {fileID: 11400000, guid: cbc5667b0e2a840088c322a9f35cef53, type: 2}
+      amount: 1
   references:
     version: 2
     RefIds:

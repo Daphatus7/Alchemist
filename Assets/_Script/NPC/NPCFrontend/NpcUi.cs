@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using _Script.NPC.NpcBackend;
+using _Script.Quest;
 using _Script.UserInterface;
 using _Script.Utilities.ServiceLocator;
 using TMPro;
@@ -12,7 +13,7 @@ using UnityEngine.UI;
 
 namespace _Script.NPC.NPCFrontend
 {
-    public class NpcUi : NpcUiBase, INpcUIService
+    public class NpcUi : NpcUiBase, INpcUIService, INpcUiCallback
     {
         #region Main UI Elements - main dialogue box
         [Header("UI Elements")] [Tooltip("Panel for the dialogue box")] [SerializeField]
@@ -33,7 +34,7 @@ namespace _Script.NPC.NPCFrontend
         
         [SerializeField] private NpcChoiceUi npcChoiceUi;
         [SerializeField] private QuestGiverUi questGiverUi;
-
+        
         #endregion
 
         #region Logic
@@ -54,20 +55,32 @@ namespace _Script.NPC.NPCFrontend
         protected void Awake()
         {
             closeButton.onClick.AddListener(EndDialogue);
-            
+
             _npcUis = new Dictionary<NpcUiType, NpcUiBase>
             {
-                {NpcUiType.Choice, npcChoiceUi},
-                {NpcUiType.QuestGiver, questGiverUi}
+                { NpcUiType.Choice, npcChoiceUi },
+                { NpcUiType.QuestGiver, questGiverUi }
             };
         }
 
         private void Start()
         {
             // Hide the dialogue panel initially
-            ServiceLocator.Instance.Register<INpcUIService>(this);
             HideUI();
         }
+
+        private void OnEnable()
+        {
+            ServiceLocator.Instance.Register<INpcUIService>(this);
+            ServiceLocator.Instance.Register<INpcUiCallback>(this);
+        }
+        
+        private void OnDisable()
+        {
+            ServiceLocator.Instance.Unregister<INpcUIService>();
+            ServiceLocator.Instance.Unregister<INpcUiCallback>();
+        }
+
 
         public void StartDialogue(INpcDialogueHandler dialogueHandler)
         {
@@ -81,7 +94,18 @@ namespace _Script.NPC.NPCFrontend
             //Load the NPC text
             ShowUI();
         }
-        
+
+        public void OnNpcUiChange(NpcUiType uiType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LoadQuestUi(QuestDefinition quest)
+        {
+            DisplayUi(NpcUiType.QuestGiver);
+            questGiverUi.LoadQuestData(quest);
+        }
+
         private void EndDialogue()
         {
             OnDialogueEnd?.Invoke();
@@ -103,6 +127,8 @@ namespace _Script.NPC.NPCFrontend
             DisplayUi(NpcUiType.Choice);
             npcChoiceUi.LoadNpcChoice(mainNpc, moduleHandlers);
         }
+        
+        
     }
     public enum NpcUiType
     {
@@ -111,4 +137,6 @@ namespace _Script.NPC.NPCFrontend
         Choice,
         QuestGiver
     }
+    
+
 }

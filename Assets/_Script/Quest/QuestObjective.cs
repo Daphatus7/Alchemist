@@ -66,6 +66,25 @@ namespace _Script.Quest
         public int gold;
         public int experience;
         //Item IDs and amounts
-        public Tuple<ItemData, int>[] items;
+        public RewardPair [] items;
+
+        public override string ToString()
+        {
+            string allItems = "";
+            foreach (var item in items)
+            {
+                allItems += $"{item.item.itemName} x{item.amount}\n";
+            }
+            return $"Gold: {gold}\n" +
+                   $"Experience: {experience}\n" +
+                   $"Items: = {allItems}\n";
+        }
+    }
+    
+    [Serializable]
+    public class RewardPair
+    {
+        public ItemData item;
+        public int amount;
     }
 }

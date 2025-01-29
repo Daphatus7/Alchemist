@@ -17,7 +17,7 @@ namespace _Script.NPC.NPCFrontend
         [SerializeField] private LayoutGroup choicePanel;
         [SerializeField] private GameObject choicePrefab;
         [SerializeField] private TextMeshProUGUI npcDialogueText;
-
+        
         private void ClearChoices()
         {
             foreach (Transform child in choicePanel.transform)
@@ -72,7 +72,6 @@ namespace _Script.NPC.NPCFrontend
                 Debug.LogWarning("moduleHandler is null! Cannot load NPC module.");
                 return;
             }
-
             moduleHandler.LoadNpcModule(moduleHandler);
         }
     }

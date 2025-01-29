@@ -3,8 +3,7 @@
 
 namespace _Script.Quest
 {
-    public class SideQuest : QuestDefinition
+    public class SideQuestDefinition : QuestDefinition
     {
-        
     }
 }
