@@ -16,14 +16,21 @@ namespace _Script.Quest
         [SerializeReference] // Allows referencing derived classes
         public ObjectiveData objectiveData;
         public bool isComplete;
+        public int currentCount;
+        
+        // Create a runtime objective from static data
+        public QuestObjective(ObjectiveData data)
+        {
+            objectiveData = data;
+            currentCount = 0;
+            isComplete = false;
+        }
     }
-    
-    
     [Serializable]
     public abstract class ObjectiveData
     {
         public ObjectiveType type;
-        public int requiredCount; // Common to all objective types
+        public int requiredCount;
     }
 
     [Serializable]
@@ -43,6 +50,7 @@ namespace _Script.Quest
     public class ExplorationObjective : ObjectiveData
     {
         public string location; // Example: Area name or coordinates
+        public bool isExplored;
     }
 
     public enum ObjectiveType
@@ -58,6 +66,6 @@ namespace _Script.Quest
         public int gold;
         public int experience;
         //Item IDs and amounts
-        public Tuple<string, int>[] items;
+        public Tuple<ItemData, int>[] items;
     }
 }

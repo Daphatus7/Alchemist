@@ -10,11 +10,11 @@ namespace _Script.Quest
     public class QuestManager : Singleton<QuestManager>
     {
         // All quests the player has accepted (or is able to track).
-        private readonly List<QuestState> _activeQuests = new List<QuestState>();
+        private readonly List<QuestInstance> _activeQuests = new List<QuestInstance>();
         
         private Dictionary<PlayerRank, List<SideQuest>> _sideQuests = new Dictionary<PlayerRank, List<SideQuest>>();
 
-        public event Action<QuestState> OnQuestUpdate;
+        public event Action<QuestInstance> OnQuestUpdate;
         
         #region sideQuests
         
@@ -72,7 +72,7 @@ namespace _Script.Quest
         {
            
         }
-        private void CheckQuestCompletion(QuestState quest)
+        private void CheckQuestCompletion(QuestInstance quest)
         {
             // // If all objectives complete, the quest is done
             // bool allComplete = true;

@@ -12,6 +12,7 @@ using _Script.Inventory.PlayerInventory;
 using _Script.Items;
 using _Script.Managers;
 using _Script.Places;
+using _Script.Quest.PlayerQuest;
 using _Script.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
@@ -73,6 +74,10 @@ namespace _Script.Character
         private float _smoothDampVelocityX;
         private float _smoothDampVelocityY;
 
+        #region Quest
+        private PlayerQuestManager _playerQuestManager; public PlayerQuestManager PlayerQuestManager => _playerQuestManager;
+
+        #endregion
 
         #region Unity Lifecycle Methods
 

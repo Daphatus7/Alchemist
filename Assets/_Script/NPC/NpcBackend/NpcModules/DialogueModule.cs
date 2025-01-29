@@ -11,12 +11,12 @@ namespace _Script.NPC.NpcBackend
     [Serializable]
     public class DialogueModule : NpcModuleBase, INpcModuleHandler
     {
-        public override void LoadNpcModule()
+        public override void LoadNpcModule(INpcModuleHandler handler)
         {
             throw new NotImplementedException();
         }
 
-        public override void UnloadNpcModule()
+        public override void UnloadNpcModule(INpcModuleHandler handler)
         {
             throw new NotImplementedException();
         }

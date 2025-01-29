@@ -73,7 +73,7 @@ namespace _Script.NPC.NPCFrontend
                 return;
             }
 
-            moduleHandler.LoadNpcModule();
+            moduleHandler.LoadNpcModule(moduleHandler);
         }
     }
 }
