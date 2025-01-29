@@ -14,6 +14,8 @@ namespace _Script.NPC.NpcBackend
         [LabelText("Dialogue Lines")]
         [ListDrawerSettings(ShowIndexLabels = true)]
         public override NpcHandlerType HandlerType => NpcHandlerType.Dialogue;
+
+        public override string ModuleDescription => "Dialogue Module";
         public override string ModuleName => "Chat";
         
         public string[] dialogueLines;

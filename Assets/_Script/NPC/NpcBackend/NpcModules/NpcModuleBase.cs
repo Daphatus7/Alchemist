@@ -20,10 +20,11 @@ namespace _Script.NPC.NpcBackend.NpcModules
             throw new NotImplementedException();
         }
 
-        public NpcModuleInfo ModuleInfo { get; }
-        public abstract NpcHandlerType HandlerType { get;}
+        public NpcModuleInfo ModuleInfo => _moduleInfo ??= new NpcModuleInfo(ModuleName, ModuleDescription, HandlerType);
+        public virtual NpcHandlerType HandlerType => _moduleInfo.HandlerType;
+        public abstract string ModuleDescription { get; }
         
-        [SerializeField] private NpcModuleInfo moduleInfo;
+        private NpcModuleInfo _moduleInfo;
         public abstract string ModuleName { get;}
         protected INpcModuleControlHandler Npc;
 
@@ -39,6 +40,13 @@ namespace _Script.NPC.NpcBackend.NpcModules
         [SerializeField] private string moduleName; public string ModuleName => moduleName;
         [SerializeField] private string moduleDescription; public string ModuleDescription => moduleDescription;
         [SerializeField] private NpcHandlerType handlerType; public NpcHandlerType HandlerType => handlerType;
+        
+        public NpcModuleInfo(string moduleName, string moduleDescription, NpcHandlerType handlerType)
+        {
+            this.moduleName = moduleName;
+            this.moduleDescription = moduleDescription;
+            this.handlerType = handlerType;
+        }
     }
     
     [Serializable]

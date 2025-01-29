@@ -166,14 +166,7 @@ namespace _Script.NPC.NpcBackend
     
     public interface INpcDialogueHandler
     {
-        
         INpcModuleHandler[] GetAddonModules();
         NpcInfo GetNpcDialogue();
-    }
-
-    public interface INpcDialogueModuleHandler
-    {
-         string OptionName();
-         void LoadNpcModule();
     }
 }

@@ -363,6 +363,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 83727879730681288, guid: 8fff471fd9cc248238692229ccf8e3a4,
         type: 3}
+      propertyPath: moduleInfo.moduleName
+      value: Ken The Merchant
+      objectReference: {fileID: 0}
+    - target: {fileID: 83727879730681288, guid: 8fff471fd9cc248238692229ccf8e3a4,
+        type: 3}
       propertyPath: itemsForSale.Array.size
       value: 8
       objectReference: {fileID: 0}
@@ -372,6 +377,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 9460a12d7b1e7d24f97e33abbe754b24,
         type: 2}
+    - target: {fileID: 83727879730681288, guid: 8fff471fd9cc248238692229ccf8e3a4,
+        type: 3}
+      propertyPath: moduleInfo.moduleDescription
+      value: He has it all!
+      objectReference: {fileID: 0}
     - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -468,9 +478,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcInfo:
-    npcName: 
-    npcDialogue:
-    - Hello there
+    npcName: Ken The Merchant
+    npcDialogue: Hello Stranger
   dialogueDistance: 5
 --- !u!114 &666102247
 MonoBehaviour:

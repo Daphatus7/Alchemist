@@ -2,8 +2,8 @@
 // 27 01 2025 01 36
 
 using System;
-using System.Collections.Generic;
 using _Script.NPC.NpcBackend;
+using _Script.NPC.NpcBackend.NpcModules;
 using _Script.UserInterface;
 using TMPro;
 using UnityEngine;
@@ -16,15 +16,6 @@ namespace _Script.NPC.NPCFrontend
         [SerializeField] private LayoutGroup choicePanel;
         [SerializeField] private GameObject choicePrefab;
         [SerializeField] private TextMeshProUGUI npcDialogueText;
-        
-        public event Action<int> OnChoiceSelected;
-        
-        public void AddChoice(string choiceText, int choiceIndex)
-        {
-            var choice = Instantiate(choicePrefab, choicePanel.transform);
-            choice.GetComponentInChildren<Text>().text = choiceText;
-            choice.GetComponent<Button>().onClick.AddListener(() => OnChoiceSelected?.Invoke(choiceIndex));
-        }
 
         private void ClearChoices()
         {
@@ -34,31 +25,49 @@ namespace _Script.NPC.NPCFrontend
             }
         }
 
-        public void LoadNpcChoice(NpcInfo mainNpc, INpcModuleHandler [] moduleHandlers)
+        public void LoadNpcChoice(NpcInfo mainNpc, INpcModuleHandler[] moduleHandlers)
         {
             ClearChoices();
-            
             npcDialogueText.text = mainNpc.NpcDialogue;
+
             foreach (var moduleHandler in moduleHandlers)
             {
-                var questModule = moduleHandler;
-                if (questModule != null)
-                {
-                    AddChoice(questModule.ModuleInfo.ModuleName, (int) questModule.HandlerType);
-                }
+                AddChoice(moduleHandler.ModuleInfo.ModuleName, () => HandleChoice(moduleHandler));
             }
         }
-        
+
+        private void AddChoice(string choiceText, Action onClickAction)
+        {
+            var choice = Instantiate(choicePrefab, choicePanel.transform);
+            choice.GetComponentInChildren<ButtonText>().SetText(choiceText);
+            choice.GetComponent<Button>().onClick.AddListener(() => onClickAction?.Invoke());
+        }
+
+        private void HandleChoice(INpcModuleHandler moduleHandler)
+        {
+            switch (moduleHandler.HandlerType)
+            {
+                case NpcHandlerType.Merchant:
+                    LoadMerchantPanel(moduleHandler);
+                    break;
+                case NpcHandlerType.QuestGiver:
+                    LoadQuestGiverPanel(moduleHandler);
+                    break;
+                default:
+                    Debug.Log($"Unhandled NPC Module: {moduleHandler.ModuleInfo.ModuleName}");
+                    break;
+            }
+        }
+
         public void LoadMerchantPanel(INpcModuleHandler npcMerchant)
         {
 
         }
-        
+
         public void LoadQuestGiverPanel(INpcModuleHandler npcQuestGiver)
         {
-            
+            Debug.Log("Loading Quest Giver Panel...");
+            // Implement quest giver-specific logic here
         }
-        
-        
     }
 }

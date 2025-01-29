@@ -18,11 +18,13 @@ namespace _Script.NPC.NpcBackend.NpcModules
         #region NpcModuleBase
 
         public override NpcHandlerType HandlerType => NpcHandlerType.Merchant;
+        public override string ModuleDescription => "Merchant Module";
         public override string ModuleName => "Show me your wares!";
 
         #endregion
         
         private MerchantInventory _merchantInventory;
+        
         [SerializeField] private List<ItemData> itemsForSale;
         [SerializeField] private int inventoryWidth = 5;
         [SerializeField] private int inventoryHeight = 5;

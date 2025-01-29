@@ -19,10 +19,7 @@ namespace _Script.NPC.NPCFrontend
         private GameObject dialogueOptionsButtonPrefab;
 
         [SerializeField] private GameObject dialogueModulePanel;
-
-        [Tooltip("Text field for displaying the dialogue")] [SerializeField]
-        private TextMeshProUGUI dialogueText;
-
+        
         [SerializeField] private Button closeButton;
 
         [Tooltip("Image for the pixel-style background")] [SerializeField]
@@ -102,6 +99,7 @@ namespace _Script.NPC.NPCFrontend
         
         public void LoadNpcChoice(NpcInfo mainNpc, INpcModuleHandler [] moduleHandlers)
         {
+            DisplayUi(NpcUiType.Choice);
             npcChoiceUi.LoadNpcChoice(mainNpc, moduleHandlers);
         }
     }
