@@ -10,15 +10,9 @@ namespace _Script.NPC.NpcBackend.NpcModules
     [DefaultExecutionOrder(500)]
     public abstract class NpcModuleBase : MonoBehaviour, INpcModuleHandler
     {
-        public virtual void LoadNpcModule()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void LoadNpcModule();
 
-        public virtual void UnloadNpcModule()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void UnloadNpcModule();
 
         public NpcModuleInfo ModuleInfo => _moduleInfo ??= new NpcModuleInfo(ModuleName, ModuleDescription, HandlerType);
         public virtual NpcHandlerType HandlerType => _moduleInfo.HandlerType;

@@ -10,12 +10,13 @@ using _Script.UserInterface;
 namespace _Script.NPC.NpcBackend
 {
     /// <summary>
-    /// The player and the NPC are both holding the instance.
-    /// Either side can terminate the interaction.
+    /// 使用方法：
+    ///     1. 在NPC与玩家开始对话时，创建一个ConversationInstance实例
+    ///     2. 在ConversationInstance实例中添加NPC的UIHandler
+    ///     3. 当对话结束时，调用TerminateInteraction()方法
     /// </summary>
     public class ConversationInstance
     {
-        
         private readonly List<IUIHandler> _npcUIHandlers = new List<IUIHandler>();
 
         // Event that notifies that the interaction has ended

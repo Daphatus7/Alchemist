@@ -61,7 +61,6 @@ namespace _Script.NPC.NpcBackend.NpcModules
         {
             //Load merchant inventory UI
             ServiceLocator.Instance.Get<IMerchantInventoryService>().LoadMerchantInventory(_merchantInventory);
-            
             //Register merchant inventory UI handler so it can be closed when the conversation ends
             Npc.AddMoreUIHandler(ServiceLocator.Instance.Get<IMerchantInventoryService>() as IUIHandler);
         }
@@ -69,6 +68,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
         public override void UnloadNpcModule()
         {
             ServiceLocator.Instance.Get<IMerchantInventoryService>().CloseMerchantInventory();
+            
             Npc.RemoveUIHandler(ServiceLocator.Instance.Get<IMerchantInventoryService>() as IUIHandler);
         }
 

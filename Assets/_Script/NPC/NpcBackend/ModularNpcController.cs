@@ -71,6 +71,7 @@ namespace _Script.NPC.NpcBackend
                     {
                         //end npc here
                         
+                        InteractEnd();
                         
                         yield break;
                     }
@@ -90,7 +91,7 @@ namespace _Script.NPC.NpcBackend
 
         protected virtual void OnDialogueEnd()
         {
-            
+            Debug.Log("Dialogue Ended");
         }
         
         private void StartConversation(PlayerCharacter player)
@@ -104,6 +105,7 @@ namespace _Script.NPC.NpcBackend
             
             //Delegate to the NPC UI Service
             ServiceLocator.Instance.Get<INpcUIService>().StartDialogue(this); //this displays all the possible options provided by the NPC
+            _conversationInstance.AddNpcUIHandler(ServiceLocator.Instance.Get<INpcUIService>() as IUIHandler);
             
             // Start a coroutine to monitor player distance
             _distanceCheckCoroutine = StartCoroutine(CheckPlayerDistance());

@@ -11,6 +11,16 @@ namespace _Script.NPC.NpcBackend.NpcModules
         
         [SerializeField] private string optionName = "Quest";
 
+        public override void LoadNpcModule()
+        {
+            
+        }
+
+        public override void UnloadNpcModule()
+        {
+            Debug.Log("Quest Giver Module Unloaded");
+        }
+
         public override NpcHandlerType HandlerType => NpcHandlerType.QuestGiver;
         public override string ModuleDescription => "Quest Giver Module";
         public override string ModuleName => optionName;

@@ -94,7 +94,8 @@ namespace _Script.NPC.NPCFrontend
             {
                 npcUi.Value.HideUI();
             }
-            _npcUis[uiType].ShowUI();
+            if(_npcUis.ContainsKey(uiType))
+                _npcUis[uiType].ShowUI();
         }
         
         public void LoadNpcChoice(NpcInfo mainNpc, INpcModuleHandler [] moduleHandlers)

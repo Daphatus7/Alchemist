@@ -11,6 +11,16 @@ namespace _Script.NPC.NpcBackend
     [Serializable]
     public class DialogueModule : NpcModuleBase, INpcModuleHandler
     {
+        public override void LoadNpcModule()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UnloadNpcModule()
+        {
+            throw new NotImplementedException();
+        }
+
         [LabelText("Dialogue Lines")]
         [ListDrawerSettings(ShowIndexLabels = true)]
         public override NpcHandlerType HandlerType => NpcHandlerType.Dialogue;
