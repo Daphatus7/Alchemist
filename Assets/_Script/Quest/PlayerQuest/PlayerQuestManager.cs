@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using _Script.UserInterface;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 
@@ -19,6 +20,15 @@ namespace _Script.Quest.PlayerQuest
         {
         }
 
+        public void Update()
+        {
+            if (!Prototype_Active_Quest_Ui.Instance) return;
+            foreach (var quest in _activeQuests)
+            {
+                Prototype_Active_Quest_Ui.Instance.SetText(quest.GetQuestStatus());
+            }
+        }
+        
         public void OnEnable()
         {
             Debug.Log(ServiceLocator.Instance + " " + this);

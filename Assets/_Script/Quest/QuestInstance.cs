@@ -1,6 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 25 01 2025 01 43
 
+using System;
 using System.Collections.Generic;
 
 using System.Collections.Generic;
@@ -115,6 +116,35 @@ namespace _Script.Quest
                 Debug.Log($"[QuestInstance] 所有目标完成，任务 {_definition.questName} 完成！");
                 
             }
+        }
+        
+        public string GetQuestStatus()
+        {
+            string status = "";
+            //Name
+            status += "Quest: \n";
+            status += _definition.questName + "\n";
+            //Objectives
+            status += "Objectives: \n";
+            foreach (var obj in _objectives)
+            {
+                switch (obj.objectiveData.type)
+                {
+                    case ObjectiveType.Kill:
+                        status += "Kill " + ((KillObjective) obj.objectiveData).enemy.enemyID + " " + obj.currentCount + "/" + obj.objectiveData.requiredCount + "\n";
+                        break;
+                    case ObjectiveType.Collect:
+                        status += "Collect " + ((CollectObjective) obj.objectiveData).item.itemID + " " + obj.currentCount + "/" + obj.objectiveData.requiredCount + "\n";
+                        break;
+                    case ObjectiveType.Explore:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                status += "----------------\n";
+            }
+
+            return status;
         }
 
         // 当任务完成/销毁时，最好取消订阅事件，避免内存泄露

@@ -48,7 +48,6 @@ namespace _Script.NPC.NPCFrontend
         {
             ServiceLocator.Instance.Get<IPlayerQuestService>().AddNewSideQuest(new MainQuestInstance(_currentNpc.CurrentQuest));
             //load next dialogue
-            
         }
         
         private void OnDeclineButtonClicked()
