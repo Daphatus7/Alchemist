@@ -286,6 +286,7 @@ namespace _Script.Inventory.InventoryBackend
             _itemStacks.Add(placedStack);
             OnOnItemStackChanged();
             OnInventorySlotChangedEvent(projectedPositions);
+            InventoryStatus.UpdateInventoryStatus(placedStack.ItemData.itemID, placedStack.Quantity);
         }
         
         // ----------------------------------------------
@@ -520,7 +521,8 @@ namespace _Script.Inventory.InventoryBackend
     /// </summary>
     public class InventoryStatus
     {
-        private Dictionary<string, int> _inventoryStatus => new (); public Dictionary<string, int> Status => _inventoryStatus;
+        private Dictionary<string, int> _inventoryStatus = new Dictionary<string, int>();
+        public Dictionary<string, int> Status => _inventoryStatus;
 
         internal void UpdateInventoryStatus(string itemID, int quantityChange)
         {
@@ -528,6 +530,7 @@ namespace _Script.Inventory.InventoryBackend
             if (!Status.ContainsKey(itemID) && quantityChange > 0)
             {
                 Status[itemID] = quantityChange;
+                PrintStatus();
                 return;
             }
 
@@ -542,7 +545,18 @@ namespace _Script.Inventory.InventoryBackend
                     Status.Remove(itemID);
                 }
             }
+            PrintStatus();
         }
 
+        private void PrintStatus()
+        {
+            Debug.Log("Current Inventory Status: ");
+            foreach (var pair in Status)
+            {
+                Debug.Log(pair.Key + " : " + pair.Value);
+            }
+            Debug.Log("----------End of Inventory Status----------");
+        }
     }
+
 }
