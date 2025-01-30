@@ -40,8 +40,8 @@ namespace _Script.Inventory.InventoryFrontendBase
         public void ShowUI()
         {
             gameObject.SetActive(true);
-            inventory.OnItemStackChanged -= RenderSlotIcons;
-            inventory.OnItemStackChanged += RenderSlotIcons;
+            inventory.OnItemStackChanged -= OnInventoryStackChanged;
+            inventory.OnItemStackChanged += OnInventoryStackChanged;
             
             inventory.OnInventorySlotChanged -= UpdateSlotUI;
             inventory.OnInventorySlotChanged += UpdateSlotUI;
@@ -49,7 +49,7 @@ namespace _Script.Inventory.InventoryFrontendBase
         
         public void HideUI()
         {
-            inventory.OnItemStackChanged -= RenderSlotIcons;
+            inventory.OnItemStackChanged -= OnInventoryStackChanged;
             inventory.OnInventorySlotChanged -= UpdateSlotUI;
             
             gameObject.SetActive(false);
@@ -186,13 +186,22 @@ namespace _Script.Inventory.InventoryFrontendBase
             return item1.ItemData == item2.ItemData;
         }
 
+        private void OnInventoryStackChanged()
+        {
+            InventoryUpdated();
+            RenderSlotIcons();
+        }
+        public virtual void InventoryUpdated()
+        {
+        }
+
 
         #region Inventory Renderer
 
         // A local cache: slotIndex -> the UI GameObject we created
 
 
-        protected void RenderSlotIcons()
+        private void RenderSlotIcons()
         {
             // Clean up old if any
             foreach (var slotUI in _slotUIs)

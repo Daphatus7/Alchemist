@@ -7,37 +7,6 @@ using UnityEngine;
 
 namespace _Script.Inventory.InventoryBackend
 {
-    public class InventorySlot
-    {
-        private ItemStack _itemStack = null;
-
-        public bool IsEmpty => _itemStack == null || _itemStack.IsEmpty;
-
-        /// <summary>
-        /// Get or set the entire ItemStack in this slot.
-        /// Setting to null or an empty stack means the slot is empty.
-        /// </summary>
-        public ItemStack ItemStack
-        {
-            get => _itemStack;
-            set => _itemStack = value;
-        }
-
-        /// <summary>
-        /// Convenience property for referencing the slot's item data directly.
-        /// </summary>
-        public ItemData ItemData => _itemStack?.ItemData;
-        
-
-        /// <summary>
-        /// Clears out the slot, making it empty.
-        /// </summary>
-        public void Clear()
-        {
-            _itemStack = null;
-        }
-    }
-    
     public abstract class Inventory
     {
         private readonly int _height; public int Height => _height;
@@ -67,15 +36,7 @@ namespace _Script.Inventory.InventoryBackend
             }
             return Slots[index] == null ? null : Slots[index].ItemStack;
         }
-
-        /**
-         * A parallel array used for partial stack merges (linear approach).
-         * Some designs unify this with 'slots', but here we keep them separate
-         * for demonstration: e.g., `_itemStacks[i]` matches `slots[i].ItemStack`.
-         */
-        protected readonly List<ItemStack> _itemStacks;
-
-        public List<ItemStack> ItemStacks => _itemStacks;
+        private readonly List<ItemStack> _itemStacks; public List<ItemStack> ItemStacks => _itemStacks;
 
         // ----------------------------------------------
         // Constructors
@@ -175,6 +136,9 @@ namespace _Script.Inventory.InventoryBackend
                     {
                         // Some merging happened
                         OnInventorySlotChangedEvent(existingStack.ItemPositions);
+                        
+                        int mergedQuantity = oldQuantity - remaining;
+                        InventoryStatus.UpdateInventoryStatus(existingStack.ItemData.itemID, mergedQuantity);
                     }
                     
                     if (remaining == 0)
@@ -204,6 +168,8 @@ namespace _Script.Inventory.InventoryBackend
                         itemStackToAdd.Quantity -= toAdd;
                         _itemStacks.Add(placedStack);
                         OnOnItemStackChanged();
+                        InventoryStatus.UpdateInventoryStatus(placedStack.ItemData.itemID, toAdd);
+
                         if (itemStackToAdd.Quantity <= 0)
                         {
                             // Done
@@ -271,10 +237,8 @@ namespace _Script.Inventory.InventoryBackend
         public ItemStack RemoveAllItemsFromSlot(int slotIndex)
         {
             //invalid slot index
-            if (slotIndex < 0 || slotIndex >= Capacity)
-            {
-                return null;
-            }
+            if (slotIndex < 0 || slotIndex >= Capacity) return null;
+            
             var itemAtSlot = GetItemStackAt(slotIndex);
             if (itemAtSlot == null)
             {
@@ -289,7 +253,6 @@ namespace _Script.Inventory.InventoryBackend
 
             
             ItemStack removed = CreateStack(itemAtSlot.ItemPositions, itemAtSlot.Quantity, itemAtSlot);
-            
             OnRemovingItem(slotIndex);
             
             return removed;
@@ -302,7 +265,9 @@ namespace _Script.Inventory.InventoryBackend
         private void OnRemovingItem(int slotIndex)
         {
             var itemStack = GetItemStackAt(slotIndex);
+            if(itemStack == null || itemStack.IsEmpty) return;
             //clear the item connections of the stack item
+            InventoryStatus.UpdateInventoryStatus(itemStack.ItemData.itemID, -itemStack.Quantity);
             foreach(var pos in itemStack.ItemPositions)
             {
                 var sIndex = GridToSlotIndex(pos.x, pos.y);
@@ -391,6 +356,8 @@ namespace _Script.Inventory.InventoryBackend
             if (itemStack.Quantity >= quantity)
             {
                 itemStack.Quantity -= quantity;
+
+                InventoryStatus.UpdateInventoryStatus(itemStack.ItemData.ItemID, -quantity);
 
                 if (itemStack.Quantity <= 0)
                 {
@@ -534,11 +501,48 @@ namespace _Script.Inventory.InventoryBackend
             return (x >= 0 && x < _width && y >= 0 && y < _height);
         }
 
-        protected void OnOnItemStackChanged()
+        private void OnOnItemStackChanged()
         {
             OnItemStackChanged?.Invoke();
         }
-    }
 
- 
+        #region Inventory Status
+
+        public InventoryStatus InventoryStatus { get; } = new InventoryStatus();
+
+
+        #endregion
+    }
+       
+    /// <summary>
+    /// string : item id
+    /// int : quantity
+    /// </summary>
+    public class InventoryStatus
+    {
+        private Dictionary<string, int> _inventoryStatus => new (); public Dictionary<string, int> Status => _inventoryStatus;
+
+        internal void UpdateInventoryStatus(string itemID, int quantityChange)
+        {
+            // If adding a new itemID that doesn't exist yet
+            if (!Status.ContainsKey(itemID) && quantityChange > 0)
+            {
+                Status[itemID] = quantityChange;
+                return;
+            }
+
+            // If updating an existing itemID
+            if (Status.ContainsKey(itemID))
+            {
+                Status[itemID] += quantityChange;
+
+                // Remove if it goes to zero or negative
+                if (Status[itemID] <= 0)
+                {
+                    Status.Remove(itemID);
+                }
+            }
+        }
+
+    }
 }

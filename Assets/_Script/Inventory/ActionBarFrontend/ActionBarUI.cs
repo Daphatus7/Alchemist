@@ -173,5 +173,10 @@ namespace _Script.Inventory.ActionBarFrontend
         {
             return inventory.InventoryOwner.Gold;
         }
+
+        public override void InventoryUpdated()
+        {
+            //call player quest manager
+        }
     }
 }
