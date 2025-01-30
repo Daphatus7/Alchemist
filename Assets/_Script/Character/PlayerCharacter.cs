@@ -12,6 +12,7 @@ using _Script.Inventory.PlayerInventory;
 using _Script.Items;
 using _Script.Managers;
 using _Script.Places;
+using _Script.Quest;
 using _Script.Quest.PlayerQuest;
 using _Script.Utilities;
 using UnityEngine;
@@ -19,6 +20,7 @@ using UnityEngine.Events;
 
 namespace _Script.Character
 {
+    [DefaultExecutionOrder(500)]
     public class PlayerCharacter : PawnAttribute, IControl, IPlayerUIHandle
     {
         #region Inspector Fields & References
@@ -100,6 +102,8 @@ namespace _Script.Character
         {
             TimeManager.Instance.onNewDay.AddListener(OnNewDay);
             TimeManager.Instance.onNightStart.AddListener(OnNightStart);
+
+            _playerInventory.SubscribeToInventoryStatus(QuestManager.Instance.OnItemCollected);
 
             PauseableUpdate();
         }
@@ -358,10 +362,16 @@ namespace _Script.Character
         {
             _playerInventory = new PlayerInventory(this, playerActionbarWidth, playerActionbarHeight);
             _actionBarUI.InitializeInventoryUI(_playerInventory, 0);
-            
             _actionBarUI.ShowUI();
         }
-        
+
+        private void OnDisable()
+        {
+            //if not playing, then unsubscribe
+            if (Application.isPlaying) return;
+            _playerInventory.UnsubscribeToInventoryStatus(QuestManager.Instance.OnItemCollected);
+        }
+
         public void OpenContainerInstance(PlayerContainer containerItem)
         {
             _inventoryManager.ToggleContainer(containerItem);

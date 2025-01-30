@@ -13,19 +13,8 @@ namespace _Script.Quest
     
     public sealed class QuestManager : Singleton<QuestManager>
     {
-        /// <summary>
-        /// 当发生某种类型的目标更新时触发此事件
-        /// 参数1：ObjectiveType（如 Kill, Collect 等）
-        /// 参数2：string（敌人ID 或 物品ID）
-        /// </summary>
         public event Action<string> onEnemyKilled;
         public event Action<string, int> onItemCollected;
-
-        private Dictionary<PlayerRank, List<SideQuestDefinition>> _sideQuests = new Dictionary<PlayerRank, List<SideQuestDefinition>>();
-
-        [SerializeField] public QuestDefinition testQuest;
-        
-        
         
         
         public void StartQuest(QuestDefinition questDef)
@@ -41,6 +30,7 @@ namespace _Script.Quest
         /// <param name="totalCount"> the number of items in the inventory</param>
         public void OnItemCollected(string itemID, int totalCount)
         {
+            Debug.Log($"[QuestManager] Item collected: {itemID}");
             onItemCollected?.Invoke(itemID,totalCount);
         }
 
@@ -63,7 +53,6 @@ namespace _Script.Quest
 
         private void GiveReward(QuestReward reward)
         {
-            // TODO: 给予奖励
         }
     }
 

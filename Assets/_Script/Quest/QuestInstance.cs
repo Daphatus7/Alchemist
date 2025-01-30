@@ -9,15 +9,19 @@ using UnityEngine;
 
 namespace _Script.Quest
 {
+    /// <summary>
+    /// Player holding instance
+    /// </summary>
     public abstract class QuestInstance
     {
         private readonly QuestDefinition _definition; public QuestDefinition QuestDefinition => _definition;
+        private QuestState _state; public QuestState State => _state;
         private readonly List<QuestObjective> _objectives = new List<QuestObjective>(); public List<QuestObjective> Objectives => _objectives;
         
         public QuestInstance(QuestDefinition def)
         {
             _definition = def;
-
+            _state = QuestState.Active;
             // For each static ObjectiveData, create a dynamic QuestObjective
             if (QuestManager.Instance != null)
             {

@@ -18,11 +18,11 @@ namespace _Script.Managers
     /// </summary>
     public class GameManager : PersistentSingleton<GameManager>
     {
-        private ServiceLocator _serviceLocator;
         
         [SerializeField] private AstarPath _astarPath;
 
-        [SerializeField] private PlayerCharacter _playerCharacter;
+        [SerializeField] private PlayerCharacter _playerCharacter; public PlayerCharacter PlayerCharacter => _playerCharacter;
+        
         [SerializeField] private string _startingScene = "TownMap";
 
         // The non-static class that manages scene loading
@@ -33,9 +33,6 @@ namespace _Script.Managers
 
         private void Start()
         {
-            // Initialize Service Locator (if applicable)
-            _serviceLocator = ServiceLocator.Instance;
-
             // Make sure the player is also persistent
             if (_playerCharacter != null)
             {

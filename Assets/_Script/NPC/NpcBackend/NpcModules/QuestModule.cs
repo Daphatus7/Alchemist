@@ -12,6 +12,11 @@ using Random = UnityEngine.Random;
 
 namespace _Script.NPC.NpcBackend.NpcModules
 {
+    
+    /// <summary>
+    /// Quest Giver Module
+    /// Data 
+    /// </summary>
     public class QuestGiverModule : NpcModuleBase, INpcQuestModuleHandler
     {
         
@@ -20,7 +25,12 @@ namespace _Script.NPC.NpcBackend.NpcModules
         [SerializeField] private QuestDefinition [] quests;
         private Queue<QuestDefinition> _activeQuests;
         [SerializeField] private QuestDefinition currentQuest;
-
+        public QuestDefinition CurrentQuest => currentQuest; 
+        public override NpcHandlerType HandlerType => NpcHandlerType.QuestGiver;
+        public override string ModuleDescription => "Quest Giver Module";
+        public override string ModuleName => optionName;
+        
+        
         public void Start()
         {
             _activeQuests = new Queue<QuestDefinition>();
@@ -36,21 +46,15 @@ namespace _Script.NPC.NpcBackend.NpcModules
         {
             ServiceLocator.Instance.Get<INpcUiCallback>().LoadQuestUi(this);
         }
-        
-        private QuestDefinition GetQuest()
-        {
-            return quests[Random.Range(0, quests.Length)];
-        }
 
         public override void UnloadNpcModule(INpcModuleHandler handler)
         {
             Debug.Log("Quest Giver Module Unloaded");
         }
+    }
+
+    public class QuestNpcState
+    {
         
-        public QuestDefinition CurrentQuest => currentQuest; 
-        
-        public override NpcHandlerType HandlerType => NpcHandlerType.QuestGiver;
-        public override string ModuleDescription => "Quest Giver Module";
-        public override string ModuleName => optionName;
     }
 }

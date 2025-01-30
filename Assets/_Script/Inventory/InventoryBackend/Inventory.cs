@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Script.Inventory.SlotFrontend;
 using _Script.Items;
 using _Script.Items.AbstractItemTypes._Script.Items;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace _Script.Inventory.InventoryBackend
@@ -509,8 +510,21 @@ namespace _Script.Inventory.InventoryBackend
 
         #region Inventory Status
 
-        public InventoryStatus InventoryStatus { get; } = new InventoryStatus();
+        private InventoryStatus InventoryStatus { get; } = new InventoryStatus();
 
+        public void SubscribeToInventoryStatus(Action<string, int> action)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+            InventoryStatus.OnInventoryStatusChanged += action;
+        }
+        
+        public void UnsubscribeToInventoryStatus(Action<string, int> action)
+        {
+            InventoryStatus.OnInventoryStatusChanged -= action;
+        }
 
         #endregion
     }
@@ -519,10 +533,12 @@ namespace _Script.Inventory.InventoryBackend
     /// string : item id
     /// int : quantity
     /// </summary>
-    public class InventoryStatus
+    public sealed class InventoryStatus
     {
-        private Dictionary<string, int> _inventoryStatus = new Dictionary<string, int>();
-        public Dictionary<string, int> Status => _inventoryStatus;
+        private Dictionary<string, int> Status { get; } = new Dictionary<string, int>();
+        public Dictionary<string, int> GetStatus => Status;
+        
+        public event Action<string, int> OnInventoryStatusChanged;
 
         internal void UpdateInventoryStatus(string itemID, int quantityChange)
         {
@@ -530,7 +546,7 @@ namespace _Script.Inventory.InventoryBackend
             if (!Status.ContainsKey(itemID) && quantityChange > 0)
             {
                 Status[itemID] = quantityChange;
-                PrintStatus();
+                OnOnInventoryStatusChanged(itemID, quantityChange);
                 return;
             }
 
@@ -543,10 +559,22 @@ namespace _Script.Inventory.InventoryBackend
                 if (Status[itemID] <= 0)
                 {
                     Status.Remove(itemID);
+                    OnOnInventoryStatusChanged(itemID, 0); // Send 0 explicitly instead of Status[itemID]
+                    return; // Early return to prevent invalid Status[itemID] lookup
                 }
             }
-            PrintStatus();
+
+            // Send update only if the item still exists
+            if (Status.ContainsKey(itemID))
+            {
+                OnOnInventoryStatusChanged(itemID, Status[itemID]);
+            }
+            else
+            {
+                OnOnInventoryStatusChanged(itemID, 0); // Ensure zero is reported if removed
+            }
         }
+
 
         private void PrintStatus()
         {
@@ -556,6 +584,11 @@ namespace _Script.Inventory.InventoryBackend
                 Debug.Log(pair.Key + " : " + pair.Value);
             }
             Debug.Log("----------End of Inventory Status----------");
+        }
+
+        private void OnOnInventoryStatusChanged(string itemID, int count)
+        {
+            OnInventoryStatusChanged?.Invoke(itemID, count);
         }
     }
 
