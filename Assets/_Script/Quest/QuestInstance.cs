@@ -10,8 +10,8 @@ namespace _Script.Quest
 {
     public abstract class QuestInstance
     {
-        private readonly QuestDefinition _definition;
-        private readonly List<QuestObjective> _objectives = new List<QuestObjective>();
+        private readonly QuestDefinition _definition; public QuestDefinition QuestDefinition => _definition;
+        private readonly List<QuestObjective> _objectives = new List<QuestObjective>(); public List<QuestObjective> Objectives => _objectives;
         
         public QuestInstance(QuestDefinition def)
         {

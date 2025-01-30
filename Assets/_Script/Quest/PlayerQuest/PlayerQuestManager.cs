@@ -8,23 +8,35 @@ using UnityEngine;
 
 namespace _Script.Quest.PlayerQuest
 {
-    [DefaultExecutionOrder(0)]
     public sealed class PlayerQuestManager : MonoBehaviour, IPlayerQuestService
     {
-        private List<QuestInstance> _activeQuests; public List<QuestInstance> ActiveQuests => _activeQuests;
-        private List<MainQuestInstance> _mainQuests; public List<MainQuestInstance> MainQuests => _mainQuests;
-        private Queue<QuestInstance> _completedQuests; public Queue<QuestInstance> CompletedQuests => _completedQuests;
+        private readonly List<QuestInstance> _activeQuests = new List<QuestInstance>(); public List<QuestInstance> ActiveQuests => _activeQuests;
+        private readonly List<MainQuestInstance> _mainQuests = new List<MainQuestInstance>(); public List<MainQuestInstance> MainQuests => _mainQuests;
+        private readonly Queue<QuestInstance> _completedQuests = new Queue<QuestInstance>(); public Queue<QuestInstance> CompletedQuests => _completedQuests;
 
-
-        public void Awake()
+        
+        public void Start()
         {
-            
-            ServiceLocator.Instance.Register<IPlayerQuestService>(this);
         }
 
-        public void OnDestroy()
+        public void OnEnable()
         {
-            ServiceLocator.Instance.Unregister<IPlayerQuestService>();
+            Debug.Log(ServiceLocator.Instance + " " + this);
+            ServiceLocator.Instance?.Register<IPlayerQuestService>(this);
+        }
+
+        public void OnDisable()
+        {
+            if (!Application.isPlaying) return;
+
+            // Check if ServiceLocator still exists
+            if (ServiceLocator.Instance == null) return;
+
+            var playerQuestService = ServiceLocator.Instance.Get<IPlayerQuestService>();
+            if ((PlayerQuestManager)playerQuestService == this)
+            {
+                ServiceLocator.Instance.Unregister<IPlayerQuestService>();
+            }
         }
 
         public void AddNewQuest(QuestInstance quest)

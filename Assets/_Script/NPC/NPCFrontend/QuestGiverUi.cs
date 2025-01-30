@@ -1,8 +1,11 @@
 // Author : Peiyu Wang @ Daphatus
 // 27 01 2025 01 40
 
+using _Script.NPC.NpcBackend;
 using _Script.Quest;
+using _Script.Quest.PlayerQuest;
 using _Script.UserInterface;
+using _Script.Utilities.ServiceLocator;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,12 +19,14 @@ namespace _Script.NPC.NPCFrontend
         
         [SerializeField] private TextMeshProUGUI questDescriptionText;
         [SerializeField] private TextMeshProUGUI questRewardText;
+
+        private INpcQuestModuleHandler _currentNpc;
         
-        
-        public void LoadQuestData(QuestDefinition quest)
+        public void LoadQuestData(INpcQuestModuleHandler handler)
         {
-            questDescriptionText.text = quest.questDescription;
-            questRewardText.text = quest.reward.ToString();
+            _currentNpc = handler;
+            questDescriptionText.text = handler.CurrentQuest.questDescription;
+            questRewardText.text = handler.CurrentQuest.reward.ToString();
         }
         
         
@@ -41,12 +46,15 @@ namespace _Script.NPC.NPCFrontend
         
         private void OnAcceptButtonClicked()
         {
-            Debug.Log("Accept button clicked");
+            ServiceLocator.Instance.Get<IPlayerQuestService>().AddNewSideQuest(new MainQuestInstance(_currentNpc.CurrentQuest));
+            //load next dialogue
+            
         }
         
         private void OnDeclineButtonClicked()
         {
             Debug.Log("Decline button clicked");
+            //load next dialogue
         }
     }
 }

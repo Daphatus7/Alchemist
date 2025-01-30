@@ -77,6 +77,9 @@ namespace _Script.NPC.NPCFrontend
         
         private void OnDisable()
         {
+            // Check if ServiceLocator still exists
+            if (ServiceLocator.Instance == null) return;
+            
             ServiceLocator.Instance.Unregister<INpcUIService>();
             ServiceLocator.Instance.Unregister<INpcUiCallback>();
         }
@@ -84,6 +87,8 @@ namespace _Script.NPC.NPCFrontend
 
         public void StartDialogue(INpcDialogueHandler dialogueHandler)
         {
+            ShowUI();
+
             _currentDialogueHandler = dialogueHandler;
             //Load the data from the dialogue handler
             
@@ -92,7 +97,6 @@ namespace _Script.NPC.NPCFrontend
             var moduleHandlers = _currentDialogueHandler.GetAddonModules();
             LoadNpcChoice(mainNpc, moduleHandlers);
             //Load the NPC text
-            ShowUI();
         }
 
         public void OnNpcUiChange(NpcUiType uiType)
@@ -100,7 +104,7 @@ namespace _Script.NPC.NPCFrontend
             throw new NotImplementedException();
         }
 
-        public void LoadQuestUi(QuestDefinition quest)
+        public void LoadQuestUi(INpcQuestModuleHandler quest)
         {
             DisplayUi(NpcUiType.QuestGiver);
             questGiverUi.LoadQuestData(quest);
@@ -111,8 +115,8 @@ namespace _Script.NPC.NPCFrontend
             OnDialogueEnd?.Invoke();
             HideUI();
         }
-        
-        public void DisplayUi(NpcUiType uiType)
+
+        private void DisplayUi(NpcUiType uiType)
         {
             foreach (var npcUi in _npcUis)
             {
@@ -121,8 +125,8 @@ namespace _Script.NPC.NPCFrontend
             if(_npcUis.ContainsKey(uiType))
                 _npcUis[uiType].ShowUI();
         }
-        
-        public void LoadNpcChoice(NpcInfo mainNpc, INpcModuleHandler [] moduleHandlers)
+
+        private void LoadNpcChoice(NpcInfo mainNpc, INpcModuleHandler [] moduleHandlers)
         {
             DisplayUi(NpcUiType.Choice);
             npcChoiceUi.LoadNpcChoice(mainNpc, moduleHandlers);
