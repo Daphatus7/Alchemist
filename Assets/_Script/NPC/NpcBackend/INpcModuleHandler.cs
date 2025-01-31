@@ -18,6 +18,8 @@ namespace _Script.NPC.NpcBackend
     public interface INpcQuestModuleHandler : INpcModuleHandler
     {
         QuestInstance CurrentQuest { get; }
+        QuestDefinition CurrentAvailableQuest { get; }
+        bool StartQuest();
         void TryUnlockQuest();
         string NpcID { get; }
     }

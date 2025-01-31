@@ -16,11 +16,17 @@ namespace _Script.Quest
     {
         public QuestDefinition QuestDefinition { get; }
 
-        private QuestState _state; public QuestState QuestState => _state;
+        private QuestState _state; public QuestState QuestState
+        {
+            get => _state;
+            set => _state = value;
+        }
+
         private readonly List<QuestObjective> _objectives = new List<QuestObjective>(); public List<QuestObjective> Objectives => _objectives;
         
         public QuestInstance(QuestDefinition def)
         {
+            Debug.Log("Quest created");
             QuestDefinition = def;
             _state = QuestState.NotStarted;
             // For each static ObjectiveData, create a dynamic QuestObjective
@@ -59,6 +65,7 @@ namespace _Script.Quest
             CheckCompletion();
             return false;
         }
+        
         private void OnItemCollected(string itemID, int totalCount)
         {
             _objectives.ForEach(obj =>
@@ -81,6 +88,9 @@ namespace _Script.Quest
                     obj.isComplete = false;
                 }
             });
+            
+            //check if the quest is complete
+            CheckCompletion();
         }
         
         private void OnEnemyKilled(string enemyID)
@@ -112,15 +122,16 @@ namespace _Script.Quest
                 if (!obj.isComplete)
                 {
                     isAllDone = false;
+                    _state = QuestState.InProgress;
                     break;
                 }
             }
 
             if (isAllDone)
             {
-                Debug.Log($"[QuestInstance] 所有目标完成，任务 {QuestDefinition.questName} 完成！");
-                
+                _state = QuestState.Completed;
             }
+            Debug.Log($"[QuestInstance] 所有目标完成，任务 {QuestDefinition.questName} {_state}");
         }
         
         public string QuestStatus
@@ -152,7 +163,6 @@ namespace _Script.Quest
                 }
                 return status;
             }
-    
         }
 
         // 当任务完成/销毁时，最好取消订阅事件，避免内存泄露

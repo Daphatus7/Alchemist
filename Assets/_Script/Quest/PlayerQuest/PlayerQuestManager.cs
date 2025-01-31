@@ -11,8 +11,7 @@ namespace _Script.Quest.PlayerQuest
 {
     public sealed class PlayerQuestManager : MonoBehaviour, IPlayerQuestService
     {
-        private readonly List<QuestInstance> _activeQuests = new List<QuestInstance>(); public List<QuestInstance> ActiveQuests => _activeQuests;
-        private readonly List<MainQuestInstance> _mainQuests = new List<MainQuestInstance>(); public List<MainQuestInstance> MainQuests => _mainQuests;
+        private readonly Dictionary<string, QuestInstance> _activeQuests = new Dictionary<string, QuestInstance>(); 
         private readonly Queue<QuestInstance> _completedQuests = new Queue<QuestInstance>(); public Queue<QuestInstance> CompletedQuests => _completedQuests;
         
         public void Update()
@@ -20,7 +19,7 @@ namespace _Script.Quest.PlayerQuest
             if (!Prototype_Active_Quest_Ui.Instance) return;
             foreach (var quest in _activeQuests)
             {
-                Prototype_Active_Quest_Ui.Instance.SetText(quest.QuestStatus);
+                Prototype_Active_Quest_Ui.Instance.SetText(quest.Value.QuestStatus);
             }
         }
         
@@ -43,26 +42,27 @@ namespace _Script.Quest.PlayerQuest
                 ServiceLocator.Instance.Unregister<IPlayerQuestService>();
             }
         }
+        
+        public void UpdateQuestState(QuestInstance quest)
+        {
+            
+        }
 
         public void AddNewQuest(QuestInstance quest)
         {
-            _activeQuests.Add(quest);
+            if(!_activeQuests.TryAdd(quest.QuestDefinition.questID, quest)) return;
         }
         
-        public void AddMainQuest(MainQuestInstance quest)
-        {
-            _mainQuests.Add(quest);
-        }
         
         public void AddNewSideQuest(QuestInstance quest)
         {
-            _activeQuests.Add(quest);
+            if(!_activeQuests.TryAdd(quest.QuestDefinition.questID, quest)) return;
         }
         
         public void CompleteQuest(QuestInstance quest)
         {
             _completedQuests.Enqueue(quest);
-            _activeQuests.Remove(quest);
+            if(!_activeQuests.Remove(quest.QuestDefinition.questID)) return;
         }
     }
 }

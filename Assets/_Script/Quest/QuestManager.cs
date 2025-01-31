@@ -14,12 +14,14 @@ namespace _Script.Quest
     public sealed class QuestManager : Singleton<QuestManager>
     {
         private List<QuestInstance> _activeQuests; public List<QuestInstance> ActiveQuests => _activeQuests;
+        
         /// <summary>
         /// NPC ID -> Quest Giver Module
         /// </summary>
         private Dictionary<string, INpcQuestModuleHandler> _questModules;
         public event Action<string> onEnemyKilled;
         public event Action<string, int> onItemCollected;
+        public event Action<QuestInstance> onQuestCompleted;
 
         [SerializeField] public StorylineChecker storylineChecker;
         
@@ -35,7 +37,6 @@ namespace _Script.Quest
         {
             _questModules = new Dictionary<string, INpcQuestModuleHandler>();
             
-
             var questModules = FindObjectsByType<QuestGiverModule>(FindObjectsSortMode.None);
             foreach (var o  in questModules)
             {
@@ -95,6 +96,11 @@ namespace _Script.Quest
             return GameManager.Instance.PlayerRank >= prerequisite.playerRank &&
                    //check if the player has completed the required quest
                    storylineChecker.IsCompleted(prerequisite.prerequisite);
+        }
+
+        private void OnOnQuestCompleted(QuestInstance quest)
+        {
+            onQuestCompleted?.Invoke(quest);
         }
     }
 

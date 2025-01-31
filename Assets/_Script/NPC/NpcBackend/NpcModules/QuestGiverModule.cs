@@ -27,7 +27,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
         [SerializeField] private List<QuestDefinition> quests;
         private Queue<QuestDefinition> _quests; public Queue<QuestDefinition> QueuedQuests => _quests;
         private QuestInstance _currentQuest; public QuestInstance CurrentQuest => _currentQuest;
-        
+        private QuestDefinition _currentAvailableQuest; public QuestDefinition CurrentAvailableQuest => _currentAvailableQuest;
         #region for UI display
         public override NpcHandlerType HandlerType => NpcHandlerType.QuestGiver;
         public override string ModuleDescription => "Quest Giver Module";
@@ -45,26 +45,38 @@ namespace _Script.NPC.NpcBackend.NpcModules
             TryUnlockQuest();
         }
 
+        public bool StartQuest()
+        {
+            if (_currentAvailableQuest != null)
+            {
+                _currentQuest = new SideQuestInstance(_currentAvailableQuest);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void TryUnlockQuest()
         {
             //if there is already a quest, return
-            if(CurrentQuest != null) return;
+            if(_currentAvailableQuest != null) return;
             
             if (_quests.Count > 0)
             {
                 var quest = _quests.Peek();
                 if (quest.CanUnlockQuest())
                 {
-                    _currentQuest = new SideQuestInstance(_quests.Dequeue());
+                    _currentAvailableQuest = _quests.Dequeue();
                 }
             }
         }
 
-
         public override bool ShouldLoadModule()
         {
             //check if there is any active quest
-            return _currentQuest != null;
+            return _currentAvailableQuest != null;
         }
 
         public override void LoadNpcModule(INpcModuleHandler handler)
