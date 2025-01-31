@@ -351,164 +351,70 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 83727879730681288, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: inventoryWidth
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 83727879730681288, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: inventoryHeight
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 83727879730681288, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: moduleInfo.moduleName
-      value: Ken The Merchant
-      objectReference: {fileID: 0}
-    - target: {fileID: 83727879730681288, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: itemsForSale.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 83727879730681288, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: 'itemsForSale.Array.data[7]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 9460a12d7b1e7d24f97e33abbe754b24,
-        type: 2}
-    - target: {fileID: 83727879730681288, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: moduleInfo.moduleDescription
-      value: He has it all!
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
+    - target: {fileID: 1263350367263015867, guid: d3b10c0e29a174e3cb2c8ec46d2c35bb,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.23
       objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
+    - target: {fileID: 1263350367263015867, guid: d3b10c0e29a174e3cb2c8ec46d2c35bb,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: -3.29
       objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
+    - target: {fileID: 1263350367263015867, guid: d3b10c0e29a174e3cb2c8ec46d2c35bb,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
+    - target: {fileID: 1263350367263015867, guid: d3b10c0e29a174e3cb2c8ec46d2c35bb,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
+    - target: {fileID: 1263350367263015867, guid: d3b10c0e29a174e3cb2c8ec46d2c35bb,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
+    - target: {fileID: 1263350367263015867, guid: d3b10c0e29a174e3cb2c8ec46d2c35bb,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
+    - target: {fileID: 1263350367263015867, guid: d3b10c0e29a174e3cb2c8ec46d2c35bb,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
+    - target: {fileID: 1263350367263015867, guid: d3b10c0e29a174e3cb2c8ec46d2c35bb,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
+    - target: {fileID: 1263350367263015867, guid: d3b10c0e29a174e3cb2c8ec46d2c35bb,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
+    - target: {fileID: 1263350367263015867, guid: d3b10c0e29a174e3cb2c8ec46d2c35bb,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7294792953007767854, guid: 8fff471fd9cc248238692229ccf8e3a4,
+    - target: {fileID: 7294792953007767854, guid: d3b10c0e29a174e3cb2c8ec46d2c35bb,
         type: 3}
       propertyPath: m_Name
       value: NPC_Merchant
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1028801686032175467, guid: 8fff471fd9cc248238692229ccf8e3a4, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7294792953007767854, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 666102242}
-    - targetCorrespondingSourceObject: {fileID: 7294792953007767854, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 666102248}
-    - targetCorrespondingSourceObject: {fileID: 7294792953007767854, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 666102247}
-    - targetCorrespondingSourceObject: {fileID: 3227056992782631814, guid: 8fff471fd9cc248238692229ccf8e3a4,
+    - targetCorrespondingSourceObject: {fileID: 3227056992782631814, guid: d3b10c0e29a174e3cb2c8ec46d2c35bb,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-  m_SourcePrefab: {fileID: 100100000, guid: 8fff471fd9cc248238692229ccf8e3a4, type: 3}
---- !u!1 &666102241 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7294792953007767854, guid: 8fff471fd9cc248238692229ccf8e3a4,
-    type: 3}
-  m_PrefabInstance: {fileID: 666102240}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &666102242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 666102241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ec9160711774ffbaf67e0faae2e499e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  npcInfo:
-    npcName: Ken The Merchant
-    npcDialogue: Hello Stranger
-  dialogueDistance: 5
---- !u!114 &666102247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 666102241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1076e6400514226b339b9e09457ad75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueLines: []
---- !u!114 &666102248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 666102241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e63152cb31a49f1a13e698638f9d370, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  optionName: Quest
-  quests: []
-  currentQuest: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: d3b10c0e29a174e3cb2c8ec46d2c35bb, type: 3}
 --- !u!1 &839957687
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,174 +492,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1594930591
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 83727879730681288, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: inventoryWidth
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 83727879730681288, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: inventoryHeight
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 83727879730681288, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: moduleInfo.moduleName
-      value: Ken The Merchant
-      objectReference: {fileID: 0}
-    - target: {fileID: 83727879730681288, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: itemsForSale.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 83727879730681288, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: 'itemsForSale.Array.data[7]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 9460a12d7b1e7d24f97e33abbe754b24,
-        type: 2}
-    - target: {fileID: 83727879730681288, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: moduleInfo.moduleDescription
-      value: He has it all!
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.32
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.73
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263350367263015867, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7294792953007767854, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      propertyPath: m_Name
-      value: NPC_GuildMaster
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1028801686032175467, guid: 8fff471fd9cc248238692229ccf8e3a4, type: 3}
-    - {fileID: 83727879730681288, guid: 8fff471fd9cc248238692229ccf8e3a4, type: 3}
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7294792953007767854, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1594930595}
-    - targetCorrespondingSourceObject: {fileID: 7294792953007767854, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1594930594}
-    - targetCorrespondingSourceObject: {fileID: 7294792953007767854, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1594930593}
-    - targetCorrespondingSourceObject: {fileID: 3227056992782631814, guid: 8fff471fd9cc248238692229ccf8e3a4,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-  m_SourcePrefab: {fileID: 100100000, guid: 8fff471fd9cc248238692229ccf8e3a4, type: 3}
---- !u!1 &1594930592 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7294792953007767854, guid: 8fff471fd9cc248238692229ccf8e3a4,
-    type: 3}
-  m_PrefabInstance: {fileID: 1594930591}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1594930593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1594930592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1076e6400514226b339b9e09457ad75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueLines: []
---- !u!114 &1594930594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1594930592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e63152cb31a49f1a13e698638f9d370, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  optionName: Quest
-  quests:
-  - {fileID: 11400000, guid: dae82e7b0182641e4ad731b972f10cd5, type: 2}
-  currentQuest: {fileID: 0}
---- !u!114 &1594930595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1594930592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ec9160711774ffbaf67e0faae2e499e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  npcInfo:
-    npcName: Ken The Merchant
-    npcDialogue: Hello Stranger
-  dialogueDistance: 5
 --- !u!1 &1901647010
 GameObject:
   m_ObjectHideFlags: 0
@@ -2104,12 +1842,109 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: def4f0ec6ac2a4d03a04be467d6e0406, type: 3}
+--- !u!1001 &2537836345988755017
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3667518381438025234, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: m_Name
+      value: NPC_GuildMaster
+      objectReference: {fileID: 0}
+    - target: {fileID: 4515760920473406299, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 4515760920473406299, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 4515760920473406299, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4515760920473406299, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4515760920473406299, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4515760920473406299, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4515760920473406299, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4515760920473406299, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4515760920473406299, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4515760920473406299, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5748878807673414471, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: text
+      value: Louis The Guild Master
+      objectReference: {fileID: 0}
+    - target: {fileID: 5748878807673414471, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: textSize
+      value: 3.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5748878807673414471, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: textColor.b
+      value: 0.459
+      objectReference: {fileID: 0}
+    - target: {fileID: 5748878807673414471, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: textColor.g
+      value: 0.906
+      objectReference: {fileID: 0}
+    - target: {fileID: 5748878807673414471, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: textColor.r
+      value: 0.996
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8256657632293943933, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: 19400eae6031045008b5457fe5f8aa20, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 839957688}
   - {fileID: 666102240}
-  - {fileID: 1594930591}
+  - {fileID: 2537836345988755017}
   - {fileID: 863255221}
   - {fileID: 2029155665}

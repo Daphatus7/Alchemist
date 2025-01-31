@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using _Script.Character;
+using _Script.Character.PlayerRank;
 using _Script.Managers.GlobalUpdater;
 using _Script.Map.WorldMap;
 using _Script.Map.WorldMap.MapNode;
+using _Script.Quest;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 
@@ -23,6 +25,8 @@ namespace _Script.Managers
 
         [SerializeField] private PlayerCharacter _playerCharacter; public PlayerCharacter PlayerCharacter => _playerCharacter;
         
+        public PlayerRankEnum PlayerRank => _playerCharacter.Rank;
+
         [SerializeField] private string _startingScene = "TownMap";
 
         // The non-static class that manages scene loading

@@ -14,18 +14,19 @@ namespace _Script.Quest
     /// </summary>
     public abstract class QuestInstance
     {
-        private readonly QuestDefinition _definition; public QuestDefinition QuestDefinition => _definition;
-        private QuestState _state; public QuestState State => _state;
+        public QuestDefinition QuestDefinition { get; }
+
+        private QuestState _state; public QuestState QuestState => _state;
         private readonly List<QuestObjective> _objectives = new List<QuestObjective>(); public List<QuestObjective> Objectives => _objectives;
         
         public QuestInstance(QuestDefinition def)
         {
-            _definition = def;
-            _state = QuestState.Active;
+            QuestDefinition = def;
+            _state = QuestState.NotStarted;
             // For each static ObjectiveData, create a dynamic QuestObjective
             if (QuestManager.Instance != null)
             {
-                foreach (var objData in _definition.objectives)
+                foreach (var objData in QuestDefinition.objectives)
                 {
                     var questObj = new QuestObjective(objData.objectiveData);
                     _objectives.Add(questObj);
@@ -117,38 +118,41 @@ namespace _Script.Quest
 
             if (isAllDone)
             {
-                Debug.Log($"[QuestInstance] 所有目标完成，任务 {_definition.questName} 完成！");
+                Debug.Log($"[QuestInstance] 所有目标完成，任务 {QuestDefinition.questName} 完成！");
                 
             }
         }
         
-        public string GetQuestStatus()
+        public string QuestStatus
         {
-            string status = "";
-            //Name
-            status += "Quest: \n";
-            status += _definition.questName + "\n";
-            //Objectives
-            status += "Objectives: \n";
-            foreach (var obj in _objectives)
-            {
-                switch (obj.objectiveData.type)
+            get
+            {        
+                string status = "";
+                //Name
+                status += "Quest: \n";
+                status += QuestDefinition.questName + "\n";
+                //Objectives
+                status += "Objectives: \n";
+                foreach (var obj in _objectives)
                 {
-                    case ObjectiveType.Kill:
-                        status += "Kill " + ((KillObjective) obj.objectiveData).enemy.enemyID + " " + obj.currentCount + "/" + obj.objectiveData.requiredCount + "\n";
-                        break;
-                    case ObjectiveType.Collect:
-                        status += "Collect " + ((CollectObjective) obj.objectiveData).item.itemID + " " + obj.currentCount + "/" + obj.objectiveData.requiredCount + "\n";
-                        break;
-                    case ObjectiveType.Explore:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    switch (obj.objectiveData.type)
+                    {
+                        case ObjectiveType.Kill:
+                            status += "Kill " + ((KillObjective) obj.objectiveData).enemy.enemyID + " " + obj.currentCount + "/" + obj.objectiveData.requiredCount + "\n";
+                            break;
+                        case ObjectiveType.Collect:
+                            status += "Collect " + ((CollectObjective) obj.objectiveData).item.itemID + " " + obj.currentCount + "/" + obj.objectiveData.requiredCount + "\n";
+                            break;
+                        case ObjectiveType.Explore:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                    status += "----------------\n";
                 }
-                status += "----------------\n";
+                return status;
             }
-
-            return status;
+    
         }
 
         // 当任务完成/销毁时，最好取消订阅事件，避免内存泄露

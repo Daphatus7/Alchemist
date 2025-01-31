@@ -8,15 +8,17 @@ namespace _Script.NPC.NpcBackend
 {
     public interface INpcModuleHandler
     {
+        bool ShouldLoadModule();
         void LoadNpcModule(INpcModuleHandler handler);
         void UnloadNpcModule(INpcModuleHandler handler);
-        
         NpcModuleInfo ModuleInfo { get; }
         NpcHandlerType HandlerType { get; }
     }
     
     public interface INpcQuestModuleHandler : INpcModuleHandler
     {
-        QuestDefinition CurrentQuest { get; }
+        QuestInstance CurrentQuest { get; }
+        void TryUnlockQuest();
+        string NpcID { get; }
     }
 }

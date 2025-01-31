@@ -85,18 +85,23 @@ namespace _Script.NPC.NPCFrontend
         }
 
 
+        /// <summary>
+        /// List all options listed by the NPC
+        /// </summary>
+        /// <param name="dialogueHandler"></param>
         public void StartDialogue(INpcDialogueHandler dialogueHandler)
         {
             ShowUI();
 
+            //reference the current dialogue handler
             _currentDialogueHandler = dialogueHandler;
-            //Load the data from the dialogue handler
             
             //load the NPC text with choices
             var mainNpc = _currentDialogueHandler.GetNpcDialogue();
             var moduleHandlers = _currentDialogueHandler.GetAddonModules();
-            LoadNpcChoice(mainNpc, moduleHandlers);
+            
             //Load the NPC text
+            LoadNpcChoice(mainNpc, moduleHandlers);
         }
 
         public void OnNpcUiChange(NpcUiType uiType)

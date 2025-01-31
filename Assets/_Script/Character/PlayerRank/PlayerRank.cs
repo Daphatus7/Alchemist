@@ -7,7 +7,8 @@ namespace _Script.Character.PlayerRank
 {
     public class PlayerRank : MyStateMachine
     {
-        
+        public PlayerRankEnum Rank => PlayerRankEnum.F;
+
     }
     
     public class PlayerRankState : IState
@@ -46,4 +47,16 @@ namespace _Script.Character.PlayerRank
         }
     }
     
+    
+    public enum PlayerRankEnum
+    {
+        F,
+        E,
+        D,
+        C,
+        B,
+        A,
+        S,
+        SS
+    }
 }

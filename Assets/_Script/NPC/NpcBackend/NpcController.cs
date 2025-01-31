@@ -3,26 +3,25 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using _Script.Character;
 using _Script.NPC.NpcBackend.NpcModules;
 using _Script.UserInterface;
 using _Script.Utilities.ServiceLocator;
 using _Script.Utilities.StateMachine;
-using Edgar.Unity.Examples;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using IInteractable = _Script.Interactable.IInteractable;
 
 namespace _Script.NPC.NpcBackend
 {
-    public class ModularNpcController : MonStateMachine, IInteractable, INpcDialogueHandler, INpcModuleControlHandler
+    public class NpcController : MonStateMachine, IInteractable, INpcDialogueHandler, INpcModuleControlHandler
     {
         
         [BoxGroup("Basic Info")]
         [LabelText("NPC Name"), Tooltip("Name of the NPC")]
         
         [SerializeField] private NpcInfo npcInfo;
+        public string NpcId => npcInfo.NpcName;
         
         [SerializeField] private float dialogueDistance = 5f;
         
@@ -105,6 +104,8 @@ namespace _Script.NPC.NpcBackend
             
             //Delegate to the NPC UI Service
             ServiceLocator.Instance.Get<INpcUIService>().StartDialogue(this); //this displays all the possible options provided by the NPC
+            
+            // Add reference to the UI handler, so it can be closed remotely
             _conversationInstance.AddNpcUIHandler(ServiceLocator.Instance.Get<INpcUIService>() as IUIHandler);
             
             // Start a coroutine to monitor player distance
@@ -147,7 +148,9 @@ namespace _Script.NPC.NpcBackend
         {
             _conversationInstance?.RemoveNpcUIHandler(handler);
         }
-        
+
+
+
         public INpcModuleHandler[] GetAddonModules()
         {
             return GetComponents<INpcModuleHandler>();

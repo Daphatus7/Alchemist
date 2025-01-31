@@ -209,9 +209,11 @@ GameObject:
   - component: {fileID: 3194487395070998921}
   - component: {fileID: 424326558511371869}
   - component: {fileID: 83727879730681288}
-  - component: {fileID: 1028801686032175467}
+  - component: {fileID: 4138415022299462682}
+  - component: {fileID: 1710500215510742338}
+  - component: {fileID: 7514354583550334161}
   m_Layer: 9
-  m_Name: NPC_Template
+  m_Name: NPC_Merchant
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,8 +227,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7294792953007767854}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.18, y: -3.55, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.23, y: -3.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -354,7 +356,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9c5c98dc522c849a18698db46dc42cd5, type: 2}
   - {fileID: 11400000, guid: 5bfe331fc049940e9a4a7a20b8d6e176, type: 2}
   - {fileID: 11400000, guid: a731c0cc6be5140f88f1cc7b7ae63ec8, type: 2}
---- !u!114 &1028801686032175467
+  - {fileID: 11400000, guid: 9460a12d7b1e7d24f97e33abbe754b24, type: 2}
+  inventoryWidth: 5
+  inventoryHeight: 5
+--- !u!114 &4138415022299462682
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -363,11 +368,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 7294792953007767854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8aa420eaa68412880e6ea9a5a6dc716, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ec9160711774ffbaf67e0faae2e499e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcName: Ken the Merchant
-  dialogueModule:
-    dialogueLines:
-    - Hello Traveler
-    - Got Items to sell.
+  npcInfo:
+    npcName: Ken
+    npcDialogue: Hello Stranger
+  dialogueDistance: 5
+--- !u!114 &1710500215510742338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294792953007767854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e63152cb31a49f1a13e698638f9d370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  optionName: Quest
+  quests: []
+--- !u!114 &7514354583550334161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294792953007767854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1076e6400514226b339b9e09457ad75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueLines: []

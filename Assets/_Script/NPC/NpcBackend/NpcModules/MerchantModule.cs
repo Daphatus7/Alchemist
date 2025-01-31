@@ -56,7 +56,12 @@ namespace _Script.NPC.NpcBackend.NpcModules
             }
             _merchantInventory = new MerchantInventory(itemsToAdd, inventoryWidth, inventoryHeight);
         }
-        
+
+        public override bool ShouldLoadModule()
+        {
+            return true;
+        }
+
         public override void LoadNpcModule(INpcModuleHandler handler)
         {
             //Load merchant inventory UI

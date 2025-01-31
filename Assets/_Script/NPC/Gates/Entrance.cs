@@ -6,7 +6,7 @@ using _Script.NPC.NpcBackend;
 
 namespace _Script.NPC.Gates
 {
-    public class Entrance : ModularNpcController
+    public class Entrance : NpcController
     {
         protected override void OnDialogueEnd()
         {

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _Script.Attribute;
 using _Script.Character.ActionStrategy;
+using _Script.Character.PlayerRank;
 using _Script.Interactable;
 using _Script.Inventory.ActionBarFrontend;
 using _Script.Inventory.EquipmentBackend;
@@ -76,8 +77,11 @@ namespace _Script.Character
         private float _smoothDampVelocityX;
         private float _smoothDampVelocityY;
 
-        #region Quest
-        private PlayerQuestManager _playerQuestManager; public PlayerQuestManager PlayerQuestManager => _playerQuestManager;
+        #region PlayerRank
+
+        
+        private PlayerRank.PlayerRank _playerRank = new PlayerRank.PlayerRank();
+        public PlayerRankEnum Rank => _playerRank.Rank;
 
         #endregion
 

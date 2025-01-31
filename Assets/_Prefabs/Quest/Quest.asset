@@ -14,11 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questID: Quest
   questName: Feathery feather
-  questDescription: 
   questStartDialogue:
-    dialogue: []
-  questEndDialogue:
-    dialogue: []
+    dialogue:
+    - I have got an apple for you !
+  questInProgressDialogue:
+    dialogue:
+    - Off you go!
+  questCompleteDialogue:
+    dialogue:
+    - Thank you !
+  unlockCondition:
+    playerRank: 0
+    prerequisite: 0
   objectives:
   - objectiveData:
       rid: 5907273043284066455

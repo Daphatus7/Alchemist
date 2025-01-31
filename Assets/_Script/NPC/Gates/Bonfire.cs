@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace _Script.NPC.Gates
 {
-    public class Bonfire : ModularNpcController
+    public class Bonfire : NpcController
     {
         protected override void OnDialogueEnd()
         {

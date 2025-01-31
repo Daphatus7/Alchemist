@@ -14,18 +14,13 @@ namespace _Script.Quest.PlayerQuest
         private readonly List<QuestInstance> _activeQuests = new List<QuestInstance>(); public List<QuestInstance> ActiveQuests => _activeQuests;
         private readonly List<MainQuestInstance> _mainQuests = new List<MainQuestInstance>(); public List<MainQuestInstance> MainQuests => _mainQuests;
         private readonly Queue<QuestInstance> _completedQuests = new Queue<QuestInstance>(); public Queue<QuestInstance> CompletedQuests => _completedQuests;
-
         
-        public void Start()
-        {
-        }
-
         public void Update()
         {
             if (!Prototype_Active_Quest_Ui.Instance) return;
             foreach (var quest in _activeQuests)
             {
-                Prototype_Active_Quest_Ui.Instance.SetText(quest.GetQuestStatus());
+                Prototype_Active_Quest_Ui.Instance.SetText(quest.QuestStatus);
             }
         }
         

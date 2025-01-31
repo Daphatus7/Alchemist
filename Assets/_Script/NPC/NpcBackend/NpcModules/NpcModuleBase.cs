@@ -10,9 +10,12 @@ namespace _Script.NPC.NpcBackend.NpcModules
     [DefaultExecutionOrder(500)]
     public abstract class NpcModuleBase : MonoBehaviour, INpcModuleHandler
     {
+        public abstract bool ShouldLoadModule();
+
         public abstract void LoadNpcModule(INpcModuleHandler handler);
 
         public abstract void UnloadNpcModule(INpcModuleHandler handler);
+        public string NpcId => Npc.NpcId;
 
         public NpcModuleInfo ModuleInfo => _moduleInfo ??= new NpcModuleInfo(ModuleName, ModuleDescription, HandlerType);
         public virtual NpcHandlerType HandlerType => _moduleInfo.HandlerType;
@@ -21,7 +24,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
         private NpcModuleInfo _moduleInfo;
         public abstract string ModuleName { get;}
         protected INpcModuleControlHandler Npc;
-
+        
         protected virtual void Awake()
         {
             Npc = GetComponent<INpcModuleControlHandler>();

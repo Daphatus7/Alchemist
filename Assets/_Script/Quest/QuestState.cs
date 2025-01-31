@@ -5,8 +5,14 @@ namespace _Script.Quest
 {
     public enum QuestState
     {
-        Inactive,
-        Active,
+        /// <summary>
+        /// The quest has not been started
+        /// </summary>
+        NotStarted,
+        /// <summary>
+        /// The quest has started and the p
+        /// </summary>
+        InProgress,
         Completed
     }
 }

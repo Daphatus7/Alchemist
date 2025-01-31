@@ -2018,7 +2018,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a58f4ffeb14242e7a4a70ee16319c729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testQuest: {fileID: 11400000, guid: dae82e7b0182641e4ad731b972f10cd5, type: 2}
+  storylineChecker: {fileID: 11400000, guid: 6666b8a71d8034953a3194ba0cd78fc8, type: 2}
 --- !u!1001 &982889974
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2839,7 +2839,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1361047215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1502db04db944c05ad7b2931de1bfe88, type: 3}
+  m_Script: {fileID: 11500000, guid: fbf5bf8c8cc44da6a9c4e385891e4c13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1388405484
@@ -4259,6 +4259,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 333667428}
     m_Modifications:
+    - target: {fileID: 4397920118533555303, guid: 69d15502a35b4446d99507718fee64e1,
+        type: 3}
+      propertyPath: typingSpeed
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 5800390371179828120, guid: 69d15502a35b4446d99507718fee64e1,
         type: 3}
       propertyPath: m_Pivot.x

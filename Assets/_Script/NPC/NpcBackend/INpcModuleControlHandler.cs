@@ -9,5 +9,6 @@ namespace _Script.NPC.NpcBackend
     {
         void AddMoreUIHandler(IUIHandler uiHandler);
         void RemoveUIHandler(IUIHandler uiHandler);
+        string NpcId { get; }
     }
 }
