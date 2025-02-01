@@ -266,20 +266,19 @@ namespace _Script.Inventory.InventoryBackend
         private void OnRemovingItem(int slotIndex)
         {
             var itemStack = GetItemStackAt(slotIndex);
-            if(itemStack == null || itemStack.IsEmpty) return;
-            //clear the item connections of the stack item
+            if(itemStack == null) return;  // Remove the check for IsEmpty
+            // Clear the inventory status using the remaining quantity (if any)
             InventoryStatus.UpdateInventoryStatus(itemStack.ItemData.itemID, -itemStack.Quantity);
             foreach(var pos in itemStack.ItemPositions)
             {
                 var sIndex = GridToSlotIndex(pos.x, pos.y);
-                //remove information about the item in the slot
                 Slots[sIndex].Clear();
             }
             OnInventorySlotChangedEvent(itemStack.ItemPositions);
             _itemStacks.Remove(itemStack);
             OnOnItemStackChanged();
-
         }
+
 
         public void AddItemToEmptySlot(ItemStack itemStack, List<Vector2Int> projectedPositions)
         {
@@ -411,7 +410,7 @@ namespace _Script.Inventory.InventoryBackend
         
         protected virtual void OnItemUsedUp(int slotIndex)
         {
-            // Subclasses can override to handle item fully used (e.g. durability 0).
+            Debug.Log("Item used up.");
         }
         
         public abstract void LeftClickItem(int slotIndex);

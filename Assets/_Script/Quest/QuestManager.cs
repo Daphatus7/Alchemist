@@ -138,6 +138,8 @@ namespace _Script.Quest
             //Drop the reward items
             foreach (var o in reward.items)
             {
+                //Debug the item drop
+                Debug.Log($"[QuestManager] Dropping {o.amount} {o.item.itemID}");
                 ItemLootable.DropItem(GameManager.Instance.PlayerCharacter.transform.position, o.item, o.amount);
             }
         }
