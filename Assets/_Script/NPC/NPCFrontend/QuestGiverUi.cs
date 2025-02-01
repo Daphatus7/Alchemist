@@ -322,7 +322,7 @@ namespace _Script.NPC.NPCFrontend
                 Debug.Log("Quest completed successfully. + maybe update UI");
             }
             // Complete the quest Dialogue
-            
+            ServiceLocator.Instance.Get<INpcUIService>().TerminateDialogue();
             HideUI();
         }
 
@@ -333,7 +333,6 @@ namespace _Script.NPC.NPCFrontend
         public override void HideUI()
         {
             base.HideUI();
-            CurrentDialogueHandler?.TerminateConversation();
             ClearButtonPanel();
         }
 

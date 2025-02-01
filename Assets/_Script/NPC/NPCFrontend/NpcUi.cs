@@ -13,11 +13,13 @@ using UnityEngine.UI;
 
 namespace _Script.NPC.NPCFrontend
 {
-    public class NpcUi : NpcUiBase, INpcUiCallback
+    public class NpcUi : NpcUiBase, INpcUiCallback, INpcUIService
     {
         #region Main UI Elements - main dialogue box
         [Header("UI Elements")] [Tooltip("Panel for the dialogue box")] [SerializeField]
         private GameObject dialogueOptionsButtonPrefab;
+
+        protected INpcDialogueHandler CurrentDialogueHandler;
 
         [SerializeField] private GameObject dialogueModulePanel;
         
@@ -48,15 +50,13 @@ namespace _Script.NPC.NPCFrontend
         
         protected void Awake()
         {
-            closeButton.onClick.AddListener(EndDialogue);
+            closeButton.onClick.AddListener(TerminateDialogue);
 
             _npcUis = new Dictionary<NpcUiType, NpcUiBase>
             {
                 { NpcUiType.Choice, npcChoiceUi },
                 { NpcUiType.QuestGiver, questGiverUi }
             };
-            npcChoiceUi.CurrentDialogueHandler = CurrentDialogueHandler;
-            questGiverUi.CurrentDialogueHandler = CurrentDialogueHandler;
         }
 
         private void Start()
@@ -99,7 +99,7 @@ namespace _Script.NPC.NPCFrontend
             //Load the NPC text
             LoadNpcChoice(mainNpc, moduleHandlers);
         }
-
+        
         public void OnNpcUiChange(NpcUiType uiType)
         {
             throw new NotImplementedException();
@@ -111,7 +111,7 @@ namespace _Script.NPC.NPCFrontend
             questGiverUi.LoadQuestData(quest);
         }
 
-        private void EndDialogue()
+        public void TerminateDialogue()
         {
             CurrentDialogueHandler.TerminateConversation();
             HideUI();

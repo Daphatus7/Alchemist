@@ -67,6 +67,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
             
             if (_quests.Count > 0)
             {
+                Debug.Log("Try to unlock next quest");
                 var quest = _quests.Peek();
                 if (quest.CanUnlockQuest())
                 {
@@ -93,7 +94,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
             {
                 QuestManager.Instance.CompleteQuest(_currentQuest);
                 _currentQuest = null;
-                Debug.Log("Quest Completed and try to unlock next quest");
+                _currentAvailableQuest = null;
                 TryUnlockQuest();
                 return true;
             }

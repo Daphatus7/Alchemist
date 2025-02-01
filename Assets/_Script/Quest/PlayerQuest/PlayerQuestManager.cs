@@ -17,6 +17,7 @@ namespace _Script.Quest.PlayerQuest
         public void Update()
         {
             if (!Prototype_Active_Quest_Ui.Instance) return;
+            Prototype_Active_Quest_Ui.Instance.SetText("");
             foreach (var quest in _activeQuests)
             {
                 Prototype_Active_Quest_Ui.Instance.SetText(quest.Value.QuestStatus);

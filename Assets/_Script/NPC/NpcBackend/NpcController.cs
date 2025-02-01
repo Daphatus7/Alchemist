@@ -101,7 +101,11 @@ namespace _Script.NPC.NpcBackend
         {
             OnConversationTerminated();
         }
-        
+
+        public void CloseMainUI()
+        {
+        }
+
         /// <summary>
         /// Conversation starts here
         /// </summary>
@@ -209,5 +213,6 @@ namespace _Script.NPC.NpcBackend
         INpcModuleHandler[] GetAddonModules();
         NpcInfo GetNpcDialogue();
         void TerminateConversation();
+        void CloseMainUI();
     }
 }

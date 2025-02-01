@@ -60,7 +60,10 @@ namespace _Script.Inventory.ActionBarFrontend
             {
                 var previousItemStack = inventory.GetItemStackAt(inventory.SelectedSlotIndex);
                 var newItemStack = inventory.GetItemStackAt(slotIndex);
-
+                if(newItemStack == null)
+                {
+                    return;
+                }
                 var selectedItem = newItemStack.ItemData as ConsumableItem;
                 if(selectedItem != null)
                 {

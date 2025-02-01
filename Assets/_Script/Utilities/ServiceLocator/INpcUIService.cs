@@ -8,5 +8,6 @@ namespace _Script.Utilities.ServiceLocator
     public interface INpcUIService : IUIService
     {
         void StartDialogue(INpcDialogueHandler dialogueHandler);
+        void TerminateDialogue();
     }
 }

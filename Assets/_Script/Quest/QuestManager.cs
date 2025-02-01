@@ -7,6 +7,8 @@ using _Script.Items.Lootable;
 using _Script.Managers;
 using _Script.NPC.NpcBackend;
 using _Script.NPC.NpcBackend.NpcModules;
+using _Script.Quest.PlayerQuest;
+using _Script.Utilities.ServiceLocator;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -130,6 +132,7 @@ namespace _Script.Quest
                 }
             }
             GiveReward(currentQuest.QuestDefinition.reward);
+            ServiceLocator.Instance.Get<IPlayerQuestService>().CompleteQuest(currentQuest);
             currentQuest.Cleanup();
         }
         
