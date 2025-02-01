@@ -22,5 +22,6 @@ namespace _Script.NPC.NpcBackend
         bool StartQuest();
         void TryUnlockQuest();
         string NpcID { get; }
+        bool CompleteQuest();
     }
 }

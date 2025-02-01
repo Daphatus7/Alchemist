@@ -3,9 +3,11 @@
 
 using System;
 using System.Collections.Generic;
+using _Script.Items.Lootable;
 using _Script.Managers;
 using _Script.NPC.NpcBackend;
 using _Script.NPC.NpcBackend.NpcModules;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace _Script.Quest
@@ -13,8 +15,6 @@ namespace _Script.Quest
     
     public sealed class QuestManager : Singleton<QuestManager>
     {
-        private List<QuestInstance> _activeQuests; public List<QuestInstance> ActiveQuests => _activeQuests;
-        
         /// <summary>
         /// NPC ID -> Quest Giver Module
         /// </summary>
@@ -78,16 +78,68 @@ namespace _Script.Quest
             onEnemyKilled?.Invoke(enemyID);
         }
 
-        private void CheckQuestCompletion(QuestInstance quest)
+        public bool CheckQuestCompletion(QuestInstance quest)
         {
-            if (quest.TryCompleteQuest())
+            // Iterate over each objective in the quest.
+            foreach (var objective in quest.Objectives)
             {
-                //remove items from inventory etc.
+                // If any objective is not marked as complete, the quest is not complete.
+                if (!objective.isComplete)
+                {
+                    Debug.Log($"Objective {objective.objectiveData.type} is not complete");
+                    return false;
+                }
+
+                // If the objective is a "Collect" type, verify the inventory count.
+                if (objective.objectiveData.type == ObjectiveType.Collect)
+                {
+                    var collectObjective = (CollectObjective)objective.objectiveData;
+                    var count = GameManager.Instance.PlayerCharacter.PlayerInventory.GetItemCount(collectObjective.item.itemID);
+                    // If the inventory count is less than required, the objective is not satisfied.
+                    if (count < objective.objectiveData.requiredCount)
+                    {
+                        return false;
+                    }
+                }
+        
+                // For other objective types, you might add additional checks here if needed.
             }
+    
+            // If we get through all objectives without returning false, then the quest is complete.
+            return true;
         }
 
+        
+        public void CompleteQuest(QuestInstance currentQuest)
+        {
+            var questObjectives = currentQuest.Objectives;
+            foreach (var o in questObjectives)
+            {
+                if (o.isComplete)
+                {
+                    if (o.objectiveData.type == ObjectiveType.Collect)
+                    {
+                        //remove the items from the player inventory
+                        GameManager.Instance.PlayerCharacter.PlayerInventory.RemoveItemById(((CollectObjective)o.objectiveData).item.itemID, o.objectiveData.requiredCount);
+                    }
+                }
+                else
+                {
+                    throw new Exception("Quest is not completed, but it was claimed to be completed");
+                    return;
+                }
+            }
+            GiveReward(currentQuest.QuestDefinition.reward);
+            currentQuest.Cleanup();
+        }
+        
         private void GiveReward(QuestReward reward)
         {
+            //Drop the reward items
+            foreach (var o in reward.items)
+            {
+                ItemLootable.DropItem(GameManager.Instance.PlayerCharacter.transform.position, o.item, o.amount);
+            }
         }
 
         public bool CheckPrerequisite(UnlockCondition prerequisite)
@@ -102,6 +154,8 @@ namespace _Script.Quest
         {
             onQuestCompleted?.Invoke(quest);
         }
+
+
     }
 
 }

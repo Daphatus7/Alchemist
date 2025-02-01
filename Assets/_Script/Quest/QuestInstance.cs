@@ -54,18 +54,6 @@ namespace _Script.Quest
             }
         }
         
-        
-        /// <summary>
-        /// Called by the quest manager when the player interacts with the quest giver
-        /// Check if the quest is complete
-        /// Check inventory for items etc.
-        /// </summary>
-        public bool TryCompleteQuest()
-        {
-            CheckCompletion();
-            return false;
-        }
-        
         private void OnItemCollected(string itemID, int totalCount)
         {
             _objectives.ForEach(obj =>
@@ -164,13 +152,14 @@ namespace _Script.Quest
                 return status;
             }
         }
-
-        // 当任务完成/销毁时，最好取消订阅事件，避免内存泄露
+        
+        // Unsubscribe from events
         public void Cleanup()
         {
             if (QuestManager.Instance == null) return;
             QuestManager.Instance.onEnemyKilled -= OnEnemyKilled;
             QuestManager.Instance.onItemCollected -= OnItemCollected;
+            Debug.Log("QuestInstance cleaned up to prevent memory leak");
         }
         
     }

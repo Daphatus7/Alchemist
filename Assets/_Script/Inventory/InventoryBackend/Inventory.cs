@@ -293,42 +293,74 @@ namespace _Script.Inventory.InventoryBackend
         // ----------------------------------------------
         // Remove item from the inventory by quantity
         // ----------------------------------------------
-        protected virtual bool RemoveItem(ItemStack itemStack, int quantity = 1)
+        public virtual bool RemoveItemById(string itemId, int quantity = 1)
         {
-            // if (itemStack == null || itemStack.IsEmpty || quantity <= 0)
-            // {
-            //     Debug.LogWarning("Cannot remove null or empty stack, or invalid quantity.");
-            //     return false;
-            // }
-            //
-            // int quantityToRemove = quantity;
-            // for (int i = 0; i < Capacity; i++)
-            // {
-            //     var slot = slots[i];
-            //     if (!slot.IsEmpty && slot.ItemData == itemStack.ItemData)
-            //     {
-            //         int amountToRemove = Math.Min(quantityToRemove, slot.Quantity);
-            //         slot.Quantity -= amountToRemove;    // reduces the stack in this slot
-            //         quantityToRemove -= amountToRemove;
-            //
-            //         if (slot.Quantity <= 0)
-            //         {
-            //             OnItemUsedUp(i);
-            //             slot.Clear();
-            //             _itemStacks[i] = new ItemStack();
-            //         }
-            //         OnInventorySlotChanged?.Invoke(i);
-            //
-            //         if (quantityToRemove <= 0)
-            //         {
-            //             return true; // done
-            //         }
-            //     }
-            // }
-            //
-            // Debug.Log("Not enough items to remove.");
-            return false;
+            // Validate input
+            if (string.IsNullOrEmpty(itemId))
+            {
+                Debug.LogWarning("Invalid itemId provided.");
+                return false;
+            }
+            if (quantity <= 0)
+            {
+                Debug.LogWarning("Invalid quantity to remove: " + quantity);
+                return false;
+            }
+
+            // First, compute the total available amount for the specified itemId.
+            int totalAvailable = 0;
+            foreach (var stack in _itemStacks)
+            {
+                if (stack != null && !stack.IsEmpty && stack.ItemData.ItemID.Equals(itemId))
+                {
+                    totalAvailable += stack.Quantity;
+                }
+            }
+
+            // If there aren’t enough items available, then nothing will be removed.
+            if (totalAvailable < quantity)
+            {
+                Debug.Log($"Not enough items with id {itemId} to remove. Requested: {quantity}, available: {totalAvailable}");
+                return false;
+            }
+
+            // Remove the required quantity from stacks.
+            int remaining = quantity;
+            // Iterate over a copy so that if a whole stack is removed (which clears it from _itemStacks)
+            // the iteration is not affected.
+            List<ItemStack> stacksCopy = new List<ItemStack>(_itemStacks);
+            foreach (var stack in stacksCopy)
+            {
+                if (remaining <= 0)
+                    break;
+
+                if (stack != null && !stack.IsEmpty && stack.ItemData.ItemID.Equals(itemId))
+                {
+                    if (stack.Quantity <= remaining)
+                    {
+                        // If this stack has less than or equal to the remaining quantity,
+                        // remove the whole stack.
+                        remaining -= stack.Quantity;
+                        // Pick one of the positions to trigger the removal. OnRemovingItem will clear
+                        // all slots associated with the item and update InventoryStatus.
+                        int slotIndex = GridToSlotIndex(stack.ItemPositions[0].x, stack.ItemPositions[0].y);
+                        OnRemovingItem(slotIndex);
+                    }
+                    else
+                    {
+                        // If the current stack has more than we need, just subtract the required amount.
+                        stack.Quantity -= remaining;
+                        InventoryStatus.UpdateInventoryStatus(itemId, -remaining);
+                        OnInventorySlotChangedEvent(stack.ItemPositions);
+                        // Notify that the item stacks have changed.
+                        OnOnItemStackChanged();
+                        remaining = 0;
+                    }
+                }
+            }
+            return true;
         }
+
         
         
         // ----------------------------------------------

@@ -316,20 +316,20 @@ namespace _Script.NPC.NPCFrontend
         private void OnCompleteQuestClicked()
         {
             Debug.Log("Completing quest...");
+            // Mark quest as Completed - call [game manager or NPC ] to handle rewards, etc.
+            if (_currentNpc.CompleteQuest())
+            {
+                Debug.Log("Quest completed successfully. + maybe update UI");
+            }
+            // Complete the quest Dialogue
+            
             HideUI();
         }
 
         #endregion
 
         #region Show / Hide UI Overrides
-
-        public override void ShowUI()
-        {
-            base.ShowUI();
-            // We do NOT attach button listeners in ShowUI because we 
-            // create them dynamically via CreateButton(...).
-        }
-
+        
         public override void HideUI()
         {
             base.HideUI();

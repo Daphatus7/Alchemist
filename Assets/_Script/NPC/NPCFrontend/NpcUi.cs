@@ -42,7 +42,7 @@ namespace _Script.NPC.NPCFrontend
         /// <summary>
         /// This allows the dialogue to be ended from the outside
         /// </summary>
-        public event Action OnDialogueEnd;
+        private event Action OnDialogueEnd;
         
         /// <summary>
         /// Npc Handler that is currently being interacted with

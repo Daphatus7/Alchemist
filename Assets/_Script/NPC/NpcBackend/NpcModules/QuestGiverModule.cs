@@ -20,6 +20,8 @@ namespace _Script.NPC.NpcBackend.NpcModules
         
         [SerializeField] private string optionName = "Quest";
         public string NpcID => NpcId;
+  
+
         /// <summary>
         /// 列举所有npc能提供的任务
         /// 只有当前任务完成之后能够解锁下一个任务
@@ -77,6 +79,25 @@ namespace _Script.NPC.NpcBackend.NpcModules
         {
             //check if there is any active quest
             return _currentAvailableQuest != null;
+        }
+        
+        public bool CompleteQuest()
+        {
+            //call the quest manager to complete the quest
+            //check if the quest satisfies the completion condition
+            if (!QuestManager.Instance.CheckQuestCompletion(_currentQuest))
+            {
+                Debug.Log("Quest not completed yet but displayed as completed");
+            }
+            else
+            {
+                QuestManager.Instance.CompleteQuest(_currentQuest);
+                _currentQuest = null;
+                Debug.Log("Quest Completed and try to unlock next quest");
+                TryUnlockQuest();
+                return true;
+            }
+            return false;
         }
 
         public override void LoadNpcModule(INpcModuleHandler handler)

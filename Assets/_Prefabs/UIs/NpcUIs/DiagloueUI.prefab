@@ -89,7 +89,6 @@ GameObject:
   - component: {fileID: 2276978102048416523}
   - component: {fileID: 7958130928604320131}
   - component: {fileID: 3986744693750564599}
-  - component: {fileID: 2833736116736882359}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -199,23 +198,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2833736116736882359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3371374788791703565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6a939a6b6bde48e08485641807cf88c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiPanel: {fileID: 0}
-  acceptButton: {fileID: 0}
-  declineButton: {fileID: 0}
-  questDescriptionText: {fileID: 0}
-  questRewardText: {fileID: 0}
 --- !u!1 &5195879214018127508
 GameObject:
   m_ObjectHideFlags: 0

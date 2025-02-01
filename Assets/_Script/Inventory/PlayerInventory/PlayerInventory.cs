@@ -187,6 +187,19 @@ namespace _Script.Inventory.PlayerInventory
         {
             UseItem(slotIndex);
         }
+
+        public int GetItemCount(string itemItemID)
+        {
+            int count = 0;
+            foreach(var stack in ItemStacks)
+            {
+                if(stack.ItemData.ItemID == itemItemID)
+                {
+                    count += stack.Quantity;
+                }
+            }
+            return count;
+        }
     }
 
     public class ActionBarContext

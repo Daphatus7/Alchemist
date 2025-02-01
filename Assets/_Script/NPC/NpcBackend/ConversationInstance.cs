@@ -20,7 +20,7 @@ namespace _Script.NPC.NpcBackend
         private readonly List<IUIHandler> _npcUIHandlers = new List<IUIHandler>();
 
         // Event that notifies that the interaction has ended
-        public event Action OnInteractionTerminated;
+        private event Action _onInteractionTerminated;
 
         public ConversationInstance()
         {
@@ -41,10 +41,24 @@ namespace _Script.NPC.NpcBackend
         {
             CloseAllUI();
             // Trigger the event to let subscribers (NPC, Manager, etc.) know the interaction ended
-            OnInteractionTerminated?.Invoke();
-
+            OnInteractionTerminated();
             // Clear references to allow GC
             _npcUIHandlers.Clear();
+        }
+        
+        public void OnInteractionTerminated()
+        {
+            _onInteractionTerminated?.Invoke();
+        }
+        
+        public void RegisterInteractionTerminatedEvent(Action action)
+        {
+            _onInteractionTerminated += action;
+        }
+        
+        public void UnregisterInteractionTerminatedEvent(Action action)
+        {
+            _onInteractionTerminated -= action;
         }
         
         private void CloseAllUI()

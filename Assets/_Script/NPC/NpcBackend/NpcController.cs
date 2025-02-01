@@ -90,7 +90,7 @@ namespace _Script.NPC.NpcBackend
 
         protected virtual void OnDialogueEnd()
         {
-            Debug.Log("Dialogue Ended");
+            OnConversationTerminated();
         }
         
         private void StartConversation(PlayerCharacter player)
@@ -99,7 +99,7 @@ namespace _Script.NPC.NpcBackend
             CurrentPlayer = player;
             
             _conversationInstance = new ConversationInstance();
-            _conversationInstance.OnInteractionTerminated += OnConversationTerminated;
+            _conversationInstance.RegisterInteractionTerminatedEvent(OnConversationTerminated);
             
             
             //Delegate to the NPC UI Service
@@ -125,7 +125,7 @@ namespace _Script.NPC.NpcBackend
 
         private void OnConversationTerminated()
         {
-            _conversationInstance.OnInteractionTerminated -= OnConversationTerminated;
+            _conversationInstance.UnregisterInteractionTerminatedEvent(OnConversationTerminated);
             _conversationInstance = null;
 
             // Stop distance checking if it's still running
