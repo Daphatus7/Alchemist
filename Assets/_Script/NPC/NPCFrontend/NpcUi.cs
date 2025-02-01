@@ -13,7 +13,7 @@ using UnityEngine.UI;
 
 namespace _Script.NPC.NPCFrontend
 {
-    public class NpcUi : NpcUiBase, INpcUIService, INpcUiCallback
+    public class NpcUi : NpcUiBase, INpcUiCallback
     {
         #region Main UI Elements - main dialogue box
         [Header("UI Elements")] [Tooltip("Panel for the dialogue box")] [SerializeField]
@@ -38,16 +38,10 @@ namespace _Script.NPC.NPCFrontend
         #endregion
 
         #region Logic
-
-        /// <summary>
-        /// This allows the dialogue to be ended from the outside
-        /// </summary>
-        private event Action OnDialogueEnd;
         
         /// <summary>
         /// Npc Handler that is currently being interacted with
         /// </summary>
-        private INpcDialogueHandler _currentDialogueHandler;
 
         #endregion
         
@@ -61,6 +55,8 @@ namespace _Script.NPC.NPCFrontend
                 { NpcUiType.Choice, npcChoiceUi },
                 { NpcUiType.QuestGiver, questGiverUi }
             };
+            npcChoiceUi.CurrentDialogueHandler = CurrentDialogueHandler;
+            questGiverUi.CurrentDialogueHandler = CurrentDialogueHandler;
         }
 
         private void Start()
@@ -94,11 +90,11 @@ namespace _Script.NPC.NPCFrontend
             ShowUI();
 
             //reference the current dialogue handler
-            _currentDialogueHandler = dialogueHandler;
+            CurrentDialogueHandler = dialogueHandler;
             
             //load the NPC text with choices
-            var mainNpc = _currentDialogueHandler.GetNpcDialogue();
-            var moduleHandlers = _currentDialogueHandler.GetAddonModules();
+            var mainNpc = CurrentDialogueHandler.GetNpcDialogue();
+            var moduleHandlers = CurrentDialogueHandler.GetAddonModules();
             
             //Load the NPC text
             LoadNpcChoice(mainNpc, moduleHandlers);
@@ -117,8 +113,7 @@ namespace _Script.NPC.NPCFrontend
 
         private void EndDialogue()
         {
-            //就在这里，需要
-            _currentDialogueHandler.OnDialogueEnd();
+            CurrentDialogueHandler.TerminateConversation();
             HideUI();
         }
 
@@ -137,12 +132,7 @@ namespace _Script.NPC.NPCFrontend
             DisplayUi(NpcUiType.Choice);
             npcChoiceUi.LoadNpcChoice(mainNpc, moduleHandlers);
         }
-
-
-        protected virtual void OnOnDialogueEnd()
-        {
-            OnDialogueEnd?.Invoke();
-        }
+        
     }
     public enum NpcUiType
     {

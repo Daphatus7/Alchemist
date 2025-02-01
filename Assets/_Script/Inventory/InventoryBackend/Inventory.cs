@@ -279,7 +279,6 @@ namespace _Script.Inventory.InventoryBackend
             OnOnItemStackChanged();
         }
 
-
         public void AddItemToEmptySlot(ItemStack itemStack, List<Vector2Int> projectedPositions)
         {
             ItemStack placedStack = CreateItemStackAtLocation(projectedPositions, itemStack.Quantity, itemStack);

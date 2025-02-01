@@ -97,7 +97,7 @@ namespace _Script.NPC.NpcBackend
         }
 
 
-        public virtual void OnDialogueEnd()
+        public virtual void TerminateConversation()
         {
             OnConversationTerminated();
         }
@@ -208,6 +208,6 @@ namespace _Script.NPC.NpcBackend
     {
         INpcModuleHandler[] GetAddonModules();
         NpcInfo GetNpcDialogue();
-        void OnDialogueEnd();
+        void TerminateConversation();
     }
 }

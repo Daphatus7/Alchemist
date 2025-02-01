@@ -333,6 +333,7 @@ namespace _Script.NPC.NPCFrontend
         public override void HideUI()
         {
             base.HideUI();
+            CurrentDialogueHandler?.TerminateConversation();
             ClearButtonPanel();
         }
 

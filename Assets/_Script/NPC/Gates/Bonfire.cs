@@ -11,9 +11,9 @@ namespace _Script.NPC.Gates
 {
     public class Bonfire : NpcController
     {
-        public override void OnDialogueEnd()
+        public override void TerminateConversation()
         {
-            base.OnDialogueEnd();
+            base.TerminateConversation();
             Debug.Log("Bonfire is lit");
             
             GameManager.Instance.LoadMainScene("TownMap");

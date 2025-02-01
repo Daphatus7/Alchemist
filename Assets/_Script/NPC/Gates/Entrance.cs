@@ -8,9 +8,9 @@ namespace _Script.NPC.Gates
 {
     public class Entrance : NpcController
     {
-        public override void OnDialogueEnd()
+        public override void TerminateConversation()
         {
-            base.OnDialogueEnd();
+            base.TerminateConversation();
             
             // need hard fix
             
