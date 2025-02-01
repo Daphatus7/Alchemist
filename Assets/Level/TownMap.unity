@@ -1930,6 +1930,17 @@ PrefabInstance:
       propertyPath: textColor.r
       value: 0.996
       objectReference: {fileID: 0}
+    - target: {fileID: 8569476312756211817, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: quests.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8569476312756211817, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: 'quests.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: dadca1d97f99049b3ad52c5f073c5796,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

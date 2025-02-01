@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd4272b06cb0423890de0d1348e7f344, type: 3}
+  m_Name: Quest1
+  m_EditorClassIdentifier: 
+  questID: Quest1
+  questName: Applie Apple
+  questStartDialogue:
+    dialogue:
+    - I have got an apple for you for real this time
+  questInProgressDialogue:
+    dialogue:
+    - Off you go!
+  questCompleteDialogue:
+    dialogue:
+    - Lovin it!
+  unlockCondition:
+    playerRank: 0
+    prerequisite: 0
+  objectives:
+  - objectiveData:
+      rid: 5907273043284066455
+    isComplete: 0
+    currentCount: 0
+  reward:
+    gold: 500
+    experience: 100
+    items:
+    - item: {fileID: 11400000, guid: e2da08777c5dc4b19b4ca5a33ad2bdcd, type: 2}
+      amount: 5
+  references:
+    version: 2
+    RefIds:
+    - rid: 5907273043284066455
+      type: {class: CollectObjective, ns: _Script.Quest, asm: Assembly-CSharp}
+      data:
+        type: 1
+        requiredCount: 1
+        item: {fileID: 11400000, guid: b539ddb23ce724e04bdafca4715ddbf5, type: 2}
