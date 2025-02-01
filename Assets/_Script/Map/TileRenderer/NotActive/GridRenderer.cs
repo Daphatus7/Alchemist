@@ -194,7 +194,6 @@ namespace _Script.Map.TileRenderer.NotActive
 
             MaterialPropertyBlock props = new MaterialPropertyBlock();
             int batchCount = 0;
-            int renderedTiles = 0;
 
             for (int i = 0; i < totalTiles; i++)
             {

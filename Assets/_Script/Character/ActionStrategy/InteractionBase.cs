@@ -48,12 +48,12 @@ namespace _Script.Character.ActionStrategy
             return true;
         }
         
-        public void StopInteract(GameObject player)
-        {
-            if (!_hit.collider) return;
-            var interactable = _hit.collider.GetComponent<IInteractable>();
-            interactable?.InteractEnd();
-        }
+        // public void StopInteract(GameObject player)
+        // {
+        //     if (!_hit.collider) return;
+        //     var interactable = _hit.collider.GetComponent<IInteractable>();
+        //     interactable?.InteractEnd();
+        // }
 
         public bool Highlight(out IInteractable interactable)
         {

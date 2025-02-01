@@ -117,7 +117,8 @@ namespace _Script.NPC.NPCFrontend
 
         private void EndDialogue()
         {
-            OnDialogueEnd?.Invoke();
+            //就在这里，需要
+            _currentDialogueHandler.OnDialogueEnd();
             HideUI();
         }
 
@@ -136,8 +137,12 @@ namespace _Script.NPC.NPCFrontend
             DisplayUi(NpcUiType.Choice);
             npcChoiceUi.LoadNpcChoice(mainNpc, moduleHandlers);
         }
-        
-        
+
+
+        protected virtual void OnOnDialogueEnd()
+        {
+            OnDialogueEnd?.Invoke();
+        }
     }
     public enum NpcUiType
     {

@@ -4,14 +4,15 @@ using _Script.Map;
 using _Script.Utilities.SaveGame;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Script.Managers
 {
     public class SaveLoadManager: PersistentSingleton<SaveLoadManager>
     {
         [SerializeField] private string saveName = "save_1";
-        [SerializeField] private bool _removeSave = false;
-        [SerializeField] private GameTileMap _gridTester;
+        [FormerlySerializedAs("_removeSave")] [SerializeField] private bool removeSave = false;
+        [FormerlySerializedAs("_gridTester")] [SerializeField] private GameTileMap gridTester;
         
         [SerializeField] private bool _debug = false;
         
@@ -65,7 +66,7 @@ namespace _Script.Managers
         
         public void LoadDefaultTileMap()
         {
-            _gridTester.LoadDefaultData();
+            gridTester.LoadDefaultData();
         }
     }
 }

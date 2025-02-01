@@ -8,7 +8,7 @@ namespace _Script.NPC.Gates
 {
     public class Entrance : NpcController
     {
-        protected override void OnDialogueEnd()
+        public override void OnDialogueEnd()
         {
             base.OnDialogueEnd();
             

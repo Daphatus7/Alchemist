@@ -305,13 +305,13 @@ namespace _Script.Map.Generators
         {
             foreach (var b in _biomes)
             {
-                if (b.poiTile == null || b.numberOfPOIs <= 0) continue;
+                if (b.numberOfPOIs <= 0) continue;
 
-                List<Vector2Int> placedPOIs = new List<Vector2Int>();
+                List<Vector2Int> placedPoIs = new List<Vector2Int>();
                 int attempts = 0;
                 int maxAttempts = b.numberOfPOIs * 50;
 
-                while (placedPOIs.Count < b.numberOfPOIs && attempts < maxAttempts)
+                while (placedPoIs.Count < b.numberOfPOIs && attempts < maxAttempts)
                 {
                     attempts++;
                     int x = Random.Range(2, _width - 2);
@@ -327,7 +327,7 @@ namespace _Script.Map.Generators
                         Vector2Int cand = new Vector2Int(x, y);
 
                         // Check distance to previously placed POIs
-                        foreach (var p in placedPOIs)
+                        foreach (var p in placedPoIs)
                         {
                             if (Vector2Int.Distance(p, cand) < b.minDistanceBetweenPOIs)
                             {
@@ -339,7 +339,7 @@ namespace _Script.Map.Generators
                         if (!tooClose)
                         {
                             _mapTiles[x, y].TileType = b.poiTile;
-                            placedPOIs.Add(cand);
+                            placedPoIs.Add(cand);
 
                             // Surround with terrain
                             SurroundPoiWithTerrain(x, y, b);

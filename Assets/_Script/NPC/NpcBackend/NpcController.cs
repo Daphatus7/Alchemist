@@ -25,13 +25,17 @@ namespace _Script.NPC.NpcBackend
         
         [SerializeField] private float dialogueDistance = 5f;
         
-        protected PlayerCharacter CurrentPlayer;
+        #region Private Fields
+        protected PlayerCharacter CurrentPlayer { get; set; }
         
         private NpcModuleBase[] _npcModules;
         
         private ConversationInstance _conversationInstance;
         private Coroutine _distanceCheckCoroutine;
-        
+        private readonly WaitForSeconds _distanceCheckWait = new WaitForSeconds(0.3f);
+
+        #endregion
+
         protected override IState[] InitializeStateMachine()
         {
             var npcStates = GetAllNpcStates();
@@ -84,51 +88,82 @@ namespace _Script.NPC.NpcBackend
         /// <param name="player"></param>
         public void Interact(PlayerCharacter player)
         {
+            if (player == null)
+            {
+                Debug.LogWarning("NpcController.Interact: Player is null.");
+                return;
+            }
             StartConversation(player);
         }
 
 
-        protected virtual void OnDialogueEnd()
+        public virtual void OnDialogueEnd()
         {
             OnConversationTerminated();
         }
         
+        /// <summary>
+        /// Conversation starts here
+        /// </summary>
+        /// <param name="player"></param>
         private void StartConversation(PlayerCharacter player)
         {
-            if (_conversationInstance != null) return;
+            if (_conversationInstance != null)
+            {
+                Debug.Log("Conversation already in progress");
+                return;
+            }
+            
             CurrentPlayer = player;
             
             _conversationInstance = new ConversationInstance();
             _conversationInstance.RegisterInteractionTerminatedEvent(OnConversationTerminated);
             
+            var npcUIService = ServiceLocator.Instance.Get<INpcUIService>();
+            if (npcUIService == null)
+            {
+                Debug.Log("NpcController.StartConversation: INpcUIService not found.");
+                return;
+            }
+
+            // Delegate dialogue display to the UI service.
+            npcUIService.StartDialogue(this);
             
-            //Delegate to the NPC UI Service
-            ServiceLocator.Instance.Get<INpcUIService>().StartDialogue(this); //this displays all the possible options provided by the NPC
-            
-            // Add reference to the UI handler, so it can be closed remotely
-            _conversationInstance.AddNpcUIHandler(ServiceLocator.Instance.Get<INpcUIService>() as IUIHandler);
-            
-            // Start a coroutine to monitor player distance
+            // If the UI service also implements IUIHandler, add it to the conversation instance.
+            if (npcUIService is IUIHandler uiHandler)
+            {
+                _conversationInstance.AddNpcUIHandler(uiHandler);
+            }
+            else
+            {
+                Debug.LogWarning("NpcController.StartConversation: INpcUIService does not implement IUIHandler.");
+            }
+
+            // Start monitoring the player's distance.
             _distanceCheckCoroutine = StartCoroutine(CheckPlayerDistance());
         }
         
         public void InteractEnd()
         {
-            if(_conversationInstance == null) return;
-            _conversationInstance.TerminateInteraction();
-            // OnConversationTerminated will be called from within TerminateInteraction
+            _conversationInstance?.TerminateInteraction();
         }
 
         public void OnHighlight() { }
 
         public void OnHighlightEnd() { }
 
+        /// <summary>
+        /// Callback invoked when the conversation is terminated.
+        /// </summary>
         private void OnConversationTerminated()
         {
-            _conversationInstance.UnregisterInteractionTerminatedEvent(OnConversationTerminated);
-            _conversationInstance = null;
+            if (_conversationInstance != null)
+            {
+                _conversationInstance.UnregisterInteractionTerminatedEvent(OnConversationTerminated);
+                _conversationInstance = null;
+            }
 
-            // Stop distance checking if it's still running
+            // Stop the distance-checking coroutine if it's running.
             if (_distanceCheckCoroutine != null)
             {
                 StopCoroutine(_distanceCheckCoroutine);
@@ -173,5 +208,6 @@ namespace _Script.NPC.NpcBackend
     {
         INpcModuleHandler[] GetAddonModules();
         NpcInfo GetNpcDialogue();
+        void OnDialogueEnd();
     }
 }

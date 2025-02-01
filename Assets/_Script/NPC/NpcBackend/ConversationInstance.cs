@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using _Script.Character;
 using _Script.Managers;
 using _Script.UserInterface;
+using UnityEngine;
 
 namespace _Script.NPC.NpcBackend
 {
@@ -45,8 +46,8 @@ namespace _Script.NPC.NpcBackend
             // Clear references to allow GC
             _npcUIHandlers.Clear();
         }
-        
-        public void OnInteractionTerminated()
+
+        private void OnInteractionTerminated()
         {
             _onInteractionTerminated?.Invoke();
         }
@@ -65,6 +66,7 @@ namespace _Script.NPC.NpcBackend
         {
             foreach (var handler in _npcUIHandlers)
             {
+                Debug.Log("Closing UI" + handler);
                 handler.HideUI();
             }
         }
