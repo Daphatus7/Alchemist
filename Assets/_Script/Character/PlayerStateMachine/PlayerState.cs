@@ -6,7 +6,7 @@ using _Script.Utilities.StateMachine;
 
 namespace _Script.Character.PlayerStateMachine
 {
-    public enum PlayerStateType
+    public enum PlayerStateFlagType
     {
         Hunger,
         Insanity,
@@ -15,45 +15,30 @@ namespace _Script.Character.PlayerStateMachine
     
     public abstract class PlayerState : IState
     {
-        public abstract PlayerStateType StateType { get; }
-        public abstract StatType ObservedStat { get; }
-        private PlayerStatsManager _playerStatsManager;
+        public abstract PlayerStateFlagType StateFlagType { get; }
+        public StatType ObservedStat { get; }
+        protected IPlayerStatsManagerHandler PlayerStatsManager;
+
         public abstract void Enter();
         public abstract void UpdateState();
         public abstract void Exit();
-        
-        public PlayerState(PlayerStatsManager playerStatsManager)
+
+        public void CleanUp()
         {
-            _playerStatsManager = playerStatsManager;
+            PlayerStatsManager.GetStat(ObservedStat).onBelowThreshold -= Enter;
+            PlayerStatsManager.GetStat(ObservedStat).onAboveThreshold -= Exit;
+        }
+
+        // Modified constructor with observedStat as a parameter.
+        protected PlayerState(IPlayerStatsManagerHandler playerStatsManager, StatType observedStat)
+        {
+            PlayerStatsManager = playerStatsManager;
+            ObservedStat = observedStat;
+            PlayerStatsManager.GetStat(ObservedStat).onBelowThreshold += Enter;
+            PlayerStatsManager.GetStat(ObservedStat).onAboveThreshold += Exit;
         }
     }
     
-    public class PlayerFoodState : PlayerState
-    {
-        public override PlayerStateType StateType => PlayerStateType.Hunger;
-        public override StatType ObservedStat => StatType.Food;
-        public PlayerFoodState(PlayerStatsManager playerStatsManager) : base(playerStatsManager)
-        {
-        }
-        
-        /// <summary>
-        /// Enter hunger state.
-        /// </summary>
-        /// <exception cref="NotImplementedException"></exception>
-        public override void Enter()
-        {
-            throw new System.NotImplementedException();
-        }
 
-        public override void UpdateState()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void Exit()
-        {
-            throw new System.NotImplementedException();
-        }
-    }
     
 }

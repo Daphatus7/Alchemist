@@ -4,20 +4,29 @@
 using System;
 using System.Collections.Generic;
 using _Script.Character.PlayerAttribute;
+using _Script.Character.PlayerStateMachine;
 using UnityEngine;
 
 namespace _Script.Character
 {
+    public interface IPlayerStatsManagerHandler
+    {
+        PlayerStat GetStat(StatType statType);
+        /// <summary>
+        /// unsubscribe all events when needed 
+        /// </summary>
+        void UnsubscribeAll();
+    }
+    
     /// <summary>
     /// PlayerStatsManager encapsulates all the core stats for the player, such as health, mana, food, sanity, and stamina.
     /// It provides a central point to access and modify player data.
     /// </summary>
     [Serializable]
-    public class PlayerStatsManager  
+    public class PlayerStatsManager: IPlayerStatsManagerHandler
     {
         
-        private Dictionary<StatType, PlayerStat> _playerStats;
-        public Dictionary<StatType, PlayerStat> PlayerStats => _playerStats;
+        private Dictionary<StatType, PlayerStat> _playerStats; public Dictionary<StatType, PlayerStat> PlayerStats => _playerStats;
         
         [SerializeField] private HealthStat health;
         [SerializeField] private PlayerMana mana;
@@ -25,6 +34,7 @@ namespace _Script.Character
         [SerializeField] private PlayerSanity sanity;
         [SerializeField] private PlayerStamina stamina;
 
+        private List<PlayerState> _playerStates = new List<PlayerState>();
         /// <summary>
         /// Event invoked whenever any stat is modified.
         /// Subscribers (like UI) can update their displays.
@@ -34,9 +44,9 @@ namespace _Script.Character
         
         public void UpdateState()
         {
-            foreach (var stat in _playerStats)
+            foreach (var state in _playerStates)
             {
-                stat.Value.UpdateState();
+                state.UpdateState();
             }
         }
 
@@ -59,17 +69,16 @@ namespace _Script.Character
                 {StatType.Sanity, sanity},
                 {StatType.Stamina, stamina}
             };
+            
+            _playerStates.Add(new PlayerFoodState(this));
+            _playerStates.Add(new PlayerSanityState(this));
+            _playerStates.Add(new PlayerStaminaState(this));
 
             // Subscribe to each stat's change event to relay a unified OnStatsChanged event.
             health.OnValueChanged += (val) => InvokeOnStatsChanged(health.StatType);
             health.OnDeath += InvokeOnDeath;
             mana.OnValueChanged += (val) => InvokeOnStatsChanged(mana.StatType);
-            
-            
             food.OnValueChanged += (val) => InvokeOnStatsChanged(food.StatType);
-            
-            
-            
             sanity.OnValueChanged += (val) => InvokeOnStatsChanged(sanity.StatType);
             stamina.OnValueChanged += (val) => InvokeOnStatsChanged(stamina.StatType);
         }
@@ -189,5 +198,28 @@ namespace _Script.Character
         }
 
         #endregion
+
+        #region Player Stats Interface
+        
+        private List<PlayerStateFlagType> _playerStateFlagTypes = new List<PlayerStateFlagType>();
+
+        public PlayerStat GetStat(StatType statType)
+        {
+            return _playerStats[statType];
+        }
+
+        /// <summary>
+        /// Unsubscribe all events when needed
+        /// </summary>
+        public void UnsubscribeAll()
+        {
+            foreach (var state in _playerStates)
+            {
+                state.CleanUp();
+            }
+        }
+
+        #endregion
+
     }
 }

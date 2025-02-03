@@ -40,7 +40,7 @@ namespace _Script.Character.PlayerAttribute
         /// <summary>
         /// Event fired when the stat value exceeds the threshold.
         /// </summary>
-        public event Action onExceedingThreshold;
+        public event Action onAboveThreshold;
         
         public abstract StatType StatType { get; }
         /// <summary>
@@ -113,7 +113,7 @@ namespace _Script.Character.PlayerAttribute
 
         protected virtual void OnOnExceedingThreshold()
         {
-            onExceedingThreshold?.Invoke();
+            onAboveThreshold?.Invoke();
         }
     }
 

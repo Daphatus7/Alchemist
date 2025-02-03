@@ -563,6 +563,7 @@ namespace _Script.Character
             {
                 yield return new WaitForSeconds(1f);
                 if (_isInSafeZone || _isTorchActive) continue;
+                playerstats.AddSanity(-1);
                 AddSanity(-1);
             }
         }
