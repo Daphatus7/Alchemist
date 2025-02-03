@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _Script.Character;
-using _Script.Character.PlayerAttribute;
-using _Script.Utilities.ServiceLocator;
+using _Script.Character.PlayerStat;
 using UnityEngine;
 
 namespace _Script.Alchemy

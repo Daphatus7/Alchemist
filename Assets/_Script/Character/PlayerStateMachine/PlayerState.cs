@@ -1,7 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 03 02 2025 02 27
 
-using _Script.Character.PlayerAttribute;
+using _Script.Character.PlayerStat;
 using _Script.Utilities.StateMachine;
 
 namespace _Script.Character.PlayerStateMachine

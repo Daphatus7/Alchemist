@@ -3,7 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using _Script.Character.PlayerAttribute;
+using _Script.Character.PlayerStat;
 using _Script.Character.PlayerStateMachine;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -12,7 +12,7 @@ namespace _Script.Character
 {
     public interface IPlayerStatsManagerHandler
     {
-        PlayerStat GetStat(StatType statType);
+        PlayerStat.PlayerStat GetStat(StatType statType);
         /// <summary>
         /// unsubscribe all events when needed 
         /// </summary>
@@ -27,10 +27,10 @@ namespace _Script.Character
     public class PlayerStatsManager: IPlayerStatsManagerHandler
     {
         
-        private Dictionary<StatType, PlayerStat> _playerStats; public Dictionary<StatType, PlayerStat> PlayerStats => _playerStats;
+        private Dictionary<StatType, PlayerStat.PlayerStat> _playerStats; public Dictionary<StatType, PlayerStat.PlayerStat> PlayerStats => _playerStats;
         
         [SerializeField, LabelText("Health Stat")]
-        private HealthStat health;
+        private PlayerHealth health;
         
         [SerializeField, LabelText("Mana Stat")]
         private PlayerMana mana;
@@ -64,7 +64,7 @@ namespace _Script.Character
         public void Initialize()
         {
             
-            _playerStats = new Dictionary<StatType, PlayerStat>
+            _playerStats = new Dictionary<StatType, PlayerStat.PlayerStat>
             {
                 {StatType.Health, health},
                 {StatType.Mana, mana},
@@ -198,7 +198,7 @@ namespace _Script.Character
         
         private List<PlayerStateFlagType> _playerStateFlagTypes = new List<PlayerStateFlagType>();
 
-        public PlayerStat GetStat(StatType statType)
+        public PlayerStat.PlayerStat GetStat(StatType statType)
         {
             return _playerStats[statType];
         }

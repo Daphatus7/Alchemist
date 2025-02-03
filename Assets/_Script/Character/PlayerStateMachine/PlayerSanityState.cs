@@ -1,4 +1,4 @@
-﻿using _Script.Character.PlayerAttribute;
+﻿using _Script.Character.PlayerStat;
 
 namespace _Script.Character.PlayerStateMachine
 {

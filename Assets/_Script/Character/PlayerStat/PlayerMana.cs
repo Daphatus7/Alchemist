@@ -2,8 +2,9 @@
 // 02 02 2025 02 33
 
 using System;
+using _Script.Character.PlayerStat;
 
-namespace _Script.Character.PlayerAttribute
+namespace _Script.Character.PlayerStat
 {
     /// <summary>
     /// Concrete implementation for Mana.

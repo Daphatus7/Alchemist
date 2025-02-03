@@ -1,5 +1,4 @@
-using System;
-using _Script.Character.PlayerAttribute;
+using _Script.Character.PlayerStat;
 using _Script.Damageable;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,7 +7,7 @@ namespace _Script.Attribute
 {
     public class PawnAttribute : MonoBehaviour, IDamageable
     {
-        [SerializeField] protected HealthStat health; public HealthStat Health => health;
+        [SerializeField] protected PlayerHealth health; public PlayerHealth Health => health;
         [SerializeField] protected float healthMax = 100f; public float HealthMax => healthMax;
         
         //event on health change

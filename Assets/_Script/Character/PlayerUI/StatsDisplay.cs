@@ -2,7 +2,7 @@
 // 14 01 2025 01 06
 
 using System;
-using _Script.Character.PlayerAttribute;
+using _Script.Character.PlayerStat;
 using _Script.Managers;
 using UnityEngine;
 using UnityEngine.UI;

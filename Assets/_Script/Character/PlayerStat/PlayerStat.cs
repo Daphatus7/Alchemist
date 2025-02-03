@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace _Script.Character.PlayerAttribute
+namespace _Script.Character.PlayerStat
 {
     public enum StatType
     {

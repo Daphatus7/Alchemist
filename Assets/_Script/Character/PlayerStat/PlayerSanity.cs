@@ -3,10 +3,11 @@
 
 using System;
 using System.Collections;
+using _Script.Character.PlayerStat;
 using _Script.Managers;
 using UnityEngine;
 
-namespace _Script.Character.PlayerAttribute
+namespace _Script.Character.PlayerStat
 {
     /// <summary>
     /// Concrete implementation for Sanity.
