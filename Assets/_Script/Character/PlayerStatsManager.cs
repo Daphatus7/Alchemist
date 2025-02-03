@@ -17,12 +17,13 @@ namespace _Script.Character
     {
         
         private Dictionary<StatType, PlayerStat> _playerStats;
+        public Dictionary<StatType, PlayerStat> PlayerStats => _playerStats;
         
         [SerializeField] private HealthStat health;
-        [SerializeField] private ManaStat mana;
+        [SerializeField] private PlayerMana mana;
         [SerializeField] private FoodStat food;
-        [SerializeField] private SanityStat sanity;
-        [SerializeField] private StaminaStat stamina;
+        [SerializeField] private PlayerSanity sanity;
+        [SerializeField] private PlayerStamina stamina;
 
         /// <summary>
         /// Event invoked whenever any stat is modified.
@@ -30,6 +31,14 @@ namespace _Script.Character
         /// </summary>
         public event Action<StatType> OnStatsChanged; 
         public event Action OnDeath;
+        
+        public void UpdateState()
+        {
+            foreach (var stat in _playerStats)
+            {
+                stat.Value.UpdateState();
+            }
+        }
 
         /// <summary>
         /// Initializes the player's stats with provided maximum values.
@@ -37,10 +46,10 @@ namespace _Script.Character
         public PlayerStatsManager(float maxHealth, float maxMana, float maxFood, float maxSanity, float maxStamina)
         {
             health = new HealthStat(maxHealth);
-            mana = new ManaStat(maxMana);
+            mana = new PlayerMana(maxMana);
             food = new FoodStat(maxFood);
-            sanity = new SanityStat(maxSanity);
-            stamina = new StaminaStat(maxStamina);
+            sanity = new PlayerSanity(maxSanity);
+            stamina = new PlayerStamina(maxStamina);
             
             _playerStats = new Dictionary<StatType, PlayerStat>
             {
@@ -55,7 +64,12 @@ namespace _Script.Character
             health.OnValueChanged += (val) => InvokeOnStatsChanged(health.StatType);
             health.OnDeath += InvokeOnDeath;
             mana.OnValueChanged += (val) => InvokeOnStatsChanged(mana.StatType);
+            
+            
             food.OnValueChanged += (val) => InvokeOnStatsChanged(food.StatType);
+            
+            
+            
             sanity.OnValueChanged += (val) => InvokeOnStatsChanged(sanity.StatType);
             stamina.OnValueChanged += (val) => InvokeOnStatsChanged(stamina.StatType);
         }
