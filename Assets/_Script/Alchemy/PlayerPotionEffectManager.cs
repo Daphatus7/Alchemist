@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using _Script.Character;
+using _Script.Character.PlayerAttribute;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 
@@ -19,9 +21,7 @@ namespace _Script.Alchemy
         // 内部变量用于追踪当前最近到期的药剂及其剩余时间
         private float _timeUntilNextExpiry = float.MaxValue;
         private PotionInstance.PotionInstance _nextExpiringPotion = null;
-
-        public event Action<PotionInstance.PotionInstance> onAddPotion;
-        public event Action<PotionInstance.PotionInstance> onRemovePotion;
+        private PlayerStatsManager _playerStats;
 
         /// <summary>
         /// 添加新的药剂效果（例如玩家喝下药剂后调用）。
@@ -35,12 +35,13 @@ namespace _Script.Alchemy
             if (existingPotion != null)
             {
                 RemovePotionEffect(existingPotion);
-                OnOnRemovePotion(existingPotion);
+                OnRemovePotion(existingPotion);
+                
             }
             
             // 添加新的药剂效果
             _potionInstances.Add(potionInstance);
-            OnOnAddPotion(potionInstance);
+            OnPotionAdded(potionInstance);
             
             // 如果新药剂的持续时间小于当前剩余的下一到期时间，则更新内部记录
             if (potionInstance.Duration < _timeUntilNextExpiry)
@@ -50,7 +51,16 @@ namespace _Script.Alchemy
             }
         }
 
-    
+        public void Start()
+        {
+            _playerStats = GetComponent<PlayerCharacter>().PlayerStats;
+            if (_playerStats == null)
+            {
+                throw new NullReferenceException("PlayerStatsManager is null in PlayerCharacter");
+            }
+        }
+
+
         /// <summary>
         /// 每帧或固定时间间隔调用，更新最近到期的药剂效果的计时器。
         /// 当计时器到零时，仅移除该药剂效果，并重新计算下一个到期效果。
@@ -71,7 +81,7 @@ namespace _Script.Alchemy
             {
                 // 到期，移除该药剂效果
                 RemovePotionEffect(_nextExpiringPotion);
-                OnOnRemovePotion(_nextExpiringPotion);
+                OnRemovePotion(_nextExpiringPotion);
                 
                 // 重新扫描剩余药剂效果，找到下一个到期的效果
                 _timeUntilNextExpiry = float.MaxValue;
@@ -95,24 +105,78 @@ namespace _Script.Alchemy
                 }
             }
         }
+        private void OnPotionAdded(PotionInstance.PotionInstance potionInstance)
+        {
+            var potionType = potionInstance.PotionType;
 
+            switch (potionType)
+            {
+                case PotionType.Health:
+                    _playerStats.PlayerStats[StatType.Health].IncreaseMaxValue(potionInstance.EffectValue);
+                    break;
+                case PotionType.Mana:
+                    _playerStats.PlayerStats[StatType.Mana].IncreaseMaxValue(potionInstance.EffectValue);
+                    break;
+                case PotionType.Stamina:
+                    _playerStats.PlayerStats[StatType.Stamina].IncreaseMaxValue(potionInstance.EffectValue);
+                    break;
+                case PotionType.Damage:
+                    break;
+                case PotionType.Defense:
+                    break;
+                case PotionType.Speed:
+                    break;
+                case PotionType.CriticalRate:
+                    break;
+                case PotionType.CriticalDamage:
+                    break;
+                case PotionType.Experience:
+                    break;
+                case PotionType.Luck:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        
+        private void OnRemovePotion(PotionInstance.PotionInstance potionInstance)
+        {
+            var potionType = potionInstance.PotionType;
+            switch (potionType)
+            {
+                case PotionType.Health:
+                    _playerStats.PlayerStats[StatType.Health].DecreaseMaxValue(potionInstance.EffectValue);
+                    break;
+                case PotionType.Mana:
+                    _playerStats.PlayerStats[StatType.Mana].DecreaseMaxValue(potionInstance.EffectValue);
+                    break;
+                case PotionType.Stamina:
+                    _playerStats.PlayerStats[StatType.Stamina].DecreaseMaxValue(potionInstance.EffectValue);
+                    break;
+                case PotionType.Damage:
+                    break;
+                case PotionType.Defense:
+                    break;
+                case PotionType.Speed:
+                    break;
+                case PotionType.CriticalRate:
+                    break;
+                case PotionType.CriticalDamage:
+                    break;
+                case PotionType.Experience:
+                    break;
+                case PotionType.Luck:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
         /// <summary>
         /// 从列表中移除指定的药剂效果
         /// </summary>
         private void RemovePotionEffect(PotionInstance.PotionInstance potionInstance)
         {
             _potionInstances.Remove(potionInstance);
-        }
-
-        private void OnOnAddPotion(PotionInstance.PotionInstance obj)
-        {
-            onAddPotion?.Invoke(obj);
-        }
-
-        private void OnOnRemovePotion(PotionInstance.PotionInstance obj)
-        {
-            Debug.Log("Remove Potion: " + obj.PotionType);
-            onRemovePotion?.Invoke(obj);
         }
     }
 

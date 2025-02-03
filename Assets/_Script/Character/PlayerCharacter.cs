@@ -114,8 +114,6 @@ namespace _Script.Character
             _playerInventory.SubscribeToInventoryStatus(QuestManager.Instance.OnItemCollected);
             
             _potionEffectManager = GetComponent<PlayerPotionEffectManager>();
-            _potionEffectManager.onAddPotion += OnPotionAdded;
-            _potionEffectManager.onRemovePotion += OnRemovePotion;
             
             PauseableUpdate();
         }
@@ -123,8 +121,6 @@ namespace _Script.Character
         private void OnDestroy()
         {
             if(TimeManager.Instance == null) return;
-            _potionEffectManager.onAddPotion -= OnPotionAdded;
-            _potionEffectManager.onRemovePotion -= OnRemovePotion;
             _playerstats.OnDeath -= OnDeath;
             _playerInventory.UnsubscribeToInventoryStatus(QuestManager.Instance.OnItemCollected);
             _playerstats.UnsubscribeAll();
@@ -420,78 +416,7 @@ namespace _Script.Character
         public IPlayerPotionEffectHandler PotionEffectManager => _potionEffectManager;
         
         [SerializeField] private PlayerStatsManager _playerstats = new PlayerStatsManager(); public PlayerStatsManager PlayerStats => _playerstats;
-        private void OnPotionAdded(PotionInstance potionInstance)
-        {
-            var potionType = potionInstance.PotionType;
-
-            switch (potionType)
-            {
-                case PotionType.Health:
-                    PlayerStats.PlayerStats[StatType.Health].IncreaseMaxValue(potionInstance.EffectValue);
-                    break;
-                case PotionType.Mana:
-                    PlayerStats.PlayerStats[StatType.Mana].IncreaseMaxValue(potionInstance.EffectValue);
-                    Debug.Log("Mana increased by " + potionInstance.EffectValue);
-                    Debug.Log("Last: " + potionInstance.Duration);
-                    Debug.Log("Current Mana: " + PlayerStats.PlayerStats[StatType.Mana].CurrentValue);
-                    Debug.Log("Current Mana: " + PlayerStats.PlayerStats[StatType.Mana].MaxValue);
-                    
-                    break;
-                case PotionType.Stamina:
-                    PlayerStats.PlayerStats[StatType.Stamina].IncreaseMaxValue(potionInstance.EffectValue);
-                    break;
-                case PotionType.Damage:
-                    break;
-                case PotionType.Defense:
-                    break;
-                case PotionType.Speed:
-                    break;
-                case PotionType.CriticalRate:
-                    break;
-                case PotionType.CriticalDamage:
-                    break;
-                case PotionType.Experience:
-                    break;
-                case PotionType.Luck:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
         
-        private void OnRemovePotion(PotionInstance potionInstance)
-        {
-            var potionType = potionInstance.PotionType;
-            switch (potionType)
-            {
-                case PotionType.Health:
-                    PlayerStats.PlayerStats[StatType.Health].DecreaseMaxValue(potionInstance.EffectValue);
-                    break;
-                case PotionType.Mana:
-                    PlayerStats.PlayerStats[StatType.Mana].DecreaseMaxValue(potionInstance.EffectValue);
-                    Debug.Log("Effect End Mana: " + PlayerStats.PlayerStats[StatType.Mana].CurrentValue);
-                    break;
-                case PotionType.Stamina:
-                    PlayerStats.PlayerStats[StatType.Stamina].DecreaseMaxValue(potionInstance.EffectValue);
-                    break;
-                case PotionType.Damage:
-                    break;
-                case PotionType.Defense:
-                    break;
-                case PotionType.Speed:
-                    break;
-                case PotionType.CriticalRate:
-                    break;
-                case PotionType.CriticalDamage:
-                    break;
-                case PotionType.Experience:
-                    break;
-                case PotionType.Luck:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
         
         public void OnFoodConsumed(FoodEffect foodEffect)
         {
@@ -517,7 +442,6 @@ namespace _Script.Character
                     break;
             }
         }
-        
         
         public float ApplyDamage(float damage)
         {
