@@ -110,24 +110,24 @@ namespace _Script.Alchemy
 
             switch (potionType)
             {
-                case PotionType.Health:
+                case PotionType.IncreaseHealthMax:
                     _playerStats.PlayerStats[StatType.Health].IncreaseMaxValue(potionInstance.EffectValue);
                     break;
-                case PotionType.Mana:
+                case PotionType.IncreaseManaMax:
                     _playerStats.PlayerStats[StatType.Mana].IncreaseMaxValue(potionInstance.EffectValue);
                     break;
-                case PotionType.Stamina:
+                case PotionType.IncreaseStaminaMax:
                     _playerStats.PlayerStats[StatType.Stamina].IncreaseMaxValue(potionInstance.EffectValue);
                     break;
-                case PotionType.Damage:
+                case PotionType.IncreaseDamageMax:
                     break;
-                case PotionType.Defense:
+                case PotionType.IncreaseDefense:
                     break;
-                case PotionType.Speed:
+                case PotionType.IncreaseSpeed:
                     break;
-                case PotionType.CriticalRate:
+                case PotionType.IncreaseCriticalRate:
                     break;
-                case PotionType.CriticalDamage:
+                case PotionType.IncreaseCriticalDamage:
                     break;
                 case PotionType.Experience:
                     break;
@@ -143,24 +143,24 @@ namespace _Script.Alchemy
             var potionType = potionInstance.PotionType;
             switch (potionType)
             {
-                case PotionType.Health:
+                case PotionType.IncreaseHealthMax:
                     _playerStats.PlayerStats[StatType.Health].DecreaseMaxValue(potionInstance.EffectValue);
                     break;
-                case PotionType.Mana:
+                case PotionType.IncreaseManaMax:
                     _playerStats.PlayerStats[StatType.Mana].DecreaseMaxValue(potionInstance.EffectValue);
                     break;
-                case PotionType.Stamina:
+                case PotionType.IncreaseStaminaMax:
                     _playerStats.PlayerStats[StatType.Stamina].DecreaseMaxValue(potionInstance.EffectValue);
                     break;
-                case PotionType.Damage:
+                case PotionType.IncreaseDamageMax:
                     break;
-                case PotionType.Defense:
+                case PotionType.IncreaseDefense:
                     break;
-                case PotionType.Speed:
+                case PotionType.IncreaseSpeed:
                     break;
-                case PotionType.CriticalRate:
+                case PotionType.IncreaseCriticalRate:
                     break;
-                case PotionType.CriticalDamage:
+                case PotionType.IncreaseCriticalDamage:
                     break;
                 case PotionType.Experience:
                     break;

@@ -5,20 +5,20 @@ using System;
 
 namespace _Script.Alchemy
 {
+    /// <summary>
+    /// Type of potions that will be implemented
+    /// </summary>
     [Serializable]
     public enum PotionType
     {
-        /// <summary>
-        /// 药剂类型定义
-        /// </summary>
-        Health,
-        Mana,
-        Stamina,
-        Damage,
-        Defense,
-        Speed,
-        CriticalRate,
-        CriticalDamage,
+        IncreaseHealthMax,
+        IncreaseManaMax,
+        IncreaseStaminaMax,
+        IncreaseDamageMax,
+        IncreaseDefense,
+        IncreaseSpeed,
+        IncreaseCriticalRate,
+        IncreaseCriticalDamage,
         Experience,
         Luck
     }
