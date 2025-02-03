@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Script.Alchemy;
+using _Script.Alchemy.PotionInstance;
 using _Script.Attribute;
 using _Script.Character.ActionStrategy;
 using _Script.Character.PlayerRank;
+using _Script.Damageable;
 using _Script.Interactable;
 using _Script.Inventory.ActionBarFrontend;
-using _Script.Inventory.EquipmentBackend;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontend;
 using _Script.Inventory.PlayerInventory;
@@ -14,15 +16,15 @@ using _Script.Items;
 using _Script.Managers;
 using _Script.Places;
 using _Script.Quest;
-using _Script.Quest.PlayerQuest;
 using _Script.Utilities;
+using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace _Script.Character
 {
     [DefaultExecutionOrder(500)]
-    public class PlayerCharacter : PawnAttribute, IControl, IPlayerUIHandle
+    public class PlayerCharacter : MonoBehaviour, IControl, IPlayerUIHandle, IDamageable
     {
         #region Inspector Fields & References
 
@@ -100,15 +102,28 @@ namespace _Script.Character
             InitializeStrategies();
             
             UnsetAllStrategy();
-        }
+            
+            playerstats = new PlayerStatsManager(_healthMax, _manaMax, _staminaMax, _foodMax, _sanityMax);
 
+            
+            //TODO: On stats changes not subscribed
+            
+            playerstats.OnDeath += OnDeath;
+        }
+        
+        
         private void Start()
         {
             TimeManager.Instance.onNewDay.AddListener(OnNewDay);
             TimeManager.Instance.onNightStart.AddListener(OnNightStart);
 
             _playerInventory.SubscribeToInventoryStatus(QuestManager.Instance.OnItemCollected);
-
+            
+            _potionEffectManager = new PlayerPotionEffectManager();
+            _potionEffectManager.onAddPotion += OnPotionAdded;
+            _potionEffectManager.onRemovePotion += OnRemovePotion;
+            ServiceLocator.Instance.Register<IPlayerEffectService>(_potionEffectManager);
+            
             PauseableUpdate();
         }
 
@@ -117,6 +132,7 @@ namespace _Script.Character
             if(TimeManager.Instance == null) return;
             TimeManager.Instance.onNewDay.RemoveListener(OnNewDay);
             TimeManager.Instance.onNightStart.RemoveListener(OnNightStart);
+            ServiceLocator.Instance.Unregister<IPlayerEffectService>();
         }
 
         private void Update()
@@ -272,13 +288,7 @@ namespace _Script.Character
         public void Dash(Vector2 direction)
         {
             if (!_canDash || _rb == null) return;
-
-            // Deduct 1 stamina before starting the dash.
-            AddStamina(-dashCost); 
-            // If you prefer a direct approach without going through AddStamina:
-            // stamina = Mathf.Max(stamina - 1, 0);
-            // onStatsChanged?.Invoke();
-
+            if(!playerstats.ConsumeStamina(dashCost)) return;
             StartCoroutine(DashCoroutine(direction));
         }
 
@@ -338,10 +348,9 @@ namespace _Script.Character
             while (_isSprinting)
             {
                 // Deduct the sprint cost
-                AddStamina(-sprintCost);
-
+                playerstats.ConsumeStamina(sprintCost);
                 // Check if we still have stamina
-                if (stamina <= 0)
+                if (playerstats.CurrentStamina <= 0)
                 {
                     // Not enough stamina, end sprint
                     _isSprinting = false;
@@ -404,144 +413,88 @@ namespace _Script.Character
 
         #region PlayerStats
         
+        
         [Header("Player Stats")]
         [SerializeField] private float foodDamage = 1f;
         [SerializeField] private float foodRate = 1f; public float FoodRate => foodRate;
         [SerializeField] private float foodDuration = 1f;
-        [SerializeField] private float mana = 10f; public float Mana => mana;
+        
+        [SerializeField] private float _healthMax = 100f; public float HealthMax => _healthMax;
         [SerializeField] private float _manaMax = 10f; public float ManaMax => _manaMax;
-        [SerializeField] private float stamina = 10f; public float Stamina => stamina;
         [SerializeField] private float _staminaMax = 10f; public float StaminaMax => _staminaMax;
-        [SerializeField] private float food = 10f; public float Food => food;
         [SerializeField] private float _foodMax = 10f; public float FoodMax => _foodMax;
-        [SerializeField] private float _sanity = 10f; public float Sanity => _sanity;
         [SerializeField] private float _sanityMax = 10f; public float SanityMax => _sanityMax;
 
         public UnityEvent onStatsChanged = new UnityEvent();
-
-        public void EatFood(FoodType foodType, int foodValue)
+        
+        private PlayerPotionEffectManager _potionEffectManager = new PlayerPotionEffectManager();
+        private PlayerStatsManager playerstats;
+        
+        private void OnPotionAdded(PotionInstance potionInstance)
         {
-            switch (foodType)
+            var potionType = potionInstance.PotionType;
+
+            switch (potionType)
             {
-                case FoodType.Health:
-                    Restore(AttributeType.Health, foodValue);
+                case PotionType.Health:
                     break;
-                case FoodType.Mana:
-                    Restore(AttributeType.Mana, foodValue);
+                case PotionType.Mana:
                     break;
-                case FoodType.Stamina:
-                    Restore(AttributeType.Stamina, foodValue);
+                case PotionType.Stamina:
                     break;
-                case FoodType.Sanity:
-                    Restore(AttributeType.Sanity, foodValue);
+                case PotionType.Damage:
                     break;
-                case FoodType.Food:
-                    Restore(AttributeType.Food, foodValue);
+                case PotionType.Defense:
+                    break;
+                case PotionType.Speed:
+                    break;
+                case PotionType.CriticalRate:
+                    break;
+                case PotionType.CriticalDamage:
+                    break;
+                case PotionType.Experience:
+                    break;
+                case PotionType.Luck:
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(foodType), foodType, null);
+                    throw new ArgumentOutOfRangeException();
             }
-        }
-
-        protected override void Restore(AttributeType type, float value)
-        {
-            switch (type)
-            {
-                case AttributeType.Health:
-                    RestoreHealth(value);
-                    break;
-                case AttributeType.Mana:
-                    AddMana(value);
-                    break;
-                case AttributeType.Stamina:
-                    AddStamina(value);
-                    break;
-                case AttributeType.Food:
-                    AddFood(value);
-                    break;
-                case AttributeType.Sanity:
-                    AddSanity(value);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
-            }
-            onStatsChanged?.Invoke();
-        }
-        private bool AddMana(float value)
-        {
-            mana += value;
-            if (mana < 0)
-            {
-                mana = 0;
-                onStatsChanged?.Invoke();
-                return false;
-            }
-            if (mana > _manaMax) mana = _manaMax;
-            onStatsChanged?.Invoke();
-            return true;
-        }
-
-        private bool AddStamina(float value)
-        {
-            stamina += value;
-            if (stamina < 0)
-            {
-                stamina = 0;
-                onStatsChanged?.Invoke();
-                return false;
-            }
-            if (stamina > _staminaMax) stamina = _staminaMax;
-            onStatsChanged?.Invoke();
-            return true;
-        }
-
-        private bool AddSanity(float value)
-        {
-            return false;
-            //Debug.Log($"Adding {value} to sanity.");
-            _sanity += value;
-            if (_sanity < 0)
-            {
-                _sanity = 0;
-                onStatsChanged?.Invoke();
-                return false;
-            }
-            if (_sanity > _sanityMax) _sanity = _sanityMax;
-            onStatsChanged?.Invoke();
-            return true;
-        }
-
-        private bool AddFood(float value)
-        {
-            food += value;
-            if (food < 0)
-            {
-                food = 0;
-                ApplyDamage(foodDamage);
-                // Even though we took damage, we return false because food went below zero
-                // before we corrected it.
-                onStatsChanged?.Invoke();
-                return false;
-            }
-            if (food > _foodMax)
-            {
-                food = _foodMax;
-            }
-            onStatsChanged?.Invoke();
-            return true;
         }
         
-        public override float ApplyDamage(float damage)
+        private void OnRemovePotion(PotionInstance potionInstance)
         {
-            health -= damage;
-            if (health <= 0)
+            var potionType = potionInstance.PotionType;
+            switch (potionType)
             {
-                OnDeath();
-                onHealthChanged?.Invoke();
-                return damage;
+                case PotionType.Health:
+                    break;
+                case PotionType.Mana:
+                    break;
+                case PotionType.Stamina:
+                    break;
+                case PotionType.Damage:
+                    break;
+                case PotionType.Defense:
+                    break;
+                case PotionType.Speed:
+                    break;
+                case PotionType.CriticalRate:
+                    break;
+                case PotionType.CriticalDamage:
+                    break;
+                case PotionType.Experience:
+                    break;
+                case PotionType.Luck:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-            onStatsChanged?.Invoke();
-            return damage;
+        }
+        
+        
+        public float ApplyDamage(float damage)
+        {
+            return playerstats.TakeDamage(damage);
         }
 
         public void SetInSafeZone(bool isInSafeZone)

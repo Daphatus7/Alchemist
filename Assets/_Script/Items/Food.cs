@@ -14,7 +14,7 @@ namespace _Script.Items
     {
         
         [SerializeField]
-        private List<FoodValue> foodValues = new List<FoodValue>();
+        private List<FoodEffect> foodValues = new List<FoodEffect>();
 
         public override bool Use(PlayerCharacter playerCharacter)
         {
@@ -39,9 +39,15 @@ namespace _Script.Items
     }
 
     [Serializable]
-    public class FoodValue
+    public class FoodEffect
     {
+        /// <summary>
+        /// Food type
+        /// </summary>
         public FoodType FoodType;
+        /// <summary>
+        /// Food value
+        /// </summary>
         public int Value;
     }
 
