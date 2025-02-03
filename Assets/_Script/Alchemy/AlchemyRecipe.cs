@@ -9,16 +9,14 @@ namespace _Script.Alchemy
     [CreateAssetMenu(fileName = "AlchemyRecipe", menuName = "Items/Alchemy/AlchemyRecipe")]
     public class AlchemyRecipe : ScriptableObject
     {
-        public string RecipeID { get; set; }
-        public string RecipeName { get; set; }
+        public string recipeID;
+        public string recipeName;
+
+        public ItemData[] requiredIngredients;
+        public ItemData[] outputItems;
         
-        public ItemData[] RequiredIngredients { get; set; }
-        
-        // 产出物品及数量
-        public string OutputItemID { get; set; }
-        public ItemData OutputItem { get; set; }
-        public int OutputQuantity { get; set; }
-    
-        public float CraftingTime { get; set; }
+        public int outputQuantity = 1;
+
+        public float craftingTime = 3;
     }
 }
