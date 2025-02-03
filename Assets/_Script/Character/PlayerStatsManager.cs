@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using _Script.Character.PlayerAttribute;
 using _Script.Character.PlayerStat;
 using _Script.Character.PlayerStateMachine;
 using Sirenix.OdinInspector;
@@ -44,8 +45,15 @@ namespace _Script.Character
         [SerializeField, LabelText("Stamina Stat")]
         private PlayerStamina stamina;
         
-        
         private List<PlayerState> _playerStates = new List<PlayerState>();
+        
+        
+        
+        [SerializeField]  private PlayerMovementSpeed playerMovementSpeed;
+        [SerializeField]  private PlayerAttackSpeed playerAttackSpeed;
+        [SerializeField]  private PlayerDamage playerDamage;
+        
+        private Dictionary<AttributeType, PlayerAttribute.PlayerAttribute> _playerAttributes;
         /// <summary>
         /// Event invoked whenever any stat is modified.
         /// Subscribers (like UI) can update their displays.
@@ -71,6 +79,13 @@ namespace _Script.Character
                 {StatType.Food, food},
                 {StatType.Sanity, sanity},
                 {StatType.Stamina, stamina}
+            };
+
+            _playerAttributes = new Dictionary<AttributeType, PlayerAttribute.PlayerAttribute>
+            {
+                {AttributeType.MovementSpeed, playerMovementSpeed},
+                {AttributeType.AttackSpeed, playerAttackSpeed},
+                {AttributeType.Damage, playerDamage}
             };
             
             _playerStates.Add(new PlayerFoodState(this));
@@ -215,6 +230,7 @@ namespace _Script.Character
 
             foreach (var stat in _playerStats)
             {
+                stat.Value.OnValueChanged -= (val) => InvokeOnStatsChanged(stat.Value.StatType);
                 stat.Value.CleanUp();
             }
         }
