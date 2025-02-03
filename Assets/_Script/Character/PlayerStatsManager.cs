@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using _Script.Character.PlayerAttribute;
 using _Script.Character.PlayerStateMachine;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Script.Character
@@ -23,16 +24,30 @@ namespace _Script.Character
     /// It provides a central point to access and modify player data.
     /// </summary>
     [Serializable]
-    public class PlayerStatsManager: MonoBehaviour, IPlayerStatsManagerHandler
+    public class PlayerStatsManager: IPlayerStatsManagerHandler
     {
         
         private Dictionary<StatType, PlayerStat> _playerStats; public Dictionary<StatType, PlayerStat> PlayerStats => _playerStats;
         
-        [SerializeField] private HealthStat health;
-        [SerializeField] private PlayerMana mana;
-        [SerializeField] private FoodStat food;
-        [SerializeField] private PlayerSanity sanity;
-        [SerializeField] private PlayerStamina stamina;
+        [FoldoutGroup("Stats/Individual Stats")]
+        [SerializeField, LabelText("Health Stat")]
+        private HealthStat health;
+        
+        [FoldoutGroup("Stats/Individual Stats")]
+        [SerializeField, LabelText("Mana Stat")]
+        private PlayerMana mana;
+        
+        [FoldoutGroup("Stats/Individual Stats")]
+        [SerializeField, LabelText("Food Stat")]
+        private FoodStat food;
+        
+        [FoldoutGroup("Stats/Individual Stats")]
+        [SerializeField, LabelText("Sanity Stat")]
+        private PlayerSanity sanity;
+        
+        [FoldoutGroup("Stats/Individual Stats")]
+        [SerializeField, LabelText("Stamina Stat")]
+        private PlayerStamina stamina;
         
         
         private List<PlayerState> _playerStates = new List<PlayerState>();
@@ -81,18 +96,9 @@ namespace _Script.Character
             stamina.OnValueChanged += (val) => InvokeOnStatsChanged(stamina.StatType);
         }
 
-        // Expose properties for reading current values.
-        public float CurrentHealth => health.CurrentValue;
-        public float CurrentMana => mana.CurrentValue;
-        public float CurrentFood => food.CurrentValue;
-        public float CurrentSanity => sanity.CurrentValue;
+ 
         public float CurrentStamina => stamina.CurrentValue;
 
-        public float MaxHealth => health.MaxValue;
-        public float MaxMana => mana.MaxValue;
-        public float MaxFood => food.MaxValue;
-        public float MaxSanity => sanity.MaxValue;
-        public float MaxStamina => stamina.MaxValue;
 
         /// <summary>
         /// Apply damage to the player.
@@ -214,6 +220,11 @@ namespace _Script.Character
             foreach (var state in _playerStates)
             {
                 state.CleanUp();
+            }
+
+            foreach (var stat in _playerStats)
+            {
+                stat.Value.CleanUp();
             }
         }
 

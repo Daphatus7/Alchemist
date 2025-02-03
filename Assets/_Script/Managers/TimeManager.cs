@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace _Script.Managers
 {
+    [DefaultExecutionOrder(-100)]
     public class TimeManager : PersistentSingleton<TimeManager>, IPausable
     {
         [Header("Time Settings")]

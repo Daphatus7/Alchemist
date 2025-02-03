@@ -4039,6 +4039,71 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: food.maxValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: mana.maxValue
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: food.threshold
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: health.maxValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: sanity.maxValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: health.threshold
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: stamina.maxValue
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: food.currentValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: mana.currentValue
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: stamina.threshold
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: health.currentValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: sanity.currentValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: stamina.currentValue
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
         type: 3}
       propertyPath: _actionBarUI

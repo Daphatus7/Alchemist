@@ -40,5 +40,13 @@ namespace _Script.Character.PlayerAttribute
         private void OnNightStart()
         {
         }
+        
+        public override void CleanUp()
+        {
+            base.CleanUp();
+            TimeManager.Instance.onNewDay.RemoveListener(OnNewDay);
+            TimeManager.Instance.onNightStart.RemoveListener(OnNightStart);
+            TimeManager.Instance.onUpdateNight -= OnUpdateNight;
+        }
     }
 }

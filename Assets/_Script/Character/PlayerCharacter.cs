@@ -412,11 +412,7 @@ namespace _Script.Character
         [SerializeField] private float foodRate = 1f; public float FoodRate => foodRate;
         [SerializeField] private float foodDuration = 1f;
         
-        [SerializeField] private float _healthMax = 100f; public float HealthMax => _healthMax;
-        [SerializeField] private float _manaMax = 10f; public float ManaMax => _manaMax;
         [SerializeField] private float _staminaMax = 10f; public float StaminaMax => _staminaMax;
-        [SerializeField] private float _foodMax = 10f; public float FoodMax => _foodMax;
-        [SerializeField] private float _sanityMax = 10f; public float SanityMax => _sanityMax;
         
         private PlayerPotionEffectManager _potionEffectManager = new PlayerPotionEffectManager();
         [SerializeField] private PlayerStatsManager _playerstats; public PlayerStatsManager PlayerStats => _playerstats;

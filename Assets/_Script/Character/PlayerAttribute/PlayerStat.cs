@@ -83,5 +83,12 @@ namespace _Script.Character.PlayerAttribute
         {
             onAboveThreshold?.Invoke();
         }
+        
+        public virtual void CleanUp()
+        {
+            OnValueChanged = null;
+            onBelowThreshold = null;
+            onAboveThreshold = null;
+        }
     }
 }
