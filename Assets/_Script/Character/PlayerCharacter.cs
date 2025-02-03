@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _Script.Alchemy;
 using _Script.Character.ActionStrategy;
+using _Script.Character.PlayerAttribute;
 using _Script.Character.PlayerRank;
 using _Script.Damageable;
 using _Script.Interactable;
@@ -15,7 +16,6 @@ using _Script.Managers;
 using _Script.Places;
 using _Script.Quest;
 using _Script.Utilities;
-using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -34,14 +34,14 @@ namespace _Script.Character
         [SerializeField] private Rigidbody2D _rb;
 
         #endregion
-        
-        
+
+
         [Header("Movement Settings")]
-        [SerializeField] private float baseMoveSpeed = 5f;
-        [SerializeField] private float sprintMultiplier = 1.5f;
-        [SerializeField] private float dashSpeed = 10f;
-        [SerializeField] private float dashDuration = 0.2f;
-        [SerializeField] private float dashCooldown = 2f;
+        private float BaseMoveSpeed => _playerstats.PlayerMovementSpeed.CurrentValue;
+        private float SprintMultiplier => _playerstats.PlayerMovementSpeed.SprintMultiplier;
+        private float DashSpeed => _playerstats.PlayerMovementSpeed.DashSpeed;
+        private float DashDuration => _playerstats.PlayerMovementSpeed.DashDuration;
+        private float DashCooldown  => _playerstats.PlayerMovementSpeed.DashCooldown;
         [Tooltip("Time in seconds to smoothly interpolate velocity changes.")]
         [SerializeField] private float velocitySmoothingTime = 0.1f;
         
@@ -270,7 +270,7 @@ namespace _Script.Character
         [SerializeField] private float foodRateWhenExhausted = 0.2f; // Food cost per second if stamina not full
         public void Move(Vector2 direction)
         {
-            _targetVelocity = direction.normalized * baseMoveSpeed;
+            _targetVelocity = direction.normalized * BaseMoveSpeed;
         }
 
         
@@ -291,15 +291,15 @@ namespace _Script.Character
             _canDash = false;
 
             Vector2 originalTarget = _targetVelocity;
-            _targetVelocity = direction.normalized * dashSpeed;
+            _targetVelocity = direction.normalized * DashSpeed;
 
-            yield return new WaitForSeconds(dashDuration);
+            yield return new WaitForSeconds(DashDuration);
 
             _targetVelocity = originalTarget;
 
             DashEnd(direction);
 
-            yield return new WaitForSeconds(dashCooldown);
+            yield return new WaitForSeconds(DashCooldown);
             _canDash = true;
         }
 
@@ -310,7 +310,7 @@ namespace _Script.Character
             return; // Sprinting is disabled for now
             if (_isSprinting) return;
             _isSprinting = true;
-            _targetVelocity = direction.normalized * baseMoveSpeed * sprintMultiplier;
+            _targetVelocity = direction.normalized * BaseMoveSpeed * SprintMultiplier;
 
             // Start a coroutine that costs stamina every second
             _sprintCostRoutine = StartCoroutine(SprintCostRoutine());
@@ -319,7 +319,7 @@ namespace _Script.Character
         public void SprintEnd(Vector2 direction)
         {
             _isSprinting = false;
-            _targetVelocity = direction.normalized * baseMoveSpeed;
+            _targetVelocity = direction.normalized * BaseMoveSpeed;
 
             // Stop draining stamina
             if (_sprintCostRoutine != null)
@@ -343,7 +343,7 @@ namespace _Script.Character
                 {
                     // Not enough stamina, end sprint
                     _isSprinting = false;
-                    _targetVelocity = _targetVelocity.normalized * baseMoveSpeed; // revert to normal speed
+                    _targetVelocity = _targetVelocity.normalized * BaseMoveSpeed; // revert to normal speed
                     yield break;
                 }
 

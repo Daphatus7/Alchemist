@@ -124,6 +124,7 @@ namespace _Script.Alchemy
                 case PotionType.IncreaseDefense:
                     break;
                 case PotionType.IncreaseSpeed:
+                    _playerStats.PlayerMovementSpeed.CurrentValue += potionInstance.EffectValue;
                     break;
                 case PotionType.IncreaseCriticalRate:
                     break;
@@ -157,6 +158,7 @@ namespace _Script.Alchemy
                 case PotionType.IncreaseDefense:
                     break;
                 case PotionType.IncreaseSpeed:
+                    _playerStats.PlayerMovementSpeed.CurrentValue -= potionInstance.EffectValue;
                     break;
                 case PotionType.IncreaseCriticalRate:
                     break;

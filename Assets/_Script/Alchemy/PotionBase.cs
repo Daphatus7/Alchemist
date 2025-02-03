@@ -10,7 +10,7 @@ using UnityEngine;
 namespace _Script.Alchemy
 {
     [CreateAssetMenu(fileName = "PotionBase", menuName = "Items/Alchemy/PotionBase")]
-    public abstract class PotionBase : ConsumableItem
+    public class PotionBase : ConsumableItem
     {
         public PotionEffect potionEffect;
 

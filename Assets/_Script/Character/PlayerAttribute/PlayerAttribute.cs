@@ -13,7 +13,7 @@ namespace _Script.Character.PlayerAttribute
     [Serializable]
     public abstract class PlayerAttribute
     {
-        [SerializeField] private float maxValue = 100f;
+        [SerializeField] private float maxValue = 30f;
         
         public float MaxValue 
         { 
@@ -27,13 +27,17 @@ namespace _Script.Character.PlayerAttribute
         private float currentValue; public float CurrentValue
         {
             get => currentValue;
-            protected set
+            set
             {
                 currentValue = Mathf.Clamp(value, minValue, maxValue);
                 OnValueChanged?.Invoke(currentValue);
             }
         }
         public abstract AttributeType AttributeType { get; }
+        
+        /// <summary>
+        /// Probably don't need this.
+        /// </summary>
         public event Action<float> OnValueChanged;
     }
 

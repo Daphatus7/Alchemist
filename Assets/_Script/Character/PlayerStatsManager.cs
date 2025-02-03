@@ -54,6 +54,11 @@ namespace _Script.Character
         [SerializeField]  private PlayerDamage playerDamage;
         
         private Dictionary<AttributeType, PlayerAttribute.PlayerAttribute> _playerAttributes;
+        public Dictionary<AttributeType, PlayerAttribute.PlayerAttribute> PlayerAttributes => _playerAttributes;
+
+        public PlayerMovementSpeed PlayerMovementSpeed => playerMovementSpeed;
+        public PlayerAttackSpeed PlayerAttackSpeed => playerAttackSpeed;
+        public PlayerDamage PlayerDamage => playerDamage;
         /// <summary>
         /// Event invoked whenever any stat is modified.
         /// Subscribers (like UI) can update their displays.
@@ -71,7 +76,6 @@ namespace _Script.Character
 
         public void Initialize()
         {
-            
             _playerStats = new Dictionary<StatType, PlayerStat.PlayerStat>
             {
                 {StatType.Health, health},

@@ -261,7 +261,7 @@ PrefabInstance:
         type: 3}
       propertyPath: itemData
       value: 
-      objectReference: {fileID: 11400000, guid: 5c4ba26afcf334a36870ca5dd2f9762d,
+      objectReference: {fileID: 11400000, guid: 1d79ea6a7e9444de2bdda57e097b49b1,
         type: 2}
     - target: {fileID: 1084942439330472745, guid: 6c249141a2dff4d60bca075673243f01,
         type: 3}
@@ -322,7 +322,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b7f77607c82ea4142a2070c0e37e1756,
+      objectReference: {fileID: 21300000, guid: 805736230f06ac449a72b0ecb951e522,
         type: 3}
     - target: {fileID: 5172278498976130515, guid: 6c249141a2dff4d60bca075673243f01,
         type: 3}
@@ -4133,6 +4133,26 @@ PrefabInstance:
       propertyPath: _inventoryManager
       value: 
       objectReference: {fileID: 1219950251}
+    - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: _playerstats.playerDamage.currentValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: _playerstats.playerMovementSpeed.maxValue
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: _playerstats.playerAttackSpeed.currentValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: _playerstats.playerMovementSpeed.currentValue
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6514619874994577401, guid: e1d01e4eea6684baa9b053ff7cef7499,
         type: 3}
       propertyPath: m_Name
