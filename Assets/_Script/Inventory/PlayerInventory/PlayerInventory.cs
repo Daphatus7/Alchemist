@@ -151,7 +151,7 @@ namespace _Script.Inventory.PlayerInventory
                     break;
 
                 default:
-                    Debug.LogWarning($"Deselecting item of unrecognized type '{itemTypeName}'. Using GenericStrategy to remove.");
+                    Debug.Log($"Deselecting item of unrecognized type '{itemTypeName}'. Using GenericStrategy to remove.");
                     inventoryOwner.GenericStrategy.RemoveItem();
                     break;
             }

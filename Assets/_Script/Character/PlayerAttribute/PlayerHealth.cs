@@ -29,6 +29,19 @@ namespace _Script.Character.PlayerAttribute
             }
             return amount;
         }
+        
+        /// <summary>
+        /// If health reaches zero, trigger death event.
+        /// </summary>
+        /// <param name="amount"></param>
+        public override void DecreaseMaxValue(float amount)
+        {
+            base.DecreaseMaxValue(amount);
+            if(MaxValue <= 0)
+            {
+                OnDeath?.Invoke();
+            }
+        }
 
         public bool IsDead => CurrentValue <= 0;
     }

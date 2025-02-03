@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using _Script.Alchemy;
 using _Script.Alchemy.PotionInstance;
-using _Script.Attribute;
 using _Script.Character.ActionStrategy;
 using _Script.Character.PlayerAttribute;
 using _Script.Character.PlayerRank;
@@ -117,9 +116,6 @@ namespace _Script.Character
             _potionEffectManager = new PlayerPotionEffectManager();
             _potionEffectManager.onAddPotion += OnPotionAdded;
             _potionEffectManager.onRemovePotion += OnRemovePotion;
-            ServiceLocator.Instance.Register<IPlayerEffectService>(_potionEffectManager);
-            
-            
             
             PauseableUpdate();
         }
@@ -127,7 +123,6 @@ namespace _Script.Character
         private void OnDestroy()
         {
             if(TimeManager.Instance == null) return;
-            ServiceLocator.Instance.Unregister<IPlayerEffectService>();
             _potionEffectManager.onAddPotion -= OnPotionAdded;
             _potionEffectManager.onRemovePotion -= OnRemovePotion;
             _playerstats.OnDeath -= OnDeath;
@@ -422,6 +417,8 @@ namespace _Script.Character
         [SerializeField] private float _staminaMax = 10f; public float StaminaMax => _staminaMax;
         
         private PlayerPotionEffectManager _potionEffectManager = new PlayerPotionEffectManager();
+        public IPlayerPotionEffectHandler PotionEffectManager => _potionEffectManager;
+        
         [SerializeField] private PlayerStatsManager _playerstats = new PlayerStatsManager(); public PlayerStatsManager PlayerStats => _playerstats;
         private void OnPotionAdded(PotionInstance potionInstance)
         {
@@ -430,10 +427,18 @@ namespace _Script.Character
             switch (potionType)
             {
                 case PotionType.Health:
+                    PlayerStats.PlayerStats[StatType.Health].IncreaseMaxValue(potionInstance.EffectValue);
                     break;
                 case PotionType.Mana:
+                    PlayerStats.PlayerStats[StatType.Mana].IncreaseMaxValue(potionInstance.EffectValue);
+                    Debug.Log("Mana increased by " + potionInstance.EffectValue);
+                    Debug.Log("Last: " + potionInstance.Duration);
+                    Debug.Log("Current Mana: " + PlayerStats.PlayerStats[StatType.Mana].CurrentValue);
+                    Debug.Log("Current Mana: " + PlayerStats.PlayerStats[StatType.Mana].MaxValue);
+                    
                     break;
                 case PotionType.Stamina:
+                    PlayerStats.PlayerStats[StatType.Stamina].IncreaseMaxValue(potionInstance.EffectValue);
                     break;
                 case PotionType.Damage:
                     break;
@@ -460,10 +465,14 @@ namespace _Script.Character
             switch (potionType)
             {
                 case PotionType.Health:
+                    PlayerStats.PlayerStats[StatType.Health].DecreaseMaxValue(potionInstance.EffectValue);
                     break;
                 case PotionType.Mana:
+                    PlayerStats.PlayerStats[StatType.Mana].DecreaseMaxValue(potionInstance.EffectValue);
+                    Debug.Log("Effect End Mana: " + PlayerStats.PlayerStats[StatType.Mana].CurrentValue);
                     break;
                 case PotionType.Stamina:
+                    PlayerStats.PlayerStats[StatType.Stamina].DecreaseMaxValue(potionInstance.EffectValue);
                     break;
                 case PotionType.Damage:
                     break;

@@ -67,7 +67,6 @@ namespace _Script.Quest
         /// <param name="totalCount"> the number of items in the inventory</param>
         public void OnItemCollected(string itemID, int totalCount)
         {
-            Debug.Log($"[QuestManager] Item collected: {itemID}");
             onItemCollected?.Invoke(itemID,totalCount);
         }
 

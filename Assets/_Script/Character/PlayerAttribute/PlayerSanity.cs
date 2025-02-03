@@ -14,11 +14,10 @@ namespace _Script.Character.PlayerAttribute
     [Serializable]
     public class PlayerSanity : PlayerStat
     {
-        
-
+        [SerializeField] private float sanityRate = 0.5f;
         private void OnUpdateNight()
         {
-            Modify(-0.1f);
+            Modify(-sanityRate);
         }
 
         public override StatType StatType => StatType.Sanity;

@@ -3,6 +3,7 @@
 
 using System;
 using _Script.Alchemy.PotionInstance;
+using _Script.Character;
 using _Script.Items;
 using UnityEngine;
 
@@ -12,6 +13,12 @@ namespace _Script.Alchemy
     public abstract class PotionBase : ConsumableItem
     {
         public PotionEffect potionEffect;
+
+        public override bool Use(PlayerCharacter playerCharacter)
+        {
+            playerCharacter.PotionEffectManager.ApplyPotionEffect(new PotionInstance.PotionInstance(this));
+            return true;
+        }
     }
 
     [Serializable]

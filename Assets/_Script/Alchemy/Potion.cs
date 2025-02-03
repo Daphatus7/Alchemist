@@ -14,10 +14,6 @@ namespace _Script.Alchemy
     [CreateAssetMenu(fileName = "Potion", menuName = "Items/Alchemy/Potion")]
     public class Potion : PotionBase
     {
-        public override bool Use(PlayerCharacter playerCharacter)
-        {
-            return true;
-        }
     }
  
 }

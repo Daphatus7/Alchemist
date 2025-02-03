@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 namespace _Script.Managers
 {
-    
     [DefaultExecutionOrder(-600)]
     public class TimeManager : PersistentSingleton<TimeManager>, IPausable
     {
@@ -20,6 +19,9 @@ namespace _Script.Managers
         // Accumulator to track seconds during the night.
         private float _nightTickAccumulator = 0f;
 
+        // Flag to trigger OnNightStart only once at the transition.
+        private bool _hasTriggeredNightStart = false;
+
         // Pause flag (can be set by your pause system).
         private bool _isPaused = false;
         public void Pause(bool pause)
@@ -29,12 +31,16 @@ namespace _Script.Managers
 
         // Events
         public event Action OnNewDay;
+        
+        /// <summary>
+        /// Triggered once at the moment the night begins.
+        /// </summary>
         public event Action OnNightStart;
         
         /// <summary>
         /// Ticks every second during the night.
         /// </summary>
-        public event Action OnUpdateNight; 
+        public event Action OnUpdateNight;
 
         [Header("Visual Settings")]
         [SerializeField] private Image dayNightOverlay;  // Assign the UI Image used for day/night overlay
@@ -52,19 +58,29 @@ namespace _Script.Managers
 
         private void Update()
         {
-            // If the game is paused, do not advance time or process ticks.
+            // Do nothing if the game is paused.
             if (_isPaused)
                 return;
             
             UpdateDayProgress();
             UpdateOverlay();
 
-            // Instead of invoking the night update event every frame,
-            // accumulate time so that onUpdateNight fires only once per second.
+            // Check for transition to night: fire OnNightStart once when the day switches to night.
+            if (IsNight() && !_hasTriggeredNightStart)
+            {
+                OnNightStart?.Invoke();
+                _hasTriggeredNightStart = true;
+            }
+            else if (IsDayTime())
+            {
+                // Reset the flag when it's day so the next night transition can trigger OnNightStart again.
+                _hasTriggeredNightStart = false;
+            }
+
+            // During the night, accumulate time and trigger OnUpdateNight once per second.
             if (IsNight())
             {
                 _nightTickAccumulator += Time.deltaTime;
-                // If one or more seconds have passed, trigger the event for each elapsed second.
                 if (_nightTickAccumulator >= 1f)
                 {
                     int ticks = Mathf.FloorToInt(_nightTickAccumulator);
@@ -86,15 +102,7 @@ namespace _Script.Managers
         {
             _currentTime += Time.deltaTime;
             
-            // Note: This currently invokes onNightStart every frame once it's night.
-            // If you prefer to invoke onNightStart only once when night begins,
-            // consider tracking a flag (e.g., bool _hasTriggeredNightStart) to ensure a one‑time trigger.
-            if (IsNight())
-            {
-                OnNightStart.Invoke();
-            }
-            
-            // If the full day/night cycle is complete, start a new day.
+            // When the full day/night cycle is complete, trigger a new day.
             if (_currentTime >= _secondsInCycle)
             {
                 NextDay();
@@ -110,7 +118,7 @@ namespace _Script.Managers
         public void NextDay()
         {
             _day++;
-            OnNewDay.Invoke();
+            OnNewDay?.Invoke();
         }
 
         public bool IsNight()

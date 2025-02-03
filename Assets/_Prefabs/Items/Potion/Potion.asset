@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Mana Potion
   itemID: Potion_001
-  itemDescription: 'Restore mana
+  itemDescription: 'Increase Mana Cap
 
 
 '
   itemIcon: {fileID: 21300000, guid: b7f77607c82ea4142a2070c0e37e1756, type: 3}
-  maxStackSize: 1
+  maxStackSize: 3
   itemShapeType: 0
   rarity: 0
   _value: 1
-  potionEffects:
-  - potionType: 1
-    effectValue: 20
-    duration: 0
+  potionEffect:
+    potionType: 1
+    effectValue: 50
+    duration: 5

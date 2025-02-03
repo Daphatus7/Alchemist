@@ -10,26 +10,34 @@ namespace _Script.Alchemy
     /// 此实现采用“下一个到期”的更新策略：仅跟踪最近到期的药剂，
     /// 每次 UpdatePotion(deltaTime) 只更新该单一计时器，计时结束后移除对应药剂，再重新计算下一个到期时间。
     /// </summary>
-    public sealed class PlayerPotionEffectManager : IPlayerEffectService
+    public sealed class PlayerPotionEffectManager : IPlayerPotionEffectHandler
     {
         // 存储所有激活的药剂效果
         private readonly List<PotionInstance.PotionInstance> _potionInstances = new List<PotionInstance.PotionInstance>();
-
 
         // 内部变量用于追踪当前最近到期的药剂及其剩余时间
         private float _timeUntilNextExpiry = float.MaxValue;
         private PotionInstance.PotionInstance _nextExpiringPotion = null;
 
-        
         public event Action<PotionInstance.PotionInstance> onAddPotion;
         public event Action<PotionInstance.PotionInstance> onRemovePotion;
-        
+
         /// <summary>
         /// 添加新的药剂效果（例如玩家喝下药剂后调用）。
-        /// 在添加时，将该药剂加入列表，并检查是否比当前已知的下一到期药剂还早。
+        /// 当应用相同类型的药剂时，将先移除已有效果，再添加新的效果。
         /// </summary>
         public void ApplyPotionEffect(PotionInstance.PotionInstance potionInstance)
         {
+            // 检查是否已有相同类型的药剂效果存在
+            // 假设每个 potionInstance 拥有一个 PotionType 属性用以标识其类型
+            var existingPotion = _potionInstances.Find(p => p.PotionType == potionInstance.PotionType);
+            if (existingPotion != null)
+            {
+                RemovePotionEffect(existingPotion);
+                OnOnRemovePotion(existingPotion);
+            }
+            
+            // 添加新的药剂效果
             _potionInstances.Add(potionInstance);
             OnOnAddPotion(potionInstance);
             
@@ -40,7 +48,7 @@ namespace _Script.Alchemy
                 _nextExpiringPotion = potionInstance;
             }
         }
-        
+
         /// <summary>
         /// 每帧或固定时间间隔调用，更新最近到期的药剂效果的计时器。
         /// 当计时器到零时，仅移除该药剂效果，并重新计算下一个到期效果。
@@ -61,7 +69,6 @@ namespace _Script.Alchemy
             {
                 // 到期，移除该药剂效果
                 RemovePotionEffect(_nextExpiringPotion);
-                
                 OnOnRemovePotion(_nextExpiringPotion);
                 
                 // 重新扫描剩余药剂效果，找到下一个到期的效果
@@ -86,7 +93,7 @@ namespace _Script.Alchemy
                 }
             }
         }
-        
+
         /// <summary>
         /// 从列表中移除指定的药剂效果
         /// </summary>
@@ -104,11 +111,9 @@ namespace _Script.Alchemy
         {
             onRemovePotion?.Invoke(obj);
         }
-        
     }
 
-    // 游戏服务接口（可扩展）
-    public interface IPlayerEffectService : IGameService
+    public interface IPlayerPotionEffectHandler
     {
         void ApplyPotionEffect(PotionInstance.PotionInstance potionInstance);
         void UpdatePotion(float deltaTime);

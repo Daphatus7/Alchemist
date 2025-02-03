@@ -17,6 +17,7 @@ namespace _Script.Character.PlayerAttribute
     {
         [SerializeField]
         private float maxValue = 100f;
+        
         public float MaxValue 
         { 
             get => maxValue; 
@@ -83,7 +84,24 @@ namespace _Script.Character.PlayerAttribute
         {
             onAboveThreshold?.Invoke();
         }
-
+        
+        public void IncreaseMaxValue(float amount)
+        {
+            MaxValue += amount;
+        }
+        public virtual void DecreaseMaxValue(float amount)
+        {
+            MaxValue -= amount;
+            if (CurrentValue > MaxValue)
+            {
+                CurrentValue = MaxValue;
+            }
+            if (MaxValue <= 0)
+            {
+                MaxValue = 0;
+                CurrentValue = 0;
+            }
+        }
         /// <summary>
         /// To initialize components after other systems have been initialized.
         /// </summary>

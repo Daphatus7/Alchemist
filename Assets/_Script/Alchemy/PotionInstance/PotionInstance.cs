@@ -16,7 +16,7 @@ namespace _Script.Alchemy.PotionInstance
         /// </summary>
         public int Duration { get; set; } 
 
-        public PotionInstance(Potion potion)
+        public PotionInstance(PotionBase potion)
         {
             PotionID = potion.itemID;
             PotionType = potion.potionEffect.potionType;
