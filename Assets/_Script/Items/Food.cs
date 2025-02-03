@@ -14,27 +14,15 @@ namespace _Script.Items
     {
         
         [SerializeField]
-        private List<FoodEffect> foodValues = new List<FoodEffect>();
+        private List<FoodEffect> foodEffects = new List<FoodEffect>();
 
         public override bool Use(PlayerCharacter playerCharacter)
         {
-            foreach (var foodValue in foodValues)
+            foreach (var effect in foodEffects)
             {
-                Debug.Log($"Eating {foodValue.Value} {foodValue.FoodType}");
-                playerCharacter.EatFood(foodValue.FoodType, foodValue.Value);
+                playerCharacter.OnFoodConsumed(effect);
             }
             return true;
-        }
-
-        // Helper to get dictionary-like behavior
-        public Dictionary<FoodType, int> GetFoodValuesAsDictionary()
-        {
-            var dictionary = new Dictionary<FoodType, int>();
-            foreach (var foodValue in foodValues)
-            {
-                dictionary[foodValue.FoodType] = foodValue.Value;
-            }
-            return dictionary;
         }
     }
 

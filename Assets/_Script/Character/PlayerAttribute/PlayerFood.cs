@@ -11,7 +11,6 @@ namespace _Script.Character.PlayerAttribute
     [Serializable]
     public class FoodStat : PlayerStat
     {
-        public FoodStat(float maxFood) : base(maxFood) { }
         public override StatType StatType => StatType.Food;
         public override float Modify(float amount)
         {

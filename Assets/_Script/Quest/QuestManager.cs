@@ -23,7 +23,7 @@ namespace _Script.Quest
         private Dictionary<string, INpcQuestModuleHandler> _questModules;
         public event Action<string> onEnemyKilled;
         public event Action<string, int> onItemCollected;
-        public event Action<QuestInstance> onQuestCompleted;
+        public event Action<QuestInstance> OnQuestCompleted;
 
         [SerializeField] public StorylineChecker storylineChecker;
         
@@ -157,7 +157,7 @@ namespace _Script.Quest
 
         private void OnOnQuestCompleted(QuestInstance quest)
         {
-            onQuestCompleted?.Invoke(quest);
+            OnQuestCompleted?.Invoke(quest);
         }
 
 

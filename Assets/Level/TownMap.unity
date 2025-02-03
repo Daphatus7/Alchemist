@@ -2068,6 +2068,11 @@ PrefabInstance:
       propertyPath: textColor.r
       value: 0.996
       objectReference: {fileID: 0}
+    - target: {fileID: 6372158351476952273, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: npcInfo.npcName
+      value: Harold
+      objectReference: {fileID: 0}
     - target: {fileID: 8569476312756211817, guid: 19400eae6031045008b5457fe5f8aa20,
         type: 3}
       propertyPath: quests.Array.size

@@ -5,6 +5,7 @@ using _Script.Alchemy;
 using _Script.Alchemy.PotionInstance;
 using _Script.Attribute;
 using _Script.Character.ActionStrategy;
+using _Script.Character.PlayerAttribute;
 using _Script.Character.PlayerRank;
 using _Script.Damageable;
 using _Script.Interactable;
@@ -68,7 +69,6 @@ namespace _Script.Character
         private IActionStrategy _actionStrategy;
         private Dictionary<string, IActionStrategy> _strategies;
 
-        private Coroutine _playerSanityRoutine;
         private Coroutine _playerfoodRoutine;
 
         private readonly UnityEvent<int> _onGoldChanged = new UnityEvent<int>();
@@ -102,20 +102,15 @@ namespace _Script.Character
             InitializeStrategies();
             
             UnsetAllStrategy();
-            
-            playerstats = new PlayerStatsManager(_healthMax, _manaMax, _staminaMax, _foodMax, _sanityMax);
-
-            
             //TODO: On stats changes not subscribed
             
-            playerstats.OnDeath += OnDeath;
+            _playerstats.OnDeath += OnDeath;
         }
         
         
         private void Start()
         {
-            TimeManager.Instance.onNewDay.AddListener(OnNewDay);
-            TimeManager.Instance.onNightStart.AddListener(OnNightStart);
+           
 
             _playerInventory.SubscribeToInventoryStatus(QuestManager.Instance.OnItemCollected);
             
@@ -130,8 +125,6 @@ namespace _Script.Character
         private void OnDestroy()
         {
             if(TimeManager.Instance == null) return;
-            TimeManager.Instance.onNewDay.RemoveListener(OnNewDay);
-            TimeManager.Instance.onNightStart.RemoveListener(OnNightStart);
             ServiceLocator.Instance.Unregister<IPlayerEffectService>();
         }
 
@@ -288,7 +281,7 @@ namespace _Script.Character
         public void Dash(Vector2 direction)
         {
             if (!_canDash || _rb == null) return;
-            if(!playerstats.ConsumeStamina(dashCost)) return;
+            if(!_playerstats.ConsumeStamina(dashCost)) return;
             StartCoroutine(DashCoroutine(direction));
         }
 
@@ -348,9 +341,9 @@ namespace _Script.Character
             while (_isSprinting)
             {
                 // Deduct the sprint cost
-                playerstats.ConsumeStamina(sprintCost);
+                _playerstats.ConsumeStamina(sprintCost);
                 // Check if we still have stamina
-                if (playerstats.CurrentStamina <= 0)
+                if (_playerstats.CurrentStamina <= 0)
                 {
                     // Not enough stamina, end sprint
                     _isSprinting = false;
@@ -424,12 +417,9 @@ namespace _Script.Character
         [SerializeField] private float _staminaMax = 10f; public float StaminaMax => _staminaMax;
         [SerializeField] private float _foodMax = 10f; public float FoodMax => _foodMax;
         [SerializeField] private float _sanityMax = 10f; public float SanityMax => _sanityMax;
-
-        public UnityEvent onStatsChanged = new UnityEvent();
         
         private PlayerPotionEffectManager _potionEffectManager = new PlayerPotionEffectManager();
-        private PlayerStatsManager playerstats;
-        
+        [SerializeField] private PlayerStatsManager _playerstats; public PlayerStatsManager PlayerStats => _playerstats;
         private void OnPotionAdded(PotionInstance potionInstance)
         {
             var potionType = potionInstance.PotionType;
@@ -491,10 +481,35 @@ namespace _Script.Character
             }
         }
         
+        public void OnFoodConsumed(FoodEffect foodEffect)
+        {
+            switch (foodEffect.FoodType)
+            {
+                case FoodType.Health:
+                    _playerstats.AddHealth(foodEffect.Value);
+                    break;
+                case FoodType.Mana:
+                    _playerstats.RestoreMana(foodEffect.Value);
+                    break;
+                case FoodType.Stamina:
+                    _playerstats.RestoreStamina(foodEffect.Value);
+                    break;
+                case FoodType.Sanity:
+                    _playerstats.AddSanity(foodEffect.Value);
+                    break;
+                case FoodType.Food:
+                    _playerstats.RestoreFood(foodEffect.Value);
+                    break;
+                default:
+                    Debug.LogWarning("Invalid food type.");
+                    break;
+            }
+        }
+        
         
         public float ApplyDamage(float damage)
         {
-            return playerstats.TakeDamage(damage);
+            return _playerstats.TakeDamage(damage);
         }
 
         public void SetInSafeZone(bool isInSafeZone)
@@ -541,32 +556,7 @@ namespace _Script.Character
         #endregion
         
         #region Day and Night
-
-        private void OnNewDay()
-        {
-            if (_playerSanityRoutine != null)
-            {
-                StopCoroutine(_playerSanityRoutine);
-                _playerSanityRoutine = null;
-                //Debug.Log("Sanity routine stopped.");
-            }
-        }
-
-        private void OnNightStart()
-        {
-            _playerSanityRoutine ??= StartCoroutine(SanityRoutine());
-        }
-
-        private IEnumerator SanityRoutine()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(1f);
-                if (_isInSafeZone || _isTorchActive) continue;
-                playerstats.AddSanity(-1);
-                AddSanity(-1);
-            }
-        }
+        
 
         
         /// <summary>
@@ -581,24 +571,24 @@ namespace _Script.Character
                 yield return new WaitForSeconds(foodDuration);
 
                 // If stamina is not full, reduce food by (foodRateWhenExhausted + foodRate)
-                if (stamina < StaminaMax)
+                if (PlayerStats.CurrentStamina < StaminaMax)
                 {
                     // If we successfully reduce food (meaning we have enough food to consume),
                     // then restore stamina by 1
-                    if (AddFood(-(foodRateWhenExhausted + foodRate)))
+                    if (PlayerStats.ConsumeFood(foodRateWhenExhausted + foodRate))
                     {
-                        AddStamina(1);
+                        PlayerStats.RestoreStamina(1);
                     }
                 }
                 // If stamina is full, reduce food by the base foodRate
                 else
                 {
-                    AddFood(-foodRate);
+                    PlayerStats.ConsumeFood(foodRate);
                 }
             }
         }
-        
-        protected override void OnDeath()
+
+        private void OnDeath()
         {
             //Game Over
             Destroy(this);

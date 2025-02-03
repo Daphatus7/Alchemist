@@ -1,63 +1,102 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace _Script.Managers
 {
-    public class TimeManager : PersistentSingleton<TimeManager>
+    public class TimeManager : PersistentSingleton<TimeManager>, IPausable
     {
         [Header("Time Settings")]
-        [SerializeField] private int _day = 1; // Start at day 1
-        [SerializeField] private int _dayLength = 10;   // length of the "day" portion in seconds
-        [SerializeField] private int _nightLength = 20; // length of the "night" portion in seconds
+        [SerializeField] private int _day = 1;             // Start at day 1
+        [SerializeField] private int _dayLength = 10;        // Length of the "day" portion in seconds
+        [SerializeField] private int _nightLength = 20;      // Length of the "night" portion in seconds
 
-        private int _secondsInCycle;   // total seconds in a full day/night cycle
-        private float _currentTime;    // current time into the cycle
+        private int _secondsInCycle;   // Total seconds in a full day/night cycle
+        private float _currentTime;    // Current time into the cycle
+
+        // Accumulator to track seconds during the night.
+        private float _nightTickAccumulator = 0f;
+
+        // Pause flag (can be set by your pause system).
+        private bool _isPaused = false;
+        public void Pause(bool pause)
+        {
+            _isPaused = pause;
+        }
 
         // Events
         public UnityEvent onNewDay = new UnityEvent();
-
         public UnityEvent onNightStart = new UnityEvent();
         
+        /// <summary>
+        /// Ticks every second during the night.
+        /// </summary>
+        public event Action onUpdateNight; 
+
         [Header("Visual Settings")]
-        [SerializeField] private Image dayNightOverlay;    // Assign the UI Image used for day/night overlay
+        [SerializeField] private Image dayNightOverlay;  // Assign the UI Image used for day/night overlay
         [SerializeField] private Color dayOverlayColor = new Color(0f, 0f, 0f, 0f);
         [SerializeField] private Color nightOverlayColor = new Color(0f, 0f, 0f, 0.6f);
 
-        // Use an AnimationCurve to control how quickly darkness sets in.
-        // For example, an ease-in curve will keep things brighter for longer, then gradually ramp up darkness.
+        // AnimationCurve to control how quickly darkness sets in.
         [SerializeField] private AnimationCurve transitionCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
-        // You can adjust this curve in the Unity Inspector:
-        // - Key at (0,0): Start fully bright at day start.
-        // - Key at (1,1): Fully dark at the end of the cycle.
-        // Add more keys or modify tangents for a more "immersive" feel.
 
         private void Start()
         {
             _secondsInCycle = _dayLength + _nightLength;
-            UpdateOverlayColor(0f); // Initialize overlay at the start of the cycle (full day)
+            UpdateOverlayColor(0f); // Initialize overlay (full day brightness)
         }
 
         private void Update()
         {
+            // If the game is paused, do not advance time or process ticks.
+            if (_isPaused)
+                return;
+            
             UpdateDayProgress();
             UpdateOverlay();
+
+            // Instead of invoking the night update event every frame,
+            // accumulate time so that onUpdateNight fires only once per second.
+            if (IsNight())
+            {
+                _nightTickAccumulator += Time.deltaTime;
+                // If one or more seconds have passed, trigger the event for each elapsed second.
+                if (_nightTickAccumulator >= 1f)
+                {
+                    int ticks = Mathf.FloorToInt(_nightTickAccumulator);
+                    for (int i = 0; i < ticks; i++)
+                    {
+                        onUpdateNight?.Invoke();
+                    }
+                    _nightTickAccumulator -= ticks;
+                }
+            }
+            else
+            {
+                // Reset the accumulator during daytime.
+                _nightTickAccumulator = 0f;
+            }
         }
 
         private void UpdateDayProgress()
         {
             _currentTime += Time.deltaTime;
             
+            // Note: This currently invokes onNightStart every frame once it's night.
+            // If you prefer to invoke onNightStart only once when night begins,
+            // consider tracking a flag (e.g., bool _hasTriggeredNightStart) to ensure a one‑time trigger.
             if (IsNight())
             {
                 onNightStart.Invoke();
             }
             
-            // If we've passed a full cycle (day + night):
+            // If the full day/night cycle is complete, start a new day.
             if (_currentTime >= _secondsInCycle)
             {
                 NextDay();
-                _currentTime = 0; // Reset cycle timer
+                _currentTime = 0; // Reset the cycle timer.
             }
         }
 
@@ -66,8 +105,6 @@ namespace _Script.Managers
             return _currentTime < _dayLength;
         }
         
-        
-
         public void NextDay()
         {
             _day++;
@@ -80,9 +117,8 @@ namespace _Script.Managers
         }
         
         /// <summary>
-        /// Returns a normalized value (0 to 1) indicating how far we are into the full day/night cycle.
-        /// 0 = start of day
-        /// 1 = end of night (just before next day starts)
+        /// Returns a normalized value (0 to 1) indicating progress through the day/night cycle.
+        /// 0 = start of day, 1 = end of night (just before the next day begins).
         /// </summary>
         public float GetTimeOfDay()
         {
@@ -103,25 +139,24 @@ namespace _Script.Managers
         {
             float t = GetTimeOfDay();
             float dayFraction = (float)_dayLength / _secondsInCycle;
-
-            // For t < dayFraction: in the "day" portion (more bright)
-            // For t > dayFraction: in the "night" portion (more dark)
-
+            // Calculate a blend factor for the night overlay.
             float nightBlend = Mathf.InverseLerp(dayFraction, 1f, t);
-
-            // Instead of a direct Lerp, we use the transitionCurve to smooth the blending:
+            // Smooth the blend with the transition curve.
             float curvedBlend = transitionCurve.Evaluate(nightBlend);
-
             UpdateOverlayColor(curvedBlend);
         }
 
         private void UpdateOverlayColor(float curvedBlend)
         {
-            // Lerp between dayOverlayColor and nightOverlayColor based on curvedBlend
             if (dayNightOverlay != null)
             {
                 dayNightOverlay.color = Color.Lerp(dayOverlayColor, nightOverlayColor, curvedBlend);
             }
         }
+    }
+    
+    public interface IPausable
+    {
+        void Pause(bool pause);
     }
 }

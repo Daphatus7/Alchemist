@@ -15,9 +15,9 @@ namespace _Script.Character.PlayerUI
 
         private void Start()
         {
-            playerCharacter = GameManager.Instance.GetPlayer();
-            playerCharacter.onStatsChanged.AddListener(UpdateHearts);
-            UpdateHearts();
+            // playerCharacter = GameManager.Instance.GetPlayer();
+            // playerCharacter.onStatsChanged.AddListener(UpdateHearts);
+            // UpdateHearts();
         }
 
         private void OnDestroy()
@@ -26,8 +26,8 @@ namespace _Script.Character.PlayerUI
 
         private void UpdateHearts()
         {
-            UpdateTotalHearts(playerCharacter.HealthMax);
-            UpdateHeartsFill(playerCharacter.Health);
+            //UpdateTotalHearts(playerCharacter.HealthMax);
+            //UpdateHeartsFill(playerCharacter.Health);
         }
 
         private void UpdateHeartsFill(float health)

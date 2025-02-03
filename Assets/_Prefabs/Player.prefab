@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1596155273
-  m_SortingLayer: -4
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300144, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -114,7 +114,7 @@ Transform:
   m_GameObject: {fileID: 4295408811579442107}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -9}
   m_LocalScale: {x: 2.5354972, y: 1.0501995, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -130,7 +130,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -226,6 +226,10 @@ GameObject:
   - component: {fileID: 2525392690159624212}
   - component: {fileID: 7006742602358452953}
   - component: {fileID: 8837985026535394894}
+  - component: {fileID: 4900800090708965958}
+  - component: {fileID: 701119041879536167}
+  - component: {fileID: 1278580861180746815}
+  - component: {fileID: 85204811638739867}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -324,7 +328,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.17833805}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -334,7 +338,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.4971686, y: 0.46176112}
   m_EdgeRadius: 0
 --- !u!114 &227867324767936060
 MonoBehaviour:
@@ -348,26 +352,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b2b98b97a143e3bc7dd0ab6a6b9bfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  healthMax: 10
   LeftHand: {fileID: 8907296635094763544}
   RightHand: {fileID: 3196833069833362912}
-  hungerDamage: 1
-  hungerRate: -1
-  hungerDuration: 5
-  mana: 10
-  _manaMax: 10
-  stamina: 10
-  _staminaMax: 10
-  hunger: 10
-  _hungerMax: 10
-  _sanity: 10
-  _sanityMax: 10
-  onStatsChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  _inventoryUI: {fileID: 0}
-  playerActionbarCapacity: 6
+  _inventoryManager: {fileID: 0}
+  _actionBarUI: {fileID: 0}
+  _rb: {fileID: 6278326024908024523}
+  baseMoveSpeed: 5
+  sprintMultiplier: 1.5
+  dashSpeed: 10
+  dashDuration: 0.2
+  dashCooldown: 2
+  velocitySmoothingTime: 0.1
+  dashCost: 1
+  sprintCost: 0.5
+  foodRateWhenExhausted: 0.2
+  _gold: 100
+  playerActionbarWidth: 6
+  playerActionbarHeight: 3
+  foodDamage: 1
+  foodRate: 1
+  foodDuration: 5
+  _healthMax: 100
+  _manaMax: 30
+  _staminaMax: 30
+  _foodMax: 30
+  _sanityMax: 30
+  _playerstats: {fileID: 0}
 --- !u!114 &2525392690159624212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,6 +421,78 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da13f0213c7140f8b8ba98b806557fac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4900800090708965958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6514619874994577401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05f3d93c0e3a44b3891413b903bde3a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &701119041879536167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6514619874994577401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7704c27948284c91b1f2f28fedffb5b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemSlot: {fileID: 5176689472951325295}
+  itemInHandPrefab: {fileID: 5935879752676590583, guid: b2004f35d16bc42f1b6ef3628d5ec7b2,
+    type: 3}
+  itemDistance: 1
+--- !u!114 &1278580861180746815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6514619874994577401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf5bf8c8cc44da6a9c4e385891e4c13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &85204811638739867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6514619874994577401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3076de8889146b7994087c7d0211bf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health:
+    maxValue: 0
+    threshold: 0
+    currentValue: 0
+  mana:
+    maxValue: 0
+    threshold: 0
+    currentValue: 0
+  food:
+    maxValue: 0
+    threshold: 0
+    currentValue: 0
+  sanity:
+    maxValue: 0
+    threshold: 0
+    currentValue: 0
+  stamina:
+    maxValue: 0
+    threshold: 0
+    currentValue: 0
 --- !u!1 &8436505088471283413
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,7 +570,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1596155273
-  m_SortingLayer: -4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300002, guid: ec47f75fe8aff1644ac73998f4ad31b5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -575,7 +657,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1596155273
-  m_SortingLayer: -4
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300144, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

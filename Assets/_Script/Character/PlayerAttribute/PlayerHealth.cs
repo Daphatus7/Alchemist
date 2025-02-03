@@ -18,7 +18,6 @@ namespace _Script.Character.PlayerAttribute
         public UnityAction OnDeath;
         
         public override StatType StatType => StatType.Health;
-        public HealthStat(float maxHealth) : base(maxHealth) { }
 
         public override float Modify(float amount)
         {

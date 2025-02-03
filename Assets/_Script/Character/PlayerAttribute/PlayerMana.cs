@@ -11,7 +11,7 @@ namespace _Script.Character.PlayerAttribute
     [Serializable]
     public class PlayerMana : PlayerStat
     {
-        public PlayerMana(float maxMana) : base(maxMana) { }
+        public PlayerMana() : base() { }
         
         public override StatType StatType => StatType.Mana;
         public override float Modify(float amount)

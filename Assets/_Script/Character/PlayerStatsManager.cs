@@ -23,7 +23,7 @@ namespace _Script.Character
     /// It provides a central point to access and modify player data.
     /// </summary>
     [Serializable]
-    public class PlayerStatsManager: IPlayerStatsManagerHandler
+    public class PlayerStatsManager: MonoBehaviour, IPlayerStatsManagerHandler
     {
         
         private Dictionary<StatType, PlayerStat> _playerStats; public Dictionary<StatType, PlayerStat> PlayerStats => _playerStats;
@@ -33,7 +33,8 @@ namespace _Script.Character
         [SerializeField] private FoodStat food;
         [SerializeField] private PlayerSanity sanity;
         [SerializeField] private PlayerStamina stamina;
-
+        
+        
         private List<PlayerState> _playerStates = new List<PlayerState>();
         /// <summary>
         /// Event invoked whenever any stat is modified.
@@ -50,16 +51,13 @@ namespace _Script.Character
             }
         }
 
-        /// <summary>
-        /// Initializes the player's stats with provided maximum values.
-        /// </summary>
-        public PlayerStatsManager(float maxHealth, float maxMana, float maxFood, float maxSanity, float maxStamina)
+        private void Start()
         {
-            health = new HealthStat(maxHealth);
-            mana = new PlayerMana(maxMana);
-            food = new FoodStat(maxFood);
-            sanity = new PlayerSanity(maxSanity);
-            stamina = new PlayerStamina(maxStamina);
+            health = new HealthStat();
+            mana = new PlayerMana();
+            food = new FoodStat();
+            sanity = new PlayerSanity();
+            stamina = new PlayerStamina();
             
             _playerStats = new Dictionary<StatType, PlayerStat>
             {
@@ -109,7 +107,7 @@ namespace _Script.Character
         /// Heal the player.
         /// </summary>
         /// <param name="amount">Healing amount (positive modification)</param>
-        public void Heal(float amount)
+        public void AddHealth(float amount)
         {
             health.Modify(amount);
         }

@@ -12,7 +12,7 @@ namespace _Script.Character.PlayerAttribute
     public class PlayerStamina : PlayerStat
     {
         public override StatType StatType => StatType.Stamina;
-        public PlayerStamina(float maxStamina) : base(maxStamina) { }
+        public PlayerStamina() : base() { }
 
         public override float Modify(float amount)
         {
