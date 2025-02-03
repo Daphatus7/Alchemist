@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _Script.Utilities.ServiceLocator;
+using UnityEngine;
 
 namespace _Script.Alchemy
 {
@@ -10,7 +11,7 @@ namespace _Script.Alchemy
     /// 此实现采用“下一个到期”的更新策略：仅跟踪最近到期的药剂，
     /// 每次 UpdatePotion(deltaTime) 只更新该单一计时器，计时结束后移除对应药剂，再重新计算下一个到期时间。
     /// </summary>
-    public sealed class PlayerPotionEffectManager : IPlayerPotionEffectHandler
+    public sealed class PlayerPotionEffectManager : MonoBehaviour, IPlayerPotionEffectHandler
     {
         // 存储所有激活的药剂效果
         private readonly List<PotionInstance.PotionInstance> _potionInstances = new List<PotionInstance.PotionInstance>();
@@ -49,11 +50,12 @@ namespace _Script.Alchemy
             }
         }
 
+    
         /// <summary>
         /// 每帧或固定时间间隔调用，更新最近到期的药剂效果的计时器。
         /// 当计时器到零时，仅移除该药剂效果，并重新计算下一个到期效果。
         /// </summary>
-        public void UpdatePotion(float deltaTime)
+        public void Update()
         {
             if (_potionInstances.Count == 0)
             {
@@ -64,7 +66,7 @@ namespace _Script.Alchemy
             }
 
             // 只更新当前“最先到期”的计时器
-            _timeUntilNextExpiry -= deltaTime;
+            _timeUntilNextExpiry -= Time.deltaTime;
             if (_timeUntilNextExpiry <= 0)
             {
                 // 到期，移除该药剂效果
@@ -109,6 +111,7 @@ namespace _Script.Alchemy
 
         private void OnOnRemovePotion(PotionInstance.PotionInstance obj)
         {
+            Debug.Log("Remove Potion: " + obj.PotionType);
             onRemovePotion?.Invoke(obj);
         }
     }
@@ -116,6 +119,5 @@ namespace _Script.Alchemy
     public interface IPlayerPotionEffectHandler
     {
         void ApplyPotionEffect(PotionInstance.PotionInstance potionInstance);
-        void UpdatePotion(float deltaTime);
     }
 }

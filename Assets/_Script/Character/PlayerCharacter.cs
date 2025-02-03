@@ -113,7 +113,7 @@ namespace _Script.Character
 
             _playerInventory.SubscribeToInventoryStatus(QuestManager.Instance.OnItemCollected);
             
-            _potionEffectManager = new PlayerPotionEffectManager();
+            _potionEffectManager = GetComponent<PlayerPotionEffectManager>();
             _potionEffectManager.onAddPotion += OnPotionAdded;
             _potionEffectManager.onRemovePotion += OnRemovePotion;
             
