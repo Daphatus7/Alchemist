@@ -29,23 +29,18 @@ namespace _Script.Character
         
         private Dictionary<StatType, PlayerStat> _playerStats; public Dictionary<StatType, PlayerStat> PlayerStats => _playerStats;
         
-        [FoldoutGroup("Stats/Individual Stats")]
         [SerializeField, LabelText("Health Stat")]
         private HealthStat health;
         
-        [FoldoutGroup("Stats/Individual Stats")]
         [SerializeField, LabelText("Mana Stat")]
         private PlayerMana mana;
         
-        [FoldoutGroup("Stats/Individual Stats")]
         [SerializeField, LabelText("Food Stat")]
         private FoodStat food;
         
-        [FoldoutGroup("Stats/Individual Stats")]
         [SerializeField, LabelText("Sanity Stat")]
         private PlayerSanity sanity;
         
-        [FoldoutGroup("Stats/Individual Stats")]
         [SerializeField, LabelText("Stamina Stat")]
         private PlayerStamina stamina;
         
@@ -66,13 +61,8 @@ namespace _Script.Character
             }
         }
 
-        private void Start()
+        public void Initialize()
         {
-            health = new HealthStat();
-            mana = new PlayerMana();
-            food = new FoodStat();
-            sanity = new PlayerSanity();
-            stamina = new PlayerStamina();
             
             _playerStats = new Dictionary<StatType, PlayerStat>
             {
@@ -95,6 +85,7 @@ namespace _Script.Character
             sanity.OnValueChanged += (val) => InvokeOnStatsChanged(sanity.StatType);
             stamina.OnValueChanged += (val) => InvokeOnStatsChanged(stamina.StatType);
         }
+        
 
  
         public float CurrentStamina => stamina.CurrentValue;

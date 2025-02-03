@@ -1913,7 +1913,6 @@ GameObject:
   - component: {fileID: 969537179}
   - component: {fileID: 969537180}
   - component: {fileID: 969537181}
-  - component: {fileID: 969537182}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1966,12 +1965,6 @@ MonoBehaviour:
   _day: 1
   _dayLength: 30
   _nightLength: 30
-  onNewDay:
-    m_PersistentCalls:
-      m_Calls: []
-  onNightStart:
-    m_PersistentCalls:
-      m_Calls: []
   dayNightOverlay: {fileID: 1134001269}
   dayOverlayColor: {r: 0, g: 0, b: 0, a: 0}
   nightOverlayColor: {r: 0, g: 0, b: 0, a: 0.6}
@@ -2099,18 +2092,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   storylineChecker: {fileID: 11400000, guid: 6666b8a71d8034953a3194ba0cd78fc8, type: 2}
---- !u!114 &969537182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 969537171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa1e6ddf45c343c6975f381b18bc7f99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &982889974
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4039,71 +4020,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
-        type: 3}
-      propertyPath: food.maxValue
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
-        type: 3}
-      propertyPath: mana.maxValue
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
-        type: 3}
-      propertyPath: food.threshold
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
-        type: 3}
-      propertyPath: health.maxValue
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
-        type: 3}
-      propertyPath: sanity.maxValue
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
-        type: 3}
-      propertyPath: health.threshold
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
-        type: 3}
-      propertyPath: stamina.maxValue
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
-        type: 3}
-      propertyPath: food.currentValue
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
-        type: 3}
-      propertyPath: mana.currentValue
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
-        type: 3}
-      propertyPath: stamina.threshold
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
-        type: 3}
-      propertyPath: health.currentValue
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
-        type: 3}
-      propertyPath: sanity.currentValue
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 85204811638739867, guid: e1d01e4eea6684baa9b053ff7cef7499,
-        type: 3}
-      propertyPath: stamina.currentValue
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
         type: 3}
       propertyPath: _actionBarUI

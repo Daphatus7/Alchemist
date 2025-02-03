@@ -26,7 +26,6 @@ namespace _Script.Quest.PlayerQuest
         
         public void OnEnable()
         {
-            Debug.Log(ServiceLocator.Instance + " " + this);
             ServiceLocator.Instance?.Register<IPlayerQuestService>(this);
         }
 

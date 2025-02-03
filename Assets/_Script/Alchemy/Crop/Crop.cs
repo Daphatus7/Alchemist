@@ -37,20 +37,12 @@ namespace _Script.Alchemy.Plant
 
         private void Start()
         {
-            // Register the plant with the TimeManager to handle daily updates
-            if (TimeManager.Instance != null)
-            {
-                TimeManager.Instance.onNewDay.AddListener(NewDay);
-            }
+           
         }
 
         private void OnDestroy()
         {
-            // Unregister from the TimeManager to avoid memory leaks
-            if (TimeManager.Instance != null)
-            {
-                TimeManager.Instance.onNewDay.RemoveListener(NewDay);
-            }
+            
         }
 
         public void Grow()

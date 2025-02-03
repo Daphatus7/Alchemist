@@ -14,12 +14,7 @@ namespace _Script.Character.PlayerAttribute
     [Serializable]
     public class PlayerSanity : PlayerStat
     {
-        public PlayerSanity() : base()
-        {
-            TimeManager.Instance.onNewDay.AddListener(OnNewDay);
-            TimeManager.Instance.onNightStart.AddListener(OnNightStart);
-            TimeManager.Instance.onUpdateNight += OnUpdateNight;
-        }
+        
 
         private void OnUpdateNight()
         {
@@ -40,13 +35,22 @@ namespace _Script.Character.PlayerAttribute
         private void OnNightStart()
         {
         }
+
         
+        public override void OnEnabled()
+        {
+            base.OnEnabled();
+            TimeManager.Instance.OnNewDay += OnNewDay;
+            TimeManager.Instance.OnNightStart += OnNightStart;
+            TimeManager.Instance.OnUpdateNight += OnUpdateNight;
+        }
+
         public override void CleanUp()
         {
             base.CleanUp();
-            TimeManager.Instance.onNewDay.RemoveListener(OnNewDay);
-            TimeManager.Instance.onNightStart.RemoveListener(OnNightStart);
-            TimeManager.Instance.onUpdateNight -= OnUpdateNight;
+            TimeManager.Instance.OnNewDay -= OnNewDay;
+            TimeManager.Instance.OnNightStart -= OnNightStart;
+            TimeManager.Instance.OnUpdateNight -= OnUpdateNight;
         }
     }
 }

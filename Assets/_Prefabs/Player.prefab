@@ -229,7 +229,6 @@ GameObject:
   - component: {fileID: 4900800090708965958}
   - component: {fileID: 701119041879536167}
   - component: {fileID: 1278580861180746815}
-  - component: {fileID: 85204811638739867}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -372,12 +371,28 @@ MonoBehaviour:
   foodDamage: 1
   foodRate: 1
   foodDuration: 5
-  _healthMax: 100
-  _manaMax: 30
   _staminaMax: 30
-  _foodMax: 30
-  _sanityMax: 30
-  _playerstats: {fileID: 0}
+  _playerstats:
+    health:
+      maxValue: 100
+      threshold: 0.2
+      currentValue: 100
+    mana:
+      maxValue: 100
+      threshold: 0.2
+      currentValue: 100
+    food:
+      maxValue: 100
+      threshold: 0.2
+      currentValue: 100
+    sanity:
+      maxValue: 100
+      threshold: 0.2
+      currentValue: 100
+    stamina:
+      maxValue: 100
+      threshold: 0.2
+      currentValue: 100
 --- !u!114 &2525392690159624212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,38 +476,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbf5bf8c8cc44da6a9c4e385891e4c13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &85204811638739867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6514619874994577401}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3076de8889146b7994087c7d0211bf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health:
-    maxValue: 0
-    threshold: 0
-    currentValue: 0
-  mana:
-    maxValue: 0
-    threshold: 0
-    currentValue: 0
-  food:
-    maxValue: 0
-    threshold: 0
-    currentValue: 0
-  sanity:
-    maxValue: 0
-    threshold: 0
-    currentValue: 0
-  stamina:
-    maxValue: 0
-    threshold: 0
-    currentValue: 0
 --- !u!1 &8436505088471283413
 GameObject:
   m_ObjectHideFlags: 0

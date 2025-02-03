@@ -103,7 +103,7 @@ namespace _Script.Character
             
             UnsetAllStrategy();
             //TODO: On stats changes not subscribed
-            
+            _playerstats.Initialize();
             _playerstats.OnDeath += OnDeath;
         }
         
@@ -119,6 +119,8 @@ namespace _Script.Character
             _potionEffectManager.onRemovePotion += OnRemovePotion;
             ServiceLocator.Instance.Register<IPlayerEffectService>(_potionEffectManager);
             
+            
+            
             PauseableUpdate();
         }
 
@@ -126,6 +128,11 @@ namespace _Script.Character
         {
             if(TimeManager.Instance == null) return;
             ServiceLocator.Instance.Unregister<IPlayerEffectService>();
+            _potionEffectManager.onAddPotion -= OnPotionAdded;
+            _potionEffectManager.onRemovePotion -= OnRemovePotion;
+            _playerstats.OnDeath -= OnDeath;
+            _playerInventory.UnsubscribeToInventoryStatus(QuestManager.Instance.OnItemCollected);
+            _playerstats.UnsubscribeAll();
         }
 
         private void Update()
@@ -415,7 +422,7 @@ namespace _Script.Character
         [SerializeField] private float _staminaMax = 10f; public float StaminaMax => _staminaMax;
         
         private PlayerPotionEffectManager _potionEffectManager = new PlayerPotionEffectManager();
-        [SerializeField] private PlayerStatsManager _playerstats; public PlayerStatsManager PlayerStats => _playerstats;
+        [SerializeField] private PlayerStatsManager _playerstats = new PlayerStatsManager(); public PlayerStatsManager PlayerStats => _playerstats;
         private void OnPotionAdded(PotionInstance potionInstance)
         {
             var potionType = potionInstance.PotionType;

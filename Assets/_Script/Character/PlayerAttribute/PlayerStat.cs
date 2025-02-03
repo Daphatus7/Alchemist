@@ -83,7 +83,18 @@ namespace _Script.Character.PlayerAttribute
         {
             onAboveThreshold?.Invoke();
         }
+
+        /// <summary>
+        /// To initialize components after other systems have been initialized.
+        /// </summary>
+        public virtual void OnEnabled()
+        {
+            
+        }
         
+        /// <summary>
+        /// To clean up components before the system is destroyed.
+        /// </summary>
         public virtual void CleanUp()
         {
             OnValueChanged = null;

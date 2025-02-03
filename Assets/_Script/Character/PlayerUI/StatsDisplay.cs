@@ -31,6 +31,8 @@ namespace _Script.Character.PlayerUI
                 UpdateUI(stat.Key);
             }
         }
+        
+        
 
         private void OnDestroy()
         {

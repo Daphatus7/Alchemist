@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 namespace _Script.Managers
 {
-    [DefaultExecutionOrder(-100)]
+    
+    [DefaultExecutionOrder(-600)]
     public class TimeManager : PersistentSingleton<TimeManager>, IPausable
     {
         [Header("Time Settings")]
@@ -27,13 +28,13 @@ namespace _Script.Managers
         }
 
         // Events
-        public UnityEvent onNewDay = new UnityEvent();
-        public UnityEvent onNightStart = new UnityEvent();
+        public event Action OnNewDay;
+        public event Action OnNightStart;
         
         /// <summary>
         /// Ticks every second during the night.
         /// </summary>
-        public event Action onUpdateNight; 
+        public event Action OnUpdateNight; 
 
         [Header("Visual Settings")]
         [SerializeField] private Image dayNightOverlay;  // Assign the UI Image used for day/night overlay
@@ -69,7 +70,7 @@ namespace _Script.Managers
                     int ticks = Mathf.FloorToInt(_nightTickAccumulator);
                     for (int i = 0; i < ticks; i++)
                     {
-                        onUpdateNight?.Invoke();
+                        OnUpdateNight?.Invoke();
                     }
                     _nightTickAccumulator -= ticks;
                 }
@@ -90,7 +91,7 @@ namespace _Script.Managers
             // consider tracking a flag (e.g., bool _hasTriggeredNightStart) to ensure a one‑time trigger.
             if (IsNight())
             {
-                onNightStart.Invoke();
+                OnNightStart.Invoke();
             }
             
             // If the full day/night cycle is complete, start a new day.
@@ -109,7 +110,7 @@ namespace _Script.Managers
         public void NextDay()
         {
             _day++;
-            onNewDay.Invoke();
+            OnNewDay.Invoke();
         }
 
         public bool IsNight()

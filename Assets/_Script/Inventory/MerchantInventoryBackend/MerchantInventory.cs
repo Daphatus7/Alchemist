@@ -29,7 +29,6 @@ namespace _Script.Inventory.MerchantInventoryBackend
         /// </summary>
         private void InitializeMerchantInventory()
         {
-            Debug.Log("Initializing merchant inventory.");
             // Clear and populate inventory slots with items for sale
             foreach (var t in _itemsForSale)
             {
