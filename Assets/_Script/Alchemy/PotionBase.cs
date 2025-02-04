@@ -13,7 +13,7 @@ namespace _Script.Alchemy
     public class PotionBase : ConsumableItem
     {
         public PotionEffect potionEffect;
-
+        public PotionType PotionType => potionEffect.potionType;
         public override bool Use(PlayerCharacter playerCharacter)
         {
             playerCharacter.PotionEffectManager.ApplyPotionEffect(new PotionInstance.PotionInstance(this));

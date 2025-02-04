@@ -11,12 +11,33 @@ namespace _Script.Alchemy
     {
         public string recipeID;
         public string recipeName;
-
         public ItemData[] requiredIngredients;
-        public ItemData[] outputItems;
+        /// <summary>
+        /// the main output item
+        /// </summary>
+        public PotionBase mainOutputItem;
+        public PotionType PotionType => mainOutputItem.PotionType;
+        /// <summary>
+        /// the possible secondary output items
+        /// such as waste and byproducts
+        /// </summary>
+        public Byproduct[] secondaryOutputItems;
         
         public int outputQuantity = 1;
 
         public float craftingTime = 3;
+    }
+    
+    /// <summary>
+    /// Byproduct of the recipe
+    /// </summary>
+    [System.Serializable]
+    public class Byproduct
+    {
+        public ItemData item;
+        /// <summary>
+        /// If the chance is greater than 1, it will generate more than 1 of the item
+        /// </summary>
+        public float chance;
     }
 }
