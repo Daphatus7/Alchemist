@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace _Script.Alchemy.AlchemyUI
 {
-    public class AlchemyRecipeUI : MonoBehaviour
+    public class AlchemyRecipeDisplayUI : MonoBehaviour
     {
         [SerializeField] private Image icon;
         [SerializeField] private TextMeshProUGUI nameText;

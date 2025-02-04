@@ -8,8 +8,20 @@ namespace _Script.Alchemy
 {
     public class PlayerAlchemy : MonoBehaviour
     {
+        
+        /// <summary>
+        /// Get recipe
+        /// </summary>
         private PlayerRecipeBook _recipeBook;
+        
+        /// <summary>
+        /// Progress Bar
+        /// </summary>
         private BrewInstance _brewInstance;
+        
+        /// <summary>
+        /// Used for store the items
+        /// </summary>
         private Inventory.InventoryBackend.Inventory _inventory;
         
         
