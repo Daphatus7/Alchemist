@@ -11,12 +11,12 @@ namespace _Script.Alchemy
     {
         public string recipeID;
         public string recipeName;
-        public ItemData[] ingredients;
+        public ItemInstance[] ingredients;
         /// <summary>
         /// the main output item
         /// </summary>
         public PotionBase mainOutputItem;
-        public PotionType PotionType => mainOutputItem.PotionType;
+        public PotionCategory PotionCategory => mainOutputItem.PotionCategory;
         /// <summary>
         /// the possible secondary output items
         /// such as waste and byproducts

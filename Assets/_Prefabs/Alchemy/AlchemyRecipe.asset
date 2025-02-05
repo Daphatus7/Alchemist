@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeID: r_001
   recipeName: 'Recipe: Potion of Speed'
-  requiredIngredients:
-  - {fileID: 11400000, guid: cbc5667b0e2a840088c322a9f35cef53, type: 2}
-  outputItemID: 
-  outputItems:
-  - {fileID: 11400000, guid: 1d79ea6a7e9444de2bdda57e097b49b1, type: 2}
+  ingredients:
+  - ItemData: {fileID: 0}
+    Quantity: 0
+  mainOutputItem: {fileID: 0}
+  secondaryOutputItems:
+  - item: {fileID: 0}
+    chance: 0
   outputQuantity: 1
   craftingTime: 1

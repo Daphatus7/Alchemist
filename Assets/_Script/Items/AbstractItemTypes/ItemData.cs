@@ -110,6 +110,19 @@ namespace _Script.Items.AbstractItemTypes
                 return other != null && itemName == other.itemName;
             }
         }
+        
+        [Serializable]
+        public class ItemInstance
+        {
+            public ItemData ItemData;
+            public int Quantity;
+            
+            public ItemInstance(ItemData itemData, int quantity)
+            {
+                ItemData = itemData;
+                Quantity = quantity;
+            }
+        }
 
         public enum ItemType
         {

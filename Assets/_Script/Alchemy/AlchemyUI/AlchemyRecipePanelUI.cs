@@ -23,7 +23,7 @@ namespace _Script.Alchemy.AlchemyUI
             descriptionText.text = recipe.mainOutputItem.itemDescription;
             for (int i = 0; i < recipe.ingredients.Length; i++)
             {
-                ingredientIcons[i].SetDisplay(recipe.ingredients[i], 1);
+                ingredientIcons[i].SetDisplay(recipe.ingredients[i].ItemData, recipe.ingredients[i].Quantity);
             }
         }
     }

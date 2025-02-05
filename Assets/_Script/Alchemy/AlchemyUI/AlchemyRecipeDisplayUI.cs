@@ -11,5 +11,11 @@ namespace _Script.Alchemy.AlchemyUI
     {
         [SerializeField] private Image icon;
         [SerializeField] private TextMeshProUGUI nameText;
+        
+        public void SetDisplay(Sprite sprite, string itemName)
+        {
+            icon.sprite = sprite;
+            nameText.text = itemName;
+        }
     }
 }

@@ -14,6 +14,7 @@ namespace _Script.Alchemy
     {
         public PotionEffect potionEffect;
         public PotionType PotionType => potionEffect.potionType;
+        public PotionCategory PotionCategory => PotionCategory.Potion;
         public override bool Use(PlayerCharacter playerCharacter)
         {
             playerCharacter.PotionEffectManager.ApplyPotionEffect(new PotionInstance.PotionInstance(this));
@@ -28,5 +29,11 @@ namespace _Script.Alchemy
         public int effectValue;
         public int duration;
     }
-    
+    [SerializeField]
+    public enum PotionCategory
+    {
+        Potion,
+        Flask,
+        Elixir,
+    }
 }
