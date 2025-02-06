@@ -89,8 +89,9 @@ GameObject:
   - component: {fileID: 2793164641784181974}
   - component: {fileID: 2464279966193774666}
   - component: {fileID: 6963179654193189840}
+  - component: {fileID: 1766332798700008387}
   m_Layer: 5
-  m_Name: AlchemyRecipeDisplay
+  m_Name: AlchemyRecipeDisplayPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,6 +226,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1766332798700008387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3260011445836123561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77183efac534483a92a983fffffbf5f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 7152110448997379262}
+  nameText: {fileID: 1419991041431824328}
 --- !u!1 &4474407274733007003
 GameObject:
   m_ObjectHideFlags: 0

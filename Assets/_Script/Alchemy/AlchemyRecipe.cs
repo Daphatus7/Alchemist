@@ -11,7 +11,7 @@ namespace _Script.Alchemy
     {
         public string recipeID;
         public string recipeName;
-        public ItemInstance[] ingredients;
+        public ItemInstance[] reagents;
         /// <summary>
         /// the main output item
         /// </summary>

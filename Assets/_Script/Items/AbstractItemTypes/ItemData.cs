@@ -114,13 +114,13 @@ namespace _Script.Items.AbstractItemTypes
         [Serializable]
         public class ItemInstance
         {
-            public ItemData ItemData;
-            public int Quantity;
+            [SerializeField] private ItemData itemData; public ItemData ItemData => itemData;
+            [SerializeField] private int quantity; public int Quantity => quantity;
             
             public ItemInstance(ItemData itemData, int quantity)
             {
-                ItemData = itemData;
-                Quantity = quantity;
+                this.itemData = itemData;
+                this.quantity = quantity;
             }
         }
 

@@ -1,6 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 04 02 2025 02 19
 
+using System.Collections.Generic;
 using _Script.Inventory.SlotFrontend;
 using TMPro;
 using UnityEngine;
@@ -8,23 +9,54 @@ using UnityEngine.UI;
 
 namespace _Script.Alchemy.AlchemyUI
 {
+    /// <summary>
+    /// Display the recipe of the potion
+    /// Potion info
+    /// Description
+    /// Reagents
+    /// </summary>
     public class AlchemyRecipePanelUI : MonoBehaviour
     {
-        [SerializeField] private InventorySlotDisplay resultIcon;
+        [Header("Output")]
+        [SerializeField] private Image outputIcon;
+        [SerializeField] private TextMeshProUGUI outputNameText;
         [SerializeField] private TextMeshProUGUI descriptionText;
         
-        [SerializeField] private LayoutGroup ingredientLayoutGroup;
-        [SerializeField] private InventorySlotDisplay[] ingredientIcons;
+        [Header("Reagents")]
+        [SerializeField] private LayoutGroup reagentPanel;
+        [SerializeField] private GameObject reagentDisplayPrefab;
+        private List<AlchemyReagentDisplayUI> _reagentDisplays = new List<AlchemyReagentDisplayUI>();
+        
         
         
         public void SetDisplay(AlchemyRecipe recipe)
         {
-            resultIcon.SetDisplay(recipe.mainOutputItem, 1);
+            //Output
+            outputIcon.sprite = recipe.mainOutputItem.itemIcon;
+            outputNameText.text = recipe.mainOutputItem.itemName;
             descriptionText.text = recipe.mainOutputItem.itemDescription;
-            for (int i = 0; i < recipe.ingredients.Length; i++)
+            
+            //Reagents
+            LoadReagents(recipe);
+        }
+        
+        private void LoadReagents(AlchemyRecipe recipe)
+        {
+            foreach (var display in _reagentDisplays)
             {
-                ingredientIcons[i].SetDisplay(recipe.ingredients[i].ItemData, recipe.ingredients[i].Quantity);
+                Destroy(display.gameObject);
             }
+            
+            foreach (var reagent in recipe.reagents)
+            {
+                var display = Instantiate(reagentDisplayPrefab, reagentPanel.transform).GetComponent<AlchemyReagentDisplayUI>();
+                display.SetDisplay(reagent.ItemData.itemIcon, reagent.ItemData.itemName, reagent.Quantity);
+                _reagentDisplays.Add(display);
+            }
+        }
+        private void GetPlayerInventoryQuantity()
+        {
+            //TODO
         }
     }
 }

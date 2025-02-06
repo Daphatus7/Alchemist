@@ -530,6 +530,7 @@ namespace _Script.Inventory.SlotFrontend
         Equipment,
         ActionBar,
         Merchant,
-        Bag
+        Bag,
+        Cauldron
     }
 }

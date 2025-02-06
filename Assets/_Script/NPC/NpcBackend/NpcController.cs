@@ -27,9 +27,7 @@ namespace _Script.NPC.NpcBackend
         
         #region Private Fields
         protected PlayerCharacter CurrentPlayer { get; set; }
-        
         private NpcModuleBase[] _npcModules;
-        
         private ConversationInstance _conversationInstance;
         private Coroutine _distanceCheckCoroutine;
         private readonly WaitForSeconds _distanceCheckWait = new WaitForSeconds(0.3f);

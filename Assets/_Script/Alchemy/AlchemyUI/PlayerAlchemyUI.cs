@@ -3,20 +3,33 @@
 
 using System;
 using _Script.UserInterface;
+using _Script.Utilities.ServiceLocator;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace _Script.Alchemy.AlchemyUI
 {
-    public class PlayerAlchemyUI : MonoBehaviour, IUIHandler
+    public class PlayerAlchemyUI : MonoBehaviour, IUIHandler, IAlchemyUIService
     {
-        [SerializeField] private PlayerAlchemy _playerAlchemy;
+        private PlayerAlchemy _playerAlchemy; 
         private AlchemyRecipe _selectedRecipe;
         
-        [SerializeField] private AlchemyTabUI alchemyTabUI;
+        [SerializeField] private AlchemyRecipesUI alchemyRecipesUI;
         [SerializeField] private AlchemyRecipePanelUI alchemyRecipePanelUI;
+        [SerializeField] private CauldronContainerUI cauldronContainerUI;
+
+        public void Start()
+        {
+            ServiceLocator.Instance.Register<IAlchemyUIService>(this);
+        }
         
+        public void OnDestroy()
+        {
+            ServiceLocator.Instance.Unregister<IAlchemyUIService>();
+        }
+
         public void ShowUI()
         {
             if(_playerAlchemy == null)
@@ -24,13 +37,13 @@ namespace _Script.Alchemy.AlchemyUI
                 throw new NullReferenceException("Player Alchemy is null");
             }
             LoadPlayerAlchemy();
-            alchemyTabUI.onRecipeSelected += OnRecipeSelected;
+            alchemyRecipesUI.onRecipeSelected += OnRecipeSelected;
         }
 
         public void HideUI()
         {
             //Unsubscribe
-            alchemyTabUI.onRecipeSelected -= OnRecipeSelected;
+            alchemyRecipesUI.onRecipeSelected -= OnRecipeSelected;
         }
         
         /// <summary>
@@ -38,7 +51,7 @@ namespace _Script.Alchemy.AlchemyUI
         /// </summary>
         private void LoadPlayerAlchemy()
         {
-            alchemyTabUI.LoadPlayerAlchemy(_playerAlchemy);
+            alchemyRecipesUI.LoadPlayerAlchemy(_playerAlchemy);
             //加载默认的配方
             OnRecipeSelected(new Tuple<PotionCategory, int>(PotionCategory.Potion, 0));
         }
@@ -81,5 +94,18 @@ namespace _Script.Alchemy.AlchemyUI
         }
 
 
+        /// <summary>
+        /// 当玩家与炼金台交互时加载UI
+        /// 步骤，
+        /// 1. 加载锅里的物品
+        /// 2. 加载玩家的配方
+        /// 3. 加载默认选中的配方
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="cauldron"></param>
+        public void LoadAlchemyUI(PlayerAlchemy player, Cauldron.Cauldron cauldron)
+        {
+            _playerAlchemy = player;
+        }
     }
 }

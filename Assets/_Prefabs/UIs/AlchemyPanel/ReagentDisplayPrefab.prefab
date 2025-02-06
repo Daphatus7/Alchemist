@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1846250752048361888}
   - component: {fileID: 9101159919450537107}
   m_Layer: 5
-  m_Name: GameObject (1)
+  m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 2020883311716179033}
   - component: {fileID: 8414570471825581685}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,8 +190,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5512316792793282753}
   - component: {fileID: 4937828648121306491}
+  - component: {fileID: 7208842887847140155}
   m_Layer: 5
-  m_Name: ReagentDisplay
+  m_Name: ReagentDisplayPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -216,7 +217,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 2, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4937828648121306491
 MonoBehaviour:
@@ -244,6 +245,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &7208842887847140155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8409176369073048071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 326c910faec943d69c64306e04e3cbdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reagentIcon: {fileID: 5085496283462906165}
+  reagentNameText: {fileID: 5999700698054811980}
+  reagentAmountText: {fileID: 6514758375758996859}
 --- !u!1 &8434289241104899381
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,7 +424,7 @@ GameObject:
   - component: {fileID: 6514758375758996859}
   - component: {fileID: 653617901976708127}
   m_Layer: 5
-  m_Name: Quantity (1)
+  m_Name: Quantity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

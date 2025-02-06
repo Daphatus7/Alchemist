@@ -15,7 +15,7 @@ namespace _Script.Alchemy.AlchemyUI
     /// <summary>
     /// holds the item selection and tab changing
     /// </summary>
-    public class AlchemyTabUI : MonoBehaviour, IUIHandler
+    public class AlchemyRecipesUI : MonoBehaviour, IUIHandler
     {
         
         /// <summary>
