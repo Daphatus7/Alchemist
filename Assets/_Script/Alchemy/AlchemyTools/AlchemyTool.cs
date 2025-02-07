@@ -79,6 +79,7 @@ namespace _Script.Alchemy.AlchemyTools
                 _container.AddItem(new ItemStack(output.Data, output.Quantity));
             }
             
+            BrewInstance = null;
             onBrewComplete?.Invoke();
         }
     }

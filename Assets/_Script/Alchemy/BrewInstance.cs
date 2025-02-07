@@ -47,11 +47,10 @@ namespace _Script.Alchemy
                     {
                         new ItemAndQuantity(_recipe.mainOutputItem, _recipe.outputQuantity)
                     };
-                    
                     foreach (var byproduct in _recipe.secondaryOutputItems)
                     {
                         //floor the chance
-                        var count = (int) Random.Range(0, byproduct.chance);
+                        var count = 1;
                         _outputItems.Add(new ItemAndQuantity(byproduct.item, count));
                     }
                 }

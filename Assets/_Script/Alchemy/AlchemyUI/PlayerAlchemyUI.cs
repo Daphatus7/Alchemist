@@ -116,10 +116,7 @@ namespace _Script.Alchemy.AlchemyUI
                         Debug.Log("移除物品");
                         //remove reagents from the player inventory
                         _playerAlchemy.RemoveReagentsFromPlayerInventory(_selectedRecipe);
-                        
-                        
                         _alchemyTool.StartBrew(new BrewInstance(_selectedRecipe, _playerContainer));
-                        
                         _alchemyTool.onBrewComplete += OnBrewComplete;
                     }
                 }
@@ -127,7 +124,7 @@ namespace _Script.Alchemy.AlchemyUI
         }
         private void OnBrewComplete()
         {
-            Debug.Log("Brew Complete");
+            Debug.Log("Brew Complete, Play UI");
             _alchemyTool.onBrewComplete -= OnBrewComplete;
         }
 

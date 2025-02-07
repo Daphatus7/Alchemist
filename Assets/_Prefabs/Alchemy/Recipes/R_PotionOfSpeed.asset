@@ -15,8 +15,6 @@ MonoBehaviour:
   recipeID: r_002
   recipeName: 'Recipe: Potion of Speed'
   reagents:
-  - data: {fileID: 11400000, guid: b539ddb23ce724e04bdafca4715ddbf5, type: 2}
-    quantity: 2
   - data: {fileID: 11400000, guid: cbc5667b0e2a840088c322a9f35cef53, type: 2}
     quantity: 1
   - data: {fileID: 11400000, guid: 82ae9c7bb14494e49975db7b82705143, type: 2}
@@ -26,6 +24,4 @@ MonoBehaviour:
   mainOutputItem: {fileID: 11400000, guid: 1d79ea6a7e9444de2bdda57e097b49b1, type: 2}
   outputQuantity: 1
   craftingTime: 1
-  secondaryOutputItems:
-  - item: {fileID: 11400000, guid: a731c0cc6be5140f88f1cc7b7ae63ec8, type: 2}
-    chance: 1
+  secondaryOutputItems: []
