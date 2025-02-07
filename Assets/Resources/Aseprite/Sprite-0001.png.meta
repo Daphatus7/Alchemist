@@ -777,6 +777,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Cauldron
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 856
+        width: 65
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 544a5d73f66b94677bc9ed076c1ad3ca
+      internalID: 581139435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -792,6 +814,7 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Apple: -2145804694
+      Cauldron: 581139435
       Cheese: 493521651
       Dagger: 186120327
       Gem: 2130572548

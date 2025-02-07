@@ -1,16 +1,28 @@
 // Author : Peiyu Wang @ Daphatus
 // 04 02 2025 02 54
 
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace _Script.Alchemy.RecipeBook
 {
+    [Serializable]
     public class PlayerRecipeBook
     {
         //Learned recipes
         private Dictionary<PotionCategory, List<AlchemyRecipe>> _recipes;
         
         public Dictionary<PotionCategory, List<AlchemyRecipe>> Recipes => _recipes;
+        
+        public PlayerRecipeBook(AlchemyRecipe[] learnedRecipes)
+        {
+            _recipes = new Dictionary<PotionCategory, List<AlchemyRecipe>>();
+            foreach (var learned in learnedRecipes)
+            {
+                _recipes.Add(learned.PotionCategory, new List<AlchemyRecipe>{learned});
+            }
+        }
         
         public bool LearnRecipe(AlchemyRecipe recipe)
         {

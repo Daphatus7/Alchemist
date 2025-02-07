@@ -1,6 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 02 02 2025 02 19
 
+using System;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
@@ -16,15 +17,15 @@ namespace _Script.Alchemy
         /// the main output item
         /// </summary>
         public PotionBase mainOutputItem;
-        public PotionCategory PotionCategory => mainOutputItem.PotionCategory;
-        /// <summary>
-        /// the possible secondary output items
-        /// such as waste and byproducts
-        /// </summary>
-        public Byproduct[] secondaryOutputItems;
-        
         public int outputQuantity = 1;
         public float craftingTime = 3;
+        
+        /// <summary>
+        /// the possible secondary output items
+        /// such as waste and byproducts of the recipe
+        /// </summary>
+        public Byproduct[] secondaryOutputItems;
+        public PotionCategory PotionCategory => mainOutputItem.PotionCategory;
     }
     
     /// <summary>

@@ -62,9 +62,9 @@ namespace _Script.Alchemy.AlchemyUI
             )
         {
             //Load the tabs
-            LoadTabs(playerAlchemy);
             if (playerAlchemy.RecipeBook.Recipes.Count > 0)
             {
+                LoadTabs(playerAlchemy);
                 LoadTabOfRecipes(playerAlchemy.RecipeBook.GetRecipesByType(playerAlchemy.RecipeBook.Recipes.Keys.GetEnumerator().Current));
             }
             else

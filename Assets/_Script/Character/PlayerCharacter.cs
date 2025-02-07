@@ -87,7 +87,7 @@ namespace _Script.Character
             _torchStrategy = GetComponent<TorchItemStrategy>();
             _rb = GetComponent<Rigidbody2D>();
 
-            _playerAlchemy = new PlayerAlchemy();
+            _playerAlchemy = GetComponent<PlayerAlchemy>();
 
             InitializePlayerInventories();
             InitializeStrategies();

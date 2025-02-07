@@ -7,12 +7,12 @@ using UnityEngine;
 
 namespace _Script.Alchemy
 {
-    public class PlayerAlchemy
+    public class PlayerAlchemy : MonoBehaviour
     {
-        private PlayerRecipeBook _recipeBook; public PlayerRecipeBook RecipeBook => _recipeBook;
+        private PlayerRecipeBook recipeBook; public PlayerRecipeBook RecipeBook => recipeBook;
+        [SerializeField] AlchemyRecipe [] learnedRecipes;
         
         private Inventory.InventoryBackend.Inventory _playerInventory;
-
         private Inventory.InventoryBackend.Inventory PlayerInventory
         {
             get
@@ -28,8 +28,14 @@ namespace _Script.Alchemy
                 }
             }
         }
-        
-        
+
+
+        public void Awake()
+        {
+            //Initialize the recipe book from the learned recipes
+            recipeBook = new PlayerRecipeBook(learnedRecipes);
+        }
+
         /// <summary>
         /// 通过PotionType和inventoryIndex获取配方
         /// </summary>
@@ -38,7 +44,7 @@ namespace _Script.Alchemy
         /// <returns></returns>
         public AlchemyRecipe GetRecipe(PotionCategory type, int inventoryIndex)
         {
-            return _recipeBook.GetRecipeByType(type, inventoryIndex);
+            return recipeBook.GetRecipeByType(type, inventoryIndex);
         }
         
         /// <summary>

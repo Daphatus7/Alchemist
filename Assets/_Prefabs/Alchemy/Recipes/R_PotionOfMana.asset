@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 642756aa52a54ef182279fa3a2bebf6f, type: 3}
+  m_Name: R_PotionOfMana
+  m_EditorClassIdentifier: 
+  recipeID: r_001
+  recipeName: 'Recipe: Potion of Mana'
+  reagents:
+  - data: {fileID: 11400000, guid: b539ddb23ce724e04bdafca4715ddbf5, type: 2}
+    quantity: 2
+  - data: {fileID: 11400000, guid: e2da08777c5dc4b19b4ca5a33ad2bdcd, type: 2}
+    quantity: 0
+  mainOutputItem: {fileID: 11400000, guid: 5c4ba26afcf334a36870ca5dd2f9762d, type: 2}
+  secondaryOutputItems:
+  - item: {fileID: 11400000, guid: 82ae9c7bb14494e49975db7b82705143, type: 2}
+    chance: 1
+  - item: {fileID: 11400000, guid: e2da08777c5dc4b19b4ca5a33ad2bdcd, type: 2}
+    chance: 1
+  - item: {fileID: 11400000, guid: cbc5667b0e2a840088c322a9f35cef53, type: 2}
+    chance: 1
+  outputQuantity: 1
+  craftingTime: 1
