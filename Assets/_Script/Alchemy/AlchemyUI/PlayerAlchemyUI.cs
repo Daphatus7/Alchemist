@@ -15,6 +15,7 @@ namespace _Script.Alchemy.AlchemyUI
     public class PlayerAlchemyUI : MonoBehaviour, IUIHandler, IAlchemyUIService
     {
         private PlayerAlchemy _playerAlchemy; 
+        private Inventory.InventoryBackend.Inventory _playerContainer;
         private AlchemyRecipe _selectedRecipe;
         private AlchemyTool _alchemyTool;
         
@@ -66,9 +67,9 @@ namespace _Script.Alchemy.AlchemyUI
         /// <summary>
         /// 加载左边的所有配方
         /// </summary>
-        private void LoadPlayerAlchemy()
+        private void LoadPlayerAlchemy(PlayerAlchemy playerAlchemy, Inventory.InventoryBackend.Inventory playerContainer)
         {
-            alchemyRecipesUI.LoadPlayerAlchemy(_playerAlchemy);
+            alchemyRecipesUI.LoadPlayerAlchemy(playerAlchemy, playerContainer.InventoryStatus);
             //加载默认的配方
             OnRecipeSelected(new Tuple<PotionCategory, int>(PotionCategory.Potion, 0));
         }
@@ -92,7 +93,9 @@ namespace _Script.Alchemy.AlchemyUI
         // To brew the potion selected
         public void BrewButton()
         {
-            if(_selectedRecipe != null || _alchemyTool != null || _alchemyTool.IsEmpty)
+            if(_selectedRecipe != null //检查是否选中了配方
+               || _alchemyTool != null  //检查是否有炼金台
+               || _alchemyTool.IsEmpty) //目前必须保证炼金台为空
             {
                 //如果不能制作，比如材料不够, 简单检查数据
                 if (!_playerAlchemy.CanBrew(_selectedRecipe))
@@ -103,13 +106,16 @@ namespace _Script.Alchemy.AlchemyUI
                 {
                     if(_playerAlchemy.CheckPlayerRealtimeInventory(_selectedRecipe))
                     {
-                        _alchemyTool.StartBrew(_selectedRecipe);
+                        //remove reagents from the player inventory
+                        _playerAlchemy.RemoveReagentsFromPlayerInventory(_selectedRecipe);
+                        
+                        _alchemyTool.StartBrew(new BrewInstance(_selectedRecipe, _playerContainer));
+                        
                         _alchemyTool.onBrewComplete += OnBrewComplete;
                     }
                 }
             }
         }
-
         private void OnBrewComplete()
         {
             Debug.Log("Brew Complete");
@@ -130,12 +136,19 @@ namespace _Script.Alchemy.AlchemyUI
         /// 3. 加载默认选中的配方
         /// </summary>
         /// <param name="player"></param>
+        /// <param name="playerInventory"></param>
         /// <param name="alchemyTool"></param>
-        public void LoadAlchemyUI(PlayerAlchemy player, AlchemyTool alchemyTool)
+        public void LoadAlchemyUI(PlayerAlchemy player, //玩家
+            Inventory.InventoryBackend.Inventory playerInventory, //玩家背包，用来
+            AlchemyTool alchemyTool //炼金台
+            )
         {
             _playerAlchemy = player;
             _alchemyTool = alchemyTool;
-            LoadPlayerAlchemy();
+            _playerContainer = playerInventory;
+            
+            //加载
+            LoadPlayerAlchemy(_playerAlchemy, _playerContainer);
             
             //当选中配方，在配方界面加载对应的配方
             alchemyRecipesUI.onRecipeSelected += OnRecipeSelected;

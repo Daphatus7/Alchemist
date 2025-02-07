@@ -539,7 +539,8 @@ namespace _Script.Inventory.InventoryBackend
         }
 
         #region Inventory Status
-        private InventoryStatus _inventoryStatus; private InventoryStatus InventoryStatus => _inventoryStatus ??= new InventoryStatus();
+        private InventoryStatus _inventoryStatus;
+        public InventoryStatus InventoryStatus => _inventoryStatus ??= new InventoryStatus();
         
         /// <summary>
         /// Simply check the item status instead of going through the inventory.

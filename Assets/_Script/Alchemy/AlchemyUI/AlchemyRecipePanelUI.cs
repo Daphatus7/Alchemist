@@ -50,7 +50,7 @@ namespace _Script.Alchemy.AlchemyUI
             foreach (var reagent in recipe.reagents)
             {
                 var display = Instantiate(reagentDisplayPrefab, reagentPanel.transform).GetComponent<AlchemyReagentDisplayUI>();
-                display.SetDisplay(reagent.ItemData.itemIcon, reagent.ItemData.itemName, reagent.Quantity);
+                display.SetDisplay(reagent.Data.itemIcon, reagent.Data.itemName, reagent.Quantity);
                 _reagentDisplays.Add(display);
             }
         }

@@ -4,7 +4,8 @@ using _Script.Character;
 using _Script.Items.Helper;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using Unity.VisualScripting; // Import Odin
+using Unity.VisualScripting;
+using UnityEngine.Serialization; // Import Odin
 
 namespace _Script.Items.AbstractItemTypes
 {
@@ -114,12 +115,12 @@ namespace _Script.Items.AbstractItemTypes
         [Serializable]
         public class ItemAndQuantity
         {
-            [SerializeField] private ItemData itemData; public ItemData ItemData => itemData;
+            [SerializeField] private ItemData data; public ItemData Data => data;
             [SerializeField] private int quantity; public int Quantity => quantity;
             
-            public ItemAndQuantity(ItemData itemData, int quantity)
+            public ItemAndQuantity(ItemData data, int quantity)
             {
-                this.itemData = itemData;
+                this.data = data;
                 this.quantity = quantity;
             }
         }

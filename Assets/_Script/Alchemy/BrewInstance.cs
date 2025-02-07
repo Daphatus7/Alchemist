@@ -2,6 +2,7 @@
 // 04 02 2025 02 53
 
 using System.Collections.Generic;
+using _Script.Inventory.InventoryBackend;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
@@ -9,14 +10,32 @@ namespace _Script.Alchemy
 {
     public class BrewInstance
     {
+        //Target Inventory
+        Inventory.InventoryBackend.Inventory _targetInventory;
+        
+        
         private AlchemyRecipe _recipe;
         private List<ItemAndQuantity> _outputItems;
         
+        public float BrewTime => _recipe.craftingTime;
+        
         //holds the recipe
-        public BrewInstance(AlchemyRecipe recipe)
+        public BrewInstance(AlchemyRecipe recipe, 
+            Inventory.InventoryBackend.Inventory targetInventory)
         {
+            _targetInventory = targetInventory;
             _recipe = recipe;
         }
+        
+        public void CompleteBrew()
+        {
+            //add the output items to the target inventory
+            foreach (var item in GetOutputItems)
+            {
+                _targetInventory.AddItem(new ItemStack(item.Data, item.Quantity));
+            }
+        }
+        
         
         public List<ItemAndQuantity> GetOutputItems
         {
@@ -24,20 +43,19 @@ namespace _Script.Alchemy
             {
                 if (_outputItems == null)
                 {
-                    _outputItems = new List<ItemAndQuantity>();
-                    _outputItems.Add(new ItemAndQuantity(_recipe.mainOutputItem, _recipe.outputQuantity));
+                    _outputItems = new List<ItemAndQuantity>
+                    {
+                        new ItemAndQuantity(_recipe.mainOutputItem, _recipe.outputQuantity)
+                    };
+                    
                     foreach (var byproduct in _recipe.secondaryOutputItems)
                     {
                         //floor the chance
                         var count = (int) Random.Range(0, byproduct.chance);
                         _outputItems.Add(new ItemAndQuantity(byproduct.item, count));
                     }
-                    return _outputItems;
                 }
-                else
-                {
-                    return _outputItems;
-                }
+                return _outputItems;
             }
         }
     }

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using _Script.Inventory.InventoryBackend;
 using _Script.UserInterface;
 using TMPro;
 using Unity.VisualScripting;
@@ -56,7 +57,9 @@ namespace _Script.Alchemy.AlchemyUI
         /// </summary>
         /// <param name="playerAlchemy"></param>
         /// <exception cref="NullReferenceException"></exception>
-        public void LoadPlayerAlchemy(PlayerAlchemy playerAlchemy)
+        public void LoadPlayerAlchemy(PlayerAlchemy playerAlchemy, 
+            InventoryStatus playerInventory //用于检查材料
+            )
         {
             //Load the tabs
             LoadTabs(playerAlchemy);

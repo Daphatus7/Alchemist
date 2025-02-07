@@ -52,7 +52,7 @@ namespace _Script.Alchemy
             //check inventory status to see if the player has enough reagents
             foreach (var reagent in recipe.reagents)
             {
-                if(PlayerInventory.GetItemCount(reagent.ItemData.itemID) < reagent.Quantity)
+                if(PlayerInventory.GetItemCount(reagent.Data.itemID) < reagent.Quantity)
                 {
                     return false;
                 }
@@ -70,7 +70,25 @@ namespace _Script.Alchemy
             
             foreach (var reagent in recipe.reagents)
             {
-                if(PlayerInventory.CheckRealtimeItemCount(reagent.ItemData.itemID, reagent.Quantity))
+                if(PlayerInventory.CheckRealtimeItemCount(reagent.Data.itemID, reagent.Quantity))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        public bool RemoveReagentsFromPlayerInventory(AlchemyRecipe recipe)
+        {
+            if (_playerInventory == null)
+            {
+                Debug.Log("你还没有初始化玩家的背包");
+                throw new NullReferenceException("Player Inventory is null");
+            }
+            
+            foreach (var reagent in recipe.reagents)
+            {
+                if(PlayerInventory.RemoveItemById(reagent.Data.itemID, reagent.Quantity))
                 {
                     return false;
                 }

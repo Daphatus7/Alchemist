@@ -32,9 +32,11 @@ namespace _Script.Alchemy.AlchemyTools
             {
                 throw new NullReferenceException("Service locator was not initialized");
             }
-            ServiceLocator.Instance.Get<IAlchemyUIService>().LoadAlchemyUI(player.PlayerAlchemy, this);
+            ServiceLocator.Instance.Get<IAlchemyUIService>().
+                LoadAlchemyUI(player.PlayerAlchemy,
+                player.PlayerInventory,
+                this);
         }
-
         public void OnHighlight()
         {
         }
@@ -43,16 +45,16 @@ namespace _Script.Alchemy.AlchemyTools
         {
         }
 
-        public void StartBrew(AlchemyRecipe selectedRecipe)
+        public void StartBrew(BrewInstance brewInstance)
         {
             if (_brewTimer != null || BrewInstance != null)
             {
                 Debug.Log("already brewing");
             }
-            BrewInstance = new BrewInstance(selectedRecipe);
+            BrewInstance = brewInstance;
             
             //start a timer
-            _brewTimer = StartCoroutine(BrewTimer(selectedRecipe.craftingTime));
+            _brewTimer = StartCoroutine(BrewTimer(BrewInstance.BrewTime));
             //when the timer is done, call OnBrewComplete
         }
         
@@ -66,10 +68,12 @@ namespace _Script.Alchemy.AlchemyTools
         {
             if(BrewInstance == null)
                 throw new NullReferenceException("BrewInstance is null");
+            
             foreach (var output in BrewInstance.GetOutputItems)
             {
-                _container.AddItem(new ItemStack(output.ItemData, output.Quantity));
+                _container.AddItem(new ItemStack(output.Data, output.Quantity));
             }
+            
             onBrewComplete?.Invoke();
         }
     }

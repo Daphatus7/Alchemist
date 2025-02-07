@@ -8,6 +8,8 @@ namespace _Script.Alchemy
 {
     public interface IAlchemyUIService : IUIService
     {
-        void LoadAlchemyUI(PlayerAlchemy player, AlchemyTool alchemyTool);
+        void LoadAlchemyUI(PlayerAlchemy playerAlchemy, 
+            Inventory.InventoryBackend.Inventory playerContainer, 
+            AlchemyTool alchemyTool);
     }
 }
