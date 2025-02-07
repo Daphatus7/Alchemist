@@ -321,6 +321,9 @@ namespace _Script.Inventory.SlotFrontend
                 case DragType.DoNothing:
                     ReturnItemToSourceSlot(sourceSlot);
                     break;
+                case DragType.DragOut:
+                    DragOutItem(sourceSlot);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -398,7 +401,7 @@ namespace _Script.Inventory.SlotFrontend
                         case SlotType.Cauldron:
                             return DragType.Swap;
                         case SlotType.PlayerInventory:
-                            return DragType.Swap;
+                            return DragType.DragOut;
                         default:
                             return DragType.DoNothing;
                     }
@@ -412,13 +415,11 @@ namespace _Script.Inventory.SlotFrontend
         /// </summary>
         private void SwapItems(InventorySlotInteraction source)
         {
-            
-            var targetSlotPosition = _inventoryUI.GetSlotPosition(_slotIndex);
-            
             //先检查是不是在同一个背包里
             if (source.SlotType == SlotType)
             {
                 //Debug.Log("Shifted Pivot Index: " + shiftedPivotIndex);
+                var targetSlotPosition = _inventoryUI.GetSlotPosition(_slotIndex);
                 var projectedPositions = DragItem.Instance.ProjectedPositions(targetSlotPosition);
                 if(_inventoryUI.CanFitItem(projectedPositions))
                 {
@@ -436,14 +437,24 @@ namespace _Script.Inventory.SlotFrontend
             {
                 throw new Exception("还没有应用跨背包交换物品的功能");
             }
-            
-            //先检查重叠多少物品
-            
-            // Index 是对的
-            
-            //但是
-            
         }
+        
+        private void DragOutItem(InventorySlotInteraction source)
+        {
+            var targetSlotPosition = _inventoryUI.GetSlotPosition(_slotIndex);
+            var projectedPositions = DragItem.Instance.ProjectedPositions(targetSlotPosition);
+            if(_inventoryUI.CanFitItem(projectedPositions))
+            {
+                var itemToAdd = DragItem.Instance.RemoveItemStack();
+                _inventoryUI.AddItemToEmptySlot(itemToAdd, projectedPositions);
+            }
+            else
+            {
+                Debug.Log("Can't fit the item");
+                ReturnItemToSourceSlot(source);
+            }
+        }
+        
 
         private void SetDragItemPosition(PointerEventData eventData)
         {
@@ -530,6 +541,7 @@ namespace _Script.Inventory.SlotFrontend
         Add, // Not implemented yet
         Buy,
         Sell,
+        DragOut,
         DoNothing
     }
 
