@@ -102,7 +102,7 @@ namespace _Script.Alchemy.AlchemyUI
         {
             if(_selectedRecipe != null //检查是否选中了配方
                || _alchemyTool != null  //检查是否有炼金台
-               || _alchemyTool.IsEmpty) //目前必须保证炼金台为空
+               || !_alchemyTool.IsEmpty) //目前必须保证炼金台为空
             {
                 //如果不能制作，比如材料不够, 简单检查数据
                 if (!_playerAlchemy.CanBrew(_selectedRecipe))

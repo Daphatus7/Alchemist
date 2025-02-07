@@ -14,7 +14,7 @@ using IInteractable = _Script.Interactable.IInteractable;
 
 namespace _Script.NPC.NpcBackend
 {
-    public class NpcController : MonStateMachine, IInteractable, INpcDialogueHandler, INpcModuleControlHandler
+    public class NpcController : MonoBehaviour, IInteractable, INpcDialogueHandler, INpcModuleControlHandler
     {
         
         [BoxGroup("Basic Info")]
@@ -30,31 +30,14 @@ namespace _Script.NPC.NpcBackend
         private NpcModuleBase[] _npcModules;
         private ConversationInstance _conversationInstance;
         private Coroutine _distanceCheckCoroutine;
-        private readonly WaitForSeconds _distanceCheckWait = new WaitForSeconds(0.3f);
-
         #endregion
-
-        protected override IState[] InitializeStateMachine()
-        {
-            var npcStates = GetAllNpcStates();
-            var iStates = new IState[npcStates.Length];
-            foreach (var npcState in npcStates)
-            {
-                npcState.Initialize();
-            }
-            for (int i = 0; i < npcStates.Length; i++)
-            {
-                iStates[i] = npcStates[i];
-            }
-            return iStates;
-        }
+        
 
 
         private NpcState.NpcState [] GetAllNpcStates()
         {
             return GetComponents<NpcState.NpcState>();
         }
-        
         
         /// <summary>
         /// Coroutine to continuously check the player's distance from the NPC.
