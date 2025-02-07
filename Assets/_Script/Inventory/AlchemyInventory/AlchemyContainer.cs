@@ -17,9 +17,5 @@ namespace _Script.Inventory.AlchemyInventory
         }
 
         public override SlotType SlotType => SlotType.Cauldron;
-        public override void LeftClickItem(int slotIndex)
-        {
-            
-        }
     }
 }

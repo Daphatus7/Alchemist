@@ -65,7 +65,6 @@ namespace _Script.Alchemy.AlchemyTools
         
         private IEnumerator BrewTimer(float brewTime)
         {
-            Debug.Log("Brewing");
             yield return new WaitForSeconds(brewTime);
             OnOnBrewComplete();
         }

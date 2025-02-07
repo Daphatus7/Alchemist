@@ -127,9 +127,14 @@ namespace _Script.Inventory.SlotFrontend
                 case SlotType.ActionBar:
                 case SlotType.PlayerInventory:
                 case SlotType.Equipment:
+                case SlotType.Cauldron:
+                case SlotType.Bag:
                     return true;
                 default:
+                {
+                    Debug.Log("no no no you can't drag this");
                     return false;
+                }
             }
         }
         
@@ -153,6 +158,10 @@ namespace _Script.Inventory.SlotFrontend
             }
         }
         
+        /// <summary>
+        /// Where to record the dragItem
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnBeginDrag(PointerEventData eventData)
         {
             if (!CanDrag() || _currentStack?.IsEmpty != false) return;
@@ -180,18 +189,7 @@ namespace _Script.Inventory.SlotFrontend
             SetDragItemPosition(eventData);
            //******** icon.color = new Color(1, 1, 1, 0);
         }
-
-        // private Vector2Int CalculatePivotPosition(ItemStack itemStack)
-        // {
-        //     //先得到物品的Pivot
-        //     var itemPivot = itemStack.PivotPosition;
-        //     //获取当前背包选中的位置
-        //     var slotPosition = _inventoryUI.GetSlotPosition(_slotIndex);
-        //     //计算出物品的偏移量
-        //     
-        //     return slotPosition - itemPivot;
-        // }
-
+        
         public void OnDrag(PointerEventData eventData)
         {
             //DragItem Should Be Singleton in this case or can be accssed through Service Locator
@@ -236,7 +234,6 @@ namespace _Script.Inventory.SlotFrontend
             var sourceSlot = eventData.pointerDrag?.GetComponent<InventorySlotInteraction>();
             
             if (sourceSlot == null) return;
-            //Debug.Log("Dropped item on slot: " + DragItem.Instance.PeakItemStack());
             var itemData = DragItem.Instance.PeakItemStack()?.ItemData;
             if(itemData == null) return;
             

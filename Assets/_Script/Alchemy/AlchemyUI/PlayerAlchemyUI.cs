@@ -14,11 +14,14 @@ namespace _Script.Alchemy.AlchemyUI
 {
     public class PlayerAlchemyUI : MonoBehaviour, IUIHandler, IAlchemyUIService
     {
+        [Header("Backend")]
         private PlayerAlchemy _playerAlchemy; 
         private Inventory.InventoryBackend.Inventory _playerContainer;
         private AlchemyRecipe _selectedRecipe;
         private AlchemyTool _alchemyTool;
         
+        
+        [Header("Frontend")]
         [SerializeField] private GameObject alchemyInventoryPanel;
         [SerializeField] private AlchemyRecipesUI alchemyRecipesUI;
         [SerializeField] private AlchemyRecipePanelUI alchemyRecipePanelUI;

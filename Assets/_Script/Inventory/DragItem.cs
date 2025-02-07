@@ -58,6 +58,7 @@ namespace _Script.Inventory
         
         public void AddItemToDrag(ItemStack itemStack, Vector2Int dragStartPosition)
         {
+            Debug.Log("AddItemToDrag");
             _itemStack = itemStack;
             _image.sprite = itemStack.ItemData.itemIcon;
             _dragStartPosition = dragStartPosition; //

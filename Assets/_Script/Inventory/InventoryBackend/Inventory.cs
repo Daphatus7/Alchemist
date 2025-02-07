@@ -411,9 +411,12 @@ namespace _Script.Inventory.InventoryBackend
         {
             Debug.Log("Item used up.");
         }
-        
-        public abstract void LeftClickItem(int slotIndex);
-        
+
+        public virtual void LeftClickItem(int slotIndex)
+        {
+            
+        }
+
         protected ItemStack CreateStack(List<Vector2Int> projectedLocations, int quantity, ItemStack item)
         {
             var cItem = item.ItemData as ContainerItem;
