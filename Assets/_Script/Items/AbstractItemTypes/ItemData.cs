@@ -27,7 +27,7 @@ namespace _Script.Items.AbstractItemTypes
 
             [Title("Stacking & Rarity")] [SerializeField, Tooltip("Maximum stack size for this item")]
             public int maxStackSize = 1;
-
+            
             public int MaxStackSize
             {
                 get => maxStackSize;
@@ -112,12 +112,12 @@ namespace _Script.Items.AbstractItemTypes
         }
         
         [Serializable]
-        public class ItemInstance
+        public class ItemAndQuantity
         {
             [SerializeField] private ItemData itemData; public ItemData ItemData => itemData;
             [SerializeField] private int quantity; public int Quantity => quantity;
             
-            public ItemInstance(ItemData itemData, int quantity)
+            public ItemAndQuantity(ItemData itemData, int quantity)
             {
                 this.itemData = itemData;
                 this.quantity = quantity;

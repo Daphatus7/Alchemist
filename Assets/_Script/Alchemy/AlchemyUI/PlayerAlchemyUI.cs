@@ -2,6 +2,7 @@
 // 04 02 2025 02 30
 
 using System;
+using _Script.Alchemy.AlchemyTools;
 using _Script.UserInterface;
 using _Script.Utilities.ServiceLocator;
 using Unity.VisualScripting;
@@ -15,19 +16,30 @@ namespace _Script.Alchemy.AlchemyUI
     {
         private PlayerAlchemy _playerAlchemy; 
         private AlchemyRecipe _selectedRecipe;
+        private AlchemyTool _alchemyTool;
         
+        [SerializeField] private GameObject alchemyInventoryPanel;
         [SerializeField] private AlchemyRecipesUI alchemyRecipesUI;
         [SerializeField] private AlchemyRecipePanelUI alchemyRecipePanelUI;
         [SerializeField] private CauldronContainerUI cauldronContainerUI;
-
-        public void Start()
+        
+        [SerializeField] private Button brewButton;
+        
+        public void Awake()
         {
-            ServiceLocator.Instance.Register<IAlchemyUIService>(this);
+            alchemyInventoryPanel.SetActive(false);
         }
         
-        public void OnDestroy()
+        public void OnEnable()
+        {
+            ServiceLocator.Instance.Register<IAlchemyUIService>(this);
+            brewButton.onClick.AddListener(BrewButton);
+        }
+        
+        public void OnDisable()
         {
             ServiceLocator.Instance.Unregister<IAlchemyUIService>();
+            brewButton.onClick.RemoveListener(BrewButton);
         }
 
         public void ShowUI()
@@ -36,14 +48,19 @@ namespace _Script.Alchemy.AlchemyUI
             {
                 throw new NullReferenceException("Player Alchemy is null");
             }
-            LoadPlayerAlchemy();
-            alchemyRecipesUI.onRecipeSelected += OnRecipeSelected;
+            alchemyInventoryPanel.SetActive(true);
         }
 
         public void HideUI()
         {
             //Unsubscribe
             alchemyRecipesUI.onRecipeSelected -= OnRecipeSelected;
+            alchemyInventoryPanel.SetActive(false);
+            
+            //清空数据
+            _selectedRecipe = null;
+            _alchemyTool = null;
+            _playerAlchemy = null;
         }
         
         /// <summary>
@@ -75,19 +92,30 @@ namespace _Script.Alchemy.AlchemyUI
         // To brew the potion selected
         public void BrewButton()
         {
-            if(_selectedRecipe != null)
+            if(_selectedRecipe != null || _alchemyTool != null || _alchemyTool.IsEmpty)
             {
-                if (_playerAlchemy.Brew(_selectedRecipe))
+                //如果不能制作，比如材料不够, 简单检查数据
+                if (!_playerAlchemy.CanBrew(_selectedRecipe))
                 {
-                    //Update UI to show the new inventory
+                    Debug.Log("材料不够");
                 }
                 else
                 {
-                    throw new NullReferenceException("Brew failed");
+                    if(_playerAlchemy.CheckPlayerRealtimeInventory(_selectedRecipe))
+                    {
+                        _alchemyTool.StartBrew(_selectedRecipe);
+                        _alchemyTool.onBrewComplete += OnBrewComplete;
+                    }
                 }
             }
         }
-        
+
+        private void OnBrewComplete()
+        {
+            Debug.Log("Brew Complete");
+            _alchemyTool.onBrewComplete -= OnBrewComplete;
+        }
+
         public void LoadRecipe(AlchemyRecipe recipe)
         {
             _selectedRecipe = recipe;
@@ -102,10 +130,16 @@ namespace _Script.Alchemy.AlchemyUI
         /// 3. 加载默认选中的配方
         /// </summary>
         /// <param name="player"></param>
-        /// <param name="cauldron"></param>
-        public void LoadAlchemyUI(PlayerAlchemy player, Cauldron.Cauldron cauldron)
+        /// <param name="alchemyTool"></param>
+        public void LoadAlchemyUI(PlayerAlchemy player, AlchemyTool alchemyTool)
         {
             _playerAlchemy = player;
+            _alchemyTool = alchemyTool;
+            LoadPlayerAlchemy();
+            
+            //当选中配方，在配方界面加载对应的配方
+            alchemyRecipesUI.onRecipeSelected += OnRecipeSelected;
+            ShowUI();
         }
     }
 }

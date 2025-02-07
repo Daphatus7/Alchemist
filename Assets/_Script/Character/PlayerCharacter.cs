@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using _Script.Alchemy;
 using _Script.Character.ActionStrategy;
-using _Script.Character.PlayerAttribute;
 using _Script.Character.PlayerRank;
 using _Script.Damageable;
 using _Script.Interactable;
@@ -47,34 +46,27 @@ namespace _Script.Character
         
 
         private float _facingDirection; public float FacingDirection => _facingDirection;
-        private float _attackDamage; public float AttackDamage => _attackDamage;
+        private float _attackDamage;
 
         private bool _isInSafeZone = false;
         private bool _isTorchActive = false;
         private bool _canDash = true;
         private bool _isSprinting = false;
 
-        private InteractionBase _interactionBase;
-        private InteractionContext _interactionContext;
-        private IInteractable _currentlyHighlightedObject = null;
 
-        private PlayerInventory _playerInventory; public PlayerInventory PlayerInventory => _playerInventory;
-        private WeaponStrategy _weaponStrategy; public WeaponStrategy WeaponStrategy => _weaponStrategy;
-        private GenericItemStrategy _genericStrategy; public GenericItemStrategy GenericStrategy => _genericStrategy;
-        private TorchItemStrategy _torchStrategy; public TorchItemStrategy TorchStrategy => _torchStrategy;
 
-        private IActionStrategy _actionStrategy;
-        private Dictionary<string, IActionStrategy> _strategies;
+
 
         private Coroutine _playerfoodRoutine;
 
         private readonly UnityEvent<int> _onGoldChanged = new UnityEvent<int>();
 
-        // Smooth movement fields
+        // Smooth movement fieldsd
         private Vector2 _targetVelocity;
         private Vector2 _currentVelocity;
         private float _smoothDampVelocityX;
         private float _smoothDampVelocityY;
+        
 
         #region PlayerRank
 
@@ -94,6 +86,8 @@ namespace _Script.Character
             _genericStrategy = GetComponent<GenericItemStrategy>();
             _torchStrategy = GetComponent<TorchItemStrategy>();
             _rb = GetComponent<Rigidbody2D>();
+
+            _playerAlchemy = new PlayerAlchemy();
 
             InitializePlayerInventories();
             InitializeStrategies();
@@ -144,6 +138,10 @@ namespace _Script.Character
         #endregion
 
         #region Interaction & Input Handling
+        
+        private InteractionBase _interactionBase;
+        private InteractionContext _interactionContext;
+        private IInteractable _currentlyHighlightedObject = null;
 
         private void PauseableUpdate()
         {
@@ -175,8 +173,12 @@ namespace _Script.Character
 
         #endregion
 
-        #region Strategies (Action Bar)
-
+        #region Strategies
+        private WeaponStrategy _weaponStrategy; public WeaponStrategy WeaponStrategy => _weaponStrategy;
+        private GenericItemStrategy _genericStrategy; public GenericItemStrategy GenericStrategy => _genericStrategy;
+        private TorchItemStrategy _torchStrategy; public TorchItemStrategy TorchStrategy => _torchStrategy;
+        private IActionStrategy _actionStrategy;
+        private Dictionary<string, IActionStrategy> _strategies;
         private void InitializeStrategies()
         {
             _strategies = new Dictionary<string, IActionStrategy>();
@@ -359,6 +361,8 @@ namespace _Script.Character
 
         [SerializeField] private int playerActionbarWidth = 6;
         [SerializeField] private int playerActionbarHeight = 2;
+        private PlayerInventory _playerInventory; public PlayerInventory PlayerInventory => _playerInventory;
+        private PlayerAlchemy _playerAlchemy; public PlayerAlchemy PlayerAlchemy => _playerAlchemy; 
 
         private void InitializePlayerInventories()
         {

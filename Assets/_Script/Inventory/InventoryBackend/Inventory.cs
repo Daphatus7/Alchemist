@@ -539,9 +539,63 @@ namespace _Script.Inventory.InventoryBackend
         }
 
         #region Inventory Status
+        private InventoryStatus _inventoryStatus; private InventoryStatus InventoryStatus => _inventoryStatus ??= new InventoryStatus();
+        
+        /// <summary>
+        /// Simply check the item status instead of going through the inventory.
+        /// </summary>
+        /// <param name="itemID"></param>
+        /// <returns></returns>
+        public int GetItemCount(string itemID)
+        {
+            if (string.IsNullOrEmpty(itemID))
+            {
+                Debug.LogWarning("Invalid itemID provided.");
+                return -1;
+            }
+            InventoryStatus.GetStatus.TryGetValue(itemID, out int count);
+            return count;
+        }
+        
+        /// <summary>
+        /// Get Realtime Item Count
+        /// </summary>
+        /// <param name="itemID"></param>
+        /// <param name="requiredQuantity"></param>
+        /// <returns></returns>
+        public bool CheckRealtimeItemCount(string itemID, int requiredQuantity)
+        {
+            if (string.IsNullOrEmpty(itemID))
+            {
+                Debug.LogWarning("Invalid itemID provided.");
+                return false;
+            }
+            var count = 0;
+            foreach (var itemStack in _itemStacks)
+            {
+                if(itemStack.ItemData.itemID == itemID)
+                {
+                    count += itemStack.Quantity;
+                    // If we have enough, return true
+                    if(count >= requiredQuantity)
+                    {
+                        return true;
+                    }
+                }
+            }
+            // after checking entire still not enough
+            return false;
+        }
 
-        private InventoryStatus InventoryStatus { get; } = new InventoryStatus();
-
+        public bool IsEmpty
+        {
+            get
+            {
+                Debug.Log("Checking if empty + could be bugs where the stack was not removed correctly");
+                return _itemStacks.Count == 0;
+            }
+        }
+        
         public void SubscribeToInventoryStatus(Action<string, int> action)
         {
             if (action == null)
@@ -604,7 +658,6 @@ namespace _Script.Inventory.InventoryBackend
                 OnOnInventoryStatusChanged(itemID, 0); // Ensure zero is reported if removed
             }
         }
-
 
         private void PrintStatus()
         {

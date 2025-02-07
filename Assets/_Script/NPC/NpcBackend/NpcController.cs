@@ -71,8 +71,7 @@ namespace _Script.NPC.NpcBackend
                     if (distance > dialogueDistance)
                     {
                         //end npc here
-                        
-                        InteractEnd();
+                        _conversationInstance?.TerminateInteraction();
                         
                         yield break;
                     }
@@ -143,11 +142,6 @@ namespace _Script.NPC.NpcBackend
 
             // Start monitoring the player's distance.
             _distanceCheckCoroutine = StartCoroutine(CheckPlayerDistance());
-        }
-        
-        public void InteractEnd()
-        {
-            _conversationInstance?.TerminateInteraction();
         }
 
         public void OnHighlight() { }

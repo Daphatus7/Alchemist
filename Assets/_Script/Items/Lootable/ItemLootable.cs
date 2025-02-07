@@ -85,9 +85,7 @@ namespace _Script.Items.Lootable
         {
             PickupItem(player);
         }
-
-        public virtual void InteractEnd() { }
-
+        
         public void OnHighlight()
         {
             if(_spriteRenderer != null)

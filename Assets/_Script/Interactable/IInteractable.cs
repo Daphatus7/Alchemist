@@ -19,11 +19,6 @@ namespace _Script.Interactable
         void Interact(PlayerCharacter player);
         
         /// <summary>
-        /// When the player stops hitting the mouse button
-        /// </summary>
-        void InteractEnd();
-        
-        /// <summary>
         /// When the mouse hovers over the object
         /// </summary>
         void OnHighlight();

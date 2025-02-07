@@ -6,13 +6,13 @@ using _Script.Inventory.SlotFrontend;
 
 namespace _Script.Inventory.AlchemyInventory
 {
-    public sealed class CauldronContainer : InventoryBackend.Inventory
+    public class AlchemyContainer : InventoryBackend.Inventory
     {
-        public CauldronContainer(int height, int width) : base(height, width)
+        public AlchemyContainer(int height, int width) : base(height, width)
         {
         }
 
-        public CauldronContainer(int height, int width, ItemStack[] itemStack) : base(height, width, itemStack)
+        public AlchemyContainer(int height, int width, ItemStack[] itemStack) : base(height, width, itemStack)
         {
         }
 

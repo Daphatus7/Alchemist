@@ -1,22 +1,34 @@
 // Author : Peiyu Wang @ Daphatus
 // 04 02 2025 02 56
 
+using System;
 using _Script.Alchemy.RecipeBook;
 using UnityEngine;
 
 namespace _Script.Alchemy
 {
-    public class PlayerAlchemy : MonoBehaviour
+    public class PlayerAlchemy
     {
-        /// <summary>
-        /// Get recipe
-        /// </summary>
-        private PlayerRecipeBook _recipeBook; 
-        public PlayerRecipeBook RecipeBook => _recipeBook;
-        
-        
+        private PlayerRecipeBook _recipeBook; public PlayerRecipeBook RecipeBook => _recipeBook;
         
         private Inventory.InventoryBackend.Inventory _playerInventory;
+
+        private Inventory.InventoryBackend.Inventory PlayerInventory
+        {
+            get
+            {
+                if (_playerInventory == null)
+                {
+                    Debug.Log("你还没有初始化玩家的背包");
+                    throw new NullReferenceException("Player Inventory is null");
+                }
+                else
+                {
+                    return _playerInventory;
+                }
+            }
+        }
+        
         
         /// <summary>
         /// 通过PotionType和inventoryIndex获取配方
@@ -29,16 +41,41 @@ namespace _Script.Alchemy
             return _recipeBook.GetRecipeByType(type, inventoryIndex);
         }
         
-        public bool Brew(AlchemyRecipe recipe)
+        /// <summary>
+        /// 能否酿造
+        /// 主要用于UI 显示，所以不需要太仔细
+        /// </summary>
+        /// <param name="recipe"></param>
+        /// <returns></returns>
+        public bool CanBrew(AlchemyRecipe recipe)
         {
-            //create a new brew instance
-            //start the timer
-            //after the timer is done
-            //check if the player has the ingredients
-            //if the player has the ingredients
-            //remove the ingredients
-            //add the output items
+            //check inventory status to see if the player has enough reagents
+            foreach (var reagent in recipe.reagents)
+            {
+                if(PlayerInventory.GetItemCount(reagent.ItemData.itemID) < reagent.Quantity)
+                {
+                    return false;
+                }
+            }
             return false;
+        }
+        
+        public bool CheckPlayerRealtimeInventory(AlchemyRecipe recipe)
+        {
+            if (_playerInventory == null)
+            {
+                Debug.Log("你还没有初始化玩家的背包");
+                throw new NullReferenceException("Player Inventory is null");
+            }
+            
+            foreach (var reagent in recipe.reagents)
+            {
+                if(PlayerInventory.CheckRealtimeItemCount(reagent.ItemData.itemID, reagent.Quantity))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

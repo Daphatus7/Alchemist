@@ -11,7 +11,7 @@ namespace _Script.Alchemy
     {
         public string recipeID;
         public string recipeName;
-        public ItemInstance[] reagents;
+        public ItemAndQuantity[] reagents;
         /// <summary>
         /// the main output item
         /// </summary>
@@ -24,7 +24,6 @@ namespace _Script.Alchemy
         public Byproduct[] secondaryOutputItems;
         
         public int outputQuantity = 1;
-
         public float craftingTime = 3;
     }
     
