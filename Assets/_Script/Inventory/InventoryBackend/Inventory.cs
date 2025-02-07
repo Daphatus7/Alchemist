@@ -567,8 +567,14 @@ namespace _Script.Inventory.InventoryBackend
         public bool CheckRealtimeItemCount(string itemID, int requiredQuantity)
         {
             if (string.IsNullOrEmpty(itemID))
-            {
+            {                
                 Debug.LogWarning("Invalid itemID provided.");
+                return false;
+            }
+            
+            if (requiredQuantity <= 0)
+            {
+                Debug.LogWarning("Invalid requiredQuantity provided.");
                 return false;
             }
             var count = 0;
@@ -584,6 +590,7 @@ namespace _Script.Inventory.InventoryBackend
                     }
                 }
             }
+            Debug.Log("Not enough items with id " + itemID + " to remove. Requested: " + requiredQuantity + ", available: " + count);
             // after checking entire still not enough
             return false;
         }

@@ -89,7 +89,7 @@ namespace _Script.Inventory.InventoryBackend
             ItemData = Object.Instantiate(itemData);
             ItemData.ItemShape = new ItemShape(itemData.ItemShape);
             
-            Quantity = Mathf.Clamp(quantity, 0, itemData.MaxStackSize);
+            Quantity = Mathf.Clamp(quantity, 0, quantity);
         }
         
         public ItemStack(List<Vector2Int> projectedPositions, ItemStack item, int quantity = 1)

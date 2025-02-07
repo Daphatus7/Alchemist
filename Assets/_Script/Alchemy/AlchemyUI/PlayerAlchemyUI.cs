@@ -22,7 +22,7 @@ namespace _Script.Alchemy.AlchemyUI
         [SerializeField] private GameObject alchemyInventoryPanel;
         [SerializeField] private AlchemyRecipesUI alchemyRecipesUI;
         [SerializeField] private AlchemyRecipePanelUI alchemyRecipePanelUI;
-        [SerializeField] private CauldronContainerUI cauldronContainerUI;
+        [FormerlySerializedAs("cauldronContainerUI")] [SerializeField] private AlchemyContainerUI alchemyContainerUI;
         
         [SerializeField] private Button brewButton;
         
@@ -53,6 +53,7 @@ namespace _Script.Alchemy.AlchemyUI
                 throw new NullReferenceException("Player Alchemy is null");
             }
             alchemyInventoryPanel.SetActive(true);
+            alchemyContainerUI.ShowUI();
         }
 
         public void HideUI()
@@ -109,8 +110,10 @@ namespace _Script.Alchemy.AlchemyUI
                 {
                     if(_playerAlchemy.CheckPlayerRealtimeInventory(_selectedRecipe))
                     {
+                        Debug.Log("移除物品");
                         //remove reagents from the player inventory
                         _playerAlchemy.RemoveReagentsFromPlayerInventory(_selectedRecipe);
+                        
                         
                         _alchemyTool.StartBrew(new BrewInstance(_selectedRecipe, _playerContainer));
                         
@@ -153,6 +156,9 @@ namespace _Script.Alchemy.AlchemyUI
             
             //加载
             LoadPlayerAlchemy(_playerAlchemy, _playerContainer);
+            
+            //加载Container
+            alchemyContainerUI.LoadContainer(_alchemyTool.Container);
             
             //当选中配方，在配方界面加载对应的配方
             alchemyRecipesUI.onRecipeSelected += OnRecipeSelected;

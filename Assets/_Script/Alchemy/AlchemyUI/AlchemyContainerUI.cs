@@ -6,10 +6,18 @@ using _Script.Inventory.InventoryFrontendBase;
 
 namespace _Script.Alchemy.AlchemyUI
 {
-    public class CauldronContainerUI : InventoryUIBase<AlchemyContainer>
+    public class AlchemyContainerUI : InventoryUIBase<AlchemyContainer>
     {
         //a special container just for the cauldrons
         //player cannot drag thing into the Cauldron
         //A Cauldron item will be added via the backend
+        
+        public void LoadContainer(AlchemyContainer alchemyContainer)
+        {
+            AssignInventory(alchemyContainer);
+            InitializeInventoryUI();
+            ShowUI();
+        }
+        
     }
 }

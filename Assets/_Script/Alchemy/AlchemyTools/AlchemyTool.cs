@@ -14,9 +14,14 @@ namespace _Script.Alchemy.AlchemyTools
 {
     public class AlchemyTool : MonoBehaviour, IInteractable
     {
-        private AlchemyContainer _container;
+        private AlchemyContainer _container; public AlchemyContainer Container => _container;
         public BrewInstance BrewInstance { get; private set; }
         private Coroutine _brewTimer;
+        
+        private void Awake()
+        {
+            _container = new AlchemyContainer();
+        }
         
         public event Action onBrewComplete;
 
@@ -60,6 +65,7 @@ namespace _Script.Alchemy.AlchemyTools
         
         private IEnumerator BrewTimer(float brewTime)
         {
+            Debug.Log("Brewing");
             yield return new WaitForSeconds(brewTime);
             OnOnBrewComplete();
         }

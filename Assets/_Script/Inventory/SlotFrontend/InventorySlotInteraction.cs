@@ -338,6 +338,7 @@ namespace _Script.Inventory.SlotFrontend
         {
             if (DragItem.Instance.PeakItemStack() == null)
             {
+                Debug.Log("No item to return");
                 return;
             }
             
@@ -389,6 +390,18 @@ namespace _Script.Inventory.SlotFrontend
                     {
                         case SlotType.PlayerInventory:
                             return DragType.Buy;
+                        default:
+                            return DragType.DoNothing;
+                    }
+                case SlotType.Bag:
+                    return DragType.DoNothing;
+                case SlotType.Cauldron:
+                    switch (SlotType)
+                    {
+                        case SlotType.Cauldron:
+                            return DragType.Swap;
+                        case SlotType.PlayerInventory:
+                            return DragType.Swap;
                         default:
                             return DragType.DoNothing;
                     }

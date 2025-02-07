@@ -84,11 +84,6 @@ namespace _Script.Alchemy.AlchemyUI
             {
                 Destroy(child.gameObject);
             }
-            //Get the tabs
-            Debug.Log(playerAlchemy);
-            Debug.Log(playerAlchemy.RecipeBook);
-            Debug.Log(playerAlchemy.RecipeBook.Recipes);
-
             var tabs = playerAlchemy.RecipeBook.Recipes.Keys;
             foreach (var type in tabs)
             {

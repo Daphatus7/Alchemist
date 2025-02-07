@@ -8,7 +8,7 @@ namespace _Script.Inventory.AlchemyInventory
 {
     public class AlchemyContainer : InventoryBackend.Inventory
     {
-        public AlchemyContainer(int height, int width) : base(height, width)
+        public AlchemyContainer(int height = 3, int width = 3) : base(height, width)
         {
         }
 
