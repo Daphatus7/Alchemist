@@ -35,7 +35,7 @@ namespace _Script.Alchemy.AlchemyUI
         /// <summary>
         /// tabs, recipes
         /// </summary>
-        private List<List<AlchemyRecipeDisplayUI>> _recipeDisplays;
+        private List<List<AlchemyRecipeDisplayUI>> _recipeDisplays = new List<List<AlchemyRecipeDisplayUI>>();
         
         /// <summary>
         /// Tabs
@@ -44,13 +44,13 @@ namespace _Script.Alchemy.AlchemyUI
         [SerializeField] private LayoutGroup tabPanel;
         
         //Tabs
-        private List<GameObject> _tabs;
+        private readonly List<GameObject> _tabs = new List<GameObject>();
         private GameObject _activeTab;
         
         /// <summary>
         /// Tab selected, recipe selected
         /// </summary>
-        public event Action<Tuple<PotionCategory,int>> onRecipeSelected; 
+        public event Action<Tuple<PotionCategory,int>> onRecipeSelected;
         
         /// <summary>
         /// 初始化
@@ -85,6 +85,10 @@ namespace _Script.Alchemy.AlchemyUI
                 Destroy(child.gameObject);
             }
             //Get the tabs
+            Debug.Log(playerAlchemy);
+            Debug.Log(playerAlchemy.RecipeBook);
+            Debug.Log(playerAlchemy.RecipeBook.Recipes);
+
             var tabs = playerAlchemy.RecipeBook.Recipes.Keys;
             foreach (var type in tabs)
             {
@@ -98,6 +102,7 @@ namespace _Script.Alchemy.AlchemyUI
         /// <param name="recipes"></param>
         private void LoadTabOfRecipes(List<AlchemyRecipe> recipes)
         {
+            _recipeDisplays.Clear();   
             //Clear the current displays
             foreach (Transform child in recipePanel.transform)
             {
@@ -144,12 +149,14 @@ namespace _Script.Alchemy.AlchemyUI
             var recipeDisplay = Instantiate(recipeDisplayPrefab, recipePanel.transform);
             var display = recipeDisplay.GetComponent<AlchemyRecipeDisplayUI>();
             display.SetDisplay(recipe.mainOutputItem.itemIcon, recipe.mainOutputItem.itemName);
+            
+            //Bind Interaction 
             recipeDisplay.GetComponent<Button>().onClick.AddListener(() => OnRecipeSelected(recipe.PotionCategory, recipeIndex));
         }
         
         private void OnTabClicked(int index)
         {
-            //加载该类别的所有物品
+            Debug.Log("Tab clicked" + index);
         }
 
         public void ShowUI()

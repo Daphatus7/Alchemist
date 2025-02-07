@@ -29,7 +29,7 @@ namespace _Script.Alchemy.AlchemyUI
         
         
         
-        public void SetDisplay(AlchemyRecipe recipe)
+        public void LoadRecipe(AlchemyRecipe recipe)
         {
             //Output
             outputIcon.sprite = recipe.mainOutputItem.itemIcon;
@@ -42,9 +42,10 @@ namespace _Script.Alchemy.AlchemyUI
         
         private void LoadReagents(AlchemyRecipe recipe)
         {
-            foreach (var display in _reagentDisplays)
+            _reagentDisplays.Clear();
+            foreach (Transform child in reagentPanel.transform)
             {
-                Destroy(display.gameObject);
+                Destroy(child.gameObject);
             }
             
             foreach (var reagent in recipe.reagents)

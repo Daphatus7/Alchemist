@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5174764992600476150}
   - component: {fileID: 7152110448997379262}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: IconBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77183efac534483a92a983fffffbf5f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 7152110448997379262}
+  icon: {fileID: 624242179577616470}
   nameText: {fileID: 1419991041431824328}
 --- !u!1 &4474407274733007003
 GameObject:

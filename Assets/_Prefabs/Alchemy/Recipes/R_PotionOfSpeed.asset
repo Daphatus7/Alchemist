@@ -24,8 +24,8 @@ MonoBehaviour:
   - data: {fileID: 11400000, guid: dc9411daa790e45478c846cfd63ee62e, type: 2}
     quantity: 1
   mainOutputItem: {fileID: 11400000, guid: 1d79ea6a7e9444de2bdda57e097b49b1, type: 2}
-  secondaryOutputItems:
-  - item: {fileID: 0}
-    chance: 0
   outputQuantity: 1
   craftingTime: 1
+  secondaryOutputItems:
+  - item: {fileID: 11400000, guid: a731c0cc6be5140f88f1cc7b7ae63ec8, type: 2}
+    chance: 1

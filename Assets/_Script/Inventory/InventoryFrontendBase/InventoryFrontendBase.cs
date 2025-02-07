@@ -69,8 +69,11 @@ namespace _Script.Inventory.InventoryFrontendBase
         
         private void OnDestroy()
         {
-            inventory.OnInventorySlotChanged -= UpdateSlotUI;
-            inventory.OnItemStackChanged -= RenderSlotIcons;
+            if (inventory != null)
+            {
+                inventory.OnItemStackChanged -= RenderSlotIcons;
+                inventory.OnInventorySlotChanged -= UpdateSlotUI;
+            }
         }
         
         

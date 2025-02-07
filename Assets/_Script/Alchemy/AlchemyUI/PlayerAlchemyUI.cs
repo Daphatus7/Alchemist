@@ -39,8 +39,11 @@ namespace _Script.Alchemy.AlchemyUI
         
         public void OnDisable()
         {
-            ServiceLocator.Instance.Unregister<IAlchemyUIService>();
+
             brewButton.onClick.RemoveListener(BrewButton);
+            
+            if(ServiceLocator.Instance != null)
+                ServiceLocator.Instance.Unregister<IAlchemyUIService>();
         }
 
         public void ShowUI()
@@ -125,6 +128,7 @@ namespace _Script.Alchemy.AlchemyUI
         public void LoadRecipe(AlchemyRecipe recipe)
         {
             _selectedRecipe = recipe;
+            alchemyRecipePanelUI.LoadRecipe(recipe);
         }
 
 

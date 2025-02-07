@@ -20,7 +20,15 @@ namespace _Script.Alchemy.RecipeBook
             _recipes = new Dictionary<PotionCategory, List<AlchemyRecipe>>();
             foreach (var learned in learnedRecipes)
             {
-                _recipes.Add(learned.PotionCategory, new List<AlchemyRecipe>{learned});
+                var category = learned.PotionCategory;
+                if (_recipes.ContainsKey(category))
+                {
+                    _recipes[category].Add(learned);
+                }
+                else
+                {
+                    _recipes.Add(category, new List<AlchemyRecipe>(){learned});
+                }
             }
         }
         
