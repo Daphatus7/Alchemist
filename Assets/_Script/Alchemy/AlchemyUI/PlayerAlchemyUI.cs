@@ -164,5 +164,10 @@ namespace _Script.Alchemy.AlchemyUI
             alchemyRecipesUI.onRecipeSelected += OnRecipeSelected;
             ShowUI();
         }
+
+        public IUIHandler GetUIHandler()
+        {
+            return this;
+        }
     }
 }

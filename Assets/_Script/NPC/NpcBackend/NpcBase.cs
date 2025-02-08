@@ -13,15 +13,14 @@ namespace _Script.NPC.NpcBackend
     
     /// <summary>
     /// Provides basic interaction as a Npc
-    /// That is, when interact, pop up a dialogue
+    /// That is, when interacting, pop up a dialogue
     /// </summary>
-    public class NpcBase : MonoBehaviour, IInteractable, INpcDialogueHandler
+    public class NpcBase : MonoBehaviour, IInteractable
     {
-        private ConversationInstance _conversationInstance;
+        protected ConversationInstance ConversationInstance;
         private Coroutine _distanceCheckCoroutine;
         protected PlayerCharacter CurrentPlayer { get; set; }
-
-        [SerializeField] private float dialogueDistance = 5f;
+        [SerializeField] private float dialogueDistance = 2f;
         /// <summary>
         /// When the player hit the mouse button
         /// </summary>
@@ -35,14 +34,17 @@ namespace _Script.NPC.NpcBackend
             }
             StartConversation(player);
         }
-        
+
+        public virtual void OnHighlight() { }
+        public virtual void OnHighlightEnd() { }
+
         /// <summary>
         /// Conversation starts here
         /// </summary>
         /// <param name="player"></param>
-        private void StartConversation(PlayerCharacter player)
+        protected virtual void StartConversation(PlayerCharacter player)
         {
-            if (_conversationInstance != null)
+            if (ConversationInstance != null)
             {
                 Debug.Log("Conversation already in progress");
                 return;
@@ -50,48 +52,26 @@ namespace _Script.NPC.NpcBackend
             
             CurrentPlayer = player;
             
-            _conversationInstance = new ConversationInstance();
-            _conversationInstance.RegisterInteractionTerminatedEvent(OnConversationTerminated);
-            
-            
-            // ui service
-            var npcUIService = ServiceLocator.Instance.Get<INpcUIService>();
-            if (npcUIService == null)
-            {
-                Debug.Log("NpcController.StartConversation: INpcUIService not found.");
-                return;
-            }
-
-            // Delegate dialogue display to the UI service.
-            npcUIService.StartDialogue(this);
-            
-            // If the UI service also implements IUIHandler, add it to the conversation instance.
-            if (npcUIService is IUIHandler uiHandler)
-            {
-                _conversationInstance.AddNpcUIHandler(uiHandler);
-            }
-            else
-            {
-                Debug.LogWarning("NpcController.StartConversation: INpcUIService does not implement IUIHandler.");
-            }
-
+            ConversationInstance = new ConversationInstance();
+            ConversationInstance.RegisterInteractionTerminatedEvent(OnConversationTerminated);
             // Start monitoring the player's distance.
             _distanceCheckCoroutine = StartCoroutine(CheckPlayerDistance());
+            
+            /*** 这里添加需要加载的元件
+             */
         }
 
-        public virtual void OnHighlight() { }
 
-        public void OnHighlightEnd() { }
         
         /// <summary>
         /// Callback invoked when the conversation is terminated.
         /// </summary>
-        private void OnConversationTerminated()
+        protected virtual void OnConversationTerminated()
         {
-            if (_conversationInstance != null)
+            if (ConversationInstance != null)
             {
-                _conversationInstance.UnregisterInteractionTerminatedEvent(OnConversationTerminated);
-                _conversationInstance = null;
+                ConversationInstance.UnregisterInteractionTerminatedEvent(OnConversationTerminated);
+                ConversationInstance = null;
             }
 
             // Stop the distance-checking coroutine if it's running.
@@ -110,7 +90,7 @@ namespace _Script.NPC.NpcBackend
         /// </summary>
         private IEnumerator CheckPlayerDistance()
         {
-            while (_conversationInstance != null)
+            while (ConversationInstance != null)
             {
                 if (CurrentPlayer)
                 {
@@ -119,7 +99,7 @@ namespace _Script.NPC.NpcBackend
                     if (distance > dialogueDistance)
                     {
                         //end npc here
-                        _conversationInstance?.TerminateInteraction();
+                        ConversationInstance?.TerminateInteraction();
                         
                         yield break;
                     }
@@ -127,25 +107,6 @@ namespace _Script.NPC.NpcBackend
                 yield return new WaitForSeconds(0.3f); 
             }
         }
-
-        public INpcModuleHandler[] GetAddonModules()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public NpcInfo GetNpcDialogue()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void TerminateConversation()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void CloseMainUI()
-        {
-            throw new System.NotImplementedException();
-        }
+        
     }
 }

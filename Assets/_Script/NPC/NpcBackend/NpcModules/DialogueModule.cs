@@ -2,11 +2,9 @@
 // 26 01 2025 01 39
 
 using System;
-using _Script.NPC.NpcBackend.NpcModules;
 using Sirenix.OdinInspector;
-using UnityEngine;
 
-namespace _Script.NPC.NpcBackend
+namespace _Script.NPC.NpcBackend.NpcModules
 {
     [Serializable]
     public class DialogueModule : NpcModuleBase, INpcModuleHandler

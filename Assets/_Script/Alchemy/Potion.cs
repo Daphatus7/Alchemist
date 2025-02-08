@@ -15,5 +15,4 @@ namespace _Script.Alchemy
     public class Potion : PotionBase
     {
     }
- 
 }

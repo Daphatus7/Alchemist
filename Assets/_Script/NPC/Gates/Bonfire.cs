@@ -14,7 +14,6 @@ namespace _Script.NPC.Gates
         public override void TerminateConversation()
         {
             base.TerminateConversation();
-            Debug.Log("Bonfire is lit");
             
             GameManager.Instance.LoadMainScene("TownMap");
             PlaceManager.Instance.TeleportPlayerToTown(GameManager.Instance.GetPlayer());

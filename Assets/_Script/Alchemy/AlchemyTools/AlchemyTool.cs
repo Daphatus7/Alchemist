@@ -7,12 +7,13 @@ using _Script.Character;
 using _Script.Interactable;
 using _Script.Inventory.AlchemyInventory;
 using _Script.Inventory.InventoryBackend;
+using _Script.NPC.NpcBackend;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 
 namespace _Script.Alchemy.AlchemyTools
 {
-    public class AlchemyTool : MonoBehaviour, IInteractable
+    public class AlchemyTool : NpcBase
     {
         private AlchemyContainer _container; public AlchemyContainer Container => _container;
         public BrewInstance BrewInstance { get; private set; }
@@ -31,23 +32,18 @@ namespace _Script.Alchemy.AlchemyTools
         //inventory
         //当玩家与其交互
             //加载炼金台
-        public void Interact(PlayerCharacter player)
+        protected override void StartConversation(PlayerCharacter player)
         {
-            if (ServiceLocator.Instance == null)
-            {
-                throw new NullReferenceException("Service locator was not initialized");
-            }
+            base.StartConversation(player);
+            if (ServiceLocator.Instance == null) 
+            { throw new NullReferenceException("Service locator was not initialized"); }
+            
             ServiceLocator.Instance.Get<IAlchemyUIService>().
                 LoadAlchemyUI(player.PlayerAlchemy,
                 player.PlayerInventory,
                 this);
-        }
-        public void OnHighlight()
-        {
-        }
+            ConversationInstance.AddNpcUIHandler(ServiceLocator.Instance.Get<IAlchemyUIService>().GetUIHandler());
 
-        public void OnHighlightEnd()
-        {
         }
 
         public void StartBrew(BrewInstance brewInstance)
