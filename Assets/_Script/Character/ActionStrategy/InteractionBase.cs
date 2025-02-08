@@ -1,5 +1,7 @@
+using System;
 using _Script.Interactable;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace _Script.Character.ActionStrategy
 {
@@ -10,8 +12,13 @@ namespace _Script.Character.ActionStrategy
     public class InteractionBase
     {
         private readonly LayerMask _interactableLayer = LayerMask.GetMask("Interactable");
-        private readonly float _maxInteractDistance = 4f;
+        private readonly LayerMask _obstacleLayer = LayerMask.GetMask("Obstacle");
         
+        private readonly float _maxInteractDistance;
+        public InteractionBase(float maxInteractDistance)
+        {
+            _maxInteractDistance = maxInteractDistance;
+        }
         
         public InteractionContext InteractableRaycast(Vector2 origin, Vector2 destination)
         {
@@ -22,8 +29,42 @@ namespace _Script.Character.ActionStrategy
             Debug.DrawLine(origin, origin + direction * extent, Color.red, 1f);
             return new InteractionContext(hit);
         }
+        
+        /// <summary>
+        /// Gets the InteractionContext by checking what's under the mouse cursor.
+        /// Interaction is only allowed if:
+        ///  - The mouse isn't over UI.
+        ///  - The destination is within 3f of the player.
+        ///  - There are no obstacles between the player and the destination.
+        /// </summary>
+        public InteractionContext InteractableFromMouse(Vector2 playerPosition, Vector2 destination)
+        {
+            // Prevent interaction with world objects if the pointer is over a UI element.
+            if (EventSystem.current && EventSystem.current.IsPointerOverGameObject())
+            {
+                return new InteractionContext(new RaycastHit2D());
+            }
+            
+            if (Vector2.Distance(playerPosition, destination) > _maxInteractDistance)
+            {
+                return new InteractionContext(new RaycastHit2D());
+            }
+            
+            // Check for obstacles between the player and the destination.
+            Vector2 direction = (destination - playerPosition).normalized;
+            float distance = Vector2.Distance(playerPosition, destination);
+            RaycastHit2D obstacleHit = Physics2D.Raycast(playerPosition, direction, distance, _obstacleLayer);
+            if (obstacleHit.collider != null)
+            {
+                // An obstacle is blocking the path.
+                return new InteractionContext(new RaycastHit2D());
+            }
+            
+            // Finally, cast a ray at the destination to detect interactable objects.
+            RaycastHit2D hit = Physics2D.Raycast(destination, Vector2.zero, 0f, _interactableLayer);
+            return new InteractionContext(hit);
+        }
     }
-
     
     /// <summary>
     /// When interacting with an object, the context of the interaction is generated.

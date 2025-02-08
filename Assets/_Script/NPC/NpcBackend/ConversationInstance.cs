@@ -66,7 +66,6 @@ namespace _Script.NPC.NpcBackend
         {
             foreach (var handler in _npcUIHandlers)
             {
-                Debug.Log("Closing UI" + handler);
                 handler.HideUI();
             }
         }

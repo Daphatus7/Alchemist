@@ -31,7 +31,7 @@ namespace _Script.Character
         [SerializeField] private InventoryManager _inventoryManager;
         [SerializeField] private ActionBarUI _actionBarUI;
         [SerializeField] private Rigidbody2D _rb;
-
+        [SerializeField] private float cursorDistanceMax = 1f;
         #endregion
 
 
@@ -80,7 +80,7 @@ namespace _Script.Character
 
         private void Awake()
         {
-            _interactionBase = new InteractionBase();
+            _interactionBase = new InteractionBase(cursorDistanceMax);
 
             _weaponStrategy = GetComponent<WeaponStrategy>();
             _genericStrategy = GetComponent<GenericItemStrategy>();
@@ -152,7 +152,7 @@ namespace _Script.Character
         {
             if (!CursorMovementTracker.HasCursorMoved) return;
 
-            _interactionContext = _interactionBase.InteractableRaycast(transform.position, CursorMovementTracker.CursorPosition);
+            _interactionContext = _interactionBase.InteractableFromMouse(transform.position, CursorMovementTracker.CursorPosition);
 
             if (_interactionContext != null)
             {

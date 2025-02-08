@@ -5375,6 +5375,11 @@ PrefabInstance:
       propertyPath: _inventoryManager
       value: 
       objectReference: {fileID: 1219950251}
+    - target: {fileID: 227867324767936060, guid: e1d01e4eea6684baa9b053ff7cef7499,
+        type: 3}
+      propertyPath: cursorDistanceMax
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5611798915510297311, guid: e1d01e4eea6684baa9b053ff7cef7499,
         type: 3}
       propertyPath: learnedRecipes.Array.size

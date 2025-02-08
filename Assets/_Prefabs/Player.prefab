@@ -358,6 +358,7 @@ MonoBehaviour:
   _inventoryManager: {fileID: 0}
   _actionBarUI: {fileID: 0}
   _rb: {fileID: 6278326024908024523}
+  cursorDistanceMax: 1.5
   velocitySmoothingTime: 0.1
   dashCost: 1
   sprintCost: 0.5
@@ -514,6 +515,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3102000b68a34785a8dcb71dfc12161d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  learnedRecipes:
+  - {fileID: 11400000, guid: e0e748721f2a3463196da623d090351c, type: 2}
+  - {fileID: 11400000, guid: db9f3d9a82079442e99da059ff116f0d, type: 2}
 --- !u!1 &8436505088471283413
 GameObject:
   m_ObjectHideFlags: 0
