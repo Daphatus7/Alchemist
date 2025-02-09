@@ -71,8 +71,8 @@ namespace _Script.Character
         #region PlayerRank
 
         
-        private PlayerRank.PlayerRank _playerRank = new PlayerRank.PlayerRank();
-        public PlayerRankEnum Rank => _playerRank.Rank;
+        private PlayerRank.PlayerRank _playerRank;
+        public PlayerRankEnum Rank => _playerRank.CurrentRank;
 
         #endregion
 
@@ -88,6 +88,7 @@ namespace _Script.Character
             _rb = GetComponent<Rigidbody2D>();
 
             _playerAlchemy = GetComponent<PlayerAlchemy>();
+            _playerRank = new PlayerRank.PlayerRank();
 
             InitializePlayerInventories();
             InitializeStrategies();
@@ -101,8 +102,7 @@ namespace _Script.Character
         
         private void Start()
         {
-           
-
+            
             _playerInventory.SubscribeToInventoryStatus(QuestManager.Instance.OnItemCollected);
             
             _potionEffectManager = GetComponent<PlayerPotionEffectManager>();

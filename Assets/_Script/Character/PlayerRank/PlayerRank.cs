@@ -1,62 +1,84 @@
 // Author : Peiyu Wang @ Daphatus
 // 25 01 2025 01 17
 
-using _Script.Utilities.StateMachine;
+using UnityEngine;
 
 namespace _Script.Character.PlayerRank
 {
-    public class PlayerRank : MyStateMachine
+    public interface IPlayerRankHandler
     {
-        public PlayerRankEnum Rank => PlayerRankEnum.F;
-
+        void AddExperience(int exp);
+        public PlayerRankEnum CurrentRank { get; }
     }
     
-    public class PlayerRankState : IState
+    public class PlayerRank: IPlayerRankHandler
     {
-        public virtual void Enter()
+        private PlayerRankState _currentRank;
+        private int _totalExp = 0;
+
+        // Expose current rank to other classes
+        public PlayerRankEnum CurrentRank => _currentRank.Rank;
+
+        // Initialize the state machine with the starting rank
+        public PlayerRank()
         {
-            throw new System.NotImplementedException();
+            // Start with the lowest rank (F)
+            _currentRank = new PlayerRankF(this);
+            _currentRank.Enter();
         }
 
-        public virtual void Exit()
+        /// <summary>
+        /// Call this method to add experience.
+        /// It will check if the new total meets the threshold to upgrade to the next rank.
+        /// </summary>
+        public void AddExperience(int exp)
         {
-            throw new System.NotImplementedException();
+            _totalExp += exp;
+            Debug.Log("Added exp: " + exp + ", Total exp: " + _totalExp);
+
+            // While we have a next state available and the total experience is enough, upgrade!
+            PlayerRankState nextState = GetNextState();
+            while (nextState != null && _totalExp >= nextState.ExpRequired)
+            {
+                ChangeState(nextState);
+                nextState = GetNextState();
+            }
         }
 
-        public virtual void UpdateState()
+        /// <summary>
+        /// Helper method that returns the next rank state, based on the current rank.
+        /// </summary>
+        private PlayerRankState GetNextState()
         {
-            throw new System.NotImplementedException();
+            switch (_currentRank.Rank)
+            {
+                case PlayerRankEnum.F:
+                    return new PlayerRankE(this);
+                case PlayerRankEnum.E:
+                    return new PlayerRankD(this);
+                case PlayerRankEnum.D:
+                    return new PlayerRankC(this);
+                case PlayerRankEnum.C:
+                    return new PlayerRankB(this);
+                case PlayerRankEnum.B:
+                    // Max rank reached – no next state.
+                    return null;
+                default:
+                    return null;
+            }
+        }
+
+        /// <summary>
+        /// Handles the transition from one rank state to the next.
+        /// </summary>
+        private void ChangeState(PlayerRankState newState)
+        {
+            _currentRank.Exit();
+            _currentRank = newState;
+            _currentRank.Enter();
         }
     }
-    
-    public class PlayerRankE : PlayerRankState
-    {
-        public override void Enter()
-        {
-            base.Enter();
-        }
 
-        public override void Exit()
-        {
-            base.Exit();
-        }
 
-        public override void UpdateState()
-        {
-            base.UpdateState();
-        }
-    }
     
-    
-    public enum PlayerRankEnum
-    {
-        F,
-        E,
-        D,
-        C,
-        B,
-        A,
-        S,
-        SS
-    }
 }
