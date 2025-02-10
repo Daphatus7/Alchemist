@@ -15,7 +15,7 @@ namespace _Script.Attribute
         
         public virtual float ApplyDamage(float damage)
         {
-            return health.Modify(damage);
+            return health.Modify(-damage);
         }
 
         protected virtual void OnDeath()

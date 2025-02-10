@@ -13,10 +13,5 @@ namespace _Script.Map.WorldMap.MapNode
         public string [] resourceNames;
         
         public float resourceSpawnRate;
-        
-        public ResourceMapNode(string description, int seed) : base(description, seed)
-        {
-            
-        }
     }
 }

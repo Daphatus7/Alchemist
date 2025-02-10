@@ -2484,10 +2484,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8030817545402318949, guid: 502a773631bb0460494fd8ba8814e964,
+        type: 3}
+      propertyPath: healthMax
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8030817545402318949, guid: 502a773631bb0460494fd8ba8814e964,
+        type: 3}
+      propertyPath: health.maxValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8030817545402318949, guid: 502a773631bb0460494fd8ba8814e964,
+        type: 3}
+      propertyPath: health.currentValue
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8794507309829770285, guid: 502a773631bb0460494fd8ba8814e964,
         type: 3}
       propertyPath: m_Name
       value: ToughGuy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794507309829770285, guid: 502a773631bb0460494fd8ba8814e964,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

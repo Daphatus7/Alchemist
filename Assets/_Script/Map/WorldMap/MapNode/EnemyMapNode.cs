@@ -13,10 +13,5 @@ namespace _Script.Map.WorldMap.MapNode
         public string [] enemyNames;
         
         public float enemySpawnRate;
-        
-        public EnemyMapNode(string description, int seed) : base(description, seed)
-        {
-            
-        }
     }
 }

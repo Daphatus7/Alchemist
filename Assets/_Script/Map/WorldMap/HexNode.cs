@@ -29,15 +29,9 @@ namespace _Script.Map.WorldMap
         public Vector3Int Position => _position;
 
         public HexNode Parent; // For retracing the path
-        
-        private NodeType _nodeType = NodeType.Empty;
 
-        public NodeType NodeType
-        {
-            get => _nodeType;
-            set => _nodeType = value;
-        }
-        
+        public NodeType NodeType { get; set; }
+
         private NodeData _nodeData;
 
         public NodeData NodeData
@@ -74,7 +68,7 @@ namespace _Script.Map.WorldMap
             _position = position;
             if (_position.x + _position.y + _position.z != 0)
                 throw new ArgumentException("Invalid cube coordinates");
-            _nodeType = nodeType;
+            NodeType = nodeType;
             if (nodeType == NodeType.Obstacle)
                 IsBlocked = true;
         }

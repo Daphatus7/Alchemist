@@ -44,7 +44,7 @@ namespace _Script.Enemy.EnemyAbility
                 var damageable = other.GetComponent<IDamageable>();
                 if (damageable != null && CanDamageTag(other))
                 {
-                    var actualDamage = damageable.ApplyDamage(damage);
+                    var actualDamage = Mathf.Abs(damageable.ApplyDamage(damage));
                     if (damageNumberPrefab != null)
                     {
                         damageNumberPrefab.Spawn(other.transform.position, actualDamage);

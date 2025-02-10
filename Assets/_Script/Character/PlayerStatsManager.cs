@@ -116,7 +116,7 @@ namespace _Script.Character
         /// <param name="damage">Damage amount (negative modification)</param>
         public float TakeDamage(float damage)
         {
-            return health.Modify(-damage);
+            return health.Modify(-Mathf.Abs(damage));
         }
 
         /// <summary>

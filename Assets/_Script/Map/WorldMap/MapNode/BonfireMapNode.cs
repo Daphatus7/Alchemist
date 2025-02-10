@@ -9,10 +9,5 @@ namespace _Script.Map.WorldMap.MapNode
     public class BonfireMapNode : NodeData
     {
         public override NodeType NodeType => NodeType.Bonfire;
-        
-        public BonfireMapNode(string description, int seed) : base(description, seed)
-        {
-            
-        }
     }
 }

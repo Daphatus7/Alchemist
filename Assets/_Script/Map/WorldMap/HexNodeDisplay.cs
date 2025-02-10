@@ -11,15 +11,48 @@ namespace _Script.Map.WorldMap
 
     public class HexNodeDisplay : MonoBehaviour, INodeHandle, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        private HexNode _hexNode; public HexNode HexNode
+        private HexNode _hexNode;
+        public HexNode HexNode
         {
             get => _hexNode;
             set
             {
                 _hexNode = value;
-                _nodeText.text = "L" + _hexNode.NodeLevel;
+                
+                // Update the text to show node level + interpolated value
+                _nodeText.text = $"L{_hexNode.NodeLevel}\n{_hexNode.NodeData.InterpolatedValue:F2}";
+                
+                // Debug: set image color based on the InterpolatedValue
+                if (_nodeImage != null)
+                {
+// Suppose val is in [0..1]
+                    float val = Mathf.Clamp01(_hexNode.NodeData.InterpolatedValue);
+
+// Define color stops
+                    Color[] colors = new Color[] {
+                        Color.blue,    // 0.0
+                        Color.cyan,    // 0.25
+                        Color.green,   // 0.5
+                        Color.yellow,  // 0.75
+                        Color.red      // 1.0
+                    };
+
+// Find which segment we're in
+                    float step = 1f / (colors.Length - 1);
+                    int index = Mathf.FloorToInt(val / step);          // which segment
+                    int maxIndex = colors.Length - 2;                  // last valid segment start
+                    index = Mathf.Clamp(index, 0, maxIndex);
+
+// "t" is local interpolation factor within that segment
+                    float t = (val - (index * step)) / step;
+
+// Interpolate within that segment
+                    Color debugColor = Color.Lerp(colors[index], colors[index+1], t);
+                    _nodeImage.color = debugColor;
+                }
             }
         }
+
         private Image _nodeImage;
         [SerializeField] private TextMeshProUGUI _nodeText;
         [SerializeField] private Sprite explorationSprite;

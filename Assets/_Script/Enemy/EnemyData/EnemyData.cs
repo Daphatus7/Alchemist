@@ -1,6 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 13 12 2024 12 47
 
+using System;
 using UnityEngine;
 
 namespace _Script.Enemy.EnemyData
@@ -20,6 +21,7 @@ namespace _Script.Enemy.EnemyData
         public Sprite sprite;
     }
     
+    [Serializable]
     public class EnemyAttribute
     {
         public int Health;

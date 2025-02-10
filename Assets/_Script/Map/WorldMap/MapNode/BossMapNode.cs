@@ -11,10 +11,5 @@ namespace _Script.Map.WorldMap.MapNode
         public string BossName;
         public override NodeType NodeType => NodeType.Boss;
 
-        public BossMapNode(string description, int seed, string bossName) : base(description, seed)
-        {
-            BossName = bossName;
-        }
-
     }
 }

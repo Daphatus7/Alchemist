@@ -16,14 +16,14 @@ namespace _Script.Map.WorldMap
         /// <summary>
         /// Stores all hex nodes in the grid, keyed by their (x, y, z) coordinates.
         /// </summary>
-        private readonly Dictionary<(int x, int y, int z), HexNode> _hexNodes 
+        private readonly Dictionary<(int x, int y, int z), HexNode> _hexNodes
             = new Dictionary<(int, int, int), HexNode>();
 
         /// <summary>
         /// Caches each node's neighbors for fast lookups.
         /// The key is a node's (x, y, z) coordinate, and the value is a list of that node's neighbors.
         /// </summary>
-        private readonly Dictionary<(int x, int y, int z), List<HexNode>> _neighborsCache 
+        private readonly Dictionary<(int x, int y, int z), List<HexNode>> _neighborsCache
             = new Dictionary<(int, int, int), List<HexNode>>();
 
         /// <summary>
@@ -81,7 +81,6 @@ namespace _Script.Map.WorldMap
             PrecomputeNeighbors();
             GenerateDataForAllNodes();
         }
-
         /// <summary>
         /// Iterates over all nodes in the grid; if a node is not an obstacle and lacks data,
         /// it generates the node data via <see cref="GenerateNodeData"/>.
@@ -119,10 +118,7 @@ namespace _Script.Map.WorldMap
             // Regenerate grid and neighbors
             GenerateGrid();
             PrecomputeNeighbors();
-
-            // Example of how additional streams or data might be regenerated
             GenerateBranchingStreams();
-
             // Notify listeners that nodes have updated
             foreach (var node in _hexNodes.Values)
             {
@@ -796,5 +792,34 @@ namespace _Script.Map.WorldMap
                 }
             }
         }
+
+
+        #region Inverse Distance Weighting  
+
+        private float CubeDistance(Vector3Int a, Vector3Int b)
+        {
+            return (Mathf.Abs(a.x - b.x) 
+                    + Mathf.Abs(a.y - b.y) 
+                    + Mathf.Abs(a.z - b.z)) / 2f;
+        }
+        
+        private Vector3 CubeToWorld(Vector3Int cubeCoord)
+        {
+            // TODO：把 Hex 坐标转换到 3D 世界坐标的逻辑
+            // 简单示例(伪)：(x, y, z) -> (x * cellWidth, 0, z * cellHeight)
+            return new Vector3(
+                cubeCoord.x * 1.0f, 
+                0f, 
+                cubeCoord.z * 0.866f // 例如等边三角的高
+            );
+        }
+
+        private float EuclideanDistance(Vector3Int a, Vector3Int b)
+        {
+            Vector3 worldA = CubeToWorld(a);
+            Vector3 worldB = CubeToWorld(b);
+            return Vector3.Distance(worldA, worldB);
+        }
+        #endregion
     }
 }

@@ -15,19 +15,14 @@ namespace _Script.Map.WorldMap.MapNode
 
         public NodeData CreateNode(NodeType nodeType, string description, int seed)
         {
-            switch (nodeType)
+            return nodeType switch
             {
-                case NodeType.Boss:
-                    return _bossNodes[Random.Range(0, _bossNodes.Length)];
-                case NodeType.Enemy:
-                    return _enemyNodes[Random.Range(0, _enemyNodes.Length)];
-                case NodeType.Resource:
-                    return _resourceNodes[Random.Range(0, _resourceNodes.Length)];
-                case NodeType.Bonfire:
-                    return _bonfireNodes[Random.Range(0, _bonfireNodes.Length)];
-                default:
-                    return _bonfireNodes[Random.Range(0, _bonfireNodes.Length)];
-            }
+                NodeType.Boss => _bossNodes[Random.Range(0, _bossNodes.Length)],
+                NodeType.Enemy => _enemyNodes[Random.Range(0, _enemyNodes.Length)],
+                NodeType.Resource => _resourceNodes[Random.Range(0, _resourceNodes.Length)],
+                NodeType.Bonfire => _bonfireNodes[Random.Range(0, _bonfireNodes.Length)],
+                _ => _bonfireNodes[Random.Range(0, _bonfireNodes.Length)]
+            };
         }
     }
 }

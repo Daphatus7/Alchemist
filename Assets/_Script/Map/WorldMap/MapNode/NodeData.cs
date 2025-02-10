@@ -22,19 +22,11 @@ namespace _Script.Map.WorldMap.MapNode
 
         [ShowInInspector, ReadOnly, LabelText("Map Name"), Tooltip("Automatically generated map name based on the node type.")]
         public string MapName => "E_" + NodeType + "Map";
-
-        [Title("Node Settings")]
-        [TextArea, LabelText("Description"), Tooltip("A description of what this node represents or contains.")]
-        public string Description = "This is a boss node";
-
-        [LabelText("Seed"), Tooltip("Seed used for procedural generation.")]
-        public int Seed = 0;
-
-        // Optional: If you want a constructor that allows assigning description and seed:
-        public NodeData(string description, int seed)
-        {
-            Description = description;
-            Seed = seed;
-        }
+        public virtual string Description => "This is a boss node";
+        public int NodeID { get; set; }
+        
+        //determine the level of the node
+        public float IdwValue { get; set; }
+        public float InterpolatedValue { get; set; }
     }
 }
