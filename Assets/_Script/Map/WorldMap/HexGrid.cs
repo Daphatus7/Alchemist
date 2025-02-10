@@ -80,6 +80,12 @@ namespace _Script.Map.WorldMap
             GenerateGrid();
             PrecomputeNeighbors();
             GenerateDataForAllNodes();
+
+            foreach (var node in GetAllHexNodes())
+            {
+                node.InterpolatedValue = node.NodeLevel;
+            }
+            
         }
         /// <summary>
         /// Iterates over all nodes in the grid; if a node is not an obstacle and lacks data,

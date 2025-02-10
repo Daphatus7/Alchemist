@@ -18,17 +18,20 @@ namespace _Script.Map.WorldMap
             set
             {
                 _hexNode = value;
-                
+
                 // Update the text to show node level + interpolated value
                 _nodeText.text = $"L{_hexNode.NodeLevel}\n{_hexNode.InterpolatedValue:F2}";
-                
+
                 // Debug: set image color based on the InterpolatedValue
                 if (_nodeImage != null)
                 {
-// Suppose val is in [0..1]
-                    float val = Mathf.Clamp01(_hexNode.InterpolatedValue);
+                    // Scale value to [0,10] instead of [0,1]
+                    float val = Mathf.Clamp(_hexNode.InterpolatedValue, 0f, 10f);
 
-// Define color stops
+                    // Normalize to [0,1] for color interpolation
+                    float normalizedVal = val / 10f;
+
+                    // Define color stops
                     Color[] colors = new Color[] {
                         Color.blue,    // 0.0
                         Color.cyan,    // 0.25
@@ -37,21 +40,22 @@ namespace _Script.Map.WorldMap
                         Color.red      // 1.0
                     };
 
-// Find which segment we're in
+                    // Find which segment we're in
                     float step = 1f / (colors.Length - 1);
-                    int index = Mathf.FloorToInt(val / step);          // which segment
-                    int maxIndex = colors.Length - 2;                  // last valid segment start
+                    int index = Mathf.FloorToInt(normalizedVal / step); // which segment
+                    int maxIndex = colors.Length - 2; // last valid segment start
                     index = Mathf.Clamp(index, 0, maxIndex);
 
-// "t" is local interpolation factor within that segment
-                    float t = (val - (index * step)) / step;
+                    // "t" is local interpolation factor within that segment
+                    float t = (normalizedVal - (index * step)) / step;
 
-// Interpolate within that segment
-                    Color debugColor = Color.Lerp(colors[index], colors[index+1], t);
+                    // Interpolate within that segment
+                    Color debugColor = Color.Lerp(colors[index], colors[index + 1], t);
                     _nodeImage.color = debugColor;
                 }
             }
         }
+
 
         private Image _nodeImage;
         [SerializeField] private TextMeshProUGUI _nodeText;
