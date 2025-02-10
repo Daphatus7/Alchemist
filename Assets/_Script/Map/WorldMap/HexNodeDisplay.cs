@@ -25,14 +25,11 @@ namespace _Script.Map.WorldMap
                 // Debug: set image color based on the InterpolatedValue
                 if (_nodeImage != null)
                 {
-                    // Scale value to [0,10] instead of [0,1]
                     float val = Mathf.Clamp(_hexNode.InterpolatedValue, 0f, 10f);
-
-                    // Normalize to [0,1] for color interpolation
                     float normalizedVal = val / 10f;
 
                     // Define color stops
-                    Color[] colors = new Color[] {
+                    var colors = new Color[] {
                         Color.blue,    // 0.0
                         Color.cyan,    // 0.25
                         Color.green,   // 0.5
@@ -40,22 +37,21 @@ namespace _Script.Map.WorldMap
                         Color.red      // 1.0
                     };
 
-                    // Find which segment we're in
                     float step = 1f / (colors.Length - 1);
-                    int index = Mathf.FloorToInt(normalizedVal / step); // which segment
-                    int maxIndex = colors.Length - 2; // last valid segment start
+                    int index = Mathf.FloorToInt(normalizedVal / step);
+                    int maxIndex = colors.Length - 2;
                     index = Mathf.Clamp(index, 0, maxIndex);
 
-                    // "t" is local interpolation factor within that segment
                     float t = (normalizedVal - (index * step)) / step;
-
-                    // Interpolate within that segment
                     Color debugColor = Color.Lerp(colors[index], colors[index + 1], t);
+
                     _nodeImage.color = debugColor;
+
+                    // Remember this as the "original" or "base" color
+                    _originalColor = debugColor;
                 }
             }
         }
-
 
         private Image _nodeImage;
         [SerializeField] private TextMeshProUGUI _nodeText;
@@ -68,6 +64,9 @@ namespace _Script.Map.WorldMap
         public NodeEvent OnNodeEnter = new NodeEvent();
         public NodeEvent OnNodeLeave = new NodeEvent();
 
+        // Used to store the color before highlighting
+        private Color _originalColor;
+
         private void Awake()
         {
             if (_nodeImage == null)
@@ -76,7 +75,7 @@ namespace _Script.Map.WorldMap
                 _nodeImage.alphaHitTestMinimumThreshold = alphaHitTestThreshold;
             }
         }
-        
+
         private bool _isHighlighted = false;
 
         public void SetImage(Sprite sprite)
@@ -97,7 +96,7 @@ namespace _Script.Map.WorldMap
             _isHighlighted = state;
             if (_nodeImage != null)
             {
-                _nodeImage.color = state ? Color.yellow : Color.white;
+                _nodeImage.color = state ? Color.yellow : _originalColor;
             }
         }
 
@@ -111,7 +110,7 @@ namespace _Script.Map.WorldMap
 
         public void SetNodeComplete()
         {
-            // Mark visually as completed if needed, e.g.:
+            // Mark visually as completed if needed
             // if (_nodeImage != null) _nodeImage.color = Color.blue;
         }
 

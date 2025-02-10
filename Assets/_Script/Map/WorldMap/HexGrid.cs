@@ -85,8 +85,8 @@ namespace _Script.Map.WorldMap
             {
                 node.InterpolatedValue = node.NodeLevel;
             }
-            
         }
+        
         /// <summary>
         /// Iterates over all nodes in the grid; if a node is not an obstacle and lacks data,
         /// it generates the node data via <see cref="GenerateNodeData"/>.
