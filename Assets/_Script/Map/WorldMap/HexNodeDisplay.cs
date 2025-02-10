@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,8 +8,6 @@ using UnityEngine.UI;
 namespace _Script.Map.WorldMap
 {
     [System.Serializable] 
-    public class NodeEvent : UnityEvent<INodeHandle> { }
-
     public class HexNodeDisplay : MonoBehaviour, INodeHandle, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         private HexNode _hexNode;
@@ -59,10 +58,10 @@ namespace _Script.Map.WorldMap
 
         [Range(0f, 1f)]
         [SerializeField] private float alphaHitTestThreshold = 0.1f;
-        
-        public NodeEvent OnNodeClicked = new NodeEvent();
-        public NodeEvent OnNodeEnter = new NodeEvent();
-        public NodeEvent OnNodeLeave = new NodeEvent();
+
+        public event Action<HexNodeDisplay> OnNodeClicked = new Action<HexNodeDisplay>(node => { });
+        public event Action<HexNodeDisplay> OnNodeEnter = new Action<HexNodeDisplay>(node => { });
+        public event Action<HexNodeDisplay> OnNodeLeave = new Action<HexNodeDisplay>(node => { });
 
         // Used to store the color before highlighting
         private Color _originalColor;

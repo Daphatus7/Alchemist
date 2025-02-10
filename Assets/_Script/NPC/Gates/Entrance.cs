@@ -1,6 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 16 12 2024 12 07
 
+using _Script.Map;
 using _Script.Map.WorldMap;
 using _Script.NPC.NpcBackend;
 
@@ -14,9 +15,9 @@ namespace _Script.NPC.Gates
             
             // need hard fix
             
-            MapExplorerUI.Instance.MarkCurrentNodeAsExplored();
-            MapExplorerUI.Instance.ShowUI();
-            AddMoreUIHandler(MapExplorerUI.Instance);
+            MapController.Instance.MarkCurrentNodeAsExplored();
+            MapExplorerView.Instance.ShowUI();
+            AddMoreUIHandler(MapExplorerView.Instance);
         }
     }
 }

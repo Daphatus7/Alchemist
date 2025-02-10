@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using _Script.Character;
 using _Script.Character.PlayerRank;
 using _Script.Managers.GlobalUpdater;
+using _Script.Map;
 using _Script.Map.WorldMap;
 using _Script.Map.WorldMap.MapNode;
 using _Script.Quest;
@@ -95,7 +96,7 @@ namespace _Script.Managers
         /// <summary> Example method to reset your hex map. </summary>
         public void ResetHexMap()
         {
-            MapExplorerUI.Instance.ResetHexMap();
+            MapController.Instance.ResetGrid();
         }
 
         #endregion
