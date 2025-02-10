@@ -26,7 +26,8 @@ namespace _Script.Quest.GuildQuestUI
         
         private void OnDestroy()
         {
-            ServiceLocator.Instance.Unregister<IGuildQuestUIHandler>();
+            if (ServiceLocator.Instance != null)
+                ServiceLocator.Instance.Unregister<IGuildQuestUIHandler>();
         }
         
         private void LoadQuestDisplays(List<GuildQuestDefinition> questDefinitions)

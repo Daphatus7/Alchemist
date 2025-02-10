@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _Script.UserInterface;
 using _Script.Utilities;
@@ -234,11 +235,23 @@ namespace _Script.Map.WorldMap
         {
             if (_hexDisplayMap.TryGetValue(node, out HexNodeDisplay nodeDisplay))
             {
-                nodeDisplay.SetImage(GetImageByNodeType(node.NodeType));
-                if (node.ExplorationState == NodeExplorationState.Explored)
-                    nodeDisplay.SetNodeComplete();
-                else
-                    nodeDisplay.Highlight(node.ExplorationState == NodeExplorationState.Exploring);
+                switch (node.ExplorationState)
+                {
+                    case NodeExplorationState.Revealed:
+                        nodeDisplay.SetImage(GetImageByNodeType(node.NodeType));
+                        break;
+                    case NodeExplorationState.Explored:
+                        nodeDisplay.SetNodeComplete();
+                        break;
+                    case NodeExplorationState.Unrevealed:
+                        Debug.Log("Node is unrevealed.");
+                        break;
+                    case NodeExplorationState.Exploring:
+                        nodeDisplay.SetNodeExploring();
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
         }
 

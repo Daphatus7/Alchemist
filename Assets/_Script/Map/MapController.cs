@@ -1,4 +1,5 @@
 using System;
+using _Script.Managers;
 using _Script.Map.WorldMap;
 using UnityEngine;
 
@@ -24,7 +25,7 @@ namespace _Script.Map
         [SerializeField] private float hexSize = 0.5f;
         [SerializeField] private int gridRadius = 20;
         [SerializeField] private int gridVisibility = 2;
-        [SerializeField] private bool _debug;
+        [SerializeField] private bool debug;
         
 
         /// <summary>
@@ -69,6 +70,7 @@ namespace _Script.Map
 
             if (HexGrid.IsAdjacentToPlayer(node) && node.ExplorationState == NodeExplorationState.Revealed)
             { 
+                Debug.Log("Exploring node." + node.Position);
                 ExploreNode(node);
             }
             else if (node.ExplorationState == NodeExplorationState.Explored)
@@ -79,6 +81,8 @@ namespace _Script.Map
             {
                 Debug.Log("This node cannot be explored from here.");
             }
+            
+            HandleGridNodeChanged(node);
         }
 
         private void ExploreNode(HexNode node)
@@ -86,14 +90,15 @@ namespace _Script.Map
             HexGrid.MovePlayer(node);
             node.SetExplorationState(NodeExplorationState.Exploring);
 
-            if (_debug)
+            if (debug)
             {
                 MarkCurrentNodeAsExplored();
             }
             else
             {
-                // In normal mode you might trigger a scene change here.
-                // For example: GameManager.Instance.LoadSelectedScene(node.NodeData);
+                // Normal: switch back to game view after exploring
+                MapExplorerView.Instance.HideUI();
+                GameManager.Instance.LoadSelectedScene(node.NodeData);
             }
         }
 

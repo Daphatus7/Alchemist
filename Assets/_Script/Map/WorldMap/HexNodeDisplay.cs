@@ -111,6 +111,7 @@ namespace _Script.Map.WorldMap
         {
             // Mark visually as completed if needed
             // if (_nodeImage != null) _nodeImage.color = Color.blue;
+            MarkExploredVisual();
         }
 
         public void SetNodeExploring()
