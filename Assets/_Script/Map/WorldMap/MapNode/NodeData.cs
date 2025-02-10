@@ -24,9 +24,5 @@ namespace _Script.Map.WorldMap.MapNode
         public string MapName => "E_" + NodeType + "Map";
         public virtual string Description => "This is a boss node";
         public int NodeID { get; set; }
-        
-        //determine the level of the node
-        public float IdwValue { get; set; }
-        public float InterpolatedValue { get; set; }
     }
 }

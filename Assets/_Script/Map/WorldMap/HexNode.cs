@@ -40,6 +40,8 @@ namespace _Script.Map.WorldMap
             set => _nodeData = value;
         }
         
+        public float InterpolatedValue { get; set; }
+        
         public int gCost; // Cost from the start node
         public int hCost; // Cost to the goal node
         public int fCost => gCost + hCost; // Total cost
