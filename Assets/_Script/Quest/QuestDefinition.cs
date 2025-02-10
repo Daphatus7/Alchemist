@@ -12,30 +12,19 @@ namespace _Script.Quest
     /// Scriptable object that defines a single quest
     /// </summary>
     [CreateAssetMenu(fileName = "NewQuest", menuName = "Quests/Quest Definition")]
-    public class QuestDefinition : ScriptableObject
+    public class QuestDefinition : SimpleQuestDefinition
     {
-        public string questID;
-        public string questName;
         public NpcDialogue questStartDialogue;
         public NpcDialogue questInProgressDialogue;
         public NpcDialogue questCompleteDialogue;
         public UnlockCondition unlockCondition; // Prerequisite to unlock this quest
-        public QuestObjective[] objectives; // Array of objectives
-        public QuestReward reward;          // Could be items, gold, exp, etc.
-        
-        private void OnValidate()
-        {
-            #if UNITY_EDITOR
-            questID = this.name;
-            UnityEditor.EditorUtility.SetDirty(this);
-            #endif
-        }
-
         public bool CanUnlockQuest()
         {
             return unlockCondition == null || QuestManager.Instance.CheckPrerequisite(unlockCondition);
         }
     }
+    
+    
 
     [Serializable]
     public class UnlockCondition

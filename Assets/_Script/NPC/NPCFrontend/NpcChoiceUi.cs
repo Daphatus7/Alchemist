@@ -33,6 +33,7 @@ namespace _Script.NPC.NPCFrontend
 
             foreach (var moduleHandler in moduleHandlers)
             {
+                Debug.Log(moduleHandler.ModuleInfo.ModuleName);
                 if (moduleHandler != null && moduleHandler.ShouldLoadModule())
                 {
                     AddChoice(moduleHandler.ModuleInfo.ModuleName, () => HandleChoice(moduleHandler));
@@ -64,6 +65,12 @@ namespace _Script.NPC.NPCFrontend
                 Debug.LogWarning("Button component is missing in choicePrefab!");
             }
         }
+        
+        
+        /// <summary>
+        /// When player click on the choice, the module will be loaded
+        /// </summary>
+        /// <param name="moduleHandler"></param>
 
         private void HandleChoice(INpcModuleHandler moduleHandler)
         {
@@ -72,7 +79,7 @@ namespace _Script.NPC.NPCFrontend
                 Debug.LogWarning("moduleHandler is null! Cannot load NPC module.");
                 return;
             }
-            moduleHandler.LoadNpcModule(moduleHandler);
+            moduleHandler.LoadNpcModule();
         }
     }
 }

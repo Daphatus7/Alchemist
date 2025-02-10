@@ -42,6 +42,10 @@ namespace _Script.Quest
             var questModules = FindObjectsByType<QuestGiverModule>(FindObjectsSortMode.None);
             foreach (var o  in questModules)
             {
+                if (_questModules.ContainsKey(o.NpcId))
+                {
+                    continue;
+                }
                 _questModules.Add(o.NpcId, o);
             }
         }

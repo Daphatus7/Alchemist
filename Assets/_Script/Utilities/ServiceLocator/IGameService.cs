@@ -12,6 +12,5 @@ namespace _Script.Utilities.ServiceLocator
     {
         void LoadMerchantInventory(MerchantInventory merchantInventory);
         void CloseMerchantInventory();
-        IUIHandler GetUIHandler();
     }
 }

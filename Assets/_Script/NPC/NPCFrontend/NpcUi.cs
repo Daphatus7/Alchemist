@@ -105,10 +105,19 @@ namespace _Script.NPC.NPCFrontend
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// On Selecting the Quest UI
+        /// </summary>
+        /// <param name="quest"></param>
         public void LoadQuestUi(INpcQuestModuleHandler quest)
         {
             DisplayUi(NpcUiType.QuestGiver);
             questGiverUi.LoadQuestData(quest);
+        }
+        
+        public void LoadGuildQuestUi(INpcQuestModuleHandler quest)
+        {
+            
         }
 
         public void TerminateDialogue()

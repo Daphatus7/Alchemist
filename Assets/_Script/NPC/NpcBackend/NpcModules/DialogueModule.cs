@@ -14,15 +14,16 @@ namespace _Script.NPC.NpcBackend.NpcModules
             return false;
         }
 
-        public override void LoadNpcModule(INpcModuleHandler handler)
+        public override void LoadNpcModule()
         {
             throw new NotImplementedException();
         }
 
-        public override void UnloadNpcModule(INpcModuleHandler handler)
+        public override void UnloadNpcModule()
         {
             throw new NotImplementedException();
         }
+
 
         [LabelText("Dialogue Lines")]
         [ListDrawerSettings(ShowIndexLabels = true)]

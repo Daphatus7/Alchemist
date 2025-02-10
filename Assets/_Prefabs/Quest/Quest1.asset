@@ -14,6 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questID: Quest1
   questName: Applie Apple
+  objectives:
+  - objectiveData:
+      rid: 5907273043284066455
+    isComplete: 0
+    currentCount: 0
+  reward:
+    gold: 500
+    experience: 100
+    items:
+    - item: {fileID: 11400000, guid: e2da08777c5dc4b19b4ca5a33ad2bdcd, type: 2}
+      amount: 5
   questStartDialogue:
     dialogue:
     - I have got an apple for you for real this time
@@ -26,17 +37,6 @@ MonoBehaviour:
   unlockCondition:
     playerRank: 0
     prerequisite: 0
-  objectives:
-  - objectiveData:
-      rid: 5907273043284066455
-    isComplete: 0
-    currentCount: 0
-  reward:
-    gold: 500
-    experience: 100
-    items:
-    - item: {fileID: 11400000, guid: e2da08777c5dc4b19b4ca5a33ad2bdcd, type: 2}
-      amount: 5
   references:
     version: 2
     RefIds:

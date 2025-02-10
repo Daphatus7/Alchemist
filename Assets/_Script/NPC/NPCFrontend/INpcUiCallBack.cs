@@ -11,7 +11,6 @@ namespace _Script.NPC.NPCFrontend
     /// </summary>
     public interface INpcUiCallback : INpcUIService
     {
-        void OnNpcUiChange(NpcUiType uiType);
         void LoadQuestUi(INpcQuestModuleHandler quest);
     }
 }

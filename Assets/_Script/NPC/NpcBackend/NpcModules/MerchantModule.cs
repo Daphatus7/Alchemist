@@ -62,7 +62,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
             return true;
         }
 
-        public override void LoadNpcModule(INpcModuleHandler handler)
+        public override void LoadNpcModule()
         {
             //Load merchant inventory UI
             ServiceLocator.Instance.Get<IMerchantInventoryService>().LoadMerchantInventory(_merchantInventory);
@@ -70,7 +70,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
             Npc.AddMoreUIHandler(ServiceLocator.Instance.Get<IMerchantInventoryService>() as IUIHandler);
         }
 
-        public override void UnloadNpcModule(INpcModuleHandler handler)
+        public override void UnloadNpcModule()
         {
             ServiceLocator.Instance.Get<IMerchantInventoryService>().CloseMerchantInventory();
             

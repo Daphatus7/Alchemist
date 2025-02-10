@@ -14,7 +14,7 @@ namespace _Script.Quest
     /// </summary>
     public abstract class QuestInstance
     {
-        public QuestDefinition QuestDefinition { get; }
+        public SimpleQuestDefinition QuestDefinition { get; }
 
         private QuestState _state; public QuestState QuestState
         {

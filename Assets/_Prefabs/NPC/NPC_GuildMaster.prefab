@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6372158351476952273}
   - component: {fileID: 8569476312756211817}
   - component: {fileID: 509731191423946214}
+  - component: {fileID: 771194325673888461}
   m_Layer: 9
   m_Name: NPC_GuildMaster
   m_TagString: Enemy
@@ -29,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3667518381438025234}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.32, y: 0.73, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -150,10 +151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec9160711774ffbaf67e0faae2e499e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcInfo:
-    npcName: Louis
-    npcDialogue: Hello Stranger
   dialogueDistance: 5
+  npcInfo:
+    npcName: Harold
+    npcDialogue: Hello Stranger
 --- !u!114 &8569476312756211817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,6 +170,7 @@ MonoBehaviour:
   optionName: Quest
   quests:
   - {fileID: 11400000, guid: dae82e7b0182641e4ad731b972f10cd5, type: 2}
+  - {fileID: 11400000, guid: dadca1d97f99049b3ad52c5f073c5796, type: 2}
 --- !u!114 &509731191423946214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +184,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueLines: []
+--- !u!114 &771194325673888461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3667518381438025234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d35ff53a95cf4d70bd0eee45b74f19c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  optionName: Guild Quest
+  allQuests:
+  - {fileID: 11400000, guid: 0f9667d7922094c5689b3c4e5c7cb8c6, type: 2}
+  - {fileID: 11400000, guid: 7a6aa9e088852421ea71585f92206301, type: 2}
+  - {fileID: 11400000, guid: 4a3f4af7fea754adbb51e9ed8bba83d0, type: 2}
+  - {fileID: 11400000, guid: 8079c216b2b9a4be9894dad2d5926e50, type: 2}
 --- !u!1 &8256657632293943933
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,11 +252,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a248d44ba74540ffaf7d9fdfec5dc430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: 'Ken The  Merchant
-
-'
-  textColor: {r: 1, g: 1, b: 1, a: 1}
-  textSize: 4
+  text: Louis The Guild Master
+  textColor: {r: 0.996, g: 0.906, b: 0.459, a: 1}
+  textSize: 3.1
   offset: {x: 0, y: 1.7, z: 0}
 --- !u!23 &4606364122893686440
 MeshRenderer:
@@ -303,9 +321,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Ken The  Merchant
-
-'
+  m_text: Louis The Guild Master
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -314,8 +330,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4285917182
+  m_fontColor: {r: 0.996, g: 0.906, b: 0.459, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -332,8 +348,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 4
-  m_fontSizeBase: 4
+  m_fontSize: 3.1
+  m_fontSizeBase: 3.1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

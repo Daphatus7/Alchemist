@@ -100,14 +100,13 @@ namespace _Script.NPC.NpcBackend.NpcModules
             return false;
         }
 
-        public override void LoadNpcModule(INpcModuleHandler handler)
+        public override void LoadNpcModule()
         {
             ServiceLocator.Instance.Get<INpcUiCallback>().LoadQuestUi(this);
         }
 
-        public override void UnloadNpcModule(INpcModuleHandler handler)
+        public override void UnloadNpcModule()
         {
-            Debug.Log("Quest Giver Module Unloaded");
         }
     }
 }

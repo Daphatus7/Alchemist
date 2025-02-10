@@ -11,17 +11,17 @@ namespace _Script.NPC.NpcBackend.NpcModules
     public abstract class NpcModuleBase : MonoBehaviour, INpcModuleHandler
     {
         public abstract bool ShouldLoadModule();
+        public abstract void LoadNpcModule();
 
-        public abstract void LoadNpcModule(INpcModuleHandler handler);
+        public abstract void UnloadNpcModule();
 
-        public abstract void UnloadNpcModule(INpcModuleHandler handler);
         public string NpcId => Npc.NpcId;
+        private NpcModuleInfo _moduleInfo;
 
         public NpcModuleInfo ModuleInfo => _moduleInfo ??= new NpcModuleInfo(ModuleName, ModuleDescription, HandlerType);
-        public virtual NpcHandlerType HandlerType => _moduleInfo.HandlerType;
+        public abstract NpcHandlerType HandlerType { get; }
         public abstract string ModuleDescription { get; }
         
-        private NpcModuleInfo _moduleInfo;
         public abstract string ModuleName { get;}
         protected INpcModuleControlHandler Npc;
         
@@ -52,6 +52,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
         Merchant,
         QuestGiver,
         Trainer,
-        Dialogue
+        Dialogue,
+        GuildQuestGiver
     }
 }

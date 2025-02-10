@@ -9,8 +9,8 @@ namespace _Script.NPC.NpcBackend
     public interface INpcModuleHandler
     {
         bool ShouldLoadModule();
-        void LoadNpcModule(INpcModuleHandler handler);
-        void UnloadNpcModule(INpcModuleHandler handler);
+        void LoadNpcModule();
+        void UnloadNpcModule();
         NpcModuleInfo ModuleInfo { get; }
         NpcHandlerType HandlerType { get; }
     }

@@ -1,0 +1,15 @@
+// Author : Peiyu Wang @ Daphatus
+// 09 02 2025 02 05
+
+using _Script.Character.PlayerRank;
+using UnityEngine;
+
+namespace _Script.Quest
+{
+    [CreateAssetMenu(fileName = "GuildQuestDefinition", menuName = "Quests/GuildQuestDefinition")]
+    public class GuildQuestDefinition : SimpleQuestDefinition
+    {
+        public PlayerRankEnum questRank;
+        public string description;
+    }
+}
