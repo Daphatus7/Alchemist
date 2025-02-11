@@ -144,10 +144,15 @@ namespace _Script.Character.PlayerRank
     /// </summary>
     public enum PlayerRankEnum
     {
+        G,
         F,
         E,
         D,
         C,
         B,
+        A,
+        S,
+        Ss,
+        Sss
     }
 }

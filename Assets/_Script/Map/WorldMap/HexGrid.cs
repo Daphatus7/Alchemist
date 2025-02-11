@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Script.Map.WorldMap.MapNode;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace _Script.Map.WorldMap
 {
@@ -25,6 +26,9 @@ namespace _Script.Map.WorldMap
         /// </summary>
         private readonly Dictionary<(int x, int y, int z), List<HexNode>> _neighborsCache
             = new Dictionary<(int, int, int), List<HexNode>>();
+        
+        private readonly Dictionary<int, List<HexNode>> _nodesByLevel 
+            = new Dictionary<int, List<HexNode>>();
 
         /// <summary>
         /// The radius (in hex steps) in which nodes are considered "in view."
@@ -83,7 +87,7 @@ namespace _Script.Map.WorldMap
 
             foreach (var node in GetAllHexNodes())
             {
-                node.InterpolatedValue = node.NodeLevel;
+                node.Difficulty = node.NodeLevel;
             }
         }
         
@@ -132,6 +136,20 @@ namespace _Script.Map.WorldMap
             }
 
             Debug.Log("Hex Grid has been reset.");
+        }
+
+        /// <summary>
+        /// Put this node in the dictionary for its level (create list if needed).
+        /// </summary>
+        private void AddNodeToLevelDictionary(HexNode node)
+        {
+            int level = node.NodeLevel;
+            if (!_nodesByLevel.TryGetValue(level, out var nodeList))
+            {
+                nodeList = new List<HexNode>();
+                _nodesByLevel[level] = nodeList;
+            }
+            nodeList.Add(node);
         }
 
         /// <summary>
@@ -376,19 +394,15 @@ namespace _Script.Map.WorldMap
         /// <returns>The first found node with the given level, or null.</returns>
         public HexNode GenerateNodeAtLevel(int level)
         {
-            for (int x = -_gridRadius; x <= _gridRadius; x++)
+            int maxLevel = level < _gridRadius ? level : _gridRadius;
+            if (_nodesByLevel.TryGetValue(level, out var nodeList))
             {
-                for (int y = Mathf.Max(-_gridRadius, -x - _gridRadius); y <= Mathf.Min(_gridRadius, -x + _gridRadius); y++)
-                {
-                    int z = -x - y;
-                    HexNode checkNode = GetHexNode(x, y, z);
-                    if (checkNode != null && checkNode.NodeLevel == level)
-                    {
-                        return checkNode;
-                    }
-                }
+                return nodeList[Random.Range(0, nodeList.Count)];
             }
-            return null;
+            else
+            {
+                throw new Exception("No nodes found at level " + level);
+            }
         }
 
         /// <summary>
@@ -421,6 +435,7 @@ namespace _Script.Map.WorldMap
                     int z = -x - y;
                     var newNode = new HexNode(new Vector3Int(x, y, z), GenerateHexType());
                     _hexNodes.Add((x, y, z), newNode);
+                    AddNodeToLevelDictionary(newNode);
                 }
             }
         }

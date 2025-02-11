@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
+using _Script.Character.PlayerRank;
 using _Script.Managers;
 using _Script.Map.WorldMap;
+using _Script.Quest;
 using UnityEngine;
 
 
@@ -42,7 +45,28 @@ namespace _Script.Map
         {
             InitializeGrid();
         }
-
+        
+        public void GeneratePathForQuest(GuildQuestDefinition quest)
+        {
+            var path = CreatePath(HexGrid.GenerateNodeAtLevel(0), HexGrid.GenerateNodeAtLevel(7));
+            SetDifficultyOfNodes(path, GetMapDifficulty(quest.questRank));
+        }
+        
+        private int GetMapDifficulty(PlayerRankEnum questRank)
+        {
+            return questRank switch
+            {
+                PlayerRankEnum.F => 1, 
+                PlayerRankEnum.E => 2,
+                PlayerRankEnum.D => 3,
+                PlayerRankEnum.C => 4,
+                PlayerRankEnum.B => 5,
+                PlayerRankEnum.A => 6,
+                PlayerRankEnum.S => 7,
+                _ => 1
+            };
+        }
+        
         private void InitializeGrid()
         {
             HexGrid = new HexGrid(gridRadius, new GridConfiguration(hexSize));
@@ -53,17 +77,27 @@ namespace _Script.Map
             HexGrid.MovePlayer(StartHex);
         }
         
-        private void CreatePath(Vector3Int start, Vector3Int end)
+        private List<HexNode> CreatePath(HexNode start, HexNode end)
         {
             // Create a path from the start node to the end node.
-            // var path = HexGrid.FindPath(GetNo, EndHex);
-            // if (path != null)
-            // {
-            //     foreach (var node in path)
-            //     {
-            //         node.SetExplorationState(NodeExplorationState.Revealed);
-            //     }
-            // }
+            var path = HexGrid.FindPath(start, end);
+            if (path != null)
+            {
+                foreach (var node in path)
+                {
+                    node.SetExplorationState(NodeExplorationState.Revealed);
+                }
+            }
+            return path;
+        }
+        
+        private void SetDifficultyOfNodes(List<HexNode> path, float difficulty)
+        {
+            // Set the difficulty of the nodes based on the path.
+            foreach (var node in path)
+            {
+                node.Difficulty = difficulty;
+            }
         }
         
         /// <summary>

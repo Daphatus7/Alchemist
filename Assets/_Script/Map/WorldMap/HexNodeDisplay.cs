@@ -19,12 +19,12 @@ namespace _Script.Map.WorldMap
                 _hexNode = value;
 
                 // Update the text to show node level + interpolated value
-                _nodeText.text = $"L{_hexNode.NodeLevel}\n{_hexNode.InterpolatedValue:F2}";
+                _nodeText.text = $"L{_hexNode.NodeLevel}\n{_hexNode.Difficulty:F2}";
 
                 // Debug: set image color based on the InterpolatedValue
                 if (_nodeImage != null)
                 {
-                    float val = Mathf.Clamp(_hexNode.InterpolatedValue, 0f, 10f);
+                    float val = Mathf.Clamp(_hexNode.Difficulty, 0f, 10f);
                     float normalizedVal = val / 10f;
 
                     // Define color stops
