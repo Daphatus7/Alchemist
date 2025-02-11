@@ -61,7 +61,7 @@ namespace _Script.Map.WorldMap
         /// Raises the <see cref="OnNodeChanged"/> event for the specified <paramref name="node"/>.
         /// </summary>
         /// <param name="node">The node that changed.</param>
-        private void NotifyNodeChanged(HexNode node)
+        internal void NotifyNodeChanged(HexNode node)
         {
             OnNodeChanged?.Invoke(node);
         }
@@ -766,34 +766,7 @@ namespace _Script.Map.WorldMap
                     if (node != null && node.ExplorationState == NodeExplorationState.Unrevealed)
                     {
                         node.SetExplorationState(NodeExplorationState.Revealed);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Reveals all nodes in a given radius around a specified <paramref name="centerNode"/>. 
-        /// Useful if the player or a game entity uncovers an area around themselves.
-        /// </summary>
-        /// <param name="centerNode">The node at the center of the reveal.</param>
-        /// <param name="radius">The radius around the center node to reveal.</param>
-        public void RevealSurroundingNodes(HexNode centerNode, int radius)
-        {
-            for (int dx = -radius; dx <= radius; dx++)
-            {
-                int startY = Mathf.Max(-radius, -dx - radius);
-                int endY = Mathf.Min(radius, -dx + radius);
-                for (int dy = startY; dy <= endY; dy++)
-                {
-                    int dz = -dx - dy;
-                    int nx = centerNode.Position.x + dx;
-                    int ny = centerNode.Position.y + dy;
-                    int nz = centerNode.Position.z + dz;
-
-                    var node = GetHexNode(nx, ny, nz);
-                    if (node != null && node.ExplorationState == NodeExplorationState.Unrevealed)
-                    {
-                        node.SetExplorationState(NodeExplorationState.Revealed);
+                        NotifyNodeChanged(node);
                     }
                 }
             }

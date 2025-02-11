@@ -18,16 +18,23 @@ namespace _Script.Map
         public HexNode StartHex { get; private set; }
         public Vector3Int PlayerPosition => HexGrid.PlayerPosition;
 
-        // Raised whenever a HexNode’s state changes (for example, when a node is explored)
-        public event Action<HexNode> OnNodeChanged;
 
-        [SerializeField] private int _gridRadius;
         [SerializeField] private float hexSize = 0.5f;
         [SerializeField] private int gridRadius = 20;
         [SerializeField] private int gridVisibility = 2;
         [SerializeField] private bool debug;
-        
 
+
+        public void SubscribeToNodeChange(Action<HexNode> action)
+        {
+            HexGrid.OnNodeChanged += action;
+        }
+        
+        public void UnsubscribeFromNodeChange(Action<HexNode> action)
+        {
+            HexGrid.OnNodeChanged -= action;
+        }
+        
         /// <summary>
         /// Initializes the hex grid, sets the spawn point, and reveals the initial nodes.
         /// </summary>
@@ -38,29 +45,27 @@ namespace _Script.Map
 
         private void InitializeGrid()
         {
-            HexGrid = new HexGrid(_gridRadius, new GridConfiguration(hexSize));
+            HexGrid = new HexGrid(gridRadius, new GridConfiguration(hexSize));
             Vector3Int spawnPoint = HexGrid.GenerateSpawnPoint();
             HexGrid.RevealHexNodeInRange(spawnPoint.x, spawnPoint.y, spawnPoint.z, gridVisibility);
             StartHex = HexGrid.GetHexNode(spawnPoint.x, spawnPoint.y, spawnPoint.z);
             //move player to start hex
             HexGrid.MovePlayer(StartHex);
-            // Subscribe to grid events and propagate them via our own event.
-            HexGrid.OnNodeChanged += HandleGridNodeChanged;
-            
-
         }
-
-        private void OnDestroy()
+        
+        private void CreatePath(Vector3Int start, Vector3Int end)
         {
-            if (HexGrid != null)
-                HexGrid.OnNodeChanged -= HandleGridNodeChanged;
+            // Create a path from the start node to the end node.
+            // var path = HexGrid.FindPath(GetNo, EndHex);
+            // if (path != null)
+            // {
+            //     foreach (var node in path)
+            //     {
+            //         node.SetExplorationState(NodeExplorationState.Revealed);
+            //     }
+            // }
         }
-
-        private void HandleGridNodeChanged(HexNode node)
-        {
-            OnNodeChanged?.Invoke(node);
-        }
-
+        
         /// <summary>
         /// Tries to explore the node based on game rules.
         /// </summary>
@@ -81,18 +86,20 @@ namespace _Script.Map
             {
                 Debug.Log("This node cannot be explored from here.");
             }
-            
-            HandleGridNodeChanged(node);
         }
 
         private void ExploreNode(HexNode node)
         {
+            // Move player to the node and reveal surrounding nodes
             HexGrid.MovePlayer(node);
             node.SetExplorationState(NodeExplorationState.Exploring);
+            MarkCurrentNodeAsExplored(node);
+            HexGrid.RevealHexNodeInRange(node.Position.x, node.Position.y, node.Position.z, gridVisibility);
 
+            
             if (debug)
             {
-                MarkCurrentNodeAsExplored();
+                // Debug: stay in map view after exploring
             }
             else
             {
@@ -105,15 +112,20 @@ namespace _Script.Map
         /// <summary>
         /// Marks the current (exploring) node as fully explored.
         /// </summary>
-        public void MarkCurrentNodeAsExplored()
+        public void MarkCurrentNodeAsExplored(HexNode node)
         {
-            var node = HexGrid.GetHexNode(PlayerPosition.x, PlayerPosition.y, PlayerPosition.z);
             if (node.ExplorationState == NodeExplorationState.Exploring)
             {
                 node.SetExplorationState(NodeExplorationState.Explored);
-                HexGrid.RevealSurroundingNodes(node, gridVisibility);
-                OnNodeChanged?.Invoke(node);
+                HexGrid.NotifyNodeChanged(node);
             }
+        }
+        
+        public void MarkCurrentNodeAsExplored()
+        {
+            var node = HexGrid.GetHexNode(PlayerPosition.x, PlayerPosition.y, PlayerPosition.z);
+            if (node != null)
+                MarkCurrentNodeAsExplored(node);
         }
 
         /// <summary>

@@ -28,7 +28,7 @@ namespace _Script.Map.WorldMap
         private Vector3Int _position; 
         public Vector3Int Position => _position;
 
-        public HexNode Parent; // For retracing the path
+        public HexNode Parent;
 
         public NodeType NodeType { get; set; }
 

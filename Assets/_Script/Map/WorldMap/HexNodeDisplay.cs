@@ -144,5 +144,10 @@ namespace _Script.Map.WorldMap
         {
             OnNodeLeave.Invoke(this);
         }
+
+        public void SetNodeRevealed()
+        {
+   
+        }
     }
 }

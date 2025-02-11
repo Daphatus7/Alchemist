@@ -87,7 +87,7 @@ namespace _Script.Map.WorldMap
         private void OnDisable()
         {
             if (Controller != null)
-                Controller.OnNodeChanged -= OnControllerNodeChanged;
+                Controller.SubscribeToNodeChange(OnControllerNodeChanged);  
         }
 
         private void OnControllerNodeChanged(HexNode node)
@@ -102,9 +102,9 @@ namespace _Script.Map.WorldMap
             if (!mapCanvas) return;
             mapCanvas.SetActive(true);
             GenerateGridVisuals();
-            Controller.OnNodeChanged += OnControllerNodeChanged;
+            if (Controller != null)
+                Controller.SubscribeToNodeChange(OnControllerNodeChanged); 
             CenterMapCameraOnMap();
-
             if (gameCamera) gameCamera.enabled = false;
             if (mapCamera) mapCamera.enabled = true;
 
@@ -115,7 +115,7 @@ namespace _Script.Map.WorldMap
         {
             if (!mapCanvas) return;
             if(Controller)
-                Controller.OnNodeChanged -= OnControllerNodeChanged;
+                Controller.UnsubscribeFromNodeChange(OnControllerNodeChanged);
             mapCanvas.SetActive(false);
 
             if (gameCamera) gameCamera.enabled = true;
@@ -205,7 +205,7 @@ namespace _Script.Map.WorldMap
         /// </summary>
         private void GenerateGridVisuals()
         {
-            foreach (HexNode hexNode in Controller.HexGrid.GetAllHexNodes())
+            foreach (HexNode hexNode in Controller.HexGrid.GetAllVisibleHexNodes())
             {
                 if (!_hexDisplayMap.ContainsKey(hexNode))
                 {
@@ -235,23 +235,34 @@ namespace _Script.Map.WorldMap
         {
             if (_hexDisplayMap.TryGetValue(node, out HexNodeDisplay nodeDisplay))
             {
-                switch (node.ExplorationState)
+                UpdateNodeVisual(node, nodeDisplay);
+            }
+            else
+            {
+                GenerateGridVisuals();
+                if (_hexDisplayMap.TryGetValue(node, out HexNodeDisplay display))
                 {
-                    case NodeExplorationState.Revealed:
-                        nodeDisplay.SetImage(GetImageByNodeType(node.NodeType));
-                        break;
-                    case NodeExplorationState.Explored:
-                        nodeDisplay.SetNodeComplete();
-                        break;
-                    case NodeExplorationState.Unrevealed:
-                        Debug.Log("Node is unrevealed.");
-                        break;
-                    case NodeExplorationState.Exploring:
-                        nodeDisplay.SetNodeExploring();
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    UpdateNodeVisual(node, display);
                 }
+            }
+        }
+        private void UpdateNodeVisual(HexNode node, HexNodeDisplay nodeDisplay)
+        {
+            switch (node.ExplorationState)
+            {
+                case NodeExplorationState.Revealed:
+                    break;
+                case NodeExplorationState.Explored:
+                    nodeDisplay.SetNodeComplete();
+                    break;
+                case NodeExplorationState.Unrevealed:
+                    Debug.Log("Node is unrevealed.");
+                    break;
+                case NodeExplorationState.Exploring:
+                    nodeDisplay.SetNodeExploring();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
