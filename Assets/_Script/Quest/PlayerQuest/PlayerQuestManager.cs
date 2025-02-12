@@ -13,15 +13,24 @@ namespace _Script.Quest.PlayerQuest
     {
         private readonly Dictionary<string, QuestInstance> _activeQuests = new Dictionary<string, QuestInstance>(); 
         private readonly Queue<QuestInstance> _completedQuests = new Queue<QuestInstance>(); public Queue<QuestInstance> CompletedQuests => _completedQuests;
-        
+        private GuildQuestInstance _activeGuildQuest;
         public void Update()
         {
+            
+            //Temporary only for testing
             if (!Prototype_Active_Quest_Ui.Instance) return;
             Prototype_Active_Quest_Ui.Instance.SetText("");
+            string t = "";
             foreach (var quest in _activeQuests)
             {
-                Prototype_Active_Quest_Ui.Instance.SetText(quest.Value.QuestStatus);
+                t += quest.Value.QuestStatus + "\n";
+            } 
+            t += "-----------------\n";
+            if (_activeGuildQuest != null)
+            {
+                t += "Guild Quest: \n" + _activeGuildQuest.QuestStatus;
             }
+            Prototype_Active_Quest_Ui.Instance.SetText(t);
         }
         
         public void OnEnable()
@@ -53,6 +62,17 @@ namespace _Script.Quest.PlayerQuest
             if(!_activeQuests.TryAdd(quest.QuestDefinition.questID, quest)) return;
         }
         
+        public void AddNewGuildQuest(GuildQuestInstance quest)
+        {
+            _activeGuildQuest = quest;
+        }
+
+        private void CompleteGuildQuest(GuildQuestInstance quest)
+        {
+            Debug.Log("Guild Quest Completed");
+            _activeGuildQuest = null;
+        }
+        
         
         public void AddNewSideQuest(QuestInstance quest)
         {
@@ -61,8 +81,27 @@ namespace _Script.Quest.PlayerQuest
         
         public void CompleteQuest(QuestInstance quest)
         {
+            //issue right now, guild quest is different
+            if(quest == null) return;
+            switch (quest.QuestType)
+            {
+                case QuestType.Main:
+                    break;
+                case QuestType.Side:
+                    CompleteSideQuest(quest);
+                    break;
+                case QuestType.Guild:
+                    CompleteGuildQuest((GuildQuestInstance) quest);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void CompleteSideQuest(QuestInstance quest)
+        {
             _completedQuests.Enqueue(quest);
-            if(!_activeQuests.Remove(quest.QuestDefinition.questID)) return;
+            if (!_activeQuests.Remove(quest.QuestDefinition.questID)) return;
         }
     }
 }

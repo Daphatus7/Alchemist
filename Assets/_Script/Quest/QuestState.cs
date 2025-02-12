@@ -6,11 +6,11 @@ namespace _Script.Quest
     public enum QuestState
     {
         /// <summary>
-        /// The quest has not been started
+        /// The quest has not been started, it is flagged as can be accepted but not started
         /// </summary>
         NotStarted,
         /// <summary>
-        /// The quest has started and the p
+        /// The quest has started and the player is working on it
         /// </summary>
         InProgress,
         Completed

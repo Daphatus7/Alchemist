@@ -52,7 +52,6 @@ namespace _Script.Managers
             {
                 UnloadAdditiveScene(_currentAdditiveScene);
             }
-
             _currentAdditiveScene = nodeData.MapName;
             GameManager.Instance.StartCoroutine(AddSceneAsync(nodeData));
         }

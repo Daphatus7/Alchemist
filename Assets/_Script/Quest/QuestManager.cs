@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using _Script.Items.Lootable;
 using _Script.Managers;
+using _Script.Map;
 using _Script.NPC.NpcBackend;
 using _Script.NPC.NpcBackend.NpcModules;
 using _Script.Quest.PlayerQuest;
@@ -26,6 +27,9 @@ namespace _Script.Quest
         public event Action<QuestInstance> OnQuestCompleted;
 
         [SerializeField] public StorylineChecker storylineChecker;
+        
+        
+        
         
         public void Start()
         {
@@ -91,12 +95,12 @@ namespace _Script.Quest
                 // If any objective is not marked as complete, the quest is not complete.
                 if (!objective.isComplete)
                 {
-                    Debug.Log($"Objective {objective.objectiveData.type} is not complete");
+                    Debug.Log($"Objective {objective.objectiveData.Type} is not complete");
                     return false;
                 }
 
                 // If the objective is a "Collect" type, verify the inventory count.
-                if (objective.objectiveData.type == ObjectiveType.Collect)
+                if (objective.objectiveData.Type == ObjectiveType.Collect)
                 {
                     var collectObjective = (CollectObjective)objective.objectiveData;
                     var count = GameManager.Instance.PlayerCharacter.PlayerInventory.GetItemCount(collectObjective.item.itemID);
@@ -113,16 +117,16 @@ namespace _Script.Quest
             // If we get through all objectives without returning false, then the quest is complete.
             return true;
         }
-
         
         public void CompleteQuest(QuestInstance currentQuest)
         {
             var questObjectives = currentQuest.Objectives;
+            //check if the quest is completed
             foreach (var o in questObjectives)
             {
                 if (o.isComplete)
                 {
-                    if (o.objectiveData.type == ObjectiveType.Collect)
+                    if (o.objectiveData.Type == ObjectiveType.Collect)
                     {
                         //remove the items from the player inventory
                         GameManager.Instance.PlayerCharacter.PlayerInventory.RemoveItemById(((CollectObjective)o.objectiveData).item.itemID, o.objectiveData.requiredCount);
@@ -163,6 +167,63 @@ namespace _Script.Quest
             OnQuestCompleted?.Invoke(quest);
         }
 
+
+        #region Guild Qu
+
+        private GuildQuestInstance _currentQuest;
+        
+        public bool CreateGuildQuest(GuildQuestDefinition quest)
+        {
+            //check if there is an existing quest
+            if(_currentQuest != null)
+            {
+
+                switch (_currentQuest.QuestState)
+                {
+                    case QuestState.Completed:
+                        //if the quest is completed, create a new quest
+                        throw new Exception("Quest is completed, but a new quest is being created, should not enter this menu");
+                    case QuestState.InProgress:
+                        Debug.Log("Quest is in progress, cannot create a new quest potential add a new UI to inform the player");
+                        return false;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+            else
+            {
+                //Create an active quest
+                _currentQuest = new GuildQuestInstance(quest);
+                
+                
+                //Update UI
+                ServiceLocator.Instance.Get<IPlayerQuestService>().AddNewGuildQuest(_currentQuest);
+                
+                //Generate path
+                MapController.Instance.GeneratePathForQuest(_currentQuest);
+            }
+            return true;
+        }
+
+        public void CompleteGuildQuest()
+        {
+            if (_currentQuest == null)
+            {
+                Debug.Log("No quest to complete");
+                return;
+            }
+            if (CheckQuestCompletion(_currentQuest))
+            {
+                CompleteQuest(_currentQuest);
+                _currentQuest = null;
+            }
+            else
+            {
+                Debug.Log("Quest is not completed");
+            }
+        }
+        
+        #endregion
 
     }
 

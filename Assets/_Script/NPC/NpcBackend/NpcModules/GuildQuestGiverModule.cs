@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Script.NPC.NPCFrontend;
 using _Script.Quest;
 using _Script.Quest.GuildQuestUI;
@@ -16,7 +17,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
     /// Quest Giver Module
     /// Data 
     /// </summary>
-    public class GuildQuestGiverModule : NpcModuleBase
+    public class GuildQuestGiverModule : NpcModuleBase, IGuildQuestGiverModuleHandler
     {
         [SerializeField] private string optionName = "Guild Quest";
         public override string ModuleDescription => "Guild Quest Giver Module";
@@ -25,31 +26,59 @@ namespace _Script.NPC.NpcBackend.NpcModules
 
         [SerializeField] private List<GuildQuestDefinition> allQuests;
 
+        private List<GuildQuestDefinition> _availableQuests;
         private List<GuildQuestDefinition> AvailableQuests
         {
             get
             {
-                var availableQuests = new List<GuildQuestDefinition>(allQuests);
-                return availableQuests;
+                if (_availableQuests == null)
+                {
+                    var all = allQuests;
+
+                    // If there are fewer than 3 quests, return all
+                    if (all.Count <= 3)
+                    {
+                        return all;
+                    }
+
+                    // Shuffle using Random.value and take 3
+                    return all
+                        .OrderBy(_ => UnityEngine.Random.value)
+                        .Take(3)
+                        .ToList();
+                }
+
+                return _availableQuests;
             }
+          
         }
+
+        public List<GuildQuestDefinition> GetAvailableQuests => AvailableQuests;
         
         public override bool ShouldLoadModule()
         {
-            //will check player has completed the previous quest
             return true;
         }
 
         public override void LoadNpcModule()
         {
-            ServiceLocator.Instance.Get<IGuildQuestUIHandler>().LoadQuests(AvailableQuests);
+            ServiceLocator.Instance.Get<IGuildQuestUIHandler>().LoadQuestGiver(this);
         }
 
         public override void UnloadNpcModule()
         {
             Debug.LogError("Not implemented");
         }
+        
+        public void OnAcceptQuest(GuildQuestDefinition questDefinition)
+        {
+            Debug.Log("Accepting Quest let display that there is a active quest and the player should work on it until it expires");
+        }
+    }
 
-
+    public interface IGuildQuestGiverModuleHandler
+    {
+        void OnAcceptQuest(GuildQuestDefinition questDefinition);
+        List<GuildQuestDefinition> GetAvailableQuests { get; }
     }
 }

@@ -33,7 +33,6 @@ namespace _Script.NPC.NPCFrontend
 
             foreach (var moduleHandler in moduleHandlers)
             {
-                Debug.Log(moduleHandler.ModuleInfo.ModuleName);
                 if (moduleHandler != null && moduleHandler.ShouldLoadModule())
                 {
                     AddChoice(moduleHandler.ModuleInfo.ModuleName, () => HandleChoice(moduleHandler));

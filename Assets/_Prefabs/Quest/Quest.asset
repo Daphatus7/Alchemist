@@ -18,7 +18,6 @@ MonoBehaviour:
   - objectiveData:
       rid: 5907273043284066455
     isComplete: 0
-    currentCount: 0
   reward:
     gold: 500
     experience: 100
@@ -43,6 +42,5 @@ MonoBehaviour:
     - rid: 5907273043284066455
       type: {class: CollectObjective, ns: _Script.Quest, asm: Assembly-CSharp}
       data:
-        type: 1
         requiredCount: 5
         item: {fileID: 11400000, guid: e2da08777c5dc4b19b4ca5a33ad2bdcd, type: 2}

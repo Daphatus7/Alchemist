@@ -22,6 +22,8 @@ namespace _Script.Map
         public Vector3Int PlayerPosition => HexGrid.PlayerPosition;
 
 
+        private MapState _mapState = MapState.Closed; 
+        
         [SerializeField] private float hexSize = 0.5f;
         [SerializeField] private int gridRadius = 20;
         [SerializeField] private int gridVisibility = 2;
@@ -46,11 +48,70 @@ namespace _Script.Map
             InitializeGrid();
         }
         
-        public void GeneratePathForQuest(GuildQuestDefinition quest)
+        public void GeneratePathForQuest(GuildQuestInstance questInstance)
         {
             var path = CreatePath(HexGrid.GenerateNodeAtLevel(0), HexGrid.GenerateNodeAtLevel(7));
-            SetDifficultyOfNodes(path, GetMapDifficulty(quest.questRank));
+            SetMapState(MapState.QuestAccepted);
+            SetDifficultyOfNodes(path, GetMapDifficulty(questInstance.GuildQuestDefinition.questRank));
+            //Generate Bonfire nearby
         }
+
+        #region State Management
+
+        public void StartExploring()
+        {
+            SetMapState(MapState.Exploring);
+        }
+        
+        public void EndExploration()
+        {
+            SetMapState(MapState.Closed);
+        }
+        
+        private void SetMapState(MapState state)
+        {
+            _mapState = state;
+            switch (_mapState)
+            {
+                case MapState.Closed:
+                    OnClosedState();
+                    break;
+                case MapState.Active:
+                    OnActiveState();
+                    break;
+                case MapState.QuestAccepted:
+                    OnQuestAcceptedState();
+                    break;
+                case MapState.Exploring:
+                    OnExploringState();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        
+        private void OnClosedState()
+        {
+            // Do nothing
+        }
+        
+        private void OnActiveState()
+        {
+            // Do nothing
+        }
+        
+        private void OnQuestAcceptedState()
+        {
+            // Do nothing
+        }
+        
+        private void OnExploringState()
+        {
+            // Do nothing
+        }
+
+        #endregion
+        
         
         private int GetMapDifficulty(PlayerRankEnum questRank)
         {
@@ -67,6 +128,9 @@ namespace _Script.Map
             };
         }
         
+        /// <summary>
+        /// Create A new grid;
+        /// </summary>
         private void InitializeGrid()
         {
             HexGrid = new HexGrid(gridRadius, new GridConfiguration(hexSize));
@@ -76,7 +140,9 @@ namespace _Script.Map
             //move player to start hex
             HexGrid.MovePlayer(StartHex);
         }
-        
+
+        #region Grid Manipulation
+
         private List<HexNode> CreatePath(HexNode start, HexNode end)
         {
             // Create a path from the start node to the end node.
@@ -90,6 +156,8 @@ namespace _Script.Map
             }
             return path;
         }
+
+        #endregion
         
         private void SetDifficultyOfNodes(List<HexNode> path, float difficulty)
         {
@@ -109,7 +177,6 @@ namespace _Script.Map
 
             if (HexGrid.IsAdjacentToPlayer(node) && node.ExplorationState == NodeExplorationState.Revealed)
             { 
-                Debug.Log("Exploring node." + node.Position);
                 ExploreNode(node);
             }
             else if (node.ExplorationState == NodeExplorationState.Explored)
@@ -129,7 +196,6 @@ namespace _Script.Map
             node.SetExplorationState(NodeExplorationState.Exploring);
             MarkCurrentNodeAsExplored(node);
             HexGrid.RevealHexNodeInRange(node.Position.x, node.Position.y, node.Position.z, gridVisibility);
-
             
             if (debug)
             {
@@ -146,7 +212,7 @@ namespace _Script.Map
         /// <summary>
         /// Marks the current (exploring) node as fully explored.
         /// </summary>
-        public void MarkCurrentNodeAsExplored(HexNode node)
+        private void MarkCurrentNodeAsExplored(HexNode node)
         {
             if (node.ExplorationState == NodeExplorationState.Exploring)
             {
@@ -170,5 +236,13 @@ namespace _Script.Map
             HexGrid.DebugResetGrid();
             InitializeGrid();
         }
+    }
+    
+    public enum MapState
+    {
+        Closed, // when quest is compelted or no active quest
+        Active, //can explore freely
+        QuestAccepted, //quest accepted player is ready to go
+        Exploring, //player is in the map
     }
 }

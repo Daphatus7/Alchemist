@@ -8,5 +8,7 @@ namespace _Script.Quest
         public SideQuestInstance(QuestDefinition def) : base(def)
         {
         }
+
+        public override QuestType QuestType => QuestType.Side;
     }
 }

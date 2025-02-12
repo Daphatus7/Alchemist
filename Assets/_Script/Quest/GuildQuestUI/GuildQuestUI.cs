@@ -3,6 +3,9 @@
 
 using System;
 using System.Collections.Generic;
+using _Script.Map;
+using _Script.NPC.NpcBackend.NpcModules;
+using _Script.Quest.PlayerQuest;
 using _Script.UserInterface;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
@@ -16,7 +19,7 @@ namespace _Script.Quest.GuildQuestUI
         public LayoutGroup questDisplayLayoutGroup;
         public GameObject questDisplayPrefab; 
         private readonly List<GuildQuestDisplay> _questDisplays = new List<GuildQuestDisplay>();
-        
+        private IGuildQuestGiverModuleHandler _handler;
         
         private void Awake()
         {
@@ -55,17 +58,25 @@ namespace _Script.Quest.GuildQuestUI
                 questDefinition.description,
                 questDefinition.ToString(),
                 // Use a lambda so it is called on button click, not immediately
-                () => OnQuestAcceptButtonClicked(questDefinition.questID)
+                () => OnQuestAcceptButtonClicked(questDefinition)
             );
 
             _questDisplays.Add(questDisplay);
         }
 
-        private void OnQuestAcceptButtonClicked(string questId)
+        private void OnQuestAcceptButtonClicked(GuildQuestDefinition questDefinition)
         {
-            //add quest to player quest list
-            //Create a new quest object and add it to the player quest list
-            HideUI();
+            //Create the quest 
+            if(QuestManager.Instance.CreateGuildQuest(questDefinition))
+            {
+                //Call the handler that hte quest has been accepted
+                _handler.OnAcceptQuest(questDefinition);
+                HideUI();
+            }
+            else
+            {
+                Debug.Log("Failed to create guild quest");
+            }
         }
 
         public void ShowUI()
@@ -73,21 +84,23 @@ namespace _Script.Quest.GuildQuestUI
             guildQuestDisplayPanel.SetActive(true);
         }
 
-        public void LoadQuests(List<GuildQuestDefinition> questDefinitions)
+        public void LoadQuestGiver(IGuildQuestGiverModuleHandler handler)
         {
             ShowUI();
-            LoadQuestDisplays(questDefinitions);
+            _handler = handler;
+            LoadQuestDisplays(handler.GetAvailableQuests);
         }
 
         public void HideUI()
         {
             guildQuestDisplayPanel.SetActive(false);
+            _handler = null;
         }
     }
     
     public interface IGuildQuestUIHandler : IGameService
     {
-        void LoadQuests(List<GuildQuestDefinition> questDefinitions);
+        void LoadQuestGiver(IGuildQuestGiverModuleHandler handler);
         void HideUI();
     }
 }

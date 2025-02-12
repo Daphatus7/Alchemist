@@ -16,9 +16,8 @@ MonoBehaviour:
   questName: GQ_1
   objectives:
   - objectiveData:
-      rid: 3211680286784356463
+      rid: 3211680297704227071
     isComplete: 0
-    currentCount: 1
   reward:
     gold: 500
     experience: 300
@@ -30,10 +29,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 3211680286784356463
-      type: {class: ExplorationObjective, ns: _Script.Quest, asm: Assembly-CSharp}
+    - rid: 3211680297704227071
+      type: {class: CollectObjective, ns: _Script.Quest, asm: Assembly-CSharp}
       data:
-        type: 0
         requiredCount: 1
-        location: d1
-        isExplored: 0
+        item: {fileID: 11400000, guid: ee628e0f627c345a08c05b0a2617c490, type: 2}

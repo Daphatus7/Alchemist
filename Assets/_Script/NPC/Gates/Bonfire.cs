@@ -5,6 +5,7 @@ using _Script.Character;
 using _Script.Managers;
 using _Script.NPC.NpcBackend;
 using _Script.Places;
+using _Script.Quest;
 using UnityEngine;
 
 namespace _Script.NPC.Gates
@@ -21,6 +22,7 @@ namespace _Script.NPC.Gates
             //Mark the current dungeon as completed
             GameManager.Instance.UnloadCurrentAdditiveScene();
             //MapExplorerUI.Instance.MarkExploringNodeAsCompleted();
+            QuestManager.Instance.CompleteGuildQuest();
         }
         
         protected void OnTriggerEnter2D(Collider2D other)

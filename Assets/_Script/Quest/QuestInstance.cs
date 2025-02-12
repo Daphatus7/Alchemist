@@ -15,16 +15,20 @@ namespace _Script.Quest
     public abstract class QuestInstance
     {
         public SimpleQuestDefinition QuestDefinition { get; }
-
+        public abstract QuestType QuestType { get; }
         private QuestState _state; public QuestState QuestState
         {
             get => _state;
-            set => _state = value;
+            set
+            {
+                Debug.Log($"[QuestInstance] Quest {_state} -> {value}");
+                _state = value;
+            }
         }
 
         private readonly List<QuestObjective> _objectives = new List<QuestObjective>(); public List<QuestObjective> Objectives => _objectives;
         
-        public QuestInstance(QuestDefinition def)
+        public QuestInstance(SimpleQuestDefinition def)
         {
             Debug.Log("Quest created");
             QuestDefinition = def;
@@ -36,7 +40,7 @@ namespace _Script.Quest
                 {
                     var questObj = new QuestObjective(objData.objectiveData);
                     _objectives.Add(questObj);
-                    switch (objData.objectiveData.type)
+                    switch (objData.objectiveData.Type)
                     {
                         case ObjectiveType.Kill:
                             QuestManager.Instance.onEnemyKilled += OnEnemyKilled;
@@ -59,14 +63,14 @@ namespace _Script.Quest
             _objectives.ForEach(obj =>
             {
                 // Skip if the objective is not a collect objective
-                if (obj.objectiveData.type != ObjectiveType.Collect) return;
+                if (obj.objectiveData.Type != ObjectiveType.Collect) return;
                 
                 var collectObj = (CollectObjective) obj.objectiveData;
                 
                 // Skip if the collected item is not the required item
                 if (collectObj.item.itemID != itemID) return;
-                obj.currentCount = totalCount;
-                if (obj.currentCount >= obj.objectiveData.requiredCount)
+                obj.CurrentCount = totalCount;
+                if (obj.CurrentCount >= obj.objectiveData.requiredCount)
                 {
                     obj.isComplete = true;
                     //considered as completed now, but if the items are removed, the objective will be considered as not completed
@@ -86,14 +90,14 @@ namespace _Script.Quest
             _objectives.ForEach(obj =>
             {
                 // Skip if the objective is not a kill objective
-                if (obj.objectiveData.type != ObjectiveType.Kill) return;
+                if (obj.objectiveData.Type != ObjectiveType.Kill) return;
                 
                 var killObj = (KillObjective) obj.objectiveData;
                 
                 // Skip if the killed enemy is not the required enemy
                 if (killObj.enemy.enemyID != enemyID) return;
-                obj.currentCount++;
-                if (obj.currentCount >= obj.objectiveData.requiredCount)
+                obj.CurrentCount++;
+                if (obj.CurrentCount >= obj.objectiveData.requiredCount)
                 {
                     obj.isComplete = true;
                     //unsubscribing from the event because the objective is can only increase
@@ -134,13 +138,13 @@ namespace _Script.Quest
                 status += "Objectives: \n";
                 foreach (var obj in _objectives)
                 {
-                    switch (obj.objectiveData.type)
+                    switch (obj.objectiveData.Type)
                     {
                         case ObjectiveType.Kill:
-                            status += "Kill " + ((KillObjective) obj.objectiveData).enemy.enemyID + " " + obj.currentCount + "/" + obj.objectiveData.requiredCount + "\n";
+                            status += "Kill " + ((KillObjective) obj.objectiveData).enemy.enemyID + " " + obj.CurrentCount + "/" + obj.objectiveData.requiredCount + "\n";
                             break;
                         case ObjectiveType.Collect:
-                            status += "Collect " + ((CollectObjective) obj.objectiveData).item.itemID + " " + obj.currentCount + "/" + obj.objectiveData.requiredCount + "\n";
+                            status += "Collect " + ((CollectObjective) obj.objectiveData).item.itemID + " " + obj.CurrentCount + "/" + obj.objectiveData.requiredCount + "\n";
                             break;
                         case ObjectiveType.Explore:
                             break;
@@ -161,6 +165,12 @@ namespace _Script.Quest
             QuestManager.Instance.onItemCollected -= OnItemCollected;
             Debug.Log("QuestInstance cleaned up to prevent memory leak");
         }
-        
+    }
+    
+    public enum QuestType
+    {
+        Main,
+        Side,
+        Guild
     }
 }

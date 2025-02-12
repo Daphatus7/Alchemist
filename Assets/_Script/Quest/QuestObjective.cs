@@ -16,20 +16,21 @@ namespace _Script.Quest
         [SerializeReference] // Allows referencing derived classes
         public ObjectiveData objectiveData;
         public bool isComplete;
-        public int currentCount;
+        private int _currentCount;
+        public int CurrentCount { get; set;}
         
         // Create a runtime objective from static data
         public QuestObjective(ObjectiveData data)
         {
             objectiveData = data;
-            currentCount = 0;
+            CurrentCount = 0;
             isComplete = false;
         }
     }
     [Serializable]
     public abstract class ObjectiveData
     {
-        public ObjectiveType type;
+        public abstract ObjectiveType Type { get; }
         public int requiredCount;
     }
 
@@ -37,12 +38,14 @@ namespace _Script.Quest
     public class CollectObjective : ObjectiveData
     {
         public ItemData item; // The item to collect
+        public override ObjectiveType Type => ObjectiveType.Collect;
     }
 
     [Serializable]
     public class KillObjective : ObjectiveData
     {
         public EnemyData enemy; // The enemy to kill
+        public override ObjectiveType Type => ObjectiveType.Kill;
     }
 
 // Add more specific objective types as needed
@@ -51,6 +54,7 @@ namespace _Script.Quest
     {
         public string location; // Example: Area name or coordinates
         public bool isExplored;
+        public override ObjectiveType Type => ObjectiveType.Explore;
     }
 
     public enum ObjectiveType
