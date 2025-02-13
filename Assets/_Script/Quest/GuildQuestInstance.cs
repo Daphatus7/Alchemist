@@ -9,6 +9,7 @@ namespace _Script.Quest
         public GuildQuestDefinition GuildQuestDefinition => (GuildQuestDefinition) QuestDefinition;
         public GuildQuestInstance(GuildQuestDefinition def) : base(def)
         {
+            QuestState = QuestState.InProgress;
         }
 
         public override QuestType QuestType => QuestType.Guild;

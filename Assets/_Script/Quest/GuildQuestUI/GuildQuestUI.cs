@@ -7,6 +7,7 @@ using _Script.Map;
 using _Script.NPC.NpcBackend.NpcModules;
 using _Script.Quest.PlayerQuest;
 using _Script.UserInterface;
+using _Script.Utilities.GenericUI;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,15 +16,27 @@ namespace _Script.Quest.GuildQuestUI
 {
     public class GuildQuestUI : MonoBehaviour, IUIHandler, IGuildQuestUIHandler
     {
-        public GameObject guildQuestDisplayPanel;
-        public LayoutGroup questDisplayLayoutGroup;
-        public GameObject questDisplayPrefab; 
+        [SerializeField] private GameObject guildQuestDisplayPanel;
+        [SerializeField] private GameObject guildRewardDisplayPanel;
+        [SerializeField] private GameObject guildInProgressDisplayPanel;
+        private Dictionary<GuildQuestUIType, GameObject> _uiPanels;
+        
+        [SerializeField] private LayoutGroup questDisplayLayoutGroup;
+        [SerializeField] private GameObject questDisplayPrefab;
+        
+        
         private readonly List<GuildQuestDisplay> _questDisplays = new List<GuildQuestDisplay>();
         private IGuildQuestGiverModuleHandler _handler;
         
         private void Awake()
         {
             ServiceLocator.Instance.Register<IGuildQuestUIHandler>(this);
+            _uiPanels = new Dictionary<GuildQuestUIType, GameObject>
+            {
+                {GuildQuestUIType.Quest, guildQuestDisplayPanel},
+                {GuildQuestUIType.Reward, guildRewardDisplayPanel},
+                {GuildQuestUIType.InProgress, guildInProgressDisplayPanel}
+            };
             HideUI();
         }
         
@@ -62,14 +75,15 @@ namespace _Script.Quest.GuildQuestUI
 
             _questDisplays.Add(questDisplay);
         }
-
+        
         private void OnQuestAcceptButtonClicked(GuildQuestDefinition questDefinition)
         {
             //Create the quest 
-            if(QuestManager.Instance.CreateGuildQuest(questDefinition))
+            var newQuest = QuestManager.Instance.CreateGuildQuest(questDefinition);
+            if(newQuest != null)
             {
                 //Call the handler that hte quest has been accepted
-                _handler.OnAcceptQuest(questDefinition);
+                _handler.OnAcceptQuest(newQuest);
                 HideUI();
             }
             else
@@ -85,14 +99,46 @@ namespace _Script.Quest.GuildQuestUI
 
         public void LoadQuestGiver(IGuildQuestGiverModuleHandler handler)
         {
-            ShowUI();
+            Show(GuildQuestUIType.Quest);
             _handler = handler;
             LoadQuestDisplays(handler.GetAvailableQuests);
+        }
+        
+        public void LoadQuestReward(GuildQuestInstance currentQuest)
+        {
+            Show(GuildQuestUIType.Reward);
+            var rewardUI = guildRewardDisplayPanel.GetComponent<TextAndButton>();
+            rewardUI.LoadUIContent(currentQuest.QuestDefinition.reward.ToString(), ConfirmReward);
+        }
+        
+        private void ConfirmReward()
+        {
+            QuestManager.Instance.CompleteGuildQuest();
+            HideUI();
+        }
+        
+        public void LoadQuestInProgress(GuildQuestInstance currentQuest)
+        {
+            Show(GuildQuestUIType.InProgress);
+            var inProgressUI = guildInProgressDisplayPanel.GetComponent<TextAndButton>();
+            inProgressUI.LoadUIContent("currentQuest : " + currentQuest.QuestDefinition.questName,HideUI);
+        }
+
+        private void Show(GuildQuestUIType type)
+        {
+            foreach (var o in _uiPanels)
+            {
+                o.Value.SetActive(false);
+            }
+            _uiPanels[type].SetActive(true);
         }
 
         public void HideUI()
         {
-            guildQuestDisplayPanel.SetActive(false);
+            foreach (var o in _uiPanels)
+            {
+                o.Value.SetActive(false);
+            }
             _handler = null;
         }
     }
@@ -101,5 +147,14 @@ namespace _Script.Quest.GuildQuestUI
     {
         void LoadQuestGiver(IGuildQuestGiverModuleHandler handler);
         void HideUI();
+        void LoadQuestReward(GuildQuestInstance currentQuest);
+        void LoadQuestInProgress(GuildQuestInstance currentQuest);
+    }
+    
+    public enum GuildQuestUIType
+    {
+        Quest,
+        Reward,
+        InProgress
     }
 }

@@ -180,12 +180,11 @@ namespace _Script.Quest
 
         private GuildQuestInstance _currentQuest;
         
-        public bool CreateGuildQuest(GuildQuestDefinition quest)
+        public GuildQuestInstance CreateGuildQuest(GuildQuestDefinition quest)
         {
             //check if there is an existing quest
             if(_currentQuest != null)
             {
-
                 switch (_currentQuest.QuestState)
                 {
                     case QuestState.Completed:
@@ -193,7 +192,7 @@ namespace _Script.Quest
                         throw new Exception("Quest is completed, but a new quest is being created, should not enter this menu");
                     case QuestState.InProgress:
                         Debug.Log("Quest is in progress, cannot create a new quest potential add a new UI to inform the player");
-                        return false;
+                        return _currentQuest;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -203,14 +202,13 @@ namespace _Script.Quest
                 //Create an active quest
                 _currentQuest = new GuildQuestInstance(quest);
                 
-                
                 //Update UI
                 ServiceLocator.Instance.Get<IPlayerQuestService>().AddNewGuildQuest(_currentQuest);
                 
                 //Generate path
                 MapController.Instance.GeneratePathForQuest(_currentQuest);
             }
-            return true;
+            return _currentQuest;
         }
 
         public void CompleteGuildQuest(string questId)

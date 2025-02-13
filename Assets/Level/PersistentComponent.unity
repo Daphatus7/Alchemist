@@ -6044,41 +6044,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3383390981345005052, guid: 636d2c91be0654de0a98e4b90cf9785d,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 33.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 3383390981345005052, guid: 636d2c91be0654de0a98e4b90cf9785d,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 44.49
-      objectReference: {fileID: 0}
-    - target: {fileID: 3383390981345005052, guid: 636d2c91be0654de0a98e4b90cf9785d,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3383390981345005052, guid: 636d2c91be0654de0a98e4b90cf9785d,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4521155094593281368, guid: 636d2c91be0654de0a98e4b90cf9785d,
-        type: 3}
-      propertyPath: m_Spacing
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4521155094593281368, guid: 636d2c91be0654de0a98e4b90cf9785d,
-        type: 3}
-      propertyPath: m_Padding.m_Top
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4521155094593281368, guid: 636d2c91be0654de0a98e4b90cf9785d,
-        type: 3}
-      propertyPath: m_ChildAlignment
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6523253278948952185, guid: 636d2c91be0654de0a98e4b90cf9785d,
         type: 3}
       propertyPath: m_Name

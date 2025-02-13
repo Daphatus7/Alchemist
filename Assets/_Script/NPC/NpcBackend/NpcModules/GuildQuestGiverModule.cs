@@ -51,25 +51,39 @@ namespace _Script.NPC.NpcBackend.NpcModules
                 return _availableQuests;
             }
           
-        }
-
+        } 
         public List<GuildQuestDefinition> GetAvailableQuests => AvailableQuests;
-        
+
+        public GuildQuestInstance CurrentGuildQuest { get; private set; }
+
         public override bool ShouldLoadModule()
         {
             return true;
         }
-
         public override void LoadNpcModule()
         {
-            //check if there is an active guild quest
-            //if true ->
+            if (CurrentGuildQuest != null)
+            {
+                //if true ->
                 // and not finished display UI, saying that you need to finish the quest
-                // and finished display UI, saying that you have finished the quest,
-            
-            //if false -> displaying the normal UI
-            
-            ServiceLocator.Instance.Get<IGuildQuestUIHandler>().LoadQuestGiver(this);
+                if(CurrentGuildQuest.QuestState == QuestState.Completed)
+                {
+                    ServiceLocator.Instance.Get<IGuildQuestUIHandler>().LoadQuestReward(CurrentGuildQuest);
+                }
+                else if (CurrentGuildQuest.QuestState == QuestState.InProgress)
+                {
+                    ServiceLocator.Instance.Get<IGuildQuestUIHandler>().LoadQuestInProgress(CurrentGuildQuest);
+                }
+                else
+                {
+                    Debug.Log(CurrentGuildQuest.QuestState + " is not a valid state");
+                    Debug.LogError("Invalid Quest State");
+                }
+            }
+            else
+            {
+                ServiceLocator.Instance.Get<IGuildQuestUIHandler>().LoadQuestGiver(this);
+            }
         }
 
         public override void UnloadNpcModule()
@@ -77,15 +91,29 @@ namespace _Script.NPC.NpcBackend.NpcModules
             Debug.LogError("Not implemented");
         }
         
-        public void OnAcceptQuest(GuildQuestDefinition questDefinition)
+        public void OnAcceptQuest(GuildQuestInstance instance)
         {
+            if (CurrentGuildQuest != null)
+            {
+                Debug.Log("There is already a quest in progress");
+                return;
+            }
+            CurrentGuildQuest = instance;
             Debug.Log("Accepting Quest let display that there is a active quest and the player should work on it until it expires");
+        }
+        
+        public void OnQuestComplete(GuildQuestInstance instance)
+        {
+            Debug.Log("Quest Completed");
+            CurrentGuildQuest = null;
         }
     }
 
     public interface IGuildQuestGiverModuleHandler
     {
-        void OnAcceptQuest(GuildQuestDefinition questDefinition);
+        void OnAcceptQuest(GuildQuestInstance instance);
         List<GuildQuestDefinition> GetAvailableQuests { get; }
+        GuildQuestInstance CurrentGuildQuest { get; }
+        void OnQuestComplete(GuildQuestInstance instance);
     }
 }
