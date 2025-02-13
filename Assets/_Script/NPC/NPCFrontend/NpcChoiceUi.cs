@@ -29,8 +29,9 @@ namespace _Script.NPC.NPCFrontend
         public void LoadNpcChoice(NpcInfo mainNpc, INpcModuleHandler[] moduleHandlers)
         {
             ClearChoices();
+            
             npcDialogueText.text = mainNpc.NpcDialogue;
-
+            
             foreach (var moduleHandler in moduleHandlers)
             {
                 if (moduleHandler != null && moduleHandler.ShouldLoadModule())

@@ -7,6 +7,7 @@ using System.Linq;
 using _Script.NPC.NPCFrontend;
 using _Script.Quest;
 using _Script.Quest.GuildQuestUI;
+using _Script.UserInterface;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 
@@ -54,7 +55,8 @@ namespace _Script.NPC.NpcBackend.NpcModules
         } 
         public List<GuildQuestDefinition> GetAvailableQuests => AvailableQuests;
 
-        public GuildQuestInstance CurrentGuildQuest { get; private set; }
+        private GuildQuestInstance _currentGuildQuest;
+        public GuildQuestInstance CurrentGuildQuest => _currentGuildQuest;
 
         public override bool ShouldLoadModule()
         {
@@ -68,11 +70,15 @@ namespace _Script.NPC.NpcBackend.NpcModules
                 // and not finished display UI, saying that you need to finish the quest
                 if(CurrentGuildQuest.QuestState == QuestState.Completed)
                 {
-                    ServiceLocator.Instance.Get<IGuildQuestUIHandler>().LoadQuestReward(CurrentGuildQuest);
+                    var handler = ServiceLocator.Instance.Get<IGuildQuestUIHandler>();
+                    handler.LoadQuestReward(CurrentGuildQuest, this);
+                    Npc.AddMoreUIHandler(handler as IUIHandler);
                 }
                 else if (CurrentGuildQuest.QuestState == QuestState.InProgress)
                 {
-                    ServiceLocator.Instance.Get<IGuildQuestUIHandler>().LoadQuestInProgress(CurrentGuildQuest);
+                    var handler = ServiceLocator.Instance.Get<IGuildQuestUIHandler>();
+                    handler.LoadQuestInProgress(CurrentGuildQuest,this);
+                    Npc.AddMoreUIHandler(handler as IUIHandler);
                 }
                 else
                 {
@@ -82,7 +88,10 @@ namespace _Script.NPC.NpcBackend.NpcModules
             }
             else
             {
-                ServiceLocator.Instance.Get<IGuildQuestUIHandler>().LoadQuestGiver(this);
+                var handler = ServiceLocator.Instance.Get<IGuildQuestUIHandler>();
+                handler.LoadQuestGiver(this);
+                Npc.AddMoreUIHandler(handler as IUIHandler);
+                
             }
         }
 
@@ -98,14 +107,14 @@ namespace _Script.NPC.NpcBackend.NpcModules
                 Debug.Log("There is already a quest in progress");
                 return;
             }
-            CurrentGuildQuest = instance;
+            _currentGuildQuest = instance;
             Debug.Log("Accepting Quest let display that there is a active quest and the player should work on it until it expires");
         }
         
-        public void OnQuestComplete(GuildQuestInstance instance)
+        public void OnQuestComplete()
         {
             Debug.Log("Quest Completed");
-            CurrentGuildQuest = null;
+            _currentGuildQuest = null;
         }
     }
 
@@ -114,6 +123,6 @@ namespace _Script.NPC.NpcBackend.NpcModules
         void OnAcceptQuest(GuildQuestInstance instance);
         List<GuildQuestDefinition> GetAvailableQuests { get; }
         GuildQuestInstance CurrentGuildQuest { get; }
-        void OnQuestComplete(GuildQuestInstance instance);
+        void OnQuestComplete();
     }
 }

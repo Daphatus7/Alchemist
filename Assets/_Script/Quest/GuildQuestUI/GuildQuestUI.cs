@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Script.Map;
 using _Script.NPC.NpcBackend.NpcModules;
 using _Script.Quest.PlayerQuest;
@@ -48,11 +49,11 @@ namespace _Script.Quest.GuildQuestUI
         
         private void LoadQuestDisplays(List<GuildQuestDefinition> questDefinitions)
         {
-            foreach (var o in _questDisplays)
+            foreach (var o in _questDisplays.Where(o => o.gameObject != null))
             {
                 Destroy(o.gameObject);
             }
-            
+
             foreach (var questDefinition in questDefinitions)
             {
                 AddQuestDisplay(questDefinition);
@@ -94,7 +95,7 @@ namespace _Script.Quest.GuildQuestUI
 
         public void ShowUI()
         {
-            guildQuestDisplayPanel.SetActive(true);
+            Debug.Log("Showing UI and may causes error");
         }
 
         public void LoadQuestGiver(IGuildQuestGiverModuleHandler handler)
@@ -104,22 +105,30 @@ namespace _Script.Quest.GuildQuestUI
             LoadQuestDisplays(handler.GetAvailableQuests);
         }
         
-        public void LoadQuestReward(GuildQuestInstance currentQuest)
+        public void LoadQuestReward(GuildQuestInstance currentQuest, IGuildQuestGiverModuleHandler handler)
         {
             Show(GuildQuestUIType.Reward);
+            _handler = handler;
             var rewardUI = guildRewardDisplayPanel.GetComponent<TextAndButton>();
             rewardUI.LoadUIContent(currentQuest.QuestDefinition.reward.ToString(), ConfirmReward);
         }
         
         private void ConfirmReward()
         {
+            if(_handler == null)
+            {
+                Debug.LogError("Handler is null");
+                return;
+            }
+            _handler.OnQuestComplete();
             QuestManager.Instance.CompleteGuildQuest();
             HideUI();
         }
         
-        public void LoadQuestInProgress(GuildQuestInstance currentQuest)
+        public void LoadQuestInProgress(GuildQuestInstance currentQuest, IGuildQuestGiverModuleHandler handler)
         {
             Show(GuildQuestUIType.InProgress);
+            _handler = handler;
             var inProgressUI = guildInProgressDisplayPanel.GetComponent<TextAndButton>();
             inProgressUI.LoadUIContent("currentQuest : " + currentQuest.QuestDefinition.questName,HideUI);
         }
@@ -147,8 +156,8 @@ namespace _Script.Quest.GuildQuestUI
     {
         void LoadQuestGiver(IGuildQuestGiverModuleHandler handler);
         void HideUI();
-        void LoadQuestReward(GuildQuestInstance currentQuest);
-        void LoadQuestInProgress(GuildQuestInstance currentQuest);
+        void LoadQuestReward(GuildQuestInstance currentQuest, IGuildQuestGiverModuleHandler handler);
+        void LoadQuestInProgress(GuildQuestInstance currentQuest, IGuildQuestGiverModuleHandler handler);
     }
     
     public enum GuildQuestUIType

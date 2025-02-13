@@ -100,11 +100,6 @@ namespace _Script.NPC.NPCFrontend
             LoadNpcChoice(mainNpc, moduleHandlers);
         }
         
-        public void OnNpcUiChange(NpcUiType uiType)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// On Selecting the Quest UI
         /// </summary>
@@ -113,11 +108,6 @@ namespace _Script.NPC.NPCFrontend
         {
             DisplayUi(NpcUiType.QuestGiver);
             questGiverUi.LoadQuestData(quest);
-        }
-        
-        public void LoadGuildQuestUi(INpcQuestModuleHandler quest)
-        {
-            
         }
 
         public void TerminateDialogue()
