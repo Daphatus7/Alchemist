@@ -62,6 +62,13 @@ namespace _Script.NPC.NpcBackend.NpcModules
 
         public override void LoadNpcModule()
         {
+            //check if there is an active guild quest
+            //if true ->
+                // and not finished display UI, saying that you need to finish the quest
+                // and finished display UI, saying that you have finished the quest,
+            
+            //if false -> displaying the normal UI
+            
             ServiceLocator.Instance.Get<IGuildQuestUIHandler>().LoadQuestGiver(this);
         }
 

@@ -45,8 +45,7 @@ namespace _Script.Quest.GuildQuestUI
                 AddQuestDisplay(questDefinition);
             }
         }
-
-
+        
         private void AddQuestDisplay(GuildQuestDefinition questDefinition)
         {
             var questDisplay = Instantiate(questDisplayPrefab, questDisplayLayoutGroup.transform)

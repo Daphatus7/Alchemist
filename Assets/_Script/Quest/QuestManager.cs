@@ -29,9 +29,6 @@ namespace _Script.Quest
 
         [SerializeField] public StorylineChecker storylineChecker;
         
-        
-        
-        
         public void Start()
         {
             InitializeNpcModules();
