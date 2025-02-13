@@ -16,7 +16,6 @@ namespace _Script.Quest.PlayerQuest
         private GuildQuestInstance _activeGuildQuest;
         public void Update()
         {
-            
             //Temporary only for testing
             if (!Prototype_Active_Quest_Ui.Instance) return;
             Prototype_Active_Quest_Ui.Instance.SetText("");
@@ -61,7 +60,24 @@ namespace _Script.Quest.PlayerQuest
         {
             if(!_activeQuests.TryAdd(quest.QuestDefinition.questID, quest)) return;
         }
+
+        public bool CompleteQuest(string questId)
+        {
+            //check list of active quests
+            if (!_activeQuests.TryGetValue(questId, out var quest)) return false;
+            
+            //if quest is found, complete the quest
+            CompleteQuest(quest);
+            return true;
+        }
         
+        public bool CompleteGuildQuest(string questId)
+        {
+            if (_activeGuildQuest == null) return false;
+            if (_activeGuildQuest.QuestDefinition.questID != questId) return false;
+            CompleteGuildQuest(_activeGuildQuest);
+            return true;
+        }
         public void AddNewGuildQuest(GuildQuestInstance quest)
         {
             _activeGuildQuest = quest;
@@ -98,7 +114,7 @@ namespace _Script.Quest.PlayerQuest
             }
         }
 
-        public void CompleteSideQuest(QuestInstance quest)
+        private void CompleteSideQuest(QuestInstance quest)
         {
             _completedQuests.Enqueue(quest);
             if (!_activeQuests.Remove(quest.QuestDefinition.questID)) return;

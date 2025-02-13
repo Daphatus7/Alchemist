@@ -49,7 +49,7 @@ namespace _Script.Quest
                             QuestManager.Instance.onItemCollected += OnItemCollected;
                             break;
                         case ObjectiveType.Explore:
-                            Debug.Log("Exploration objective detected");
+                            QuestManager.Instance.onAreaEntered += OnEnteringArea;
                             break;
                         default:
                             break;
@@ -103,6 +103,21 @@ namespace _Script.Quest
                     //unsubscribing from the event because the objective is can only increase
                 }
             });
+        }
+        private void OnEnteringArea(string areaID)
+        {
+            _objectives.ForEach(obj =>
+            {
+                // Skip if the objective is not a explore objective
+                if (obj.objectiveData.Type != ObjectiveType.Explore) return;
+                
+                var exploreObj = (ExplorationObjective) obj.objectiveData;
+                
+                // Skip if the explored area is not the required area
+                if (exploreObj.areaID != areaID) return;
+                obj.isComplete = true;
+            });
+            CheckCompletion();
         }
         
         

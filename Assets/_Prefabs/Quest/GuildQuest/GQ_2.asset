@@ -25,7 +25,7 @@ MonoBehaviour:
     - item: {fileID: 11400000, guid: cbc5667b0e2a840088c322a9f35cef53, type: 2}
       amount: 1
   questRank: 0
-  description: Go to d1
+  description: Go to Area 1
   references:
     version: 2
     RefIds:
@@ -33,5 +33,5 @@ MonoBehaviour:
       type: {class: ExplorationObjective, ns: _Script.Quest, asm: Assembly-CSharp}
       data:
         requiredCount: 1
-        location: d1
+        areaID: Area1
         isExplored: 0

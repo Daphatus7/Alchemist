@@ -24,7 +24,8 @@ namespace _Script.Quest
         private Dictionary<string, INpcQuestModuleHandler> _questModules;
         public event Action<string> onEnemyKilled;
         public event Action<string, int> onItemCollected;
-        public event Action<QuestInstance> OnQuestCompleted;
+        public event Action<string> onAreaEntered;
+        public event Action<QuestInstance> onQuestCompleted;
 
         [SerializeField] public StorylineChecker storylineChecker;
         
@@ -86,6 +87,11 @@ namespace _Script.Quest
         {
             onEnemyKilled?.Invoke(enemyID);
         }
+        
+        public void OnEnteringArea(string areaID)
+        {
+            onAreaEntered?.Invoke(areaID);
+        }
 
         public bool CheckQuestCompletion(QuestInstance quest)
         {
@@ -116,6 +122,11 @@ namespace _Script.Quest
     
             // If we get through all objectives without returning false, then the quest is complete.
             return true;
+        }
+        
+        public void CompleteQuest(string questId)
+        {
+            
         }
         
         public void CompleteQuest(QuestInstance currentQuest)
@@ -162,13 +173,13 @@ namespace _Script.Quest
                    storylineChecker.IsCompleted(prerequisite.prerequisite);
         }
 
-        private void OnOnQuestCompleted(QuestInstance quest)
+        private void OnQuestCompleted(QuestInstance quest)
         {
-            OnQuestCompleted?.Invoke(quest);
+            onQuestCompleted?.Invoke(quest);
         }
 
 
-        #region Guild Qu
+        #region Guild Quests
 
         private GuildQuestInstance _currentQuest;
         
@@ -205,6 +216,31 @@ namespace _Script.Quest
             return true;
         }
 
+        public void CompleteGuildQuest(string questId)
+        {
+            if (_currentQuest == null)
+            {
+                Debug.Log("No quest to complete");
+                return;
+            }
+            if (_currentQuest.QuestDefinition.questID == questId)
+            {
+                if (CheckQuestCompletion(_currentQuest))
+                {
+                    CompleteQuest(_currentQuest);
+                    _currentQuest = null;
+                }
+                else
+                {
+                    Debug.Log("Quest is not completed");
+                }
+            }
+            else
+            {
+                Debug.Log("Quest ID does not match the current quest");
+            }
+        }
+        
         public void CompleteGuildQuest()
         {
             if (_currentQuest == null)

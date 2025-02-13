@@ -9,6 +9,8 @@ namespace _Script.Quest.PlayerQuest
     {
         void AddNewSideQuest(QuestInstance quest);
         void CompleteQuest(QuestInstance quest);
+        bool CompleteQuest(string questId);
+        bool CompleteGuildQuest(string questId);
         void AddNewGuildQuest(GuildQuestInstance quest);
     }
 }

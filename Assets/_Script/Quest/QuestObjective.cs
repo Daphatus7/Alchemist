@@ -52,7 +52,7 @@ namespace _Script.Quest
     [Serializable]
     public class ExplorationObjective : ObjectiveData
     {
-        public string location; // Example: Area name or coordinates
+        public string areaID; // Example: Area name or coordinates
         public bool isExplored;
         public override ObjectiveType Type => ObjectiveType.Explore;
     }
