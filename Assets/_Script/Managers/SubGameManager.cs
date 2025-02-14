@@ -8,6 +8,7 @@ using UnityEngine.Tilemaps;
 using Debug = UnityEngine.Debug; // Avoid collision with System.Diagnostics.Debug
 using _Script.Map;
 using _Script.Map.Volume;
+using _Script.Map.WorldMap;
 using Edgar.Unity;
 using Edgar.Unity.Examples;
 using Sirenix.OdinInspector;
@@ -37,7 +38,7 @@ namespace _Script.Managers
         }
 
         [Button]
-        public override bool LoadNextLevel()
+        public new bool LoadNextLevel(NodeDataInstance nodeDataInstance)
         {
             ShowLoadingScreen("SubGameManager", "Generating level...");
 
@@ -47,9 +48,9 @@ namespace _Script.Managers
                 HideLoadingScreen();
                 return false;
             }
-
+            
             // Generate the dungeon/level
-            StartCoroutine(GenerateLevelCoroutine());
+            StartCoroutine(GenerateLevelCoroutine(nodeDataInstance));
             return true;
         }
 
@@ -58,7 +59,12 @@ namespace _Script.Managers
             // If you need something in Awake
         }
 
-        private IEnumerator GenerateLevelCoroutine()
+        public override bool LoadNextLevel()
+        {
+            throw new NotImplementedException();
+        }
+
+        private IEnumerator GenerateLevelCoroutine(NodeDataInstance nodeDataInstance)
         {
             // Ensure this SubGameManager's scene is the active scene
             Scene myScene = gameObject.scene;
@@ -89,7 +95,7 @@ namespace _Script.Managers
             _reachableArea = GenerateReachableArea();
 
             var spawner = GetComponent<MapSpawner>();
-            spawner.Spawn(_reachableArea);
+            spawner.Spawn(_reachableArea, nodeDataInstance);
             
             OnLevelGenerated?.Invoke();
         }

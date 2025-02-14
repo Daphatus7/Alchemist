@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _Script.Character.PlayerRank;
 using _Script.Map.WorldMap.MapNode;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -84,11 +85,6 @@ namespace _Script.Map.WorldMap
             GenerateGrid();
             PrecomputeNeighbors();
             GenerateDataForAllNodes();
-
-            foreach (var node in GetAllHexNodes())
-            {
-                node.Difficulty = node.NodeLevel;
-            }
         }
         
         /// <summary>
@@ -99,10 +95,7 @@ namespace _Script.Map.WorldMap
         {
             foreach (var node in _hexNodes)
             {
-                if (node.Value.NodeType != NodeType.Obstacle && node.Value.NodeData == null)
-                {
-                    node.Value.NodeData = GenerateNodeData(node.Value.NodeType);
-                }
+                node.Value.NodeDataInstance = GenerateNodeData(node.Value.NodeType, PlayerRankEnum.S);
             }
         }
 
@@ -446,9 +439,9 @@ namespace _Script.Map.WorldMap
         /// </summary>
         /// <param name="nodeType">The node's type (e.g., forest, mountain, resource).</param>
         /// <returns>A new <see cref="NodeData"/> instance associated with that type.</returns>
-        private NodeData GenerateNodeData(NodeType nodeType)
+        private NodeDataInstance GenerateNodeData(NodeType nodeType, PlayerRankEnum rank)
         {
-            return MapNodeFactory.Instance.CreateNode(nodeType, "Resource", 0);
+            return MapNodeFactory.Instance.CreateNode(nodeType, rank,0);
         }
 
         /// <summary>
@@ -489,6 +482,11 @@ namespace _Script.Map.WorldMap
         {
             _hexNodes.TryGetValue((x, y, z), out HexNode hexNode);
             return hexNode;
+        }
+        
+        public HexNode GetHexNode(Vector3Int pos)
+        {
+            return GetHexNode(pos.x, pos.y, pos.z);
         }
 
         /// <summary>
@@ -699,13 +697,16 @@ namespace _Script.Map.WorldMap
         /// <returns>The coordinates of the chosen spawn node.</returns>
         public Vector3Int GenerateSpawnPoint()
         {
-            HexNode startNode = GetHexNode(0, 0, 0);
+            var startNode = GetHexNode(0, 0, 0);
+            
+            // If the start node is valid, use it
             if (startNode != null && startNode.NodeType != NodeType.Obstacle)
             {
                 _playerPosition = startNode.Position;
                 return _playerPosition;
             }
 
+            // Otherwise, search outward from the center
             int searchRadius = _gridRadius;
             for (int r = 1; r <= searchRadius; r++)
             {

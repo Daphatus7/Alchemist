@@ -32,12 +32,12 @@ namespace _Script.Map.WorldMap
 
         public NodeType NodeType { get; set; }
 
-        private NodeData _nodeData;
+        private NodeDataInstance _nodeDataInstance;
 
-        public NodeData NodeData
+        public NodeDataInstance NodeDataInstance
         {
-            get => _nodeData;
-            set => _nodeData = value;
+            get => _nodeDataInstance;
+            set => _nodeDataInstance = value;
         }
         
         public float Difficulty { get; set; }

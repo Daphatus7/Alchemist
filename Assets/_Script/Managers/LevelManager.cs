@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using _Script.Character;
+using _Script.Map.WorldMap;
 using _Script.Map.WorldMap.MapNode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -45,15 +46,15 @@ namespace _Script.Managers
         /// we unload the current additive scene if it exists.
         /// After loading, we might unload the main scene to fully swap.
         /// </summary>
-        public void LoadSelectedScene(NodeData nodeData)
+        public void LoadSelectedScene(NodeDataInstance nodeDataInstance)
         {
             // Unload the existing additive scene if any
             if (!string.IsNullOrEmpty(_currentAdditiveScene))
             {
                 UnloadAdditiveScene(_currentAdditiveScene);
             }
-            _currentAdditiveScene = nodeData.MapName;
-            GameManager.Instance.StartCoroutine(AddSceneAsync(nodeData));
+            _currentAdditiveScene = nodeDataInstance.NodeData.MapName;
+            GameManager.Instance.StartCoroutine(AddSceneAsync(nodeDataInstance));
         }
 
         /// <summary>
@@ -122,18 +123,19 @@ namespace _Script.Managers
             //Debug.Log($"Main scene '{sceneName}' loaded.");
         }
 
-        private IEnumerator AddSceneAsync(NodeData nodeData)
+        private IEnumerator AddSceneAsync(NodeDataInstance nodeDataInstance)
         {
+            var mapName = nodeDataInstance.NodeData.MapName;
             // Load the additive scene
-            var asyncLoad = SceneManager.LoadSceneAsync(nodeData.MapName, LoadSceneMode.Additive);
+            var asyncLoad = SceneManager.LoadSceneAsync(mapName, LoadSceneMode.Additive);
             while (!asyncLoad.isDone)
             {
-                Debug.Log($"Loading additive scene {nodeData.MapName}: {asyncLoad.progress * 100}%");
+                Debug.Log($"Loading additive scene {mapName}: {asyncLoad.progress * 100}%");
                 yield return null;
             }
 
-            _loadedAdditiveScenes.Add(nodeData.MapName);
-            Debug.Log($"Additive scene '{nodeData.MapName}' loaded.");
+            _loadedAdditiveScenes.Add(mapName);
+            Debug.Log($"Additive scene '{mapName}' loaded.");
 
             // Optionally, unload the main scene after the new additive scene is up
             if (!string.IsNullOrEmpty(_currentMainScene))
@@ -143,7 +145,7 @@ namespace _Script.Managers
             }
             
             // Trigger generation in the SubGameManager
-            if (SubGameManager.Instance.LoadNextLevel())
+            if (SubGameManager.Instance.LoadNextLevel(nodeDataInstance))
             {
                 SubGameManager.Instance.OnLevelGenerated += OnSubGameManagerLevelGenerated;
             }

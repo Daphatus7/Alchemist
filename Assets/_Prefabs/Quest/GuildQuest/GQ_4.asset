@@ -26,6 +26,8 @@ MonoBehaviour:
       amount: 1
   questRank: 1
   description: Go to d1
+  distanceMax: 7
+  distanceMin: 9
   references:
     version: 2
     RefIds:

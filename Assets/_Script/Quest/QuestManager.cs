@@ -206,7 +206,7 @@ namespace _Script.Quest
                 ServiceLocator.Instance.Get<IPlayerQuestService>().AddNewGuildQuest(_currentQuest);
                 
                 //Generate path
-                MapController.Instance.GeneratePathForQuest(_currentQuest);
+                MapController.Instance.CreateQuest(_currentQuest);
             }
             return _currentQuest;
         }

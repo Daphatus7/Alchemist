@@ -15,8 +15,32 @@ namespace _Script.Enemy.EnemyAbility
          //Spawn a circular raycast that will damage the player if it hits
         
         [SerializeField] private float attackRange = 0.5f;
-        [SerializeField] private float damage = 10f;
+        public float AttackRange
+        {
+            get => attackRange;
+            set
+            {
+                attackRange = value;
+            }
+        }
+        [SerializeField] private float damage = 10f; public float Damage
+        {
+            get => damage;
+            set
+            {
+                Debug.Log("Setting damage to " + value);
+                damage = value;
+            }
+        }
         [SerializeField] private float damageCooldown = 1.5f;
+        public float DamageCooldown //not sure if this is active variable
+        {
+            get => damageCooldown;
+            set
+            {
+                damageCooldown = value;
+            }
+        }
         //Damageable tags
         private readonly List<string> _targetTags = new List<string>() {"Player"};
         //Damage Number

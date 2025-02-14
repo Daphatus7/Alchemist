@@ -3,6 +3,9 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using _Script.Enemy.EnemyCharacter;
+using _Script.Enemy.EnemyData;
+using _Script.Map.WorldMap;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -29,16 +32,15 @@ namespace _Script.Map.Volume
         [Range(0f, 1f)]
         [SerializeField] private float monsterSpawnDensity = 1f; 
         
-        
         private IResourceSpawnProvider _resourceProvider;
 
-        public void Spawn(ReachableArea reachableArea)
+        public void Spawn(ReachableArea reachableArea, NodeDataInstance nodeDataInstance)
         {
             _resourceProvider = resourceSpawnScript as IResourceSpawnProvider;
-            StartCoroutine(SpawnResources(reachableArea));
+            StartCoroutine(SpawnResources(reachableArea, nodeDataInstance));
         }
         
-        private IEnumerator SpawnResources(ReachableArea reachableArea)
+        private IEnumerator SpawnResources(ReachableArea reachableArea, NodeDataInstance nodeDataInstance)
         {
             // Small delay to ensure things are ready
             yield return new WaitForSeconds(0.1f);
@@ -77,8 +79,10 @@ namespace _Script.Map.Volume
                             continue;
 
                         Vector3 spawnPos = GetRandomPointInsideBox(reachableArea);
-                        GameObject resourceObj = Instantiate(monster, spawnPos, Quaternion.identity);
-                        resourceObj.transform.parent = transform;
+                        GameObject monsterObj = Instantiate(monster, spawnPos, Quaternion.identity);
+                        EnemyCharacter enemyCharacter = monster.GetComponent<EnemyCharacter>();
+                        enemyCharacter.Initialize(nodeDataInstance.MapRank);
+                        monsterObj.transform.parent = transform;
                     }
                 }
             }

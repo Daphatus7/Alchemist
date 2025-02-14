@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using _Script.Character.PlayerRank;
+using UnityEngine;
 
 namespace _Script.Map.WorldMap
 {
     public class GridConfiguration
     {
-        public float HexSize;
         public int GridRadius;
         // Instead of a dictionary, store a list of KeyValuePairs or a custom struct
         public readonly List<(NodeType type, int weight)> WeightedTypes;
@@ -14,16 +15,18 @@ namespace _Script.Map.WorldMap
         // Precomputed cumulative weights
         private readonly List<(NodeType type, int cumulativeWeight)> _cumulativeList;
         private readonly int _totalWeight;
-
+        
         public GridConfiguration(
-            float hexSize,
+            int pathDifficulty = 1,
+            Vector3Int startPosition = default,//this should be adjusted to hexgrid position
+            Vector3Int endPosition = default,
+            //Weight
             int gridRadius = 10,
             int resourceWeight = 15,
             int enemyWeight = 5,
             int campfireWeight = 1,
             int bossWeight = 1)
         {
-            HexSize = hexSize;
             GridRadius = gridRadius;
 
             // Initialize the base weights
@@ -32,8 +35,7 @@ namespace _Script.Map.WorldMap
                 (NodeType.Resource, resourceWeight),
                 (NodeType.Enemy, enemyWeight),
                 (NodeType.Bonfire, campfireWeight),
-                (NodeType.Boss, bossWeight)
-                // Add more NodeTypes here if needed
+                (NodeType.Boss, bossWeight),
             };
 
             // Precompute cumulative weights

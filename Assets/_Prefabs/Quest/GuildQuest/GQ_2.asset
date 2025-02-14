@@ -24,8 +24,10 @@ MonoBehaviour:
     items:
     - item: {fileID: 11400000, guid: cbc5667b0e2a840088c322a9f35cef53, type: 2}
       amount: 1
-  questRank: 0
+  questRank: 6
   description: Go to Area 1
+  distanceMax: 5
+  distanceMin: 7
   references:
     version: 2
     RefIds:

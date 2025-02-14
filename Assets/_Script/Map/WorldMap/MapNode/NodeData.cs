@@ -25,4 +25,6 @@ namespace _Script.Map.WorldMap.MapNode
         public virtual string Description => "This is a boss node";
         public int NodeID { get; set; }
     }
+    
+
 }

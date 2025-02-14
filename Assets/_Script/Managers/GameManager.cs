@@ -70,9 +70,9 @@ namespace _Script.Managers
         public PlayerCharacter GetPlayer() => _playerCharacter;
 
         /// <summary> Load a new additive scene based on NodeData. </summary>
-        public void LoadSelectedScene(NodeData nodeData)
+        public void LoadSelectedScene(NodeDataInstance nodeDataInstance)
         {
-            _levelManager.LoadSelectedScene(nodeData);
+            _levelManager.LoadSelectedScene(nodeDataInstance);
         }
 
         /// <summary> Unload the current additive scene. </summary>

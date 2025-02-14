@@ -37,6 +37,7 @@ namespace _Script.Map
         
         public void UnsubscribeFromNodeChange(Action<HexNode> action)
         {
+            if (HexGrid == null) return;
             HexGrid.OnNodeChanged -= action;
         }
         
@@ -48,12 +49,17 @@ namespace _Script.Map
             InitializeGrid();
         }
         
-        public void GeneratePathForQuest(GuildQuestInstance questInstance)
+        public void CreateQuest(GuildQuestInstance questInstance)
         {
-            var path = CreatePath(HexGrid.GenerateNodeAtLevel(0), HexGrid.GenerateNodeAtLevel(7));
+            InitializeGrid();
+            var distance = questInstance.DistanceToTravel;
+            //currently
+            var path = CreatePath(HexGrid.GenerateNodeAtLevel(0) //start of the node
+                , HexGrid.GenerateNodeAtLevel(distance)); //end of the node
             SetMapState(MapState.QuestAccepted);
             SetDifficultyOfNodes(path, GetMapDifficulty(questInstance.GuildQuestDefinition.questRank));
             //Generate Bonfire nearby
+            
         }
 
         #region State Management
@@ -129,20 +135,32 @@ namespace _Script.Map
         }
         
         /// <summary>
-        /// Create A new grid;
+        /// Create A new grid;, current solution for not having a grid configuration
         /// </summary>
         private void InitializeGrid()
         {
-            HexGrid = new HexGrid(gridRadius, new GridConfiguration(hexSize));
-            Vector3Int spawnPoint = HexGrid.GenerateSpawnPoint();
+            HexGrid = new HexGrid(gridRadius, new GridConfiguration());
+            InitializeGridParameters();
+        }
+        
+        private void InitializeGridParameters()
+        {
+            var spawnPoint = HexGrid.GenerateSpawnPoint();
+            
+            //reveal the initial nodes
             HexGrid.RevealHexNodeInRange(spawnPoint.x, spawnPoint.y, spawnPoint.z, gridVisibility);
+            
             StartHex = HexGrid.GetHexNode(spawnPoint.x, spawnPoint.y, spawnPoint.z);
+            
             //move player to start hex
             HexGrid.MovePlayer(StartHex);
         }
+        
 
         #region Grid Manipulation
 
+        
+        
         private List<HexNode> CreatePath(HexNode start, HexNode end)
         {
             // Create a path from the start node to the end node.
@@ -205,7 +223,7 @@ namespace _Script.Map
             {
                 // Normal: switch back to game view after exploring
                 MapExplorerView.Instance.HideUI();
-                GameManager.Instance.LoadSelectedScene(node.NodeData);
+                GameManager.Instance.LoadSelectedScene(node.NodeDataInstance);
             }
         }
 

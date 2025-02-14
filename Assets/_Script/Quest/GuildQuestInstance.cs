@@ -12,6 +12,22 @@ namespace _Script.Quest
             QuestState = QuestState.InProgress;
         }
 
+        private bool _initialized = false;
+
+        private int _distanceToTravel;
+
+        public int DistanceToTravel
+        {
+            get
+            {
+                if (_initialized) return _distanceToTravel;
+                _distanceToTravel =
+                    UnityEngine.Random.Range(GuildQuestDefinition.distanceMin, GuildQuestDefinition.distanceMax);
+                _initialized = true;
+                return _distanceToTravel;
+            }
+        }
+
         public override QuestType QuestType => QuestType.Guild;
     }
 }

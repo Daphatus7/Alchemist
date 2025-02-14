@@ -5,28 +5,9 @@ using UnityEngine.Events;
 
 namespace _Script.Attribute
 {
-    public class PawnAttribute : MonoBehaviour, IDamageable
+    public class PawnAttribute : MonoBehaviour
     {
-        [SerializeField] protected PlayerHealth health; public PlayerHealth Health => health;
-        [SerializeField] protected float healthMax = 100f; public float HealthMax => healthMax;
         
-        //event on health change
-        protected UnityEvent onHealthChanged = new UnityEvent();
-        
-        public virtual float ApplyDamage(float damage)
-        {
-            return health.Modify(-damage);
-        }
-
-        protected virtual void OnDeath()
-        {
-            Debug.LogError("Die method has not been implemented yet.");
-        }
-        
-        protected void RestoreHealth(float value)
-        {
-            health.Modify(-value);     
-        }
         
     }
 
