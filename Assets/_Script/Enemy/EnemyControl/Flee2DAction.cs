@@ -9,18 +9,15 @@ using Action = Unity.Behavior.Action;
 namespace _Script.Enemy.EnemyControl
 {
     [Serializable, GeneratePropertyBag]
-    [NodeDescription(name: "Flee2D", story: "[Agent] flees", category: "Action", id: "722dbdf50a6260a91e8fdd6a67fbf268")]
+    [NodeDescription(name: "Flee2D", story: "[Agent] flees with [coolddown]", category: "Action", id: "722dbdf50a6260a91e8fdd6a67fbf268")]
     public class Flee2DAction : Action
     {
         [SerializeReference] public BlackboardVariable<GameObject> Agent;
-
+        [SerializeReference] public BlackboardVariable<float> Coolddown;
         // Flee range and threshold
         [SerializeReference] public BlackboardVariable<float> FleeDistance = new BlackboardVariable<float>(5f);
         [SerializeReference] public BlackboardVariable<float> DistanceThreshold = new BlackboardVariable<float>(0.2f);
-
-        // How many seconds the flee action is on cooldown after success
-        [SerializeReference] public BlackboardVariable<float> FleeTimer;
-
+        
         // Whether the action is currently on cooldown
         [SerializeReference] public BlackboardVariable<bool> IsCooldown = new BlackboardVariable<bool>(false);
 
@@ -92,14 +89,14 @@ namespace _Script.Enemy.EnemyControl
             }
 
             // Continuously move to the flee point
-            _mAIAgent.destination = _fleePoint;
+            // _mAIAgent.destination = _fleePoint;
 
             float distanceToTarget = Vector3.Distance(_mAgentTransform.position, _fleePoint);
             if (distanceToTarget <= DistanceThreshold.Value)
             {
                 // Once we're close enough, stop and set cooldown
                 _mAIAgent.destination = _mAgentTransform.position;
-                _nextFleeTime = Time.time + FleeTimer.Value;
+                _nextFleeTime = Time.time + Coolddown.Value;
                 IsCooldown.Value = true;
 
                 // Returning Success moves the Sequence to its next action

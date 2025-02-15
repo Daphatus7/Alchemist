@@ -3160,7 +3160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -74.63003}
+  m_AnchoredPosition: {x: 100, y: -74.630005}
   m_SizeDelta: {x: 182.39, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1388405486
@@ -6536,6 +6536,47 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShootingGuy
       objectReference: {fileID: 0}
+    - target: {fileID: 2041422938471926706, guid: f77d683c115a44a39b58f56bb218746b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7019425779894884549, guid: f77d683c115a44a39b58f56bb218746b,
+        type: 3}
+      propertyPath: 'managedReferences[3211680406236037527]'
+      value: 'Unity.Behavior Unity.Behavior.BlackboardVariable`1[[System.Single,
+        mscorlib]]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7019425779894884549, guid: f77d683c115a44a39b58f56bb218746b,
+        type: 3}
+      propertyPath: managedReferences[3211680406236037527].Name
+      value: FleeTimer
+      objectReference: {fileID: 0}
+    - target: {fileID: 7019425779894884549, guid: f77d683c115a44a39b58f56bb218746b,
+        type: 3}
+      propertyPath: m_BlackboardVariableOverridesList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7019425779894884549, guid: f77d683c115a44a39b58f56bb218746b,
+        type: 3}
+      propertyPath: managedReferences[3211680406236037527].m_Value
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7019425779894884549, guid: f77d683c115a44a39b58f56bb218746b,
+        type: 3}
+      propertyPath: 'm_BlackboardVariableOverridesList.Array.data[2]'
+      value: 3211680406236037527
+      objectReference: {fileID: 0}
+    - target: {fileID: 7019425779894884549, guid: f77d683c115a44a39b58f56bb218746b,
+        type: 3}
+      propertyPath: managedReferences[3211680406236037527].GUID.m_Value0
+      value: 6359083649770769529
+      objectReference: {fileID: 0}
+    - target: {fileID: 7019425779894884549, guid: f77d683c115a44a39b58f56bb218746b,
+        type: 3}
+      propertyPath: managedReferences[3211680406236037527].GUID.m_Value1
+      value: 12639682217258817212
+      objectReference: {fileID: 0}
     - target: {fileID: 8815417026109696799, guid: f77d683c115a44a39b58f56bb218746b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6588,26 +6629,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8963388762555316019, guid: f77d683c115a44a39b58f56bb218746b,
         type: 3}
-      propertyPath: _attack
-      value: 
-      objectReference: {fileID: 8794507311626110233}
+      propertyPath: _debug
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f77d683c115a44a39b58f56bb218746b, type: 3}
---- !u!114 &8794507311626110233 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1804030319483471218, guid: f77d683c115a44a39b58f56bb218746b,
-    type: 3}
-  m_PrefabInstance: {fileID: 6891589352415091032}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f29b8475030473da4bbfe7eda1a2095, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -54,8 +54,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: a732a9da4acbd4e54a71f1ba7e8a24c8, type: 2}
   _agent: {fileID: 5802131896068798034}
-  _attack: {fileID: 0}
-  _debug: 1
+  _attack: {fileID: 1804030319483471218}
+  _debug: 0
 --- !u!61 &2915802423296425688
 BoxCollider2D:
   m_ObjectHideFlags: 0
