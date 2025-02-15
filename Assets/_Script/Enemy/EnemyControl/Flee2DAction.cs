@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using _Script.Managers;
 using Pathfinding;
 using Unity.Behavior;
@@ -15,39 +14,45 @@ namespace _Script.Enemy.EnemyControl
     {
         [SerializeReference] public BlackboardVariable<GameObject> Agent;
 
-        // Distance range and threshold
+        // Flee range and threshold
         [SerializeReference] public BlackboardVariable<float> FleeDistance = new BlackboardVariable<float>(5f);
         [SerializeReference] public BlackboardVariable<float> DistanceThreshold = new BlackboardVariable<float>(0.2f);
 
-        // How long to remain on cooldown after a successful flee
-        [SerializeReference] public BlackboardVariable<float> FleeCooldown = new BlackboardVariable<float>(5f);
+        // How many seconds the flee action is on cooldown after success
+        [SerializeReference] public BlackboardVariable<float> FleeTimer;
+
+        // Whether the action is currently on cooldown
+        [SerializeReference] public BlackboardVariable<bool> IsCooldown = new BlackboardVariable<bool>(false);
 
         private IAstarAI _mAIAgent;
         private Transform _mAgentTransform;
         private Vector3 _fleePoint;
 
-        // Track cooldown
-        private bool _isFleeOnCooldown;
-
-        // We'll store any MonoBehaviour on the agent's gameobject to run coroutines
-        private MonoBehaviour _agentMonoBehaviour;
+        // Tracks the time when we are allowed to flee again
+        private float _nextFleeTime;
 
         protected override Status OnStart()
         {
-            // 1) If agent is on cooldown, no need to flee again. Return Success immediately.
-            if (_isFleeOnCooldown)
+            // 1) If we're still on cooldown, set IsCooldown and return Success immediately
+            //    so the Sequence node moves on to the next action.
+            if (Time.time < _nextFleeTime)
             {
+                IsCooldown.Value = true;
                 return Status.Success;
             }
+            else
+            {
+                // Not on cooldown
+                IsCooldown.Value = false;
+            }
 
-            // 2) Otherwise, do normal setup
+            // 2) Normal setup if fleeing is allowed
             if (Agent.Value == null)
             {
                 Debug.LogError("Flee2DAction: Agent is null.");
                 return Status.Failure;
             }
 
-            // Grab the A* component
             _mAIAgent = Agent.Value.GetComponent<IAstarAI>();
             if (_mAIAgent == null)
             {
@@ -55,23 +60,14 @@ namespace _Script.Enemy.EnemyControl
                 return Status.Failure;
             }
 
-            // We'll also need some MonoBehaviour to start our coroutine
-            _agentMonoBehaviour = Agent.Value.GetComponent<MonoBehaviour>();
-            if (_agentMonoBehaviour == null)
-            {
-                Debug.LogError("No MonoBehaviour found on Agent to run coroutines.");
-                return Status.Failure;
-            }
-
             _mAgentTransform = Agent.Value.transform;
 
-            // 3) Decide where to flee
-            // If there's no SubGameManager or no reachable area, pick a random direction
+            // 3) Pick a flee point
             if (SubGameManager.Instance == null || SubGameManager.Instance.ReachableArea == null)
             {
                 // random direction in 2D
                 Vector2 randomDirection = UnityEngine.Random.insideUnitCircle.normalized;
-                // random distance near the configured FleeDistance
+                // random distance around FleeDistance
                 float randomDistance = FleeDistance.Value * UnityEngine.Random.Range(0.7f, 1.3f);
                 _fleePoint = _mAIAgent.position + (Vector3)(randomDirection * randomDistance);
             }
@@ -80,10 +76,8 @@ namespace _Script.Enemy.EnemyControl
                 _fleePoint = SubGameManager.Instance.ReachableArea.GetARandomPosition();
             }
 
-            // 4) Set the agent's destination
+            // 4) Assign destination
             _mAIAgent.destination = _fleePoint;
-
-            // If we need to recalc the path right away
             _mAIAgent.SearchPath();
 
             return Status.Running;
@@ -91,29 +85,27 @@ namespace _Script.Enemy.EnemyControl
 
         protected override Status OnUpdate()
         {
+            // If references are missing, fail out
             if (_mAIAgent == null || _mAgentTransform == null)
             {
                 return Status.Failure;
             }
 
-            // Continuously update the AI's destination
+            // Continuously move to the flee point
             _mAIAgent.destination = _fleePoint;
 
             float distanceToTarget = Vector3.Distance(_mAgentTransform.position, _fleePoint);
-
-            // If the agent is within the threshold of the flee point, we consider it "done"
             if (distanceToTarget <= DistanceThreshold.Value)
             {
-                // Stop the agent
+                // Once we're close enough, stop and set cooldown
                 _mAIAgent.destination = _mAgentTransform.position;
+                _nextFleeTime = Time.time + FleeTimer.Value;
+                IsCooldown.Value = true;
 
-                // Start the cooldown to prevent immediate re-flee
-                _agentMonoBehaviour.StartCoroutine(StartFleeCooldown());
-
+                // Returning Success moves the Sequence to its next action
                 return Status.Success;
             }
 
-            // Otherwise, keep running until we get there
             return Status.Running;
         }
 
@@ -124,17 +116,6 @@ namespace _Script.Enemy.EnemyControl
             {
                 _mAIAgent.destination = _mAgentTransform.position;
             }
-        }
-
-        /// <summary>
-        /// Coroutine to enable "flee cooldown."
-        /// During this time, any attempt to flee returns Success immediately.
-        /// </summary>
-        private IEnumerator StartFleeCooldown()
-        {
-            _isFleeOnCooldown = true;
-            yield return new WaitForSeconds(FleeCooldown.Value);
-            _isFleeOnCooldown = false;
         }
     }
 }
