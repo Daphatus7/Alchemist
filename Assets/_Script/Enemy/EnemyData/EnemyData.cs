@@ -16,9 +16,9 @@ namespace _Script.Enemy.EnemyData
         // Base stats (unscaled)
         public int health;
         public int damage;
-        public int moveSpeed;
-        public int attackFrequency;
-        public int attackRange;
+        public float moveSpeed;
+        public float attackFrequency;
+        public float attackRange;
         
         public MonsterType monsterType;
         public Drop.DropTable.DropTable dropTable;
@@ -37,7 +37,7 @@ namespace _Script.Enemy.EnemyData
             // Apply multipliers to base stats
             int finalHealth = Mathf.RoundToInt(health * healthMod);
             int finalDamage = Mathf.RoundToInt(damage * damageMod);
-            int finalSpeed  = Mathf.RoundToInt(moveSpeed * speedMod);
+            float finalSpeed  = moveSpeed * speedMod;
 
             return new EnemyAttribute(
                 finalHealth,
@@ -57,9 +57,9 @@ namespace _Script.Enemy.EnemyData
     {
         public int Health;
         public int Damage;
-        public int MoveSpeed;
-        public int AttackFrequency;
-        public int AttackRange;
+        public float MoveSpeed;
+        public float AttackFrequency;
+        public float AttackRange;
         public MonsterType MonsterType;
         public Drop.DropTable.DropTable DropTable;
         public Sprite Sprite;
@@ -67,9 +67,9 @@ namespace _Script.Enemy.EnemyData
         public EnemyAttribute(
             int health,
             int damage,
-            int moveSpeed,
-            int attackFrequency,
-            int attackRange,
+            float moveSpeed,
+            float attackFrequency,
+            float attackRange,
             MonsterType monsterType,
             Drop.DropTable.DropTable dropTable,
             Sprite sprite)
@@ -158,21 +158,26 @@ namespace _Script.Enemy.EnemyData
                 case PlayerRankEnum.G:
                     return 1f;
                 case PlayerRankEnum.F:
-                    return 1.05f;
-                case PlayerRankEnum.E:
                     return 1.1f;
+                case PlayerRankEnum.E:
+                    return 1.3f;
                 case PlayerRankEnum.D:
-                    return 1.15f;
+                    return 1.5f;
                 case PlayerRankEnum.C:
+                    return 1.5f;
                 case PlayerRankEnum.B:
+                    return 1.6f;
                 case PlayerRankEnum.A:
+                    return 1.7f;
                 case PlayerRankEnum.S:
+                    return 2f;
                 case PlayerRankEnum.Ss:
+                    return 2f;
                 case PlayerRankEnum.Sss:
-                    return 1.2f;
+                    return 3f;
                 default:
-                    Debug.LogError($"Invalid rank {rank}. Fallback to 1.2x speed.");
-                    return 1.2f;
+                    Debug.LogError($"Invalid rank {rank}. Extermination speed modifier.");
+                    return 3f;
             }
         }
     }

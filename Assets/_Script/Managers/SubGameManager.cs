@@ -19,7 +19,6 @@ namespace _Script.Managers
     {
         [Header("Optional: Dungeon Generation Example")]
         [SerializeField] private DungeonGeneratorGrid2D _dungeonGenerator;
-        
         public event Action OnLevelGenerated;
 
         public Transform SpawnPoint
@@ -100,7 +99,7 @@ namespace _Script.Managers
             OnLevelGenerated?.Invoke();
         }
 
-        private ReachableArea _reachableArea;
+        private ReachableArea _reachableArea; public ReachableArea ReachableArea => _reachableArea;
         private Tilemap _baseTileMap;
         public Vector3 MapCenter => _reachableArea.Pivot;
         

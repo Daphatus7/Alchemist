@@ -5,16 +5,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Script.Damageable;
+using _Script.Utilities;
 using DamageNumbersPro;
 using UnityEngine;
 
 namespace _Script.Enemy.EnemyAbility
 {
-    public class EnemyAttack : MonoBehaviour, IEnemyAbilityHandler
+    public abstract class EnemyAttack : MonoBehaviour, IEnemyAbilityHandler
     {
          //Spawn a circular raycast that will damage the player if it hits
         
-        [SerializeField] private float attackRange = 0.5f;
+        [SerializeField] protected float attackRange = 0.5f;
         public float AttackRange
         {
             get => attackRange;
@@ -23,7 +24,7 @@ namespace _Script.Enemy.EnemyAbility
                 attackRange = value;
             }
         }
-        [SerializeField] private float damage = 10f; public float Damage
+        [SerializeField] protected float damage = 10f; public float Damage
         {
             get => damage;
             set
@@ -44,74 +45,25 @@ namespace _Script.Enemy.EnemyAbility
         //Damageable tags
         private readonly List<string> _targetTags = new List<string>() {"Player"};
         //Damage Number
-        [SerializeField] private GameObject visualEffectPrefab;
+        [SerializeField] protected GameObject visualEffectPrefab;
+        [SerializeField] protected DamageNumber damageNumberPrefab;
+        public abstract void UseAbility(Transform target);
         
-        [SerializeField] private DamageNumber damageNumberPrefab;
-
         
-        public void UseAbility(Transform target)
-        {
-            var targetPosition = target.position;
-            StartCoroutine(DelayedDamage(targetPosition));
-        }
-        
-        private IEnumerator DelayedDamage(Vector2 targetPosition)
-        {
-            yield return new WaitForSeconds(0.3f);
-            PlayVisualEffect(attackRange, targetPosition);
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(targetPosition, attackRange);
-            
-            //Gizmo debug circle
-
-            foreach (Collider2D other in colliders)
-            {
-                var damageable = other.GetComponent<IDamageable>();
-                if (damageable != null && CanDamageTag(other))
-                {
-                    var actualDamage = Mathf.Abs(damageable.ApplyDamage(damage));
-                    if (damageNumberPrefab != null)
-                    {
-                        damageNumberPrefab.Spawn(other.transform.position, actualDamage);
-                    }
-                    break;
-                }
-            }
-        }
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, attackRange);
         }
+ 
 
-
-        private void PlayVisualEffect(float radius, Vector2 targetPosition, float duration = 0.5f)
-        {
-            if (visualEffectPrefab != null)
-            {
-                GameObject visualEffect = Instantiate(visualEffectPrefab, targetPosition, Quaternion.identity);
-                visualEffect.transform.localScale = new Vector3(radius, radius, 1);
-                StartCoroutine(VisualFadeOut(visualEffect.GetComponentInChildren<SpriteRenderer>(), duration));
-            }
-        }
-        
-        private IEnumerator VisualFadeOut(SpriteRenderer visualEffect, float duration)
-        {
-            float elapsedTime = 0;
-            Color color = visualEffect.color;
-            while (elapsedTime < duration)
-            {
-                elapsedTime += Time.deltaTime;
-                color.a = Mathf.Lerp(1, 0, elapsedTime / duration);
-                visualEffect.color = color;
-                yield return null;
-            }
-            Destroy(visualEffect.gameObject);
-        }
         
         protected bool CanDamageTag(Collider2D other)
         {
             return _targetTags.Contains(other.tag);
         }
+        
+
     }
 }

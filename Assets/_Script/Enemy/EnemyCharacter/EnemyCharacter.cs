@@ -82,6 +82,19 @@ namespace _Script.Enemy.EnemyCharacter
         {
             return Health -= damage;
         }
+
+
+        [SerializeField] private bool _debug;
+        
+        public void Start()
+        {
+            if (_debug)
+            {
+                Initialize(PlayerRankEnum.S);
+            }
+                
+        }
+        
         
         public void Initialize(PlayerRankEnum rank)
         {
