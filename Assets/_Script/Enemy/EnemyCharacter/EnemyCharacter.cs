@@ -1,5 +1,4 @@
-using System;
-using _Script.Attribute;
+
 using _Script.Character.PlayerRank;
 using _Script.Damageable;
 using _Script.Drop;
@@ -14,8 +13,8 @@ namespace _Script.Enemy.EnemyCharacter
     {
         
         [SerializeField] private EnemyData.EnemyData enemyData;
-        [SerializeField] private AIPath _agent;
         [SerializeField] private EnemyAttack _attack;
+        [SerializeField] private AIPath _agent;
         private float _health; private float Health
         {
             get => _health;
@@ -41,17 +40,26 @@ namespace _Script.Enemy.EnemyCharacter
                 }
             }
         }
-        private float _moveSpeed; public float MoveSpeed
+        
+        [SerializeField] private float _moveSpeed = 1;
+
+        public float MoveSpeed
         {
-            get => _moveSpeed;
-            set
+            get
             {
+                Debug.Log("Getting move speed" + _moveSpeed);
+                return _moveSpeed;
+            }
+            private set
+            {
+                if(_agent)
+                {
+                    _agent.maxSpeed = value;
+                }
                 _moveSpeed = value;
-                if (_agent)
-                    _agent.maxSpeed = _moveSpeed;
             }
         }
-        
+
         private float _attackRange; public float AttackRange
         {
             get => _attackRange;
@@ -92,7 +100,6 @@ namespace _Script.Enemy.EnemyCharacter
             {
                 Initialize(PlayerRankEnum.S);
             }
-                
         }
         
         
@@ -104,6 +111,7 @@ namespace _Script.Enemy.EnemyCharacter
             MoveSpeed = attribute.MoveSpeed;
             AttackRange = attribute.AttackRange;
             DamageCooldown = attribute.AttackFrequency;
+            Debug.Log("Speed : " + MoveSpeed);
         }
 
         private void OnDeath()

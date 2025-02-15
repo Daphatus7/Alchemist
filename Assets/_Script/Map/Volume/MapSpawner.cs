@@ -80,7 +80,8 @@ namespace _Script.Map.Volume
 
                         Vector3 spawnPos = GetRandomPointInsideBox(reachableArea);
                         GameObject monsterObj = Instantiate(monster, spawnPos, Quaternion.identity);
-                        EnemyCharacter enemyCharacter = monster.GetComponent<EnemyCharacter>();
+                        EnemyCharacter enemyCharacter = monsterObj.GetComponent<EnemyCharacter>();
+                        Debug.Log("Monster  : " + enemyCharacter);
                         enemyCharacter.Initialize(nodeDataInstance.MapRank);
                         monsterObj.transform.parent = transform;
                     }

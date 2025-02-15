@@ -29,7 +29,7 @@ namespace _Script.Map
             var randomIndex = Random.Range(0, reachableArea.Count);
             return LocalToTilemapCoords(reachableArea[randomIndex]);
         }
-        
+
         // Overall dimensions derived from the Floor tilemap's bounding box
         public int Width { get; }
 

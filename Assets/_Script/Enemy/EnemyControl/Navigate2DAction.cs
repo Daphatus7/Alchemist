@@ -21,7 +21,6 @@ namespace _Script.Enemy.EnemyControl
         [SerializeReference] public BlackboardVariable<float> DistanceThreshold = new BlackboardVariable<float>(0.2f);
 
         private IAstarAI _mAIAgent;
-        private EnemyCharacter.EnemyCharacter _mEnemyCharacter;
         private Transform _mAgentTransform;
         
 
@@ -48,18 +47,8 @@ namespace _Script.Enemy.EnemyControl
                 return Status.Failure;
             }
             
-            _mEnemyCharacter = Agent.Value.GetComponent<EnemyCharacter.EnemyCharacter>();
-            if (_mEnemyCharacter == null)
-            {
-                Debug.LogError("EnemyCharacter component is missing from the agent.");
-                return Status.Failure;
-            }
-            
-            // Set speed and destination
-            _mAIAgent.maxSpeed = _mEnemyCharacter.MoveSpeed;
-            Debug.Log("speed: " + _mAIAgent.maxSpeed + " plan: " + _mEnemyCharacter.MoveSpeed);
             _mAIAgent.destination = Target.Value.position;
-
+            
             return Status.Running;
         }
 

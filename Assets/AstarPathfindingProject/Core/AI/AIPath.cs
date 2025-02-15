@@ -227,7 +227,12 @@ namespace Pathfinding {
 		float IAstarAI.height { get { return height; } set { height = value; } }
 
 		/// <summary>\copydoc Pathfinding::IAstarAI::maxSpeed</summary>
-		float IAstarAI.maxSpeed { get { return maxSpeed; } set { maxSpeed = value; } }
+		float IAstarAI.maxSpeed { get { return maxSpeed; }
+			set
+			{
+				maxSpeed = value;
+			} 
+		}
 
 		/// <summary>\copydoc Pathfinding::IAstarAI::canSearch</summary>
 		bool IAstarAI.canSearch { get { return canSearch; } set { canSearch = value; } }

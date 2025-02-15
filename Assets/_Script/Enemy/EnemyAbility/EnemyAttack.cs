@@ -29,7 +29,6 @@ namespace _Script.Enemy.EnemyAbility
             get => damage;
             set
             {
-                Debug.Log("Setting damage to " + value);
                 damage = value;
             }
         }

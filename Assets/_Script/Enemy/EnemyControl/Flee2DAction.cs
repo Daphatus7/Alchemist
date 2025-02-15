@@ -16,7 +16,7 @@ namespace _Script.Enemy.EnemyControl
         [SerializeReference] public BlackboardVariable<float> Coolddown;
         // Flee range and threshold
         [SerializeReference] public BlackboardVariable<float> FleeDistance = new BlackboardVariable<float>(5f);
-        [SerializeReference] public BlackboardVariable<float> DistanceThreshold = new BlackboardVariable<float>(0.2f);
+        [SerializeReference] public BlackboardVariable<float> DistanceThreshold = new BlackboardVariable<float>(0.5f);
         
         // Whether the action is currently on cooldown
         [SerializeReference] public BlackboardVariable<bool> IsCooldown = new BlackboardVariable<bool>(false);
@@ -58,23 +58,16 @@ namespace _Script.Enemy.EnemyControl
             }
 
             _mAgentTransform = Agent.Value.transform;
-
             // 3) Pick a flee point
-            if (SubGameManager.Instance == null || SubGameManager.Instance.ReachableArea == null)
-            {
-                // random direction in 2D
-                Vector2 randomDirection = UnityEngine.Random.insideUnitCircle.normalized;
-                // random distance around FleeDistance
-                float randomDistance = FleeDistance.Value * UnityEngine.Random.Range(0.7f, 1.3f);
-                _fleePoint = _mAIAgent.position + (Vector3)(randomDirection * randomDistance);
-            }
-            else
-            {
-                _fleePoint = SubGameManager.Instance.ReachableArea.GetARandomPosition();
-            }
+            // random direction in 2D
+            Vector2 randomDirection = UnityEngine.Random.insideUnitCircle.normalized;
+            // random distance around FleeDistance
+            float randomDistance = FleeDistance.Value * UnityEngine.Random.Range(0.7f, 1.3f);
+            _fleePoint = _mAIAgent.position + (Vector3)(randomDirection * randomDistance);
 
             // 4) Assign destination
             _mAIAgent.destination = _fleePoint;
+            _mAIAgent.maxSpeed = Agent.Value.GetComponent<EnemyCharacter.EnemyCharacter>().MoveSpeed;
             _mAIAgent.SearchPath();
 
             return Status.Running;
@@ -87,13 +80,13 @@ namespace _Script.Enemy.EnemyControl
             {
                 return Status.Failure;
             }
-
             // Continuously move to the flee point
-            // _mAIAgent.destination = _fleePoint;
+            _mAIAgent.destination = _fleePoint;
 
             float distanceToTarget = Vector3.Distance(_mAgentTransform.position, _fleePoint);
             if (distanceToTarget <= DistanceThreshold.Value)
             {
+                Debug.Log("Flee2DAction: Reached flee point." + distanceToTarget + " " + DistanceThreshold.Value + " " + _fleePoint + " " + _mAgentTransform.position);
                 // Once we're close enough, stop and set cooldown
                 _mAIAgent.destination = _mAgentTransform.position;
                 _nextFleeTime = Time.time + Coolddown.Value;
@@ -102,7 +95,6 @@ namespace _Script.Enemy.EnemyControl
                 // Returning Success moves the Sequence to its next action
                 return Status.Success;
             }
-
             return Status.Running;
         }
 

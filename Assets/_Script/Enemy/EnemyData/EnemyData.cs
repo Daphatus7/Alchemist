@@ -38,7 +38,6 @@ namespace _Script.Enemy.EnemyData
             int finalHealth = Mathf.RoundToInt(health * healthMod);
             int finalDamage = Mathf.RoundToInt(damage * damageMod);
             float finalSpeed  = moveSpeed * speedMod;
-
             return new EnemyAttribute(
                 finalHealth,
                 finalDamage,

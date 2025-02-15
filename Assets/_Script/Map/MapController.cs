@@ -54,9 +54,16 @@ namespace _Script.Map
             InitializeGrid();
             var distance = questInstance.DistanceToTravel;
             //currently
-            var path = CreatePath(HexGrid.GenerateNodeAtLevel(0) //start of the node
+            var path = CreatePath(HexGrid.GenerateNodeAtLevel(1) //start of the node
                 , HexGrid.GenerateNodeAtLevel(distance)); //end of the node
             SetMapState(MapState.QuestAccepted);
+            
+            foreach (var node in HexGrid.GetAllHexNodes())
+            {
+                node.Difficulty = GetMapDifficulty((PlayerRankEnum)node.NodeLevel + 1);
+            }
+            
+            
             SetDifficultyOfNodes(path, GetMapDifficulty(questInstance.GuildQuestDefinition.questRank));
             //Generate Bonfire nearby
             

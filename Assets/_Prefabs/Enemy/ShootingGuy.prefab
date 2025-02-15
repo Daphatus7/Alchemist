@@ -53,8 +53,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: a732a9da4acbd4e54a71f1ba7e8a24c8, type: 2}
-  _agent: {fileID: 5802131896068798034}
   _attack: {fileID: 1804030319483471218}
+  _agent: {fileID: 5802131896068798034}
   _debug: 0
 --- !u!61 &2915802423296425688
 BoxCollider2D:
@@ -145,9 +145,19 @@ MonoBehaviour:
   m_BlackboardVariableOverridesList:
   - rid: 6967172055560618213
   - rid: 6967172077145293038
+  - rid: 3211680406236037527
   references:
     version: 2
     RefIds:
+    - rid: 3211680406236037527
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior,
+        asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 6359083649770769529
+          m_Value1: 12639682217258817212
+        Name: FleeCooldown
+        m_Value: 5
     - rid: 6967172055560618213
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]',
         ns: Unity.Behavior, asm: Unity.Behavior}

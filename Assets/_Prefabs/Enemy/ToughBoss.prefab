@@ -102,8 +102,8 @@ GameObject:
   - component: {fileID: 6308242419660824068}
   - component: {fileID: 1150393813693523868}
   - component: {fileID: 1517139829594178872}
-  - component: {fileID: 4496490976337068143}
   - component: {fileID: 1229075457137671254}
+  - component: {fileID: 8898605741151783470}
   m_Layer: 8
   m_Name: ToughBoss
   m_TagString: Enemy
@@ -140,8 +140,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: a732a9da4acbd4e54a71f1ba7e8a24c8, type: 2}
-  _agent: {fileID: 1517139829594178872}
-  _attack: {fileID: 4496490976337068143}
+  _attack: {fileID: 8898605741151783470}
+  _debug: 0
 --- !u!61 &29300319380929225
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -231,9 +231,19 @@ MonoBehaviour:
   m_BlackboardVariableOverridesList:
   - rid: 6967172055560618213
   - rid: 6967172077145293038
+  - rid: 3211680410166887416
   references:
     version: 2
     RefIds:
+    - rid: 3211680410166887416
+      type: {class: 'BlackboardVariable`1[[_Script.Enemy.EnemyCharacter.EnemyCharacter, Assembly-CSharp]]',
+        ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 11479124534628953975
+          m_Value1: 5624199169469198654
+        Name: SelfCharacter
+        m_Value: {fileID: 8030817545402318949}
     - rid: 6967172055560618213
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]',
         ns: Unity.Behavior, asm: Unity.Behavior}
@@ -322,25 +332,6 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
---- !u!114 &4496490976337068143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8794507309829770285}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc4f2b4e57de46a1a27d190ce97f978c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackRange: 1
-  damage: 1
-  damageCooldown: 1.5
-  visualEffectPrefab: {fileID: 3223076601570942459, guid: 3117c91bd90bb4332966bb97f1c3beaa,
-    type: 3}
-  damageNumberPrefab: {fileID: 3418554337574669511, guid: 0de677f7bca764a82945a8a9e4c3f703,
-    type: 3}
 --- !u!114 &1229075457137671254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,3 +345,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropProviderObject: {fileID: 11400000, guid: 7486734bb941047a2a6640882114f7e2, type: 2}
+--- !u!114 &8898605741151783470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8794507309829770285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a9d3be7f2c74a63bd13ac9ab052d926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRange: 0.5
+  damage: 10
+  damageCooldown: 1.5
+  visualEffectPrefab: {fileID: 0}
+  damageNumberPrefab: {fileID: 0}

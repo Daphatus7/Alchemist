@@ -6541,42 +6541,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7019425779894884549, guid: f77d683c115a44a39b58f56bb218746b,
-        type: 3}
-      propertyPath: 'managedReferences[3211680406236037527]'
-      value: 'Unity.Behavior Unity.Behavior.BlackboardVariable`1[[System.Single,
-        mscorlib]]'
-      objectReference: {fileID: 0}
-    - target: {fileID: 7019425779894884549, guid: f77d683c115a44a39b58f56bb218746b,
-        type: 3}
-      propertyPath: managedReferences[3211680406236037527].Name
-      value: FleeTimer
-      objectReference: {fileID: 0}
-    - target: {fileID: 7019425779894884549, guid: f77d683c115a44a39b58f56bb218746b,
-        type: 3}
-      propertyPath: m_BlackboardVariableOverridesList.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7019425779894884549, guid: f77d683c115a44a39b58f56bb218746b,
-        type: 3}
-      propertyPath: managedReferences[3211680406236037527].m_Value
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7019425779894884549, guid: f77d683c115a44a39b58f56bb218746b,
-        type: 3}
-      propertyPath: 'm_BlackboardVariableOverridesList.Array.data[2]'
-      value: 3211680406236037527
-      objectReference: {fileID: 0}
-    - target: {fileID: 7019425779894884549, guid: f77d683c115a44a39b58f56bb218746b,
-        type: 3}
-      propertyPath: managedReferences[3211680406236037527].GUID.m_Value0
-      value: 6359083649770769529
-      objectReference: {fileID: 0}
-    - target: {fileID: 7019425779894884549, guid: f77d683c115a44a39b58f56bb218746b,
-        type: 3}
-      propertyPath: managedReferences[3211680406236037527].GUID.m_Value1
-      value: 12639682217258817212
-      objectReference: {fileID: 0}
     - target: {fileID: 8815417026109696799, guid: f77d683c115a44a39b58f56bb218746b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6626,11 +6590,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8963388762555316019, guid: f77d683c115a44a39b58f56bb218746b,
-        type: 3}
-      propertyPath: _debug
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
