@@ -9,7 +9,7 @@ namespace _Script.Map.WorldMap.MapNode
     public class BossMapNode : NodeData
     {
         public string BossName;
+        public string SceneName;
         public override NodeType NodeType => NodeType.Boss;
-
     }
 }

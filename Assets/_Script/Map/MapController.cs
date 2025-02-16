@@ -58,16 +58,54 @@ namespace _Script.Map
                 , HexGrid.GenerateNodeAtLevel(distance)); //end of the node
             SetMapState(MapState.QuestAccepted);
             
-            foreach (var node in HexGrid.GetAllHexNodes())
-            {
-                node.Difficulty = GetMapDifficulty((PlayerRankEnum)node.NodeLevel + 1);
-            }
-            
-            
+            // Set the difficulty of the nodes based on the quest rank.
             SetDifficultyOfNodes(path, GetMapDifficulty(questInstance.GuildQuestDefinition.questRank));
-            //Generate Bonfire nearby
             
+            //Generate Destination Room
+            path[^1].NodeDataInstance = GenerateNodeDataForQuest(questInstance);
+            
+            //Generate Bonfire nearby
         }
+
+        private NodeDataInstance GenerateNodeDataForQuest(GuildQuestInstance questInstance)
+        {
+            //Quest Type
+            var questType = questInstance.GuildQuestDefinition.ObjectiveType;
+            switch (questType)
+            {
+                case ObjectiveType.Collect:
+                    return GenerateCollectNodeData(questInstance);
+                case ObjectiveType.Kill:
+                    return GenerateKillNodeData(questInstance);
+                case ObjectiveType.Explore:
+                    return GenerateExploreNodeData(questInstance);
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private NodeDataInstance GenerateCollectNodeData(GuildQuestInstance questInstance)
+        {
+            var itemCollectObjective = (CollectObjective)
+                questInstance.
+                    GuildQuestDefinition.
+                    objectives[0].
+                    objectiveData;
+            //insert item data in generation sequence.
+            throw new NotImplementedException();
+        }
+        
+        private NodeDataInstance GenerateKillNodeData(GuildQuestInstance questInstance)
+        {
+            //Guild quest should always use the string of a boss
+            throw new NotImplementedException();
+        }
+        
+        private NodeDataInstance GenerateExploreNodeData(GuildQuestInstance questInstance)
+        {
+            throw new NotImplementedException();
+        }
+        
 
         #region State Management
 
@@ -161,9 +199,14 @@ namespace _Script.Map
             
             //move player to start hex
             HexGrid.MovePlayer(StartHex);
+            
+            //set default difficulty
+            foreach (var node in HexGrid.GetAllHexNodes())
+            {
+                node.Difficulty = GetMapDifficulty((PlayerRankEnum)node.NodeLevel + 1);
+            }
         }
         
-
         #region Grid Manipulation
 
         

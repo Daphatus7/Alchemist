@@ -11,11 +11,12 @@ namespace _Script.Map.WorldMap
         public NodeData NodeData { get; protected set; }
         public PlayerRankEnum MapRank { get; protected set; }
         
+        //Insert generation instruction
+        
         public NodeDataInstance(NodeData nodeData, PlayerRankEnum mapRank)
         {
             NodeData = nodeData;
             MapRank = mapRank;
         }
-        
     }
 }

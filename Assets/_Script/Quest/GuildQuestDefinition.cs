@@ -15,6 +15,7 @@ namespace _Script.Quest
         [Header("Total Rooms")]
         public int distanceMax;
         public int distanceMin;
-        
+        //guild quest can only have 1 objective
+        public ObjectiveType ObjectiveType => objectives[0].objectiveData.Type; 
     }
 }

@@ -8,8 +8,10 @@ namespace _Script.Quest
     public class GuildQuestInstance : QuestInstance
     {
 
-        public GuildQuestDefinition GuildQuestDefinition => (GuildQuestDefinition) QuestDefinition;
-        private PlayerRankEnum _questRank; public PlayerRankEnum QuestRank => _questRank;
+        public GuildQuestDefinition GuildQuestDefinition => (GuildQuestDefinition)QuestDefinition;
+        private PlayerRankEnum _questRank;
+        public PlayerRankEnum QuestRank => _questRank;
+
         public GuildQuestInstance(GuildQuestDefinition def, PlayerRankEnum questRank) : base(def)
         {
             QuestState = QuestState.NotStarted;
@@ -35,3 +37,4 @@ namespace _Script.Quest
         public override QuestType QuestType => QuestType.Guild;
     }
 }
+    

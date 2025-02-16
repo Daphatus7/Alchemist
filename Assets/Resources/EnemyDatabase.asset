@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfc6f2de9c0a438590b87dc354aefc6b, type: 3}
+  m_Name: EnemyDatabase
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  enemyFolderPath: Assets/_Prefabs/Enemy
+  enemyDataPairs:
+  - enemyName: AIGeneratedGuy
+    enemyPrefab: {fileID: 8794507309829770285, guid: 8f56bcf0921594018b5157eadc53b67d,
+      type: 3}
+  - enemyName: Boss_1
+    enemyPrefab: {fileID: 8794507309829770285, guid: 834ade3290d1a4559843de28a1e332bb,
+      type: 3}
+  - enemyName: Boss_2
+    enemyPrefab: {fileID: 8794507309829770285, guid: da007bac48e954bd58470b66bc08c89a,
+      type: 3}
+  - enemyName: Boss_3
+    enemyPrefab: {fileID: 8794507309829770285, guid: a4f0292075d0340b7a0ef41fb86f1aeb,
+      type: 3}
+  - enemyName: Boss_a
+    enemyPrefab: {fileID: 8794507309829770285, guid: c2a34cad2d85845a796abea0bc921222,
+      type: 3}
+  - enemyName: ShootingGuy
+    enemyPrefab: {fileID: 2041422938471926706, guid: f77d683c115a44a39b58f56bb218746b,
+      type: 3}
+  - enemyName: ToughGuy
+    enemyPrefab: {fileID: 8794507309829770285, guid: 502a773631bb0460494fd8ba8814e964,
+      type: 3}
