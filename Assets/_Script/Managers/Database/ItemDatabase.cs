@@ -96,7 +96,7 @@ namespace _Script.Managers.Database
         {
 #if UNITY_EDITOR
             // 1. Ask the user where to save
-            string path = EditorUtility.SaveFilePanel(
+            var path = EditorUtility.SaveFilePanel(
                 "Export ItemDatabase to JSON",
                 "Assets",
                 "ItemDatabaseExport.json",

@@ -2352,6 +2352,7 @@ GameObject:
   - component: {fileID: 969537181}
   - component: {fileID: 969537182}
   - component: {fileID: 969537183}
+  - component: {fileID: 969537184}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2559,6 +2560,20 @@ MonoBehaviour:
   gridRadius: 10
   gridVisibility: 2
   debug: 0
+--- !u!114 &969537184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969537171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf2b3de7eba43639f923faa81b6208e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemDatabase: {fileID: 11400000, guid: 9e0ad3b7fbb494704b98c6a906c7c767, type: 2}
+  _enemyDatabase: {fileID: 11400000, guid: 0752aa0099cb04d9fa771fdd035679c3, type: 2}
 --- !u!1001 &982889974
 PrefabInstance:
   m_ObjectHideFlags: 0
