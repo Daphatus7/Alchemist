@@ -72,6 +72,13 @@ namespace _Script.Character
 
         
         private PlayerRank.PlayerRank _playerRank;
+        
+        public void AddExperience(int exp)
+        {
+            _playerRank.AddExperience(exp);
+        }
+        
+        public PlayerRank.PlayerRank CurrentRank => _playerRank;
         public PlayerRankEnum Rank => _playerRank.CurrentRank;
 
         #endregion
@@ -108,6 +115,17 @@ namespace _Script.Character
             _potionEffectManager = GetComponent<PlayerPotionEffectManager>();
             
             PauseableUpdate();
+            
+            //Add experience to rank
+        }
+        
+        private IEnumerator AddExperienceRoutine()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(1f);
+                AddExperience(100);
+            } 
         }
 
         private void OnDestroy()

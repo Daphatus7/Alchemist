@@ -151,7 +151,7 @@ namespace _Script.Weapon
         {
             if (numberPrefab != null && Mathf.Abs(actualDamage) > 0.01f)
             {
-                numberPrefab.Spawn(other.transform.position, actualDamage);
+                numberPrefab.Spawn(other.transform.position, Mathf.Abs(actualDamage));
             }
         }
 

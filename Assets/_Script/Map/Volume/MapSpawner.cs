@@ -60,8 +60,8 @@ namespace _Script.Map.Volume
                         if (!resource)
                             continue;
 
-                        Vector3 spawnPos = GetRandomPointInsideBox(reachableArea);
-                        GameObject resourceObj = Instantiate(resource, spawnPos, Quaternion.identity);
+                        var spawnPos = GetRandomPointInsideBox(reachableArea);
+                        var resourceObj = Instantiate(resource, spawnPos, Quaternion.identity);
                         resourceObj.transform.parent = transform;
                     }
                 }
@@ -78,10 +78,9 @@ namespace _Script.Map.Volume
                         if (!monster)
                             continue;
 
-                        Vector3 spawnPos = GetRandomPointInsideBox(reachableArea);
-                        GameObject monsterObj = Instantiate(monster, spawnPos, Quaternion.identity);
-                        EnemyCharacter enemyCharacter = monsterObj.GetComponent<EnemyCharacter>();
-                        Debug.Log("Monster  : " + enemyCharacter);
+                        var spawnPos = GetRandomPointInsideBox(reachableArea);
+                        var monsterObj = Instantiate(monster, spawnPos, Quaternion.identity);
+                        var enemyCharacter = monsterObj.GetComponent<EnemyCharacter>();
                         enemyCharacter.Initialize(nodeDataInstance.MapRank);
                         monsterObj.transform.parent = transform;
                     }

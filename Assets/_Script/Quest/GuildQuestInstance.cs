@@ -1,6 +1,8 @@
 // Author : Peiyu Wang @ Daphatus
 // 12 02 2025 02 50
 
+using _Script.Character.PlayerRank;
+
 namespace _Script.Quest
 {
     public class GuildQuestInstance : QuestInstance

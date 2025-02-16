@@ -15,12 +15,9 @@ namespace _Script.Character.PlayerUI
         [SerializeField] private Image energyImage;
         [SerializeField] private Image staminaImage;
         [SerializeField] private Image hungerImage;
+        [SerializeField] private Image experienceImage;
 
         private PlayerCharacter _playerCharacter;
-
-        private void Awake()
-        {
-        }
 
         private void Start()
         {
@@ -30,6 +27,7 @@ namespace _Script.Character.PlayerUI
             {
                 UpdateUI(stat.Key);
             }
+            _playerCharacter.CurrentRank.onExperienceChanged += SetExperienceFill;
         }
         
         
@@ -37,6 +35,7 @@ namespace _Script.Character.PlayerUI
         private void OnDestroy()
         {
             _playerCharacter.PlayerStats.OnStatsChanged -= UpdateUI;
+            _playerCharacter.CurrentRank.onExperienceChanged -= SetExperienceFill;
         }
 
 
@@ -87,6 +86,11 @@ namespace _Script.Character.PlayerUI
         private void SetHungerFill(float fill)
         {
             hungerImage.fillAmount = fill;
+        }
+        
+        private void SetExperienceFill(float fill)
+        {
+            experienceImage.fillAmount = fill;
         }
         
         

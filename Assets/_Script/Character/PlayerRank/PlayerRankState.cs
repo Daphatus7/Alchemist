@@ -54,7 +54,7 @@ namespace _Script.Character.PlayerRank
         public override PlayerRankEnum Rank => PlayerRankEnum.F;
 
         // Although F is the starting rank, we set its ExpRequired to 0.
-        public override int ExpRequired => 0;
+        public override int ExpRequired => 100;
 
         public override void Enter()
         {
@@ -73,7 +73,7 @@ namespace _Script.Character.PlayerRank
         public override PlayerRankEnum Rank => PlayerRankEnum.E;
 
         // Total experience required to be promoted to E.
-        public override int ExpRequired => 100;
+        public override int ExpRequired => 200;
 
         public override void Enter()
         {

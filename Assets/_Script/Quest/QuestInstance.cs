@@ -138,7 +138,6 @@ namespace _Script.Quest
             {
                 _state = QuestState.Completed;
             }
-            Debug.Log($"[QuestInstance] 所有目标完成，任务 {QuestDefinition.questName} {_state}");
         }
         
         public string QuestStatus

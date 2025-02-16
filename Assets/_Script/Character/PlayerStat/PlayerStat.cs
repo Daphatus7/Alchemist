@@ -10,7 +10,7 @@ namespace _Script.Character.PlayerStat
         Mana,
         Stamina,
         Sanity,
-        Food
+        Food, 
     }
     [Serializable]
     public abstract class PlayerStat

@@ -15,7 +15,7 @@ namespace _Script.Enemy.EnemyCharacter
         [SerializeField] private EnemyData.EnemyData enemyData;
         [SerializeField] private EnemyAttack _attack;
         [SerializeField] private AIPath _agent;
-        private float _health; private float Health
+        private float _health = 50; private float Health
         {
             get => _health;
             set
@@ -41,7 +41,7 @@ namespace _Script.Enemy.EnemyCharacter
             }
         }
         
-        [SerializeField] private float _moveSpeed = 1;
+        [SerializeField] private float _moveSpeed = 3;
 
         public float MoveSpeed
         {

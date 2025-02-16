@@ -12,7 +12,6 @@ namespace _Script.Quest
         public PlayerRankEnum questRank;
         public string description;
         
-
         [Header("Total Rooms")]
         public int distanceMax;
         public int distanceMin;

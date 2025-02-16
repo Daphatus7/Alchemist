@@ -64,7 +64,6 @@ namespace _Script.Quest
             }
         }
         
-
         /// <summary>
         /// Triggered when an item is collected
         /// Should be called by the inventory manager
@@ -153,6 +152,9 @@ namespace _Script.Quest
         
         private void GiveReward(QuestReward reward)
         {
+            //Give the player the reward experience
+            GameManager.Instance.PlayerCharacter.CurrentRank.AddExperience(reward.experience);
+            
             //Drop the reward items
             foreach (var o in reward.items)
             {

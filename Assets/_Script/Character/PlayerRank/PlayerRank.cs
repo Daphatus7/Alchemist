@@ -1,6 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 25 01 2025 01 17
 
+using System;
 using UnityEngine;
 
 namespace _Script.Character.PlayerRank
@@ -15,18 +16,27 @@ namespace _Script.Character.PlayerRank
     {
         private PlayerRankState _currentRank;
         private int _totalExp = 0;
+        private int _currentLevelExp = 0;
 
         // Expose current rank to other classes
         public PlayerRankEnum CurrentRank => _currentRank.Rank;
-
+        
+        public event Action<float> onExperienceChanged;
+        
+        private void OnExperienceChanged()
+        {
+            onExperienceChanged?.Invoke((float)_currentLevelExp / GetNextState().ExpRequired);
+        }
+        
         // Initialize the state machine with the starting rank
         public PlayerRank()
         {
             // Start with the lowest rank (F)
             _currentRank = new PlayerRankF(this);
             _currentRank.Enter();
+            _currentLevelExp = 0;
         }
-
+        
         /// <summary>
         /// Call this method to add experience.
         /// It will check if the new total meets the threshold to upgrade to the next rank.
@@ -34,15 +44,15 @@ namespace _Script.Character.PlayerRank
         public void AddExperience(int exp)
         {
             _totalExp += exp;
-            Debug.Log("Added exp: " + exp + ", Total exp: " + _totalExp);
-
+            _currentLevelExp += exp;
             // While we have a next state available and the total experience is enough, upgrade!
-            PlayerRankState nextState = GetNextState();
+            var nextState = GetNextState();
             while (nextState != null && _totalExp >= nextState.ExpRequired)
             {
                 ChangeState(nextState);
                 nextState = GetNextState();
             }
+            OnExperienceChanged();
         }
 
         /// <summary>
@@ -75,6 +85,7 @@ namespace _Script.Character.PlayerRank
         {
             _currentRank.Exit();
             _currentRank = newState;
+            _currentLevelExp = 0;
             _currentRank.Enter();
         }
     }
