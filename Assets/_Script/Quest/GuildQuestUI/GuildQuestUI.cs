@@ -10,6 +10,7 @@ using _Script.Quest.PlayerQuest;
 using _Script.UserInterface;
 using _Script.Utilities.GenericUI;
 using _Script.Utilities.ServiceLocator;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,40 +48,40 @@ namespace _Script.Quest.GuildQuestUI
                 ServiceLocator.Instance.Unregister<IGuildQuestUIHandler>();
         }
         
-        private void LoadQuestDisplays(List<GuildQuestDefinition> questDefinitions)
+        private void LoadQuestDisplays(List<GuildQuestInstance> instances)
         {
             foreach (var o in _questDisplays.Where(o => o.gameObject != null))
             {
                 Destroy(o.gameObject);
             }
 
-            foreach (var questDefinition in questDefinitions)
+            foreach (var questDefinition in instances)
             {
                 AddQuestDisplay(questDefinition);
             }
         }
         
-        private void AddQuestDisplay(GuildQuestDefinition questDefinition)
+        private void AddQuestDisplay(GuildQuestInstance instance)
         {
             var questDisplay = Instantiate(questDisplayPrefab, questDisplayLayoutGroup.transform)
                 .GetComponent<GuildQuestDisplay>();
 
             questDisplay.SetDisplay(
-                questDefinition.questRank.ToString(),
-                questDefinition.questName,
-                questDefinition.description,
-                questDefinition.ToString(),
+                instance.QuestRank.ToString(),
+                instance.GuildQuestDefinition.questName,
+                instance.GuildQuestDefinition.description,
+                instance.GuildQuestDefinition.reward.ToString(),
                 // Use a lambda so it is called on button click, not immediately
-                () => OnQuestAcceptButtonClicked(questDefinition)
+                () => OnQuestAcceptButtonClicked(instance)
             );
 
             _questDisplays.Add(questDisplay);
         }
         
-        private void OnQuestAcceptButtonClicked(GuildQuestDefinition questDefinition)
+        private void OnQuestAcceptButtonClicked(GuildQuestInstance questInstance)
         {
             //Create the quest 
-            var newQuest = QuestManager.Instance.CreateGuildQuest(questDefinition);
+            var newQuest = QuestManager.Instance.CreateGuildQuest(questInstance);
             if(newQuest != null)
             {
                 //Call the handler that hte quest has been accepted

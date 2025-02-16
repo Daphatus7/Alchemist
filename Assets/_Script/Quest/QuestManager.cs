@@ -182,7 +182,7 @@ namespace _Script.Quest
 
         private GuildQuestInstance _currentQuest;
         
-        public GuildQuestInstance CreateGuildQuest(GuildQuestDefinition quest)
+        public GuildQuestInstance CreateGuildQuest(GuildQuestInstance questInstance)
         {
             //check if there is an existing quest
             if(_currentQuest != null)
@@ -195,6 +195,8 @@ namespace _Script.Quest
                     case QuestState.InProgress:
                         Debug.Log("Quest is in progress, cannot create a new quest potential add a new UI to inform the player");
                         return _currentQuest;
+                    case QuestState.NotStarted:
+                        return _currentQuest;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -202,7 +204,8 @@ namespace _Script.Quest
             else
             {
                 //Create an active quest
-                _currentQuest = new GuildQuestInstance(quest);
+                _currentQuest = questInstance;
+                _currentQuest.QuestState = QuestState.InProgress;
                 
                 //Update UI
                 ServiceLocator.Instance.Get<IPlayerQuestService>().AddNewGuildQuest(_currentQuest);

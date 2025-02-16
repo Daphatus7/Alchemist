@@ -4,12 +4,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using _Script.Managers;
 using _Script.NPC.NPCFrontend;
 using _Script.Quest;
 using _Script.Quest.GuildQuestUI;
 using _Script.UserInterface;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace _Script.NPC.NpcBackend.NpcModules
 {
@@ -27,8 +29,8 @@ namespace _Script.NPC.NpcBackend.NpcModules
 
         [SerializeField] private List<GuildQuestDefinition> allQuests;
 
-        private List<GuildQuestDefinition> _availableQuests;
-        private List<GuildQuestDefinition> AvailableQuests
+        private List<GuildQuestInstance> _availableQuests;
+        private List<GuildQuestInstance> AvailableQuests
         {
             get
             {
@@ -37,23 +39,26 @@ namespace _Script.NPC.NpcBackend.NpcModules
                     var all = allQuests;
 
                     // If there are fewer than 3 quests, return all
-                    if (all.Count <= 3)
+                    if (all.Count > 3)
                     {
-                        return all;
+                        //get 3 random quests
+                        all = all
+                            .OrderBy(_ => Random.value)
+                            .Take(3)
+                            .ToList();
                     }
-
+                    //generate quest instances based player rank
+                    var playerRank = GameManager.Instance.PlayerRank;
+                    var q = all.Select(quest => new GuildQuestInstance(quest, playerRank)).ToList();
                     // Shuffle using Random.value and take 3
-                    return all
-                        .OrderBy(_ => UnityEngine.Random.value)
-                        .Take(3)
-                        .ToList();
+                    return q;
                 }
 
                 return _availableQuests;
             }
           
         } 
-        public List<GuildQuestDefinition> GetAvailableQuests => AvailableQuests;
+        public List<GuildQuestInstance> GetAvailableQuests => AvailableQuests;
 
         private GuildQuestInstance _currentGuildQuest;
         public GuildQuestInstance CurrentGuildQuest => _currentGuildQuest;
@@ -121,7 +126,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
     public interface IGuildQuestGiverModuleHandler
     {
         void OnAcceptQuest(GuildQuestInstance instance);
-        List<GuildQuestDefinition> GetAvailableQuests { get; }
+        List<GuildQuestInstance> GetAvailableQuests { get; }
         GuildQuestInstance CurrentGuildQuest { get; }
         void OnQuestComplete();
     }

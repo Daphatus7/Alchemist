@@ -9,9 +9,11 @@ namespace _Script.Quest
     {
 
         public GuildQuestDefinition GuildQuestDefinition => (GuildQuestDefinition) QuestDefinition;
-        public GuildQuestInstance(GuildQuestDefinition def) : base(def)
+        private PlayerRankEnum _questRank; public PlayerRankEnum QuestRank => _questRank;
+        public GuildQuestInstance(GuildQuestDefinition def, PlayerRankEnum questRank) : base(def)
         {
-            QuestState = QuestState.InProgress;
+            QuestState = QuestState.NotStarted;
+            _questRank = questRank;
         }
 
         private bool _initialized = false;
