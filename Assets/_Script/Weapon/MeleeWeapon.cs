@@ -35,7 +35,7 @@ namespace _Script.Weapon
         {
             // Simple example: apply the parent's 'damage' directly
             // Maybe you do some random multiplier or critical chance, etc.
-            float actualDamage = target.ApplyDamage(damage);
+            float actualDamage = target.ApplyDamage(Random.Range(damageMin, damageMax));
             return actualDamage;
         }
 

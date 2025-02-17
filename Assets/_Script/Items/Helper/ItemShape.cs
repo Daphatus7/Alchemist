@@ -30,6 +30,7 @@ namespace _Script.Items.Helper
                         ItemShapeType.Square22 => 0,
                         ItemShapeType.Rectangle12 => 0,
                         ItemShapeType.Rectangle23 => 0,
+                        
                         ItemShapeType.Circle1 => 0,
                         ItemShapeType.LShape2 => 0,
                         ItemShapeType.LShape3 => 0,

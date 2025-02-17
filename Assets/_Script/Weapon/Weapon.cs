@@ -23,8 +23,9 @@ namespace _Script.Weapon
         protected bool isCoolingDown = false;
         public bool IsCoolingDown => isCoolingDown;
 
-        [Header("Damage Settings")]
-        [SerializeField] protected float damage = 1f;  // base damage
+        [Header("Damage Settings + should be set from weapon item")]
+        [SerializeField] protected float damageMin = 1f;
+        [SerializeField] protected float damageMax = 2f;
         [SerializeField] private List<string> targetTags; // only these tags can be damaged
         protected Collider2D weaponCollider;
 
@@ -44,7 +45,10 @@ namespace _Script.Weapon
         /// </summary>
         public void SetWeaponItem(WeaponItem weaponItem)
         {
-            damage = weaponItem.damage;
+
+            damageMin = weaponItem.damageMin;
+            damageMax = weaponItem.damageMax;
+            
             attackCooldown = weaponItem.attackSpeed;
         }
 

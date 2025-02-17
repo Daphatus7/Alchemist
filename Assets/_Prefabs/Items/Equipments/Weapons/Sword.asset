@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81c20331b29b487d953ed2e3728aa3ec, type: 3}
-  m_Name: Axe
+  m_Name: Sword
   m_EditorClassIdentifier: 
-  itemName: Axe
-  itemID: 0
+  itemName: 
+  itemID: 
   itemDescription: 
-  itemIcon: {fileID: 21300000, guid: 6a08ec4b334ea1c46b8171679417a74f, type: 3}
+  itemIcon: {fileID: -1839726451, guid: d9184dbb777e8e8489eb1e645a17d80a, type: 3}
   maxStackSize: 1
-  itemShapeType: 1
+  itemShapeType: 2
   rarity: 0
-  _value: 1
-  weaponType: 1
-  durability: 50
-  damageMin: 1
-  damageMax: 4
+  _value: 100
+  weaponType: 0
+  durability: 200
+  damageMin: 39
+  damageMax: 69
   attackSpeed: 1
   range: 1
-  weaponPrefab: {fileID: 5985536463145487033, guid: 717afa593bb6a4752956f0afde4e604e,
+  weaponPrefab: {fileID: 8222673930803448861, guid: 61d4ec3a6573e456e928c8adfcde371b,
     type: 3}
   toolType: 0

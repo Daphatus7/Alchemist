@@ -84,6 +84,10 @@ namespace _Script.Character.ActionStrategy
                     Destroy(_currentWeapon.gameObject);
                 }
                 _currentWeapon = weapon.GetComponent<Weapon.Weapon>();
+                if(_currentWeapon == null)
+                {
+                    _currentWeapon = weapon.GetComponentInChildren<Weapon.Weapon>();
+                }
                 _currentWeapon.SetWeaponItem(weaponItem);
                 _currentWeapon.onHitTarget += OnWeaponHit;
             }

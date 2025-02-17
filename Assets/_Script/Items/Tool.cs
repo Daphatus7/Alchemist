@@ -1,4 +1,3 @@
-using _Script.Character;
 using _Script.Items.AbstractItemTypes;
 using UnityEngine;
 
@@ -14,6 +13,7 @@ namespace _Script.Items
     {
         Chop,
         Mine,
+        Stab,
         None,
     }
 }
