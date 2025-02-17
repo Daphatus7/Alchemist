@@ -8,6 +8,7 @@ using _Script.Managers;
 using _Script.NPC.NPCFrontend;
 using _Script.Quest;
 using _Script.Quest.GuildQuestUI;
+using _Script.Quest.QuestDef;
 using _Script.UserInterface;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;

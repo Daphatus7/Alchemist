@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Script.Quest
+namespace _Script.Quest.QuestDef
 {
     /// <summary>
     /// Player holding instance

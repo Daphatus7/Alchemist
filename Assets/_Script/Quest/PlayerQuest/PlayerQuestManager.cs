@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using _Script.Quest.QuestDef;
 using _Script.UserInterface;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;

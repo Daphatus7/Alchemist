@@ -9,6 +9,7 @@ using _Script.Map;
 using _Script.NPC.NpcBackend;
 using _Script.NPC.NpcBackend.NpcModules;
 using _Script.Quest.PlayerQuest;
+using _Script.Quest.QuestDef;
 using _Script.Utilities.ServiceLocator;
 using UnityEditor.PackageManager;
 using UnityEngine;

@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace _Script.Quest
+namespace _Script.Quest.QuestDef
 {
     /// <summary>
     /// Enter this destination to complete the quest

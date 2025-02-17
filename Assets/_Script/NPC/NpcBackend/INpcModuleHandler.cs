@@ -3,6 +3,7 @@
 
 using _Script.NPC.NpcBackend.NpcModules;
 using _Script.Quest;
+using _Script.Quest.QuestDef;
 
 namespace _Script.NPC.NpcBackend
 {

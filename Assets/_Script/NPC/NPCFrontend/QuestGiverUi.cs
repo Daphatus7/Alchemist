@@ -6,6 +6,7 @@ using System.Collections;
 using _Script.NPC.NpcBackend;
 using _Script.Quest;
 using _Script.Quest.PlayerQuest;
+using _Script.Quest.QuestDef;
 using _Script.UserInterface;
 using _Script.Utilities.ServiceLocator;
 using TMPro;

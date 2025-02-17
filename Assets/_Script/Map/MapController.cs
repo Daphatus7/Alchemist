@@ -5,6 +5,7 @@ using _Script.Managers;
 using _Script.Map.WorldMap;
 using _Script.Map.WorldMap.MapNode;
 using _Script.Quest;
+using _Script.Quest.QuestDef;
 using UnityEngine;
 
 
@@ -52,7 +53,8 @@ namespace _Script.Map
         
         public void CreateQuest(GuildQuestInstance questInstance)
         {
-            InitializeGrid();
+            ResetGrid();
+            Debug.Log("Creating quest map...");
             var distance = questInstance.DistanceToTravel;
             //currently
             var path = CreatePath(HexGrid.GenerateNodeAtLevel(1) //start of the node

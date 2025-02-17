@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using _Script.NPC.NPCFrontend;
 using _Script.Quest;
+using _Script.Quest.QuestDef;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 

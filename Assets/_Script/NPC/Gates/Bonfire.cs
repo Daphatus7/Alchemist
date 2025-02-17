@@ -22,7 +22,6 @@ namespace _Script.NPC.Gates
             //Mark the current dungeon as completed
             GameManager.Instance.UnloadCurrentAdditiveScene();
             //MapExplorerUI.Instance.MarkExploringNodeAsCompleted();
-            QuestManager.Instance.CompleteGuildQuest();
         }
         
         protected void OnTriggerEnter2D(Collider2D other)

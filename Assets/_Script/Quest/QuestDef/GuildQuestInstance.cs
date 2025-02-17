@@ -3,7 +3,7 @@
 
 using _Script.Character.PlayerRank;
 
-namespace _Script.Quest
+namespace _Script.Quest.QuestDef
 {
     public class GuildQuestInstance : QuestInstance
     {

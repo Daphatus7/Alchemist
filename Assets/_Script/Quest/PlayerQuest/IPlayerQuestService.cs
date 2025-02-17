@@ -1,6 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 29 01 2025 01 46
 
+using _Script.Quest.QuestDef;
 using _Script.Utilities.ServiceLocator;
 
 namespace _Script.Quest.PlayerQuest

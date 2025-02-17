@@ -1,7 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 29 01 2025 01 35
 
-namespace _Script.Quest
+namespace _Script.Quest.QuestDef
 {
     public class MainQuestInstance : QuestInstance
     {

@@ -7,10 +7,10 @@ using System.Linq;
 using _Script.Map;
 using _Script.NPC.NpcBackend.NpcModules;
 using _Script.Quest.PlayerQuest;
+using _Script.Quest.QuestDef;
 using _Script.UserInterface;
 using _Script.Utilities.GenericUI;
 using _Script.Utilities.ServiceLocator;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,7 +26,7 @@ namespace _Script.Quest.GuildQuestUI
         [SerializeField] private LayoutGroup questDisplayLayoutGroup;
         [SerializeField] private GameObject questDisplayPrefab;
         
-        
+        // Reuse the existing display UIs instead of destroying them
         private readonly List<GuildQuestDisplay> _questDisplays = new List<GuildQuestDisplay>();
         private IGuildQuestGiverModuleHandler _handler;
         
@@ -35,9 +35,9 @@ namespace _Script.Quest.GuildQuestUI
             ServiceLocator.Instance.Register<IGuildQuestUIHandler>(this);
             _uiPanels = new Dictionary<GuildQuestUIType, GameObject>
             {
-                {GuildQuestUIType.Quest, guildQuestDisplayPanel},
-                {GuildQuestUIType.Reward, guildRewardDisplayPanel},
-                {GuildQuestUIType.InProgress, guildInProgressDisplayPanel}
+                { GuildQuestUIType.Quest, guildQuestDisplayPanel },
+                { GuildQuestUIType.Reward, guildRewardDisplayPanel },
+                { GuildQuestUIType.InProgress, guildInProgressDisplayPanel }
             };
             HideUI();
         }
@@ -48,19 +48,45 @@ namespace _Script.Quest.GuildQuestUI
                 ServiceLocator.Instance.Unregister<IGuildQuestUIHandler>();
         }
         
+        /// <summary>
+        /// Loads quest displays by reusing existing UI objects and instantiating new ones only if needed.
+        /// </summary>
         private void LoadQuestDisplays(List<GuildQuestInstance> instances)
         {
-            foreach (var o in _questDisplays.Where(o => o.gameObject != null))
+            // Reuse existing quest displays.
+            int existingCount = _questDisplays.Count;
+            for (int i = 0; i < existingCount; i++)
             {
-                Destroy(o.gameObject);
+                if (i < instances.Count)
+                {
+                    // Update the existing display with new quest data.
+                    var i1 = i;
+                    _questDisplays[i].SetDisplay(
+                        instances[i].QuestRank.ToString(),
+                        instances[i].GuildQuestDefinition.questName,
+                        instances[i].GuildQuestDefinition.description,
+                        instances[i].GuildQuestDefinition.reward.ToString(),
+                        () => OnQuestAcceptButtonClicked(instances[i1])
+                    );
+                    _questDisplays[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    // Hide any extra displays.
+                    _questDisplays[i].gameObject.SetActive(false);
+                }
             }
 
-            foreach (var questDefinition in instances)
+            // Instantiate additional displays if there are more quests than existing displays.
+            for (int i = existingCount; i < instances.Count; i++)
             {
-                AddQuestDisplay(questDefinition);
+                AddQuestDisplay(instances[i]);
             }
         }
         
+        /// <summary>
+        /// Instantiates a new quest display, sets its content, and adds it to the pool.
+        /// </summary>
         private void AddQuestDisplay(GuildQuestInstance instance)
         {
             var questDisplay = Instantiate(questDisplayPrefab, questDisplayLayoutGroup.transform)
@@ -71,7 +97,6 @@ namespace _Script.Quest.GuildQuestUI
                 instance.GuildQuestDefinition.questName,
                 instance.GuildQuestDefinition.description,
                 instance.GuildQuestDefinition.reward.ToString(),
-                // Use a lambda so it is called on button click, not immediately
                 () => OnQuestAcceptButtonClicked(instance)
             );
 
@@ -80,11 +105,11 @@ namespace _Script.Quest.GuildQuestUI
         
         private void OnQuestAcceptButtonClicked(GuildQuestInstance questInstance)
         {
-            //Create the quest 
+            // Create the quest 
             var newQuest = QuestManager.Instance.CreateGuildQuest(questInstance);
-            if(newQuest != null)
+            if (newQuest != null)
             {
-                //Call the handler that hte quest has been accepted
+                // Notify the handler that the quest has been accepted.
                 _handler.OnAcceptQuest(newQuest);
                 HideUI();
             }
@@ -116,7 +141,7 @@ namespace _Script.Quest.GuildQuestUI
         
         private void ConfirmReward()
         {
-            if(_handler == null)
+            if (_handler == null)
             {
                 Debug.LogError("Handler is null");
                 return;
@@ -131,7 +156,7 @@ namespace _Script.Quest.GuildQuestUI
             Show(GuildQuestUIType.InProgress);
             _handler = handler;
             var inProgressUI = guildInProgressDisplayPanel.GetComponent<TextAndButton>();
-            inProgressUI.LoadUIContent("currentQuest : " + currentQuest.QuestDefinition.questName,HideUI);
+            inProgressUI.LoadUIContent("currentQuest : " + currentQuest.QuestDefinition.questName, HideUI);
         }
 
         private void Show(GuildQuestUIType type)
@@ -149,7 +174,7 @@ namespace _Script.Quest.GuildQuestUI
             {
                 o.Value.SetActive(false);
             }
-            _handler = null;
+            //_handler = null;
         }
     }
     

@@ -13,7 +13,6 @@ namespace _Script.Managers
 {
     public class DatabaseManager : PersistentSingleton<DatabaseManager>
     {
-        [SerializeField] private ItemDatabase _itemDatabase;
         [SerializeField] private EnemyDatabase _enemyDatabase;
         
         private Dictionary<string, ItemData> _itemDictionary;
@@ -22,20 +21,6 @@ namespace _Script.Managers
         protected override void Awake()
         {
             base.Awake();
-            
-            // Initialize the runtime item database from the asset.
-            if (_itemDatabase != null)
-            {
-                _itemDictionary = CreateItemDictionary();
-                // Build the item dictionary from the asset (assuming the method exists)
-                
-                Debug.Log("DatabaseManager: ItemDatabase loaded successfully.");
-                ItemLootable.DropItem(new Vector3(),_itemDictionary["mat023"], 1);
-            }
-            else
-            {
-                Debug.LogError("DatabaseManager: ItemDatabase asset is null.");
-            }
             
             // Initialize the enemy prefab dictionary from the enemy database asset.
             if (_enemyDatabase != null)
@@ -78,20 +63,20 @@ namespace _Script.Managers
         /// <summary>
         /// Retrieves the item data corresponding to the given item ID.
         /// </summary>
-        public ItemData GetItemData(string itemName)
-        {
-            if (!_itemDatabase)
-            {
-                Debug.LogError("DatabaseManager: ItemDatabase is null.");
-                return null;
-            }
-            if (_itemDictionary.TryGetValue(itemName, out var item))
-            {
-                return item;
-            }
-            Debug.LogError("DatabaseManager: ItemDatabase does not contain item: " + itemName);
-            return null;
-        }
+        // public ItemData GetItemData(string itemName)
+        // {
+        //     if (!_itemDatabase)
+        //     {
+        //         Debug.LogError("DatabaseManager: ItemDatabase is null.");
+        //         return null;
+        //     }
+        //     if (_itemDictionary.TryGetValue(itemName, out var item))
+        //     {
+        //         return item;
+        //     }
+        //     Debug.LogError("DatabaseManager: ItemDatabase does not contain item: " + itemName);
+        //     return null;
+        // }
         
         /// <summary>
         /// Builds a dictionary mapping enemy names to their corresponding prefabs from the enemy database asset.
@@ -128,16 +113,16 @@ namespace _Script.Managers
             return dict;
         }
         
-        private Dictionary<string, ItemData> CreateItemDictionary()
-        {
-            var dict = new Dictionary<string, ItemData>();
-            var items = _itemDatabase.Items;
-            foreach(var item in items)
-            {
-                Debug.Log(item.itemData.itemID + " x " + item.itemData.itemName);
-               dict.Add(item.itemData.itemID, item.itemData);
-            }
-            return dict;
-        }
+        // private Dictionary<string, ItemData> CreateItemDictionary()
+        // {
+        //     var dict = new Dictionary<string, ItemData>();
+        //     var items = _itemDatabase.Items;
+        //     foreach(var item in items)
+        //     {
+        //         Debug.Log(item.itemData.itemID + " x " + item.itemData.itemName);
+        //        dict.Add(item.itemData.itemID, item.itemData);
+        //     }
+        //     return dict;
+        // }
     }
 }
