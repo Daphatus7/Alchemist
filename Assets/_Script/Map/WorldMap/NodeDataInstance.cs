@@ -4,6 +4,7 @@
 using _Script.Character.PlayerRank;
 using _Script.Map.WorldMap.MapNode;
 using _Script.Quest;
+using UnityEngine;
 
 namespace _Script.Map.WorldMap
 {
@@ -13,8 +14,6 @@ namespace _Script.Map.WorldMap
         public NodeType NodeType { get; protected internal set; }
         public string Description { get; protected set; }
         public string MapName { get; protected set; }
-
-        // Insert generation instruction
         
         public NodeDataInstance(
             string mapName,

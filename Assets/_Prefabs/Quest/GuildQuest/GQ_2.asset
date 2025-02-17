@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GQ_2
   m_EditorClassIdentifier: 
   questID: GQ_2
-  questName: GQ_2
+  questName: Collect Monster Egg
   objectives:
   - objectiveData:
-      rid: 3211680286784356463
+      rid: 3211680451372777615
     isComplete: 0
   reward:
     gold: 500
@@ -26,14 +26,13 @@ MonoBehaviour:
       amount: 1
   questRank: 6
   description: Go to Area 1
-  distanceMax: 5
-  distanceMin: 7
+  distanceMax: 3
+  distanceMin: 4
   references:
     version: 2
     RefIds:
-    - rid: 3211680286784356463
-      type: {class: ExplorationObjective, ns: _Script.Quest, asm: Assembly-CSharp}
+    - rid: 3211680451372777615
+      type: {class: CollectObjective, ns: _Script.Quest, asm: Assembly-CSharp}
       data:
         requiredCount: 1
-        areaID: Area1
-        isExplored: 0
+        item: {fileID: 11400000, guid: 3ad3d0a8bf36347baa2eb7e8733b222c, type: 2}

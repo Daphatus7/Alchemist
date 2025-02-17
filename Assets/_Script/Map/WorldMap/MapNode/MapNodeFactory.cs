@@ -20,7 +20,7 @@ namespace _Script.Map.WorldMap.MapNode
         public NodeDataInstance CreateNode(NodeType nodeType, PlayerRankEnum mapRank, int seed)
         {
             // Seed the random generator for deterministic selection.
-            Random.InitState(seed);
+            //Random.InitState(seed);
 
             return nodeType switch
             {

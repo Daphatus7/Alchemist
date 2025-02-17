@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using _Script.Character.PlayerRank;
 using _Script.Map.WorldMap.MapNode;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -34,7 +33,7 @@ namespace _Script.Map.WorldMap
         /// <summary>
         /// The radius (in hex steps) in which nodes are considered "in view."
         /// </summary>
-        private const int ViewRadius = 2;
+        private const int ViewRadius = 10;
 
         /// <summary>
         /// The overall radius of the hexagonal grid (determines how large the grid is).
@@ -96,7 +95,7 @@ namespace _Script.Map.WorldMap
         {
             foreach (var node in _hexNodes)
             {
-                node.Value.NodeDataInstance = GenerateNodeData(node.Value.NodeType, PlayerRankEnum.S);
+                node.Value.NodeDataInstance = GenerateNodeData(node.Value.NodeDataInstance.NodeType, PlayerRankEnum.S);
             }
         }
 
@@ -122,7 +121,6 @@ namespace _Script.Map.WorldMap
             // Regenerate grid and neighbors
             GenerateGrid();
             PrecomputeNeighbors();
-            //GenerateBranchingStreams();
             // Notify listeners that nodes have updated
             foreach (var node in _hexNodes.Values)
             {
@@ -163,7 +161,7 @@ namespace _Script.Map.WorldMap
         /// This is a sample feature that forks paths based on random direction adjustments,
         /// eventually stopping at the boundary or if a certain queue limit is reached.
         /// </summary>
-        private void GenerateBranchingStreams()
+        public void GenerateBranchingStreams()
         {
             // Start from the center node
             HexNode startNode = GetHexNode(0, 0, 0);
@@ -183,7 +181,7 @@ namespace _Script.Map.WorldMap
             while (queue.Count > 0 && queue.Count < 100)
             {
                 var end = queue.Dequeue();
-                end.NodeType = NodeType.Bonfire;  // For example, label each "end" node as a bonfire
+                end.NodeDataInstance.NodeType = NodeType.Bonfire;  // For example, label each "end" node as a bonfire
                 var direction = DirectionVector(end.Position, startNode.Position);
 
                 // Randomly generate a number of forks from this node
@@ -408,7 +406,7 @@ namespace _Script.Map.WorldMap
         {
             foreach (var node in path)
             {
-                node.NodeType = GenerateHexType();
+                node.NodeDataInstance.NodeType = GenerateHexType();
                 NotifyNodeChanged(node);
             }
         }
@@ -441,7 +439,7 @@ namespace _Script.Map.WorldMap
         /// <param name="nodeType">The node's type (e.g., forest, mountain, resource).</param>
         /// <param name="rank"></param>
         /// <returns>A new <see cref="NodeData"/> instance associated with that type.</returns>
-        public  NodeDataInstance GenerateNodeData(NodeType nodeType, PlayerRankEnum rank)
+        public NodeDataInstance GenerateNodeData(NodeType nodeType, PlayerRankEnum rank)
         {
             return MapNodeFactory.Instance.CreateNode(nodeType, rank,0);
         }
@@ -702,7 +700,7 @@ namespace _Script.Map.WorldMap
             var startNode = GetHexNode(0, 0, 0);
             
             // If the start node is valid, use it
-            if (startNode != null && startNode.NodeType != NodeType.Obstacle)
+            if (startNode != null && startNode.NodeDataInstance.NodeType != NodeType.Obstacle)
             {
                 _playerPosition = startNode.Position;
                 return _playerPosition;
@@ -717,7 +715,7 @@ namespace _Script.Map.WorldMap
                     for (int dy = Mathf.Max(-r, -dx - r); dy <= Mathf.Min(r, -dx + r); dy++)
                     {
                         int dz = -dx - dy;
-                        if (_hexNodes.TryGetValue((dx, dy, dz), out var node) && node.NodeType != NodeType.Obstacle)
+                        if (_hexNodes.TryGetValue((dx, dy, dz), out var node) && node.NodeDataInstance.NodeType != NodeType.Obstacle)
                         {
                             _playerPosition = node.Position;
                             return _playerPosition;

@@ -10,8 +10,7 @@ namespace _Script.Map.WorldMap
     {
         public int GridRadius;
         // Instead of a dictionary, store a list of KeyValuePairs or a custom struct
-        public readonly List<(NodeType type, int weight)> WeightedTypes;
-        
+
         // Precomputed cumulative weights
         private readonly List<(NodeType type, int cumulativeWeight)> _cumulativeList;
         private readonly int _totalWeight;
@@ -22,15 +21,15 @@ namespace _Script.Map.WorldMap
             Vector3Int endPosition = default,
             //Weight
             int gridRadius = 10,
-            int resourceWeight = 15,
+            int resourceWeight = 10,
             int enemyWeight = 5,
-            int campfireWeight = 1,
-            int bossWeight = 1)
+            int campfireWeight = 2,
+            int bossWeight = 2)
         {
             GridRadius = gridRadius;
 
             // Initialize the base weights
-            WeightedTypes = new List<(NodeType, int)>
+            List<(NodeType type, int weight)> weightedTypes = new()
             {
                 (NodeType.Resource, resourceWeight),
                 (NodeType.Enemy, enemyWeight),
@@ -39,9 +38,9 @@ namespace _Script.Map.WorldMap
             };
 
             // Precompute cumulative weights
-            _cumulativeList = new List<(NodeType, int)>(WeightedTypes.Count);
+            _cumulativeList = new List<(NodeType, int)>(weightedTypes.Count);
             int cumulative = 0;
-            foreach (var (type, w) in WeightedTypes)
+            foreach (var (type, w) in weightedTypes)
             {
                 cumulative += w;
                 _cumulativeList.Add((type, cumulative));

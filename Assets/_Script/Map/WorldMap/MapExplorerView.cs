@@ -220,7 +220,7 @@ namespace _Script.Map.WorldMap
         private HexNodeDisplay ConfigureNodeDisplay(HexNodeDisplay display, HexNode hexNode)
         {
             // Set the initial sprite based on the node type.
-            display.SetImage(GetImageByNodeType(hexNode.NodeType));
+            display.SetImage(GetImageByNodeType(hexNode.NodeDataInstance.NodeType));
             display.HexNode = hexNode;
 
             // Wire up UI events: when the player clicks on a node, notify the controller.

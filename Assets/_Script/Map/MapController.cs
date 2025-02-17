@@ -176,10 +176,13 @@ namespace _Script.Map
             //set default difficulty
             foreach (var node in HexGrid.GetAllHexNodes())
             {
+                //dont change the order
                 var nodeType = HexGrid.GenerateHexType();
                 node.Difficulty = GetMapDifficulty((PlayerRankEnum)node.NodeLevel + 1);
                 node.NodeDataInstance = HexGrid.GenerateNodeData(nodeType, (PlayerRankEnum)node.NodeLevel + 1);
             }
+            
+            //HexGrid.GenerateBranchingStreams();
             
             var spawnPoint = HexGrid.GenerateSpawnPoint();
             

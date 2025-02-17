@@ -29,13 +29,7 @@ namespace _Script.Map.WorldMap
         public Vector3Int Position => _position;
 
         public HexNode Parent;
-
-        public NodeType NodeType
-        {
-            get => NodeDataInstance.NodeType;
-            set => NodeDataInstance.NodeType = value;
-        }
-
+        
         private NodeDataInstance _nodeDataInstance;
 
         public NodeDataInstance NodeDataInstance
