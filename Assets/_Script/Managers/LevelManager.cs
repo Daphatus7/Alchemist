@@ -154,7 +154,6 @@ namespace _Script.Managers
                 _astarPath.Scan();
                 MovePlayerToScene(SubGameManager.Instance.SpawnPoint.position, _currentAdditiveScene);
             }
-            // Subscribe using a NAMED method, not an anonymous delegate
         }
 
         /// <summary>

@@ -198,7 +198,6 @@ namespace _Script.Map.Volume
             // Spawn Quest Object if applicable
             if (nodeDataInstance is QuestNodeInstance questNodeInstance)
             {
-                Debug.Log("Spawning quest object.");
                 switch (questNodeInstance.ObjectiveType)
                 {
                     case ObjectiveType.Collect:
@@ -216,11 +215,9 @@ namespace _Script.Map.Volume
                     case ObjectiveType.Kill:
                         if (questNodeInstance is BossNodeInstance bossNodeInstance)
                         {
-                            Debug.Log("Spawning boss object.");
                             var bossPrefab = DatabaseManager.Instance.GetEnemyPrefab(bossNodeInstance.BossName);
                             if (bossPrefab)
                             {
-                                Debug.Log($"Spawning boss {bossNodeInstance.BossName}.");
                                 Vector3 spawnPos = spawnPoint.position + GetRandomOffset();
                                 var bossObj = Instantiate(bossPrefab, spawnPos, Quaternion.identity);
                                 bossObj.transform.parent = transform;

@@ -24,13 +24,13 @@ MonoBehaviour:
   enemyFolderPath: Assets/_Prefabs/Enemy
   enemyDataPairs:
   - enemyName: Boss_1
-    enemyPrefab: {fileID: 8794507309829770285, guid: 834ade3290d1a4559843de28a1e332bb,
+    enemyPrefab: {fileID: 4567029760040138815, guid: 38df379b5a15a44179855c929ac2c92e,
       type: 3}
   - enemyName: Boss_2
-    enemyPrefab: {fileID: 8794507309829770285, guid: da007bac48e954bd58470b66bc08c89a,
+    enemyPrefab: {fileID: 4567029760040138815, guid: 0254e72619aca4f7390dd199197bc33e,
       type: 3}
   - enemyName: Boss_3
-    enemyPrefab: {fileID: 8794507309829770285, guid: a4f0292075d0340b7a0ef41fb86f1aeb,
+    enemyPrefab: {fileID: 4567029760040138815, guid: 840bb019a31bf4fea8b355d84656bda2,
       type: 3}
   - enemyName: Boss_a
     enemyPrefab: {fileID: 8794507309829770285, guid: c2a34cad2d85845a796abea0bc921222,
