@@ -88,7 +88,9 @@ namespace _Script.Enemy.EnemyCharacter
         
         public float ApplyDamage(float damage)
         {
-            return Health -= damage;
+
+            Health -= damage;
+            return damage;
         }
 
 
