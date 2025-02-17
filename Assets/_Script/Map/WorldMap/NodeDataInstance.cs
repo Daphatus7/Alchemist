@@ -2,6 +2,7 @@
 // 14 02 2025 02 07
 
 using _Script.Character.PlayerRank;
+using _Script.Items.AbstractItemTypes._Script.Items;
 using _Script.Map.WorldMap.MapNode;
 using _Script.Quest;
 using UnityEngine;
@@ -60,7 +61,7 @@ namespace _Script.Map.WorldMap
     
     public class CollectNodeInstance : QuestNodeInstance
     {
-        public string ItemName { get; private set; }
+        public ItemData ItemData { get; private set; }
         
         public CollectNodeInstance(GuildQuestInstance questInstance, PlayerRankEnum mapRank)
             : base(
@@ -69,7 +70,7 @@ namespace _Script.Map.WorldMap
                 NodeType.Resource,
                 mapRank)
         {
-            ItemName = ((CollectObjective)questInstance.GuildQuestDefinition.objectives[0].objectiveData).item.itemName;
+            ItemData = ((CollectObjective)questInstance.GuildQuestDefinition.objectives[0].objectiveData).item;
         }
         
         public override ObjectiveType ObjectiveType => ObjectiveType.Collect;

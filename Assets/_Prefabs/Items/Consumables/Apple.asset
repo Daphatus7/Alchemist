@@ -13,13 +13,11 @@ MonoBehaviour:
   m_Name: Apple
   m_EditorClassIdentifier: 
   itemName: Apple
-  itemID: 0
+  itemID: Apple
   itemDescription: Every Day An Apple
   itemIcon: {fileID: 21300000, guid: da7129ed6a246f048a49d8d97de2d2d4, type: 3}
   maxStackSize: 1
   itemShapeType: 0
   rarity: 0
   _value: 2
-  foodValues:
-  - FoodType: 0
-    Value: 1
+  foodEffects: []

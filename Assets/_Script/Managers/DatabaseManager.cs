@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using _Script.Enemy.EnemyDatabase;
 using _Script.Items.AbstractItemTypes._Script.Items;
+using _Script.Items.Lootable;
 using _Script.Managers.Database;
 using _Script.Managers.Database._Script.Managers.Database;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace _Script.Managers
         [SerializeField] private ItemDatabase _itemDatabase;
         [SerializeField] private EnemyDatabase _enemyDatabase;
         
-        private ItemDatabaseRuntime _runtimeItemDatabase;
+        private Dictionary<string, ItemData> _itemDictionary;
         private Dictionary<string, GameObject> _enemyPrefabDictionary;
         
         protected override void Awake()
@@ -25,8 +26,11 @@ namespace _Script.Managers
             // Initialize the runtime item database from the asset.
             if (_itemDatabase != null)
             {
-                _runtimeItemDatabase = new ItemDatabaseRuntime(_itemDatabase);
+                _itemDictionary = CreateItemDictionary();
                 // Build the item dictionary from the asset (assuming the method exists)
+                
+                Debug.Log("DatabaseManager: ItemDatabase loaded successfully.");
+                ItemLootable.DropItem(new Vector3(),_itemDictionary["mat023"], 1);
             }
             else
             {
@@ -37,6 +41,7 @@ namespace _Script.Managers
             if (_enemyDatabase != null)
             {
                 _enemyPrefabDictionary = CreateEnemyDictionary();
+               
             }
             else
             {
@@ -49,7 +54,7 @@ namespace _Script.Managers
         /// </summary>
         public GameObject GetEnemyPrefab(string enemyName)
         {
-            if (_enemyDatabase == null)
+            if (!_enemyDatabase)
             {
                 Debug.LogError("DatabaseManager: EnemyDatabase is null.");
                 return null;
@@ -75,14 +80,12 @@ namespace _Script.Managers
         /// </summary>
         public ItemData GetItemData(string itemName)
         {
-            if (_itemDatabase == null)
+            if (!_itemDatabase)
             {
                 Debug.LogError("DatabaseManager: ItemDatabase is null.");
                 return null;
             }
-            
-            var item = _runtimeItemDatabase.GetItemData(itemName);
-            if (item != null)
+            if (_itemDictionary.TryGetValue(itemName, out var item))
             {
                 return item;
             }
@@ -122,6 +125,18 @@ namespace _Script.Managers
                 }
             }
             
+            return dict;
+        }
+        
+        private Dictionary<string, ItemData> CreateItemDictionary()
+        {
+            var dict = new Dictionary<string, ItemData>();
+            var items = _itemDatabase.Items;
+            foreach(var item in items)
+            {
+                Debug.Log(item.itemData.itemID + " x " + item.itemData.itemName);
+               dict.Add(item.itemData.itemID, item.itemData);
+            }
             return dict;
         }
     }

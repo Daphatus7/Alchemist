@@ -138,11 +138,10 @@ namespace _Script.Map
                     case ObjectiveType.Collect:
                         if (questNodeInstance is CollectNodeInstance collectNodeInstance)
                         {
-                            var itemData = DatabaseManager.Instance.GetItemData(collectNodeInstance.ItemName);
-                            if (itemData)
+                            if (collectNodeInstance.ItemData)
                             {
                                 Vector3 pos = getSpawnPos();
-                                var lootObj = ItemLootable.DropItem(pos, itemData, 1);
+                                var lootObj = ItemLootable.DropItem(pos, collectNodeInstance.ItemData, 1);
                                 lootObj.transform.parent = transform;
                             }
                         }

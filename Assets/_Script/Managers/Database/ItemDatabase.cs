@@ -1,3 +1,6 @@
+// Author : Peiyu Wang @ Daphatus
+// Updated: [Current Date]
+
 using System.Collections.Generic;
 using System.Linq;
 using _Script.Items.AbstractItemTypes._Script.Items;
@@ -29,6 +32,20 @@ namespace _Script.Managers.Database
             { ItemType.Fruit, 0 },
             { ItemType.Torch, 0 },
             { ItemType.Container, 0 },
+        };
+
+        //==================================
+        // Custom mapping for ItemType abbreviations
+        //==================================
+        private static readonly Dictionary<ItemType, string> ItemTypeAbbreviations = new Dictionary<ItemType, string>()
+        {
+            { ItemType.Equipment, "EQ" },
+            { ItemType.Consumable, "C" },
+            { ItemType.Material, "M" },
+            { ItemType.Seed, "S" },
+            { ItemType.Fruit, "F" },
+            { ItemType.Torch, "TO" },
+            { ItemType.Container, "CT" },
         };
         
         //==================================
@@ -110,8 +127,6 @@ namespace _Script.Managers.Database
             }
 
             // 2. Prepare the data to export
-            // Here we only export partial info (ID, Name, Description, Type...), 
-            // but you can add more fields as needed.
             ItemDatabaseExport exportData = new ItemDatabaseExport();
             exportData.items = new List<ItemExportData>();
 
@@ -119,7 +134,6 @@ namespace _Script.Managers.Database
             {
                 if (wrapped.itemData == null) continue;
 
-                // Gather fields for export
                 var item = wrapped.itemData;
                 var exportItem = new ItemExportData()
                 {
@@ -128,14 +142,12 @@ namespace _Script.Managers.Database
                     itemDescription = item.ItemDescription,
                     itemType = item.ItemType.ToString(),
                     maxStackSize = item.MaxStackSize,
-                    // Add more fields here if needed
                 };
 
                 exportData.items.Add(exportItem);
             }
 
             // 3. Convert to JSON
-            // You can switch to Newtonsoft.Json or another library if you need more advanced features
             string json = JsonUtility.ToJson(exportData, prettyPrint: true);
 
             // 4. Write the file
@@ -241,7 +253,6 @@ namespace _Script.Managers.Database
             Debug.LogWarning("This operation is only available in the Unity Editor environment.");
 #endif
         }
-
 
         //==================================
         // Removal operations: soft-delete from Database list
@@ -360,22 +371,35 @@ namespace _Script.Managers.Database
         }
 
         //==================================
-        // Automatically assign an ID when adding an item
+        // Automatically assign an ID when adding an item using naming convention:
+        // Abbreviation (from ItemType) + "_" + a three-digit number starting from 000.
+        // For example, for a Potion item of type Consumable, the ID might be "P_000".
         //==================================
         private void EnsureItemID(ItemData item)
         {
-            if (!string.IsNullOrEmpty(item.ItemID)) return;
+            //if (!string.IsNullOrEmpty(item.ItemID)) return;
 
             var type = item.ItemType; 
             if (!ItemTypeCounters.ContainsKey(type))
             {
                 ItemTypeCounters[type] = 0;
             }
-
-            ItemTypeCounters[type]++;
+            
+            // Use the current counter value (starting at 0)
             int newIndex = ItemTypeCounters[type];
-            string newID = $"{type}_{newIndex:000}";
+
+            // Get the abbreviation from our mapping; if not found, fallback to the first letter of the type name.
+            string abbreviation;
+            if (!ItemTypeAbbreviations.TryGetValue(type, out abbreviation))
+            {
+                abbreviation = type.ToString().Substring(0, 1);
+            }
+
+            string newID = $"{abbreviation}_{newIndex:000}";
             item.ItemID = newID;
+
+            // Increment the counter for this type.
+            ItemTypeCounters[type] = newIndex + 1;
         }
 
         //==================================

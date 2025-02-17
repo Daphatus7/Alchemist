@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HealthPotion
   m_EditorClassIdentifier: 
   itemName: Health Potion
-  itemID: 0
+  itemID: Potion
   itemDescription: 'Health Potion
 
 '
@@ -22,6 +22,4 @@ MonoBehaviour:
   itemShapeType: 0
   rarity: 0
   _value: 5
-  foodValues:
-  - FoodType: 0
-    Value: 5
+  foodEffects: []
