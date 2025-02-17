@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GQ_1
   m_EditorClassIdentifier: 
   questID: GQ_1
-  questName: GQ_1
+  questName: Kill The Tough Boss
   objectives:
   - objectiveData:
-      rid: 3211680297704227071
+      rid: 3211680432894771256
     isComplete: 0
   reward:
     gold: 500
@@ -26,13 +26,14 @@ MonoBehaviour:
       amount: 1
   questRank: 6
   description: Go to d1
-  distanceMax: 5
-  distanceMin: 6
+  distanceMax: 1
+  distanceMin: 1
   references:
     version: 2
     RefIds:
-    - rid: 3211680297704227071
-      type: {class: CollectObjective, ns: _Script.Quest, asm: Assembly-CSharp}
+    - rid: 3211680432894771256
+      type: {class: BossKillObjective, ns: _Script.Quest, asm: Assembly-CSharp}
       data:
         requiredCount: 1
-        item: {fileID: 11400000, guid: ee628e0f627c345a08c05b0a2617c490, type: 2}
+        enemyID: Boss_3
+        mapName: E_BossMap_1

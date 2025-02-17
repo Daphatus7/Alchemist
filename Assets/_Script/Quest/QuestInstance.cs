@@ -95,7 +95,7 @@ namespace _Script.Quest
                 var killObj = (KillObjective) obj.objectiveData;
                 
                 // Skip if the killed enemy is not the required enemy
-                if (killObj.enemy.enemyID != enemyID) return;
+                if (killObj.enemyID != enemyID) return;
                 obj.CurrentCount++;
                 if (obj.CurrentCount >= obj.objectiveData.requiredCount)
                 {
@@ -155,7 +155,7 @@ namespace _Script.Quest
                     switch (obj.objectiveData.Type)
                     {
                         case ObjectiveType.Kill:
-                            status += "Kill " + ((KillObjective) obj.objectiveData).enemy.enemyID + " " + obj.CurrentCount + "/" + obj.objectiveData.requiredCount + "\n";
+                            status += "Kill " + ((KillObjective) obj.objectiveData).enemyID + " " + obj.CurrentCount + "/" + obj.objectiveData.requiredCount + "\n";
                             break;
                         case ObjectiveType.Collect:
                             status += "Collect " + ((CollectObjective) obj.objectiveData).item.itemID + " " + obj.CurrentCount + "/" + obj.objectiveData.requiredCount + "\n";

@@ -30,7 +30,11 @@ namespace _Script.Map.WorldMap
 
         public HexNode Parent;
 
-        public NodeType NodeType { get; set; }
+        public NodeType NodeType
+        {
+            get => NodeDataInstance.NodeType;
+            set => NodeDataInstance.NodeType = value;
+        }
 
         private NodeDataInstance _nodeDataInstance;
 
@@ -65,14 +69,11 @@ namespace _Script.Map.WorldMap
         };
 
         // Constructor
-        public HexNode(Vector3Int position, NodeType nodeType)
+        public HexNode(Vector3Int position)
         {
             _position = position;
             if (_position.x + _position.y + _position.z != 0)
                 throw new ArgumentException("Invalid cube coordinates");
-            NodeType = nodeType;
-            if (nodeType == NodeType.Obstacle)
-                IsBlocked = true;
         }
 
         // Update exploration state

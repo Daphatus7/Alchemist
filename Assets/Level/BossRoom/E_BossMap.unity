@@ -195,7 +195,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2354510100497482820, guid: c2a34cad2d85845a796abea0bc921222,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: c2a34cad2d85845a796abea0bc921222, type: 3}
 --- !u!1001 &365362703
 PrefabInstance:
@@ -5202,6 +5206,7 @@ GameObject:
   - component: {fileID: 1348654202}
   - component: {fileID: 1348654203}
   - component: {fileID: 1348654204}
+  - component: {fileID: 1348654205}
   m_Layer: 0
   m_Name: SubManager
   m_TagString: Untagged
@@ -5250,6 +5255,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0be1a53311646e29973b97c13a15d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1348654205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348654201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c28dc624094b478814f0b5b8f927a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceSpawnScript: {fileID: 0}
+  spawnDensity: 0.5
+  monsterSpawnScript: {fileID: 0}
+  monsterSpawnDensity: 1
 --- !u!1 &1381317660
 GameObject:
   m_ObjectHideFlags: 0

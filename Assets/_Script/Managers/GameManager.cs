@@ -53,7 +53,6 @@ namespace _Script.Managers
             _levelManager.LoadMainScene(_startingScene);
         }
         
-
         private void UpdateGlobalUpdaters()
         {
             foreach (var updater in _globalUpdaters)

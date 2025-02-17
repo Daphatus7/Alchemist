@@ -19,6 +19,7 @@ namespace _Script.Managers
     {
         [Header("Optional: Dungeon Generation Example")]
         [SerializeField] private DungeonGeneratorGrid2D _dungeonGenerator;
+        
         public event Action OnLevelGenerated;
 
         public Transform SpawnPoint
@@ -45,6 +46,8 @@ namespace _Script.Managers
             {
                 Debug.LogWarning("No DungeonGenerator assigned to this SubGameManager!");
                 HideLoadingScreen();
+                var spawner = GetComponent<MapSpawner>();
+                spawner.Spawn(nodeDataInstance);
                 return false;
             }
             
@@ -95,7 +98,6 @@ namespace _Script.Managers
 
             var spawner = GetComponent<MapSpawner>();
             spawner.Spawn(_reachableArea, nodeDataInstance);
-            
             OnLevelGenerated?.Invoke();
         }
 

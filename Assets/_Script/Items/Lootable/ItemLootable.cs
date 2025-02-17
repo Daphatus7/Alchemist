@@ -115,12 +115,13 @@ namespace _Script.Items.Lootable
             }
         }
         
-        public static void DropItem(Vector3 position, ItemData itemData, int quantity)
+        public static GameObject DropItem(Vector3 position, ItemData itemData, int quantity)
         {
             var obj = new GameObject(itemData.itemName);
             obj.transform.position = position;
             var lootable = obj.AddComponent<ItemLootable>();
             lootable.Initialize(obj.AddComponent<BoxCollider2D>(), obj.AddComponent<SpriteRenderer>(), itemData, quantity);
+            return obj;
         }
     }
 }

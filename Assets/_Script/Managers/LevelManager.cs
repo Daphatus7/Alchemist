@@ -53,7 +53,7 @@ namespace _Script.Managers
             {
                 UnloadAdditiveScene(_currentAdditiveScene);
             }
-            _currentAdditiveScene = nodeDataInstance.NodeData.MapName;
+            _currentAdditiveScene = nodeDataInstance.MapName;
             GameManager.Instance.StartCoroutine(AddSceneAsync(nodeDataInstance));
         }
 
@@ -125,7 +125,7 @@ namespace _Script.Managers
 
         private IEnumerator AddSceneAsync(NodeDataInstance nodeDataInstance)
         {
-            var mapName = nodeDataInstance.NodeData.MapName;
+            var mapName = nodeDataInstance.MapName;
             // Load the additive scene
             var asyncLoad = SceneManager.LoadSceneAsync(mapName, LoadSceneMode.Additive);
             while (!asyncLoad.isDone)

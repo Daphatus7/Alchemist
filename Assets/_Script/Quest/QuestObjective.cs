@@ -44,8 +44,14 @@ namespace _Script.Quest
     [Serializable]
     public class KillObjective : ObjectiveData
     {
-        public EnemyData enemy; // The enemy to kill
+        public string enemyID; // The enemy to kill
         public override ObjectiveType Type => ObjectiveType.Kill;
+    }
+    
+    [Serializable]
+    public class BossKillObjective : KillObjective
+    {
+        public string mapName;
     }
 
 // Add more specific objective types as needed

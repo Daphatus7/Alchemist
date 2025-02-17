@@ -21,8 +21,7 @@ namespace _Script.Enemy.EnemyDatabase
         [BoxGroup("Settings")]
         [FolderPath(AbsolutePath = true, RequireExistingPath = true)]
         [ValidateInput("IsFolderPathValid", "Folder path must not be empty", InfoMessageType.Error)]
-        [Tooltip("Path to the folder that holds enemy prefabs.\n" +
-                 "Example: 'Assets/_Prefabs/Enemy'")]
+        [Tooltip("Path to the folder that holds enemy prefabs.\nExample: 'Assets/_Prefabs/Enemy'")]
         [SerializeField]
         private string enemyFolderPath = "Assets/_Prefabs/Enemy";
 
@@ -33,60 +32,8 @@ namespace _Script.Enemy.EnemyDatabase
         [SerializeField]
         private List<EnemyDataPair> enemyDataPairs = new List<EnemyDataPair>();
 
-        // This dictionary is used at runtime for quick lookups.
-        private Dictionary<string, GameObject> _enemyDatabase = new Dictionary<string, GameObject>();
         /// <summary>
-        /// Builds the runtime dictionary from the serialized enemyDataPairs.
-        /// </summary>
-        /// <returns>A dictionary mapping enemy names to their corresponding prefabs.</returns>
-        private Dictionary<string, GameObject> CreateEnemyDatabaseFromDataPairs()
-        {
-            var database = new Dictionary<string, GameObject>();
-
-            foreach (var pair in enemyDataPairs)
-            {
-                if (pair.enemyPrefab == null)
-                {
-                    Debug.LogWarning("EnemyDatabase: Encountered a null prefab for enemy: " + pair.enemyName);
-                    continue;
-                }
-
-                if (!database.ContainsKey(pair.enemyName))
-                {
-                    database.Add(pair.enemyName, pair.enemyPrefab);
-                }
-                else
-                {
-                    Debug.LogWarning("EnemyDatabase: Duplicate enemy name detected: " + pair.enemyName);
-                }
-            }
-
-            if (database.Count == 0)
-            {
-                Debug.LogWarning("EnemyDatabase: No enemy prefabs found in the scanned data pairs.");
-            }
-
-            return database;
-        }
-
-        /// <summary>
-        /// Retrieves the enemy prefab associated with the given enemy name.
-        /// </summary>
-        /// <param name="enemyName">The key (name) of the enemy prefab.</param>
-        /// <returns>The enemy prefab if found; otherwise, null.</returns>
-        public GameObject GetEnemyPrefab(string enemyName)
-        {
-            if (_enemyDatabase.TryGetValue(enemyName, out GameObject prefab))
-            {
-                return prefab;
-            }
-
-            Debug.LogError($"EnemyDatabase: Enemy prefab not found for key: {enemyName}");
-            return null;
-        }
-
-        /// <summary>
-        /// Returns the serialized list of enemy data pairs.
+        /// Returns the list of enemy data pairs.
         /// </summary>
         public List<EnemyDataPair> GetEnemyDataPairs()
         {
@@ -101,6 +48,12 @@ namespace _Script.Enemy.EnemyDatabase
         [Button("Scan For Enemies", ButtonSizes.Large)]
         private void ScanForEnemies()
         {
+            if (string.IsNullOrEmpty(enemyFolderPath))
+            {
+                Debug.LogError("EnemyDatabaseAsset: Enemy folder path is not set.");
+                return;
+            }
+
             enemyDataPairs.Clear();
 
             // Find all assets of type GameObject (prefabs) in the specified folder.
@@ -114,12 +67,18 @@ namespace _Script.Enemy.EnemyDatabase
 
                 if (enemyPrefab == null)
                 {
-                    Debug.LogWarning("EnemyDatabase: Encountered a null prefab at path: " + path);
+                    Debug.LogWarning("EnemyDatabaseAsset: Encountered a null prefab at path: " + path);
                     continue;
                 }
 
                 // Use the prefab's name as the key.
                 string enemyName = enemyPrefab.name;
+                if (string.IsNullOrEmpty(enemyName))
+                {
+                    Debug.LogWarning("EnemyDatabaseAsset: Encountered a prefab with an empty name at path: " + path);
+                    continue;
+                }
+
                 enemyDataPairs.Add(new EnemyDataPair
                 {
                     enemyName = enemyName,
@@ -127,8 +86,7 @@ namespace _Script.Enemy.EnemyDatabase
                 });
             }
 
-            _enemyDatabase = CreateEnemyDatabaseFromDataPairs();
-            Debug.Log("EnemyDatabase: Scanned and updated enemy database.");
+            Debug.Log("EnemyDatabaseAsset: Scanned and updated enemy database.");
             EditorUtility.SetDirty(this); // Mark the asset as dirty so changes are saved.
         }
 #endif

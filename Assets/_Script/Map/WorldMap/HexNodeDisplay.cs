@@ -79,7 +79,7 @@ namespace _Script.Map.WorldMap
 
         public void SetImage(Sprite sprite)
         {
-            if (_nodeImage != null)
+            if (_nodeImage)
             {
                 _nodeImage.sprite = sprite;
             }

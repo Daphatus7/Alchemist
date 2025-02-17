@@ -84,13 +84,14 @@ namespace _Script.Map.WorldMap
 
             GenerateGrid();
             PrecomputeNeighbors();
-            GenerateDataForAllNodes();
         }
         
         /// <summary>
         /// Iterates over all nodes in the grid; if a node is not an obstacle and lacks data,
         /// it generates the node data via <see cref="GenerateNodeData"/>.
         /// </summary>
+        //obsolete
+        [Obsolete]
         private void GenerateDataForAllNodes()
         {
             foreach (var node in _hexNodes)
@@ -103,7 +104,7 @@ namespace _Script.Map.WorldMap
         /// Uses the grid configuration to determine a random node type.
         /// </summary>
         /// <returns>A randomly generated <see cref="NodeType"/>.</returns>
-        private NodeType GenerateHexType()
+        public NodeType GenerateHexType()
         {
             return _gridConfiguration.GetRandomType();
         }
@@ -121,7 +122,7 @@ namespace _Script.Map.WorldMap
             // Regenerate grid and neighbors
             GenerateGrid();
             PrecomputeNeighbors();
-            GenerateBranchingStreams();
+            //GenerateBranchingStreams();
             // Notify listeners that nodes have updated
             foreach (var node in _hexNodes.Values)
             {
@@ -426,7 +427,7 @@ namespace _Script.Map.WorldMap
                 for (int y = minY; y <= maxY; y++)
                 {
                     int z = -x - y;
-                    var newNode = new HexNode(new Vector3Int(x, y, z), GenerateHexType());
+                    var newNode = new HexNode(new Vector3Int(x, y, z));
                     _hexNodes.Add((x, y, z), newNode);
                     AddNodeToLevelDictionary(newNode);
                 }
@@ -438,8 +439,9 @@ namespace _Script.Map.WorldMap
         /// (Exact usage depends on your factory implementation.)
         /// </summary>
         /// <param name="nodeType">The node's type (e.g., forest, mountain, resource).</param>
+        /// <param name="rank"></param>
         /// <returns>A new <see cref="NodeData"/> instance associated with that type.</returns>
-        private NodeDataInstance GenerateNodeData(NodeType nodeType, PlayerRankEnum rank)
+        public  NodeDataInstance GenerateNodeData(NodeType nodeType, PlayerRankEnum rank)
         {
             return MapNodeFactory.Instance.CreateNode(nodeType, rank,0);
         }

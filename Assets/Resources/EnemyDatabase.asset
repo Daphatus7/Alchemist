@@ -23,9 +23,6 @@ MonoBehaviour:
     SerializationNodes: []
   enemyFolderPath: Assets/_Prefabs/Enemy
   enemyDataPairs:
-  - enemyName: AIGeneratedGuy
-    enemyPrefab: {fileID: 8794507309829770285, guid: 8f56bcf0921594018b5157eadc53b67d,
-      type: 3}
   - enemyName: Boss_1
     enemyPrefab: {fileID: 8794507309829770285, guid: 834ade3290d1a4559843de28a1e332bb,
       type: 3}

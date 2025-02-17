@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Level/EnemyMap.unity
     guid: e736f0672d29944dda4cb15ee623f114
   - enabled: 1
-    path: Assets/Level/E_BossMap.unity
+    path: Assets/Level/BossRoom/E_BossMap.unity
     guid: 66b1415dcaafa47d7bdbd9a1dd4db80c
   - enabled: 1
     path: Assets/Level/ResourceMap.unity
@@ -32,6 +32,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Level/E_EnemyMap.unity
     guid: bc0b7b2b04ca04ac7a8ad75c4312b976
+  - enabled: 1
+    path: Assets/Level/BossRoom/E_BossMap_1.unity
+    guid: 66e7000b213a14eccb16ba11198715db
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: c2bcfefd6ac65425c983f6d7ced5aa3d,
       type: 2}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Script.Character.PlayerRank;
 using _Script.Managers;
 using _Script.Map.WorldMap;
+using _Script.Map.WorldMap.MapNode;
 using _Script.Quest;
 using UnityEngine;
 
@@ -56,6 +57,8 @@ namespace _Script.Map
             //currently
             var path = CreatePath(HexGrid.GenerateNodeAtLevel(1) //start of the node
                 , HexGrid.GenerateNodeAtLevel(distance)); //end of the node
+            
+            //需要改这一部分，改成状态机
             SetMapState(MapState.QuestAccepted);
             
             // Set the difficulty of the nodes based on the quest rank.
@@ -63,7 +66,6 @@ namespace _Script.Map
             
             //Generate Destination Room
             path[^1].NodeDataInstance = GenerateNodeDataForQuest(questInstance);
-            
             //Generate Bonfire nearby
         }
 
@@ -74,36 +76,17 @@ namespace _Script.Map
             switch (questType)
             {
                 case ObjectiveType.Collect:
-                    return GenerateCollectNodeData(questInstance);
+                    return new CollectNodeInstance(questInstance, 
+                        questInstance.GuildQuestDefinition.questRank);
                 case ObjectiveType.Kill:
-                    return GenerateKillNodeData(questInstance);
+                    return new BossNodeInstance(questInstance, 
+                        questInstance.GuildQuestDefinition.questRank);
                 case ObjectiveType.Explore:
-                    return GenerateExploreNodeData(questInstance);
+                    return new ExploreNodeInstance(questInstance, 
+                        questInstance.GuildQuestDefinition.questRank);
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
-
-        private NodeDataInstance GenerateCollectNodeData(GuildQuestInstance questInstance)
-        {
-            var itemCollectObjective = (CollectObjective)
-                questInstance.
-                    GuildQuestDefinition.
-                    objectives[0].
-                    objectiveData;
-            //insert item data in generation sequence.
-            throw new NotImplementedException();
-        }
-        
-        private NodeDataInstance GenerateKillNodeData(GuildQuestInstance questInstance)
-        {
-            //Guild quest should always use the string of a boss
-            throw new NotImplementedException();
-        }
-        
-        private NodeDataInstance GenerateExploreNodeData(GuildQuestInstance questInstance)
-        {
-            throw new NotImplementedException();
         }
         
 
@@ -190,6 +173,14 @@ namespace _Script.Map
         
         private void InitializeGridParameters()
         {
+            //set default difficulty
+            foreach (var node in HexGrid.GetAllHexNodes())
+            {
+                var nodeType = HexGrid.GenerateHexType();
+                node.Difficulty = GetMapDifficulty((PlayerRankEnum)node.NodeLevel + 1);
+                node.NodeDataInstance = HexGrid.GenerateNodeData(nodeType, (PlayerRankEnum)node.NodeLevel + 1);
+            }
+            
             var spawnPoint = HexGrid.GenerateSpawnPoint();
             
             //reveal the initial nodes
@@ -199,12 +190,6 @@ namespace _Script.Map
             
             //move player to start hex
             HexGrid.MovePlayer(StartHex);
-            
-            //set default difficulty
-            foreach (var node in HexGrid.GetAllHexNodes())
-            {
-                node.Difficulty = GetMapDifficulty((PlayerRankEnum)node.NodeLevel + 1);
-            }
         }
         
         #region Grid Manipulation
