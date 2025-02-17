@@ -39,11 +39,12 @@ namespace _Script.Map.Volume
         [SerializeField] 
         private float monsterSpawnDensity = 1f; 
         
+        [Header("Boss Spawn Point")]
+        [SerializeField] 
+        private Transform _spawnPoint;
+
         private IResourceSpawnProvider _resourceProvider;
         
-        [Header("Boss Spawn Point")]
-        [SerializeField] private Transform _spawnPoint;
-
         /// <summary>
         /// Spawns objects using a ReachableArea as the spawn boundary.
         /// </summary>
@@ -56,56 +57,80 @@ namespace _Script.Map.Volume
         /// <summary>
         /// Designed for special cases where the spawn point is fixed.
         /// </summary>
-        public void Spawn( NodeDataInstance nodeDataInstance)
+        public void Spawn(NodeDataInstance nodeDataInstance)
         {
             _resourceProvider = resourceSpawnScript as IResourceSpawnProvider;
             StartCoroutine(SpawnAtTransform(_spawnPoint, nodeDataInstance));
         }
         
         /// <summary>
-        /// Coroutine to spawn resources and monsters within the bounds of a ReachableArea.
+        /// Coroutine to spawn resources, monsters, and quest objects within the bounds of a ReachableArea.
         /// </summary>
         private IEnumerator SpawnResources(ReachableArea reachableArea, NodeDataInstance nodeDataInstance)
         {
-            // Small delay to ensure things are ready
             yield return new WaitForSeconds(0.1f);
-
-            // Spawn Resources
-            if (resourceSpawnScript)
-            {
-                // Calculate spawn count based on area size and density.
-                float spawnCountFactor = reachableArea.AreaSize * spawnDensity / 100f;
-                List<GameObject> itemsToSpawn = ((ResourceSpawnScript)resourceSpawnScript).GetResourceToSpawn(spawnCountFactor);
-                foreach (var resource in itemsToSpawn)
-                {
-                    if (!resource)
-                        continue;
-
-                    Vector3 spawnPos = GetRandomPointInsideBox(reachableArea);
-                    var resourceObj = Instantiate(resource, spawnPos, Quaternion.identity);
-                    resourceObj.transform.parent = transform;
-                }
-            }
             
-            // Spawn Monsters
-            if (monsterSpawnScript)
-            {
-                float monsterSpawnFactor = reachableArea.AreaSize * monsterSpawnDensity / 100f;
-                List<GameObject> monsterList = ((ResourceSpawnScript)monsterSpawnScript).GetResourceToSpawn(monsterSpawnFactor);
-                foreach (var monster in monsterList)
-                {
-                    if (!monster)
-                        continue;
-                    
-                    Vector3 spawnPos = GetRandomPointInsideBox(reachableArea);
-                    var monsterObj = Instantiate(monster, spawnPos, Quaternion.identity);
-                    var enemyCharacter = monsterObj.GetComponent<EnemyCharacter>();
-                    enemyCharacter.Initialize(nodeDataInstance.MapRank);
-                    monsterObj.transform.parent = transform;
-                }
-            }
+            // Define spawn position using the reachable area's bounds.
+            Func<Vector3> getSpawnPos = () => GetRandomPointInsideBox(reachableArea);
+            float resourceFactor = reachableArea.AreaSize * spawnDensity / 100f;
+            float monsterFactor = reachableArea.AreaSize * monsterSpawnDensity / 100f;
             
-            // Spawn Quest Object if applicable
+            SpawnCategory(resourceSpawnScript, resourceFactor, getSpawnPos);
+            SpawnCategory(monsterSpawnScript, monsterFactor, getSpawnPos, (go) => {
+                var enemyCharacter = go.GetComponent<EnemyCharacter>();
+                enemyCharacter.Initialize(nodeDataInstance.MapRank);
+            });
+            SpawnQuestObject(nodeDataInstance, getSpawnPos);
+        }
+
+        /// <summary>
+        /// Coroutine to spawn resources, monsters, and quest objects at a fixed Transform position.
+        /// </summary>
+        private IEnumerator SpawnAtTransform(Transform spawnPoint, NodeDataInstance nodeDataInstance)
+        {
+            yield return new WaitForSeconds(0.1f);
+            
+            // For fixed spawns, we use a default area factor (e.g., 1 unit).
+            float areaFactor = 1f;
+            Func<Vector3> getSpawnPos = () => spawnPoint.position + GetRandomOffset();
+            float resourceFactor = areaFactor * spawnDensity;
+            float monsterFactor = areaFactor * monsterSpawnDensity;
+            
+            SpawnCategory(resourceSpawnScript, resourceFactor, getSpawnPos);
+            SpawnCategory(monsterSpawnScript, monsterFactor, getSpawnPos, (go) => {
+                var enemyCharacter = go.GetComponent<EnemyCharacter>();
+                enemyCharacter.Initialize(nodeDataInstance.MapRank);
+            });
+            SpawnQuestObject(nodeDataInstance, getSpawnPos);
+        }
+        
+        /// <summary>
+        /// Helper method to spawn a category of objects (resources or monsters).
+        /// </summary>
+        /// <param name="spawnScript">ScriptableObject that provides spawnable objects.</param>
+        /// <param name="factor">Spawn count factor.</param>
+        /// <param name="getSpawnPos">Function to compute a spawn position.</param>
+        /// <param name="postSpawnAction">Optional action to execute on each spawned object.</param>
+        private void SpawnCategory(ScriptableObject spawnScript, float factor, Func<Vector3> getSpawnPos, Action<GameObject> postSpawnAction = null)
+        {
+            if (spawnScript == null) return;
+            
+            List<GameObject> items = ((ResourceSpawnScript)spawnScript).GetResourceToSpawn(factor);
+            foreach (var item in items)
+            {
+                if (item == null) continue;
+                Vector3 pos = getSpawnPos();
+                var obj = Instantiate(item, pos, Quaternion.identity);
+                obj.transform.parent = transform;
+                postSpawnAction?.Invoke(obj);
+            }
+        }
+        
+        /// <summary>
+        /// Helper method to spawn quest objects based on the objective type.
+        /// </summary>
+        private void SpawnQuestObject(NodeDataInstance nodeDataInstance, Func<Vector3> getSpawnPos)
+        {
             if (nodeDataInstance is QuestNodeInstance questNodeInstance)
             {
                 Debug.Log("Spawning quest object.");
@@ -117,11 +142,11 @@ namespace _Script.Map.Volume
                             var itemData = DatabaseManager.Instance.GetItemData(collectNodeInstance.ItemName);
                             if (itemData)
                             {
-                                Vector3 spawnPos = GetRandomPointInsideBox(reachableArea);
-                                var lootObj = ItemLootable.DropItem(spawnPos, itemData, 1);
+                                Vector3 pos = getSpawnPos();
+                                var lootObj = ItemLootable.DropItem(pos, itemData, 1);
                                 lootObj.transform.parent = transform;
                             }
-                        }   
+                        }
                         break;
                     case ObjectiveType.Kill:
                         if (questNodeInstance is BossNodeInstance bossNodeInstance)
@@ -131,8 +156,8 @@ namespace _Script.Map.Volume
                             if (bossPrefab)
                             {
                                 Debug.Log($"Spawning boss {bossNodeInstance.BossName}.");
-                                Vector3 spawnPos = GetRandomPointInsideBox(reachableArea);
-                                var bossObj = Instantiate(bossPrefab, spawnPos, Quaternion.identity);
+                                Vector3 pos = getSpawnPos();
+                                var bossObj = Instantiate(bossPrefab, pos, Quaternion.identity);
                                 bossObj.transform.parent = transform;
                                 var enemyCharacter = bossObj.GetComponent<EnemyCharacter>();
                                 enemyCharacter.Initialize(nodeDataInstance.MapRank);
@@ -150,94 +175,7 @@ namespace _Script.Map.Volume
                 }
             }
         }
-
-        /// <summary>
-        /// Coroutine to spawn resources, monsters, and quest objects at a fixed Transform position.
-        /// A small random offset is applied to each spawn position.
-        /// </summary>
-        private IEnumerator SpawnAtTransform(Transform spawnPoint, NodeDataInstance nodeDataInstance)
-        {
-            // Small delay to ensure everything is ready
-            yield return new WaitForSeconds(0.1f);
-
-            // For transform-based spawns, we use a fixed area factor (e.g., 1 unit area).
-            float areaFactor = 1f;
-
-            // Spawn Resources
-            if (resourceSpawnScript)
-            {
-                List<GameObject> itemsToSpawn = ((ResourceSpawnScript)resourceSpawnScript).GetResourceToSpawn(areaFactor * spawnDensity);
-                foreach (var resource in itemsToSpawn)
-                {
-                    if (!resource)
-                        continue;
-
-                    Vector3 spawnPos = spawnPoint.position + GetRandomOffset();
-                    var resourceObj = Instantiate(resource, spawnPos, Quaternion.identity);
-                    resourceObj.transform.parent = transform;
-                }
-            }
-
-            // Spawn Monsters
-            if (monsterSpawnScript)
-            {
-                List<GameObject> monsterList = ((ResourceSpawnScript)monsterSpawnScript).GetResourceToSpawn(areaFactor * monsterSpawnDensity);
-                foreach (var monster in monsterList)
-                {
-                    if (!monster)
-                        continue;
-
-                    Vector3 spawnPos = spawnPoint.position + GetRandomOffset();
-                    var monsterObj = Instantiate(monster, spawnPos, Quaternion.identity);
-                    var enemyCharacter = monsterObj.GetComponent<EnemyCharacter>();
-                    enemyCharacter.Initialize(nodeDataInstance.MapRank);
-                    monsterObj.transform.parent = transform;
-                }
-            }
-
-            // Spawn Quest Object if applicable
-            if (nodeDataInstance is QuestNodeInstance questNodeInstance)
-            {
-                switch (questNodeInstance.ObjectiveType)
-                {
-                    case ObjectiveType.Collect:
-                        if (questNodeInstance is CollectNodeInstance collectNodeInstance)
-                        {
-                            var itemData = DatabaseManager.Instance.GetItemData(collectNodeInstance.ItemName);
-                            if (itemData)
-                            {
-                                Vector3 spawnPos = spawnPoint.position + GetRandomOffset();
-                                var lootObj = ItemLootable.DropItem(spawnPos, itemData, 1);
-                                lootObj.transform.parent = transform;
-                            }
-                        }   
-                        break;
-                    case ObjectiveType.Kill:
-                        if (questNodeInstance is BossNodeInstance bossNodeInstance)
-                        {
-                            var bossPrefab = DatabaseManager.Instance.GetEnemyPrefab(bossNodeInstance.BossName);
-                            if (bossPrefab)
-                            {
-                                Vector3 spawnPos = spawnPoint.position + GetRandomOffset();
-                                var bossObj = Instantiate(bossPrefab, spawnPos, Quaternion.identity);
-                                bossObj.transform.parent = transform;
-                                var enemyCharacter = bossObj.GetComponent<EnemyCharacter>();
-                                enemyCharacter.Initialize(nodeDataInstance.MapRank);
-                            }
-                            else
-                            {
-                                Debug.LogError($"Boss prefab {bossNodeInstance.BossName} not found in database.");
-                            }
-                        }
-                        break;
-                    case ObjectiveType.Explore:
-                        throw new NotImplementedException("Explore Node not implemented yet");
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
-
+        
         /// <summary>
         /// Returns a random point inside the given ReachableArea's bounds.
         /// </summary>
@@ -245,13 +183,12 @@ namespace _Script.Map.Volume
         {
             return reachableArea.GetARandomPosition();
         }
-
+        
         /// <summary>
         /// Returns a small random offset on the X and Z axes.
         /// </summary>
         private Vector3 GetRandomOffset()
         {
-            // Adjust the offset range as necessary.
             float offsetX = UnityEngine.Random.Range(-1f, 1f);
             float offsetZ = UnityEngine.Random.Range(-1f, 1f);
             return new Vector3(offsetX, 0, offsetZ);

@@ -3,6 +3,7 @@ using _Script.Character.PlayerRank;
 using _Script.Damageable;
 using _Script.Drop;
 using _Script.Enemy.EnemyAbility;
+using _Script.Quest;
 using Pathfinding;
 using Unity.Behavior;
 using UnityEngine;
@@ -15,6 +16,10 @@ namespace _Script.Enemy.EnemyCharacter
         [SerializeField] private EnemyData.EnemyData enemyData;
         [SerializeField] private EnemyAttack _attack;
         [SerializeField] private AIPath _agent;
+
+
+        [SerializeField] private string enemyID;
+
         private float _health = 50; private float Health
         {
             get => _health;
@@ -113,11 +118,11 @@ namespace _Script.Enemy.EnemyCharacter
             MoveSpeed = attribute.MoveSpeed;
             AttackRange = attribute.AttackRange;
             DamageCooldown = attribute.AttackFrequency;
-            Debug.Log("Speed : " + MoveSpeed);
         }
 
         private void OnDeath()
         {
+            QuestManager.Instance.OnEnemyKilled(enemyID);
             GetComponent<DropItemComponent>()?.DropItems();
             Destroy(gameObject);
         }

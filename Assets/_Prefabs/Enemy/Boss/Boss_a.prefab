@@ -333,9 +333,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c740f4ac2d89472a81688db5b9de7a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: a732a9da4acbd4e54a71f1ba7e8a24c8, type: 2}
+  enemyData: {fileID: 11400000, guid: 46011f3f7a1294d12b3c6ef0c4aad4fa, type: 2}
   _attack: {fileID: 8898605741151783470}
   _agent: {fileID: 1517139829594178872}
+  enemyID: Boss_a
   _moveSpeed: 3
   _debug: 0
 --- !u!61 &29300319380929225

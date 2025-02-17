@@ -87,6 +87,7 @@ namespace _Script.Quest
         
         private void OnEnemyKilled(string enemyID)
         {
+            Debug.Log("Enemy killed" + enemyID);
             _objectives.ForEach(obj =>
             {
                 // Skip if the objective is not a kill objective
@@ -103,6 +104,7 @@ namespace _Script.Quest
                     //unsubscribing from the event because the objective is can only increase
                 }
             });
+            CheckCompletion();
         }
         private void OnEnteringArea(string areaID)
         {

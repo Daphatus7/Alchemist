@@ -10,9 +10,6 @@ namespace _Script.Enemy.EnemyData
     [CreateAssetMenu(fileName = "EnemyData", menuName = "Data/EnemyData")]
     public class EnemyData : ScriptableObject
     {
-        public string enemyName;
-        public string enemyID;
-        
         // Base stats (unscaled)
         public int health;
         public int damage;

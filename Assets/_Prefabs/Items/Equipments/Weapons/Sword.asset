@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81c20331b29b487d953ed2e3728aa3ec, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
-  itemName: 
-  itemID: 
-  itemDescription: 
+  itemName: Sharp Blade
+  itemID: Sword_001
+  itemDescription: A very sharp blade, be very careful when wielding it.
   itemIcon: {fileID: -1839726451, guid: d9184dbb777e8e8489eb1e645a17d80a, type: 3}
   maxStackSize: 1
   itemShapeType: 2
@@ -22,8 +22,8 @@ MonoBehaviour:
   _value: 100
   weaponType: 0
   durability: 200
-  damageMin: 39
-  damageMax: 69
+  damageMin: 399
+  damageMax: 699
   attackSpeed: 1
   range: 1
   weaponPrefab: {fileID: 8222673930803448861, guid: 61d4ec3a6573e456e928c8adfcde371b,
