@@ -5,17 +5,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Script.Enemy.EnemyCharacter;
-using _Script.Enemy.EnemyData;
-using _Script.Enemy.EnemyDatabase;
-using _Script.Items.AbstractItemTypes._Script.Items;
 using _Script.Items.Lootable;
 using _Script.Managers;
+using _Script.Map.Volume;
 using _Script.Map.WorldMap;
 using _Script.Quest;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace _Script.Map.Volume
+namespace _Script.Map
 {
     public class MapSpawner : MonoBehaviour
     {
@@ -111,7 +108,9 @@ namespace _Script.Map.Volume
         /// <param name="factor">Spawn count factor.</param>
         /// <param name="getSpawnPos">Function to compute a spawn position.</param>
         /// <param name="postSpawnAction">Optional action to execute on each spawned object.</param>
-        private void SpawnCategory(ScriptableObject spawnScript, float factor, Func<Vector3> getSpawnPos, Action<GameObject> postSpawnAction = null)
+        private void SpawnCategory(ScriptableObject spawnScript, 
+            float factor, Func<Vector3> getSpawnPos, 
+            Action<GameObject> postSpawnAction = null)
         {
             if (spawnScript == null) return;
             

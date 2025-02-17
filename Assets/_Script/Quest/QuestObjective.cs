@@ -31,7 +31,7 @@ namespace _Script.Quest
     public abstract class ObjectiveData
     {
         public abstract ObjectiveType Type { get; }
-        public int requiredCount;
+        public int requiredCount = 1;
     }
 
     [Serializable]
@@ -50,6 +50,12 @@ namespace _Script.Quest
     
     [Serializable]
     public class BossKillObjective : KillObjective
+    {
+        public string mapName;
+    }
+    
+    [Serializable]
+    public class MapCollectObjective : CollectObjective
     {
         public string mapName;
     }

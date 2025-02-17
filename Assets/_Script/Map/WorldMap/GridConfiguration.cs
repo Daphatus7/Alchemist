@@ -45,7 +45,6 @@ namespace _Script.Map.WorldMap
                 cumulative += w;
                 _cumulativeList.Add((type, cumulative));
             }
-
             _totalWeight = cumulative;
         }
 

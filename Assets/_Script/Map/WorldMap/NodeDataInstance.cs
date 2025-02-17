@@ -64,7 +64,7 @@ namespace _Script.Map.WorldMap
         
         public CollectNodeInstance(GuildQuestInstance questInstance, PlayerRankEnum mapRank)
             : base(
-                questInstance.GuildQuestDefinition.questName,
+                ((MapCollectObjective)questInstance.GuildQuestDefinition.objectives[0].objectiveData).mapName,
                 questInstance.GuildQuestDefinition.description,
                 NodeType.Resource,
                 mapRank)
