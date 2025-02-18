@@ -1,11 +1,18 @@
+// Author : Peiyu Wang @ Daphatus
+// 10 02 2025 02 28
+
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using _Script.Map;
+using _Script.NPC.NpcBackend.NpcModules;
+using _Script.Quest.PlayerQuest;
 using _Script.UserInterface;
-using _Script.Utilities;
+using _Script.Utilities.GenericUI;
+using _Script.Utilities.ServiceLocator;
 using Sirenix.OdinInspector;
 using UnityEngine;
-
-// For HexGrid, HexNode, etc.
+using UnityEngine.UI;
 
 namespace _Script.Map.WorldMap
 {
@@ -19,7 +26,6 @@ namespace _Script.Map.WorldMap
         [SerializeField] private Camera mapCamera;
 
         [Header("Grid Settings")]
- 
         [SerializeField] private GameObject hexPrefab;
         [SerializeField] private Grid mapGrid;
         [SerializeField] private GameObject mapCanvas;
@@ -41,17 +47,11 @@ namespace _Script.Map.WorldMap
         [Header("Debug")]
         [SerializeField] private bool debug = false;
 
-        // Object pool for node visuals
-        private ObjectPool<HexNodeDisplay> _hexNodePool;
+        // Dictionary to track node visuals.
         private readonly Dictionary<HexNode, HexNodeDisplay> _hexDisplayMap = new Dictionary<HexNode, HexNodeDisplay>();
 
-        private MapController _controller; private MapController Controller
-        {
-            get
-            {
-                return _controller ??= MapController.Instance;
-            }   
-        }
+        private MapController _controller;
+        private MapController Controller => _controller ??= MapController.Instance;
 
         private bool _isMapOpen = false;
         private float _currentScale = 1f;
@@ -62,7 +62,6 @@ namespace _Script.Map.WorldMap
 
         private void Start()
         {
-            InitializeNodePool();
             HideUI();
 
             // Start in the game view.
@@ -72,7 +71,6 @@ namespace _Script.Map.WorldMap
 
         private void Update()
         {
-            // Toggle the map display with the M key.
             if (Input.GetKeyDown(KeyCode.M))
             {
                 ToggleMap();
@@ -87,7 +85,7 @@ namespace _Script.Map.WorldMap
         private void OnDisable()
         {
             if (Controller != null)
-                Controller.SubscribeToNodeChange(OnControllerNodeChanged);  
+                Controller.UnsubscribeFromNodeChange(OnControllerNodeChanged);  
         }
 
         private void OnControllerNodeChanged(HexNode node)
@@ -147,7 +145,6 @@ namespace _Script.Map.WorldMap
 
         private void HandleMapInteraction()
         {
-            // Start dragging on left mouse button press.
             if (Input.GetMouseButtonDown(0))
             {
                 _isDragging = true;
@@ -164,13 +161,11 @@ namespace _Script.Map.WorldMap
                 PanMap(delta);
                 _lastMousePosition = currentMousePos;
             }
-            // Allow middle mouse drag for panning.
             if (Input.GetMouseButton(2))
             {
                 Vector2 delta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
                 PanMap(delta);
             }
-            // Zoom the map with the scroll wheel.
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             if (Mathf.Abs(scroll) > 0.01f)
             {
@@ -197,44 +192,39 @@ namespace _Script.Map.WorldMap
 
         #region Node Visuals
 
-        private void InitializeNodePool()
-        {
-            var displayPrefab = hexPrefab.GetComponent<HexNodeDisplay>();
-            _hexNodePool = new ObjectPool<HexNodeDisplay>(displayPrefab, mapGrid.transform, initialCapacity: 50);
-        }
-
         /// <summary>
-        /// Create a visual representation for each node from the controller’s grid.
+        /// Generates visual representations for each visible node.
         /// </summary>
         private void GenerateGridVisuals()
         {
+            // Destroy previous visuals.
+            foreach (var kvp in _hexDisplayMap)
+            {
+                if (kvp.Value != null)
+                    Destroy(kvp.Value.gameObject);
+            }
+            _hexDisplayMap.Clear();
+
             foreach (HexNode hexNode in Controller.HexGrid.GetAllVisibleHexNodes())
             {
-                if (!_hexDisplayMap.ContainsKey(hexNode))
-                {
-                    Vector3 worldPos = GetWorldPosition(hexNode.Position);
-                    HexNodeDisplay nodeDisplay = _hexNodePool.Get();
-                    nodeDisplay.transform.position = worldPos;
-                    _hexDisplayMap[hexNode] = ConfigureNodeDisplay(nodeDisplay, hexNode);
-                }
+                Vector3 worldPos = GetWorldPosition(hexNode.Position);
+                // Instantiate a new visual from the prefab.
+                HexNodeDisplay nodeDisplay = Instantiate(hexPrefab, mapGrid.transform).GetComponent<HexNodeDisplay>();
+                nodeDisplay.transform.position = worldPos;
+                _hexDisplayMap[hexNode] = ConfigureNodeDisplay(nodeDisplay, hexNode);
             }
         }
         
-
         private HexNodeDisplay ConfigureNodeDisplay(HexNodeDisplay display, HexNode hexNode)
         {
-            // Set the initial sprite based on the node type.
             display.SetImage(GetImageByNodeType(hexNode.NodeDataInstance.NodeType));
             display.HexNode = hexNode;
-
-            // Wire up UI events: when the player clicks on a node, notify the controller.
-            display.OnNodeClicked+= OnClickedOnNode;
-            display.OnNodeEnter+= OnHoverOnNode;
-            display.OnNodeLeave+= OnLeaveNode;
+            display.OnNodeClicked += OnClickedOnNode;
+            display.OnNodeEnter += OnHoverOnNode;
+            display.OnNodeLeave += OnLeaveNode;
             return display;
         }
     
-
         private void UpdateNodeVisual(HexNode node)
         {
             if (_hexDisplayMap.TryGetValue(node, out HexNodeDisplay nodeDisplay))
@@ -243,6 +233,7 @@ namespace _Script.Map.WorldMap
             }
             else
             {
+                // If missing, regenerate all visuals.
                 GenerateGridVisuals();
                 if (_hexDisplayMap.TryGetValue(node, out HexNodeDisplay display))
                 {
@@ -270,9 +261,6 @@ namespace _Script.Map.WorldMap
             }
         }
 
-        /// <summary>
-        /// Converts the logical node’s position to a world position (UI space).
-        /// </summary>
         private Vector3 GetWorldPosition(Vector3Int cubePosition)
         {
             Vector2Int axial = CubeToAxial(cubePosition);
@@ -283,7 +271,6 @@ namespace _Script.Map.WorldMap
 
         private Vector2Int CubeToAxial(Vector3Int cube)
         {
-            // For example, q = x, r = z.
             return new Vector2Int(cube.x, cube.z);
         }
 
@@ -312,7 +299,6 @@ namespace _Script.Map.WorldMap
 
         private void OnClickedOnNode(HexNodeDisplay display)
         {
-            // Forward the click to the controller.
             Controller.TryExploreNode(display.HexNode);
         }
 
@@ -325,24 +311,23 @@ namespace _Script.Map.WorldMap
         {
             display.Highlight(false);
         }
-        
+
         #endregion
 
-        #region Public Methods (e.g., Reset)
-        
-        
+        #region Public Methods (Reset)
+
         [Button]
         public void ResetGrid()
         {
-            // Return all node visuals to the pool.
+            // Destroy all node visuals.
             foreach (var kvp in _hexDisplayMap)
             {
                 if (kvp.Value != null)
-                    _hexNodePool.ReturnToPool(kvp.Value);
+                    Destroy(kvp.Value.gameObject);
             }
             _hexDisplayMap.Clear();
 
-            // Reset the controller (logic) and rebuild visuals.
+            // Reset grid logic and rebuild visuals.
             Controller.ResetGrid();
             GenerateGridVisuals();
             HideUI();
