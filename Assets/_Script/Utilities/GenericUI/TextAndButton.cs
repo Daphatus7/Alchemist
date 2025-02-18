@@ -21,10 +21,18 @@ namespace _Script.Utilities.GenericUI
                 gameObject.SetActive(false);
             });
             
+            confirmButton.onClick.AddListener(RemoveListeners);
+            
+            
             if (textDisplay != null)
             {
                 textDisplay.text = text;
             }
         }    
+        
+        private void RemoveListeners()
+        {
+            confirmButton.onClick.RemoveAllListeners();
+        }
     }
 }

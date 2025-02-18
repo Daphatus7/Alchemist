@@ -6,6 +6,7 @@ using _Script.Map.WorldMap;
 using _Script.Map.WorldMap.MapNode;
 using _Script.Quest;
 using _Script.Quest.QuestDef;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 
@@ -22,15 +23,15 @@ namespace _Script.Map
         public HexGrid HexGrid { get; private set; }
         public HexNode StartHex { get; private set; }
         public Vector3Int PlayerPosition => HexGrid.PlayerPosition;
-
-
+        
+        public event Action<MapState> onMapStateChanged = state => { }; 
+        
         private MapState _mapState = MapState.Closed; 
         
         [SerializeField] private float hexSize = 0.5f;
         [SerializeField] private int gridRadius = 20;
         [SerializeField] private int gridVisibility = 2;
         [SerializeField] private bool debug;
-
 
         public void SubscribeToNodeChange(Action<HexNode> action)
         {
@@ -53,8 +54,9 @@ namespace _Script.Map
         
         public void CreateQuest(GuildQuestInstance questInstance)
         {
-            ResetGrid();
-            Debug.Log("Creating quest map...");
+            //目前的解决方案
+            MapExplorerView.Instance.ResetGrid();
+            
             var distance = questInstance.DistanceToTravel;
             //currently
             var path = CreatePath(HexGrid.GenerateNodeAtLevel(1) //start of the node
@@ -169,7 +171,15 @@ namespace _Script.Map
         /// </summary>
         private void InitializeGrid()
         {
-            HexGrid = new HexGrid(gridRadius, new GridConfiguration());
+            if (HexGrid != null)
+            {
+                //clear the grid subscription
+            }
+            else
+            {
+                HexGrid = new HexGrid(gridRadius, new GridConfiguration());
+            }
+            
             InitializeGridParameters();
         }
         
@@ -291,9 +301,16 @@ namespace _Script.Map
         /// </summary>
         public void ResetGrid()
         {
-            HexGrid.DebugResetGrid();
+            // Create a new grid instance.
             InitializeGrid();
+            
+            // Optionally, notify subscribers that the grid has been reset.
+            foreach (var node in HexGrid.GetAllHexNodes())
+            {
+                HexGrid.NotifyNodeChanged(node);
+            }
         }
+        
     }
     
     public enum MapState

@@ -102,8 +102,10 @@ namespace _Script.Map.WorldMap
             if (!mapCanvas) return;
             mapCanvas.SetActive(true);
             GenerateGridVisuals();
-            if (Controller != null)
+            if (Controller)
+            {
                 Controller.SubscribeToNodeChange(OnControllerNodeChanged); 
+            }
             CenterMapCameraOnMap();
             if (gameCamera) gameCamera.enabled = false;
             if (mapCamera) mapCamera.enabled = true;
@@ -114,8 +116,10 @@ namespace _Script.Map.WorldMap
         public void HideUI()
         {
             if (!mapCanvas) return;
-            if(Controller)
+            if (Controller)
+            {
                 Controller.UnsubscribeFromNodeChange(OnControllerNodeChanged);
+            }
             mapCanvas.SetActive(false);
 
             if (gameCamera) gameCamera.enabled = true;
@@ -321,11 +325,12 @@ namespace _Script.Map.WorldMap
         {
             display.Highlight(false);
         }
-
+        
         #endregion
 
         #region Public Methods (e.g., Reset)
-
+        
+        
         [Button]
         public void ResetGrid()
         {

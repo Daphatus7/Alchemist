@@ -76,12 +76,14 @@ namespace _Script.NPC.NpcBackend.NpcModules
                 // and not finished display UI, saying that you need to finish the quest
                 if(CurrentGuildQuest.QuestState == QuestState.Completed)
                 {
+                    Debug.Log("Quest Completed");
                     var handler = ServiceLocator.Instance.Get<IGuildQuestUIHandler>();
                     handler.LoadQuestReward(CurrentGuildQuest, this);
                     Npc.AddMoreUIHandler(handler as IUIHandler);
                 }
                 else if (CurrentGuildQuest.QuestState == QuestState.InProgress)
                 {
+                    Debug.Log("Quest In Progress");
                     var handler = ServiceLocator.Instance.Get<IGuildQuestUIHandler>();
                     handler.LoadQuestInProgress(CurrentGuildQuest,this);
                     Npc.AddMoreUIHandler(handler as IUIHandler);
@@ -121,6 +123,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
         {
             Debug.Log("Quest Completed");
             _currentGuildQuest = null;
+            _availableQuests = null;
         }
     }
 

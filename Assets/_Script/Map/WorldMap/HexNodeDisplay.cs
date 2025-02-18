@@ -149,5 +149,12 @@ namespace _Script.Map.WorldMap
         {
    
         }
+
+        public void OnDestroy()
+        {
+            OnNodeClicked = null;
+            OnNodeEnter = null;
+            OnNodeLeave = null;
+        }
     }
 }

@@ -23,10 +23,14 @@ namespace _Script.Quest.GuildQuestUI
             descriptionText.text = description;
             rewardsText.text = rewards;
 
-            acceptButton.onClick.AddListener(() =>
-            {
-                acceptAction?.Invoke();
-            });
+            // Clear previous bindings before adding the new one.
+            ClearButtonBindings();
+            acceptButton.onClick.AddListener(() => acceptAction?.Invoke());
+        }
+        
+        public void ClearButtonBindings()
+        {
+            acceptButton.onClick.RemoveAllListeners();
         }
     }
 }

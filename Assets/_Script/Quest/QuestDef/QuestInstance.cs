@@ -80,7 +80,6 @@ namespace _Script.Quest.QuestDef
                     obj.isComplete = false;
                 }
             });
-            
             //check if the quest is complete
             CheckCompletion();
         }
@@ -122,7 +121,6 @@ namespace _Script.Quest.QuestDef
             CheckCompletion();
         }
         
-        
         private void CheckCompletion()
         {
             bool isAllDone = true;
@@ -135,7 +133,6 @@ namespace _Script.Quest.QuestDef
                     break;
                 }
             }
-
             if (isAllDone)
             {
                 _state = QuestState.Completed;
@@ -179,7 +176,7 @@ namespace _Script.Quest.QuestDef
             if (QuestManager.Instance == null) return;
             QuestManager.Instance.onEnemyKilled -= OnEnemyKilled;
             QuestManager.Instance.onItemCollected -= OnItemCollected;
-            Debug.Log("QuestInstance cleaned up to prevent memory leak");
+            //Debug.Log("QuestInstance cleaned up to prevent memory leak");
         }
     }
     

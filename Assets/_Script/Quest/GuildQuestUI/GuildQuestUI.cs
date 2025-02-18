@@ -11,6 +11,7 @@ using _Script.Quest.QuestDef;
 using _Script.UserInterface;
 using _Script.Utilities.GenericUI;
 using _Script.Utilities.ServiceLocator;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,7 +27,7 @@ namespace _Script.Quest.GuildQuestUI
         [SerializeField] private LayoutGroup questDisplayLayoutGroup;
         [SerializeField] private GameObject questDisplayPrefab;
         
-        // Reuse the existing display UIs instead of destroying them
+        // Pool of reused quest displays.
         private readonly List<GuildQuestDisplay> _questDisplays = new List<GuildQuestDisplay>();
         private IGuildQuestGiverModuleHandler _handler;
         
@@ -49,17 +50,17 @@ namespace _Script.Quest.GuildQuestUI
         }
         
         /// <summary>
-        /// Loads quest displays by reusing existing UI objects and instantiating new ones only if needed.
+        /// Loads quest displays by reusing existing UI objects or instantiating new ones if needed.
         /// </summary>
         private void LoadQuestDisplays(List<GuildQuestInstance> instances)
         {
-            // Reuse existing quest displays.
-            int existingCount = _questDisplays.Count;
-            for (int i = 0; i < existingCount; i++)
+            int i = 0;
+            // For each quest instance, reuse an existing display or create a new one.
+            for (; i < instances.Count; i++)
             {
-                if (i < instances.Count)
+                if (i < _questDisplays.Count)
                 {
-                    // Update the existing display with new quest data.
+                    // Reuse the existing display.
                     var i1 = i;
                     _questDisplays[i].SetDisplay(
                         instances[i].QuestRank.ToString(),
@@ -72,15 +73,14 @@ namespace _Script.Quest.GuildQuestUI
                 }
                 else
                 {
-                    // Hide any extra displays.
-                    _questDisplays[i].gameObject.SetActive(false);
+                    // Create a new display if none are available.
+                    AddQuestDisplay(instances[i]);
                 }
             }
-
-            // Instantiate additional displays if there are more quests than existing displays.
-            for (int i = existingCount; i < instances.Count; i++)
+            // Hide any extra displays that are not used.
+            for (int j = i; j < _questDisplays.Count; j++)
             {
-                AddQuestDisplay(instances[i]);
+                _questDisplays[j].gameObject.SetActive(false);
             }
         }
         
@@ -105,7 +105,7 @@ namespace _Script.Quest.GuildQuestUI
         
         private void OnQuestAcceptButtonClicked(GuildQuestInstance questInstance)
         {
-            // Create the quest 
+            // Create the quest.
             var newQuest = QuestManager.Instance.CreateGuildQuest(questInstance);
             if (newQuest != null)
             {
@@ -121,7 +121,7 @@ namespace _Script.Quest.GuildQuestUI
 
         public void ShowUI()
         {
-            Debug.Log("Showing UI and may causes error");
+            Debug.Log("Showing UI");
         }
 
         public void LoadQuestGiver(IGuildQuestGiverModuleHandler handler)
@@ -156,7 +156,7 @@ namespace _Script.Quest.GuildQuestUI
             Show(GuildQuestUIType.InProgress);
             _handler = handler;
             var inProgressUI = guildInProgressDisplayPanel.GetComponent<TextAndButton>();
-            inProgressUI.LoadUIContent("currentQuest : " + currentQuest.QuestDefinition.questName, HideUI);
+            inProgressUI.LoadUIContent("currentQuest: " + currentQuest.QuestDefinition.questName, HideUI);
         }
 
         private void Show(GuildQuestUIType type)
@@ -174,7 +174,8 @@ namespace _Script.Quest.GuildQuestUI
             {
                 o.Value.SetActive(false);
             }
-            //_handler = null;
+            // Optionally, clear _handler if the UI should reset its binding.
+            // _handler = null;
         }
     }
     

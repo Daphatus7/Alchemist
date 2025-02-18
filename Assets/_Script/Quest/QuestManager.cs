@@ -213,8 +213,12 @@ namespace _Script.Quest
                 
                 //Generate path
                 MapController.Instance.CreateQuest(_currentQuest);
+                if(_currentQuest == null)
+                {
+                    Debug.Log("Quest is null??xx");
+                }
+                return _currentQuest;
             }
-            return _currentQuest;
         }
 
         public void CompleteGuildQuest(string questId)

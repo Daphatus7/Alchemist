@@ -116,7 +116,7 @@ namespace Edgar.Unity.Examples
 
             if (!canvas)
             {
-                Debug.LogError($"Canvas was not found. Please set the {nameof(Canvas)} variable of the GameManager");
+                //Debug.LogError($"Canvas was not found. Please set the {nameof(Canvas)} variable of the GameManager");
             }
 
             return canvas;

@@ -2668,7 +2668,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf2b3de7eba43639f923faa81b6208e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemDatabase: {fileID: 11400000, guid: 9e0ad3b7fbb494704b98c6a906c7c767, type: 2}
   _enemyDatabase: {fileID: 11400000, guid: 0752aa0099cb04d9fa771fdd035679c3, type: 2}
 --- !u!1001 &982889974
 PrefabInstance:
@@ -6536,6 +6535,11 @@ PrefabInstance:
         type: 3}
       propertyPath: 'dialogueLines.Array.data[0]'
       value: Hi
+      objectReference: {fileID: 0}
+    - target: {fileID: 771194325673888461, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: allQuests.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3667518381438025234, guid: 19400eae6031045008b5457fe5f8aa20,
         type: 3}
