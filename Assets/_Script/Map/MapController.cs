@@ -30,7 +30,7 @@ namespace _Script.Map
         
         [SerializeField] private float hexSize = 0.5f;
         [SerializeField] private int gridRadius = 20;
-        [SerializeField] private int gridVisibility = 2;
+        [SerializeField] private int gridVisibility = 10;
         [SerializeField] private bool debug;
 
         public void SubscribeToNodeChange(Action<HexNode> action)
@@ -59,18 +59,33 @@ namespace _Script.Map
             
             var distance = questInstance.DistanceToTravel;
             //currently
-            var path = CreatePath(HexGrid.GenerateNodeAtLevel(1) //start of the node
-                , HexGrid.GenerateNodeAtLevel(distance)); //end of the node
+
             
             //需要改这一部分，改成状态机
             SetMapState(MapState.QuestAccepted);
+            
+            var path = RevealPath(HexGrid.GenerateNodeAtLevel(1) //start of the node
+                , HexGrid.GenerateNodeAtLevel(distance)); //end of the node
             
             // Set the difficulty of the nodes based on the quest rank.
             SetDifficultyOfNodes(path, GetMapDifficulty(questInstance.GuildQuestDefinition.questRank));
             
             //Generate Destination Room
             path[^1].NodeDataInstance = GenerateNodeDataForQuest(questInstance);
+            
+           
             //Generate Bonfire nearby
+            var ring = HexGrid.GetARandomPointAt(path[^1].Position, 3);
+
+            foreach (var n in ring)
+            {
+                //set node to obstacle
+                
+                var node = HexGrid.GetHexNode(n.x, n.y, n.z);
+                node.NodeDataInstance.NodeType = NodeType.Obstacle;
+                node.SetExplorationState(NodeExplorationState.Revealed);
+                HexGrid.NotifyNodeChanged(node);
+            }
         }
 
         private NodeDataInstance GenerateNodeDataForQuest(GuildQuestInstance questInstance)
@@ -171,16 +186,13 @@ namespace _Script.Map
         /// </summary>
         private void InitializeGrid()
         {
-            if (HexGrid != null)
-            {
-                //clear the grid subscription
-            }
-            else
-            {
-                HexGrid = new HexGrid(gridRadius, new GridConfiguration());
-            }
-            
+            HexGrid = new HexGrid(gridRadius, new GridConfiguration());
             InitializeGridParameters();
+            // Optionally, notify subscribers that the grid has been reset.
+            foreach (var node in HexGrid.GetAllHexNodes())
+            {
+                HexGrid.NotifyNodeChanged(node);
+            }
         }
         
         private void InitializeGridParameters()
@@ -211,7 +223,7 @@ namespace _Script.Map
 
         
         
-        private List<HexNode> CreatePath(HexNode start, HexNode end)
+        private List<HexNode> RevealPath(HexNode start, HexNode end)
         {
             // Create a path from the start node to the end node.
             var path = HexGrid.FindPath(start, end);
@@ -303,12 +315,6 @@ namespace _Script.Map
         {
             // Create a new grid instance.
             InitializeGrid();
-            
-            // Optionally, notify subscribers that the grid has been reset.
-            foreach (var node in HexGrid.GetAllHexNodes())
-            {
-                HexGrid.NotifyNodeChanged(node);
-            }
         }
         
     }

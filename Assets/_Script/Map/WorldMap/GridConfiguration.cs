@@ -21,10 +21,10 @@ namespace _Script.Map.WorldMap
             Vector3Int endPosition = default,
             //Weight
             int gridRadius = 10,
-            int resourceWeight = 10,
+            int resourceWeight = 8,
             int enemyWeight = 5,
-            int campfireWeight = 2,
-            int bossWeight = 2)
+            int campfireWeight = 1,
+            int bossWeight = 1)
         {
             GridRadius = gridRadius;
 

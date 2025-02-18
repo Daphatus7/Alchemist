@@ -121,7 +121,6 @@ namespace _Script.Map.WorldMap
                 Controller.UnsubscribeFromNodeChange(OnControllerNodeChanged);
             }
             mapCanvas.SetActive(false);
-
             if (gameCamera) gameCamera.enabled = true;
             if (mapCamera) mapCamera.enabled = false;
 
@@ -220,6 +219,7 @@ namespace _Script.Map.WorldMap
                 }
             }
         }
+        
 
         private HexNodeDisplay ConfigureNodeDisplay(HexNodeDisplay display, HexNode hexNode)
         {

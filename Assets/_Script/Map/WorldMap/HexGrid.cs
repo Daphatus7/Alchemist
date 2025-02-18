@@ -99,6 +99,45 @@ namespace _Script.Map.WorldMap
             }
         }
 
+        
+        /// <summary>
+        /// Returns a random point in cube coordinates that is exactly <paramref name="distance"/> away from <paramref name="center"/>.
+        /// </summary>
+        /// <param name="center">The central cube coordinate.</param>
+        /// <param name="distance">The exact hex distance from the center (must be >= 0).</param>
+        /// <returns>A cube coordinate (Vector3Int) exactly <paramref name="distance"/> away from <paramref name="center"/>.</returns>
+        public List<Vector3Int> GetARandomPointAt(Vector3Int center, int distance)
+        {
+            if (distance <= 0)
+                return new List<Vector3Int> {center};
+
+            // The total number of points on a hex ring is 6 * distance.
+            // Start at one of the ring's corners. Here we use HexDirections[4] arbitrarily.
+            Vector3Int start = center + new Vector3Int(
+                HexDirections[4].x * distance,
+                HexDirections[4].y * distance,
+                HexDirections[4].z * distance
+            );
+
+            List<Vector3Int> ringPoints = new List<Vector3Int>(6 * distance);
+            Vector3Int current = start;
+
+            // There are 6 sides to the hexagon. On each side, we move 'distance' steps.
+            for (int side = 0; side < 6; side++)
+            {
+                for (int step = 0; step < distance; step++)
+                {
+                    ringPoints.Add(current);
+                    // Move one step along the current side direction.
+                    current += HexDirections[side];
+                }
+            }
+
+            // Pick one random point from the ring.
+            //int index = Random.Range(0, ringPoints.Count);
+            return ringPoints;
+        }
+        
         /// <summary>
         /// Uses the grid configuration to determine a random node type.
         /// </summary>
@@ -816,5 +855,6 @@ namespace _Script.Map.WorldMap
             return Vector3.Distance(worldA, worldB);
         }
         #endregion
+        
     }
 }
