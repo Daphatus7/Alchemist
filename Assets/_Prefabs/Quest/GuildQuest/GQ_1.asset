@@ -20,9 +20,9 @@ MonoBehaviour:
     isComplete: 0
   reward:
     gold: 2000
-    experience: 300
+    experience: 5000
     items:
-    - item: {fileID: 11400000, guid: cbc5667b0e2a840088c322a9f35cef53, type: 2}
+    - item: {fileID: 11400000, guid: 82ae9c7bb14494e49975db7b82705143, type: 2}
       amount: 1
   questRank: 6
   description: Go to d1

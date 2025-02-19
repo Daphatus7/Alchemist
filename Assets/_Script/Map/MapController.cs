@@ -76,7 +76,7 @@ namespace _Script.Map
             //Generate Bonfire nearby
             var ringNode = HexGrid.GetRandomNodeAtRadius(path[^1].Position, 2);
 
-            ringNode.NodeDataInstance.NodeType = NodeType.Bonfire;
+            ringNode.NodeDataInstance = MapNodeFactory.Instance.CreateNode(NodeType.Bonfire, questInstance.QuestRank, -1);
             ringNode.SetExplorationState(NodeExplorationState.Revealed);
             HexGrid.NotifyNodeChanged(ringNode);
         }

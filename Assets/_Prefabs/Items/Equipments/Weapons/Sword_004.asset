@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c20331b29b487d953ed2e3728aa3ec, type: 3}
+  m_Name: Sword_004
+  m_EditorClassIdentifier: 
+  itemName: A million dollars
+  itemID: Sword_004
+  itemDescription: A very sharp blade, be very careful when wielding it.
+  itemIcon: {fileID: -1901378139, guid: d9184dbb777e8e8489eb1e645a17d80a, type: 3}
+  maxStackSize: 1
+  itemShapeType: 7
+  rarity: 0
+  _value: 1000000
+  weaponType: 0
+  attackForm: 1
+  durability: 2000
+  damageMin: 1
+  damageMax: 999999
+  attackCooldown: 0.5
+  attackTime: 0.2
+  attackDistance: 1
+  weaponPrefab: {fileID: 8222673930803448861, guid: ae28b71218fa845ed9dfdccd21cdf07a,
+    type: 3}
+  toolType: 0

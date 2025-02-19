@@ -997,6 +997,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Sword_4
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 984
+        width: 32
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6010c0ff2fcc4335a5df8a9ae8fbc10
+      internalID: -1901378139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -1034,6 +1056,7 @@ TextureImporter:
       Sword: -746632837
       Sword_1: -1839726451
       Sword_3: -1268135942
+      Sword_4: -1901378139
       Wand: 842772178
       copper_vein: -2540613011197712258
       d: -1268135942
