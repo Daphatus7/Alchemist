@@ -12,7 +12,7 @@ namespace _Script.Map.WorldMap
 {
     public class NodeDataInstance
     {
-        public PlayerRankEnum MapRank { get; protected set; }
+        public NiRank MapRank { get; protected set; }
         public NodeType NodeType { get; protected internal set; }
         public string Description { get; protected set; }
         public string MapName { get; protected set; }
@@ -21,7 +21,7 @@ namespace _Script.Map.WorldMap
             string mapName,
             string description,
             NodeType nodeType,
-            PlayerRankEnum mapRank)
+            NiRank mapRank)
         {
             MapRank = mapRank;
             MapName = mapName;
@@ -38,7 +38,7 @@ namespace _Script.Map.WorldMap
             string mapName, 
             string description, 
             NodeType nodeType, 
-            PlayerRankEnum mapRank) : base(mapName, description, nodeType, mapRank)
+            NiRank mapRank) : base(mapName, description, nodeType, mapRank)
         {
         }
     }
@@ -46,7 +46,7 @@ namespace _Script.Map.WorldMap
     public class BossNodeInstance : QuestNodeInstance
     {
         public string BossName { get; private set; }
-        public BossNodeInstance(GuildQuestInstance questInstance, PlayerRankEnum mapRank)
+        public BossNodeInstance(GuildQuestInstance questInstance, NiRank mapRank)
             : base(
                 ((BossKillObjective)questInstance.GuildQuestDefinition.objectives[0].objectiveData).mapName,
                 questInstance.GuildQuestDefinition.description,
@@ -64,7 +64,7 @@ namespace _Script.Map.WorldMap
     {
         public ItemData ItemData { get; private set; }
         
-        public CollectNodeInstance(GuildQuestInstance questInstance, PlayerRankEnum mapRank)
+        public CollectNodeInstance(GuildQuestInstance questInstance, NiRank mapRank)
             : base(
                 ((MapCollectObjective)questInstance.GuildQuestDefinition.objectives[0].objectiveData).mapName,
                 questInstance.GuildQuestDefinition.description,
@@ -81,7 +81,7 @@ namespace _Script.Map.WorldMap
     {
         public string AreaName { get; private set; }
         
-        public ExploreNodeInstance(GuildQuestInstance questInstance, PlayerRankEnum mapRank)
+        public ExploreNodeInstance(GuildQuestInstance questInstance, NiRank mapRank)
             : base(
                 questInstance.GuildQuestDefinition.questName,
                 questInstance.GuildQuestDefinition.description,

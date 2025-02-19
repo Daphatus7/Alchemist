@@ -31,6 +31,10 @@ namespace _Script.NPC.NpcBackend.NpcModules
         [SerializeField] private List<GuildQuestDefinition> allQuests;
 
         private List<GuildQuestInstance> _availableQuests;
+        
+        /// <summary>
+        /// Quest Generation, set available quests to null to reset
+        /// </summary>
         private List<GuildQuestInstance> AvailableQuests
         {
             get

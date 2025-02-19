@@ -105,12 +105,12 @@ namespace _Script.Enemy.EnemyCharacter
         {
             if (_debug)
             {
-                Initialize(PlayerRankEnum.S);
+                Initialize(NiRank.S);
             }
         }
         
         
-        public void Initialize(PlayerRankEnum rank)
+        public void Initialize(NiRank rank)
         {
             var attribute = enemyData.CreateScaledAttribute(rank);
             Health = attribute.Health;

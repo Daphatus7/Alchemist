@@ -95,7 +95,7 @@ namespace _Script.Map.WorldMap
         {
             foreach (var node in _hexNodes)
             {
-                node.Value.NodeDataInstance = GenerateNodeData(node.Value.NodeDataInstance.NodeType, PlayerRankEnum.S);
+                node.Value.NodeDataInstance = GenerateNodeData(node.Value.NodeDataInstance.NodeType, NiRank.S);
             }
         }
 
@@ -538,7 +538,7 @@ namespace _Script.Map.WorldMap
         /// <param name="nodeType">The node's type (e.g., forest, mountain, resource).</param>
         /// <param name="rank"></param>
         /// <returns>A new <see cref="NodeData"/> instance associated with that type.</returns>
-        public NodeDataInstance GenerateNodeData(NodeType nodeType, PlayerRankEnum rank)
+        public NodeDataInstance GenerateNodeData(NodeType nodeType, NiRank rank)
         {
             return MapNodeFactory.Instance.CreateNode(nodeType, rank,0);
         }

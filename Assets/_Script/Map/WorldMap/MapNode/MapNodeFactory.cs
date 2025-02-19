@@ -17,7 +17,7 @@ namespace _Script.Map.WorldMap.MapNode
         /// Creates a new NodeDataInstance based on the specified node type, rank, and seed.
         /// The provided seed is used to initialize the random generator for deterministic behavior.
         /// </summary>
-        public NodeDataInstance CreateNode(NodeType nodeType, PlayerRankEnum mapRank, int seed)
+        public NodeDataInstance CreateNode(NodeType nodeType, NiRank mapRank, int seed)
         {
             // Seed the random generator for deterministic selection.
             //Random.InitState(seed);
@@ -36,7 +36,7 @@ namespace _Script.Map.WorldMap.MapNode
         /// Selects a random node from the provided array and creates a NodeDataInstance from it.
         /// Returns null if the array is null or empty.
         /// </summary>
-        private NodeDataInstance CreateNodeFromArray<T>(T[] nodes, NodeType nodeType, PlayerRankEnum mapRank) where T : NodeData
+        private NodeDataInstance CreateNodeFromArray<T>(T[] nodes, NodeType nodeType, NiRank mapRank) where T : NodeData
         {
             if (nodes == null || nodes.Length == 0)
             {

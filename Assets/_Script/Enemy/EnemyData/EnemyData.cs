@@ -25,7 +25,7 @@ namespace _Script.Enemy.EnemyData
         /// Creates a new EnemyAttribute with stats
         /// scaled by the player's rank.
         /// </summary>
-        public EnemyAttribute CreateScaledAttribute(PlayerRankEnum rank)
+        public EnemyAttribute CreateScaledAttribute(NiRank rank)
         {
             float healthMod = EnemyScalable.GetHealthModifier(rank);
             float damageMod = EnemyScalable.GetDamageModifier(rank);
@@ -96,25 +96,25 @@ namespace _Script.Enemy.EnemyData
     /// </summary>
     public static class EnemyScalable
     {
-        public static float GetHealthModifier(PlayerRankEnum rank)
+        public static float GetHealthModifier(NiRank rank)
         {
             switch (rank)
             {
-                case PlayerRankEnum.G:
+                case NiRank.G:
                     return 1f;
-                case PlayerRankEnum.F:
+                case NiRank.F:
                     return 1.5f;
-                case PlayerRankEnum.E:
+                case NiRank.E:
                     return 2f;
-                case PlayerRankEnum.D:
+                case NiRank.D:
                     return 2.5f;
                 // Example: C, B, A, S, Ss, Sss all share the same multiplier
-                case PlayerRankEnum.C:
-                case PlayerRankEnum.B:
-                case PlayerRankEnum.A:
-                case PlayerRankEnum.S:
-                case PlayerRankEnum.Ss:
-                case PlayerRankEnum.Sss:
+                case NiRank.C:
+                case NiRank.B:
+                case NiRank.A:
+                case NiRank.S:
+                case NiRank.Ss:
+                case NiRank.Sss:
                     return 3f;
                 default:
                     Debug.LogError($"Invalid rank {rank}. Fallback to 3x health.");
@@ -122,24 +122,24 @@ namespace _Script.Enemy.EnemyData
             }
         }
 
-        public static float GetDamageModifier(PlayerRankEnum rank)
+        public static float GetDamageModifier(NiRank rank)
         {
             switch (rank)
             {
-                case PlayerRankEnum.G:
+                case NiRank.G:
                     return 1f;
-                case PlayerRankEnum.F:
+                case NiRank.F:
                     return 1.5f;
-                case PlayerRankEnum.E:
+                case NiRank.E:
                     return 2f;
-                case PlayerRankEnum.D:
+                case NiRank.D:
                     return 2.5f;
-                case PlayerRankEnum.C:
-                case PlayerRankEnum.B:
-                case PlayerRankEnum.A:
-                case PlayerRankEnum.S:
-                case PlayerRankEnum.Ss:
-                case PlayerRankEnum.Sss:
+                case NiRank.C:
+                case NiRank.B:
+                case NiRank.A:
+                case NiRank.S:
+                case NiRank.Ss:
+                case NiRank.Sss:
                     return 3f;
                 default:
                     Debug.LogError($"Invalid rank {rank}. Fallback to 3x damage.");
@@ -147,29 +147,29 @@ namespace _Script.Enemy.EnemyData
             }
         }
 
-        public static float GetSpeedModifier(PlayerRankEnum rank)
+        public static float GetSpeedModifier(NiRank rank)
         {
             switch (rank)
             {
-                case PlayerRankEnum.G:
+                case NiRank.G:
                     return 1f;
-                case PlayerRankEnum.F:
+                case NiRank.F:
                     return 1.1f;
-                case PlayerRankEnum.E:
+                case NiRank.E:
                     return 1.3f;
-                case PlayerRankEnum.D:
+                case NiRank.D:
                     return 1.5f;
-                case PlayerRankEnum.C:
+                case NiRank.C:
                     return 1.5f;
-                case PlayerRankEnum.B:
+                case NiRank.B:
                     return 1.6f;
-                case PlayerRankEnum.A:
+                case NiRank.A:
                     return 1.7f;
-                case PlayerRankEnum.S:
+                case NiRank.S:
                     return 2f;
-                case PlayerRankEnum.Ss:
+                case NiRank.Ss:
                     return 2f;
-                case PlayerRankEnum.Sss:
+                case NiRank.Sss:
                     return 3f;
                 default:
                     Debug.LogError($"Invalid rank {rank}. Extermination speed modifier.");

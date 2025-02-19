@@ -26,7 +26,7 @@ namespace _Script.Managers
 
         [SerializeField] private PlayerCharacter _playerCharacter; public PlayerCharacter PlayerCharacter => _playerCharacter;
         
-        public PlayerRankEnum PlayerRank => _playerCharacter.Rank;
+        public NiRank PlayerRank => _playerCharacter.Rank;
 
         [SerializeField] private string _startingScene = "TownMap";
 

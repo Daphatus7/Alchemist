@@ -14,7 +14,7 @@ namespace _Script.Character.PlayerRank
         /// <summary>
         /// The rank that this state represents.
         /// </summary>
-        public abstract PlayerRankEnum Rank { get; }
+        public abstract NiRank Rank { get; }
 
         /// <summary>
         /// The total cumulative experience required to reach this rank.
@@ -51,7 +51,7 @@ namespace _Script.Character.PlayerRank
     {
         public PlayerRankF(PlayerRank playerRank) : base(playerRank) { }
 
-        public override PlayerRankEnum Rank => PlayerRankEnum.F;
+        public override NiRank Rank => NiRank.F;
 
         // Although F is the starting rank, we set its ExpRequired to 0.
         public override int ExpRequired => 100;
@@ -70,7 +70,7 @@ namespace _Script.Character.PlayerRank
     {
         public PlayerRankE(PlayerRank playerRank) : base(playerRank) { }
 
-        public override PlayerRankEnum Rank => PlayerRankEnum.E;
+        public override NiRank Rank => NiRank.E;
 
         // Total experience required to be promoted to E.
         public override int ExpRequired => 200;
@@ -89,7 +89,7 @@ namespace _Script.Character.PlayerRank
     {
         public PlayerRankD(PlayerRank playerRank) : base(playerRank) { }
 
-        public override PlayerRankEnum Rank => PlayerRankEnum.D;
+        public override NiRank Rank => NiRank.D;
 
         // Total experience required to be promoted to D.
         public override int ExpRequired => 1000;
@@ -108,7 +108,7 @@ namespace _Script.Character.PlayerRank
     {
         public PlayerRankC(PlayerRank playerRank) : base(playerRank) { }
 
-        public override PlayerRankEnum Rank => PlayerRankEnum.C;
+        public override NiRank Rank => NiRank.C;
 
         // Total experience required to be promoted to C.
         public override int ExpRequired => 5000;
@@ -127,7 +127,7 @@ namespace _Script.Character.PlayerRank
     {
         public PlayerRankB(PlayerRank playerRank) : base(playerRank) { }
 
-        public override PlayerRankEnum Rank => PlayerRankEnum.B;
+        public override NiRank Rank => NiRank.B;
 
         // Total experience required to be promoted to B.
         public override int ExpRequired => 20000;
@@ -142,7 +142,7 @@ namespace _Script.Character.PlayerRank
     /// <summary>
     /// Enum to represent all possible player ranks.
     /// </summary>
-    public enum PlayerRankEnum
+    public enum NiRank
     {
         G,
         F,

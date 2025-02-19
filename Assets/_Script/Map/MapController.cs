@@ -170,17 +170,17 @@ namespace _Script.Map
         #endregion
         
         
-        private int GetMapDifficulty(PlayerRankEnum questRank)
+        private int GetMapDifficulty(NiRank questRank)
         {
             return questRank switch
             {
-                PlayerRankEnum.F => 1, 
-                PlayerRankEnum.E => 2,
-                PlayerRankEnum.D => 3,
-                PlayerRankEnum.C => 4,
-                PlayerRankEnum.B => 5,
-                PlayerRankEnum.A => 6,
-                PlayerRankEnum.S => 7,
+                NiRank.F => 1, 
+                NiRank.E => 2,
+                NiRank.D => 3,
+                NiRank.C => 4,
+                NiRank.B => 5,
+                NiRank.A => 6,
+                NiRank.S => 7,
                 _ => 1
             };
         }
@@ -206,8 +206,8 @@ namespace _Script.Map
             {
                 //dont change the order
                 var nodeType = HexGrid.GenerateHexType();
-                node.Difficulty = GetMapDifficulty((PlayerRankEnum)node.NodeLevel + 1);
-                node.NodeDataInstance = HexGrid.GenerateNodeData(nodeType, (PlayerRankEnum)node.NodeLevel + 1);
+                node.Difficulty = GetMapDifficulty((NiRank)node.NodeLevel + 1);
+                node.NodeDataInstance = HexGrid.GenerateNodeData(nodeType, (NiRank)node.NodeLevel + 1);
             }
             
             //HexGrid.GenerateBranchingStreams();

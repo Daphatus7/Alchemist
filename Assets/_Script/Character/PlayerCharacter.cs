@@ -79,7 +79,7 @@ namespace _Script.Character
         }
         
         public PlayerRank.PlayerRank CurrentRank => _playerRank;
-        public PlayerRankEnum Rank => _playerRank.CurrentRank;
+        public NiRank Rank => _playerRank.CurrentRank;
 
         #endregion
 

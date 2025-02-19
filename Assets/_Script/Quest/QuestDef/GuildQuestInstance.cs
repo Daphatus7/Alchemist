@@ -9,10 +9,10 @@ namespace _Script.Quest.QuestDef
     {
 
         public GuildQuestDefinition GuildQuestDefinition => (GuildQuestDefinition)QuestDefinition;
-        private PlayerRankEnum _questRank;
-        public PlayerRankEnum QuestRank => _questRank;
+        private NiRank _questRank;
+        public NiRank QuestRank => _questRank;
 
-        public GuildQuestInstance(GuildQuestDefinition def, PlayerRankEnum questRank) : base(def)
+        public GuildQuestInstance(GuildQuestDefinition def, NiRank questRank) : base(def)
         {
             QuestState = QuestState.NotStarted;
             _questRank = questRank;

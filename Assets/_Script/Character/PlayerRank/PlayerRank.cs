@@ -9,7 +9,7 @@ namespace _Script.Character.PlayerRank
     public interface IPlayerRankHandler
     {
         void AddExperience(int exp);
-        public PlayerRankEnum CurrentRank { get; }
+        public NiRank CurrentRank { get; }
     }
     
     public class PlayerRank: IPlayerRankHandler
@@ -19,7 +19,7 @@ namespace _Script.Character.PlayerRank
         private int _currentLevelExp = 0;
 
         // Expose current rank to other classes
-        public PlayerRankEnum CurrentRank => _currentRank.Rank;
+        public NiRank CurrentRank => _currentRank.Rank;
         
         public event Action<float> onExperienceChanged;
         
@@ -62,15 +62,15 @@ namespace _Script.Character.PlayerRank
         {
             switch (_currentRank.Rank)
             {
-                case PlayerRankEnum.F:
+                case NiRank.F:
                     return new PlayerRankE(this);
-                case PlayerRankEnum.E:
+                case NiRank.E:
                     return new PlayerRankD(this);
-                case PlayerRankEnum.D:
+                case NiRank.D:
                     return new PlayerRankC(this);
-                case PlayerRankEnum.C:
+                case NiRank.C:
                     return new PlayerRankB(this);
-                case PlayerRankEnum.B:
+                case NiRank.B:
                     // Max rank reached – no next state.
                     return null;
                 default:

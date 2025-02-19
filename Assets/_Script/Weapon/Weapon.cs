@@ -86,7 +86,6 @@ namespace _Script.Weapon
         {
             
         }
-
         #endregion
 
         /// <summary>

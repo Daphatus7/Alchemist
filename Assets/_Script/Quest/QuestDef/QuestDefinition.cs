@@ -29,7 +29,7 @@ namespace _Script.Quest.QuestDef
     [Serializable]
     public class UnlockCondition
     {
-        public PlayerRankEnum playerRank;
+        public NiRank playerRank;
         public MainStoryLine prerequisite;
     }
     

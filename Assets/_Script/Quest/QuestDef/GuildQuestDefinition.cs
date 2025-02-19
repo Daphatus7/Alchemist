@@ -9,7 +9,7 @@ namespace _Script.Quest.QuestDef
     [CreateAssetMenu(fileName = "GuildQuestDefinition", menuName = "Quests/GuildQuestDefinition")]
     public class GuildQuestDefinition : SimpleQuestDefinition
     {
-        public PlayerRankEnum questRank;
+        public NiRank questRank;
         public string description;
         
         [Header("Total Rooms")]
