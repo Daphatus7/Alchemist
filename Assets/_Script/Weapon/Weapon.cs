@@ -15,17 +15,12 @@ namespace _Script.Weapon
     [RequireComponent(typeof(BoxCollider2D))]
     public abstract class Weapon : MonoBehaviour
     {
-        [Header("General Settings")]
-        [SerializeField]
-        protected float attackCooldown = 1f;
-        public float AttackCooldown => attackCooldown;
-
+        protected float AttackCooldown { get; set; } = 0.5f;
+        protected float AttackTime { get; set; } = 0.5f;
         protected bool isCoolingDown = false;
         public bool IsCoolingDown => isCoolingDown;
-
-        [Header("Damage Settings + should be set from weapon item")]
-        [SerializeField] protected float damageMin = 1f;
-        [SerializeField] protected float damageMax = 2f;
+        protected float damageMin = 1f;
+        protected float damageMax = 2f;
         [SerializeField] private List<string> targetTags; // only these tags can be damaged
         protected Collider2D weaponCollider;
 
@@ -37,19 +32,24 @@ namespace _Script.Weapon
 
         protected ContactFilter2D _filter;
         protected readonly List<Collider2D> _results = new List<Collider2D>();
-
         public event Action<int> onHitTarget;
-        
+        private AttackForm _attackForm; protected AttackForm AttackForm
+        {
+            get => _attackForm;
+            set => _attackForm = value;
+        }
+
         /// <summary>
         /// Assign stats from a WeaponItem ScriptableObject (if desired).
         /// </summary>
-        public void SetWeaponItem(WeaponItem weaponItem)
+        public virtual void SetWeaponItem(WeaponItem weaponItem)
         {
 
             damageMin = weaponItem.damageMin;
             damageMax = weaponItem.damageMax;
-            
-            attackCooldown = weaponItem.attackSpeed;
+            AttackCooldown = weaponItem.attackCooldown;
+            AttackTime = weaponItem.attackTime;
+            AttackForm = weaponItem.attackForm;
         }
 
         protected virtual void Awake()

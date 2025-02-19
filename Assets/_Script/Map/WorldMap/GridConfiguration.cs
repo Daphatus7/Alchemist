@@ -23,7 +23,7 @@ namespace _Script.Map.WorldMap
             int gridRadius = 10,
             int resourceWeight = 8,
             int enemyWeight = 5,
-            int campfireWeight = 1,
+            int campfireWeight = 0,
             int bossWeight = 1)
         {
             GridRadius = gridRadius;

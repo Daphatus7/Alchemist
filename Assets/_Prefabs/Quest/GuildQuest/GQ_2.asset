@@ -26,8 +26,8 @@ MonoBehaviour:
       amount: 1
   questRank: 6
   description: Go to Area 1
-  distanceMax: 1
-  distanceMin: 1
+  distanceMax: 3
+  distanceMin: 5
   references:
     version: 2
     RefIds:

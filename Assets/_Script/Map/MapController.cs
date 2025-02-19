@@ -59,7 +59,6 @@ namespace _Script.Map
             
             var distance = questInstance.DistanceToTravel;
             //currently
-
             
             //需要改这一部分，改成状态机
             SetMapState(MapState.QuestAccepted);
@@ -75,18 +74,23 @@ namespace _Script.Map
             
            
             //Generate Bonfire nearby
-            var ring = HexGrid.GetARandomPointAt(path[^1].Position, 3);
+            var ringNode = HexGrid.GetRandomNodeAtRadius(path[^1].Position, 2);
 
-            foreach (var n in ring)
-            {
-                //set node to obstacle
-                
-                var node = HexGrid.GetHexNode(n.x, n.y, n.z);
-                node.NodeDataInstance.NodeType = NodeType.Obstacle;
-                node.SetExplorationState(NodeExplorationState.Revealed);
-                HexGrid.NotifyNodeChanged(node);
-            }
+            ringNode.NodeDataInstance.NodeType = NodeType.Bonfire;
+            ringNode.SetExplorationState(NodeExplorationState.Revealed);
+            HexGrid.NotifyNodeChanged(ringNode);
         }
+        
+        /// <summary>
+        /// Called when the quest is completed, create a retreat path for the player.
+        /// </summary>
+        public void CreateRetreatPath()
+        {
+            //When the objective is complete
+            //Generated a new quest random point in radius to the current player position
+            //And create a path from this point to the end point as retreat path
+        }
+        
 
         private NodeDataInstance GenerateNodeDataForQuest(GuildQuestInstance questInstance)
         {
@@ -276,7 +280,6 @@ namespace _Script.Map
             node.SetExplorationState(NodeExplorationState.Exploring);
             MarkCurrentNodeAsExplored(node);
             HexGrid.RevealHexNodeInRange(node.Position.x, node.Position.y, node.Position.z, gridVisibility);
-            
             if (debug)
             {
                 // Debug: stay in map view after exploring
@@ -298,6 +301,7 @@ namespace _Script.Map
             {
                 node.SetExplorationState(NodeExplorationState.Explored);
                 HexGrid.NotifyNodeChanged(node);
+                Debug.Log("Node fully explored." + node.Position);
             }
         }
         

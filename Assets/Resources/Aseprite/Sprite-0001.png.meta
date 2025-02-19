@@ -887,6 +887,116 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Sprite-0001_7
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 888
+        width: 64
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5e9b6ad8144e4786a1adb056d796f81
+      internalID: -289069386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_2
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 1016
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: daf113b2d4b8d4d0bb44220dfaf31f44
+      internalID: -423138196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dagger_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1016
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bca09552f55654f6ba790e69b1ba2007
+      internalID: -1266288860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dagger_2
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 1016
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 913284dfbead14a3f92994c2830fb9ae
+      internalID: -2064758899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_3
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 984
+        width: 32
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cc60f0c8ca384d308d6d5fc7ba8e6dc
+      internalID: -1268135942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -905,9 +1015,12 @@ TextureImporter:
       Cauldron: 581139435
       Cheese: 493521651
       Dagger: 186120327
+      Dagger_1: -1266288860
+      Dagger_2: -2064758899
       Gem: 2130572548
       Giant_Sword: -771888149
       Hammer: 458335063
+      Hammer_2: -423138196
       Long_Bread: -1242747153
       Sprite-0001_0: 1311434440
       Sprite-0001_1: -55613607
@@ -917,10 +1030,13 @@ TextureImporter:
       Sprite-0001_4: 959112343
       Sprite-0001_5: -1563127573
       Sprite-0001_6: 108884429
+      Sprite-0001_7: -289069386
       Sword: -746632837
       Sword_1: -1839726451
+      Sword_3: -1268135942
       Wand: 842772178
       copper_vein: -2540613011197712258
+      d: -1268135942
       diamond_vein: -7812539098719814344
       emerald_vein: -6880077232281017949
       epickax: 4245052342988409972

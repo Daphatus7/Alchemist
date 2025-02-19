@@ -106,7 +106,7 @@ namespace _Script.Map.WorldMap
         /// <param name="center">The central cube coordinate.</param>
         /// <param name="distance">The exact hex distance from the center (must be >= 0).</param>
         /// <returns>A cube coordinate (Vector3Int) exactly <paramref name="distance"/> away from <paramref name="center"/>.</returns>
-        public List<Vector3Int> GetARandomPointAt(Vector3Int center, int distance)
+        public List<Vector3Int> GetRingAtCenter(Vector3Int center, int distance)
         {
             if (distance <= 0)
                 return new List<Vector3Int> {center};
@@ -136,6 +136,66 @@ namespace _Script.Map.WorldMap
             // Pick one random point from the ring.
             //int index = Random.Range(0, ringPoints.Count);
             return ringPoints;
+        }
+        
+        /// <summary>
+        /// Returns a list of cube coordinates that form a ring at exactly <paramref name="distance"/>
+        /// from the given <paramref name="center"/>.
+        /// </summary>
+        /// <param name="center">The center cube coordinate.</param>
+        /// <param name="distance">The exact hex distance from the center.</param>
+        /// <returns>A list of cube coordinates forming the ring.</returns>
+        public List<Vector3Int> GetRing(Vector3Int center, int distance)
+        {
+            List<Vector3Int> ringPoints = new List<Vector3Int>();
+
+            if (distance <= 0)
+            {
+                // A distance of 0 returns the center only.
+                ringPoints.Add(center);
+                return ringPoints;
+            }
+
+            // Start at one corner of the ring. Here, we arbitrarily choose the direction at index 4.
+            Vector3Int start = center + Multiply(HexDirections[4], distance);
+            Vector3Int current = start;
+
+            // There are 6 sides to a hexagon; on each side, move 'distance' steps.
+            for (int side = 0; side < 6; side++)
+            {
+                for (int step = 0; step < distance; step++)
+                {
+                    ringPoints.Add(current);
+                    current += HexDirections[side];
+                }
+            }
+
+            return ringPoints;
+        }
+        
+        /// <summary>
+        /// Returns a ring (list of cube coordinates exactly 'distance' away) at a random center in the grid.
+        /// </summary>
+        /// <param name="distance">The ring distance from the chosen center.</param>
+        /// <returns>A list of cube coordinates forming the ring around a random center.</returns>
+        private Vector3Int GetRandomPointAtRadius(Vector3Int center, int distance)
+        {
+            var ring = GetRing(center, distance);
+            return ring[Random.Range(0, ring.Count)];
+        }
+        
+        public HexNode GetRandomNodeAtRadius(Vector3Int center, int distance)
+        {
+            var point = GetRandomPointAtRadius(center, distance);
+            return GetHexNode(point);
+        }
+        
+        /// <summary>
+        /// Helper method to multiply a Vector3Int by a scalar.
+        /// </summary>
+        private Vector3Int Multiply(Vector3Int vector, int scalar)
+        {
+            return new Vector3Int(vector.x * scalar, vector.y * scalar, vector.z * scalar);
         }
         
         /// <summary>

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c20331b29b487d953ed2e3728aa3ec, type: 3}
+  m_Name: Dagger_001
+  m_EditorClassIdentifier: 
+  itemName: Dagger
+  itemID: Dagger_001
+  itemDescription: A very sharp blade, be very careful when wielding it.
+  itemIcon: {fileID: 186120327, guid: d9184dbb777e8e8489eb1e645a17d80a, type: 3}
+  maxStackSize: 1
+  itemShapeType: 2
+  rarity: 0
+  _value: 2000
+  weaponType: 3
+  attackForm: 1
+  durability: 200
+  damageMin: 1
+  damageMax: 9
+  attackCooldown: 1
+  attackTime: 0.5
+  attackDistance: 1
+  weaponPrefab: {fileID: 8222673930803448861, guid: f8c1aa66edff84c41998b6df19866dfa,
+    type: 3}
+  toolType: 2

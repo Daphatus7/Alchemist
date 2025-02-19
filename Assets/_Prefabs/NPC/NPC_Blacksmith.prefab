@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3227056992782631814
+--- !u!1 &4088228072177938132
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8288125817998242825}
-  - component: {fileID: 710713777606993700}
-  - component: {fileID: 1357107075043979486}
-  - component: {fileID: 2642381904087164769}
+  - component: {fileID: 9149726635802718964}
+  - component: {fileID: 323096484303914079}
+  - component: {fileID: 5446433229994471806}
+  - component: {fileID: 6080177995985598787}
   m_Layer: 9
   m_Name: NameText
   m_TagString: Untagged
@@ -19,50 +19,48 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &8288125817998242825
+--- !u!224 &9149726635802718964
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3227056992782631814}
+  m_GameObject: {fileID: 4088228072177938132}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1263350367263015867}
+  m_Father: {fileID: 4429465699662549709}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 1.7}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &710713777606993700
+--- !u!114 &323096484303914079
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3227056992782631814}
+  m_GameObject: {fileID: 4088228072177938132}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a248d44ba74540ffaf7d9fdfec5dc430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: 'Ken The  Merchant
-
-'
+  text: Johnny The Blacksmith
   textColor: {r: 1, g: 1, b: 1, a: 1}
   textSize: 4
   offset: {x: 0, y: 1.7, z: 0}
---- !u!23 &1357107075043979486
+--- !u!23 &5446433229994471806
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3227056992782631814}
+  m_GameObject: {fileID: 4088228072177938132}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -101,13 +99,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2642381904087164769
+--- !u!114 &6080177995985598787
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3227056992782631814}
+  m_GameObject: {fileID: 4088228072177938132}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
@@ -121,9 +119,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Ken The  Merchant
-
-'
+  m_text: Johnny The Blacksmith
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -195,9 +191,9 @@ MonoBehaviour:
   _SortingLayerID: 0
   _SortingOrder: 0
   m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 1357107075043979486}
+  m_renderer: {fileID: 5446433229994471806}
   m_maskType: 0
---- !u!1 &7294792953007767854
+--- !u!1 &6547176464034878451
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -205,43 +201,43 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1263350367263015867}
-  - component: {fileID: 3194487395070998921}
-  - component: {fileID: 424326558511371869}
-  - component: {fileID: 83727879730681288}
-  - component: {fileID: 4138415022299462682}
-  - component: {fileID: 1710500215510742338}
-  - component: {fileID: 7514354583550334161}
+  - component: {fileID: 4429465699662549709}
+  - component: {fileID: 6826522899642444039}
+  - component: {fileID: 6754359498320138477}
+  - component: {fileID: 5610499691536891603}
+  - component: {fileID: 6452630323272828403}
+  - component: {fileID: 4870896369210179830}
+  - component: {fileID: 7781374701390235457}
   m_Layer: 9
-  m_Name: NPC_Merchant
+  m_Name: NPC_Blacksmith
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1263350367263015867
+--- !u!4 &4429465699662549709
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7294792953007767854}
+  m_GameObject: {fileID: 6547176464034878451}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.23, y: -3.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8288125817998242825}
+  - {fileID: 9149726635802718964}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3194487395070998921
+--- !u!212 &6826522899642444039
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7294792953007767854}
+  m_GameObject: {fileID: 6547176464034878451}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -290,13 +286,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &424326558511371869
+--- !u!61 &6754359498320138477
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7294792953007767854}
+  m_GameObject: {fileID: 6547176464034878451}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -336,34 +332,30 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.65625, y: 1.367069}
   m_EdgeRadius: 0
---- !u!114 &83727879730681288
+--- !u!114 &5610499691536891603
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7294792953007767854}
+  m_GameObject: {fileID: 6547176464034878451}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1efbd77082748e78bad0b2299f2b0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemsForSale:
-  - {fileID: 11400000, guid: f10c1a9dfbc8e4b2890a6ece48413d57, type: 2}
-  - {fileID: 11400000, guid: 56fa3d3fbbd6048d4925337da97e2fd9, type: 2}
-  - {fileID: 11400000, guid: 216f7d6a5d1bb4440823743456c9d788, type: 2}
-  - {fileID: 11400000, guid: 9c5c98dc522c849a18698db46dc42cd5, type: 2}
-  - {fileID: 11400000, guid: 5bfe331fc049940e9a4a7a20b8d6e176, type: 2}
-  - {fileID: 11400000, guid: a731c0cc6be5140f88f1cc7b7ae63ec8, type: 2}
+  - {fileID: 11400000, guid: 9460a12d7b1e7d24f97e33abbe754b24, type: 2}
+  - {fileID: 11400000, guid: 7329b007aa1014095b86618042dd0fe1, type: 2}
   inventoryWidth: 5
   inventoryHeight: 5
---- !u!114 &4138415022299462682
+--- !u!114 &6452630323272828403
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7294792953007767854}
+  m_GameObject: {fileID: 6547176464034878451}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ec9160711774ffbaf67e0faae2e499e, type: 3}
@@ -371,15 +363,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueDistance: 5
   npcInfo:
-    npcName: Ken
-    npcDialogue: Hello Stranger
---- !u!114 &1710500215510742338
+    npcName: Johnny
+    npcDialogue: Hello Traveller
+--- !u!114 &4870896369210179830
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7294792953007767854}
+  m_GameObject: {fileID: 6547176464034878451}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e63152cb31a49f1a13e698638f9d370, type: 3}
@@ -387,13 +379,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   optionName: Quest
   quests: []
---- !u!114 &7514354583550334161
+--- !u!114 &7781374701390235457
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7294792953007767854}
+  m_GameObject: {fileID: 6547176464034878451}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1076e6400514226b339b9e09457ad75, type: 3}
