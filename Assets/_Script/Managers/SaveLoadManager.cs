@@ -23,13 +23,13 @@ namespace _Script.Managers
         [Button]
         public void SaveGame()
         {
-            SaveSystem.Instance.SaveData<ISaveGameManager>(saveName);
+            SaveSystem.SaveData<ISaveTownDataHandler>(saveName);
         }
         
         [Button]
         public void LoadGame()
         {
-            // load different components of the game data and to be loaded separately
+            SaveSystem.LoadData<ISaveTownDataHandler>(saveName);
         }
         
         [Button]

@@ -70,8 +70,10 @@ namespace _Script.Inventory.MerchantInventoryFrontend
         /// <returns></returns>
         public override ItemStack RemoveAllItemsFromSlot(int slotIndex)
         {
-            //should copy
-            return ItemStack.Copy(inventory.GetItemStackAt(slotIndex));
+            //should copy - use this if want to replenish the item for every purchase
+            //return ItemStack.Copy(inventory.GetItemStackAt(slotIndex));
+            //simply remove the item
+            return base.RemoveAllItemsFromSlot(slotIndex);
         }
         
         /// <summary>

@@ -5,13 +5,27 @@ using System;
 using System.Collections.Generic;
 using _Script.NPC.NpcBackend;
 using _Script.Utilities.ServiceLocator;
+using UnityEngine;
 
 namespace _Script.Managers
 {
     public class TownManager : Singleton<TownManager>, ISaveTownDataHandler
     {
-        private List<NpcBase> _npcs;
+        [SerializeField] private List<NpcBase> _npcs;
         public string SaveKey => "TownManager";
+        
+        protected override void Awake()
+        {
+            base.Awake();
+            //Register with the save system
+            ServiceLocator.Instance.Register<ISaveTownDataHandler>(this);
+        }
+        
+        protected void OnDestroy()
+        {
+            if(ServiceLocator.Instance != null)
+                ServiceLocator.Instance.Unregister<ISaveTownDataHandler>();
+        }
         
         /// <summary>
         /// Exit point for town Data

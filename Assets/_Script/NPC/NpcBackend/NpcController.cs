@@ -25,7 +25,19 @@ namespace _Script.NPC.NpcBackend
         [SerializeField] private NpcInfo npcInfo;
         public string NpcId => npcInfo.NpcName;
         
-        private NpcModuleBase[] _npcModules;
+        private List<NpcModuleBase> _npcModules;
+
+        public List<NpcModuleBase> NpcModules
+        {
+            get
+            {
+                if (_npcModules == null)
+                {
+                    _npcModules = new List<NpcModuleBase>(GetComponents<NpcModuleBase>());
+                }
+                return _npcModules;
+            }
+        }
         
         /// <summary>
         /// Conversation starts here
@@ -101,7 +113,11 @@ namespace _Script.NPC.NpcBackend
         public override NpcSave OnSaveData()
         {
             var moduleSaveInstances = new Dictionary<string, NpcSaveModule>();
-            
+            if(NpcModules == null || NpcModules.Count == 0)
+            {
+                Debug.LogWarning(this + "NpcController.OnSaveData: No modules found.");
+                return null;
+            }
             //Pack all module save data
             foreach (var t in _npcModules)
             {
@@ -118,8 +134,7 @@ namespace _Script.NPC.NpcBackend
                     }
                     else
                     {
-                        throw new Exception("NpcController.OnSaveData: Module " + 
-                                            t.ModuleName + " returned null save data.");
+                        continue;
                     }
                 }
             }
@@ -150,17 +165,8 @@ namespace _Script.NPC.NpcBackend
             foreach (var moduleSaveInstance 
                      in saveInstance.ModuleSaveInstances)
             {
-                var module = Array.Find(_npcModules, 
-                    x => x.ModuleInfo.ModuleName == moduleSaveInstance.Key);
-                if (module != null)
-                {
-                    module.OnLoadData(moduleSaveInstance.Value);
-                }
-                else
-                {
-                    Debug.LogWarning("NpcController.OnLoadData: Module " 
-                                     + moduleSaveInstance.Key + " not found.");
-                }
+                var module = NpcModules.Find(x => x.ModuleInfo.ModuleName == moduleSaveInstance.Key);
+                module?.OnLoadData(moduleSaveInstance.Value);
             }
         }
 

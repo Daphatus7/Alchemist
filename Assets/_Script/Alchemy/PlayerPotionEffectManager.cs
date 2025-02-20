@@ -19,7 +19,7 @@ namespace _Script.Alchemy
 
         // 内部变量用于追踪当前最近到期的药剂及其剩余时间
         private float _timeUntilNextExpiry = float.MaxValue;
-        private PotionInstance.PotionInstance _nextExpiringPotion = null;
+        private PotionInstance.PotionInstance _nextExpiringPotion;
         private PlayerStatsManager _playerStats;
 
         /// <summary>

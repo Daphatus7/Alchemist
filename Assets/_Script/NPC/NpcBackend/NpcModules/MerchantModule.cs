@@ -53,6 +53,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
             var itemsToAdd = new List<ItemStack>();
             foreach(var item in itemsForSale)
             {
+                Debug.Log($"Adding item {item.ItemName} to merchant inventory.");
                 itemsToAdd.Add(new ItemStack(item, 1));
             }
             _merchantInventory = new MerchantInventory(itemsToAdd, inventoryWidth, inventoryHeight);
@@ -100,6 +101,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
             }
             else
             {
+                Debug.Log("MerchantModule.OnLoadData: Loading merchant inventory from save.");
                 itemsForSale = saveInstance.itemsForSale;
                 inventoryWidth = saveInstance.inventoryWidth;
                 inventoryHeight = saveInstance.inventoryHeight;
@@ -116,6 +118,11 @@ namespace _Script.NPC.NpcBackend.NpcModules
                 inventoryWidth = inventoryWidth,
                 inventoryHeight = inventoryHeight
             };
+
+            foreach (var o in saveInstance.itemsForSale)
+            {
+                Debug.Log($"MerchantModule.OnSaveData: Saved item {o.ItemName}.");
+            }
             return saveInstance;
         }
         

@@ -99,7 +99,7 @@ namespace _Script.Alchemy.AlchemyTools
 
         public override void OnLoadData(NpcSave data)
         {
-            throw new NotImplementedException();
+            //TODO: Implement this
         }
         #endregion
     }

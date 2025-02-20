@@ -277,9 +277,9 @@ namespace _Script.Inventory.SlotFrontend
                                 var projectedPositions = DragItem.Instance.ProjectedPositions(_inventoryUI.GetSlotPosition(_slotIndex));
                                 if (player.CanFitItem(projectedPositions))
                                 {
+                                    //Deduct the money from the player
                                     merchant.RemoveGold(player, purchasedItem, purchasedItem.Quantity);
                                     _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemStack(), projectedPositions);
-                                    //Deduct the money from the player
                                 }
                                 //如果不能放进玩家的背包，那么应该返回到商人的背包
                                 else

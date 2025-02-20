@@ -116,17 +116,18 @@ namespace _Script.NPC.NpcBackend.NpcModules
 
         public override void OnLoadData(NpcSaveModule data)
         {
-            throw new NotImplementedException();
+            //TODO: Implement this
         }
 
         public override NpcSaveModule OnSaveData()
         {
-            throw new NotImplementedException();
+            //TODO: Implement this
+            return null;
         }
 
         public override void LoadDefaultData()
         {
-            throw new NotImplementedException();
+            //TODO: Implement this
         }
 
         #endregion
