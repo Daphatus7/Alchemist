@@ -26,6 +26,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
         [SerializeField] private string optionName = "Guild Quest";
         public override string ModuleDescription => "Guild Quest Giver Module";
         public override string ModuleName => optionName;
+
         public override NpcHandlerType HandlerType => NpcHandlerType.GuildQuestGiver;
 
         [SerializeField] private List<GuildQuestDefinition> allQuests;
@@ -129,8 +130,52 @@ namespace _Script.NPC.NpcBackend.NpcModules
             _currentGuildQuest = null;
             _availableQuests = null;
         }
+
+
+        #region Save and Load
+        public override void OnLoadData(NpcSaveModule data)
+        {
+            if (data is GuildQuestSaveModule saveModule)
+            {
+                _currentGuildQuest = saveModule.CurrentGuildQuest;
+                _availableQuests = saveModule.AvailableQuests;
+                Debug.Log("GuildQuestGiverModule loaded saved quest data.");
+            }
+            else
+            {
+                Debug.Log("GuildQuestGiverModule.OnLoadData: Invalid save data type.");
+                LoadDefaultData();
+            }
+        }
+
+        public override NpcSaveModule OnSaveData()
+        {
+            var saveModule = new GuildQuestSaveModule
+            {
+                CurrentGuildQuest = _currentGuildQuest,
+                AvailableQuests = _availableQuests
+            };
+            return saveModule;
+        }
+
+        public override void LoadDefaultData()
+        {
+            // Reset to default state; the getter for AvailableQuests will generate new quests when needed.
+            _currentGuildQuest = null;
+            _availableQuests = null;
+            Debug.Log("GuildQuestGiverModule loaded default quest data.");
+        }
+        
+
+        #endregion
     }
 
+    public class GuildQuestSaveModule : NpcSaveModule
+    {
+        public GuildQuestInstance CurrentGuildQuest { get; set; }
+        public List<GuildQuestInstance> AvailableQuests { get; set; }
+    }
+    
     public interface IGuildQuestGiverModuleHandler
     {
         void OnAcceptQuest(GuildQuestInstance instance);

@@ -31,7 +31,19 @@ namespace _Script.NPC.NpcBackend.NpcModules
 
         public override string ModuleDescription => "Dialogue Module";
         public override string ModuleName => "Chat";
-        
+        public override void OnLoadData(NpcSaveModule data)
+        {
+        }
+
+        public override NpcSaveModule OnSaveData()
+        {
+            return null;
+        }
+
+        public override void LoadDefaultData()
+        {
+        }
+
         public string[] dialogueLines;
 
         public void StartDialogue()

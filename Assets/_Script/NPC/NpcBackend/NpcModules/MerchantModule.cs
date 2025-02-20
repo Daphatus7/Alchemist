@@ -1,6 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 04 12 2024 12 56
 
+using System;
 using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.MerchantInventoryBackend;
@@ -82,5 +83,53 @@ namespace _Script.NPC.NpcBackend.NpcModules
             //Refresh merchant inventory
             InitializeMerchantInventory();
         }
+
+        public override void OnLoadData(NpcSaveModule data)
+        {
+            if (data == null)
+            {
+                LoadDefaultData();
+            }
+            //clear existing items
+            itemsForSale.Clear();
+            //load items from save
+            if(data is not MerchantSaveModule saveInstance)
+            {
+                Debug.Log("MerchantModule.OnLoadData: Invalid save data type.");
+                LoadDefaultData();
+            }
+            else
+            {
+                itemsForSale = saveInstance.itemsForSale;
+                inventoryWidth = saveInstance.inventoryWidth;
+                inventoryHeight = saveInstance.inventoryHeight;
+            }
+            //Reload merchant inventory
+            Refresh();
+        }
+
+        public override NpcSaveModule OnSaveData()
+        {
+            var saveInstance = new MerchantSaveModule
+            {
+                itemsForSale = itemsForSale,
+                inventoryWidth = inventoryWidth,
+                inventoryHeight = inventoryHeight
+            };
+            return saveInstance;
+        }
+        
+        public override void LoadDefaultData()
+        {
+            throw new NotImplementedException();
+        }
+    }
+    
+    [Serializable]
+    public class MerchantSaveModule : NpcSaveModule
+    {
+        public List<ItemData> itemsForSale;
+        public int inventoryWidth;
+        public int inventoryHeight;
     }
 }

@@ -97,15 +97,17 @@ namespace _Script.Map
         
 
         #region Save-and-Load
-        
+
+        public string SaveKey => "GameTileMap";
+
         public object OnSaveData()
         {
             return null;
         }
-
+        
         public void OnLoadData(object data)
         {
-
+            
         }
 
         public void LoadDefaultData()
@@ -134,7 +136,7 @@ namespace _Script.Map
                 _lastCursorPosition = currentCursorCellPosition;
                 var tile = _tileMap.GetTile<CustomTile>(cellPosition);
                 //if there is no tile at the cursor position
-                if (tile == null)
+                if (!tile)
                 {
                     _pointedTile = null;
                     return;

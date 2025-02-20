@@ -4,33 +4,33 @@ using UnityEngine;
 
 namespace _Script.Utilities.SaveGame
 {
-    public class SaveSystem : PersistentSingleton<SaveSystem>
+    public class SaveSystem : Singleton<SaveSystem>
     {
         [SerializeField] private bool _debug = false;
 
-        public bool LoadData<T>(string SaveName) where T : ISaveGame
+        public bool LoadData<T>(string saveName) where T : ISaveGame
         {
-            if (IsNewSave<T>(SaveName))
+            if (IsNewSave<T>(saveName))
             {
-                Debug.Log($"It is a new save {SaveName}_{typeof(T).Name}");
+                Debug.Log($"It is a new save: {GetInternalName<T>(saveName)}");
+                LoadDefaultData<T>();
                 return false;
             }
             else
             {
-                Debug.Log($"Load saved data for {SaveName}_{typeof(T).Name}");
-                Load<T>(SaveName);
+                Debug.Log($"Loading saved data for {GetInternalName<T>(saveName)}");
+                Load<T>(saveName);
                 return true;
             }
         }
-
-        private string GetInternalName<T>(string SaveName)
+        private string GetInternalName<T>(string saveName)
         {
-            return $"{SaveName}_{typeof(T).Name}";
+            return $"{saveName}_{typeof(T).Name}";
         }
 
-        private bool IsNewSave<T>(string SaveName)
+        private bool IsNewSave<T>(string saveName) where T : ISaveGame
         {
-            return !ES3.KeyExists(GetInternalName<T>(SaveName));
+            return !ES3.KeyExists(GetInternalName<T>(saveName));
         }
 
         private void LoadDefaultData<T>() where T : ISaveGame
@@ -40,7 +40,7 @@ namespace _Script.Utilities.SaveGame
             saveService?.LoadDefaultData();
         }
 
-        public void SaveData<T>(string SaveName) where T : ISaveGame
+        public void SaveData<T>(string saveName) where T : ISaveGame
         {
             T saveService = GetSaveGameService<T>();
             if (saveService == null)
@@ -54,13 +54,13 @@ namespace _Script.Utilities.SaveGame
             ES3.Save(key, data); // Save the data
 
             if (_debug)
-                Debug.Log($"Saving... {SaveName}_{typeof(T).Name}");
-            ES3.Save(GetInternalName<T>(SaveName), key); // Save the unique key
+                Debug.Log($"Saving... {saveName}_{typeof(T).Name}");
+            ES3.Save(GetInternalName<T>(saveName), key); // Save the unique key
         }
 
-        private void Load<T>(string SaveName) where T : ISaveGame
+        private void Load<T>(string saveName) where T : ISaveGame
         {
-            string typeSpecificSaveName = $"{SaveName}_{typeof(T).Name}";
+            string typeSpecificSaveName = $"{saveName}_{typeof(T).Name}";
 
             if (!ES3.KeyExists(typeSpecificSaveName))
             {
@@ -85,7 +85,7 @@ namespace _Script.Utilities.SaveGame
 
         private string GenerateUniqueKeyForService(ISaveGame service)
         {
-            return GetDataTypeSaveName(service) + GetDataNameSaveName(service);
+            return $"{service.GetType().Name}_{service.SaveKey}";
         }
 
         private string GetDataTypeSaveName(ISaveGame service)

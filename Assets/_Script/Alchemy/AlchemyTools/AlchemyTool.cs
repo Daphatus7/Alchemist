@@ -7,6 +7,7 @@ using _Script.Character;
 using _Script.Interactable;
 using _Script.Inventory.AlchemyInventory;
 using _Script.Inventory.InventoryBackend;
+using _Script.Managers;
 using _Script.NPC.NpcBackend;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
@@ -45,7 +46,7 @@ namespace _Script.Alchemy.AlchemyTools
             ConversationInstance.AddNpcUIHandler(ServiceLocator.Instance.Get<IAlchemyUIService>().GetUIHandler());
 
         }
-
+        
         public void StartBrew(BrewInstance brewInstance)
         {
             if (_brewTimer != null || BrewInstance != null)
@@ -78,5 +79,34 @@ namespace _Script.Alchemy.AlchemyTools
             BrewInstance = null;
             onBrewComplete?.Invoke();
         }
+
+        #region Save and Load
+        
+        public override void LoadDefaultData()
+        {
+            //suppose to be empty
+        }
+
+        public override string SaveKey => "AlchemyTool";
+        public override NpcSave OnSaveData()
+        {
+            var saveModule = new AlchemyCauldronSave
+            {
+  
+            };
+            return saveModule;
+        }
+
+        public override void OnLoadData(NpcSave data)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+    }
+    
+    [Serializable]
+    public class AlchemyCauldronSave : NpcSave
+    {
+        //TODO: Requires additional classes for inventory 
     }
 }

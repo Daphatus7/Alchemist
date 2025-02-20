@@ -9,6 +9,7 @@ using Debug = UnityEngine.Debug; // Avoid collision with System.Diagnostics.Debu
 using _Script.Map;
 using _Script.Map.Volume;
 using _Script.Map.WorldMap;
+using _Script.Utilities.ServiceLocator;
 using Edgar.Unity;
 using Edgar.Unity.Examples;
 using Sirenix.OdinInspector;

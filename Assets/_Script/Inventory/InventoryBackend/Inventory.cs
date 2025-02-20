@@ -685,5 +685,4 @@ namespace _Script.Inventory.InventoryBackend
             OnInventoryStatusChanged?.Invoke(itemID, count);
         }
     }
-
 }

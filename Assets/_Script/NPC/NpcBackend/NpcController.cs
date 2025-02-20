@@ -3,9 +3,12 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using _Script.Character;
+using _Script.Managers;
 using _Script.NPC.NpcBackend.NpcModules;
 using _Script.UserInterface;
+using _Script.Utilities.SaveGame;
 using _Script.Utilities.ServiceLocator;
 using _Script.Utilities.StateMachine;
 using Sirenix.OdinInspector;
@@ -79,13 +82,113 @@ namespace _Script.NPC.NpcBackend
         {
             OnConversationTerminated();
         }
+
+
+        #region Save and Load
+
+        public override void LoadDefaultData()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string SaveKey => NpcId;
+
+        /// <summary>
+        /// Called by external script to save data.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public override NpcSave OnSaveData()
+        {
+            var moduleSaveInstances = new Dictionary<string, NpcSaveModule>();
+            
+            //Pack all module save data
+            foreach (var t in _npcModules)
+            {
+                if (t != null)
+                {
+                    if (t.OnSaveData() != null)
+                    {
+                        if (moduleSaveInstances.ContainsKey(t.ModuleInfo.ModuleName))
+                        {
+                            throw new Exception("NpcController.OnSaveData: Duplicate module name " + 
+                                                t.ModuleInfo.ModuleName);
+                        }
+                        moduleSaveInstances.Add(t.ModuleInfo.ModuleName, t.OnSaveData());
+                    }
+                    else
+                    {
+                        throw new Exception("NpcController.OnSaveData: Module " + 
+                                            t.ModuleName + " returned null save data.");
+                    }
+                }
+            }
+            
+            //Pack all data
+            var saveInstance = new NpcControllerSaveInstance
+            {
+                ModuleSaveInstances = moduleSaveInstances
+            };
+            return saveInstance;
+        }
+
+        public override void OnLoadData(NpcSave data)
+        {
+            if (data == null)
+            {
+                LoadDefaultData();
+                return;
+            }
+
+            //Check data type
+            if (data is not NpcControllerSaveInstance saveInstance)
+            {
+                throw new Exception("NpcController.OnLoadData: Invalid save data type.");
+            }
+            
+            //Load all module data
+            foreach (var moduleSaveInstance 
+                     in saveInstance.ModuleSaveInstances)
+            {
+                var module = Array.Find(_npcModules, 
+                    x => x.ModuleInfo.ModuleName == moduleSaveInstance.Key);
+                if (module != null)
+                {
+                    module.OnLoadData(moduleSaveInstance.Value);
+                }
+                else
+                {
+                    Debug.LogWarning("NpcController.OnLoadData: Module " 
+                                     + moduleSaveInstance.Key + " not found.");
+                }
+            }
+        }
+
+
+        #endregion
     }
     
     [Serializable]
     public class NpcInfo
     {
-        [SerializeField] private string npcName; public string NpcName => npcName;
-        [SerializeField] private string npcDialogue; public string NpcDialogue => npcDialogue;
+        [SerializeField] 
+        private string npcName; public string NpcName => npcName;
+        [SerializeField] 
+        private string npcDialogue; public string NpcDialogue => npcDialogue;
+    }
+    [Serializable]
+    public class NpcControllerSaveInstance : NpcSave
+    {
+        public Dictionary<string, NpcSaveModule> ModuleSaveInstances;
+    }
+    
+    /// <summary>
+    /// For each module
+    /// </summary>
+    [Serializable]
+    public abstract class NpcSaveModule
+    {
+        
     }
     
     public interface INpcDialogueHandler

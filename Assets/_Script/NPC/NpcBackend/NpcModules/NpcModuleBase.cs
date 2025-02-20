@@ -8,11 +8,10 @@ namespace _Script.NPC.NpcBackend.NpcModules
 {
     
     [DefaultExecutionOrder(500)]
-    public abstract class NpcModuleBase : MonoBehaviour, INpcModuleHandler
+    public abstract class NpcModuleBase : MonoBehaviour, INpcModuleHandler, INpcSaveModule
     {
         public abstract bool ShouldLoadModule();
         public abstract void LoadNpcModule();
-
         public abstract void UnloadNpcModule();
 
         public string NpcId => Npc.NpcId;
@@ -29,6 +28,11 @@ namespace _Script.NPC.NpcBackend.NpcModules
         {
             Npc = GetComponent<INpcModuleControlHandler>();
         }
+
+        public abstract void OnLoadData(NpcSaveModule data);
+        
+        public abstract NpcSaveModule OnSaveData();
+        public abstract void LoadDefaultData();
     }
     
     [Serializable]
@@ -54,5 +58,13 @@ namespace _Script.NPC.NpcBackend.NpcModules
         Trainer,
         Dialogue,
         GuildQuestGiver
+    }
+    
+    public interface INpcSaveModule
+    {
+        string ModuleName { get; }
+        void OnLoadData(NpcSaveModule data);
+        NpcSaveModule OnSaveData();
+        void LoadDefaultData();
     }
 }

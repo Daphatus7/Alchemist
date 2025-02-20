@@ -3,6 +3,7 @@ using System.Collections;
 using _Script.Map;
 using _Script.Utilities.SaveGame;
 using _Script.Utilities.ServiceLocator;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -11,62 +12,40 @@ namespace _Script.Managers
     public class SaveLoadManager: PersistentSingleton<SaveLoadManager>
     {
         [SerializeField] private string saveName = "save_1";
-        [FormerlySerializedAs("_removeSave")] [SerializeField] private bool removeSave = false;
-        [FormerlySerializedAs("_gridTester")] [SerializeField] private GameTileMap gridTester;
         
-        [SerializeField] private bool _debug = false;
+        private SaveSystem SaveSystem => SaveSystem.Instance;
         
-        public void Start()
+        
+        //Reference to lower level managers
+        
+        //Supports they have registered with the service locator
+        
+        [Button]
+        public void SaveGame()
         {
-            //StartCoroutine(DelayedLoad());
+            SaveSystem.Instance.SaveData<ISaveGameManager>(saveName);
         }
         
-        private IEnumerator DelayedLoad()
+        [Button]
+        public void LoadGame()
         {
-            yield return new WaitForSeconds(0.5f);
-            if (LoadSavedTileMap())
+            // load different components of the game data and to be loaded separately
+        }
+        
+        [Button]
+        public void DeleteSave()
+        {
+            // Delete the unified save file.
+            string filePath = Application.persistentDataPath + "/" + saveName + ".es3";
+            if (System.IO.File.Exists(filePath))
             {
-                if(_debug)
-                    Debug.Log("Loaded saved tile map...");
+                System.IO.File.Delete(filePath);
+                Debug.Log("Deleted save file: " + filePath);
             }
             else
             {
-                if(_debug)
-                    Debug.Log("Failed to load saved tile map...");
-                LoadDefaultTileMap();
+                Debug.Log("No save file found at: " + filePath);
             }
-            
-            StartCoroutine(SaveGameRoutine());
-        }
-        
-        private IEnumerator SaveGameRoutine()
-        {
-            yield return new WaitForSeconds(3f);
-            SaveGame();
-        }
-        
-        public void SaveGame()
-        {
-            if(_debug)
-                Debug.Log("Saving game...");
-            SaveSystem.Instance.SaveData<ISaveTileMap>(saveName);
-        }
-        
-        public bool LoadSavedTileMap()
-        {
-            if(_debug)
-                Debug.Log("Trying to load saved tile map...");
-            return SaveSystem.Instance.LoadData<ISaveTileMap>(saveName);
-        }
-        
-        public void RemoveSave()
-        {
-            
-        }
-        
-        public void LoadDefaultTileMap()
-        {
-            gridTester.LoadDefaultData();
         }
     }
 }

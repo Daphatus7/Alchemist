@@ -35,6 +35,8 @@ namespace _Script.NPC.NpcBackend.NpcModules
         public override NpcHandlerType HandlerType => NpcHandlerType.QuestGiver;
         public override string ModuleDescription => "Quest Giver Module";
         public override string ModuleName => optionName;
+  
+
         #endregion
         
         public void Start()
@@ -109,5 +111,24 @@ namespace _Script.NPC.NpcBackend.NpcModules
         public override void UnloadNpcModule()
         {
         }
+
+        #region Save and Load
+
+        public override void OnLoadData(NpcSaveModule data)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override NpcSaveModule OnSaveData()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void LoadDefaultData()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

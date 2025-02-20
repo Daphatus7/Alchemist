@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _Script.Character;
 using _Script.Character.PlayerRank;
@@ -48,6 +49,8 @@ namespace _Script.Managers
             _levelManager = new LevelManager();
             
             _levelManager.Initialize(_playerCharacter, _startingScene, _astarPath);
+            
+            //set scene as persistent
 
             // Optionally load the "starting" scene
             _levelManager.LoadMainScene(_startingScene);

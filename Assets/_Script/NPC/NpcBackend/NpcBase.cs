@@ -1,9 +1,11 @@
 // Author : Peiyu Wang @ Daphatus
 // 08 02 2025 02 47
 
+using System;
 using System.Collections;
 using _Script.Character;
 using _Script.Interactable;
+using _Script.Managers;
 using _Script.UserInterface;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
@@ -15,7 +17,7 @@ namespace _Script.NPC.NpcBackend
     /// Provides basic interaction as a Npc
     /// That is, when interacting, pop up a dialogue
     /// </summary>
-    public class NpcBase : MonoBehaviour, IInteractable
+    public abstract class NpcBase : MonoBehaviour, IInteractable, INpcSaveDataHandler
     {
         protected ConversationInstance ConversationInstance;
         private Coroutine _distanceCheckCoroutine;
@@ -107,6 +109,22 @@ namespace _Script.NPC.NpcBackend
                 yield return new WaitForSeconds(0.3f); 
             }
         }
+
+        #region Save and Load
         
+        public abstract string SaveKey { get; }
+        public abstract NpcSave OnSaveData();
+        public abstract void OnLoadData(NpcSave data);
+        public abstract void LoadDefaultData();
+        
+        #endregion
+    }
+    
+    public interface INpcSaveDataHandler
+    {
+        void OnLoadData(NpcSave npcBase);
+        new NpcSave OnSaveData();
+        new void LoadDefaultData();
+        new string SaveKey { get; }
     }
 }
