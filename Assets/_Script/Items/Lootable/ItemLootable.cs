@@ -104,7 +104,7 @@ namespace _Script.Items.Lootable
             if (player)
             {
                 // For a normal item (non-container), create a normal stack
-                var stack = new ItemInstance(itemData, quantity);
+                var stack = new ItemInstance(itemData, false, quantity);
                 if (player.PlayerInventory.AddItem(stack) == null)
                 {
                     Destroy(gameObject);

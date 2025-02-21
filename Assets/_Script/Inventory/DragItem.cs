@@ -78,7 +78,7 @@ namespace _Script.Inventory
         /// </summary>
         /// <param name="targetSlotPosition"></param>
         /// <returns></returns>
-        public List<Vector2Int> ProjectedPositions(Vector2Int targetSlotPosition //放置的位置
+        public List<Vector2Int> ProjectedPositions(Vector2Int targetSlotPosition //position of cursor dragging on
         )
         {
             var projectedPositions = new List<Vector2Int>();
@@ -89,7 +89,6 @@ namespace _Script.Inventory
             for(int i = 0; i < inventoryOffset.Count; i++)
             {
                 var projectedPosition = inventoryOffset[i] + shiftVector;
-                //Debug.Log("projectedPosition: " + projectedPosition);
                 projectedPositions.Add(projectedPosition);
             }
             return projectedPositions;

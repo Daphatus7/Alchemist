@@ -9,10 +9,10 @@ namespace _Script.Inventory.ItemInstance
 {
     public class SeedInstance : ItemInstance
     {
-        public SeedInstance(SeedItem seedItem, int quantity = 1) : base(seedItem, quantity)
+        public SeedInstance(ItemData itemData, bool rotated, int quantity = 1) : base(itemData, rotated, quantity)
         {
         }
-        
+
         public Sprite SeedOnGroundSprite => ((SeedItem) ItemData).seedOnGroundSprite;
     }
 }

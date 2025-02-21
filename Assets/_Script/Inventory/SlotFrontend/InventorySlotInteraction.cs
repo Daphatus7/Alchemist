@@ -266,33 +266,28 @@ namespace _Script.Inventory.SlotFrontend
                     {
                         var purchasedItem = DragItem.Instance.PeakItemInstance();
                         //if the purchased item is not empty
-                        if (purchasedItem?.IsEmpty == false)
-                        {
+                        
                             //can afford the item
-                            if (merchant.CanAfford(player, purchasedItem, purchasedItem.Quantity))
+                        if (merchant.CanAfford(player, purchasedItem, purchasedItem.Quantity))
+                        {
+                            //if it can fit the item in the player inventory
+                            var projectedPositions = DragItem.Instance.ProjectedPositions(_inventoryUI.GetSlotPosition(_slotIndex));
+                            
+                            if (player.CanFitItem(projectedPositions))
                             {
-                                //if it can fit the item in the player inventory
-                                var projectedPositions = DragItem.Instance.ProjectedPositions(_inventoryUI.GetSlotPosition(_slotIndex));
-                                if (player.CanFitItem(projectedPositions))
-                                {
-                                    //Deduct the money from the player
-                                    merchant.RemoveGold(player, purchasedItem, purchasedItem.Quantity);
-                                    _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemInstance(), projectedPositions);
-                                }
-                                //如果不能放进玩家的背包，那么应该返回到商人的背包
-                                else
-                                {
-                                    DragItem.Instance.RemoveItemInstance();
-                                }
-                                
-                                /**
-                                 * TODo: did not consider the case when the player can't fit the item in the inventory
-                                 */
+                                //Deduct the money from the player
+                                merchant.RemoveGold(player, purchasedItem, purchasedItem.Quantity);
+                                _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemInstance(), projectedPositions);
                             }
+                            //如果不能放进玩家的背包，那么应该返回到商人的背包
                             else
                             {
-                                Debug.Log("You have no money");
+                                DragItem.Instance.RemoveItemInstance();
                             }
+                            
+                            /**
+                             * TODo: did not consider the case when the player can't fit the item in the inventory
+                             */
                         }
                         else
                         {

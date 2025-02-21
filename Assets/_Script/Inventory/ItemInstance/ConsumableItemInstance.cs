@@ -7,7 +7,7 @@ namespace _Script.Inventory.ItemInstance
 {
     public class ConsumableItemInstance : ItemInstance
     {
-        public ConsumableItemInstance(ItemData itemData, int quantity = 1) : base(itemData, quantity)
+        public ConsumableItemInstance(ItemData itemData, bool rotated, int quantity = 1) : base(itemData, rotated, quantity)
         {
         }
     }

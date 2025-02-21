@@ -40,8 +40,8 @@ namespace _Script.Inventory.InventoryFrontendBase
         public void ShowUI()
         {
             gameObject.SetActive(true);
-            inventory.OnItemInstanceChanged -= OnInventoryStackChanged;
-            inventory.OnItemInstanceChanged += OnInventoryStackChanged;
+            inventory.onItemInstanceChanged -= OnInventoryStackChanged;
+            inventory.onItemInstanceChanged += OnInventoryStackChanged;
             
             inventory.OnInventorySlotChanged -= UpdateSlotUI;
             inventory.OnInventorySlotChanged += UpdateSlotUI;
@@ -49,7 +49,7 @@ namespace _Script.Inventory.InventoryFrontendBase
         
         public void HideUI()
         {
-            inventory.OnItemInstanceChanged -= OnInventoryStackChanged;
+            inventory.onItemInstanceChanged -= OnInventoryStackChanged;
             inventory.OnInventorySlotChanged -= UpdateSlotUI;
             
             gameObject.SetActive(false);
@@ -71,7 +71,7 @@ namespace _Script.Inventory.InventoryFrontendBase
         {
             if (inventory != null)
             {
-                inventory.OnItemInstanceChanged -= RenderSlotIcons;
+                inventory.onItemInstanceChanged -= RenderSlotIcons;
                 inventory.OnInventorySlotChanged -= UpdateSlotUI;
             }
         }
@@ -207,7 +207,7 @@ namespace _Script.Inventory.InventoryFrontendBase
             
             foreach (var item in inventory.ItemInstances)
             {
-                if (item == null || item.IsEmpty) continue;
+                if (item == null) continue;
 
                 var newItemDisplay = Instantiate(slotVisualPrefab, slotVisualParent.transform);
                 var rect = newItemDisplay.GetComponent<RectTransform>();

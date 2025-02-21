@@ -4,6 +4,7 @@ using _Script.Inventory.ItemInstance;
 using _Script.Inventory.SlotFrontend;
 using _Script.Items;
 using _Script.Items.AbstractItemTypes._Script.Items;
+using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -94,7 +95,7 @@ namespace _Script.Inventory.InventoryBackend
         // Event: inventory changed at a slot index
         public event Action<int> OnInventorySlotChanged;
         
-        public event Action OnItemInstanceChanged;
+        public event Action onItemInstanceChanged;
 
         // Helper method to invoke the event
         public void OnInventorySlotChangedEvent(List<Vector2Int> positions)
@@ -164,14 +165,16 @@ namespace _Script.Inventory.InventoryBackend
                     int toAdd = Mathf.Min(itemInstanceToAdd.Quantity, itemInstanceToAdd.MaxStackSize);
 
                     // Actually place the item
-                    var placedInstance = 
-                        ItemInstanceFactory.CreateItemInstance(projectedPositions, itemInstanceToAdd, toAdd);
+                    var placedInstance = CreateItemInstanceAtLocation(projectedPositions, itemInstanceToAdd, toAdd);
                     // CreateItemInstanceAtLocation(projectedPositions, toAdd, itemInstanceToAdd);
                     if (placedInstance != null)
                     {
                         // Adjust leftover
                         _itemInstances.Add(placedInstance);
-                        OnOnItemInstanceChanged();
+                        itemInstanceToAdd.Quantity -= toAdd;
+                        
+                        // Notify that the item instances have changed.
+                        OnItemInstanceChanged();
                         InventoryStatus.UpdateInventoryStatus(placedInstance.ItemID, toAdd);
 
                         if (itemInstanceToAdd.Quantity <= 0)
@@ -188,6 +191,36 @@ namespace _Script.Inventory.InventoryBackend
             return itemInstanceToAdd;
         }
         
+        /// <summary>
+        /// Allocate the item instance by copying the original item instance and assigning the quantity.
+        /// </summary>
+        /// <param name="projectedPositions"></param>
+        /// <param name="itemInstance"></param>
+        /// <param name="quantity"></param>
+        /// <returns></returns>
+        private ItemInstance.ItemInstance CreateItemInstanceAtLocation(List<Vector2Int> projectedPositions, 
+            ItemInstance.ItemInstance itemInstance,
+            int quantity)
+        {
+            if(projectedPositions == null || projectedPositions.Count == 0)
+            {
+                Debug.LogWarning("Invalid item instance positions.");
+                return null;
+            }
+
+            //Copy the item instance
+            var placedInstance = itemInstance.Clone();
+            placedInstance.Quantity = quantity;
+            placedInstance.ItemPositions = projectedPositions;
+            foreach (var slotPos in projectedPositions)
+            {
+                var sIndex = GridToSlotIndex(slotPos.x, slotPos.y);
+                Slots[sIndex].ItemInstance = placedInstance;
+            }
+            OnInventorySlotChangedEvent(projectedPositions);
+            return placedInstance;
+        }
+        
         // ----------------------------------------------
         // Checking shape fit
         // ----------------------------------------------
@@ -198,6 +231,11 @@ namespace _Script.Inventory.InventoryBackend
         /// </summary>
         private bool CanFitIn(List<Vector2Int> projectedPositions)
         {
+            if(projectedPositions == null || projectedPositions.Count == 0)
+            {
+                Debug.LogError("Invalid item projectedPositions to compare.");
+                return false;
+            }
             
             foreach (var pos in projectedPositions)
             {
@@ -243,46 +281,53 @@ namespace _Script.Inventory.InventoryBackend
             //invalid slot index
             if (slotIndex < 0 || slotIndex >= Capacity) return null;
             
-            var itemAtSlot = GetItemInstanceAt(slotIndex);
-            if (itemAtSlot == null)
+            var itemInstance = GetItemInstanceAt(slotIndex);
+            if (itemInstance == null)
             {
                 return null;
             }
             
             //Create split all instances into a different stack with no assigned addresses in the inventory
-            var removed = ItemInstanceFactory.Split(itemAtSlot, itemAtSlot.Quantity);
-            OnRemovingItem(slotIndex);
-            
-            return removed;
+            ClearItemInstance(itemInstance);
+            return itemInstance;
         }
         
-        /**
-         * 1. Clear the item connections of the stack item
-         * 2. Clear the item stack
-         */
+        /// <summary>
+        ///  * 1. Clear the item connections of the stack item
+        ///  * 2. Clear the item instance
+        /// </summary>
+        /// <param name="slotIndex"></param>
         private void OnRemovingItem(int slotIndex)
         {
-            var ItemInstance = GetItemInstanceAt(slotIndex);
-            if(ItemInstance == null) return;  // Remove the check for IsEmpty
-            // Clear the inventory status using the remaining quantity (if any)
-            InventoryStatus.UpdateInventoryStatus(ItemInstance.ItemID, -ItemInstance.Quantity);
-            foreach(var pos in ItemInstance.ItemPositions)
+            var itemInstance = GetItemInstanceAt(slotIndex);
+            ClearItemInstance(itemInstance);
+        }
+        
+        /// <summary>
+        /// Remove the trace of the item instance from the inventory
+        /// </summary>
+        /// <param name="itemInstance"></param>
+        private void ClearItemInstance(ItemInstance.ItemInstance itemInstance)
+        {
+            if(itemInstance == null) return;  // Remove the check for IsEmpty
+            InventoryStatus.UpdateInventoryStatus(itemInstance.ItemID, -itemInstance.Quantity);
+            foreach(var pos in itemInstance.ItemPositions)
             {
                 var sIndex = GridToSlotIndex(pos.x, pos.y);
                 Slots[sIndex].Clear();
             }
-            OnInventorySlotChangedEvent(ItemInstance.ItemPositions);
-            _itemInstances.Remove(ItemInstance);
-            OnOnItemInstanceChanged();
+            OnInventorySlotChangedEvent(itemInstance.ItemPositions);
+            _itemInstances.Remove(itemInstance);
+            OnItemInstanceChanged();
         }
 
         public void AddItemToEmptySlot(ItemInstance.ItemInstance itemInstance // the original item instance need to be set to null
             , List<Vector2Int> projectedPositions)
         {
             //create a new item stack 
-            var placedInstance = ItemInstanceFactory.CreateItemInstance(projectedPositions, itemInstance, itemInstance.Quantity);
+            var placedInstance = CreateItemInstanceAtLocation(projectedPositions, itemInstance, itemInstance.Quantity);
             _itemInstances.Add(placedInstance);
-            OnOnItemInstanceChanged();
+            OnItemInstanceChanged();
             OnInventorySlotChangedEvent(projectedPositions);
             InventoryStatus.UpdateInventoryStatus(placedInstance.ItemID, placedInstance.Quantity);
         }
@@ -325,8 +370,8 @@ namespace _Script.Inventory.InventoryBackend
             int remaining = quantity;
             // Iterate over a copy so that if a whole stack is removed (which clears it from _ItemInstances)
             // the iteration is not affected.
-            List<ItemInstance.ItemInstance> stacksCopy = new List<ItemInstance.ItemInstance>(_itemInstances);
-            foreach (var instance in stacksCopy)
+            var itemInstancesCopy = new List<ItemInstance.ItemInstance>(_itemInstances);
+            foreach (var instance in itemInstancesCopy)
             {
                 if (remaining <= 0)
                     break;
@@ -350,7 +395,7 @@ namespace _Script.Inventory.InventoryBackend
                         InventoryStatus.UpdateInventoryStatus(itemId, -remaining);
                         OnInventorySlotChangedEvent(instance.ItemPositions);
                         // Notify that the item instances have changed.
-                        OnOnItemInstanceChanged();
+                        OnItemInstanceChanged();
                         remaining = 0;
                     }
                 }
@@ -475,9 +520,9 @@ namespace _Script.Inventory.InventoryBackend
             return (x >= 0 && x < _width && y >= 0 && y < _height);
         }
 
-        private void OnOnItemInstanceChanged()
+        private void OnItemInstanceChanged()
         {
-            OnItemInstanceChanged?.Invoke();
+            onItemInstanceChanged?.Invoke();
         }
 
         #region Inventory Status

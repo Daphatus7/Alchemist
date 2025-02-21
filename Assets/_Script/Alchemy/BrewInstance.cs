@@ -33,7 +33,7 @@ namespace _Script.Alchemy
             //add the output items to the target inventory
             foreach (var item in GetOutputItems)
             {
-                _targetInventory.AddItem(new ItemInstance(item.Data, item.Quantity));
+                _targetInventory.AddItem(new ItemInstance(item.Data, false, item.Quantity));
             }
         }
         

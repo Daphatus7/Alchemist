@@ -55,7 +55,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
             foreach(var item in itemsForSale)
             {
                 Debug.Log($"Adding item {item.ItemName} to merchant inventory.");
-                itemsToAdd.Add(new ItemInstance(item, 1));
+                itemsToAdd.Add(new ItemInstance(item, false, 1));
             }
             _merchantInventory = new MerchantInventory(itemsToAdd, inventoryWidth, inventoryHeight);
         }

@@ -9,10 +9,10 @@ namespace _Script.Inventory.ItemInstance
 {
     public class WeaponItemInstance : EquipmentInstance
     {
-        public WeaponItemInstance(ItemData itemData, int quantity = 1) : base(itemData, quantity)
+        public WeaponItemInstance(ItemData itemData, bool rotated, int quantity = 1) : base(itemData, rotated, quantity)
         {
+            
         }
-        
         
         public float DamageMin => ((WeaponItem) ItemData).damageMin;
         public float DamageMax => ((WeaponItem) ItemData).damageMax;

@@ -173,9 +173,10 @@ namespace _Script.Inventory.InventoryBackend
                 Debug.LogWarning("Invalid slot index.");
                 return false;
             }
-
-            ItemInstance.ItemInstance slotInstance = Slots[slotIndex].ItemInstance;
-            if (slotInstance != null && slotInstance.IsEmpty)
+            
+            var slotInstance = Slots[slotIndex].ItemInstance;
+            
+            if (slotInstance == null)
             {
                 // e.g. no item to use
                 return false;

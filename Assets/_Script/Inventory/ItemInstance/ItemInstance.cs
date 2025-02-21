@@ -27,15 +27,37 @@ namespace _Script.Inventory.ItemInstance
         private bool _rotated = false; public bool IsRotated => _rotated;
 
         #endregion
+
+        private List<Vector2Int> _itemPositions;
+        
+        
         /**
          * all the positions of the item in the inventory
          */
-        public List<Vector2Int> ItemPositions { get; set; } = new List<Vector2Int>();
+        public List<Vector2Int> ItemPositions
+        {
+            set
+            {
+                if (value == null)
+                {
+                    Debug.LogError("ItemPositions is null");
+                }
+                _itemPositions = value;
+            }
+            get
+            {
+                if (_itemPositions == null)
+                {
+                    Debug.LogError("ItemPositions was not set check");
+                }
+                return _itemPositions;
+            }
+        }
         
         [Obsolete("just remove it ")]
         public bool IsEmpty => ItemData == null || Quantity <= 0;
         
-
+        
         /// <summary>
         /// RenderingPivot is the pivot point for rendering the item.
         /// Hardcoded solution
@@ -92,8 +114,9 @@ namespace _Script.Inventory.ItemInstance
             return _rotated;
         }
         
-        public ItemInstance(ItemData itemData, int quantity = 1)
+        public ItemInstance(ItemData itemData, bool rotated = false, int quantity = 1)
         {
+            _rotated = rotated;
             ItemData = itemData; //copy reference instead of object
             Quantity = Mathf.Clamp(quantity, 0, quantity);
         }
@@ -134,7 +157,16 @@ namespace _Script.Inventory.ItemInstance
             }
             
             Quantity -= quantity;
-            return new ItemInstance(ItemData, quantity);
+            return new ItemInstance(ItemData, _rotated, quantity);
+        }
+        
+        /// <summary>
+        /// Copy the ItemInstance with the same ItemData and quantity.
+        /// </summary>
+        /// <returns></returns>
+        public ItemInstance Clone()
+        {
+            return new ItemInstance(ItemData, _rotated, Quantity);
         }
     }
     

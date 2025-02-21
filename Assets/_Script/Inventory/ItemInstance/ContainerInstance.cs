@@ -12,8 +12,8 @@ namespace _Script.Inventory.ItemInstance
         public PlayerContainer AssociatedContainer { get; private set; }
 
         // This constructor assumes you already have a PlayerContainer instance ready
-        public ContainerItemInstance(ContainerItem itemData, int quantity, PlayerContainer container = null)
-            : base(itemData, quantity)
+        public ContainerItemInstance(ContainerItem itemData, bool rotated, int quantity, PlayerContainer container = null)
+            : base(itemData, rotated, quantity)
         {
             AssociatedContainer = container;
             if (AssociatedContainer == null)

@@ -40,7 +40,7 @@ namespace _Script.Items.Lootable
                 {
                     if (entry.itemData != null && entry.quantity > 0)
                     {
-                        var remainder = _runtimeContainer.AddItem(new ItemInstance(entry.itemData, entry.quantity));
+                        var remainder = _runtimeContainer.AddItem(new ItemInstance(entry.itemData, false, entry.quantity));
                         if (remainder != null && !remainder.IsEmpty)
                         {
                             Debug.LogWarning($"Not all items could be added to the container. Remainder: {remainder.Quantity}x {remainder.ItemName}");
@@ -61,7 +61,7 @@ namespace _Script.Items.Lootable
                 if (itemData is ContainerItem cItem && _runtimeContainer != null)
                 {
                     // Create a ContainerItemStack with the pre-created container
-                    var cStack = new ContainerItemInstance(cItem, 1, _runtimeContainer);
+                    var cStack = new ContainerItemInstance(cItem,false, 1, _runtimeContainer);
                     // Attempt to add the container stack to the player's inventory
                     if (player.PlayerInventory.AddItem(cStack) == null)
                     {
