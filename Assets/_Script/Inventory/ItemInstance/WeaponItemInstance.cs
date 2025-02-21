@@ -21,5 +21,20 @@ namespace _Script.Inventory.ItemInstance
         public AttackForm AttackForm => ((WeaponItem) ItemData).attackForm;
         public GameObject WeaponPrefab => ((WeaponItem) ItemData).weaponPrefab;
         public float AttackDistance => ((WeaponItem) ItemData).attackDistance;
+        
+        private int _currentDurability;
+        public int CurrentDurability
+        {
+            get => _currentDurability;
+            set
+            {
+                _currentDurability = value;
+                if (_currentDurability <= 0)
+                {
+                    _currentDurability = 0;
+                    Debug.Log("Weapon is broken");
+                }
+            }
+        }
     }
 }

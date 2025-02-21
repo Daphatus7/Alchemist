@@ -75,7 +75,7 @@ namespace _Script.Inventory.ItemInstance
         public int Value => ItemData.Value;
         public Rarity Rarity => ItemData.rarity;
 
-        public bool Use(PlayerCharacter player)
+        public virtual bool Use(PlayerCharacter player)
         {
             if (ItemData == null)
             {

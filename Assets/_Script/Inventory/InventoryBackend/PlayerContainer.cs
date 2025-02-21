@@ -85,17 +85,7 @@ namespace _Script.Inventory.InventoryBackend
             
             return null;
         }
-
-        private bool OnUseSeedItem(ItemData itemData)
-        {
-            // e.g., plant a seed in the game world, reduce item stack by 1
-            if (itemData != null)
-            {
-                return itemData.Use(inventoryOwner);
-            }
-            return false;
-        }
-
+        
         /// <summary>
         /// Called when the player "uses" (e.g., right-clicks) an item in a specific slot.
         /// Here we decide how to handle equipment, containers, seeds, consumables, etc.
@@ -107,58 +97,48 @@ namespace _Script.Inventory.InventoryBackend
             // We use the string type name to differentiate. 
             // Alternatively, you could do 'if (slotStack.ItemData.ItemType == ItemType.Consumable)' etc.
             var itemType = slotInstance.ItemTypeString;
-
             
             //当物品被「使用」的时候，不同的物品种类的表现方式不同
             //当武器类被使用
-            
-            // if (itemType == "Weapon")
-            // {
-            //     if(slotInstance.ItemData is WeaponItem weapon)
-            //     {
-            //         weapon.durability--;
-            //         if(weapon.durability <= 0)
-            //         {
-            //             RemoveItemFromSlot(slotIndex, 1);
-            //         }
-            //     }
-            // }
-            // else if (itemType == "Container")
-            // {
-            //     // If it's a container item (like a bag), open it
-            //     if (slotInstance is ContainerItemInstance conStack)
-            //     {
-            //         inventoryOwner?.OpenContainerInstance(conStack.AssociatedContainer);
-            //     }
-            // }
-            // else if (itemType == "Seed")
-            // {
-            //     // Attempt to plant
-            //     if (OnUseSeedItem(slotInstance.ItemData))
-            //     {
-            //         // If planting succeeded, remove 1 from slot
-            //         RemoveItemFromSlot(slotIndex, 1);
-            //     }
-            // }
-            // else if (itemType == "Consumable")
-            // {
-            //     // e.g. potions, food
-            //     var conItem = slotInstance.ItemData as ConsumableItem;
-            //     if (conItem != null)
-            //     {
-            //         if (OnUseConsumableItem(conItem))
-            //         {
-            //             RemoveItemFromSlot(slotIndex, 1);
-            //         }
-            //     }
-            // }
-            // else if (itemType == "Material")
-            // {
-            //     // e.g. place or craft with this material
-            //     OnUseMaterialItem(slotInstance.ItemData);
-            //     // Potentially remove or not
-            //     // e.g. RemoveItemFromSlot(slotIndex, 1);
-            // }
+            if (itemType == "Weapon")
+            {
+                if (slotInstance is not WeaponItemInstance weapon) return;
+                weapon.CurrentDurability--;
+                if(weapon.CurrentDurability <= 0)
+                {
+                    RemoveItemFromSlot(slotIndex, 1);
+                }
+            }
+            else if (itemType == "Container")
+            {
+                // If it's a container item (like a bag), open it
+                if (slotInstance is ContainerItemInstance conStack)
+                {
+                    inventoryOwner?.OpenContainerInstance(conStack.AssociatedContainer);
+                }
+            }
+            else if (itemType == "Seed")
+            {
+                // Attempt to plant
+                if (slotInstance.Use(inventoryOwner))
+                {
+                    // If planting succeeded, remove 1 from slot
+                    RemoveItemFromSlot(slotIndex, 1);
+                }
+            }
+            else if (itemType == "Consumable")
+            {
+                if (slotInstance.Use(inventoryOwner))
+                {
+                    RemoveItemFromSlot(slotIndex, 1);
+                }
+            }
+            else if (itemType == "Material")
+            {
+                // e.g. place or craft with this material
+                // Potentially remove or not
+                // e.g. RemoveItemFromSlot(slotIndex, 1);
+            }
             // else: handle other item types, or do nothing
         }
 
