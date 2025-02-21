@@ -11,7 +11,7 @@ namespace _Script.Inventory.EquipmentBackend
     public sealed class PlayerEquipmentInventory : MonoBehaviour
     {
 
-        private Dictionary<PlayerEquipmentSlotType, ItemStack> _equipmentSlots;
+        private Dictionary<PlayerEquipmentSlotType, ItemInstance.ItemInstance> _equipmentSlots;
         private PlayerCharacter _playerCharacter;
         
         //OnEquipmentChanged event
@@ -21,7 +21,7 @@ namespace _Script.Inventory.EquipmentBackend
         private void Awake()
         {
             _playerCharacter = GetComponent<PlayerCharacter>();
-            _equipmentSlots = new Dictionary<PlayerEquipmentSlotType, ItemStack>();
+            _equipmentSlots = new Dictionary<PlayerEquipmentSlotType, ItemInstance.ItemInstance>();
         }
         
         
@@ -30,19 +30,19 @@ namespace _Script.Inventory.EquipmentBackend
          * 1. If there is an item in the slot, return the item to the inventory
          * 2. If there is no item in the slot, equip the item qnd return null
          */
-        private ItemStack EquipItem(EquipmentItem item)
+        private ItemInstance.ItemInstance EquipItem(EquipmentItem item)
         {
             var targetSlot = ConvertToPlayerEquipmentInventory(item);
             //remove the effect of the equipped item
 
             //if there is an item in the slot, return the item to the inventory
-            ItemStack tempSlotItemStack = null;
+            ItemInstance.ItemInstance tempSlotItemInstance = null;
             
             //get the item in the slot, return the item to the inventory
             if (_equipmentSlots.TryGetValue(targetSlot, out var slot))
             {
                 //get the item in the slot, return the item to the inventory
-                tempSlotItemStack = slot;
+                tempSlotItemInstance = slot;
                 //equip the item
             }
             
@@ -66,14 +66,14 @@ namespace _Script.Inventory.EquipmentBackend
             //_equipmentSlots[targetSlot] = new ItemStack(pivotPosition, item, 1);
             
             OnOnEquipmentChanged();
-            return tempSlotItemStack;
+            return tempSlotItemInstance;
         }
 
 
-        public ItemStack RemoveEquipmentFromSlot(int slotIndex)
+        public ItemInstance.ItemInstance RemoveEquipmentFromSlot(int slotIndex)
         {
             var slot = (PlayerEquipmentSlotType) slotIndex;
-            ItemStack tempSlotItemStack = null; //UnEquip the item
+            ItemInstance.ItemInstance tempSlotItemInstance = null; //UnEquip the item
             if (_equipmentSlots.TryGetValue(slot, out var slotItem))
             {
                 //remove the effect of the equipped item
@@ -90,11 +90,11 @@ namespace _Script.Inventory.EquipmentBackend
                     Debug.LogError("Invalid equipment type");
                 }
 
-                tempSlotItemStack = _equipmentSlots[slot];
+                tempSlotItemInstance = _equipmentSlots[slot];
                 _equipmentSlots[slot] = null;
                 OnOnEquipmentChanged();
             }
-            return tempSlotItemStack;
+            return tempSlotItemInstance;
         }
         
         
@@ -142,7 +142,7 @@ namespace _Script.Inventory.EquipmentBackend
             //equip the item
         }
         
-        public ItemStack GetEquipment(PlayerEquipmentSlotType slot)
+        public ItemInstance.ItemInstance GetEquipment(PlayerEquipmentSlotType slot)
         {
             return _equipmentSlots.GetValueOrDefault(slot);
         }
@@ -170,7 +170,7 @@ namespace _Script.Inventory.EquipmentBackend
             OnEquipmentChanged?.Invoke();
         }
         
-        public ItemStack Handle_Equip(EquipmentItem equipmentItem)
+        public ItemInstance.ItemInstance Handle_Equip(EquipmentItem equipmentItem)
         {
             return EquipItem(equipmentItem);
         }

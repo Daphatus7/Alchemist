@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Script.Character.ActionStrategy;
@@ -9,7 +10,7 @@ using UnityEngine.InputSystem;
 
 namespace _Script.Character.Ability
 {
-    
+    [Obsolete]
     [RequireComponent(typeof(PlayerCharacter))]
     public class PlayerAttack : MonoBehaviour, IActionStrategy
     {
@@ -59,7 +60,7 @@ namespace _Script.Character.Ability
             
             // set new weapon
             currentWeapon = weapon.GetComponent<Weapon.Weapon>();
-            currentWeapon.SetWeaponItem(weaponItem);
+            //currentWeapon.SetWeaponItem(weaponItem);
         }
         
         public void RemoveWeapon()

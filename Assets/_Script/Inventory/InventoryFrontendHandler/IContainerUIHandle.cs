@@ -8,10 +8,10 @@ namespace _Script.Inventory.InventoryFrontendHandler
     public interface IContainerUIHandle
     {
         public void OnSlotClicked(InventorySlotInteraction slotInteraction);
-        public ItemStack RemoveAllItemsFromSlot(int slotIndex);
-        public void AddItemToEmptySlot(ItemStack itemStack, List<Vector2Int> projectedPositions);
-        public ItemStack AddItem(ItemStack itemStack);
-        bool AcceptsItem(ItemStack itemStack);
+        public ItemInstance.ItemInstance RemoveAllItemsFromSlot(int slotIndex);
+        public void AddItemToEmptySlot(ItemInstance.ItemInstance itemInstance, List<Vector2Int> projectedPositions);
+        public ItemInstance.ItemInstance AddItem(ItemInstance.ItemInstance itemInstance);
+        bool AcceptsItem(ItemInstance.ItemInstance itemInstance);
         
         bool CanFitItem(List<Vector2Int> projectedPositions);
         

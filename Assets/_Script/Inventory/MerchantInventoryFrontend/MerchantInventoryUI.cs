@@ -58,9 +58,9 @@ namespace _Script.Inventory.MerchantInventoryFrontend
             return this;
         }
 
-        public bool RemoveGold(IPlayerInventoryHandler playerInventory, ItemStack itemToSell, int quantity = 1)
+        public bool RemoveGold(IPlayerInventoryHandler playerInventory, ItemInstance.ItemInstance itemToSell, int quantity = 1)
         {
-            return playerInventory.RemoveGold(itemToSell.ItemData.Value * itemToSell.Quantity);
+            return playerInventory.RemoveGold(itemToSell.Value * itemToSell.Quantity);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace _Script.Inventory.MerchantInventoryFrontend
         /// </summary>
         /// <param name="slotIndex"></param>
         /// <returns></returns>
-        public override ItemStack RemoveAllItemsFromSlot(int slotIndex)
+        public override ItemInstance.ItemInstance RemoveAllItemsFromSlot(int slotIndex)
         {
             //should copy - use this if want to replenish the item for every purchase
             //return ItemStack.Copy(inventory.GetItemStackAt(slotIndex));
@@ -84,12 +84,12 @@ namespace _Script.Inventory.MerchantInventoryFrontend
         /// <param name="playerInventory"></param>
         /// <param name="itemToSell"></param>
         /// <returns></returns>
-        public bool Sell(IPlayerInventoryHandler playerInventory, ItemStack itemToSell)
+        public bool Sell(IPlayerInventoryHandler playerInventory, ItemInstance.ItemInstance itemToSell)
         {
             //check if the merchant accepts the trade
-            if(AcceptTrade(itemToSell.ItemData.ItemTypeString))
+            if(AcceptTrade(itemToSell.ItemTypeString))
             {
-                var price = itemToSell.ItemData.Value * itemToSell.Quantity;
+                var price = itemToSell.Value * itemToSell.Quantity;
                 Debug.Log("Selling item for " + price + " gold.");
                 playerInventory.AddGold(price);
                 return true;
@@ -102,12 +102,12 @@ namespace _Script.Inventory.MerchantInventoryFrontend
             return true;
         }
 
-        public bool CanAfford(IPlayerInventoryHandler player, ItemStack purchasedItem, int purchasedItemQuantity)
+        public bool CanAfford(IPlayerInventoryHandler player, ItemInstance.ItemInstance purchasedItem, int purchasedItemQuantity)
         {
-            return player.GetGold() >= purchasedItem.ItemData.Value * purchasedItemQuantity;
+            return player.GetGold() >= purchasedItem.Value * purchasedItemQuantity;
         }
 
-        public override bool AcceptsItem(ItemStack itemStack)
+        public override bool AcceptsItem(ItemInstance.ItemInstance itemInstance)
         {
             return true;
         }

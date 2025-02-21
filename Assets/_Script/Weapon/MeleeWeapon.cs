@@ -5,6 +5,7 @@ using System.Collections;
 using UnityEngine;
 using _Script.Utilities;
 using _Script.Damageable;
+using _Script.Inventory.ItemInstance;
 using _Script.Items.AbstractItemTypes;
 
 namespace _Script.Weapon
@@ -39,10 +40,10 @@ namespace _Script.Weapon
         }
 
 
-        public override void SetWeaponItem(WeaponItem weaponItem)
+        public override void SetWeaponItem(WeaponItemInstance weaponItemInstance)
         {
-            base.SetWeaponItem(weaponItem);
-            _attackDistance = weaponItem.attackDistance;
+            base.SetWeaponItem(weaponItemInstance);
+            _attackDistance = weaponItemInstance.AttackDistance;
         }
 
         /// <summary>

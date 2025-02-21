@@ -10,7 +10,7 @@ namespace _Script.Inventory.PlayerInventory
     public class PlayerInventory : PlayerContainer
     {
         
-        private ItemStack _selectedItemStack;
+        private ItemInstance.ItemInstance _selectedItemInstance;
         private int _selectedSlotIndex;
         
         public override SlotType SlotType => SlotType.PlayerInventory;
@@ -18,7 +18,7 @@ namespace _Script.Inventory.PlayerInventory
         public PlayerInventory(PlayerCharacter owner, int width, int height, int selectedSlotIndex = 0) : base(owner, width, height)
         {
             _selectedSlotIndex = selectedSlotIndex;
-            _selectedItemStack = GetItemStackAt(selectedSlotIndex);
+            _selectedItemInstance = GetItemInstanceAt(selectedSlotIndex);
             
             Debug.Log("By default, the player will select the first item when loaded.");
             
@@ -38,12 +38,12 @@ namespace _Script.Inventory.PlayerInventory
             if (slotIndex < 0 || slotIndex >= SlotCount)
             {
                 _selectedSlotIndex = -1;
-                _selectedItemStack = null;
+                _selectedItemInstance = null;
             }
             else
             {
                 _selectedSlotIndex = slotIndex;
-                _selectedItemStack = GetItemStackAt(slotIndex);
+                _selectedItemInstance = GetItemInstanceAt(slotIndex);
             }
         }
 
@@ -56,18 +56,18 @@ namespace _Script.Inventory.PlayerInventory
         {
             SetSelectedItem(slotIndex);
             
-            if (_selectedItemStack == null || _selectedItemStack.IsEmpty)
+            if (_selectedItemInstance == null)
             {
                 Debug.LogWarning("No item selected in that slot.");
                 return;
             }
 
-            var itemType = _selectedItemStack.ItemData.ItemTypeString;
+            var itemType = _selectedItemInstance.ItemTypeString;
             
             // Create context to handle item usage
             _actionBarContext = new ActionBarContext(OnUseSelectedItem, 
                 RemoveWeaponOrTorchItem, 
-                slotIndex, _selectedItemStack.ItemData);
+                slotIndex, _selectedItemInstance);
 
             // Now select strategy based on item type
             switch (itemType)
@@ -101,7 +101,7 @@ namespace _Script.Inventory.PlayerInventory
         /// </summary>
         public void OnSelectNone()
         {
-            _selectedItemStack = null;
+            _selectedItemInstance = null;
             _selectedSlotIndex = -1;
         }
 
@@ -116,7 +116,7 @@ namespace _Script.Inventory.PlayerInventory
             {
                 return;
             }
-            if(GetItemStackAt(slotIndex) == null || GetItemStackAt(slotIndex).IsEmpty)
+            if(GetItemInstanceAt(slotIndex) == null)
             {
                 return;
             }
@@ -131,7 +131,7 @@ namespace _Script.Inventory.PlayerInventory
                 return;
             }
 
-            var itemTypeName = GetItemStackAt(slotIndex).ItemData.ItemTypeString;
+            var itemTypeName = GetItemInstanceAt(slotIndex).ItemTypeString;
 
             switch (itemTypeName)
             {
@@ -159,7 +159,7 @@ namespace _Script.Inventory.PlayerInventory
             // Unset the current strategy after removing the item from it
             inventoryOwner.UnsetStrategy();
 
-            _selectedItemStack = null;
+            _selectedItemInstance = null;
             _selectedSlotIndex = -1;
         }
 
@@ -169,7 +169,7 @@ namespace _Script.Inventory.PlayerInventory
             // If the used up item is currently selected, we remove the associated strategy.
             if (slotIndex == _selectedSlotIndex)
             {
-                _selectedItemStack = null;
+                _selectedItemInstance = null;
                 RemoveStrategy(slotIndex);
             }
         }
@@ -191,9 +191,9 @@ namespace _Script.Inventory.PlayerInventory
         public int GetItemCount(string itemItemID)
         {
             int count = 0;
-            foreach(var stack in ItemStacks)
+            foreach(var stack in ItemInstances)
             {
-                if(stack.ItemData.ItemID == itemItemID)
+                if(stack.ItemID == itemItemID)
                 {
                     count += stack.Quantity;
                 }
@@ -207,14 +207,14 @@ namespace _Script.Inventory.PlayerInventory
         private readonly Action<int> _use; 
         private readonly Action<int> _remove;
         private readonly int _selectedSlotIndex;
-        private readonly ItemData _itemData;
+        private readonly ItemInstance.ItemInstance _itemInstance;
 
-        public ItemData ItemData => _itemData;
+        public ItemInstance.ItemInstance ItemInstance => _itemInstance;
 
-        public ActionBarContext(Action<int> use,Action<int> remove,int selectedSlotIndex, ItemData itemData)
+        public ActionBarContext(Action<int> use,Action<int> remove,int selectedSlotIndex, ItemInstance.ItemInstance itemInstance)
         {
             _use = use ?? throw new ArgumentNullException(nameof(use));
-            _itemData = itemData ?? throw new ArgumentNullException(nameof(itemData));
+            _itemInstance = itemInstance ?? throw new ArgumentNullException(nameof(itemInstance));
             _remove = remove ?? throw new ArgumentNullException(nameof(remove));
             _selectedSlotIndex = selectedSlotIndex;
         }
@@ -228,7 +228,5 @@ namespace _Script.Inventory.PlayerInventory
         {
             _remove(_selectedSlotIndex);
         }
-        
-        
     }
 }

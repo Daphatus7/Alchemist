@@ -14,9 +14,9 @@ namespace _Script.Inventory.SlotFrontend
         [SerializeField] private TextMeshProUGUI _slotText;
         
         
-        public void SetDisplay(ItemData itemData, int amount)
+        public void SetDisplay(Sprite sprite, int amount)
         {
-            _slotImage.sprite = itemData.itemIcon;
+            _slotImage.sprite = sprite;
             _slotText.text = amount.ToString();
         }
     }

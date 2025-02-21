@@ -49,9 +49,9 @@ namespace _Script.Character.ActionStrategy
                 currentItem.SetActive(true);
             }
 
-            if (currentSpriteRenderer != null && useItem.ItemData != null)
+            if (currentSpriteRenderer != null && useItem != null)
             {
-                currentSpriteRenderer.sprite = useItem.ItemData.ItemSprite;
+                currentSpriteRenderer.sprite = useItem.ItemInstance.ItemIcon;
             }
 
             OnItemChanged(useItem);

@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
+using _Script.Inventory.ItemInstance;
 using _Script.Inventory.MerchantInventoryBackend;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using _Script.Managers;
@@ -50,11 +51,11 @@ namespace _Script.NPC.NpcBackend.NpcModules
         public void InitializeMerchantInventory()
         {
             //Add merchant inventory to merchant
-            var itemsToAdd = new List<ItemStack>();
+            var itemsToAdd = new List<ItemInstance>();
             foreach(var item in itemsForSale)
             {
                 Debug.Log($"Adding item {item.ItemName} to merchant inventory.");
-                itemsToAdd.Add(new ItemStack(item, 1));
+                itemsToAdd.Add(new ItemInstance(item, 1));
             }
             _merchantInventory = new MerchantInventory(itemsToAdd, inventoryWidth, inventoryHeight);
         }

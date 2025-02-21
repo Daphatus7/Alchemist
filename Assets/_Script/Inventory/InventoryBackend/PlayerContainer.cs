@@ -1,10 +1,12 @@
 using System;
 using UnityEngine;
 using _Script.Character;
+using _Script.Inventory.ItemInstance;
 using _Script.Inventory.SlotFrontend;
 using _Script.Items;
 using _Script.Items.AbstractItemTypes;
 using _Script.Items.AbstractItemTypes._Script.Items;
+using ConsumableItem = _Script.Items.ConsumableItem;
 
 namespace _Script.Inventory.InventoryBackend
 {
@@ -36,7 +38,7 @@ namespace _Script.Inventory.InventoryBackend
         /// <summary>
         /// Optionally, you can add a "load from items" constructor if you want to restore saved data.
         /// </summary>
-        public PlayerContainer(PlayerCharacter owner, int height, int width, ItemStack[] items)
+        public PlayerContainer(PlayerCharacter owner, int height, int width, ItemInstance.ItemInstance[] items)
             : base(height, width, items)
         {
             UniqueID = Guid.NewGuid().ToString();
@@ -64,7 +66,7 @@ namespace _Script.Inventory.InventoryBackend
         // Example usage logic for different item types
         // -------------------------------------------------------------------
 
-        private ItemStack OnUseEquipmentItem(EquipmentItem itemData)
+        private ItemInstance.ItemInstance OnUseEquipmentItem(EquipmentItem itemData)
         {
             throw new NotImplementedException("Implement the equip item method");
         }
@@ -76,7 +78,7 @@ namespace _Script.Inventory.InventoryBackend
             return true;
         }
 
-        private ItemStack OnUseMaterialItem(ItemData itemData)
+        private ItemInstance.ItemInstance OnUseMaterialItem(ItemData itemData)
         {
             // Using a material might just call itemData.Use(...) or do crafting, etc.
             if (itemData != null) itemData.Use(inventoryOwner);
@@ -98,65 +100,65 @@ namespace _Script.Inventory.InventoryBackend
         /// Called when the player "uses" (e.g., right-clicks) an item in a specific slot.
         /// Here we decide how to handle equipment, containers, seeds, consumables, etc.
         /// </summary>
-        protected virtual void OnUsingItem(ItemStack slotStack, int slotIndex)
+        protected virtual void OnUsingItem(ItemInstance.ItemInstance slotInstance, int slotIndex)
         {
-            if (slotStack == null || slotStack.IsEmpty) return;
+            if (slotInstance == null) return;
 
             // We use the string type name to differentiate. 
             // Alternatively, you could do 'if (slotStack.ItemData.ItemType == ItemType.Consumable)' etc.
-            var itemType = slotStack.ItemData.ItemTypeString;
+            var itemType = slotInstance.ItemTypeString;
 
             
             //当物品被「使用」的时候，不同的物品种类的表现方式不同
             //当武器类被使用
             
-            if (itemType == "Weapon")
-            {
-                if(slotStack.ItemData is WeaponItem weapon)
-                {
-                    weapon.durability--;
-                    if(weapon.durability <= 0)
-                    {
-                        RemoveItemFromSlot(slotIndex, 1);
-                    }
-                }
-            }
-            else if (itemType == "Container")
-            {
-                // If it's a container item (like a bag), open it
-                if (slotStack is ContainerItemStack conStack)
-                {
-                    inventoryOwner?.OpenContainerInstance(conStack.AssociatedContainer);
-                }
-            }
-            else if (itemType == "Seed")
-            {
-                // Attempt to plant
-                if (OnUseSeedItem(slotStack.ItemData))
-                {
-                    // If planting succeeded, remove 1 from slot
-                    RemoveItemFromSlot(slotIndex, 1);
-                }
-            }
-            else if (itemType == "Consumable")
-            {
-                // e.g. potions, food
-                var conItem = slotStack.ItemData as ConsumableItem;
-                if (conItem != null)
-                {
-                    if (OnUseConsumableItem(conItem))
-                    {
-                        RemoveItemFromSlot(slotIndex, 1);
-                    }
-                }
-            }
-            else if (itemType == "Material")
-            {
-                // e.g. place or craft with this material
-                OnUseMaterialItem(slotStack.ItemData);
-                // Potentially remove or not
-                // e.g. RemoveItemFromSlot(slotIndex, 1);
-            }
+            // if (itemType == "Weapon")
+            // {
+            //     if(slotInstance.ItemData is WeaponItem weapon)
+            //     {
+            //         weapon.durability--;
+            //         if(weapon.durability <= 0)
+            //         {
+            //             RemoveItemFromSlot(slotIndex, 1);
+            //         }
+            //     }
+            // }
+            // else if (itemType == "Container")
+            // {
+            //     // If it's a container item (like a bag), open it
+            //     if (slotInstance is ContainerItemInstance conStack)
+            //     {
+            //         inventoryOwner?.OpenContainerInstance(conStack.AssociatedContainer);
+            //     }
+            // }
+            // else if (itemType == "Seed")
+            // {
+            //     // Attempt to plant
+            //     if (OnUseSeedItem(slotInstance.ItemData))
+            //     {
+            //         // If planting succeeded, remove 1 from slot
+            //         RemoveItemFromSlot(slotIndex, 1);
+            //     }
+            // }
+            // else if (itemType == "Consumable")
+            // {
+            //     // e.g. potions, food
+            //     var conItem = slotInstance.ItemData as ConsumableItem;
+            //     if (conItem != null)
+            //     {
+            //         if (OnUseConsumableItem(conItem))
+            //         {
+            //             RemoveItemFromSlot(slotIndex, 1);
+            //         }
+            //     }
+            // }
+            // else if (itemType == "Material")
+            // {
+            //     // e.g. place or craft with this material
+            //     OnUseMaterialItem(slotInstance.ItemData);
+            //     // Potentially remove or not
+            //     // e.g. RemoveItemFromSlot(slotIndex, 1);
+            // }
             // else: handle other item types, or do nothing
         }
 
@@ -172,14 +174,14 @@ namespace _Script.Inventory.InventoryBackend
                 return false;
             }
 
-            ItemStack slotStack = Slots[slotIndex].ItemStack;
-            if (slotStack != null && slotStack.IsEmpty)
+            ItemInstance.ItemInstance slotInstance = Slots[slotIndex].ItemInstance;
+            if (slotInstance != null && slotInstance.IsEmpty)
             {
                 // e.g. no item to use
                 return false;
             }
             
-            OnUsingItem(slotStack, slotIndex);
+            OnUsingItem(slotInstance, slotIndex);
             return true;
         }
 

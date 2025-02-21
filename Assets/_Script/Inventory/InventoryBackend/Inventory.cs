@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _Script.Inventory.ItemInstance;
 using _Script.Inventory.SlotFrontend;
 using _Script.Items;
 using _Script.Items.AbstractItemTypes._Script.Items;
@@ -17,13 +18,13 @@ namespace _Script.Inventory.InventoryBackend
 
         /**
          * The shape-based slots in the inventory.
-         * Each slot is an InventorySlot that may or may not contain an ItemStack.
+         * Each slot is an InventorySlot that may or may not contain an ItemInstance.
          */
         protected readonly InventorySlot[] Slots;
         
         public int SlotCount => Slots.Length;
         
-        public ItemStack GetItemStackAt(int index)
+        public ItemInstance.ItemInstance GetItemInstanceAt(int index)
         {
             if (index < 0 || index >= SlotCount)
             {
@@ -35,9 +36,9 @@ namespace _Script.Inventory.InventoryBackend
                 Debug.LogWarning("Invalid slot index.");
                 return null;
             }
-            return Slots[index] == null ? null : Slots[index].ItemStack;
+            return Slots[index] == null ? null : Slots[index].ItemInstance;
         }
-        private readonly List<ItemStack> _itemStacks; public List<ItemStack> ItemStacks => _itemStacks;
+        private readonly List<ItemInstance.ItemInstance> _itemInstances; public List<ItemInstance.ItemInstance> ItemInstances => _itemInstances;
 
         // ----------------------------------------------
         // Constructors
@@ -52,7 +53,7 @@ namespace _Script.Inventory.InventoryBackend
             _width = width;
 
             Slots = new InventorySlot[Capacity];
-            _itemStacks = new List<ItemStack>();
+            _itemInstances = new List<ItemInstance.ItemInstance>();
 
             // Initialize slots
             for (int i = 0; i < Capacity; i++)
@@ -64,13 +65,13 @@ namespace _Script.Inventory.InventoryBackend
         /// <summary>
         /// Load an inventory with items (restoring from save, etc.)
         /// </summary>
-        public Inventory(int height, int width, ItemStack[] itemStack)
+        public Inventory(int height, int width, ItemInstance.ItemInstance[] ItemInstance)
         {
             _height = height;
             _width = width;
 
             Slots = new InventorySlot[Capacity];
-            _itemStacks = new List<ItemStack>();
+            _itemInstances = new List<ItemInstance.ItemInstance>();
 
             // Initialize slots
             for (int i = 0; i < Capacity; i++)
@@ -79,7 +80,7 @@ namespace _Script.Inventory.InventoryBackend
             }
             
             // Load items
-            foreach (var item in itemStack)
+            foreach (var item in ItemInstance)
             {
                 AddItem(item);
             }
@@ -93,7 +94,7 @@ namespace _Script.Inventory.InventoryBackend
         // Event: inventory changed at a slot index
         public event Action<int> OnInventorySlotChanged;
         
-        public event Action OnItemStackChanged;
+        public event Action OnItemInstanceChanged;
 
         // Helper method to invoke the event
         public void OnInventorySlotChangedEvent(List<Vector2Int> positions)
@@ -109,69 +110,71 @@ namespace _Script.Inventory.InventoryBackend
         // ----------------------------------------------
 
         /// <summary>
-        /// Attempts to add an item stack to the inventory:
-        /// 1. Merge into existing stacks first (partial stack logic).
+        /// Attempts to add an item instance to the inventory:
+        /// 1. Merge into existing instances first (partial instance logic).
         /// 2. If not fully merged, try placing into empty slots via shape-based logic.
         /// Returns null if fully placed, or the leftover if not enough space.
         /// </summary>
-        public ItemStack AddItem(ItemStack itemStackToAdd)
+        public ItemInstance.ItemInstance AddItem(ItemInstance.ItemInstance itemInstanceToAdd)
         {
-            if (itemStackToAdd == null || itemStackToAdd.IsEmpty)
+            if (itemInstanceToAdd == null)
             {
                 return null;
             }
 
-            // 1) Merge with existing partial stacks
-            foreach(var item in _itemStacks)
+            // 1) Merge with existing partial instances
+            foreach(var existingItemInstance in _itemInstances)
             {
-                var existingStack = item;
-                if (!existingStack.IsEmpty &&
-                    existingStack.ItemData.Equals(itemStackToAdd.ItemData) &&
-                    existingStack.Quantity < existingStack.ItemData.MaxStackSize)
+                if (existingItemInstance != null &&
+                    existingItemInstance.Equals(itemInstanceToAdd) &&
+                    existingItemInstance.Quantity < existingItemInstance.MaxStackSize)
                 {
-                    int oldQuantity = itemStackToAdd.Quantity;
-                    int remaining   = existingStack.TryAdd(itemStackToAdd);
-                    itemStackToAdd.Quantity = remaining;
+                    int oldQuantity = itemInstanceToAdd.Quantity;
+                    int remaining   = existingItemInstance.TryAdd(itemInstanceToAdd);
+                    itemInstanceToAdd.Quantity = remaining;
 
+                    //if some merging happened
                     if (remaining < oldQuantity)
                     {
                         // Some merging happened
-                        OnInventorySlotChangedEvent(existingStack.ItemPositions);
+                        OnInventorySlotChangedEvent(existingItemInstance.ItemPositions);
                         
                         int mergedQuantity = oldQuantity - remaining;
-                        InventoryStatus.UpdateInventoryStatus(existingStack.ItemData.itemID, mergedQuantity);
+                        
+                        // Update the inventory status
+                        InventoryStatus.UpdateInventoryStatus(existingItemInstance.ItemID, mergedQuantity);
                     }
                     
                     if (remaining == 0)
                     {
-                        // Fully merged
+                        // Fully merged, return null because there's no leftover
                         return null;
                     }
                 }            
             }
             
-
             // 2) Shape-based placement for leftover
             for (var i = 0; i < Capacity; i++)
             {
                 //checking if the item can fit in the inventory
-                var projectedPositions = itemStackToAdd.ItemData.ItemShape.ProjectedPositions(SlotIndexToGrid(i));
+                var projectedPositions = itemInstanceToAdd.ItemShape.ProjectedPositions(SlotIndexToGrid(i));
                 if (CanFitIn(projectedPositions))
                 {
                     // Decide how many to place
-                    int toAdd = Mathf.Min(itemStackToAdd.Quantity, itemStackToAdd.ItemData.MaxStackSize);
+                    int toAdd = Mathf.Min(itemInstanceToAdd.Quantity, itemInstanceToAdd.MaxStackSize);
 
                     // Actually place the item
-                    ItemStack placedStack = CreateItemStackAtLocation(projectedPositions, toAdd, itemStackToAdd);
-                    if (placedStack != null)
+                    var placedInstance = 
+                        ItemInstanceFactory.CreateItemInstance(projectedPositions, itemInstanceToAdd, toAdd);
+                    // CreateItemInstanceAtLocation(projectedPositions, toAdd, itemInstanceToAdd);
+                    if (placedInstance != null)
                     {
                         // Adjust leftover
-                        itemStackToAdd.Quantity -= toAdd;
-                        _itemStacks.Add(placedStack);
-                        OnOnItemStackChanged();
-                        InventoryStatus.UpdateInventoryStatus(placedStack.ItemData.itemID, toAdd);
+                        _itemInstances.Add(placedInstance);
+                        OnOnItemInstanceChanged();
+                        InventoryStatus.UpdateInventoryStatus(placedInstance.ItemID, toAdd);
 
-                        if (itemStackToAdd.Quantity <= 0)
+                        if (itemInstanceToAdd.Quantity <= 0)
                         {
                             // Done
                             return null;
@@ -182,7 +185,7 @@ namespace _Script.Inventory.InventoryBackend
             }
 
             // 3) Not enough space
-            return itemStackToAdd;
+            return itemInstanceToAdd;
         }
         
         // ----------------------------------------------
@@ -235,25 +238,19 @@ namespace _Script.Inventory.InventoryBackend
         // ----------------------------------------------
         // Remove entire stack from a slot
         // ----------------------------------------------
-        public ItemStack RemoveAllItemsFromSlot(int slotIndex)
+        public ItemInstance.ItemInstance RemoveAllItemsFromSlot(int slotIndex)
         {
             //invalid slot index
             if (slotIndex < 0 || slotIndex >= Capacity) return null;
             
-            var itemAtSlot = GetItemStackAt(slotIndex);
+            var itemAtSlot = GetItemInstanceAt(slotIndex);
             if (itemAtSlot == null)
             {
                 return null;
             }
-            if (itemAtSlot.IsEmpty)
-            {
-                //safe update
-                OnRemovingItem(slotIndex);
-                return null;
-            }
-
             
-            ItemStack removed = CreateStack(itemAtSlot.ItemPositions, itemAtSlot.Quantity, itemAtSlot);
+            //Create split all instances into a different stack with no assigned addresses in the inventory
+            var removed = ItemInstanceFactory.Split(itemAtSlot, itemAtSlot.Quantity);
             OnRemovingItem(slotIndex);
             
             return removed;
@@ -265,27 +262,29 @@ namespace _Script.Inventory.InventoryBackend
          */
         private void OnRemovingItem(int slotIndex)
         {
-            var itemStack = GetItemStackAt(slotIndex);
-            if(itemStack == null) return;  // Remove the check for IsEmpty
+            var ItemInstance = GetItemInstanceAt(slotIndex);
+            if(ItemInstance == null) return;  // Remove the check for IsEmpty
             // Clear the inventory status using the remaining quantity (if any)
-            InventoryStatus.UpdateInventoryStatus(itemStack.ItemData.itemID, -itemStack.Quantity);
-            foreach(var pos in itemStack.ItemPositions)
+            InventoryStatus.UpdateInventoryStatus(ItemInstance.ItemID, -ItemInstance.Quantity);
+            foreach(var pos in ItemInstance.ItemPositions)
             {
                 var sIndex = GridToSlotIndex(pos.x, pos.y);
                 Slots[sIndex].Clear();
             }
-            OnInventorySlotChangedEvent(itemStack.ItemPositions);
-            _itemStacks.Remove(itemStack);
-            OnOnItemStackChanged();
+            OnInventorySlotChangedEvent(ItemInstance.ItemPositions);
+            _itemInstances.Remove(ItemInstance);
+            OnOnItemInstanceChanged();
         }
 
-        public void AddItemToEmptySlot(ItemStack itemStack, List<Vector2Int> projectedPositions)
+        public void AddItemToEmptySlot(ItemInstance.ItemInstance itemInstance // the original item instance need to be set to null
+            , List<Vector2Int> projectedPositions)
         {
-            ItemStack placedStack = CreateItemStackAtLocation(projectedPositions, itemStack.Quantity, itemStack);
-            _itemStacks.Add(placedStack);
-            OnOnItemStackChanged();
+            //create a new item stack 
+            var placedInstance = ItemInstanceFactory.CreateItemInstance(projectedPositions, itemInstance, itemInstance.Quantity);
+            _itemInstances.Add(placedInstance);
+            OnOnItemInstanceChanged();
             OnInventorySlotChangedEvent(projectedPositions);
-            InventoryStatus.UpdateInventoryStatus(placedStack.ItemData.itemID, placedStack.Quantity);
+            InventoryStatus.UpdateInventoryStatus(placedInstance.ItemID, placedInstance.Quantity);
         }
         
         // ----------------------------------------------
@@ -307,9 +306,9 @@ namespace _Script.Inventory.InventoryBackend
 
             // First, compute the total available amount for the specified itemId.
             int totalAvailable = 0;
-            foreach (var stack in _itemStacks)
+            foreach (var stack in _itemInstances)
             {
-                if (stack != null && !stack.IsEmpty && stack.ItemData.ItemID.Equals(itemId))
+                if (stack != null && stack.ItemID.Equals(itemId))
                 {
                     totalAvailable += stack.Quantity;
                 }
@@ -324,34 +323,34 @@ namespace _Script.Inventory.InventoryBackend
 
             // Remove the required quantity from stacks.
             int remaining = quantity;
-            // Iterate over a copy so that if a whole stack is removed (which clears it from _itemStacks)
+            // Iterate over a copy so that if a whole stack is removed (which clears it from _ItemInstances)
             // the iteration is not affected.
-            List<ItemStack> stacksCopy = new List<ItemStack>(_itemStacks);
-            foreach (var stack in stacksCopy)
+            List<ItemInstance.ItemInstance> stacksCopy = new List<ItemInstance.ItemInstance>(_itemInstances);
+            foreach (var instance in stacksCopy)
             {
                 if (remaining <= 0)
                     break;
 
-                if (stack != null && !stack.IsEmpty && stack.ItemData.ItemID.Equals(itemId))
+                if (instance != null && instance.ItemID.Equals(itemId))
                 {
-                    if (stack.Quantity <= remaining)
+                    if (instance.Quantity <= remaining)
                     {
                         // If this stack has less than or equal to the remaining quantity,
                         // remove the whole stack.
-                        remaining -= stack.Quantity;
+                        remaining -= instance.Quantity;
                         // Pick one of the positions to trigger the removal. OnRemovingItem will clear
                         // all slots associated with the item and update InventoryStatus.
-                        int slotIndex = GridToSlotIndex(stack.ItemPositions[0].x, stack.ItemPositions[0].y);
+                        int slotIndex = GridToSlotIndex(instance.ItemPositions[0].x, instance.ItemPositions[0].y);
                         OnRemovingItem(slotIndex);
                     }
                     else
                     {
-                        // If the current stack has more than we need, just subtract the required amount.
-                        stack.Quantity -= remaining;
+                        // If the current instance has more than we need, just subtract the required amount.
+                        instance.Quantity -= remaining;
                         InventoryStatus.UpdateInventoryStatus(itemId, -remaining);
-                        OnInventorySlotChangedEvent(stack.ItemPositions);
-                        // Notify that the item stacks have changed.
-                        OnOnItemStackChanged();
+                        OnInventorySlotChangedEvent(instance.ItemPositions);
+                        // Notify that the item instances have changed.
+                        OnOnItemInstanceChanged();
                         remaining = 0;
                     }
                 }
@@ -372,12 +371,7 @@ namespace _Script.Inventory.InventoryBackend
                 return false;
             }
 
-            var itemStack = GetItemStackAt(slotIndex);
-            if (itemStack.IsEmpty)
-            {
-                Debug.Log("Slot is empty.");
-                return false;
-            }
+            var itemInstance = GetItemInstanceAt(slotIndex);
 
             if (quantity <= 0)
             {
@@ -385,19 +379,19 @@ namespace _Script.Inventory.InventoryBackend
                 return false;
             }
 
-            if (itemStack.Quantity >= quantity)
+            if (itemInstance.Quantity >= quantity)
             {
-                itemStack.Quantity -= quantity;
+                itemInstance.Quantity -= quantity;
 
-                InventoryStatus.UpdateInventoryStatus(itemStack.ItemData.ItemID, -quantity);
+                InventoryStatus.UpdateInventoryStatus(itemInstance.ItemID, -quantity);
 
-                if (itemStack.Quantity <= 0)
+                var itemPositions = itemInstance.ItemPositions;
+                if (itemInstance.Quantity <= 0)
                 {
                     OnItemUsedUp(slotIndex);
                     OnRemovingItem(slotIndex);
-                    itemStack = new ItemStack();
                 }
-                OnInventorySlotChangedEvent(itemStack.ItemPositions);
+                OnInventorySlotChangedEvent(itemPositions);
                 return true;
             }
             else
@@ -416,61 +410,6 @@ namespace _Script.Inventory.InventoryBackend
         {
             
         }
-
-        protected ItemStack CreateStack(List<Vector2Int> projectedLocations, int quantity, ItemStack item)
-        {
-            var cItem = item.ItemData as ContainerItem;
-            var cStack = item as ContainerItemStack;
-
-            //Debug.Log("Creating stack with " + itemData.ItemName + " at " + pivotPosition + " with quantity " + quantity);
-            
-            if (cItem && cStack != null)
-            {
-                // Preserve container data from cStack
-                return new ContainerItemStack(cItem, quantity, cStack.AssociatedContainer);
-            }
-            else if (cItem)
-            {
-                // itemData is ContainerItem, template is not
-                return new ContainerItemStack(cItem, quantity, new PlayerContainer(null, cItem.width, cItem.height));
-            }
-            else if (cStack != null)
-            {
-                // Template is ContainerItemStack but itemData not ContainerItem
-                Debug.LogWarning("Template was ContainerItemStack but itemData is not ContainerItem. Using normal ItemStack fallback.");
-                return new ItemStack(projectedLocations, item, quantity);
-            }
-            else
-            {
-                // Normal item
-                return new ItemStack(projectedLocations, item, quantity);
-            }
-        }
-        
-        public ItemStack CreateItemStackAtLocation(List<Vector2Int> projectedLocations, int quantity, ItemStack itemStack)
-        {
-            if (projectedLocations == null || projectedLocations.Count == 0)
-            {
-                Debug.LogWarning("Invalid item stack to place.");
-                return null;
-            }
-            
-            // Check availability
-            ItemStack newStack = CreateStack(projectedLocations, quantity, itemStack);
-
-            newStack.ItemPositions = projectedLocations;
-            // All required slots free, create the new stack
-
-            // Fill each required slot
-            foreach (var slotPos in projectedLocations)
-            {
-                var sIndex = GridToSlotIndex(slotPos.x, slotPos.y);
-                Slots[sIndex].ItemStack = newStack;
-            }
-            
-            OnInventorySlotChangedEvent(projectedLocations);
-            return newStack;
-        }
         
         public int GetItemsCountAtPositions(int pivotIndex
             , List<Vector2Int> projectedPositions, out int overlapIndex)
@@ -485,7 +424,7 @@ namespace _Script.Inventory.InventoryBackend
             
             var itemPivot = SlotIndexToGrid(pivotIndex);
             
-            var foundItem = new Dictionary<ItemStack, int>();
+            var foundItem = new Dictionary<ItemInstance.ItemInstance, int>();
             
             // check each slot by adding the offset to the pivot
             foreach(var offset in projectedPositions)
@@ -500,9 +439,9 @@ namespace _Script.Inventory.InventoryBackend
                 if (!slot.IsEmpty)
                 {
                     overlapIndex = sIndex; //Any overlap index, but only if the count is 1 will be considered
-                    if (!foundItem.TryAdd(Slots[sIndex].ItemStack, 1))
+                    if (!foundItem.TryAdd(Slots[sIndex].ItemInstance, 1))
                     {
-                        foundItem[Slots[sIndex].ItemStack]++;
+                        foundItem[Slots[sIndex].ItemInstance]++;
                     }
                 }
             }
@@ -536,9 +475,9 @@ namespace _Script.Inventory.InventoryBackend
             return (x >= 0 && x < _width && y >= 0 && y < _height);
         }
 
-        private void OnOnItemStackChanged()
+        private void OnOnItemInstanceChanged()
         {
-            OnItemStackChanged?.Invoke();
+            OnItemInstanceChanged?.Invoke();
         }
 
         #region Inventory Status
@@ -581,11 +520,11 @@ namespace _Script.Inventory.InventoryBackend
                 return false;
             }
             var count = 0;
-            foreach (var itemStack in _itemStacks)
+            foreach (var itemInstance in _itemInstances)
             {
-                if(itemStack.ItemData.itemID == itemID)
+                if(itemInstance.ItemID.Equals(itemID))
                 {
-                    count += itemStack.Quantity;
+                    count += itemInstance.Quantity;
                     // If we have enough, return true
                     if(count >= requiredQuantity)
                     {
@@ -602,8 +541,8 @@ namespace _Script.Inventory.InventoryBackend
         {
             get
             {
-                Debug.Log("Checking if empty + could be bugs where the stack was not removed correctly");
-                return _itemStacks.Count == 0;
+                Debug.Log("Checking if empty + could be bugs where the instance was not removed correctly");
+                return _itemInstances.Count == 0;
             }
         }
         

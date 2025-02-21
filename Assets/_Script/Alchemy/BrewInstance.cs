@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
+using _Script.Inventory.ItemInstance;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
@@ -32,7 +33,7 @@ namespace _Script.Alchemy
             //add the output items to the target inventory
             foreach (var item in GetOutputItems)
             {
-                _targetInventory.AddItem(new ItemStack(item.Data, item.Quantity));
+                _targetInventory.AddItem(new ItemInstance(item.Data, item.Quantity));
             }
         }
         

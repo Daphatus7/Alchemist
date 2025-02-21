@@ -9,7 +9,7 @@ namespace _Script.Inventory
     public class DragItem : Singleton<DragItem>
     {
         private Image _image;
-        private ItemStack _itemStack;
+        private ItemInstance.ItemInstance _itemInstance;
         private bool _isDragItemRotated = false;
         private RectTransform _rectTransform;
         
@@ -39,7 +39,7 @@ namespace _Script.Inventory
         private void Update()
         {
             //R to rotate
-            if (_itemStack != null && Input.GetKeyDown(KeyCode.R))
+            if (_itemInstance != null && Input.GetKeyDown(KeyCode.R))
             {
                 RotateDragItem();
             }
@@ -48,7 +48,7 @@ namespace _Script.Inventory
         private void RotateDragItem()
         {
             //Rotate the data
-            var isRotated = _itemStack.ToggleRotate(_dragStartPosition);
+            var isRotated = _itemInstance.ToggleRotate(_dragStartPosition);
             _isDragItemRotated = !_isDragItemRotated;
             
             //Rotate the drag display
@@ -56,21 +56,21 @@ namespace _Script.Inventory
             //Update the sprite
         }
         
-        public void AddItemToDrag(ItemStack itemStack, Vector2Int dragStartPosition)
+        public void AddItemToDrag(ItemInstance.ItemInstance itemInstance, Vector2Int dragStartPosition)
         {
             Debug.Log("AddItemToDrag");
-            _itemStack = itemStack;
-            _image.sprite = itemStack.ItemData.itemIcon;
+            _itemInstance = itemInstance;
+            _image.sprite = itemInstance.ItemIcon;
             _dragStartPosition = dragStartPosition; //
             _isDragItemRotated = false;
-            _dragRelativePosition = dragStartPosition - itemStack.ItemData.ItemShape.Positions[0];
+            _dragRelativePosition = dragStartPosition - itemInstance.ItemShape.Positions[0];
             //reset rotation
-            _rectTransform.localRotation = Quaternion.Euler(0, 0, itemStack.IsRotated ? -90 : 0);
+            _rectTransform.localRotation = Quaternion.Euler(0, 0, itemInstance.IsRotated ? -90 : 0);
         }
         
-        public ItemStack PeakItemStack()
+        public ItemInstance.ItemInstance PeakItemInstance()
         {
-            return _itemStack;
+            return _itemInstance;
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace _Script.Inventory
         )
         {
             var projectedPositions = new List<Vector2Int>();
-            var inventoryOffset = _itemStack.ItemPositions;
+            var inventoryOffset = _itemInstance.ItemPositions;
             var shiftVector = targetSlotPosition - _dragStartPosition;
             
             //position after shift
@@ -98,29 +98,29 @@ namespace _Script.Inventory
         /**
          * Item is removed from the stack
          */
-        public ItemStack RemoveItemStack()
+        public ItemInstance.ItemInstance RemoveItemInstance()
         {
-            var result = _itemStack;
+            var result = _itemInstance;
             _image.sprite = null;
-            _itemStack = null;
+            _itemInstance = null;
             return result;
         }
 
-        public ItemStack RemoveItemStackOnFail()
+        public ItemInstance.ItemInstance RemoveItemInstanceOnFail()
         {
             if (_isDragItemRotated)
             {
-                _itemStack.ToggleRotate(_dragStartPosition);
+                _itemInstance.ToggleRotate(_dragStartPosition);
                 
-                foreach(var position in _itemStack.ItemPositions)
+                foreach(var position in _itemInstance.ItemPositions)
                 {
                     Debug.Log("position: " + position);
                 }
             }
-            var result = _itemStack;
+            var result = _itemInstance;
             
             _image.sprite = null;
-            _itemStack = null;
+            _itemInstance = null;
             return result;
         }
     }

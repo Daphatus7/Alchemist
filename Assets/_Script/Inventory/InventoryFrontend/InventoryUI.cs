@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace _Script.Inventory.InventoryFrontend
 {
+    [Obsolete("Use InventoryUIBase instead.")]
     public class InventoryUI : MonoBehaviour, IPlayerInventoryHandler
     {
         private PlayerContainer _playerContainer;
@@ -20,16 +21,6 @@ namespace _Script.Inventory.InventoryFrontend
 
         private InventorySlotInteraction[] _slotDisplays;
         private bool _initialized = false;
-
-        /// <summary>
-        /// Checks if two ItemStacks represent the same item type.
-        /// Returns true if both are non-empty and share the same ItemData, otherwise false.
-        /// </summary>
-        public bool CompareItems(ItemStack item1, ItemStack item2)
-        {
-            if (item1 == null || item1.IsEmpty || item2 == null || item2.IsEmpty) return false;
-            return item1.ItemData == item2.ItemData;
-        }
         
         /// <summary>
         /// Toggles the visibility of the inventory UI.
@@ -77,7 +68,7 @@ namespace _Script.Inventory.InventoryFrontend
                 _slotDisplays[i] = inventorySlotInteraction;
 
                 // Set the initial item stack for this slot
-                inventorySlotInteraction.SetSlot(_playerContainer.GetItemStackAt(i));
+                inventorySlotInteraction.SetSlot(_playerContainer.GetItemInstanceAt(i));
             }
 
             // Optionally update all slots here to ensure full sync
@@ -115,7 +106,7 @@ namespace _Script.Inventory.InventoryFrontend
             if (_slotDisplays == null) return;
             for (int i = 0; i < _slotDisplays.Length; i++)
             {
-                _slotDisplays[i].SetSlot(_playerContainer.GetItemStackAt(i));
+                _slotDisplays[i].SetSlot(_playerContainer.GetItemInstanceAt(i));
             }
         }
 
@@ -128,7 +119,7 @@ namespace _Script.Inventory.InventoryFrontend
                 return;
 
             InventorySlotInteraction slotInteraction = _slotDisplays[slotIndex];
-            slotInteraction.SetSlot(_playerContainer.GetItemStackAt(slotIndex));
+            slotInteraction.SetSlot(_playerContainer.GetItemInstanceAt(slotIndex));
         }
         
         /// <summary>
@@ -143,7 +134,7 @@ namespace _Script.Inventory.InventoryFrontend
         /// <summary>
         /// Removes all items from the specified slot and returns the item stack that was removed.
         /// </summary>
-        public ItemStack RemoveAllItemsFromSlot(int slotIndex)
+        public ItemInstance.ItemInstance RemoveAllItemsFromSlot(int slotIndex)
         {
             return _playerContainer.RemoveAllItemsFromSlot(slotIndex);
         }
@@ -152,25 +143,25 @@ namespace _Script.Inventory.InventoryFrontend
         /// <summary>
         /// Adds the specified ItemStack into an empty slot at the given index.
         /// </summary>
-        public void AddItemToEmptySlot(ItemStack itemStack, List<Vector2Int> peakItemStack)
+        public void AddItemToEmptySlot(ItemInstance.ItemInstance itemInstance, List<Vector2Int> peakItemStack)
         {
-            _playerContainer.AddItemToEmptySlot(itemStack, peakItemStack);
+            _playerContainer.AddItemToEmptySlot(itemInstance, peakItemStack);
         }
 
         /// <summary>
         /// Attempts to add an ItemStack to the inventory. 
         /// Returns null if fully inserted, or the leftover if not enough space was available.
         /// </summary>
-        public ItemStack AddItem(ItemStack itemStack)
+        public ItemInstance.ItemInstance AddItem(ItemInstance.ItemInstance itemInstance)
         {
-            return _playerContainer.AddItem(itemStack);
+            return _playerContainer.AddItem(itemInstance);
         }
         
         /// <summary>
         /// Determines if this container accepts the given ItemStack.
         /// Currently always returns true. Override if necessary.
         /// </summary>
-        public bool AcceptsItem(ItemStack itemStack)
+        public bool AcceptsItem(ItemInstance.ItemInstance itemInstance)
         {
             return true;
         }

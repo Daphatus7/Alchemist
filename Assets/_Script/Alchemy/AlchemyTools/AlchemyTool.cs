@@ -7,6 +7,7 @@ using _Script.Character;
 using _Script.Interactable;
 using _Script.Inventory.AlchemyInventory;
 using _Script.Inventory.InventoryBackend;
+using _Script.Inventory.ItemInstance;
 using _Script.Managers;
 using _Script.NPC.NpcBackend;
 using _Script.Utilities.ServiceLocator;
@@ -73,7 +74,7 @@ namespace _Script.Alchemy.AlchemyTools
             
             foreach (var output in BrewInstance.GetOutputItems)
             {
-                _container.AddItem(new ItemStack(output.Data, output.Quantity));
+                _container.AddItem(new ItemInstance(output.Data, output.Quantity));
             }
             
             BrewInstance = null;

@@ -1,6 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 07 01 2025 01 01
 
+using _Script.Inventory.ItemInstance;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using TMPro;
 using Unity.VisualScripting;
@@ -21,13 +22,13 @@ namespace _Script.UserInterface
             HideUI();
         }
         
-        public void ShowItemDetail(ItemData itemData)
+        public void ShowItemDetail(ItemInstance itemInstance)
         {
-            itemName.text = itemData.itemName;
-            itemRarity.text = itemData.rarity.ToString();
-            itemDescription.text = itemData.itemDescription;
-            itemType.text = itemData.ItemTypeString;
-            itemValue.text = itemData.Value.ToString();
+            itemName.text = itemInstance.ItemName;
+            itemRarity.text = itemInstance.Rarity.ToString();
+            itemDescription.text = itemInstance.ItemDescription;
+            itemType.text = itemInstance.ItemTypeString;
+            itemValue.text = itemInstance.Value.ToString();
         }
         
 

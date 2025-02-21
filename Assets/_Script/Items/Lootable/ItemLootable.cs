@@ -2,6 +2,7 @@ using System.Collections;
 using _Script.Character;
 using _Script.Interactable;
 using _Script.Inventory.InventoryBackend;
+using _Script.Inventory.ItemInstance;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
@@ -103,7 +104,7 @@ namespace _Script.Items.Lootable
             if (player)
             {
                 // For a normal item (non-container), create a normal stack
-                var stack = new ItemStack(itemData, quantity);
+                var stack = new ItemInstance(itemData, quantity);
                 if (player.PlayerInventory.AddItem(stack) == null)
                 {
                     Destroy(gameObject);

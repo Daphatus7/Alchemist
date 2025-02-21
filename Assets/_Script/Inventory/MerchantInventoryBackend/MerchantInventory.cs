@@ -10,15 +10,15 @@ namespace _Script.Inventory.MerchantInventoryBackend
 {
     public class MerchantInventory : InventoryBackend.Inventory
     {
-        private readonly List<ItemStack> _itemsForSale;
+        private readonly List<ItemInstance.ItemInstance> _itemsForSale;
         
-        public MerchantInventory(List<ItemStack> itemsForSale, int width = 5, int height = 4) : base(width, height)
+        public MerchantInventory(List<ItemInstance.ItemInstance> itemsForSale, int width = 5, int height = 4) : base(width, height)
         {
             _itemsForSale = itemsForSale;
             InitializeMerchantInventory();
         }
 
-        public MerchantInventory(ItemStack[] items, List<ItemStack> itemsForSale, int width  = 5, int height = 4) : base(width, height, items)
+        public MerchantInventory(ItemInstance.ItemInstance[] items, List<ItemInstance.ItemInstance> itemsForSale, int width  = 5, int height = 4) : base(width, height, items)
         {
             _itemsForSale = itemsForSale;
             InitializeMerchantInventory();

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Script.Inventory.ItemInstance;
 using _Script.Inventory.PlayerInventory;
 using _Script.Items.AbstractItemTypes;
 using UnityEngine;
@@ -67,8 +68,7 @@ namespace _Script.Character.ActionStrategy
         
         public void ChangeItem(ActionBarContext actionBarContext)
         {
-            var weaponItem = actionBarContext.ItemData as WeaponItem;
-            if (weaponItem != null)
+            if (actionBarContext.ItemInstance is WeaponItemInstance weaponItem)
             {
                 // If there's already a weapon equipped, prevent change
                 if (_currentWeapon)
@@ -76,7 +76,7 @@ namespace _Script.Character.ActionStrategy
                     return;
                 }
                 _actionBarContext = actionBarContext;
-                var weaponPrefab = weaponItem.weaponPrefab;
+                var weaponPrefab = weaponItem.WeaponPrefab;
                 var weapon = Instantiate(weaponPrefab, weaponSlot.transform.position, Quaternion.identity, weaponSlot.transform);
                 if (_currentWeapon != null)
                 {

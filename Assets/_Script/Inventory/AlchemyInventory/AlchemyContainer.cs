@@ -12,7 +12,7 @@ namespace _Script.Inventory.AlchemyInventory
         {
         }
 
-        public AlchemyContainer(int height, int width, ItemStack[] itemStack) : base(height, width, itemStack)
+        public AlchemyContainer(int height, int width, ItemInstance.ItemInstance[] itemStack) : base(height, width, itemStack)
         {
         }
 

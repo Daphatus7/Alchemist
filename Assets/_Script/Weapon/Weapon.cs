@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DamageNumbersPro; // for DamageNumber
 using UnityEngine;
 using _Script.Damageable;
+using _Script.Inventory.ItemInstance;
 using _Script.Items.AbstractItemTypes;
 
 namespace _Script.Weapon
@@ -42,14 +43,14 @@ namespace _Script.Weapon
         /// <summary>
         /// Assign stats from a WeaponItem ScriptableObject (if desired).
         /// </summary>
-        public virtual void SetWeaponItem(WeaponItem weaponItem)
+        public virtual void SetWeaponItem(WeaponItemInstance weaponItemInstance)
         {
 
-            damageMin = weaponItem.damageMin;
-            damageMax = weaponItem.damageMax;
-            AttackCooldown = weaponItem.attackCooldown;
-            AttackTime = weaponItem.attackTime;
-            AttackForm = weaponItem.attackForm;
+            damageMin = weaponItemInstance.DamageMin;
+            damageMax = weaponItemInstance.DamageMax;
+            AttackCooldown = weaponItemInstance.AttackCooldown;
+            AttackTime = weaponItemInstance.AttackTime;
+            AttackForm = weaponItemInstance.AttackForm;
         }
 
         protected virtual void Awake()

@@ -7,32 +7,26 @@ namespace _Script.Inventory.InventoryBackend
 {
     public class InventorySlot
     {
-        private ItemStack _itemStack = null;
+        private ItemInstance.ItemInstance _itemInstance = null;
 
-        public bool IsEmpty => _itemStack == null || _itemStack.IsEmpty;
+        public bool IsEmpty => _itemInstance == null;
 
         /// <summary>
         /// Get or set the entire ItemStack in this slot.
         /// Setting to null or an empty stack means the slot is empty.
         /// </summary>
-        public ItemStack ItemStack
+        public ItemInstance.ItemInstance ItemInstance
         {
-            get => _itemStack;
-            set => _itemStack = value;
+            get => _itemInstance;
+            set => _itemInstance = value;
         }
-
-        /// <summary>
-        /// Convenience property for referencing the slot's item data directly.
-        /// </summary>
-        public ItemData ItemData => _itemStack?.ItemData;
         
-
         /// <summary>
         /// Clears out the slot, making it empty.
         /// </summary>
         public void Clear()
         {
-            _itemStack = null;
+            _itemInstance = null;
         }
     }
 }

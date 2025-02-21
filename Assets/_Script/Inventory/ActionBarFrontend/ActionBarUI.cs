@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontendBase;
 using _Script.Inventory.InventoryFrontendHandler;
+using _Script.Inventory.ItemInstance;
 using _Script.Inventory.SlotFrontend;
 using _Script.Items;
 using UnityEngine;
@@ -58,32 +59,26 @@ namespace _Script.Inventory.ActionBarFrontend
             //    check if the new slot is different from the previous one and if so, deselect the previous.
             if (inventory.SelectedSlotIndex != -1 && slotIndex != inventory.SelectedSlotIndex)
             {
-                var previousItemStack = inventory.GetItemStackAt(inventory.SelectedSlotIndex);
-                var newItemStack = inventory.GetItemStackAt(slotIndex);
-                if(newItemStack == null)
+                var previousItemInstance = inventory.GetItemInstanceAt(inventory.SelectedSlotIndex);
+                var newItemInstance = inventory.GetItemInstanceAt(slotIndex);
+                if(newItemInstance == null)
                 {
                     return;
                 }
-                var selectedItem = newItemStack.ItemData as ConsumableItem;
-                if(selectedItem != null)
-                {
-                    inventory.UseItem(slotIndex);
-                    return;
-                }
-                else if (previousItemStack != null && !previousItemStack.IsEmpty &&
-                    previousItemStack != newItemStack)
+                var selectedItem = newItemInstance;
+                inventory.UseItem(slotIndex);
+
+                if (previousItemInstance != null &&
+                    previousItemInstance != newItemInstance)
                 {
                     DeselectPreviousSlot();
                 }
             }
 
             // 3) Check if the new slot actually has an item
-            var itemStack = inventory.GetItemStackAt(slotIndex);
-            if (itemStack == null || itemStack.IsEmpty)
+            var itemInstance = inventory.GetItemInstanceAt(slotIndex);
+            if (itemInstance == null)
             {
-                // If empty, we might want to also deselect any previously selected slot
-                // but that depends on your intended behavior.
-                // For now, we’ll just do nothing further.
                 return;
             }
 
@@ -91,7 +86,7 @@ namespace _Script.Inventory.ActionBarFrontend
             //    Usually you'd also want to set the inventory.SelectedSlotIndex = slotIndex here
             inventory.SelectedSlotIndex = slotIndex;
 
-            if (itemStack.ItemData is EquipmentItem)
+            if (itemInstance is EquipmentInstance)
             {
                 // If the item is equipment, we "equip" or "activate" it
                 inventory.OnSelectItem(slotIndex);
@@ -152,7 +147,7 @@ namespace _Script.Inventory.ActionBarFrontend
         */
         #endregion
 
-        public override ItemStack RemoveAllItemsFromSlot(int slotIndex)
+        public override ItemInstance.ItemInstance RemoveAllItemsFromSlot(int slotIndex)
         {
             // If the slot is currently selected, deselect it first
             if (slotIndex == inventory.SelectedSlotIndex)

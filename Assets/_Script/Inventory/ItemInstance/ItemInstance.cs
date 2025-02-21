@@ -1,40 +1,67 @@
+using System;
 using System.Collections.Generic;
+using _Script.Character;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using _Script.Items.Helper;
-using Sirenix.OdinInspector;
-using Unity.VisualScripting;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
-namespace _Script.Inventory.InventoryBackend
+namespace _Script.Inventory.ItemInstance
 {
     /**
      * The entity that represents an item in the inventory
      */
-    [System.Serializable]
-    public class ItemStack
+    [Serializable]
+    public class ItemInstance
     {
-        public ItemData ItemData { get; private set; }
+        //可能不需要保存ItemData, 可以直接通过ItemData的ID来获取
+        protected ItemData ItemData { get; set; }
+        
+        public string ItemID => ItemData.itemID;
+        public string ItemDescription => ItemData.itemDescription;
+        public string ItemTypeString => ItemData.ItemTypeString;
+
+        #region Save required
         public int Quantity { get; set; }
+        
+        private bool _rotated = false; public bool IsRotated => _rotated;
+
+        #endregion
         /**
          * all the positions of the item in the inventory
          */
         public List<Vector2Int> ItemPositions { get; set; } = new List<Vector2Int>();
         
+        [Obsolete("just remove it ")]
         public bool IsEmpty => ItemData == null || Quantity <= 0;
         
-        private bool _rotated = false; public bool IsRotated => _rotated;
 
         /// <summary>
         /// RenderingPivot is the pivot point for rendering the item.
         /// Hardcoded solution
         /// </summary>
         public Vector2Int RenderingPivot => ItemPositions[ItemData.GetPivotIndex(_rotated)];
-        
         /// <summary>
         /// Offset for rendering display of the item.
         /// Hardcoded solution
         /// </summary>
         public Vector3 RenderingOffset => ItemData.GetRenderingOffset(_rotated);
+        public string ItemName => ItemData.ItemName;
+        public int MaxStackSize => ItemData.MaxStackSize;
+        public ItemShape ItemShape => ItemData.ItemShape;
+        public Sprite ItemIcon => ItemData.itemIcon;
+        public int Value => ItemData.Value;
+        public Rarity Rarity => ItemData.rarity;
+
+        public bool Use(PlayerCharacter player)
+        {
+            if (ItemData == null)
+            {
+                throw new Exception("ItemData is null ???!!!!");
+            }
+            return ItemData.Use(player);
+        }
+        
         public bool ToggleRotate(Vector2Int rotatePivot)
         {
             // If there's no valid ItemData, do nothing.
@@ -65,52 +92,10 @@ namespace _Script.Inventory.InventoryBackend
             return _rotated;
         }
         
-        public static ItemStack Copy(ItemStack itemStack)
+        public ItemInstance(ItemData itemData, int quantity = 1)
         {
-            if (itemStack == null || itemStack.IsEmpty)
-                return null;
-            
-            return new ItemStack(itemStack.ItemPositions, itemStack, itemStack.Quantity);
-        }
-        
-        public ItemStack()
-        {
-            Clear();
-        }
-
-        public ItemStack(ItemData itemData, int quantity = 1)
-        {
-            if (!itemData)
-            {
-                Clear();
-                return;
-            }
-            
-            ItemData = Object.Instantiate(itemData);
-            ItemData.ItemShape = new ItemShape(itemData.ItemShape);
-            
+            ItemData = itemData; //copy reference instead of object
             Quantity = Mathf.Clamp(quantity, 0, quantity);
-        }
-        
-        public ItemStack(List<Vector2Int> projectedPositions, ItemStack item, int quantity = 1)
-        {
-            if (item == null || !item.ItemData || quantity <= 0)
-            {
-                Clear();
-                return;
-            }
-            
-            ItemPositions = new List<Vector2Int>(projectedPositions);
-            ItemData = Object.Instantiate(item.ItemData);
-            ItemData.ItemShape = new ItemShape(item.ItemData.ItemShape);
-            _rotated = item.IsRotated;
-            Quantity = Mathf.Clamp(quantity, 0, item.ItemData.MaxStackSize);
-        }
-
-        public void Clear()
-        {
-            ItemData = null;
-            Quantity = 0;
         }
 
         /// <summary>
@@ -118,9 +103,9 @@ namespace _Script.Inventory.InventoryBackend
         /// Returns the remaining quantity of the other stack after adding.
         /// If the entire other stack can be added, returns 0.
         /// </summary>
-        public int TryAdd(ItemStack other)
+        public int TryAdd(ItemInstance other)
         {
-            if (other == null || other.IsEmpty || !ItemData.Equals(other.ItemData))
+            if (other == null || !ItemData.Equals(other.ItemData))
                 return other?.Quantity ?? 0;
             
             //Debug.Log("Adding " + other.Quantity + " of " + ItemData.ItemName + " to " + Quantity);
@@ -128,6 +113,28 @@ namespace _Script.Inventory.InventoryBackend
             int toAdd = Mathf.Min(space, other.Quantity);
             Quantity += toAdd;
             return other.Quantity - toAdd;
+        }
+        
+        public bool Equals(ItemInstance other)
+        {
+            return other != null && ItemID == other.ItemID;
+        }
+        
+        /// <summary>
+        /// Create a new ItemInstance with the same ItemData, but with substracted quantity.
+        /// </summary>
+        /// <param name="quantity"></param>
+        /// <returns></returns>
+        public ItemInstance Split(int quantity)
+        {
+            if (quantity <= 0 || quantity >= Quantity)
+            {
+                Debug.LogError("Invalid quantity to split: " + quantity);
+                return null;
+            }
+            
+            Quantity -= quantity;
+            return new ItemInstance(ItemData, quantity);
         }
     }
     

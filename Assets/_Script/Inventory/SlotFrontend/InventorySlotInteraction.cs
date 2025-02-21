@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.InventoryFrontendHandler;
+using _Script.Inventory.ItemInstance;
 using _Script.Items;
 using _Script.UserInterface;
 using TMPro;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
@@ -37,11 +39,7 @@ namespace _Script.Inventory.SlotFrontend
         public SlotType SlotType => _slotType;
 
         private IContainerUIHandle _inventoryUI;
-        [SerializeField] private ItemStack _currentStack;
-        
-        public string ItemTypeName => _currentStack?.IsEmpty == false ? _currentStack.ItemData.ItemName : "";
-        public int Value => _currentStack?.IsEmpty == false ? _currentStack.ItemData.Value : 0;
-        public int Quantity => _currentStack?.IsEmpty == false ? _currentStack.Quantity : 0;
+        [FormerlySerializedAs("_currentStack")] [SerializeField] private ItemInstance.ItemInstance currentInstance;
 
         private void Start()
         {
@@ -72,12 +70,12 @@ namespace _Script.Inventory.SlotFrontend
         }
 
         /// <summary>
-        /// Update slot display with the given ItemStack.
+        /// Update slot display with the given ItemInstance.
         /// </summary>
-        public void SetSlot(ItemStack stack)
+        public void SetSlot(ItemInstance.ItemInstance instance)
         {
-            _currentStack = stack;
-            if (_currentStack?.IsEmpty == false)
+            currentInstance = instance;
+            if (currentInstance?.IsEmpty == false)
             {
             }
             else
@@ -90,19 +88,19 @@ namespace _Script.Inventory.SlotFrontend
             if (isDebug && debugText)
             {
                 // Build a multi-line string showing relevant data
-                string itemName = (_currentStack != null && !_currentStack.IsEmpty)
-                    ? _currentStack.ItemData.ItemName
+                string itemName = (currentInstance != null && !currentInstance.IsEmpty)
+                    ? currentInstance.ItemName
                     : "Empty";
 
                 debugText.text =
                     $"<b></b> {itemName}\n" +
-                    $"<b></b> {(_currentStack?.Quantity ?? 0)}";
+                    $"<b></b> {(currentInstance?.Quantity ?? 0)}";
             }
         }
         
         public void ClearSlot()
         {
-            _currentStack = null;
+            currentInstance = null;
         }
 
         public void HandleRightClick()
@@ -146,7 +144,7 @@ namespace _Script.Inventory.SlotFrontend
                 case SlotType.Merchant:
                     if (_inventoryUI is IMerchantHandler merchant)
                     {
-                        return !DragItem.Instance.PeakItemStack().IsEmpty && merchant.AcceptsItem(DragItem.Instance.PeakItemStack());
+                        return !DragItem.Instance.PeakItemInstance().IsEmpty && merchant.AcceptsItem(DragItem.Instance.PeakItemInstance());
                     }
                     return false;
                 case SlotType.ActionBar:
@@ -164,7 +162,7 @@ namespace _Script.Inventory.SlotFrontend
         /// <param name="eventData"></param>
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (!CanDrag() || _currentStack?.IsEmpty != false) return;
+            if (!CanDrag() || currentInstance?.IsEmpty != false) return;
             _isDragging = true;
             
             //******** icon.raycastTarget = false;
@@ -234,11 +232,11 @@ namespace _Script.Inventory.SlotFrontend
             var sourceSlot = eventData.pointerDrag?.GetComponent<InventorySlotInteraction>();
             
             if (sourceSlot == null) return;
-            var itemData = DragItem.Instance.PeakItemStack()?.ItemData;
-            if(itemData == null) return;
+            var itemInstance = DragItem.Instance.PeakItemInstance();
+            if(itemInstance == null) return;
             
             // Prevent placing a ContainerItem inside another Container (Bag)
-            if (itemData is ContainerItem && _slotType == SlotType.Bag)
+            if (itemInstance is ContainerItemInstance && _slotType == SlotType.Bag)
             {
                 Debug.Log("Cannot place a ContainerItem inside another Container (Bag).");
                 ReturnItemToSourceSlot(sourceSlot);
@@ -266,7 +264,7 @@ namespace _Script.Inventory.SlotFrontend
                 case DragType.Buy:
                     if (sourceSlot._inventoryUI is IMerchantHandler merchant && _inventoryUI is IPlayerInventoryHandler player)
                     {
-                        var purchasedItem = DragItem.Instance.PeakItemStack();
+                        var purchasedItem = DragItem.Instance.PeakItemInstance();
                         //if the purchased item is not empty
                         if (purchasedItem?.IsEmpty == false)
                         {
@@ -279,12 +277,12 @@ namespace _Script.Inventory.SlotFrontend
                                 {
                                     //Deduct the money from the player
                                     merchant.RemoveGold(player, purchasedItem, purchasedItem.Quantity);
-                                    _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemStack(), projectedPositions);
+                                    _inventoryUI.AddItemToEmptySlot(DragItem.Instance.RemoveItemInstance(), projectedPositions);
                                 }
                                 //如果不能放进玩家的背包，那么应该返回到商人的背包
                                 else
                                 {
-                                    DragItem.Instance.RemoveItemStack();
+                                    DragItem.Instance.RemoveItemInstance();
                                 }
                                 
                                 /**
@@ -306,9 +304,9 @@ namespace _Script.Inventory.SlotFrontend
                     Debug.Log("Sell item");
                     if (sourceSlot._inventoryUI is IPlayerInventoryHandler playerInv && _inventoryUI is IMerchantHandler merchantSelf)
                     {
-                        if (merchantSelf.Sell(playerInv, DragItem.Instance.PeakItemStack()))
+                        if (merchantSelf.Sell(playerInv, DragItem.Instance.PeakItemInstance()))
                         {
-                            _inventoryUI.AddItem(DragItem.Instance.RemoveItemStack());
+                            _inventoryUI.AddItem(DragItem.Instance.RemoveItemInstance());
                         }
                         else
                         {
@@ -336,13 +334,13 @@ namespace _Script.Inventory.SlotFrontend
         
         private void ReturnItemToSourceSlot(InventorySlotInteraction sourceSlot)
         {
-            if (DragItem.Instance.PeakItemStack() == null)
+            if (DragItem.Instance.PeakItemInstance() == null)
             {
                 Debug.Log("No item to return");
                 return;
             }
             
-            var itemToAdd = dragItem.GetComponent<DragItem>().RemoveItemStackOnFail();
+            var itemToAdd = dragItem.GetComponent<DragItem>().RemoveItemInstanceOnFail();
             
             sourceSlot._inventoryUI.AddItemToEmptySlot(itemToAdd, itemToAdd.ItemPositions);
         }
@@ -423,7 +421,7 @@ namespace _Script.Inventory.SlotFrontend
                 var projectedPositions = DragItem.Instance.ProjectedPositions(targetSlotPosition);
                 if(_inventoryUI.CanFitItem(projectedPositions))
                 {
-                    var itemToAdd = DragItem.Instance.RemoveItemStack();
+                    var itemToAdd = DragItem.Instance.RemoveItemInstance();
                     _inventoryUI.AddItemToEmptySlot(itemToAdd, projectedPositions);
                 }
                 else
@@ -445,7 +443,7 @@ namespace _Script.Inventory.SlotFrontend
             var projectedPositions = DragItem.Instance.ProjectedPositions(targetSlotPosition);
             if(_inventoryUI.CanFitItem(projectedPositions))
             {
-                var itemToAdd = DragItem.Instance.RemoveItemStack();
+                var itemToAdd = DragItem.Instance.RemoveItemInstance();
                 _inventoryUI.AddItemToEmptySlot(itemToAdd, projectedPositions);
             }
             else
@@ -471,9 +469,9 @@ namespace _Script.Inventory.SlotFrontend
         public void OnPointerEnter(PointerEventData eventData)
         {
             ItemDetail.Instance.ShowUI();
-            if (_currentStack != null && !_currentStack.IsEmpty)
+            if (currentInstance != null)
             {
-                ItemDetail.Instance.ShowItemDetail(_currentStack.ItemData);
+                ItemDetail.Instance.ShowItemDetail(currentInstance);
             }
         }
 
