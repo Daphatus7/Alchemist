@@ -168,7 +168,6 @@ namespace _Script.NPC.NpcBackend
                 var module = NpcModules.Find(x => x.ModuleInfo.ModuleName == moduleSaveInstance.Key);
                 if(module!=null)
                 {
-                    Debug.Log("Loading data for " + module.ModuleInfo.ModuleName);
                     module.OnLoadData(moduleSaveInstance.Value);
                 }            
             }

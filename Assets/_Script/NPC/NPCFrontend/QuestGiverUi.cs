@@ -5,9 +5,7 @@ using System;
 using System.Collections;
 using _Script.NPC.NpcBackend;
 using _Script.Quest;
-using _Script.Quest.PlayerQuest;
-using _Script.Quest.QuestDef;
-using _Script.UserInterface;
+using _Script.Quest.QuestDefinition;
 using _Script.Utilities.ServiceLocator;
 using TMPro;
 using UnityEngine;
@@ -292,8 +290,6 @@ namespace _Script.NPC.NPCFrontend
             Debug.Log("Accepting quest...");
 
             _currentNpc.StartQuest();
-            ServiceLocator.Instance.Get<IPlayerQuestService>().AddNewSideQuest(_currentNpc.CurrentQuest);
-
             // Mark quest as InProgress
             _currentNpc.CurrentQuest.QuestState = QuestState.InProgress;
             _currentQuestState = QuestState.InProgress;

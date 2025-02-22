@@ -3,16 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using _Script.Map;
-using _Script.NPC.NpcBackend.NpcModules;
-using _Script.Quest.PlayerQuest;
 using _Script.UserInterface;
-using _Script.Utilities.GenericUI;
-using _Script.Utilities.ServiceLocator;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace _Script.Map.WorldMap
 {

@@ -55,7 +55,6 @@ namespace _Script.Managers
 
         public void OnLoadData(object data)
         {
-            Debug.Log("Loading Town Data");
             if (data == null)
             {
                 LoadDefaultData();

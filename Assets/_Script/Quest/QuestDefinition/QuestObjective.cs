@@ -7,7 +7,7 @@ using _Script.Enemy.EnemyData;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
-namespace _Script.Quest
+namespace _Script.Quest.QuestDefinition
 {
     [Serializable]
     public class QuestObjective

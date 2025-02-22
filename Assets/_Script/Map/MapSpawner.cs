@@ -10,6 +10,7 @@ using _Script.Managers;
 using _Script.Map.Volume;
 using _Script.Map.WorldMap;
 using _Script.Quest;
+using _Script.Quest.QuestDefinition;
 using UnityEngine;
 
 namespace _Script.Map

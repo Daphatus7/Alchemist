@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace _Script.Quest.QuestDef
+namespace _Script.Quest.QuestDefinition
 {
     public abstract class SimpleQuestDefinition : ScriptableObject
     {

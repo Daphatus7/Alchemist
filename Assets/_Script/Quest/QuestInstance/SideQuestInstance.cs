@@ -1,11 +1,12 @@
 // Author : Peiyu Wang @ Daphatus
 // 29 01 2025 01 23
 
-namespace _Script.Quest.QuestDef
+
+namespace _Script.Quest.QuestInstance
 {
     public class SideQuestInstance : QuestInstance
     {
-        public SideQuestInstance(QuestDefinition def) : base(def)
+        public SideQuestInstance(QuestDefinition.QuestDefinition def) : base(def)
         {
         }
 

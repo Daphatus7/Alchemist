@@ -3,10 +3,8 @@
 
 using _Script.Character.PlayerRank;
 using _Script.Items.AbstractItemTypes._Script.Items;
-using _Script.Map.WorldMap.MapNode;
-using _Script.Quest;
-using _Script.Quest.QuestDef;
-using UnityEngine;
+using _Script.Quest.QuestDefinition;
+using _Script.Quest.QuestInstance;
 
 namespace _Script.Map.WorldMap
 {

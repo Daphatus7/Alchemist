@@ -5,10 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using _Script.Managers;
-using _Script.NPC.NPCFrontend;
 using _Script.Quest;
 using _Script.Quest.GuildQuestUI;
-using _Script.Quest.QuestDef;
+using _Script.Quest.QuestDefinition;
+using _Script.Quest.QuestInstance;
 using _Script.UserInterface;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
@@ -139,7 +139,8 @@ namespace _Script.NPC.NpcBackend.NpcModules
             {
                 _currentGuildQuest = saveModule.CurrentGuildQuest;
                 _availableQuests = saveModule.AvailableQuests;
-                Debug.Log("GuildQuestGiverModule loaded saved quest data.");
+                Debug.Log("GuildQuestGiverModule loaded saved quest data." + _currentGuildQuest);
+                
             }
             else
             {
@@ -170,6 +171,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
         #endregion
     }
 
+    [Serializable]
     public class GuildQuestSaveModule : NpcSaveModule
     {
         public GuildQuestInstance CurrentGuildQuest { get; set; }

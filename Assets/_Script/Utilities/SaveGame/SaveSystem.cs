@@ -67,16 +67,12 @@ namespace _Script.Utilities.SaveGame
                 Debug.LogWarning($"No saved data found for {typeSpecificSaveName}");
                 return;
             }
-
-            Debug.Log($"Loading saved data for {typeSpecificSaveName}");
             
             string key = ES3.Load<string>(typeSpecificSaveName);
             T saveService = GetSaveGameService<T>();
-            Debug.Log($"Loading data for {saveService}");
             if (saveService != null && ES3.KeyExists(key))
             {
                 object data = ES3.Load<object>(key); // Consider specifying a more specific type if possible
-                Debug.Log($"Loaded data for {typeSpecificSaveName}");
                 saveService.OnLoadData(data);
             }
         }

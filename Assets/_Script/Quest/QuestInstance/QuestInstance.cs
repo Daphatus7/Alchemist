@@ -4,10 +4,10 @@
 using System;
 using System.Collections.Generic;
 
-using System.Collections.Generic;
+using _Script.Quest.QuestDefinition;
 using UnityEngine;
 
-namespace _Script.Quest.QuestDef
+namespace _Script.Quest.QuestInstance
 {
     /// <summary>
     /// Player holding instance
@@ -178,6 +178,23 @@ namespace _Script.Quest.QuestDef
             QuestManager.Instance.onItemCollected -= OnItemCollected;
             //Debug.Log("QuestInstance cleaned up to prevent memory leak");
         }
+    }
+
+    [Serializable]
+    public class QuestSave
+    {
+        public string questId;
+        public QuestState questState;
+        public List<QuestObjectiveSave> objectives;
+        
+    }
+    
+    [Serializable]
+    public class QuestObjectiveSave
+    {
+        public string objectiveId;
+        public int currentCount;
+        public bool isComplete;
     }
     
     public enum QuestType

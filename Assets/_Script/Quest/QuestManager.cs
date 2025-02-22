@@ -8,10 +8,8 @@ using _Script.Managers;
 using _Script.Map;
 using _Script.NPC.NpcBackend;
 using _Script.NPC.NpcBackend.NpcModules;
-using _Script.Quest.PlayerQuest;
-using _Script.Quest.QuestDef;
-using _Script.Utilities.ServiceLocator;
-using UnityEditor.PackageManager;
+using _Script.Quest.QuestDefinition;
+using _Script.Quest.QuestInstance;
 using UnityEngine;
 
 namespace _Script.Quest
@@ -26,7 +24,7 @@ namespace _Script.Quest
         public event Action<string> onEnemyKilled;
         public event Action<string, int> onItemCollected;
         public event Action<string> onAreaEntered;
-        public event Action<QuestInstance> onQuestCompleted;
+        public event Action<QuestInstance.QuestInstance> onQuestCompleted;
 
         [SerializeField] public StorylineChecker storylineChecker;
         
@@ -90,7 +88,7 @@ namespace _Script.Quest
             onAreaEntered?.Invoke(areaID);
         }
 
-        public bool CheckQuestCompletion(QuestInstance quest)
+        public bool CheckQuestCompletion(QuestInstance.QuestInstance quest)
         {
             // Iterate over each objective in the quest.
             foreach (var objective in quest.Objectives)
@@ -126,7 +124,7 @@ namespace _Script.Quest
             
         }
         
-        public void CompleteQuest(QuestInstance currentQuest)
+        public void CompleteQuest(QuestInstance.QuestInstance currentQuest)
         {
             var questObjectives = currentQuest.Objectives;
             //check if the quest is completed
@@ -147,7 +145,6 @@ namespace _Script.Quest
                 }
             }
             GiveReward(currentQuest.QuestDefinition.reward);
-            ServiceLocator.Instance.Get<IPlayerQuestService>().CompleteQuest(currentQuest);
             currentQuest.Cleanup();
         }
         
@@ -173,7 +170,7 @@ namespace _Script.Quest
                    storylineChecker.IsCompleted(prerequisite.prerequisite);
         }
 
-        private void OnQuestCompleted(QuestInstance quest)
+        private void OnQuestCompleted(QuestInstance.QuestInstance quest)
         {
             onQuestCompleted?.Invoke(quest);
         }
@@ -207,10 +204,6 @@ namespace _Script.Quest
                 //Create an active quest
                 _currentQuest = questInstance;
                 _currentQuest.QuestState = QuestState.InProgress;
-                
-                //Update UI
-                ServiceLocator.Instance.Get<IPlayerQuestService>().AddNewGuildQuest(_currentQuest);
-                
                 //Generate path
                 MapController.Instance.CreateQuest(_currentQuest);
                 if(_currentQuest == null)

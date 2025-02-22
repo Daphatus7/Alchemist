@@ -1,10 +1,13 @@
 // Author : Peiyu Wang @ Daphatus
 // 12 02 2025 02 50
 
+using System;
 using _Script.Character.PlayerRank;
+using _Script.Quest.QuestDefinition;
 
-namespace _Script.Quest.QuestDef
+namespace _Script.Quest.QuestInstance
 {
+    [Serializable]
     public class GuildQuestInstance : QuestInstance
     {
 

@@ -5,7 +5,7 @@ using System;
 using _Script.Character.PlayerRank;
 using UnityEngine;
 
-namespace _Script.Quest.QuestDef
+namespace _Script.Quest.QuestDefinition
 {
     
     /// <summary>

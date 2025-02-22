@@ -2,8 +2,8 @@
 // 04 12 2024 12 28
 
 using _Script.NPC.NpcBackend.NpcModules;
-using _Script.Quest;
-using _Script.Quest.QuestDef;
+using _Script.Quest.QuestDefinition;
+using _Script.Quest.QuestInstance;
 
 namespace _Script.NPC.NpcBackend
 {

@@ -4,9 +4,8 @@ using _Script.Character.PlayerRank;
 using _Script.Managers;
 using _Script.Map.WorldMap;
 using _Script.Map.WorldMap.MapNode;
-using _Script.Quest;
-using _Script.Quest.QuestDef;
-using Sirenix.OdinInspector;
+using _Script.Quest.QuestDefinition;
+using _Script.Quest.QuestInstance;
 using UnityEngine;
 
 

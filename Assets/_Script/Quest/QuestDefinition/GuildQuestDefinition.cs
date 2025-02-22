@@ -4,7 +4,7 @@
 using _Script.Character.PlayerRank;
 using UnityEngine;
 
-namespace _Script.Quest.QuestDef
+namespace _Script.Quest.QuestDefinition
 {
     [CreateAssetMenu(fileName = "GuildQuestDefinition", menuName = "Quests/GuildQuestDefinition")]
     public class GuildQuestDefinition : SimpleQuestDefinition
