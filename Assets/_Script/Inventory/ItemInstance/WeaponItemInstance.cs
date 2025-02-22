@@ -50,5 +50,30 @@ namespace _Script.Inventory.ItemInstance
             };
             return clone;
         }
+        
+        public override ItemSave OnSaveData()
+        {
+            return new WeaponItemSave(this, CurrentDurability);
+        }
+    }
+    
+    public class WeaponItemSave : EquipmentItemSave
+    {
+        public WeaponItemSave(ItemInstance itemInstance, int currentDurability) : base(itemInstance)
+        {
+            CurrentDurability = currentDurability;
+        }
+
+        public int CurrentDurability { get; set; }
+        
+        public override ItemInstance InitializeItem(ItemInstance itemInstance)
+        {
+            base.InitializeItem(itemInstance);
+            if (itemInstance is WeaponItemInstance weaponItemInstance)
+            {
+                weaponItemInstance.CurrentDurability = CurrentDurability;
+            }
+            return itemInstance;
+        }
     }
 }

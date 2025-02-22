@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
 using _Script.Items;
 using _Script.Items.AbstractItemTypes._Script.Items;
+using _Script.Managers;
+using _Script.Managers.Database;
 using UnityEngine;
 
 namespace _Script.Inventory.ItemInstance
@@ -56,6 +58,19 @@ namespace _Script.Inventory.ItemInstance
                 "Container" => new ContainerItemInstance(itemData, rotated, quantity),
                 _ => new ItemInstance(itemData, rotated, quantity)
             };
+        }
+        
+        /// <summary>
+        /// Used to recreate an item instance from the save data
+        /// </summary>
+        /// <param name="itemSave"></param>
+        /// <returns></returns>
+        public static ItemInstance RecreateItemInstanceSave(ItemSave itemSave)
+        {
+            var itemData = DatabaseManager.Instance.GetItemData(itemSave.ItemID);
+            var itemInstance = CreateItemInstance(itemData, itemSave.Rotated, itemSave.Quantity);
+            itemSave.InitializeItem(itemInstance);
+            return itemInstance;
         }
     }
 }

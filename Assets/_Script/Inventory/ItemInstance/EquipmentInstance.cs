@@ -11,4 +11,11 @@ namespace _Script.Inventory.ItemInstance
         {
         }
     }
+    
+    public class EquipmentItemSave : ItemSave
+    {
+        public EquipmentItemSave(ItemInstance itemInstance) : base(itemInstance)
+        {
+        }
+    }
 }

@@ -10,12 +10,24 @@ using UnityEngine;
 
 namespace _Script.Inventory.InventoryBackend
 {
-    public abstract class Inventory
+    public abstract class Inventory: IInventorySaveDataHandler
     {
         private readonly int _height; public int Height => _height;
         private readonly int _width; public int Width => _width;
 
         public int Capacity => _height * _width;
+        private string _uniqueID; public string UniqueID
+        {
+            get
+            {
+                if(string.IsNullOrEmpty(_uniqueID))
+                {
+                    _uniqueID = Guid.NewGuid().ToString();
+                }
+                return _uniqueID;
+            }
+            set => _uniqueID = value;
+        }
 
         /**
          * The shape-based slots in the inventory.
@@ -52,7 +64,6 @@ namespace _Script.Inventory.InventoryBackend
         {
             _height = height;
             _width = width;
-
             Slots = new InventorySlot[Capacity];
             _itemInstances = new List<ItemInstance.ItemInstance>();
 
@@ -70,7 +81,7 @@ namespace _Script.Inventory.InventoryBackend
         {
             _height = height;
             _width = width;
-
+            
             Slots = new InventorySlot[Capacity];
             _itemInstances = new List<ItemInstance.ItemInstance>();
 
@@ -606,6 +617,67 @@ namespace _Script.Inventory.InventoryBackend
         }
 
         #endregion
+
+        #region Save and Load
+        
+        public InventorySave OnSaveData()
+        {
+            var save = new InventorySave
+            {
+                inventoryUniqueID = UniqueID,
+                items = new ItemSave[_itemInstances.Count],
+                height = _height,
+                width = _width
+            };
+            
+            foreach(var instance in _itemInstances)
+            {
+                if(instance == null)
+                {
+                    throw new ArgumentNullException(nameof(instance) + " is null.");
+                }
+                var itemSave = instance.OnSaveData();
+                save.items[_itemInstances.IndexOf(instance)] = itemSave;
+            }
+            
+            return save;
+        }
+
+        /// <summary>
+        /// Called after the inventory is created to load the data.
+        /// </summary>
+        /// <param name="saves"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public virtual void OnLoadData(ItemSave[] saves)
+        {
+            //make sure the save is valid
+            if (saves == null)
+            {
+                throw new ArgumentNullException(nameof(saves) + " is null.");
+            }
+            //Check every item
+            foreach (var itemSave in saves)
+            {
+                if (itemSave != null)
+                {
+                    //recreate the item instance
+                    var newInstance = ItemInstanceFactory.RecreateItemInstanceSave(itemSave);
+                    
+                    //initialize the item instance to match the save
+                    itemSave.InitializeItem(newInstance);
+                    foreach (var pos in newInstance.ItemPositions)
+                    {
+                        var sIndex = GridToSlotIndex(pos.x, pos.y);
+                        Slots[sIndex].ItemInstance = newInstance;
+                    }
+                }
+            }
+            
+            Debug.Log("Have not updated the inventory etc yet." +
+                      "need to update the inventory status and display yet, " +
+                      "need to handle this later");
+        }
+        #endregion
     }
        
     /// <summary>
@@ -668,5 +740,21 @@ namespace _Script.Inventory.InventoryBackend
         {
             OnInventoryStatusChanged?.Invoke(itemID, count);
         }
+    }
+    
+    [Serializable]
+    public class InventorySave
+    {
+        public string inventoryUniqueID;
+        public ItemSave [] items;
+        public int height;
+        public int width;
+    }
+
+    public interface IInventorySaveDataHandler
+    {
+        InventorySave OnSaveData();
+        string UniqueID { get; }
+        void OnLoadData(ItemSave [] save);
     }
 }

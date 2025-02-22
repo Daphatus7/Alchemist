@@ -92,20 +92,13 @@ namespace _Script.NPC.NpcBackend.NpcModules
             {
                 LoadDefaultData();
             }
-            //clear existing items
-            itemsForSale.Clear();
-            //load items from save
-            if(data is not MerchantSaveModule saveInstance)
-            {
-                Debug.Log("MerchantModule.OnLoadData: Invalid save data type.");
-                LoadDefaultData();
-            }
             else
             {
-                Debug.Log("MerchantModule.OnLoadData: Loading merchant inventory from save.");
-                itemsForSale = saveInstance.itemsForSale;
-                inventoryWidth = saveInstance.inventoryWidth;
-                inventoryHeight = saveInstance.inventoryHeight;
+                if(data is MerchantSaveModule mData)
+                {
+                    _merchantInventory = new MerchantInventory();
+                    _merchantInventory.OnLoadData(mData.inventorySave.items);
+                }
             }
             //Reload merchant inventory
             Refresh();
@@ -115,15 +108,9 @@ namespace _Script.NPC.NpcBackend.NpcModules
         {
             var saveInstance = new MerchantSaveModule
             {
-                itemsForSale = itemsForSale,
-                inventoryWidth = inventoryWidth,
-                inventoryHeight = inventoryHeight
+                inventorySave = _merchantInventory.OnSaveData(),
             };
-
-            foreach (var o in saveInstance.itemsForSale)
-            {
-                Debug.Log($"MerchantModule.OnSaveData: Saved item {o.ItemName}.");
-            }
+            
             return saveInstance;
         }
         
@@ -136,8 +123,6 @@ namespace _Script.NPC.NpcBackend.NpcModules
     [Serializable]
     public class MerchantSaveModule : NpcSaveModule
     {
-        public List<ItemData> itemsForSale;
-        public int inventoryWidth;
-        public int inventoryHeight;
+        public InventorySave inventorySave;
     }
 }

@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using _Script.Inventory.InventoryBackend;
+using _Script.Inventory.ItemInstance;
 using _Script.Inventory.SlotFrontend;
 using UnityEngine;
 
@@ -17,11 +18,15 @@ namespace _Script.Inventory.MerchantInventoryBackend
             _itemsForSale = itemsForSale;
             InitializeMerchantInventory();
         }
-
-        public MerchantInventory(ItemInstance.ItemInstance[] items, List<ItemInstance.ItemInstance> itemsForSale, int width  = 5, int height = 4) : base(width, height, items)
+        
+        public MerchantInventory(int width = 5, int height = 4) : base(width, height)
         {
-            _itemsForSale = itemsForSale;
+            _itemsForSale = new List<ItemInstance.ItemInstance>();
             InitializeMerchantInventory();
+        }
+        public override void OnLoadData(ItemSave [] saves)
+        {
+            base.OnLoadData(saves);
         }
         
         /// <summary>

@@ -20,7 +20,6 @@ namespace _Script.Inventory.InventoryBackend
         public PlayerCharacter InventoryOwner => inventoryOwner;
 
         public override SlotType SlotType => SlotType.PlayerInventory;
-        public string UniqueID { get; }
         
         /// <summary>
         /// Initializes an empty PlayerContainer with shape-based slots.
@@ -31,7 +30,6 @@ namespace _Script.Inventory.InventoryBackend
         public PlayerContainer(PlayerCharacter owner, int height, int width) 
             : base(height, width)
         {
-            UniqueID = Guid.NewGuid().ToString();
             inventoryOwner = owner;
         }
 
@@ -41,7 +39,6 @@ namespace _Script.Inventory.InventoryBackend
         public PlayerContainer(PlayerCharacter owner, int height, int width, ItemInstance.ItemInstance[] items)
             : base(height, width, items)
         {
-            UniqueID = Guid.NewGuid().ToString();
             inventoryOwner = owner;
         }
 
@@ -119,7 +116,6 @@ namespace _Script.Inventory.InventoryBackend
                     {
                         inventoryOwner?.OpenContainerInstance(conStack.AssociatedContainer);
                     }
-
                     break;
                 }
                 case "Material":
@@ -166,6 +162,7 @@ namespace _Script.Inventory.InventoryBackend
         {
             UseItem(slotIndex);
         }
-        
     }
+    
+
 }

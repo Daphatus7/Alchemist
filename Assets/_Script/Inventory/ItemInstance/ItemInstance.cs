@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using _Script.Character;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using _Script.Items.Helper;
+using UnityEditor.Overlays;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 
 namespace _Script.Inventory.ItemInstance
@@ -23,13 +25,11 @@ namespace _Script.Inventory.ItemInstance
 
         #region Save required
         public int Quantity { get; set; }
-        
         private bool _rotated = false; public bool IsRotated => _rotated;
-
+        
+        private List<Vector2Int> _itemPositions;
         #endregion
 
-        private List<Vector2Int> _itemPositions;
-        
         
         /**
          * all the positions of the item in the inventory
@@ -168,7 +168,39 @@ namespace _Script.Inventory.ItemInstance
         {
             return new ItemInstance(ItemData, _rotated, Quantity);
         }
-    }
-    
 
+        public virtual ItemSave OnSaveData()
+        {
+            return new ItemSave(this);
+        }
+    }
+
+    [Serializable]
+    public class ItemSave
+    {
+        private string _itemID; public string ItemID => _itemID;
+        private bool _rotated; public bool Rotated => _rotated;
+        private int _quantity; public int Quantity => _quantity;
+        private List<Vector2Int> _itemPositions; public List<Vector2Int> ItemPositions => _itemPositions;
+        
+        public ItemSave(ItemInstance itemInstance)
+        {
+            _itemID = itemInstance.ItemID;
+            _rotated = itemInstance.IsRotated;
+            _quantity = itemInstance.Quantity;
+            _itemPositions = itemInstance.ItemPositions;
+        }
+        
+        /// <summary>
+        /// ** Important **
+        /// To reinitialize the item
+        /// </summary>
+        /// <param name="newInstance"></param>
+        /// <returns></returns>
+        public virtual ItemInstance InitializeItem(ItemInstance newInstance)
+        {
+            newInstance.ItemPositions = _itemPositions;
+            return newInstance;
+        }
+    }
 }
