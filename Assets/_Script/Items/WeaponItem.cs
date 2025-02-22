@@ -1,10 +1,12 @@
 using _Script.Character;
-using _Script.Character.ActionStrategy;
+using _Script.Items.AbstractItemTypes;
+using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
 
-namespace _Script.Items.AbstractItemTypes
+namespace _Script.Items
 {
-    public abstract class WeaponItem : EquipmentItem
+    [CreateAssetMenu(fileName = "New Tool", menuName = "Items/Equipments/Weapons/Tool")]
+    public class WeaponItem : EquipmentItem
     {
         public WeaponType weaponType = WeaponType.None;
         public override EquipmentType EquipmentType => EquipmentType.Weapon;
@@ -17,15 +19,12 @@ namespace _Script.Items.AbstractItemTypes
         //Range of the weapon
         public float attackDistance = 1f;
         public GameObject weaponPrefab;
-        
         public override string ItemTypeString => "Weapon";
-
         public override bool Use(PlayerCharacter playerCharacter)
         {
             return true;
         }
     }
-
     public enum WeaponType
     {
         Sword,

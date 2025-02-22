@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ed646ed7e940b99cae63fcee36f558, type: 3}
   m_Name: Long_Bread
   m_EditorClassIdentifier: 
-  itemName: Long_Bread
-  itemID: 0
+  itemName: Long Bread
+  itemID: LongBread
   itemDescription: 'Long bread
 
 '
@@ -22,6 +22,6 @@ MonoBehaviour:
   itemShapeType: 2
   rarity: 0
   _value: 2
-  foodValues:
+  foodEffects:
   - FoodType: 4
-    Value: 12
+    Value: 60

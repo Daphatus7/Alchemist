@@ -35,5 +35,27 @@ namespace _Script.Inventory.ItemInstance
                 return source;
             }
         }
+        
+        /// <summary>
+        /// Create an item instance from the item data
+        /// Instance create from this class only create default items instead of manipulating existing item instance
+        /// such as copying and spliting
+        /// </summary>
+        /// <param name="itemData"></param>
+        /// <param name="rotated"></param>
+        /// <param name="quantity"></param>
+        /// <returns></returns>
+        public static ItemInstance CreateItemInstance(ItemData itemData, bool rotated, int quantity)
+        {
+            var itemTypeString = itemData.ItemTypeString;
+            return itemTypeString switch
+            {
+                "Weapon" => new WeaponItemInstance(itemData, rotated, quantity),
+                "Torch" => new TorchItemInstance(itemData, rotated, quantity),
+                "Seed" => new SeedItemInstance(itemData, rotated, quantity),
+                "Container" => new ContainerItemInstance(itemData, rotated, quantity),
+                _ => new ItemInstance(itemData, rotated, quantity)
+            };
+        }
     }
 }

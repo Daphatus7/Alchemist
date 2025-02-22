@@ -20,4 +20,6 @@ MonoBehaviour:
   itemShapeType: 0
   rarity: 0
   _value: 2
-  foodEffects: []
+  foodEffects:
+  - FoodType: 4
+    Value: 30

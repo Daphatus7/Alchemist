@@ -40,8 +40,8 @@ namespace _Script.Items.Lootable
                 {
                     if (entry.itemData != null && entry.quantity > 0)
                     {
-                        var remainder = _runtimeContainer.AddItem(new ItemInstance(entry.itemData, false, entry.quantity));
-                        if (remainder != null && !remainder.IsEmpty)
+                        var remainder = _runtimeContainer.AddItem(ItemInstanceFactory.CreateItemInstance(entry.itemData, false, entry.quantity));
+                        if (remainder != null)
                         {
                             Debug.LogWarning($"Not all items could be added to the container. Remainder: {remainder.Quantity}x {remainder.ItemName}");
                         }

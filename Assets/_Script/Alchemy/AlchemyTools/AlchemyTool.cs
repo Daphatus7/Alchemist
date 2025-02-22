@@ -74,9 +74,8 @@ namespace _Script.Alchemy.AlchemyTools
             
             foreach (var output in BrewInstance.GetOutputItems)
             {
-                _container.AddItem(new ItemInstance(output.Data, false, output.Quantity));
+                _container.AddItem(ItemInstanceFactory.CreateItemInstance(output.Data, false, output.Quantity));
             }
-            
             BrewInstance = null;
             onBrewComplete?.Invoke();
         }

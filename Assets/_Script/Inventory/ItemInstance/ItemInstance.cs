@@ -114,7 +114,7 @@ namespace _Script.Inventory.ItemInstance
             return _rotated;
         }
         
-        public ItemInstance(ItemData itemData, bool rotated = false, int quantity = 1)
+        protected internal ItemInstance(ItemData itemData, bool rotated = false, int quantity = 1)
         {
             _rotated = rotated;
             ItemData = itemData; //copy reference instead of object
@@ -164,7 +164,7 @@ namespace _Script.Inventory.ItemInstance
         /// Copy the ItemInstance with the same ItemData and quantity.
         /// </summary>
         /// <returns></returns>
-        public ItemInstance Clone()
+        public virtual ItemInstance Clone()
         {
             return new ItemInstance(ItemData, _rotated, Quantity);
         }

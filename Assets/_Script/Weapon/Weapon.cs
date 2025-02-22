@@ -5,6 +5,7 @@ using DamageNumbersPro; // for DamageNumber
 using UnityEngine;
 using _Script.Damageable;
 using _Script.Inventory.ItemInstance;
+using _Script.Items;
 using _Script.Items.AbstractItemTypes;
 
 namespace _Script.Weapon
@@ -34,11 +35,7 @@ namespace _Script.Weapon
         protected ContactFilter2D _filter;
         protected readonly List<Collider2D> _results = new List<Collider2D>();
         public event Action<int> onHitTarget;
-        private AttackForm _attackForm; protected AttackForm AttackForm
-        {
-            get => _attackForm;
-            set => _attackForm = value;
-        }
+        protected AttackForm AttackForm { get; set; }
 
         /// <summary>
         /// Assign stats from a WeaponItem ScriptableObject (if desired).

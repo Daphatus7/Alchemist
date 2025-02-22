@@ -15,7 +15,7 @@ namespace _Script.Character.ActionStrategy
             // If the item is a seed, show seed preview on fertile ground
             if (currentUseItem.ItemInstance.ItemTypeString == "Seed")
             {
-                if (currentUseItem.ItemInstance is not SeedInstance seedItem) return false;
+                if (currentUseItem.ItemInstance is not SeedItemInstance seedItem) return false;
 
                 var tile = GameTileMap.PointedTile;
                 if (tile != null && tile.IsFertile)

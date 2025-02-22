@@ -33,9 +33,9 @@ namespace _Script.Items
         /**
          * Convert EquipmentItem to Tool
          */
-        public static Tool ConvertToTool(EquipmentItem equipmentItem)
+        public static WeaponItem ConvertToTool(EquipmentItem equipmentItem)
         {
-            if (equipmentItem is Tool tool)
+            if (equipmentItem is WeaponItem tool)
             {
                 return tool;
             }

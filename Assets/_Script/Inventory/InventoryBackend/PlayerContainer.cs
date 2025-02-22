@@ -97,49 +97,40 @@ namespace _Script.Inventory.InventoryBackend
             // We use the string type name to differentiate. 
             // Alternatively, you could do 'if (slotStack.ItemData.ItemType == ItemType.Consumable)' etc.
             var itemType = slotInstance.ItemTypeString;
-            
-            //当物品被「使用」的时候，不同的物品种类的表现方式不同
-            //当武器类被使用
-            if (itemType == "Weapon")
+
+            switch (itemType)
             {
-                if (slotInstance is not WeaponItemInstance weapon) return;
-                weapon.CurrentDurability--;
-                if(weapon.CurrentDurability <= 0)
+                //当物品被「使用」的时候，不同的物品种类的表现方式不同
+                //当武器类被使用
+                case "Weapon":
                 {
-                    RemoveItemFromSlot(slotIndex, 1);
+                    if (slotInstance is not WeaponItemInstance weapon) return;
+                    weapon.CurrentDurability--;
+                    if(weapon.CurrentDurability <= 0)
+                    {
+                        RemoveItemFromSlot(slotIndex, 1);
+                    }
+                    break;
                 }
-            }
-            else if (itemType == "Container")
-            {
-                // If it's a container item (like a bag), open it
-                if (slotInstance is ContainerItemInstance conStack)
+                case "Container":
                 {
-                    inventoryOwner?.OpenContainerInstance(conStack.AssociatedContainer);
+                    // If it's a container item (like a bag), open it
+                    if (slotInstance is ContainerItemInstance conStack)
+                    {
+                        inventoryOwner?.OpenContainerInstance(conStack.AssociatedContainer);
+                    }
+
+                    break;
                 }
+                case "Material":
+                    break;
+                default:
+                    if (slotInstance.Use(inventoryOwner))
+                    {
+                        RemoveItemFromSlot(slotIndex, 1);
+                    }
+                    break;
             }
-            else if (itemType == "Seed")
-            {
-                // Attempt to plant
-                if (slotInstance.Use(inventoryOwner))
-                {
-                    // If planting succeeded, remove 1 from slot
-                    RemoveItemFromSlot(slotIndex, 1);
-                }
-            }
-            else if (itemType == "Consumable")
-            {
-                if (slotInstance.Use(inventoryOwner))
-                {
-                    RemoveItemFromSlot(slotIndex, 1);
-                }
-            }
-            else if (itemType == "Material")
-            {
-                // e.g. place or craft with this material
-                // Potentially remove or not
-                // e.g. RemoveItemFromSlot(slotIndex, 1);
-            }
-            // else: handle other item types, or do nothing
         }
 
         /// <summary>

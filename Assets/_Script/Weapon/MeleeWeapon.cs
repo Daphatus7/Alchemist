@@ -6,7 +6,7 @@ using UnityEngine;
 using _Script.Utilities;
 using _Script.Damageable;
 using _Script.Inventory.ItemInstance;
-using _Script.Items.AbstractItemTypes;
+using _Script.Items;
 
 namespace _Script.Weapon
 {

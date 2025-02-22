@@ -7,9 +7,9 @@ using UnityEngine;
 
 namespace _Script.Inventory.ItemInstance
 {
-    public class SeedInstance : ItemInstance
+    public class SeedItemInstance : ItemInstance
     {
-        public SeedInstance(ItemData itemData, bool rotated, int quantity = 1) : base(itemData, rotated, quantity)
+        public SeedItemInstance(ItemData itemData, bool rotated, int quantity = 1) : base(itemData, rotated, quantity)
         {
         }
 

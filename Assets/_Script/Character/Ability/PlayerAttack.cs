@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _Script.Character.ActionStrategy;
 using _Script.Inventory.PlayerInventory;
+using _Script.Items;
 using _Script.Items.AbstractItemTypes;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
