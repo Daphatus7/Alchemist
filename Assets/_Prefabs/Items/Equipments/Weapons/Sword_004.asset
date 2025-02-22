@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sword_004
   m_EditorClassIdentifier: 
   itemName: A million dollars
-  itemID: Sword_004
+  itemID: b5c7fc25aeca04876a0e0c08206b844f
   itemDescription: A very sharp blade, be very careful when wielding it.
   itemIcon: {fileID: -1901378139, guid: d9184dbb777e8e8489eb1e645a17d80a, type: 3}
   maxStackSize: 1
@@ -30,4 +30,3 @@ MonoBehaviour:
   attackDistance: 1
   weaponPrefab: {fileID: 8222673930803448861, guid: ae28b71218fa845ed9dfdccd21cdf07a,
     type: 3}
-  toolType: 0

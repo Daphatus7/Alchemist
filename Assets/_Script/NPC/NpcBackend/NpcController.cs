@@ -123,14 +123,14 @@ namespace _Script.NPC.NpcBackend
             {
                 if (t != null)
                 {
-                    if (t.OnSaveData() != null)
+                    var tSave = t.OnSaveData();
+                    if (tSave != null)
                     {
-                        if (moduleSaveInstances.ContainsKey(t.ModuleInfo.ModuleName))
+                        if (!moduleSaveInstances.TryAdd(t.ModuleInfo.ModuleName, tSave))
                         {
                             throw new Exception("NpcController.OnSaveData: Duplicate module name " + 
                                                 t.ModuleInfo.ModuleName);
                         }
-                        moduleSaveInstances.Add(t.ModuleInfo.ModuleName, t.OnSaveData());
                     }
                     else
                     {
@@ -166,7 +166,11 @@ namespace _Script.NPC.NpcBackend
                      in saveInstance.ModuleSaveInstances)
             {
                 var module = NpcModules.Find(x => x.ModuleInfo.ModuleName == moduleSaveInstance.Key);
-                module?.OnLoadData(moduleSaveInstance.Value);
+                if(module!=null)
+                {
+                    Debug.Log("Loading data for " + module.ModuleInfo.ModuleName);
+                    module.OnLoadData(moduleSaveInstance.Value);
+                }            
             }
         }
 

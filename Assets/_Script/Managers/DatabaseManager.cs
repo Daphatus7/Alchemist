@@ -57,7 +57,7 @@ namespace _Script.Managers
             // Ensure the enemy dictionary is initialized.
             if (_enemyPrefabDictionary == null)
             {
-                _enemyPrefabDictionary = CreateEnemyDictionary();
+                throw new System.Exception("Enemy prefab dictionary is null.");
             }
             
             if (_enemyPrefabDictionary.TryGetValue(enemyName, out var enemyPrefab))
@@ -72,18 +72,18 @@ namespace _Script.Managers
         /// <summary>
         /// Retrieves the item data corresponding to the given item ID.
         /// </summary>
-        public ItemData GetItemData(string itemName)
+        public ItemData GetItemData(string itemID)
         {
             if (!_itemDatabase)
             {
                 Debug.LogError("DatabaseManager: ItemDatabase is null.");
                 return null;
             }
-            if (_itemDictionary.TryGetValue(itemName, out var item))
+            if (_itemDictionary.TryGetValue(itemID, out var item))
             {
                 return item;
             }
-            Debug.LogError("DatabaseManager: ItemDatabase does not contain item: " + itemName);
+            Debug.LogError("DatabaseManager: ItemDatabase does not contain item: " + itemID);
             return null;
         }
         
@@ -118,7 +118,6 @@ namespace _Script.Managers
                     Debug.LogWarning("EnemyDatabaseRuntime: Duplicate enemy name detected: " + pair.enemyName);
                 }
             }
-            
             return dict;
         }
         
@@ -128,8 +127,10 @@ namespace _Script.Managers
             var items = _itemDatabase.Items;
             foreach(var item in items)
             {
-                Debug.Log(item.itemData.itemID + " x " + item.itemData.itemName);
-               dict.Add(item.itemData.itemID, item.itemData);
+                if (!dict.TryAdd(item.itemData.itemID, item.itemData))
+                {
+                    throw new System.Exception("Duplicate item ID detected: " + item.itemData.itemID + " for item: " + item.itemData.itemName);
+                }
             }
             return dict;
         }

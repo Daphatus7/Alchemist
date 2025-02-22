@@ -17,10 +17,6 @@ namespace _Script.Managers.Database
     [CreateAssetMenu(fileName = "ItemDatabase", menuName = "Database/ItemDatabase")]
     public class ItemDatabase : SerializedScriptableObject
     {
-        //==================================
-        // Counters for assigning IDs per ItemType
-        //==================================
-        
         [ShowInInspector, DictionaryDrawerSettings(KeyLabel = "ItemType", ValueLabel = "NextIndex")]
         [InfoBox("How many IDs have been assigned per ItemType so far. New items of that type will start from the next index.")]
         public Dictionary<ItemType, int> ItemTypeCounters = new Dictionary<ItemType, int>()
@@ -36,6 +32,7 @@ namespace _Script.Managers.Database
 
         //==================================
         // Custom mapping for ItemType abbreviations
+        // (Not used anymore for modifying IDs)
         //==================================
         private static readonly Dictionary<ItemType, string> ItemTypeAbbreviations = new Dictionary<ItemType, string>()
         {
@@ -168,7 +165,7 @@ namespace _Script.Managers.Database
 
         [FoldoutGroup("Add & Remove"), LabelText("Batch-add existing items"), PropertyOrder(1)]
         [Button("Add Selected Items to Database"), GUIColor(0.4f, 1f, 0.4f)]
-        [InfoBox("Imports all items from 'ItemsToAdd' into the 'Items' list (wrapped), auto-generating IDs if needed.")]
+        [InfoBox("Imports all items from 'ItemsToAdd' into the 'Items' list (without modifying ItemID).")]
         public void AddSelectedItemsToDatabase()
         {
             int addedCount = 0;
@@ -176,7 +173,7 @@ namespace _Script.Managers.Database
             {
                 if (item != null && !IsAlreadyInDatabase(item))
                 {
-                    EnsureItemID(item);
+                    // Do not modify the item's ID; simply wrap and add.
                     Items.Add(new WrappedItem { itemData = item });
                     addedCount++;
                 }
@@ -188,7 +185,7 @@ namespace _Script.Managers.Database
             AssetDatabase.SaveAssets();
 #endif
 
-            Debug.Log($"[ItemDatabase] Imported {addedCount} ItemData into the database (auto-generated ID if needed).");
+            Debug.Log($"[ItemDatabase] Imported {addedCount} ItemData into the database (ItemID unchanged).");
         }
 
         /// <summary>
@@ -209,7 +206,7 @@ namespace _Script.Managers.Database
             {
                 if (item != null && !IsAlreadyInDatabase(item))
                 {
-                    EnsureItemID(item);
+                    // Do not modify the item's ID.
                     Items.Add(new WrappedItem { itemData = item });
                     addedCount++;
                 }
@@ -220,7 +217,7 @@ namespace _Script.Managers.Database
             AssetDatabase.SaveAssets();
 #endif
 
-            Debug.Log($"[ItemDatabase] Imported {addedCount} items from 'NotInDatabase'.");
+            Debug.Log($"[ItemDatabase] Imported {addedCount} items from 'NotInDatabase' (ItemID unchanged).");
         }
 
         //==================================
@@ -370,90 +367,8 @@ namespace _Script.Managers.Database
             return matched;
         }
 
-        //==================================
-        // Automatically assign an ID when adding an item using naming convention:
-        // Abbreviation (from ItemType) + "_" + a three-digit number starting from 000.
-        // For example, for a Potion item of type Consumable, the ID might be "P_000".
-        //==================================
-        private void EnsureItemID(ItemData item)
-        {
-            //if (!string.IsNullOrEmpty(item.ItemID)) return;
-
-            var type = item.ItemType; 
-            if (!ItemTypeCounters.ContainsKey(type))
-            {
-                ItemTypeCounters[type] = 0;
-            }
-            
-            // Use the current counter value (starting at 0)
-            int newIndex = ItemTypeCounters[type];
-
-            // Get the abbreviation from our mapping; if not found, fallback to the first letter of the type name.
-            string abbreviation;
-            if (!ItemTypeAbbreviations.TryGetValue(type, out abbreviation))
-            {
-                abbreviation = type.ToString().Substring(0, 1);
-            }
-
-            string newID = $"{abbreviation}_{newIndex:000}";
-            item.ItemID = newID;
-
-            // Increment the counter for this type.
-            ItemTypeCounters[type] = newIndex + 1;
-        }
-
-        //==================================
-        // Custom Drag & Drop area (optional)
-        //==================================
-        [FoldoutGroup("Drag & Drop"), PropertyOrder(999)]
-        [OnInspectorGUI, LabelText("Drag & Drop Area")]
-        [InfoBox("You can select multiple ItemData in the Project window and drag them here to add them all to the database at once.", InfoMessageType.None)]
-        private void DrawDragAndDropArea()
-        {
-#if UNITY_EDITOR
-            var dropArea = GUILayoutUtility.GetRect(0f, 50f, GUILayout.ExpandWidth(true));
-            GUI.Box(dropArea, "Drag multiple ItemData here to bulk add");
-
-            var evt = Event.current;
-            if (!dropArea.Contains(evt.mousePosition))
-                return;
-
-            switch (evt.type)
-            {
-                case EventType.DragUpdated:
-                case EventType.DragPerform:
-                {
-                    bool canDrop = DragAndDrop.objectReferences.Any(o => o is ItemData);
-                    if (canDrop)
-                    {
-                        DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
-                        if (evt.type == EventType.DragPerform)
-                        {
-                            DragAndDrop.AcceptDrag();
-                            int addedCount = 0;
-                            foreach (var obj in DragAndDrop.objectReferences)
-                            {
-                                if (obj is ItemData data && !IsAlreadyInDatabase(data))
-                                {
-                                    EnsureItemID(data); 
-                                    Items.Add(new WrappedItem { itemData = data });
-                                    addedCount++;
-                                }
-                            }
-                            EditorUtility.SetDirty(this);
-                            AssetDatabase.SaveAssets();
-                            Debug.Log($"[ItemDatabase] Drag & Drop: successfully added {addedCount} ItemData.");
-                        }
-                        evt.Use();
-                    }
-                    break;
-                }
-            }
-#else
-            GUILayout.Label("The drag-and-drop feature is only available in the Unity Editor environment.");
-#endif
-        }
-
+        // The method EnsureItemID has been removed so that ItemData.ItemID is not modified by this database.
+        
         //==================================
         // Checks if an item is already in the database
         //==================================

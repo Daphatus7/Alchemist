@@ -658,9 +658,10 @@ namespace _Script.Inventory.InventoryBackend
             //Check every item
             foreach (var itemSave in saves)
             {
-                if (itemSave != null)
+                if (itemSave != null && itemSave.ItemID != null)
                 {
                     //recreate the item instance
+                    
                     var newInstance = ItemInstanceFactory.RecreateItemInstanceSave(itemSave);
                     
                     //initialize the item instance to match the save

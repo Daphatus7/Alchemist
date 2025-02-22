@@ -431,8 +431,8 @@ namespace _Script.Character
         [SerializeField] private float foodDuration = 1f;
         
         [SerializeField] private float _staminaMax = 10f; public float StaminaMax => _staminaMax;
-        
-        private PlayerPotionEffectManager _potionEffectManager = new PlayerPotionEffectManager();
+
+        private PlayerPotionEffectManager _potionEffectManager;
         public IPlayerPotionEffectHandler PotionEffectManager => _potionEffectManager;
         
         [SerializeField] private PlayerStatsManager _playerstats = new PlayerStatsManager(); public PlayerStatsManager PlayerStats => _playerstats;

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dagger_001
   m_EditorClassIdentifier: 
   itemName: Dagger
-  itemID: Dagger_001
+  itemID: ba3035840e5a54d9ebe29f77cf2d522c
   itemDescription: A very sharp blade, be very careful when wielding it.
   itemIcon: {fileID: 186120327, guid: d9184dbb777e8e8489eb1e645a17d80a, type: 3}
   maxStackSize: 1
@@ -30,4 +30,3 @@ MonoBehaviour:
   attackDistance: 1
   weaponPrefab: {fileID: 8222673930803448861, guid: f8c1aa66edff84c41998b6df19866dfa,
     type: 3}
-  toolType: 2

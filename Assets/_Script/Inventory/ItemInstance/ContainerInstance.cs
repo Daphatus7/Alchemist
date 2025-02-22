@@ -1,6 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 12 12 2024 12 12
 
+using System;
 using _Script.Inventory.InventoryBackend;
 using _Script.Items;
 using _Script.Items.AbstractItemTypes._Script.Items;
@@ -32,6 +33,7 @@ namespace _Script.Inventory.ItemInstance
         }
     }
     
+    [Serializable]
     public class ContainerItemSave : ItemSave
     {
         public InventorySave InventorySave { get; private set; }

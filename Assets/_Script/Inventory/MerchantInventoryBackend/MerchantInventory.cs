@@ -24,10 +24,6 @@ namespace _Script.Inventory.MerchantInventoryBackend
             _itemsForSale = new List<ItemInstance.ItemInstance>();
             InitializeMerchantInventory();
         }
-        public override void OnLoadData(ItemSave [] saves)
-        {
-            base.OnLoadData(saves);
-        }
         
         /// <summary>
         /// Initialize the merchant's inventory with predefined items for sale.

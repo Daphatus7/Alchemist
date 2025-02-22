@@ -52,7 +52,7 @@ namespace _Script.Utilities.SaveGame
             string key = GenerateUniqueKeyForService(saveService); // Generate unique key
             object data = saveService.OnSaveData();
             ES3.Save(key, data); // Save the data
-
+            
             if (_debug)
                 Debug.Log($"Saving... {saveName}_{typeof(T).Name}");
             ES3.Save(GetInternalName<T>(saveName), key); // Save the unique key
@@ -68,12 +68,15 @@ namespace _Script.Utilities.SaveGame
                 return;
             }
 
+            Debug.Log($"Loading saved data for {typeSpecificSaveName}");
+            
             string key = ES3.Load<string>(typeSpecificSaveName);
             T saveService = GetSaveGameService<T>();
-
+            Debug.Log($"Loading data for {saveService}");
             if (saveService != null && ES3.KeyExists(key))
             {
                 object data = ES3.Load<object>(key); // Consider specifying a more specific type if possible
+                Debug.Log($"Loaded data for {typeSpecificSaveName}");
                 saveService.OnLoadData(data);
             }
         }

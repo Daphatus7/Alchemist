@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sword_Of_Infinite_Debugging
   m_EditorClassIdentifier: 
   itemName: Sword Of Infinite Debugging
-  itemID: Sword_001
+  itemID: dfa0f5d458ae44a969d30fa5d1d62cb8
   itemDescription: A very sharp blade, be very careful when wielding it.
   itemIcon: {fileID: -1839726451, guid: d9184dbb777e8e8489eb1e645a17d80a, type: 3}
   maxStackSize: 1
@@ -21,11 +21,12 @@ MonoBehaviour:
   rarity: 0
   _value: 30000
   weaponType: 0
+  attackForm: 2
   durability: 200
   damageMin: 3
   damageMax: 9
-  attackSpeed: 1
-  range: 1
+  attackCooldown: 1
+  attackTime: 0.5
+  attackDistance: 1
   weaponPrefab: {fileID: 8222673930803448861, guid: 61d4ec3a6573e456e928c8adfcde371b,
     type: 3}
-  toolType: 0

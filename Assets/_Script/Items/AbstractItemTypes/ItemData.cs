@@ -5,6 +5,7 @@ using _Script.Items.Helper;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine.Serialization; // Import Odin
 
 namespace _Script.Items.AbstractItemTypes
@@ -16,10 +17,20 @@ namespace _Script.Items.AbstractItemTypes
         {
             [Title("Basic Info")] [SerializeField, Tooltip("Name of the item")]
             public string itemName;
-
-            [SerializeField, Tooltip("Unique ID of the item")]
+            
+            [ReadOnly, ShowInInspector]
             public string itemID;
 
+            private void OnValidate()
+            {
+#if UNITY_EDITOR
+                if (itemID == "")
+                {
+                    itemID = GUID.Generate().ToString();
+                    EditorUtility.SetDirty(this);
+                }
+#endif
+            }
             [SerializeField, TextArea, Tooltip("Detailed description of the item")]
             public string itemDescription;
 

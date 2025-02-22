@@ -55,18 +55,26 @@ namespace _Script.Managers
 
         public void OnLoadData(object data)
         {
+            Debug.Log("Loading Town Data");
             if (data == null)
             {
                 LoadDefaultData();
             }
             
             var townData = (TownData) data;
-            
+            if (townData == null)
+            {
+                throw new Exception("Data is not of type TownData");
+            }
             foreach (var npc in _npcs)
             {
                 if (townData.Npcs.ContainsKey(npc.SaveKey))
                 {
                     npc.OnLoadData(townData.Npcs[npc.SaveKey]);
+                }
+                else
+                {
+                    Debug.Log($"No data found for {npc.SaveKey}");
                 }
             }
         }

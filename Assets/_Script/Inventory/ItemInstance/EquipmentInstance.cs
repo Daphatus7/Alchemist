@@ -1,6 +1,7 @@
 // Author : Peiyu Wang @ Daphatus
 // 21 02 2025 02 37
 
+using System;
 using _Script.Items.AbstractItemTypes._Script.Items;
 
 namespace _Script.Inventory.ItemInstance
@@ -12,6 +13,7 @@ namespace _Script.Inventory.ItemInstance
         }
     }
     
+    [Serializable]
     public class EquipmentItemSave : ItemSave
     {
         public EquipmentItemSave(ItemInstance itemInstance) : base(itemInstance)

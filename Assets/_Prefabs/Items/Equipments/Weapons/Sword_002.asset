@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sword_002
   m_EditorClassIdentifier: 
   itemName: Sword Of Swag
-  itemID: Sword_002
+  itemID: a604cf8d41ae9416abef4c1f39bce779
   itemDescription: A very sharp blade, be very careful when wielding it.
   itemIcon: {fileID: -771888149, guid: d9184dbb777e8e8489eb1e645a17d80a, type: 3}
   maxStackSize: 1
@@ -21,11 +21,12 @@ MonoBehaviour:
   rarity: 0
   _value: 2000
   weaponType: 0
+  attackForm: 2
   durability: 200
   damageMin: 7
   damageMax: 30
-  attackSpeed: 3.5
-  range: 1
+  attackCooldown: 1
+  attackTime: 0.5
+  attackDistance: 1
   weaponPrefab: {fileID: 8222673930803448861, guid: 30637c21fb9474f79a954f90201c4088,
     type: 3}
-  toolType: 0

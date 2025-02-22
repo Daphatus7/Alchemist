@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dagger_002
   m_EditorClassIdentifier: 
   itemName: Ninja Dagger
-  itemID: Dagger_002
+  itemID: 02dd91b62dc634e4ea0696f887d1a7cd
   itemDescription: A very sharp blade, be very careful when wielding it.
   itemIcon: {fileID: -2064758899, guid: d9184dbb777e8e8489eb1e645a17d80a, type: 3}
   maxStackSize: 1
@@ -30,4 +30,3 @@ MonoBehaviour:
   attackDistance: 1
   weaponPrefab: {fileID: 8222673930803448861, guid: 5235f7d9f983241afa2c8ae67e4c737f,
     type: 3}
-  toolType: 2
