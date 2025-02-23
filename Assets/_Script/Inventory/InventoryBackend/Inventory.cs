@@ -673,10 +673,6 @@ namespace _Script.Inventory.InventoryBackend
                     }
                 }
             }
-            
-            Debug.Log("Have not updated the inventory etc yet." +
-                      "need to update the inventory status and display yet, " +
-                      "need to handle this later");
         }
         #endregion
     }

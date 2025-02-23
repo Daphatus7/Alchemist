@@ -16,7 +16,7 @@ MonoBehaviour:
   questName: Collect Monster Egg
   objectives:
   - objectiveData:
-      rid: 3211680580556816529
+      rid: 3211680580556816573
     isComplete: 0
   reward:
     gold: 500
@@ -26,13 +26,14 @@ MonoBehaviour:
       amount: 1
   questRank: 6
   description: Go to Area 1
-  distanceMax: 3
-  distanceMin: 5
+  distanceMax: 1
+  distanceMin: 1
   references:
     version: 2
     RefIds:
-    - rid: 3211680580556816529
-      type: {class: CollectObjective, ns: _Script.Quest.QuestDefinition, asm: Assembly-CSharp}
+    - rid: 3211680580556816573
+      type: {class: MapCollectObjective, ns: _Script.Quest.QuestDefinition, asm: Assembly-CSharp}
       data:
         requiredCount: 1
         item: {fileID: 11400000, guid: 3ad3d0a8bf36347baa2eb7e8733b222c, type: 2}
+        mapName: E_BossMap_1

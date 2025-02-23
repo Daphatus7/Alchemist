@@ -34,7 +34,6 @@ namespace _Script.Quest.QuestInstance
         
         public QuestInstance(SimpleQuestDefinition def)
         {
-            Debug.Log("Quest created");
             QuestDefinition = def;
             _state = QuestState.NotStarted;
             // For each static ObjectiveData, create a dynamic QuestObjective

@@ -67,7 +67,33 @@ namespace _Script.NPC.NpcBackend.NpcModules
         public List<GuildQuestInstance> GetAvailableQuests => AvailableQuests;
 
         private GuildQuestInstance _currentGuildQuest;
-        public GuildQuestInstance CurrentGuildQuest => _currentGuildQuest;
+
+        public GuildQuestInstance CurrentGuildQuest
+        {
+            get => _currentGuildQuest;
+            set
+            {
+                //If the current quest is set to null -> for current build, it can only mean the quest is completed
+                if(value == null)
+                {
+                    OnQuestUpdate(_currentGuildQuest, QuestUpdateInstruction.Expire);
+                    _currentGuildQuest = null;
+                }
+                else
+                {
+                    //They are not the same quest
+                    if (_currentGuildQuest == value)
+                    {
+                        throw new Exception("how did you assign the same quest?");
+                    }
+                    else
+                    {
+                        _currentGuildQuest = value;
+                        OnQuestUpdate(_currentGuildQuest, QuestUpdateInstruction.Accept);
+                    }
+                }
+            }
+        }
 
         public override bool ShouldLoadModule()
         {
@@ -120,17 +146,15 @@ namespace _Script.NPC.NpcBackend.NpcModules
                 Debug.Log("There is already a quest in progress");
                 return;
             }
-            _currentGuildQuest = instance;
-            Debug.Log("Accepting Quest let display that there is a active quest and the player should work on it until it expires");
+            CurrentGuildQuest = instance;
         }
         
         public void OnQuestComplete()
         {
             Debug.Log("Quest Completed");
-            _currentGuildQuest = null;
+            CurrentGuildQuest = null;
             _availableQuests = null;
         }
-
 
         #region Save and Load
         public override void OnLoadData(NpcSaveModule data)
@@ -139,10 +163,18 @@ namespace _Script.NPC.NpcBackend.NpcModules
             {
                 if (saveModule.currentQuest != null)
                 {
-                    var questDefinition = 
-                        DatabaseManager.Instance.GetQuestDefinition(saveModule.currentQuest.questId);
-                    if (questDefinition is GuildQuestDefinition guildQuestDefinition)
-                        _currentGuildQuest = new GuildQuestInstance(guildQuestDefinition, saveModule.currentQuest as GuildQuestSave);
+                    var questID = saveModule.currentQuest.questId;
+                    if (!string.IsNullOrEmpty(questID))
+                    {
+                        var questDefinition = DatabaseManager.Instance.GetQuestDefinition(questID);
+                        if (questDefinition is GuildQuestDefinition guildQuestDefinition)
+                            _currentGuildQuest = new GuildQuestInstance(guildQuestDefinition, saveModule.currentQuest as GuildQuestSave);
+                    }
+                    else
+                    {
+                        Debug.Log("GuildQuestGiverModule.OnLoadData: Invalid quest ID.");
+                    }
+                    
                 }
                 _availableQuests = new List<GuildQuestInstance>();
                 
@@ -150,10 +182,19 @@ namespace _Script.NPC.NpcBackend.NpcModules
                 {
                     for (var i = 0; i < saveModule.questSaves.Length; i++)
                     {
-                        var questDefinition =
-                            DatabaseManager.Instance.GetQuestDefinition(saveModule.questSaves[i].questId); 
-                        if (questDefinition is GuildQuestDefinition guildQuestDefinition)
-                            _availableQuests.Add(new GuildQuestInstance(guildQuestDefinition, saveModule.questSaves[i] as GuildQuestSave));
+                        var questID = saveModule.questSaves[i].questId;
+                        if(!string.IsNullOrEmpty(questID))
+                        {
+                            var questDefinition =
+                                DatabaseManager.Instance.GetQuestDefinition(saveModule.questSaves[i].questId);
+                            if (questDefinition is GuildQuestDefinition guildQuestDefinition)
+                                _availableQuests.Add(new GuildQuestInstance(guildQuestDefinition,
+                                    saveModule.questSaves[i] as GuildQuestSave));
+                        }
+                        else
+                        {
+                            Debug.Log("GuildQuestGiverModule.OnLoadData: Invalid quest ID.");
+                        }
                     }
                 }
             }
@@ -172,9 +213,12 @@ namespace _Script.NPC.NpcBackend.NpcModules
             {
                 saveModule.currentQuest = _currentGuildQuest.OnSave();
             }
-            for(var i = 0; i < _availableQuests.Count; i++)
+            if(_availableQuests != null)
             {
-                saveModule.questSaves[i] = _availableQuests[i].OnSave();
+                for (var i = 0; i < _availableQuests.Count; i++)
+                {
+                    saveModule.questSaves[i] = _availableQuests[i].OnSave();
+                }
             }
             return saveModule;
         }
@@ -188,6 +232,46 @@ namespace _Script.NPC.NpcBackend.NpcModules
         }
         
         #endregion
+
+        private void OnQuestUpdate(GuildQuestInstance obj, QuestUpdateInstruction instruction)
+        {
+            switch (instruction)
+            {
+                case QuestUpdateInstruction.Accept:
+                    OnQuestAccepted(obj);
+                    break;
+                case QuestUpdateInstruction.Complete:
+                    OnQuestCompleted(obj);
+                    break;
+                case QuestUpdateInstruction.Expire:
+                    OnQuestExpired(obj);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(instruction), instruction, null);
+            }
+        }
+        
+        private void OnQuestAccepted(GuildQuestInstance obj)
+        {
+            ServiceLocator.Instance.Get<IPlayerQuestService>().AddQuest(obj);
+        }
+        
+        private void OnQuestCompleted(GuildQuestInstance obj)
+        {
+            ServiceLocator.Instance.Get<IPlayerQuestService>().RemoveQuest(obj);
+        }
+        
+        private void OnQuestExpired(GuildQuestInstance obj)
+        {
+            Debug.Log("Quest Expired");
+        }
+    }
+
+    public enum QuestUpdateInstruction
+    {
+        Accept,
+        Complete,
+        Expire
     }
 
     [Serializable]

@@ -46,6 +46,7 @@ namespace _Script.Quest.QuestInstance
         {
             var newSave = new GuildQuestSave
             {
+                questId = QuestDefinition.questID,
                 questState = QuestState,
                 questRank = _questRank,
                 objectives = new QuestObjectiveSave[objectives.Count],

@@ -18,6 +18,7 @@ namespace _Script.Managers
         [SerializeField] private EnemyDatabase _enemyDatabase;
         [SerializeField] private ItemDatabase _itemDatabase;
         [SerializeField] private QuestDatabase _questDatabase;
+        
         private Dictionary<string, ItemData> _itemDictionary;
         private Dictionary<string, GameObject> _enemyPrefabDictionary;
         private Dictionary<string, SimpleQuestDefinition> _questDefinitions;
@@ -53,6 +54,9 @@ namespace _Script.Managers
             {
                 Debug.LogError("DatabaseManager: QuestDatabase asset is null.");
             }
+            // Get the path where Easy Save 3 saves data.
+            string savePath = ES3Settings.pathToEasySaveFolder;
+            Debug.Log("Easy Save 3 Path: " + savePath);
         }
         
         /// <summary>
@@ -153,6 +157,7 @@ namespace _Script.Managers
             var quests = _questDatabase.QuestDefinitions;
             foreach (var quest in quests)
             {
+                Debug.Log("Quest added: " + quest.questID);
                 if (!dict.TryAdd(quest.questID, quest))
                 {
                     throw new System.Exception("Duplicate quest ID detected: " + quest.questID + " for quest: " + quest.questName);
@@ -163,6 +168,7 @@ namespace _Script.Managers
         
         public SimpleQuestDefinition GetQuestDefinition(string questID)
         {
+            Debug.Log("Getting quest definition: " + questID);
             if (_questDefinitions.TryGetValue(questID, out var quest))
             {
                 return quest;
