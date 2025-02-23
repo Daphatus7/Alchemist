@@ -16,7 +16,7 @@ MonoBehaviour:
   questName: GQ_3
   objectives:
   - objectiveData:
-      rid: 3211680286784356463
+      rid: 3211680580556816530
     isComplete: 0
   reward:
     gold: 500
@@ -31,11 +31,9 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 3211680286784356463
-      type: {class: ExplorationObjective, ns: _Script.Quest, asm: Assembly-CSharp}
+    - rid: 3211680580556816530
+      type: {class: BossKillObjective, ns: _Script.Quest.QuestDefinition, asm: Assembly-CSharp}
       data:
         requiredCount: 1
-        areaID: 
-        isExplored: 0
+        enemy: {fileID: 11400000, guid: 91f4b2ff9f4444a0ca7017d7de107ccd, type: 2}
+        mapName: E_BossMap_1

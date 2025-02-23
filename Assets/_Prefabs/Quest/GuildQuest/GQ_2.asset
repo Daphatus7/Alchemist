@@ -16,7 +16,7 @@ MonoBehaviour:
   questName: Collect Monster Egg
   objectives:
   - objectiveData:
-      rid: 3211680451372777746
+      rid: 3211680580556816529
     isComplete: 0
   reward:
     gold: 500
@@ -31,11 +31,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 3211680451372777746
-      type: {class: MapCollectObjective, ns: _Script.Quest, asm: Assembly-CSharp}
+    - rid: 3211680580556816529
+      type: {class: CollectObjective, ns: _Script.Quest.QuestDefinition, asm: Assembly-CSharp}
       data:
         requiredCount: 1
         item: {fileID: 11400000, guid: 3ad3d0a8bf36347baa2eb7e8733b222c, type: 2}
-        mapName: E_BossMap_1

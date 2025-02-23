@@ -21,7 +21,7 @@ namespace _Script.Quest
         [ValidateInput("IsFolderPathValid", "Folder path must not be empty", InfoMessageType.Error)]
         [Tooltip("Path to the folder that holds quest definitions (SimpleQuestDefinition assets).\nExample: 'Assets/Quests'")]
         [SerializeField]
-        private string questFolderPath = "Assets/Quests";
+        private string questFolderPath = "Assets/_Prefabs/Quest";
 
         #endregion
 

@@ -16,7 +16,10 @@ MonoBehaviour:
   questName: GQ_4
   objectives:
   - objectiveData:
-      rid: 3211680286784356463
+      rid: 3211680580556816531
+    isComplete: 0
+  - objectiveData:
+      rid: 3211680580556816532
     isComplete: 0
   reward:
     gold: 500
@@ -31,11 +34,13 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 3211680286784356463
-      type: {class: ExplorationObjective, ns: _Script.Quest, asm: Assembly-CSharp}
+    - rid: 3211680580556816531
+      type: {class: CollectObjective, ns: _Script.Quest.QuestDefinition, asm: Assembly-CSharp}
       data:
         requiredCount: 1
-        areaID: 
-        isExplored: 0
+        item: {fileID: 11400000, guid: dc9411daa790e45478c846cfd63ee62e, type: 2}
+    - rid: 3211680580556816532
+      type: {class: CollectObjective, ns: _Script.Quest.QuestDefinition, asm: Assembly-CSharp}
+      data:
+        requiredCount: 1
+        item: {fileID: 11400000, guid: cbc5667b0e2a840088c322a9f35cef53, type: 2}

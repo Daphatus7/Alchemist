@@ -48,12 +48,12 @@ namespace _Script.Quest.QuestInstance
             {
                 questState = QuestState,
                 questRank = _questRank,
-                objectives = new QuestObjectiveSave[_objectives.Count],
+                objectives = new QuestObjectiveSave[objectives.Count],
 
             };
-            for (int i = 0; i < _objectives.Count; i++)
+            for (int i = 0; i < objectives.Count; i++)
             {
-                newSave.objectives[i] = _objectives[i].OnSave(i);
+                newSave.objectives[i] = objectives[i].OnSave(i);
             }
             return newSave;
         }

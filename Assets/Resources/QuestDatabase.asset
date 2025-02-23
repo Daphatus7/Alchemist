@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e47f01956104243a465a83f07387a85, type: 3}
+  m_Name: QuestDatabase
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  questFolderPath: Assets/_Prefabs/Quest
+  questDefinitions:
+  - {fileID: 11400000, guid: 0f9667d7922094c5689b3c4e5c7cb8c6, type: 2}
+  - {fileID: 11400000, guid: 7a6aa9e088852421ea71585f92206301, type: 2}
+  - {fileID: 11400000, guid: 4a3f4af7fea754adbb51e9ed8bba83d0, type: 2}
+  - {fileID: 11400000, guid: 8079c216b2b9a4be9894dad2d5926e50, type: 2}
+  - {fileID: 11400000, guid: dae82e7b0182641e4ad731b972f10cd5, type: 2}
+  - {fileID: 11400000, guid: dadca1d97f99049b3ad52c5f073c5796, type: 2}

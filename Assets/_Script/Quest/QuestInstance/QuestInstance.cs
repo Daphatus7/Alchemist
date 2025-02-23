@@ -28,8 +28,8 @@ namespace _Script.Quest.QuestInstance
             }
         }
 
-        protected readonly List<QuestObjective> _objectives = new (); 
-        public List<QuestObjective> Objectives => _objectives;
+        protected readonly List<QuestObjective> objectives = new (); 
+        public List<QuestObjective> Objectives => objectives;
         #endregion
         
         public QuestInstance(SimpleQuestDefinition def)
@@ -61,7 +61,8 @@ namespace _Script.Quest.QuestInstance
         {
             foreach (var obj in definition.objectives)
             {
-                _objectives.Add(new QuestObjective(obj.objectiveData));
+                Debug.Log("Objective added" + obj.objectiveData);
+                objectives.Add(new QuestObjective(obj.objectiveData));
             }
         }
         
@@ -73,7 +74,7 @@ namespace _Script.Quest.QuestInstance
         {
             if (QuestManager.Instance != null)
             {
-                foreach (var obj in _objectives)
+                foreach (var obj in objectives)
                 {
                     switch (obj.objectiveData.Type)
                     {
@@ -99,7 +100,7 @@ namespace _Script.Quest.QuestInstance
         
         private void OnItemCollected(string itemID, int totalCount)
         {
-            _objectives.ForEach(obj =>
+            objectives.ForEach(obj =>
             {
                 // Skip if the objective is not a collect objective
                 if (obj.objectiveData.Type != ObjectiveType.Collect) return;
@@ -126,7 +127,7 @@ namespace _Script.Quest.QuestInstance
         private void OnEnemyKilled(string enemyID)
         {
             Debug.Log("Enemy killed" + enemyID);
-            _objectives.ForEach(obj =>
+            objectives.ForEach(obj =>
             {
                 // Skip if the objective is not a kill objective
                 if (obj.objectiveData.Type != ObjectiveType.Kill) return;
@@ -146,7 +147,7 @@ namespace _Script.Quest.QuestInstance
         }
         private void OnEnteringArea(string areaID)
         {
-            _objectives.ForEach(obj =>
+            objectives.ForEach(obj =>
             {
                 // Skip if the objective is not a explore objective
                 if (obj.objectiveData.Type != ObjectiveType.Explore) return;
@@ -163,7 +164,7 @@ namespace _Script.Quest.QuestInstance
         private void CheckCompletion()
         {
             bool isAllDone = true;
-            foreach (var obj in _objectives)
+            foreach (var obj in objectives)
             {
                 if (!obj.isComplete)
                 {
@@ -204,7 +205,7 @@ namespace _Script.Quest.QuestInstance
                 status += QuestDefinition.questName + "\n";
                 //Objectives
                 status += "Objectives: \n";
-                foreach (var obj in _objectives)
+                foreach (var obj in objectives)
                 {
                     switch (obj.objectiveData.Type)
                     {
@@ -236,12 +237,12 @@ namespace _Script.Quest.QuestInstance
             {
                 questId = QuestDefinition.questID,
                 questState = _state,
-                objectives = new QuestObjectiveSave[_objectives.Count],
+                objectives = new QuestObjectiveSave[objectives.Count],
             };
             
-            for(var i = 0; i < _objectives.Count; i++)
+            for(var i = 0; i < objectives.Count; i++)
             {
-                questSave.objectives[i] = _objectives[i].OnSave(i);
+                questSave.objectives[i] = objectives[i].OnSave(i);
             }
             return questSave;
         }
@@ -255,7 +256,7 @@ namespace _Script.Quest.QuestInstance
             _state = save.questState;
             for (var i = 0; i < save.objectives.Length; i++)
             {
-                _objectives[i].OnLoad(save.objectives[i]);
+                objectives[i].OnLoad(save.objectives[i]);
             }
         }
 

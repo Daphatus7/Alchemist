@@ -63,7 +63,6 @@ namespace _Script.NPC.NpcBackend.NpcModules
 
                 return _availableQuests;
             }
-          
         } 
         public List<GuildQuestInstance> GetAvailableQuests => AvailableQuests;
 
