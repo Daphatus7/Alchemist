@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using _Script.Character.PlayerRank;
 using _Script.Managers;
 using _Script.Quest;
 using _Script.Quest.GuildQuestUI;
@@ -76,7 +75,8 @@ namespace _Script.NPC.NpcBackend.NpcModules
                 //If the current quest is set to null -> for current build, it can only mean the quest is completed
                 if(value == null)
                 {
-                    OnQuestUpdate(_currentGuildQuest, QuestUpdateInstruction.Expire);
+                    Debug.Log("Quest is completed");
+                    OnQuestUpdate(_currentGuildQuest, QuestUpdateInstruction.Complete);
                     _currentGuildQuest = null;
                 }
                 else
@@ -197,6 +197,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
                         }
                     }
                 }
+                OnQuestUpdate(_currentGuildQuest, QuestUpdateInstruction.Accept);
             }
             else
             {
@@ -258,6 +259,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
         
         private void OnQuestCompleted(GuildQuestInstance obj)
         {
+            Debug.Log("Quest Completed-----> removing");
             ServiceLocator.Instance.Get<IPlayerQuestService>().RemoveQuest(obj);
         }
         

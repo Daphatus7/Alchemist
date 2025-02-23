@@ -55,8 +55,6 @@ namespace _Script.Map.Volume
             {
                 weightedList[i] = resourceItems[i].weight;
             }
-            Debug.Log($"Rate: {rate}");
-
             // Calculate the integer and fractional parts of the rate
             int integerPart = Mathf.FloorToInt(rate); // Integer part of the rate
             float fractionalPart = rate - integerPart; // Fractional part of the rate
@@ -64,7 +62,6 @@ namespace _Script.Map.Volume
             // Determine if an extra unit should be spawned based on the fractional part
             int count = integerPart + (Random.value < fractionalPart ? 1 : 0);
 
-            Debug.Log($"Count: {count}");
 
             // Total weight of all resources
             var totalWeight = GetWeightSum();

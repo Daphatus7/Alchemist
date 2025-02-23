@@ -36,6 +36,12 @@ namespace _Script.NPC.NpcBackend
             }
             StartConversation(player);
         }
+        
+        public virtual void Awake()
+        {
+            DontDestroyOnLoad(this);
+        }
+        
 
         public virtual void OnHighlight() { }
         public virtual void OnHighlightEnd() { }

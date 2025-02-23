@@ -21,8 +21,9 @@ namespace _Script.Alchemy.AlchemyTools
         public BrewInstance BrewInstance { get; private set; }
         private Coroutine _brewTimer;
         
-        private void Awake()
+        public override void Awake()
         {
+            base.Awake();
             _container = new AlchemyContainer();
         }
         

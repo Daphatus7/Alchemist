@@ -14,7 +14,6 @@ namespace _Script.NPC.Gates
             base.TerminateConversation();
             
             // need hard fix
-            
             MapController.Instance.MarkCurrentNodeAsExplored();
             MapExplorerView.Instance.ShowUI();
             AddMoreUIHandler(MapExplorerView.Instance);

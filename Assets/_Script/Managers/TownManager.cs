@@ -11,6 +11,7 @@ namespace _Script.Managers
 {
     public class TownManager : Singleton<TownManager>, ISaveTownDataHandler
     {
+        [Header("References to Npc that will not be deleted when the town is disabled")]
         [SerializeField] private List<NpcBase> _npcs;
         public string SaveKey => "TownManager";
         
@@ -26,7 +27,26 @@ namespace _Script.Managers
             if(ServiceLocator.Instance != null)
                 ServiceLocator.Instance.Unregister<ISaveTownDataHandler>();
         }
+
+        public void OnEnable()
+        {
+            foreach (var npc in _npcs)
+            {
+                npc.gameObject.SetActive(true);
+            }
+        }
         
+        public void OnDisable()
+        {
+            foreach (var npc in _npcs)
+            {
+                if (npc != null)
+                {
+                    npc.gameObject.SetActive(false);
+                }
+            }
+        }
+
         /// <summary>
         /// Exit point for town Data
         /// </summary>

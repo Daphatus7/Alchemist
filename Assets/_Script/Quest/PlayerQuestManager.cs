@@ -62,9 +62,9 @@ namespace _Script.Quest
         
         public void RemoveQuest(QuestInstance.QuestInstance quest)
         {
+            Debug.Log("Removing quest: " + quest.QuestDefinition.questID);
             _activeQuests.Remove(quest.QuestDefinition.questID);
         }
-        
     }
     
     public interface IPlayerQuestService : IGameService

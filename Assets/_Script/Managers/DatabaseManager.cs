@@ -157,7 +157,6 @@ namespace _Script.Managers
             var quests = _questDatabase.QuestDefinitions;
             foreach (var quest in quests)
             {
-                Debug.Log("Quest added: " + quest.questID);
                 if (!dict.TryAdd(quest.questID, quest))
                 {
                     throw new System.Exception("Duplicate quest ID detected: " + quest.questID + " for quest: " + quest.questName);
