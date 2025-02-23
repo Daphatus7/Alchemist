@@ -3,6 +3,7 @@
 
 using System;
 using _Script.Character.PlayerRank;
+using _Script.Quest.QuestInstance;
 using UnityEngine;
 
 namespace _Script.Quest.QuestDefinition
@@ -22,6 +23,8 @@ namespace _Script.Quest.QuestDefinition
         {
             return unlockCondition == null || QuestManager.Instance.CheckPrerequisite(unlockCondition);
         }
+
+        public override QuestType QuestType => QuestType.Main;
     }
     
     

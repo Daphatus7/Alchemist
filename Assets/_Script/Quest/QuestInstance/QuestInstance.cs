@@ -15,7 +15,9 @@ namespace _Script.Quest.QuestInstance
     public abstract class QuestInstance
     {
         public SimpleQuestDefinition QuestDefinition { get; }
-        public abstract QuestType QuestType { get; }
+        public QuestType QuestType => QuestDefinition.QuestType;
+
+        #region Required to save
         private QuestState _state; public QuestState QuestState
         {
             get => _state;
@@ -25,8 +27,9 @@ namespace _Script.Quest.QuestInstance
                 _state = value;
             }
         }
-
-        private readonly List<QuestObjective> _objectives = new List<QuestObjective>(); public List<QuestObjective> Objectives => _objectives;
+        private readonly List<QuestObjective> _objectives = new (); 
+        public List<QuestObjective> Objectives => _objectives;
+        #endregion
         
         public QuestInstance(SimpleQuestDefinition def)
         {
@@ -34,10 +37,32 @@ namespace _Script.Quest.QuestInstance
             QuestDefinition = def;
             _state = QuestState.NotStarted;
             // For each static ObjectiveData, create a dynamic QuestObjective
+            SubscribeToTarget(QuestDefinition.objectives);
+        }
+        
+        /// <summary>
+        /// Initialize the quest from save
+        /// </summary>
+        /// <param name="def"></param>
+        /// <param name="save"></param>
+        public QuestInstance(SimpleQuestDefinition def, QuestSave save)
+        {
+            Debug.Log("Quest created from save");
+            QuestDefinition = def;
+            _state = save.questState;
+            // For each static ObjectiveData, create a dynamic QuestObjective
+            SubscribeToTarget(QuestDefinition.objectives);
+        }
+
+        #region Subscriptions
+
+        private void SubscribeToTarget(QuestObjective [] objectives)
+        {
             if (QuestManager.Instance != null)
             {
-                foreach (var objData in QuestDefinition.objectives)
+                foreach (var objData in objectives)
                 {
+                    //Instantiate the objective, runtime data
                     var questObj = new QuestObjective(objData.objectiveData);
                     _objectives.Add(questObj);
                     switch (objData.objectiveData.Type)
@@ -55,6 +80,10 @@ namespace _Script.Quest.QuestInstance
                             break;
                     }
                 }
+            }
+            else
+            {
+                throw new Exception("QuestManager is not initialized");
             }
         }
         
@@ -95,7 +124,7 @@ namespace _Script.Quest.QuestInstance
                 var killObj = (KillObjective) obj.objectiveData;
                 
                 // Skip if the killed enemy is not the required enemy
-                if (killObj.enemyID != enemyID) return;
+                if (killObj.EnemyID != enemyID) return;
                 obj.CurrentCount++;
                 if (obj.CurrentCount >= obj.objectiveData.requiredCount)
                 {
@@ -139,6 +168,22 @@ namespace _Script.Quest.QuestInstance
             }
         }
         
+        #endregion
+
+        #region Unsubscribe
+
+        public void Cleanup()
+        {
+            if (QuestManager.Instance == null) return;
+            QuestManager.Instance.onEnemyKilled -= OnEnemyKilled;
+            QuestManager.Instance.onItemCollected -= OnItemCollected;
+            //Debug.Log("QuestInstance cleaned up to prevent memory leak");
+        }
+
+        #endregion
+        
+        #region Debug
+
         public string QuestStatus
         {
             get
@@ -154,7 +199,7 @@ namespace _Script.Quest.QuestInstance
                     switch (obj.objectiveData.Type)
                     {
                         case ObjectiveType.Kill:
-                            status += "Kill " + ((KillObjective) obj.objectiveData).enemyID + " " + obj.CurrentCount + "/" + obj.objectiveData.requiredCount + "\n";
+                            status += "Kill " + ((KillObjective) obj.objectiveData).EnemyID + " " + obj.CurrentCount + "/" + obj.objectiveData.requiredCount + "\n";
                             break;
                         case ObjectiveType.Collect:
                             status += "Collect " + ((CollectObjective) obj.objectiveData).item.itemID + " " + obj.CurrentCount + "/" + obj.objectiveData.requiredCount + "\n";
@@ -169,15 +214,42 @@ namespace _Script.Quest.QuestInstance
                 return status;
             }
         }
-        
-        // Unsubscribe from events
-        public void Cleanup()
+
+
+        #endregion
+
+        #region Save and Load
+
+        public QuestSave OnSave()
         {
-            if (QuestManager.Instance == null) return;
-            QuestManager.Instance.onEnemyKilled -= OnEnemyKilled;
-            QuestManager.Instance.onItemCollected -= OnItemCollected;
-            //Debug.Log("QuestInstance cleaned up to prevent memory leak");
+            var questSave = new QuestSave
+            {
+                questId = QuestDefinition.questID,
+                questState = _state,
+                objectives = new QuestObjectiveSave[_objectives.Count],
+            };
+            
+            for(var i = 0; i < _objectives.Count; i++)
+            {
+                questSave.objectives[i] = _objectives[i].OnSave(i);
+            }
+            return questSave;
         }
+        
+        /// <summary>
+        /// Mapping the save data onto the objectives regardless of the data type
+        /// </summary>
+        /// <param name="save"></param>
+        public void OnLoad(QuestSave save)
+        {
+            _state = save.questState;
+            for (var i = 0; i < save.objectives.Length; i++)
+            {
+                _objectives[i].OnLoad(save.objectives[i]);
+            }
+        }
+
+        #endregion
     }
 
     [Serializable]
@@ -185,17 +257,10 @@ namespace _Script.Quest.QuestInstance
     {
         public string questId;
         public QuestState questState;
-        public List<QuestObjectiveSave> objectives;
-        
+        //objectives progresses
+        public QuestObjectiveSave[] objectives;
     }
-    
-    [Serializable]
-    public class QuestObjectiveSave
-    {
-        public string objectiveId;
-        public int currentCount;
-        public bool isComplete;
-    }
+
     
     public enum QuestType
     {

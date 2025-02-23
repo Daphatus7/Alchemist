@@ -52,7 +52,7 @@ namespace _Script.Map.WorldMap
                 mapRank)
         {
             // Redundant assignments removed since base constructor already sets these values.
-            BossName = ((BossKillObjective)questInstance.GuildQuestDefinition.objectives[0].objectiveData).enemyID;
+            BossName = ((BossKillObjective)questInstance.GuildQuestDefinition.objectives[0].objectiveData).EnemyID;
         }
 
         public override ObjectiveType ObjectiveType => ObjectiveType.Kill;

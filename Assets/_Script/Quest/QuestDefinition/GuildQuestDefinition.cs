@@ -2,6 +2,7 @@
 // 09 02 2025 02 05
 
 using _Script.Character.PlayerRank;
+using _Script.Quest.QuestInstance;
 using UnityEngine;
 
 namespace _Script.Quest.QuestDefinition
@@ -16,6 +17,7 @@ namespace _Script.Quest.QuestDefinition
         public int distanceMax;
         public int distanceMin;
         //guild quest can only have 1 objective
-        public ObjectiveType ObjectiveType => objectives[0].objectiveData.Type; 
+        public ObjectiveType ObjectiveType => objectives[0].objectiveData.Type;
+        public override QuestType QuestType => QuestType.Guild;
     }
 }

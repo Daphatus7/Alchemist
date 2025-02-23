@@ -4,13 +4,27 @@
 using System;
 using UnityEngine;
 using _Script.Character.PlayerRank;
+using Sirenix.OdinInspector;
+using UnityEditor;
 
 namespace _Script.Enemy.EnemyData
 {
     [CreateAssetMenu(fileName = "EnemyData", menuName = "Data/EnemyData")]
     public class EnemyData : ScriptableObject
     {
-        // Base stats (unscaled)
+        [ReadOnly, ShowInInspector]
+        public string enemyID;
+        private void OnValidate()
+        {
+#if UNITY_EDITOR
+            if (enemyID == "")
+            {
+                enemyID = GUID.Generate().ToString();
+                EditorUtility.SetDirty(this);
+            }
+#endif
+        }
+        public string enemyName;
         public int health;
         public int damage;
         public float moveSpeed;
@@ -110,8 +124,11 @@ namespace _Script.Enemy.EnemyData
                     return 2.5f;
                 // Example: C, B, A, S, Ss, Sss all share the same multiplier
                 case NiRank.C:
+                    return 3f;
                 case NiRank.B:
+                    return 4f;
                 case NiRank.A:
+                    return 5f;
                 case NiRank.S:
                 case NiRank.Ss:
                 case NiRank.Sss:

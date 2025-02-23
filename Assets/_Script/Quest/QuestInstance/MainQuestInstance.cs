@@ -10,7 +10,5 @@ namespace _Script.Quest.QuestInstance
         {
             
         }
-
-        public override QuestType QuestType => QuestType.Main;
     }
 }

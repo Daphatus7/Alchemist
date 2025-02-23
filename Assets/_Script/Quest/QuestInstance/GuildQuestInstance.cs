@@ -36,8 +36,6 @@ namespace _Script.Quest.QuestInstance
                 return _distanceToTravel;
             }
         }
-
-        public override QuestType QuestType => QuestType.Guild;
     }
 }
     

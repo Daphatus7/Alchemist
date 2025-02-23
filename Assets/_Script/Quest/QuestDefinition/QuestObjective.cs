@@ -5,10 +5,15 @@ using System;
 using System.Collections.Generic;
 using _Script.Enemy.EnemyData;
 using _Script.Items.AbstractItemTypes._Script.Items;
+using _Script.Managers;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Script.Quest.QuestDefinition
 {
+    /// <summary>
+    /// Use both for instance and definition
+    /// </summary>
     [Serializable]
     public class QuestObjective
     {
@@ -17,8 +22,8 @@ namespace _Script.Quest.QuestDefinition
         public ObjectiveData objectiveData;
         public bool isComplete;
         private int _currentCount;
-        public int CurrentCount { get; set;}
-        
+        public int CurrentCount { get; set; }
+
         // Create a runtime objective from static data
         public QuestObjective(ObjectiveData data)
         {
@@ -26,7 +31,41 @@ namespace _Script.Quest.QuestDefinition
             CurrentCount = 0;
             isComplete = false;
         }
+        
+        public virtual QuestObjectiveSave OnSave(int index)
+        {
+            var save = new QuestObjectiveSave
+            {
+                isComplete = isComplete,
+                currentCount = CurrentCount
+            };
+            return save;
+        }
+        
+        /// <summary>
+        /// Unpack the save data
+        /// </summary>
+        /// <param name="save"></param>
+        /// <returns></returns>
+        public virtual void OnLoad(QuestObjectiveSave save)
+        {
+            isComplete = save.isComplete;
+            CurrentCount = save.currentCount;
+        }
     }
+
+    [Serializable]
+    public class QuestObjectiveSave
+    {
+        //check the objective data
+        //can be obtained from the quest scriptable object
+        /// <summary>
+        /// The index of the objective in the quest
+        /// </summary>
+        public bool isComplete;
+        public int currentCount;
+    }
+    
     [Serializable]
     public abstract class ObjectiveData
     {
@@ -44,7 +83,25 @@ namespace _Script.Quest.QuestDefinition
     [Serializable]
     public class KillObjective : ObjectiveData
     {
-        public string enemyID; // The enemy to kill
+        public EnemyData enemy; // The enemy to kill, assigned manually in editor
+        [ReadOnly, ShowInInspector]
+        private string _enemyID;
+        public string EnemyID
+        {
+            get
+            {
+                if (enemy != null)
+                {
+                    _enemyID = enemy.enemyID;
+                }
+                return _enemyID;
+            }
+            set
+            {
+                enemy = DatabaseManager.Instance.GetEnemyPrefab(value).GetComponent<EnemyData>();
+                _enemyID = value;
+            }
+        }
         public override ObjectiveType Type => ObjectiveType.Kill;
     }
     
@@ -103,4 +160,5 @@ namespace _Script.Quest.QuestDefinition
         public ItemData item;
         public int amount;
     }
+    
 }

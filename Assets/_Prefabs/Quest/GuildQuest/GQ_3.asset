@@ -31,6 +31,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 3211680286784356463
       type: {class: ExplorationObjective, ns: _Script.Quest, asm: Assembly-CSharp}
       data:

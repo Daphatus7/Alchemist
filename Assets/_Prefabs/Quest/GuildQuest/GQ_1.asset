@@ -16,7 +16,7 @@ MonoBehaviour:
   questName: Kill The Tough Boss
   objectives:
   - objectiveData:
-      rid: 3211680432894771256
+      rid: 3211680568641323090
     isComplete: 0
   reward:
     gold: 2000
@@ -31,9 +31,9 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 3211680432894771256
-      type: {class: BossKillObjective, ns: _Script.Quest, asm: Assembly-CSharp}
+    - rid: 3211680568641323090
+      type: {class: BossKillObjective, ns: _Script.Quest.QuestDefinition, asm: Assembly-CSharp}
       data:
         requiredCount: 1
-        enemyID: Boss_3
-        mapName: E_BossMap_1
+        enemy: {fileID: 11400000, guid: 46011f3f7a1294d12b3c6ef0c4aad4fa, type: 2}
+        mapName: 
