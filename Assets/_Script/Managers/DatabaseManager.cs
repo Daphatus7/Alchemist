@@ -7,6 +7,8 @@ using _Script.Items.AbstractItemTypes._Script.Items;
 using _Script.Items.Lootable;
 using _Script.Managers.Database;
 using _Script.Managers.Database._Script.Managers.Database;
+using _Script.Quest;
+using _Script.Quest.QuestDefinition;
 using UnityEngine;
 
 namespace _Script.Managers
@@ -15,9 +17,10 @@ namespace _Script.Managers
     {
         [SerializeField] private EnemyDatabase _enemyDatabase;
         [SerializeField] private ItemDatabase _itemDatabase;
-        
+        [SerializeField] private QuestDatabase _questDatabase;
         private Dictionary<string, ItemData> _itemDictionary;
         private Dictionary<string, GameObject> _enemyPrefabDictionary;
+        private Dictionary<string, SimpleQuestDefinition> _questDefinitions;
         
         protected override void Awake()
         {
@@ -40,6 +43,15 @@ namespace _Script.Managers
             else
             {
                 Debug.LogError("DatabaseManager: ItemDatabase asset is null.");
+            }
+            
+            if (_questDatabase != null)
+            {
+                _questDefinitions = CreateQuestDictionary();
+            }
+            else
+            {
+                Debug.LogError("DatabaseManager: QuestDatabase asset is null.");
             }
         }
         
@@ -133,6 +145,30 @@ namespace _Script.Managers
                 }
             }
             return dict;
+        }
+        
+        private Dictionary<string, SimpleQuestDefinition> CreateQuestDictionary()
+        {
+            var dict = new Dictionary<string, SimpleQuestDefinition>();
+            var quests = _questDatabase.QuestDefinitions;
+            foreach (var quest in quests)
+            {
+                if (!dict.TryAdd(quest.questID, quest))
+                {
+                    throw new System.Exception("Duplicate quest ID detected: " + quest.questID + " for quest: " + quest.questName);
+                }
+            }
+            return dict;
+        }
+        
+        public SimpleQuestDefinition GetQuestDefinition(string questID)
+        {
+            if (_questDefinitions.TryGetValue(questID, out var quest))
+            {
+                return quest;
+            }
+            Debug.LogError("DatabaseManager: QuestDatabase does not contain quest: " + questID);
+            return null;
         }
     }
 }

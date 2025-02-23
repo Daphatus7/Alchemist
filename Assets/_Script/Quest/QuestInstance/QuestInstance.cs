@@ -27,7 +27,8 @@ namespace _Script.Quest.QuestInstance
                 _state = value;
             }
         }
-        private readonly List<QuestObjective> _objectives = new (); 
+
+        protected readonly List<QuestObjective> _objectives = new (); 
         public List<QuestObjective> Objectives => _objectives;
         #endregion
         
@@ -37,7 +38,8 @@ namespace _Script.Quest.QuestInstance
             QuestDefinition = def;
             _state = QuestState.NotStarted;
             // For each static ObjectiveData, create a dynamic QuestObjective
-            SubscribeToTarget(QuestDefinition.objectives);
+            AddObjectives(QuestDefinition);
+            SubscribeObjectiveUpdates();
         }
         
         /// <summary>
@@ -49,23 +51,31 @@ namespace _Script.Quest.QuestInstance
         {
             Debug.Log("Quest created from save");
             QuestDefinition = def;
-            _state = save.questState;
+            AddObjectives(QuestDefinition);
+            OnLoad(save);
             // For each static ObjectiveData, create a dynamic QuestObjective
-            SubscribeToTarget(QuestDefinition.objectives);
+            SubscribeObjectiveUpdates();
         }
+        
+        private void AddObjectives(SimpleQuestDefinition definition)
+        {
+            foreach (var obj in definition.objectives)
+            {
+                _objectives.Add(new QuestObjective(obj.objectiveData));
+            }
+        }
+        
+
 
         #region Subscriptions
 
-        private void SubscribeToTarget(QuestObjective [] objectives)
+        private void SubscribeObjectiveUpdates()
         {
             if (QuestManager.Instance != null)
             {
-                foreach (var objData in objectives)
+                foreach (var obj in _objectives)
                 {
-                    //Instantiate the objective, runtime data
-                    var questObj = new QuestObjective(objData.objectiveData);
-                    _objectives.Add(questObj);
-                    switch (objData.objectiveData.Type)
+                    switch (obj.objectiveData.Type)
                     {
                         case ObjectiveType.Kill:
                             QuestManager.Instance.onEnemyKilled += OnEnemyKilled;
@@ -220,7 +230,7 @@ namespace _Script.Quest.QuestInstance
 
         #region Save and Load
 
-        public QuestSave OnSave()
+        public virtual QuestSave OnSave()
         {
             var questSave = new QuestSave
             {

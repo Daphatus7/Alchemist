@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using _Script.Character.PlayerRank;
 using _Script.Managers;
 using _Script.Quest;
 using _Script.Quest.GuildQuestUI;
@@ -137,10 +138,25 @@ namespace _Script.NPC.NpcBackend.NpcModules
         {
             if (data is GuildQuestSaveModule saveModule)
             {
-                _currentGuildQuest = saveModule.CurrentGuildQuest;
-                _availableQuests = saveModule.AvailableQuests;
-                Debug.Log("GuildQuestGiverModule loaded saved quest data." + _currentGuildQuest);
+                if (saveModule.currentQuest != null)
+                {
+                    var questDefinition = 
+                        DatabaseManager.Instance.GetQuestDefinition(saveModule.currentQuest.questId);
+                    if (questDefinition is GuildQuestDefinition guildQuestDefinition)
+                        _currentGuildQuest = new GuildQuestInstance(guildQuestDefinition, saveModule.currentQuest as GuildQuestSave);
+                }
+                _availableQuests = new List<GuildQuestInstance>();
                 
+                if(saveModule.questSaves != null)
+                {
+                    for (var i = 0; i < saveModule.questSaves.Length; i++)
+                    {
+                        var questDefinition =
+                            DatabaseManager.Instance.GetQuestDefinition(saveModule.questSaves[i].questId); 
+                        if (questDefinition is GuildQuestDefinition guildQuestDefinition)
+                            _availableQuests.Add(new GuildQuestInstance(guildQuestDefinition, saveModule.questSaves[i] as GuildQuestSave));
+                    }
+                }
             }
             else
             {
@@ -151,11 +167,16 @@ namespace _Script.NPC.NpcBackend.NpcModules
 
         public override NpcSaveModule OnSaveData()
         {
-            var saveModule = new GuildQuestSaveModule
+            var saveModule = new GuildQuestSaveModule();
+            
+            if (_currentGuildQuest != null)
             {
-                CurrentGuildQuest = _currentGuildQuest,
-                AvailableQuests = _availableQuests
-            };
+                saveModule.currentQuest = _currentGuildQuest.OnSave();
+            }
+            for(var i = 0; i < _availableQuests.Count; i++)
+            {
+                saveModule.questSaves[i] = _availableQuests[i].OnSave();
+            }
             return saveModule;
         }
 
@@ -167,15 +188,14 @@ namespace _Script.NPC.NpcBackend.NpcModules
             Debug.Log("GuildQuestGiverModule loaded default quest data.");
         }
         
-
         #endregion
     }
 
     [Serializable]
     public class GuildQuestSaveModule : NpcSaveModule
     {
-        public GuildQuestInstance CurrentGuildQuest { get; set; }
-        public List<GuildQuestInstance> AvailableQuests { get; set; }
+        public QuestSave [] questSaves; //Save all quest instances
+        public QuestSave currentQuest; //Save the current quest
     }
     
     public interface IGuildQuestGiverModuleHandler

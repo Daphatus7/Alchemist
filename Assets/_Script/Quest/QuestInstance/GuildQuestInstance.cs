@@ -11,7 +11,7 @@ namespace _Script.Quest.QuestInstance
     public class GuildQuestInstance : QuestInstance
     {
 
-        public GuildQuestDefinition GuildQuestDefinition => (GuildQuestDefinition)QuestDefinition;
+        public GuildQuestDefinition GuildQuestDefinition => (GuildQuestDefinition) QuestDefinition;
         private NiRank _questRank;
         public NiRank QuestRank => _questRank;
 
@@ -19,6 +19,11 @@ namespace _Script.Quest.QuestInstance
         {
             QuestState = QuestState.NotStarted;
             _questRank = questRank;
+        }
+        
+        public GuildQuestInstance(GuildQuestDefinition def, GuildQuestSave save) : base(def, save)
+        {
+            _questRank = save.questRank;
         }
 
         private bool _initialized = false;
@@ -36,6 +41,27 @@ namespace _Script.Quest.QuestInstance
                 return _distanceToTravel;
             }
         }
+        
+        public override QuestSave OnSave()
+        {
+            var newSave = new GuildQuestSave
+            {
+                questState = QuestState,
+                questRank = _questRank,
+                objectives = new QuestObjectiveSave[_objectives.Count],
+
+            };
+            for (int i = 0; i < _objectives.Count; i++)
+            {
+                newSave.objectives[i] = _objectives[i].OnSave(i);
+            }
+            return newSave;
+        }
+    }
+    
+    public class GuildQuestSave : QuestSave
+    {
+        public NiRank questRank;
     }
 }
     
