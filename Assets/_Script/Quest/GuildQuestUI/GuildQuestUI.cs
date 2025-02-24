@@ -100,18 +100,9 @@ namespace _Script.Quest.GuildQuestUI
         
         private void OnQuestAcceptButtonClicked(GuildQuestInstance questInstance)
         {
-            // Create the quest.
-            var newQuest = QuestManager.Instance.CreateGuildQuest(questInstance);
-            if (newQuest != null)
-            {
-                // Notify the handler that the quest has been accepted.
-                _handler.OnAcceptQuest(newQuest);
-                HideUI();
-            }
-            else
-            {
-                Debug.Log("Failed to create guild quest");
-            }
+            
+            _handler.OnAcceptQuest(questInstance);
+            HideUI();
         }
 
         public void ShowUI()

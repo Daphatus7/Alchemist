@@ -184,8 +184,8 @@ namespace _Script.Quest
                 if(value == null)
                 {
                     Debug.Log("Quest is completed");
-                    _currentQuest = null;
                     OnQuestUpdate(_currentQuest, QuestUpdateInstruction.Complete);
+                    _currentQuest = null;
                 }
                 else
                 {
@@ -203,6 +203,14 @@ namespace _Script.Quest
         }
         
         
+        /// <summary>
+        /// Try to create a new guild quest
+        /// If there is an existing quest, return null
+        /// </summary>
+        /// <param name="questInstance"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public GuildQuestInstance CreateGuildQuest(GuildQuestInstance questInstance)
         {
             //check if there is an existing quest
@@ -211,32 +219,26 @@ namespace _Script.Quest
                 switch (CurrentQuest.QuestState)
                 {
                     case QuestState.Completed:
-                        //if the quest is completed, create a new quest
-                        throw new Exception("Quest is completed, but a new quest is being created, should not enter this menu");
+                        //cannot create a new quest until it is submitted
+                        Debug.Log("Quest is completed, cannot create a new quest" +
+                                  "until it is submitted");
+                        return null;
                     case QuestState.InProgress:
                         Debug.Log("Quest is in progress, cannot create a new quest potential add a new UI to inform the player");
-                        return CurrentQuest;
+                        return null;
                     case QuestState.NotStarted:
-                        return CurrentQuest;
+                        return null;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
-            else
-            {
-                //Create an active quest
-                CurrentQuest = questInstance;
-                CurrentQuest.QuestState = QuestState.InProgress;
-                //Generate path
-                MapController.Instance.CreateQuest(CurrentQuest);
-                if(CurrentQuest == null)
-                {
-                    Debug.Log("Quest is null??xx");
-                }
-                return CurrentQuest;
-            }
+            CurrentQuest = questInstance;
+            CurrentQuest.QuestState = QuestState.InProgress;
+            MapController.Instance.CreateQuest(CurrentQuest);
+            return CurrentQuest;
         }
-
+        
+        
         public void CompleteGuildQuest(string questId)
         {
             if (CurrentQuest == null)
@@ -279,9 +281,6 @@ namespace _Script.Quest
                 Debug.Log("Quest is not completed");
             }
         }
-
-
-
         #region Quest Status Update
 
         private void OnQuestUpdate(GuildQuestInstance obj, QuestUpdateInstruction instruction)

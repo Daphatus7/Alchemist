@@ -48,7 +48,7 @@ namespace _Script.Quest.QuestInstance
         /// <param name="save"></param>
         public QuestInstance(SimpleQuestDefinition def, QuestSave save)
         {
-            Debug.Log("Quest created from save");
+            Debug.Log("Quest created from save" + def.questName);
             QuestDefinition = def;
             AddObjectives(QuestDefinition);
             OnLoad(save);
@@ -60,7 +60,6 @@ namespace _Script.Quest.QuestInstance
         {
             foreach (var obj in definition.objectives)
             {
-                Debug.Log("Objective added" + obj.objectiveData);
                 objectives.Add(new QuestObjective(obj.objectiveData));
             }
         }
@@ -187,7 +186,7 @@ namespace _Script.Quest.QuestInstance
             if (QuestManager.Instance == null) return;
             QuestManager.Instance.onEnemyKilled -= OnEnemyKilled;
             QuestManager.Instance.onItemCollected -= OnItemCollected;
-            //Debug.Log("QuestInstance cleaned up to prevent memory leak");
+            QuestManager.Instance.onAreaEntered -= OnEnteringArea;
         }
 
         #endregion

@@ -38,6 +38,16 @@ namespace _Script.NPC.NpcBackend.NpcModules
         /// </summary>
         private List<GuildQuestInstance> AvailableQuests
         {
+            set
+            {
+                // Cleanup old quest instances
+                foreach (var instance in _availableQuests)
+                {
+                    instance?.Cleanup();
+                }
+                
+                _availableQuests = value;
+            }
             get
             {
                 if (_availableQuests == null)
@@ -139,19 +149,19 @@ namespace _Script.NPC.NpcBackend.NpcModules
         
         public void OnAcceptQuest(GuildQuestInstance instance)
         {
-            if (CurrentGuildQuest != null)
+            var newQuest = QuestManager.Instance.CreateGuildQuest(instance);
+            //If quest is created
+            if(newQuest != null)
             {
-                Debug.Log("There is already a quest in progress");
-                return;
+                CurrentGuildQuest = newQuest;
             }
-            CurrentGuildQuest = instance;
         }
         
         public void OnQuestComplete()
         {
             Debug.Log("Quest Completed");
             CurrentGuildQuest = null;
-            _availableQuests = null;
+            AvailableQuests = null;
         }
 
         #region Save and Load
@@ -170,6 +180,10 @@ namespace _Script.NPC.NpcBackend.NpcModules
                         {
                             CurrentGuildQuest = new GuildQuestInstance(guildQuestDefinition,
                                 saveModule.currentQuest as GuildQuestSave);
+                            //Error when the player has accepted the quest
+                            //but the quest hasn't started
+                            //Need to regenerate map or load saved one
+                            QuestManager.Instance.CreateGuildQuest(CurrentGuildQuest);
                         }                    
                     }
                     else
@@ -178,8 +192,9 @@ namespace _Script.NPC.NpcBackend.NpcModules
                     }
                     
                 }
-                _availableQuests = new List<GuildQuestInstance>();
+                AvailableQuests = new List<GuildQuestInstance>();
                 
+                // Load available quests
                 if(saveModule.questSaves != null)
                 {
                     for (var i = 0; i < saveModule.questSaves.Length; i++)
@@ -217,11 +232,12 @@ namespace _Script.NPC.NpcBackend.NpcModules
             {
                 saveModule.currentQuest = _currentGuildQuest.OnSave();
             }
-            if(_availableQuests != null)
+            if(AvailableQuests != null)
             {
-                for (var i = 0; i < _availableQuests.Count; i++)
+                for (var i = 0; i < AvailableQuests.Count; i++)
                 {
-                    saveModule.questSaves[i] = _availableQuests[i].OnSave();
+                    
+                    saveModule.questSaves[i] = AvailableQuests[i].OnSave();
                 }
             }
             return saveModule;
@@ -231,7 +247,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
         {
             // Reset to default state; the getter for AvailableQuests will generate new quests when needed.
             _currentGuildQuest = null;
-            _availableQuests = null;
+            AvailableQuests = null;
             Debug.Log("GuildQuestGiverModule loaded default quest data.");
         }
         
