@@ -30,7 +30,6 @@ namespace _Script.Managers
 
         public void OnEnable()
         {
-            Debug.Log("--------------entering town------Load data");
             SaveLoadManager.Instance.LoadTownData();
             foreach (var npc in _npcs)
             {
@@ -44,7 +43,11 @@ namespace _Script.Managers
         public void OnDisable()
         {
             Debug.Log("--------------leaving town");
-            SaveLoadManager.Instance.SaveTownData();
+            if(SaveLoadManager.Instance)
+            {
+                SaveLoadManager.Instance.SaveTownData();
+            }            
+            
             foreach (var npc in _npcs)
             {
                 if (npc != null)

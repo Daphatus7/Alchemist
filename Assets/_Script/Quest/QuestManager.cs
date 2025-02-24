@@ -18,7 +18,7 @@ using Random = UnityEngine.Random;
 namespace _Script.Quest
 {
     
-    public sealed class QuestManager : PersistentSingleton<QuestManager>
+    public sealed class QuestManager : PersistentSingleton<QuestManager>, IPlayerQuestSave
     {
         /// <summary>
         /// NPC ID -> Quest Giver Module
@@ -31,8 +31,31 @@ namespace _Script.Quest
         
         [SerializeField] public StorylineChecker storylineChecker;
         
+        
+        protected override void Awake()
+        {
+            base.Awake();
+
+        }
+
+        public void OnDestroy()
+        {
+            if (ServiceLocator.Instance != null)
+            {
+                ServiceLocator.Instance.Unregister<IPlayerQuestSave>();
+            }
+        }
+        
         public void Start()
         {
+            if (ServiceLocator.Instance != null)
+            {
+                ServiceLocator.Instance.Register<IPlayerQuestSave>(this);
+            }
+            if(SaveLoadManager.Instance != null)
+            {
+                SaveLoadManager.Instance.LoadQuestData();
+            }
             InitializeNpcModules();
         }
         
@@ -376,6 +399,85 @@ namespace _Script.Quest
         
         #endregion
 
+        public string SaveKey { get; }
+        public object OnSaveData()
+        {
+            //Save guild quests
+            var saveModule = new GuildQuestSaveModule();
+            
+            if (CurrentQuest != null)
+            {
+                saveModule.currentQuest = CurrentQuest.OnSave();
+            }
+            
+            //Save available quests - so it can be consistent
+            if(_availableQuests != null)
+            {
+                saveModule.questSaves = new QuestSave[_availableQuests.Count];
+                for (var i = 0; i < _availableQuests.Count; i++)
+                {
+                    if(_availableQuests[i] != null)
+                    {
+                        saveModule.questSaves[i] = _availableQuests[i].OnSave();
+                    }
+                }
+            }
+            return saveModule;
+        }
+
+        public void OnLoadData(object data)
+        {
+           if (data is GuildQuestSaveModule saveModule)
+            {
+                if (saveModule.currentQuest != null)
+                {
+                    var questID = saveModule.currentQuest.questId;
+                    if (!string.IsNullOrEmpty(questID))
+                    {
+                        var questDefinition = DatabaseManager.Instance.GetQuestDefinition(questID);
+                        if (questDefinition is GuildQuestDefinition guildQuestDefinition)
+                            CurrentQuest = new GuildQuestInstance(guildQuestDefinition, saveModule.currentQuest as GuildQuestSave);
+                    }
+                    else
+                    {
+                        Debug.Log("GuildQuestGiverModule.OnLoadData: Invalid quest ID.");
+                    }
+                    
+                }
+                _availableQuests = new List<GuildQuestInstance>();
+                
+                if(saveModule.questSaves != null)
+                {
+                    for (var i = 0; i < saveModule.questSaves.Length; i++)
+                    {
+                        var questID = saveModule.questSaves[i].questId;
+                        if(!string.IsNullOrEmpty(questID))
+                        {
+                            var questDefinition =
+                                DatabaseManager.Instance.GetQuestDefinition(saveModule.questSaves[i].questId);
+                            if (questDefinition is GuildQuestDefinition guildQuestDefinition)
+                                _availableQuests.Add(new GuildQuestInstance(guildQuestDefinition,
+                                    saveModule.questSaves[i] as GuildQuestSave));
+                        }
+                        else
+                        {
+                            Debug.Log("GuildQuestGiverModule.OnLoadData: Invalid quest ID.");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log("GuildQuestGiverModule.OnLoadData: Invalid save data type.");
+                LoadDefaultData();
+            }
+            
+        }
+
+        public void LoadDefaultData()
+        {
+            
+        }
     }
     
     public enum QuestUpdateInstruction
@@ -383,5 +485,16 @@ namespace _Script.Quest
         Accept,
         Complete,
         Expire
+    }
+    
+    public interface IPlayerQuestSave : ISaveGame
+    {
+    }
+    
+    [Serializable]
+    public class GuildQuestSaveModule : NpcSaveModule
+    {
+        public QuestSave [] questSaves; //Save all quest instances
+        public QuestSave currentQuest; //Save the current quest
     }
 }

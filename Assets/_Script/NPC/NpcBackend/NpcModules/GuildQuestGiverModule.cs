@@ -133,7 +133,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
 
         public override NpcSaveModule OnSaveData()
         {
-            return new GuildQuestSaveModule();
+            return null;
         }
 
         public override void LoadDefaultData()
@@ -144,12 +144,6 @@ namespace _Script.NPC.NpcBackend.NpcModules
         
     }
     
-    [Serializable]
-    public class GuildQuestSaveModule : NpcSaveModule
-    {
-        public QuestSave [] questSaves; //Save all quest instances
-        public QuestSave currentQuest; //Save the current quest
-    }
     
     public interface IGuildQuestGiverModuleHandler
     {
