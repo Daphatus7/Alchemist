@@ -240,6 +240,35 @@ namespace _Script.Character
         }
 
         #endregion
+        
+        #region Save and Load
+        
+        public void OnLoad(PlayerStatsSave save)
+        {
+            foreach (var stat in save.playerStats)
+            {
+                _playerStats[stat.StatType].OnLoad(stat);
+            }
+        }
+        public PlayerStatsSave OnSave()
+        {
+            var playerStatsSave = new PlayerStatsSave();
+            playerStatsSave.playerStats = new PlayerStatSave[_playerStats.Count];
+            var i = 0;
+            foreach (var stat in _playerStats)
+            {
+                playerStatsSave.playerStats[i] = stat.Value.OnSave();
+                i++;
+            }
+            return playerStatsSave;
+        }
+        
+        #endregion
+    }
 
+    [Serializable]
+    public class PlayerStatsSave
+    {
+        public PlayerStatSave [] playerStats;
     }
 }

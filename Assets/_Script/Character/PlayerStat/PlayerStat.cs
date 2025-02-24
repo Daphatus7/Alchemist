@@ -13,7 +13,7 @@ namespace _Script.Character.PlayerStat
         Food, 
     }
     [Serializable]
-    public abstract class PlayerStat
+    public abstract class PlayerStat: IPlayerStatSave
     {
         [SerializeField]
         private float maxValue = 100f;
@@ -118,6 +118,37 @@ namespace _Script.Character.PlayerStat
             OnValueChanged = null;
             onBelowThreshold = null;
             onAboveThreshold = null;
+        }
+        public PlayerStatSave OnSave()
+        {
+            return new PlayerStatSave(MaxValue, CurrentValue, StatType);
+        }
+        
+        public void OnLoad(PlayerStatSave save)
+        {
+            save.MaxValue = MaxValue;
+            save.CurrentValue = CurrentValue;
+            save.StatType = StatType;
+        }
+    }
+    public interface IPlayerStatSave
+    {
+        PlayerStatSave OnSave();
+        void OnLoad(PlayerStatSave save);
+    }
+    
+    [Serializable]
+    public class PlayerStatSave
+    {
+        public float MaxValue;
+        public float CurrentValue;
+        public StatType StatType;
+        
+        public PlayerStatSave(float maxValue, float currentValue, StatType statType)
+        {
+            MaxValue = maxValue;
+            CurrentValue = currentValue;
+            StatType = statType;
         }
     }
 }

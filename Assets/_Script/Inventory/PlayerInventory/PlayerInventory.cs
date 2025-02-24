@@ -1,6 +1,7 @@
 using System;
 using _Script.Character;
 using _Script.Inventory.InventoryBackend;
+using _Script.Inventory.ItemInstance;
 using _Script.Inventory.SlotFrontend;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using UnityEngine;
@@ -23,6 +24,16 @@ namespace _Script.Inventory.PlayerInventory
             Debug.Log("By default, the player will select the first item when loaded.");
             
             OnSelectItem(selectedSlotIndex);
+        }
+        
+        public PlayerInventory(PlayerCharacter owner, PlayerInventorySave inventorySave) : base(owner, inventorySave)
+        {
+            _selectedSlotIndex = inventorySave.selectedSlotIndex;
+            _selectedItemInstance = GetItemInstanceAt(_selectedSlotIndex);
+            
+            Debug.Log("By default, the player will select the first item when loaded.");
+            
+            OnSelectItem(_selectedSlotIndex);
         }
 
         public int SelectedSlotIndex
@@ -188,7 +199,7 @@ namespace _Script.Inventory.PlayerInventory
             UseItem(slotIndex);
         }
 
-        public int GetItemCount(string itemItemID)
+        public override int GetItemCount(string itemItemID)
         {
             int count = 0;
             foreach(var stack in ItemInstances)
@@ -200,7 +211,38 @@ namespace _Script.Inventory.PlayerInventory
             }
             return count;
         }
+        
+        
+        #region Save and load 
+
+        public override InventorySave OnSaveData()
+        {
+            var save = new PlayerInventorySave
+            {
+                selectedSlotIndex = _selectedSlotIndex,
+                inventoryUniqueID = UniqueID,
+                items = new ItemSave[ItemInstances.Count],
+                height = Height,
+                width = Width
+            };
+            
+            foreach(var instance in ItemInstances)
+            {
+                if(instance == null)
+                {
+                    throw new ArgumentNullException(nameof(instance) + " is null.");
+                }
+                var itemSave = instance.OnSaveData();
+                save.items[ItemInstances.IndexOf(instance)] = itemSave;
+            }
+            
+            return save;
+        }
+
+        #endregion
     }
+
+    #region ActionBarContext
 
     public class ActionBarContext
     {
@@ -228,5 +270,14 @@ namespace _Script.Inventory.PlayerInventory
         {
             _remove(_selectedSlotIndex);
         }
+
+    }
+
+
+    #endregion
+    
+    public class PlayerInventorySave : InventorySave
+    {
+        public int selectedSlotIndex;
     }
 }

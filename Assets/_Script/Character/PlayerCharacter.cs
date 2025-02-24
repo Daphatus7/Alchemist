@@ -15,13 +15,14 @@ using _Script.Managers;
 using _Script.Places;
 using _Script.Quest;
 using _Script.Utilities;
+using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace _Script.Character
 {
     [DefaultExecutionOrder(500)]
-    public class PlayerCharacter : MonoBehaviour, IControl, IPlayerUIHandle, IDamageable
+    public class PlayerCharacter : MonoBehaviour, IControl, IPlayerUIHandle, IDamageable, IPlayerSave
     {
         #region Inspector Fields & References
 
@@ -52,10 +53,7 @@ namespace _Script.Character
         private bool _isTorchActive = false;
         private bool _canDash = true;
         private bool _isSprinting = false;
-
-
-
-
+        
 
         private Coroutine _playerfoodRoutine;
 
@@ -551,5 +549,33 @@ namespace _Script.Character
         }
 
         #endregion
+
+        #region Save & Load
+        public string SaveKey => "PlayerCharacter";
+        public object OnSaveData()
+        {
+            var inventorySave = _playerInventory.OnSaveData() as PlayerInventorySave;
+            var playerStatsSave = _playerstats.OnSave();
+            return new PlayerSave(inventorySave, playerStatsSave, _gold);
+        }
+
+        public void OnLoadData(object data)
+        {
+            if (!(data is PlayerSave playerSave)) return;
+            _gold = playerSave.gold;
+            _playerInventory = new PlayerInventory(this, playerSave.PlayerInventory);
+            _playerstats.OnLoad(playerSave.stats);
+        }
+
+        public void LoadDefaultData()
+        {
+            
+        }
+        #endregion
+    }
+    
+    public interface IPlayerSave : ISaveGame
+    {
+        
     }
 }

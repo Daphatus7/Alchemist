@@ -51,6 +51,7 @@ namespace _Script.Inventory.InventoryBackend
             }
             return Slots[index] == null ? null : Slots[index].ItemInstance;
         }
+
         private readonly List<ItemInstance.ItemInstance> _itemInstances; public List<ItemInstance.ItemInstance> ItemInstances => _itemInstances;
 
         // ----------------------------------------------
@@ -96,6 +97,25 @@ namespace _Script.Inventory.InventoryBackend
             {
                 AddItem(item);
             }
+        }
+
+        /// <summary>
+        /// Direct Load Save method
+        /// </summary>
+        /// <param name="save"></param>
+        public Inventory(InventorySave save)
+        {
+            _height = save.height;
+            _width = save.width;
+            Slots = new InventorySlot[Capacity];
+            _itemInstances = new List<ItemInstance.ItemInstance>();
+            // Initialize slots
+            for (int i = 0; i < Capacity; i++)
+            {
+                Slots[i] = new InventorySlot();
+            }
+            
+            LoadInventorySave(save.items);
         }
 
         // ----------------------------------------------
@@ -545,7 +565,7 @@ namespace _Script.Inventory.InventoryBackend
         /// </summary>
         /// <param name="itemID"></param>
         /// <returns></returns>
-        public int GetItemCount(string itemID)
+        public virtual int GetItemCount(string itemID)
         {
             if (string.IsNullOrEmpty(itemID))
             {
@@ -620,7 +640,7 @@ namespace _Script.Inventory.InventoryBackend
 
         #region Save and Load
         
-        public InventorySave OnSaveData()
+        public virtual InventorySave OnSaveData()
         {
             var save = new InventorySave
             {
@@ -642,6 +662,7 @@ namespace _Script.Inventory.InventoryBackend
             
             return save;
         }
+        
 
         /// <summary>
         /// Called after the inventory is created to load the data.
@@ -655,6 +676,14 @@ namespace _Script.Inventory.InventoryBackend
             {
                 throw new ArgumentNullException(nameof(saves) + " is null.");
             }
+            else
+            {
+                LoadInventorySave(saves);
+            }
+        }
+        
+        private void LoadInventorySave(ItemSave[] saves)
+        {
             //Check every item
             foreach (var itemSave in saves)
             {
@@ -674,8 +703,11 @@ namespace _Script.Inventory.InventoryBackend
                 }
             }
         }
+        
         #endregion
     }
+    
+    
        
     /// <summary>
     /// string : item id

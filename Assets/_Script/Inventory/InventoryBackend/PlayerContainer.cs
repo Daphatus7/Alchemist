@@ -41,6 +41,11 @@ namespace _Script.Inventory.InventoryBackend
         {
             inventoryOwner = owner;
         }
+        
+        public PlayerContainer(PlayerCharacter owner, InventorySave save) : base(save)
+        {
+            inventoryOwner = owner;
+        }
 
         /// <summary>
         /// Uniqueness check (e.g., for containers with a UniqueID).
