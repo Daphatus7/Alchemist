@@ -100,7 +100,6 @@ namespace _Script.Quest.GuildQuestUI
         
         private void OnQuestAcceptButtonClicked(GuildQuestInstance questInstance)
         {
-            
             _handler.OnAcceptQuest(questInstance);
             HideUI();
         }

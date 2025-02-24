@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Script.Items.Lootable;
 using _Script.Managers;
 using _Script.Map;
@@ -12,6 +13,7 @@ using _Script.Quest.QuestDefinition;
 using _Script.Quest.QuestInstance;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace _Script.Quest
 {
@@ -174,7 +176,56 @@ namespace _Script.Quest
 
         #region Guild Quests
 
+        private bool _isQuestInitialized;
         private GuildQuestInstance _currentQuest;
+        private List<GuildQuestInstance> _availableQuests;
+
+        
+        /// <summary>
+        /// 仅限于当玩家与NPC进行交互时调用
+        /// </summary>
+        /// <param name="module"></param>
+        /// <returns></returns>
+        public List<GuildQuestInstance> GetAvailableGuildQuests(GuildQuestGiverModule module)
+        {
+            //the player has not accepted quest
+            if (CurrentQuest == null) //player don't have a active quest
+            {
+                if (_availableQuests == null)
+                {
+                    //生成随机任务
+                    var all = module.AllQuests;
+                    // If there are fewer than 3 quests, return all
+                    if (all.Count > 3)
+                    {
+                        //get 3 random quests
+                        all = all
+                            .OrderBy(_ => Random.value)
+                            .Take(3)
+                            .ToList();
+                    }
+                    //generate quest instances based player rank
+                    var playerRank = GameManager.Instance.PlayerRank;
+                    var q = all.Select(quest => new GuildQuestInstance(quest, playerRank)).ToList();
+                    _availableQuests = q;
+                }
+                return _availableQuests;
+            }
+            else
+            {
+                Debug.Log("complete the current quest first");
+                return null;
+            }
+            //this manager runs persistently, so it will not actively delete data
+            //only possible cases where the available quests are reset
+            //1. there is no quests, because the game hasn't started yet
+            //2. the player has completed current quest, and new quests are required to be generated
+            //3. Load Saved progress.
+            //if has active quest -> don't generate, just tell the player to finish existing one.
+            
+            //cases where the method is called
+            //when the available quests are empty.
+        }
         
         public GuildQuestInstance CurrentQuest
         {
@@ -275,6 +326,7 @@ namespace _Script.Quest
             {
                 CompleteQuest(CurrentQuest);
                 CurrentQuest = null;
+                _availableQuests = null;
             }
             else
             {
