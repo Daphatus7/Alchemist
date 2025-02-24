@@ -39,7 +39,6 @@ namespace _Script.NPC.NpcBackend
         
         public virtual void Awake()
         {
-            DontDestroyOnLoad(this);
         }
         
 

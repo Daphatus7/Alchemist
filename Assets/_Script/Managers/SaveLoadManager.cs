@@ -1,11 +1,6 @@
-using System;
-using System.Collections;
-using _Script.Map;
 using _Script.Utilities.SaveGame;
-using _Script.Utilities.ServiceLocator;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace _Script.Managers
 {
@@ -23,14 +18,29 @@ namespace _Script.Managers
         [Button]
         public void SaveGame()
         {
-            SaveSystem.SaveData<ISaveTownDataHandler>(saveName);
+            SaveTownData();
         }
+
+
         
         [Button]
         public void LoadGame()
         {
+            LoadTownData();
+        }
+        
+        
+        public void SaveTownData()
+        {
+            SaveSystem.SaveData<ISaveTownDataHandler>(saveName);
+        }
+        
+        public void LoadTownData()
+        {
             SaveSystem.LoadData<ISaveTownDataHandler>(saveName);
         }
+        
+   
         
         [Button]
         public void DeleteSave()

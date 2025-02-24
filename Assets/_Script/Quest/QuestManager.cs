@@ -10,12 +10,13 @@ using _Script.NPC.NpcBackend;
 using _Script.NPC.NpcBackend.NpcModules;
 using _Script.Quest.QuestDefinition;
 using _Script.Quest.QuestInstance;
+using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 
 namespace _Script.Quest
 {
     
-    public sealed class QuestManager : Singleton<QuestManager>
+    public sealed class QuestManager : PersistentSingleton<QuestManager>
     {
         /// <summary>
         /// NPC ID -> Quest Giver Module
@@ -25,7 +26,7 @@ namespace _Script.Quest
         public event Action<string, int> onItemCollected;
         public event Action<string> onAreaEntered;
         public event Action<QuestInstance.QuestInstance> onQuestCompleted;
-
+        
         [SerializeField] public StorylineChecker storylineChecker;
         
         public void Start()
@@ -73,7 +74,7 @@ namespace _Script.Quest
         {
             onItemCollected?.Invoke(itemID,totalCount);
         }
-
+        
         /// <summary>
         /// Happens when an enemy is killed
         /// </summary>
@@ -117,11 +118,6 @@ namespace _Script.Quest
     
             // If we get through all objectives without returning false, then the quest is complete.
             return true;
-        }
-        
-        public void CompleteQuest(string questId)
-        {
-            
         }
         
         public void CompleteQuest(QuestInstance.QuestInstance currentQuest)
@@ -180,21 +176,48 @@ namespace _Script.Quest
 
         private GuildQuestInstance _currentQuest;
         
+        public GuildQuestInstance CurrentQuest
+        {
+            get => _currentQuest;
+            set
+            {
+                if(value == null)
+                {
+                    Debug.Log("Quest is completed");
+                    _currentQuest = null;
+                    OnQuestUpdate(_currentQuest, QuestUpdateInstruction.Complete);
+                }
+                else
+                {
+                    if (_currentQuest == value)
+                    {
+                        throw new Exception("how did you assign the same quest?");
+                    }
+                    else
+                    {
+                        _currentQuest = value;
+                        OnQuestUpdate(_currentQuest, QuestUpdateInstruction.Accept);
+                    }
+                }
+            }
+        }
+        
+        
         public GuildQuestInstance CreateGuildQuest(GuildQuestInstance questInstance)
         {
             //check if there is an existing quest
-            if(_currentQuest != null)
+            if(CurrentQuest != null)
             {
-                switch (_currentQuest.QuestState)
+                switch (CurrentQuest.QuestState)
                 {
                     case QuestState.Completed:
                         //if the quest is completed, create a new quest
                         throw new Exception("Quest is completed, but a new quest is being created, should not enter this menu");
                     case QuestState.InProgress:
                         Debug.Log("Quest is in progress, cannot create a new quest potential add a new UI to inform the player");
-                        return _currentQuest;
+                        return CurrentQuest;
                     case QuestState.NotStarted:
-                        return _currentQuest;
+                        return CurrentQuest;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -202,26 +225,26 @@ namespace _Script.Quest
             else
             {
                 //Create an active quest
-                _currentQuest = questInstance;
-                _currentQuest.QuestState = QuestState.InProgress;
+                CurrentQuest = questInstance;
+                CurrentQuest.QuestState = QuestState.InProgress;
                 //Generate path
-                MapController.Instance.CreateQuest(_currentQuest);
-                if(_currentQuest == null)
+                MapController.Instance.CreateQuest(CurrentQuest);
+                if(CurrentQuest == null)
                 {
                     Debug.Log("Quest is null??xx");
                 }
-                return _currentQuest;
+                return CurrentQuest;
             }
         }
 
         public void CompleteGuildQuest(string questId)
         {
-            if (_currentQuest == null)
+            if (CurrentQuest == null)
             {
                 Debug.Log("No quest to complete");
                 return;
             }
-            if (_currentQuest.QuestDefinition.questID == questId)
+            if (CurrentQuest.QuestDefinition.questID == questId)
             {
                 if (CheckQuestCompletion(_currentQuest))
                 {
@@ -241,24 +264,73 @@ namespace _Script.Quest
         
         public void CompleteGuildQuest()
         {
-            if (_currentQuest == null)
+            if (CurrentQuest == null)
             {
                 Debug.Log("No quest to complete");
                 return;
             }
-            if (CheckQuestCompletion(_currentQuest))
+            if (CheckQuestCompletion(CurrentQuest))
             {
-                CompleteQuest(_currentQuest);
-                _currentQuest = null;
+                CompleteQuest(CurrentQuest);
+                CurrentQuest = null;
             }
             else
             {
                 Debug.Log("Quest is not completed");
             }
         }
+
+
+
+        #region Quest Status Update
+
+        private void OnQuestUpdate(GuildQuestInstance obj, QuestUpdateInstruction instruction)
+        {
+            switch (instruction)
+            {
+                case QuestUpdateInstruction.Accept:
+                    OnGuildQuestAccepted(obj);
+                    break;
+                case QuestUpdateInstruction.Complete:
+                    OnGuildQuestCompleted(obj);
+                    break;
+                case QuestUpdateInstruction.Expire:
+                    OnGuildQuestExpired(obj);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(instruction), instruction, null);
+            }
+        }
+        
+        
+        
+        private void OnGuildQuestAccepted(GuildQuestInstance obj)
+        {
+            ServiceLocator.Instance.Get<IPlayerQuestService>().AddGuildQuest(obj);
+        }
+        
+        private void OnGuildQuestCompleted(GuildQuestInstance obj)
+        {
+            ServiceLocator.Instance.Get<IPlayerQuestService>().RemoveGuildQuest(obj);
+        }
+        
+        private void OnGuildQuestExpired(GuildQuestInstance obj)
+        {
+            //Debug.Log("Quest Expired");
+        }
+        
+
+        #endregion
+        
         
         #endregion
 
     }
-
+    
+    public enum QuestUpdateInstruction
+    {
+        Accept,
+        Complete,
+        Expire
+    }
 }

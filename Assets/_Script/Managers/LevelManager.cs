@@ -15,7 +15,6 @@ namespace _Script.Managers
     public class LevelManager
     {
         private PlayerCharacter _playerCharacter;
-        private string _startingScene;
 
         private string _currentMainScene;
         private string _currentAdditiveScene;
@@ -25,10 +24,9 @@ namespace _Script.Managers
         /// Initialize references such as the PlayerCharacter and starting scene.
         /// Called once from GameManager.
         /// </summary>
-        public void Initialize(PlayerCharacter playerCharacter, string startingScene, AstarPath astarPath)
+        public void Initialize(PlayerCharacter playerCharacter, AstarPath astarPath)
         {
             _playerCharacter = playerCharacter;
-            _startingScene = startingScene;
             _astarPath = astarPath;
         }
 
@@ -113,7 +111,7 @@ namespace _Script.Managers
 
             // 3) Load the new main scene additively
             var asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-            while (!asyncLoad.isDone)
+            while (asyncLoad is { isDone: false })
             {
                // Debug.Log($"Loading main scene {sceneName}: {asyncLoad.progress * 100}%");
                 yield return null;

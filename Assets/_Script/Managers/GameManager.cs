@@ -9,6 +9,7 @@ using _Script.Map.WorldMap.MapNode;
 using _Script.Quest;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -33,6 +34,8 @@ namespace _Script.Managers
 
         // The non-static class that manages scene loading
         private LevelManager _levelManager;
+        
+        private Scene _currentScene;
 
         // Any "global updaters" you have
         private List<IGlobalUpdate> _globalUpdaters = new List<IGlobalUpdate>();
@@ -48,7 +51,7 @@ namespace _Script.Managers
             // Create and initialize the LevelManager
             _levelManager = new LevelManager();
             
-            _levelManager.Initialize(_playerCharacter, _startingScene, _astarPath);
+            _levelManager.Initialize(_playerCharacter, _astarPath);
             
             //set scene as persistent
 
@@ -64,6 +67,7 @@ namespace _Script.Managers
             }
         }
 
+        
         public void RegisterGlobalUpdater(IGlobalUpdate updater) => _globalUpdaters.Add(updater);
         public void UnregisterGlobalUpdater(IGlobalUpdate updater) => _globalUpdaters.Remove(updater);
 
@@ -90,9 +94,10 @@ namespace _Script.Managers
         }
 
         /// <summary> Load/replace the main scene (non-additive). </summary>
-        public void LoadMainScene(string sceneName)
+        public void LoadMainScene()
         {
-            _levelManager.LoadMainScene(sceneName);
+            //problem is here, the scene is loaded again
+            _levelManager.LoadMainScene(_startingScene);
         }
 
         /// <summary> Example method to reset your hex map. </summary>

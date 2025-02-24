@@ -55,12 +55,12 @@ namespace _Script.Quest
             }
         }
         
-        public void AddQuest(QuestInstance.QuestInstance quest)
+        public void AddGuildQuest(QuestInstance.QuestInstance quest)
         {
             _activeQuests.Add(quest.QuestDefinition.questID, quest);
         }
         
-        public void RemoveQuest(QuestInstance.QuestInstance quest)
+        public void RemoveGuildQuest(QuestInstance.QuestInstance quest)
         {
             Debug.Log("Removing quest: " + quest.QuestDefinition.questID);
             _activeQuests.Remove(quest.QuestDefinition.questID);
@@ -69,7 +69,7 @@ namespace _Script.Quest
     
     public interface IPlayerQuestService : IGameService
     {
-        void AddQuest(QuestInstance.QuestInstance quest);
-        void RemoveQuest(QuestInstance.QuestInstance quest);
+        void AddGuildQuest(QuestInstance.QuestInstance quest);
+        void RemoveGuildQuest(QuestInstance.QuestInstance quest);
     }
 }

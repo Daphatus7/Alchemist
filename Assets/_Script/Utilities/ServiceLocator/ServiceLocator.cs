@@ -30,7 +30,7 @@ namespace _Script.Utilities.ServiceLocator
         /// </summary>
         public void Register<T>(T service) where T : IGameService
         {
-            Debug.Log($"Registering service of type {typeof(T).Name}");
+            //Debug.Log($"Registering service of type {typeof(T).Name}");
             string key = typeof(T).Name;
 
             if (_services.ContainsKey(key))

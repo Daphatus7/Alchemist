@@ -100,7 +100,7 @@ namespace _Script.NPC.NpcBackend
 
         public override void LoadDefaultData()
         {
-            throw new NotImplementedException();
+            
         }
 
         public override string SaveKey => NpcId;

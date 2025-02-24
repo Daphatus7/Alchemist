@@ -30,14 +30,21 @@ namespace _Script.Managers
 
         public void OnEnable()
         {
+            Debug.Log("--------------entering town------Load data");
+            //SaveLoadManager.Instance.LoadTownData();
             foreach (var npc in _npcs)
             {
-                npc.gameObject.SetActive(true);
+                if(npc != null)
+                {
+                    npc.gameObject.SetActive(true);
+                }
             }
         }
         
         public void OnDisable()
         {
+            Debug.Log("--------------leaving town");
+            //SaveLoadManager.Instance.SaveTownData();
             foreach (var npc in _npcs)
             {
                 if (npc != null)
@@ -61,7 +68,11 @@ namespace _Script.Managers
             {
                 if(npc == null) continue;
                 var npcSave = npc.OnSaveData();
-                nData.Add(npc.SaveKey, npcSave);
+                Debug.Log($"Saving data for {npc.SaveKey}");
+                if (!nData.TryAdd(npc.SaveKey, npcSave))
+                {
+                    Debug.LogError($"Failed to save data for {npc.SaveKey}");
+                }
             }
             
             //Pack the town data

@@ -16,7 +16,7 @@ namespace _Script.NPC.Gates
         {
             base.TerminateConversation();
             
-            GameManager.Instance.LoadMainScene("TownMap");
+            GameManager.Instance.LoadMainScene();
             PlaceManager.Instance.TeleportPlayerToTown(GameManager.Instance.GetPlayer());
             GameManager.Instance.ResetHexMap();
             //Mark the current dungeon as completed

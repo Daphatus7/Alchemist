@@ -76,7 +76,6 @@ namespace _Script.NPC.NpcBackend.NpcModules
                 if(value == null)
                 {
                     Debug.Log("Quest is completed");
-                    OnQuestUpdate(_currentGuildQuest, QuestUpdateInstruction.Complete);
                     _currentGuildQuest = null;
                 }
                 else
@@ -89,7 +88,6 @@ namespace _Script.NPC.NpcBackend.NpcModules
                     else
                     {
                         _currentGuildQuest = value;
-                        OnQuestUpdate(_currentGuildQuest, QuestUpdateInstruction.Accept);
                     }
                 }
             }
@@ -161,6 +159,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
         {
             if (data is GuildQuestSaveModule saveModule)
             {
+                // Load the current quest
                 if (saveModule.currentQuest != null)
                 {
                     var questID = saveModule.currentQuest.questId;
@@ -168,7 +167,10 @@ namespace _Script.NPC.NpcBackend.NpcModules
                     {
                         var questDefinition = DatabaseManager.Instance.GetQuestDefinition(questID);
                         if (questDefinition is GuildQuestDefinition guildQuestDefinition)
-                            _currentGuildQuest = new GuildQuestInstance(guildQuestDefinition, saveModule.currentQuest as GuildQuestSave);
+                        {
+                            CurrentGuildQuest = new GuildQuestInstance(guildQuestDefinition,
+                                saveModule.currentQuest as GuildQuestSave);
+                        }                    
                     }
                     else
                     {
@@ -188,8 +190,10 @@ namespace _Script.NPC.NpcBackend.NpcModules
                             var questDefinition =
                                 DatabaseManager.Instance.GetQuestDefinition(saveModule.questSaves[i].questId);
                             if (questDefinition is GuildQuestDefinition guildQuestDefinition)
+                            {
                                 _availableQuests.Add(new GuildQuestInstance(guildQuestDefinition,
                                     saveModule.questSaves[i] as GuildQuestSave));
+                            }
                         }
                         else
                         {
@@ -197,7 +201,6 @@ namespace _Script.NPC.NpcBackend.NpcModules
                         }
                     }
                 }
-                OnQuestUpdate(_currentGuildQuest, QuestUpdateInstruction.Accept);
             }
             else
             {
@@ -233,49 +236,8 @@ namespace _Script.NPC.NpcBackend.NpcModules
         }
         
         #endregion
-
-        private void OnQuestUpdate(GuildQuestInstance obj, QuestUpdateInstruction instruction)
-        {
-            switch (instruction)
-            {
-                case QuestUpdateInstruction.Accept:
-                    OnQuestAccepted(obj);
-                    break;
-                case QuestUpdateInstruction.Complete:
-                    OnQuestCompleted(obj);
-                    break;
-                case QuestUpdateInstruction.Expire:
-                    OnQuestExpired(obj);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(instruction), instruction, null);
-            }
-        }
-        
-        private void OnQuestAccepted(GuildQuestInstance obj)
-        {
-            ServiceLocator.Instance.Get<IPlayerQuestService>().AddQuest(obj);
-        }
-        
-        private void OnQuestCompleted(GuildQuestInstance obj)
-        {
-            Debug.Log("Quest Completed-----> removing");
-            ServiceLocator.Instance.Get<IPlayerQuestService>().RemoveQuest(obj);
-        }
-        
-        private void OnQuestExpired(GuildQuestInstance obj)
-        {
-            Debug.Log("Quest Expired");
-        }
     }
-
-    public enum QuestUpdateInstruction
-    {
-        Accept,
-        Complete,
-        Expire
-    }
-
+    
     [Serializable]
     public class GuildQuestSaveModule : NpcSaveModule
     {

@@ -1857,7 +1857,6 @@ MonoBehaviour:
   - {fileID: 4609384603077342117}
   - {fileID: 2537836345988755018}
   - {fileID: 666102241}
-  - {fileID: 1868731083731059267}
   - {fileID: 2029155666}
 --- !u!1001 &666102240
 PrefabInstance:
@@ -7263,6 +7262,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5748878807673414471, guid: 19400eae6031045008b5457fe5f8aa20,
+        type: 3}
+      propertyPath: text
+      value: 'Harold The Guild Master
+
+'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
