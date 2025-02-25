@@ -63,17 +63,17 @@ namespace _Script.Inventory.ItemInstance
     {
         public WeaponItemSave(ItemInstance itemInstance, int currentDurability) : base(itemInstance)
         {
-            CurrentDurability = currentDurability;
+            this.currentDurability = currentDurability;
         }
 
-        public int CurrentDurability { get; set; }
+        public int currentDurability;
         
         public override ItemInstance InitializeItem(ItemInstance itemInstance)
         {
             base.InitializeItem(itemInstance);
             if (itemInstance is WeaponItemInstance weaponItemInstance)
             {
-                weaponItemInstance.CurrentDurability = CurrentDurability;
+                weaponItemInstance.CurrentDurability = currentDurability;
             }
             return itemInstance;
         }

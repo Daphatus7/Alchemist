@@ -681,7 +681,6 @@ namespace _Script.Inventory.InventoryBackend
             }
             else
             {
-                Debug.Log("Loading Inventory Save" + saves.Length);
                 LoadInventorySave(saves);
             }
         }
@@ -691,7 +690,6 @@ namespace _Script.Inventory.InventoryBackend
             // Check every item in the saved data.
             foreach (var itemSave in saves)
             {
-                Debug.Log("Item Save: " + itemSave.itemID);
                 if (itemSave != null && itemSave.itemID != null)
                 {
                     // Recreate the item instance using the factory.

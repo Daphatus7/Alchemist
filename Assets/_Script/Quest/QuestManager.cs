@@ -31,13 +31,6 @@ namespace _Script.Quest
         
         [SerializeField] public StorylineChecker storylineChecker;
         
-        
-        protected override void Awake()
-        {
-            base.Awake();
-
-        }
-
         public void OnDestroy()
         {
             if (ServiceLocator.Instance != null)
@@ -211,12 +204,15 @@ namespace _Script.Quest
         /// <returns></returns>
         public List<GuildQuestInstance> GetAvailableGuildQuests(GuildQuestGiverModule module)
         {
+            Debug.Log("GetAvailableGuildQuests");
             //the player has not accepted quest
             if (CurrentQuest == null) //player don't have a active quest
             {
-                if (_availableQuests == null)
+                Debug.Log("No active quest");
+                if (_availableQuests == null || _availableQuests.Count == 0)
                 {
-                    //生成随机任务
+                    Debug.Log("Generate new quests");
+                    //Generate new quests
                     var all = module.AllQuests;
                     // If there are fewer than 3 quests, return all
                     if (all.Count > 3)
@@ -399,7 +395,7 @@ namespace _Script.Quest
         
         #endregion
 
-        public string SaveKey { get; }
+        public string SaveKey => "QuestManager";
         public object OnSaveData()
         {
             //Save guild quests
@@ -419,6 +415,7 @@ namespace _Script.Quest
                     if(_availableQuests[i] != null)
                     {
                         saveModule.questSaves[i] = _availableQuests[i].OnSave();
+                        Debug.Log("Quest saved" + _availableQuests[i].QuestDefinition.questID);
                     }
                 }
             }

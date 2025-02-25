@@ -86,7 +86,6 @@ namespace _Script.NPC.NpcBackend.NpcModules
 
         public override void OnLoadData(NpcSaveModule data)
         {
-            Debug.Log("Loading merchant data");
             if (data == null)
             {
                 Debug.Log("No data found, loading default data");
@@ -94,10 +93,8 @@ namespace _Script.NPC.NpcBackend.NpcModules
             }
             else
             {
-                Debug.Log("Data found, loading data");
                 if(data is MerchantSaveModule mData)
                 {
-                    Debug.Log("Loading merchant inventory data");
                     _merchantInventory = new MerchantInventory();
                     _merchantInventory.OnLoadData(mData.inventorySave.items);
                 }
