@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: ToughGuyData
   m_EditorClassIdentifier: 
   enemyID: a54d844826c954b808cc107111917f90
-  health: 100
+  enemyName: 
+  health: 10
   damage: 10
-  moveSpeed: 2
+  moveSpeed: 3
   attackFrequency: 1
   attackRange: 1
   monsterType: 0

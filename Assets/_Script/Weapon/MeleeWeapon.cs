@@ -230,8 +230,8 @@ namespace _Script.Weapon
         private void Slash(float time)
         {
             // Define a wide sweeping arc.
-            float slashStart = AttackingLeft ? -90f : 90f;
-            float slashEnd   = AttackingLeft ? 90f : -90f;
+            float slashStart = AttackingLeft ? 90f : -90f;
+            float slashEnd   = AttackingLeft ? -90f : 90f;
             float angle = Mathf.Lerp(slashStart, slashEnd, animationCurve.Evaluate(time / AttackTime));
             transform.rotation = Quaternion.Euler(0, 0, angle) * InitialRotation;
         }

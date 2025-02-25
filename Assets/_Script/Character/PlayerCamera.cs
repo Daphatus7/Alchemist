@@ -51,7 +51,7 @@ namespace _Script.Character
             basePosition = Target.position + offset;
         }
 
-        private void LateUpdate()
+        private void FixedUpdate()
         {
             if (Target)
             {

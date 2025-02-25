@@ -1006,7 +1006,7 @@ TextureImporter:
         width: 32
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1015,6 +1015,28 @@ TextureImporter:
       bones: []
       spriteID: d6010c0ff2fcc4335a5df8a9ae8fbc10
       internalID: -1901378139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sworld_5
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 1016
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa50588b71c3e484c9c541ee4ce1038f
+      internalID: -1786605604
       vertices: []
       indices: 
       edges: []
@@ -1057,6 +1079,7 @@ TextureImporter:
       Sword_1: -1839726451
       Sword_3: -1268135942
       Sword_4: -1901378139
+      Sworld_5: -1786605604
       Wand: 842772178
       copper_vein: -2540613011197712258
       d: -1268135942
