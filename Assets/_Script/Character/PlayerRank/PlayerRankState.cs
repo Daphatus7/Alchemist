@@ -59,7 +59,6 @@ namespace _Script.Character.PlayerRank
         public override void Enter()
         {
             base.Enter();
-            Debug.Log("Player starts at Rank F");
         }
     }
 

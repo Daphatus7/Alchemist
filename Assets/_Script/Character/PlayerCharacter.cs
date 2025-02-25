@@ -619,6 +619,7 @@ namespace _Script.Character
             {
                 LoadDefaultData();
             }
+            InitializeInventoryUI();
         }
 
         public void LoadDefaultData()

@@ -69,15 +69,12 @@ namespace _Script.Managers
             
             //load save data
             statsDisplay.InitializeUI(_playerCharacter);
-            
-            StartCoroutine(DelayedUIUpdate());
         }
         
         private IEnumerator DelayedUIUpdate()
         {
             yield return null; // Wait one frame
-            _playerCharacter.InitializeUI();
-            statsDisplay.InitializeUI(_playerCharacter);
+
         }
         
         

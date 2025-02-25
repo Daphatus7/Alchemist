@@ -67,9 +67,9 @@ namespace _Script.Inventory.ItemInstance
         /// <returns></returns>
         public static ItemInstance RecreateItemInstanceSave(ItemSave itemSave)
         {
-            Debug.Log("Recreating item instance from save data --- id ---" + itemSave.ItemID + " --id--");
-            var itemData = DatabaseManager.Instance.GetItemData(itemSave.ItemID);
-            var itemInstance = CreateItemInstance(itemData, itemSave.Rotated, itemSave.Quantity);
+            Debug.Log("Recreating item instance from save data --- id ---" + itemSave.itemID + " --id--");
+            var itemData = DatabaseManager.Instance.GetItemData(itemSave.itemID);
+            var itemInstance = CreateItemInstance(itemData, itemSave.rotated, itemSave.quantity);
             itemSave.InitializeItem(itemInstance);
             return itemInstance;
         }

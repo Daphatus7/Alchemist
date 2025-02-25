@@ -48,6 +48,7 @@ namespace _Script.Inventory.ItemInstance
             base.InitializeItem(newInstance);
             if (newInstance is ContainerItemInstance containerInstance)
             {
+                
                 containerInstance.AssociatedContainer = 
                     new PlayerContainer(null, InventorySave.width, InventorySave.height);
                 containerInstance.AssociatedContainer.

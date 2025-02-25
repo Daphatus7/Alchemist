@@ -650,14 +650,17 @@ namespace _Script.Inventory.InventoryBackend
                 width = _width
             };
             
-            foreach(var instance in _itemInstances)
+            for(int i = 0; i < _itemInstances.Count; i++)
             {
-                if(instance == null)
+                if(_itemInstances[i] == null)
                 {
-                    throw new ArgumentNullException(nameof(instance) + " is null.");
+                    Debug.LogWarning("Item instance is null at index " + i);
                 }
-                var itemSave = instance.OnSaveData();
-                save.items[_itemInstances.IndexOf(instance)] = itemSave;
+                else
+                {
+                    var itemSave = _itemInstances[i].OnSaveData();
+                    save.items[i] = itemSave;
+                }
             }
             
             return save;
@@ -678,28 +681,34 @@ namespace _Script.Inventory.InventoryBackend
             }
             else
             {
+                Debug.Log("Loading Inventory Save" + saves.Length);
                 LoadInventorySave(saves);
             }
         }
         
         private void LoadInventorySave(ItemSave[] saves)
         {
-            //Check every item
+            // Check every item in the saved data.
             foreach (var itemSave in saves)
             {
-                if (itemSave != null && itemSave.ItemID != null)
+                Debug.Log("Item Save: " + itemSave.itemID);
+                if (itemSave != null && itemSave.itemID != null)
                 {
-                    //recreate the item instance
-                    
+                    // Recreate the item instance using the factory.
                     var newInstance = ItemInstanceFactory.RecreateItemInstanceSave(itemSave);
-                    
-                    //initialize the item instance to match the save
+            
+                    // Initialize the new instance with the save data.
                     itemSave.InitializeItem(newInstance);
+            
+                    // Assign the item to each inventory slot based on its saved positions.
                     foreach (var pos in newInstance.ItemPositions)
                     {
                         var sIndex = GridToSlotIndex(pos.x, pos.y);
                         Slots[sIndex].ItemInstance = newInstance;
                     }
+            
+                    // **Add the newly created instance to the internal list.**
+                    _itemInstances.Add(newInstance);
                 }
             }
         }

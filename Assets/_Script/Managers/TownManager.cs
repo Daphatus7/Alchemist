@@ -69,7 +69,7 @@ namespace _Script.Managers
             //Pack the Npc data
             foreach (var npc in npcHandler)
             {
-                if(npc == null) continue;
+                if(npc == null || string.IsNullOrEmpty(npc.SaveKey)) continue;
                 var npcSave = npc.OnSaveData();
                 Debug.Log($"Saving data for {npc.SaveKey}");
                 if (!nData.TryAdd(npc.SaveKey, npcSave))
@@ -101,20 +101,21 @@ namespace _Script.Managers
             }
             foreach (var npc in _npcs)
             {
-                if (townData.Npcs.ContainsKey(npc.SaveKey))
+                if (npc == null || string.IsNullOrEmpty(npc.SaveKey)) continue;
+                if (townData.Npcs.TryGetValue(npc.SaveKey, out var npcSave))
                 {
-                    npc.OnLoadData(townData.Npcs[npc.SaveKey]);
+                    npc.OnLoadData(npcSave);
                 }
                 else
                 {
-                    Debug.Log($"No data found for {npc.SaveKey}");
+                    npc.LoadDefaultData();
                 }
             }
         }
 
         public void LoadDefaultData()
         {
-            throw new System.NotImplementedException();
+            _npcs.ForEach(npc => npc.LoadDefaultData());
         }
     }
     

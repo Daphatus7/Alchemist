@@ -34,7 +34,6 @@ namespace _Script.NPC.NpcBackend.NpcModules
         protected override void Awake()
         {
             base.Awake();
-            InitializeMerchantInventory();
         }
 
         private void OnEnable()
@@ -87,20 +86,28 @@ namespace _Script.NPC.NpcBackend.NpcModules
 
         public override void OnLoadData(NpcSaveModule data)
         {
+            Debug.Log("Loading merchant data");
             if (data == null)
             {
+                Debug.Log("No data found, loading default data");
                 LoadDefaultData();
             }
             else
             {
+                Debug.Log("Data found, loading data");
                 if(data is MerchantSaveModule mData)
                 {
+                    Debug.Log("Loading merchant inventory data");
                     _merchantInventory = new MerchantInventory();
                     _merchantInventory.OnLoadData(mData.inventorySave.items);
                 }
+                else
+                {
+                    Debug.Log("Data is not of type MerchantSaveModule, loading default data");
+                    LoadDefaultData();
+                }
             }
             //Reload merchant inventory
-            Refresh();
         }
 
         public override NpcSaveModule OnSaveData()
@@ -115,7 +122,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
         
         public override void LoadDefaultData()
         {
-            throw new NotImplementedException();
+            InitializeMerchantInventory();
         }
     }
     

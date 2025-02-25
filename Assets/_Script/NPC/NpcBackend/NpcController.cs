@@ -100,7 +100,18 @@ namespace _Script.NPC.NpcBackend
 
         public override void LoadDefaultData()
         {
-            
+            if(NpcModules == null || NpcModules.Count == 0)
+            {
+                Debug.LogWarning(this + "NpcController.LoadDefaultData: No modules found.");
+                return;
+            }
+            foreach (var t in _npcModules)
+            {
+                if(t!=null)
+                {
+                    t.LoadDefaultData();
+                }
+            }
         }
 
         public override string SaveKey => NpcId;

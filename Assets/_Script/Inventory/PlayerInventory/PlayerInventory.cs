@@ -20,9 +20,6 @@ namespace _Script.Inventory.PlayerInventory
         {
             _selectedSlotIndex = selectedSlotIndex;
             _selectedItemInstance = GetItemInstanceAt(selectedSlotIndex);
-            
-            Debug.Log("By default, the player will select the first item when loaded.");
-            
             OnSelectItem(selectedSlotIndex);
         }
         
@@ -30,9 +27,6 @@ namespace _Script.Inventory.PlayerInventory
         {
             _selectedSlotIndex = inventorySave.selectedSlotIndex;
             _selectedItemInstance = GetItemInstanceAt(_selectedSlotIndex);
-            
-            Debug.Log("By default, the player will select the first item when loaded.");
-            
             OnSelectItem(_selectedSlotIndex);
         }
 
@@ -276,6 +270,7 @@ namespace _Script.Inventory.PlayerInventory
 
     #endregion
     
+    [Serializable]
     public class PlayerInventorySave : InventorySave
     {
         public int selectedSlotIndex;

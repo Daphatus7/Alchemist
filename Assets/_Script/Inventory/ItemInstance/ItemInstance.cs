@@ -178,16 +178,16 @@ namespace _Script.Inventory.ItemInstance
     [Serializable]
     public class ItemSave
     {
-        private string _itemID; public string ItemID => _itemID;
-        private bool _rotated; public bool Rotated => _rotated;
-        private int _quantity; public int Quantity => _quantity;
-        private List<Vector2Int> _itemPositions; public List<Vector2Int> ItemPositions => _itemPositions;
+        public string itemID;
+        public bool rotated;
+        public int quantity;
+        public List<Vector2Int> _itemPositions; public List<Vector2Int> ItemPositions => _itemPositions;
         
         public ItemSave(ItemInstance itemInstance)
         {
-            _itemID = itemInstance.ItemID;
-            _rotated = itemInstance.IsRotated;
-            _quantity = itemInstance.Quantity;
+            itemID = itemInstance.ItemID;
+            rotated = itemInstance.IsRotated;
+            quantity = itemInstance.Quantity;
             _itemPositions = itemInstance.ItemPositions;
         }
         

@@ -18,7 +18,7 @@ namespace _Script.Utilities.SaveGame
             }
             else
             {
-                Debug.Log($"Loading saved data for {GetInternalName<T>(saveName)}");
+                //Debug.Log($"Loading saved data for {GetInternalName<T>(saveName)}");
                 Load<T>(saveName);
                 return true;
             }
