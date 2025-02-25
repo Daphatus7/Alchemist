@@ -6,7 +6,8 @@ using UnityEngine;
 
 namespace _Script.Character.PlayerRank
 {
-/// <summary>
+    
+    /// <summary>
     /// Abstract state class – every rank state must derive from this and provide its own Rank and ExpRequired.
     /// </summary>
     public abstract class PlayerRankState : IState

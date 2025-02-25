@@ -28,6 +28,7 @@ namespace _Script.Character.PlayerUI
                 UpdateUI(stat.Key);
             }
             _playerCharacter.CurrentRank.onExperienceChanged += SetExperienceFill;
+            SetExperienceFill(_playerCharacter.CurrentRank.Progress);
         }
         
         

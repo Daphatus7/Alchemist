@@ -2,6 +2,7 @@
 // 24 02 2025 02 52
 
 using System;
+using _Script.Character.PlayerRank;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.PlayerInventory;
 
@@ -10,16 +11,19 @@ namespace _Script.Character
     [Serializable]
     public class PlayerSave
     {
-        public PlayerInventorySave PlayerInventory;
+        public PlayerInventorySave playerInventory;
         public PlayerStatsSave stats;
         public int gold;
+        public PlayerRankSave rankSave;
         public PlayerSave(PlayerInventorySave playerInventory, 
             PlayerStatsSave stats, 
-            int gold)
+            int gold, 
+            PlayerRankSave rankSave)
         {
-            PlayerInventory = playerInventory;
+            this.playerInventory = playerInventory;
             this.stats = stats;
             this.gold = gold;
+            this.rankSave = rankSave;
         }
     }
 

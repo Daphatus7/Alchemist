@@ -601,7 +601,8 @@ namespace _Script.Character
         {
             var inventorySave = _playerInventory.OnSaveData() as PlayerInventorySave;
             var playerStatsSave = _playerstats.OnSave();
-            return new PlayerSave(inventorySave, playerStatsSave, _gold);
+            var playerRankSave = _playerRank.OnSave();
+            return new PlayerSave(inventorySave, playerStatsSave, _gold, playerRankSave);
         }
 
         public void OnLoadData(object data)
@@ -611,9 +612,11 @@ namespace _Script.Character
                 //Assign gold
                 _gold = playerSave.gold;
                 //Load inventory
-                _playerInventory = new PlayerInventory(this, playerSave.PlayerInventory);
+                _playerInventory = new PlayerInventory(this, playerSave.playerInventory);
                 //Load stats 
                 _playerstats.OnLoad(playerSave.stats);
+                //Load rank
+                _playerRank.OnLoad(playerSave.rankSave);
             }
             else
             {
