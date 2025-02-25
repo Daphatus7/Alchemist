@@ -228,9 +228,9 @@ GameObject:
   - component: {fileID: 8837985026535394894}
   - component: {fileID: 4900800090708965958}
   - component: {fileID: 701119041879536167}
-  - component: {fileID: 1278580861180746815}
   - component: {fileID: 6265743706537897635}
   - component: {fileID: 5611798915510297311}
+  - component: {fileID: 1319376871770419474}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -479,18 +479,6 @@ MonoBehaviour:
   itemInHandPrefab: {fileID: 5935879752676590583, guid: b2004f35d16bc42f1b6ef3628d5ec7b2,
     type: 3}
   itemDistance: 1
---- !u!114 &1278580861180746815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6514619874994577401}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf5bf8c8cc44da6a9c4e385891e4c13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6265743706537897635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -518,6 +506,18 @@ MonoBehaviour:
   learnedRecipes:
   - {fileID: 11400000, guid: e0e748721f2a3463196da623d090351c, type: 2}
   - {fileID: 11400000, guid: db9f3d9a82079442e99da059ff116f0d, type: 2}
+--- !u!114 &1319376871770419474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6514619874994577401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3273a9f13dfa4f47bc10b239a969ae18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8436505088471283413
 GameObject:
   m_ObjectHideFlags: 0

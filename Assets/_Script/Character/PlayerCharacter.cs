@@ -85,23 +85,24 @@ namespace _Script.Character
 
         private void Awake()
         {
-            _interactionBase = new InteractionBase(cursorDistanceMax);
-
-            _weaponStrategy = GetComponent<WeaponStrategy>();
-            _genericStrategy = GetComponent<GenericItemStrategy>();
-            _torchStrategy = GetComponent<TorchItemStrategy>();
-            _rb = GetComponent<Rigidbody2D>();
-
-            _playerAlchemy = GetComponent<PlayerAlchemy>();
-            _playerRank = new PlayerRank.PlayerRank();
-
-            InitializePlayerInventories();
-            InitializeStrategies();
-            
-            UnsetAllStrategy();
-            //TODO: On stats changes not subscribed
-            _playerstats.Initialize();
-            _playerstats.OnDeath += OnDeath;
+            //default Initialize
+            // _interactionBase = new InteractionBase(cursorDistanceMax);
+            //
+            // //Required and regardless of the game state
+            // _weaponStrategy = GetComponent<WeaponStrategy>();
+            // _genericStrategy = GetComponent<GenericItemStrategy>();
+            // _torchStrategy = GetComponent<TorchItemStrategy>();
+            // _rb = GetComponent<Rigidbody2D>();
+            // _playerAlchemy = GetComponent<PlayerAlchemy>();
+            // _playerRank = new PlayerRank.PlayerRank();
+            //
+            // //
+            // InitializePlayerInventories();
+            // InitializeStrategies();
+            //
+            // UnsetAllStrategy();
+            // //TODO: On stats changes not subscribed
+            // _playerstats.Initialize();
         }
         
         
@@ -115,6 +116,36 @@ namespace _Script.Character
             PauseableUpdate();
             
             //Add experience to rank
+        }
+
+        /// <summary>
+        /// Those don't need data initialization
+        /// </summary>
+        private void InitializeBase()
+        {
+            _interactionBase = new InteractionBase(cursorDistanceMax);
+            _rb = GetComponent<Rigidbody2D>();
+            _weaponStrategy = GetComponent<WeaponStrategy>();
+            _genericStrategy = GetComponent<GenericItemStrategy>();
+            _torchStrategy = GetComponent<TorchItemStrategy>();
+            //put strategy in dictionary
+            InitializeStrategies();
+            UnsetAllStrategy();
+            _playerAlchemy = GetComponent<PlayerAlchemy>();
+            _playerRank = new PlayerRank.PlayerRank();
+        }
+
+        /// <summary>
+        /// Called right after the player is spawned
+        /// </summary>
+        public void InitializeCharacter()
+        {
+            InitializeBase();
+            
+            InitializePlayerInventories();
+            
+            _playerstats.Initialize();
+            _playerstats.OnDeath += OnDeath;
         }
         
         private IEnumerator AddExperienceRoutine()
@@ -392,6 +423,7 @@ namespace _Script.Character
             //if not playing, then unsubscribe
             if (Application.isPlaying) return;
             _playerInventory.UnsubscribeToInventoryStatus(QuestManager.Instance.OnItemCollected);
+            _playerstats.OnDeath -= OnDeath;
         }
 
         public void OpenContainerInstance(PlayerContainer containerItem)
@@ -561,15 +593,19 @@ namespace _Script.Character
 
         public void OnLoadData(object data)
         {
-            if (!(data is PlayerSave playerSave)) return;
-            _gold = playerSave.gold;
-            _playerInventory = new PlayerInventory(this, playerSave.PlayerInventory);
-            _playerstats.OnLoad(playerSave.stats);
+            if (data is PlayerSave playerSave)
+            {
+                _gold = playerSave.gold;
+                _playerInventory = new PlayerInventory(this, playerSave.PlayerInventory);
+                _playerstats.OnLoad(playerSave.stats);
+                return;
+            }
+            LoadDefaultData();
         }
 
         public void LoadDefaultData()
         {
-            
+            InitializeCharacter();
         }
         #endregion
     }

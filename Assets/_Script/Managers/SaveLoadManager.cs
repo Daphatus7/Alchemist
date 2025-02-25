@@ -1,3 +1,4 @@
+using _Script.Character;
 using _Script.Quest;
 using _Script.Utilities.SaveGame;
 using Sirenix.OdinInspector;
@@ -21,6 +22,7 @@ namespace _Script.Managers
         {
             SaveTownData();
             SaveQuestData();
+            SavePlayerData();
         }
 
 
@@ -30,6 +32,7 @@ namespace _Script.Managers
         {
             LoadTownData();
             LoadQuestData();
+            LoadPlayerData();       
         }
         
         
@@ -43,6 +46,11 @@ namespace _Script.Managers
             SaveSystem.SaveData<IPlayerQuestSave>(saveName);
         }
         
+        public void SavePlayerData()
+        {
+            SaveSystem.SaveData<IPlayerSave>(saveName);
+        }
+        
         public void LoadTownData()
         {
             SaveSystem.LoadData<ISaveTownDataHandler>(saveName);
@@ -51,6 +59,11 @@ namespace _Script.Managers
         public void LoadQuestData()
         {
             SaveSystem.LoadData<IPlayerQuestSave>(saveName);
+        }
+        
+        public void LoadPlayerData()
+        {
+            SaveSystem.LoadData<IPlayerSave>(saveName);
         }
    
         

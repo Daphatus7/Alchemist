@@ -27,7 +27,7 @@ namespace _Script.Managers
         [SerializeField] private AstarPath _astarPath;
 
         [SerializeField] private PlayerCharacter _playerCharacter; public PlayerCharacter PlayerCharacter => _playerCharacter;
-        
+        [SerializeField] GameObject _playerPrefab;
         public NiRank PlayerRank => _playerCharacter.Rank;
 
         [SerializeField] private string _startingScene = "TownMap";
@@ -57,6 +57,17 @@ namespace _Script.Managers
 
             // Optionally load the "starting" scene
             _levelManager.LoadMainScene(_startingScene);
+        }
+        
+        
+        private void SpawnPlayer()
+        {
+            if (_playerCharacter == null)
+            {
+                GameObject player = Instantiate(_playerPrefab, Vector3.zero, Quaternion.identity);
+                _playerCharacter = player.GetComponent<PlayerCharacter>();
+                MovePlayerToScene(SubGameManager.Instance.SpawnPoint.position, _startingScene);
+            }
         }
         
         private void UpdateGlobalUpdaters()
