@@ -29,8 +29,32 @@ namespace _Script.Character
         [Header("References")]
         [SerializeField] private GameObject LeftHand;
         [SerializeField] private GameObject RightHand;
-        [SerializeField] private InventoryManager _inventoryManager;
-        [SerializeField] private ActionBarUI _actionBarUI;
+        private InventoryManager _inventoryManager;
+        private InventoryManager InventoryManager
+        {
+            get
+            {
+                if (!_inventoryManager)
+                {
+                    _inventoryManager = UIManager.Instance.PlayerInventoryUI;
+                }
+                return _inventoryManager;
+            }
+        }
+        private ActionBarUI _actionBarUI;
+
+        private ActionBarUI ActionBarUI
+        {
+            get
+            {
+                if (_actionBarUI == null)
+                {
+                    _actionBarUI = UIManager.Instance.ActionBarUI;
+                }
+
+                return _actionBarUI;
+            }
+        }
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private float cursorDistanceMax = 1f;
         #endregion
@@ -85,24 +109,9 @@ namespace _Script.Character
 
         private void Awake()
         {
-            //default Initialize
-            // _interactionBase = new InteractionBase(cursorDistanceMax);
-            //
-            // //Required and regardless of the game state
-            // _weaponStrategy = GetComponent<WeaponStrategy>();
-            // _genericStrategy = GetComponent<GenericItemStrategy>();
-            // _torchStrategy = GetComponent<TorchItemStrategy>();
-            // _rb = GetComponent<Rigidbody2D>();
-            // _playerAlchemy = GetComponent<PlayerAlchemy>();
-            // _playerRank = new PlayerRank.PlayerRank();
-            //
-            // //
-            // InitializePlayerInventories();
-            // InitializeStrategies();
-            //
-            // UnsetAllStrategy();
-            // //TODO: On stats changes not subscribed
-            // _playerstats.Initialize();
+            InitializeBase();
+            
+            //waiting for generate inventory
         }
         
         
@@ -116,6 +125,15 @@ namespace _Script.Character
             PauseableUpdate();
             
             //Add experience to rank
+        }
+        
+        
+        /// <summary>
+        /// Initialize UI when all data is ready
+        /// </summary>
+        public void InitializeUI()
+        {
+            InitializeInventoryUI();
         }
 
         /// <summary>
@@ -133,20 +151,11 @@ namespace _Script.Character
             UnsetAllStrategy();
             _playerAlchemy = GetComponent<PlayerAlchemy>();
             _playerRank = new PlayerRank.PlayerRank();
-        }
-
-        /// <summary>
-        /// Called right after the player is spawned
-        /// </summary>
-        public void InitializeCharacter()
-        {
-            InitializeBase();
-            
-            InitializePlayerInventories();
-            
             _playerstats.Initialize();
             _playerstats.OnDeath += OnDeath;
         }
+
+ 
         
         private IEnumerator AddExperienceRoutine()
         {
@@ -414,8 +423,12 @@ namespace _Script.Character
         private void InitializePlayerInventories()
         {
             _playerInventory = new PlayerInventory(this, playerActionbarWidth, playerActionbarHeight);
-            _actionBarUI.InitializeInventoryUI(_playerInventory, 0);
-            _actionBarUI.ShowUI();
+        }
+
+        private void InitializeInventoryUI()
+        {
+            ActionBarUI.InitializeInventoryUI(_playerInventory, 0);
+            ActionBarUI.ShowUI();
         }
 
         private void OnDisable()
@@ -428,7 +441,7 @@ namespace _Script.Character
 
         public void OpenContainerInstance(PlayerContainer containerItem)
         {
-            _inventoryManager.ToggleContainer(containerItem);
+            InventoryManager.ToggleContainer(containerItem);
         }
         
         public void AddGold(int amount)
@@ -595,19 +608,27 @@ namespace _Script.Character
         {
             if (data is PlayerSave playerSave)
             {
+                //Assign gold
                 _gold = playerSave.gold;
+                //Load inventory
                 _playerInventory = new PlayerInventory(this, playerSave.PlayerInventory);
+                //Load stats 
                 _playerstats.OnLoad(playerSave.stats);
-                return;
             }
-            LoadDefaultData();
+            else
+            {
+                LoadDefaultData();
+            }
         }
 
         public void LoadDefaultData()
         {
-            InitializeCharacter();
+            _gold = 100;
+            InitializePlayerInventories();
         }
         #endregion
+
+    
     }
     
     public interface IPlayerSave : ISaveGame

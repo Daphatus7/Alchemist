@@ -18,10 +18,10 @@ namespace _Script.Character.PlayerUI
         [SerializeField] private Image experienceImage;
 
         private PlayerCharacter _playerCharacter;
-
-        private void Start()
+        
+        public void InitializeUI(PlayerCharacter playerCharacter)
         {
-            _playerCharacter = GameManager.Instance.GetPlayer().GetComponent<PlayerCharacter>();
+            _playerCharacter = playerCharacter;
             _playerCharacter.PlayerStats.OnStatsChanged += UpdateUI;
             foreach (var stat in _playerCharacter.PlayerStats.PlayerStats)
             {

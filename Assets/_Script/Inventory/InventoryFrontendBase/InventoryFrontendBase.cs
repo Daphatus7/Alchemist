@@ -84,7 +84,10 @@ namespace _Script.Inventory.InventoryFrontendBase
             {
                 Destroy(child.gameObject);
             }
-            
+            if (inventory == null)
+            {
+                throw new NullReferenceException("Inventory is not assigned??? this makes no sense");
+            }
             _slotInteractions = new InventorySlotInteraction[inventory.Capacity];
             
             

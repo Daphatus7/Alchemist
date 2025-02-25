@@ -54,9 +54,6 @@ namespace _Script.Managers
             {
                 Debug.LogError("DatabaseManager: QuestDatabase asset is null.");
             }
-            // Get the path where Easy Save 3 saves data.
-            string savePath = ES3Settings.pathToEasySaveFolder;
-            Debug.Log("Easy Save 3 Path: " + savePath);
         }
         
         /// <summary>

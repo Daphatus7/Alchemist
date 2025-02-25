@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using _Script.Character;
 using _Script.Character.PlayerRank;
+using _Script.Character.PlayerUI;
 using _Script.Managers.GlobalUpdater;
 using _Script.Map;
 using _Script.Map.WorldMap;
@@ -26,11 +28,14 @@ namespace _Script.Managers
         
         [SerializeField] private AstarPath _astarPath;
 
-        [SerializeField] private PlayerCharacter _playerCharacter; public PlayerCharacter PlayerCharacter => _playerCharacter;
+        private PlayerCharacter _playerCharacter; public PlayerCharacter PlayerCharacter => _playerCharacter;
         [SerializeField] GameObject _playerPrefab;
+        [SerializeField] private StatsDisplay statsDisplay;
+        [SerializeField] private Camera _mainCamera;
         public NiRank PlayerRank => _playerCharacter.Rank;
 
         [SerializeField] private string _startingScene = "TownMap";
+        
 
         // The non-static class that manages scene loading
         private LevelManager _levelManager;
@@ -42,12 +47,7 @@ namespace _Script.Managers
 
         private void Start()
         {
-            // Make sure the player is also persistent
-            if (_playerCharacter != null)
-            {
-                DontDestroyOnLoad(_playerCharacter.gameObject);
-            }
-
+            
             // Create and initialize the LevelManager
             _levelManager = new LevelManager();
             
@@ -57,16 +57,43 @@ namespace _Script.Managers
 
             // Optionally load the "starting" scene
             _levelManager.LoadMainScene(_startingScene);
+            
+            // Spawn the player character
+            SpawnPlayer();
+            
+            //initialize data
+            SaveLoadManager.Instance.LoadPlayerData();
+            
+            //initialize UI
+            _playerCharacter.InitializeUI();
+            
+            //load save data
+            statsDisplay.InitializeUI(_playerCharacter);
+            
+            StartCoroutine(DelayedUIUpdate());
         }
+        
+        private IEnumerator DelayedUIUpdate()
+        {
+            yield return null; // Wait one frame
+            _playerCharacter.InitializeUI();
+            statsDisplay.InitializeUI(_playerCharacter);
+        }
+        
         
         
         private void SpawnPlayer()
         {
-            if (_playerCharacter == null)
+            if (_playerPrefab != null)
             {
-                GameObject player = Instantiate(_playerPrefab, Vector3.zero, Quaternion.identity);
+                var player = Instantiate(_playerPrefab, Vector3.zero, Quaternion.identity);
                 _playerCharacter = player.GetComponent<PlayerCharacter>();
-                MovePlayerToScene(SubGameManager.Instance.SpawnPoint.position, _startingScene);
+                ServiceLocator.Instance.Register<IPlayerSave>(_playerCharacter);
+                if (_playerCharacter != null)
+                {
+                    //add essential components
+                    DontDestroyOnLoad(_playerCharacter.gameObject);
+                }
             }
         }
         
