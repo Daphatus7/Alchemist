@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _Script.Items
 {
-    [CreateAssetMenu(fileName = "New Material", menuName = "Items/Material")]
+    [CreateAssetMenu(fileName = "New Material", menuName = "Items/Material/Material")]
     public class MaterialItem : ItemData
     {
         public override ItemType ItemType => ItemType.Material;

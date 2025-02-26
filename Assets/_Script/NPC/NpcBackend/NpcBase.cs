@@ -44,6 +44,10 @@ namespace _Script.NPC.NpcBackend
 
         public virtual void OnHighlight() { }
         public virtual void OnHighlightEnd() { }
+        public void InteractEnd()
+        {
+            
+        }
 
         /// <summary>
         /// Conversation starts here

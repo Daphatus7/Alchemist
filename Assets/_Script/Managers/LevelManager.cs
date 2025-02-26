@@ -16,6 +16,23 @@ namespace _Script.Managers
     {
         private PlayerCharacter _playerCharacter;
 
+        public PlayerCharacter PlayerCharacter
+        {
+            get
+            {
+                if(_playerCharacter == null)
+                {
+                    _playerCharacter = GameManager.Instance.PlayerCharacter;
+                    
+                    if(_playerCharacter == null)
+                    {
+                        Debug.LogWarning("PlayerCharacter is null, event after trying get it from GameManager.");
+                    }
+                }
+                return _playerCharacter;
+            }
+        }
+
         private string _currentMainScene;
         private string _currentAdditiveScene;
         private readonly List<string> _loadedAdditiveScenes = new List<string>();
@@ -76,14 +93,22 @@ namespace _Script.Managers
         /// </summary>
         public void MovePlayerToScene(Vector3 spawnPosition, string targetScene)
         {
-            if (_loadedAdditiveScenes.Contains(targetScene) && _playerCharacter != null)
+            if (_loadedAdditiveScenes.Contains(targetScene))
             {
-                _playerCharacter.transform.position = spawnPosition;
-                Debug.Log($"Player moved to {spawnPosition} in scene {targetScene}.");
+                if (PlayerCharacter)
+                {
+                    _playerCharacter.transform.position = spawnPosition;
+                    Debug.Log($"Player moved to {spawnPosition} in scene {targetScene}.");
+                }
+                else
+                {
+                    Debug.Log($"character is null");
+                }
+
             }
             else
             {
-                Debug.LogWarning($"Scene '{targetScene}' not loaded or PlayerCharacter is null. Cannot move player.");
+                Debug.Log($"Scene '{targetScene}' not loaded or PlayerCharacter is null. Cannot move player.");
             }
 
             // Correctly unsubscribe using the named method!

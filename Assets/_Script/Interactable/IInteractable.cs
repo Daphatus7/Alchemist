@@ -27,5 +27,10 @@ namespace _Script.Interactable
         ///  When the mouse stops hovering over the object
         /// </summary>
         void OnHighlightEnd();
+        
+        /// <summary>
+        /// The interaction is stopped
+        /// </summary>
+        void InteractEnd();
     }
 }

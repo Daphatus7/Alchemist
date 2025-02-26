@@ -89,12 +89,18 @@ namespace _Script.Character.ActionStrategy
             return true;
         }
         
-        // public void StopInteract(GameObject player)
-        // {
-        //     if (!_hit.collider) return;
-        //     var interactable = _hit.collider.GetComponent<IInteractable>();
-        //     interactable?.InteractEnd();
-        // }
+        /// <summary>
+        /// Called when the interaction should be forcibly stopped (e.g., mouse button released).
+        /// </summary>
+        public void StopInteract(PlayerCharacter player)
+        {
+            if (!_hit.collider) return;
+            var interactable = _hit.collider.GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                interactable.InteractEnd();
+            }
+        }
 
         public bool Highlight(out IInteractable interactable)
         {

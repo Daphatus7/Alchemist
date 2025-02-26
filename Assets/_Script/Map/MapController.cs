@@ -66,7 +66,7 @@ namespace _Script.Map
                 , HexGrid.GenerateNodeAtLevel(distance)); //end of the node
             
             // Set the difficulty of the nodes based on the quest rank.
-            SetDifficultyOfNodes(path, GetMapDifficulty(questInstance.GuildQuestDefinition.questRank));
+            SetDifficultyOfNodes(path, GetMapDifficulty(questInstance.QuestRank));
             
             //Generate Destination Room
             path[^1].NodeDataInstance = GenerateNodeDataForQuest(questInstance);

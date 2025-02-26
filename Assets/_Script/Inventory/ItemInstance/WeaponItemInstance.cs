@@ -4,6 +4,7 @@
 using System;
 using _Script.Items;
 using _Script.Items.AbstractItemTypes._Script.Items;
+using _Script.Weapon;
 using UnityEngine;
 
 namespace _Script.Inventory.ItemInstance

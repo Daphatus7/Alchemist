@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _Script.Items
 {
-    [CreateAssetMenu(fileName = "New Tool", menuName = "Items/Equipments/Weapons/Tool")]
+    [CreateAssetMenu(fileName = "New Weapon", menuName = "Items/Equipments/Weapons/Tool")]
     public class WeaponItem : EquipmentItem
     {
         public WeaponType weaponType = WeaponType.None;
@@ -37,12 +37,10 @@ namespace _Script.Items
         Torch,
         None,
     }
-    
-        
     public enum AttackForm
     {
         Hammer,
         Stab,
-        Slash
+        Slash,
     }
 }

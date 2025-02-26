@@ -122,12 +122,6 @@ namespace _Script.Managers
             _levelManager.UnloadCurrentAdditiveScene();
         }
 
-        /// <summary> Move the player to a position in the target scene (if loaded). </summary>
-        public void MovePlayerToScene(Vector3 spawnPosition, string targetScene)
-        {
-            _levelManager.MovePlayerToScene(spawnPosition, targetScene);
-        }
-
         /// <summary> Load/replace the main scene (non-additive). </summary>
         public void LoadMainScene()
         {

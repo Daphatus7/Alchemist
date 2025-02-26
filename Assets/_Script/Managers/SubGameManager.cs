@@ -30,7 +30,7 @@ namespace _Script.Managers
                 var spawnerPoint = SpawnerPoint.Instance;
                 if (spawnerPoint)
                 {
-                    Debug.Log("SpawnerPoint found!");
+                    transform.SetParent(transform);
                     return spawnerPoint.GetSpawnPoint();
                 }
                 Debug.LogWarning("No SpawnerPoint found! Using this GameObject's transform instead.");

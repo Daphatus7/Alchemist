@@ -783,7 +783,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 856
-        width: 65
+        width: 64
         height: 49
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -1028,7 +1028,7 @@ TextureImporter:
         width: 32
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1037,6 +1037,138 @@ TextureImporter:
       bones: []
       spriteID: fa50588b71c3e484c9c541ee4ce1038f
       internalID: -1786605604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Herb_4
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 856
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39b96483b5c614239959a476413179e2
+      internalID: 2076653941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Herb_5
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 856
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d15cfce704b54ad382fe30800e15c88
+      internalID: -302961467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Herb_1_Drop
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 822
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc5d604e233704bc7a9abd1589db93a8
+      internalID: 981456138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Herb_3_Drop
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 822
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31acb639044f44602bf1f685f3a76ec2
+      internalID: 1865784090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Herb_4_Drop
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 822
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86f5d54f941d34618861ca9da34c5a8c
+      internalID: 2053517307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Herb_5_Drop
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 822
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87efd256dd2d744ebacd32ebc783bbcf
+      internalID: 1432454238
       vertices: []
       indices: 
       edges: []
@@ -1065,9 +1197,16 @@ TextureImporter:
       Giant_Sword: -771888149
       Hammer: 458335063
       Hammer_2: -423138196
+      Herb_1_Drop: 981456138
+      Herb_3_Drop: 1865784090
+      Herb_4: 2076653941
+      Herb_4_Drop: 2053517307
+      Herb_5: -302961467
+      Herb_5_Drop: 1432454238
       Long_Bread: -1242747153
       Sprite-0001_0: 1311434440
       Sprite-0001_1: -55613607
+      Sprite-0001_11: 1107011059
       Sprite-0001_13: 1017862272
       Sprite-0001_2: 1248732508
       Sprite-0001_3: 56424144

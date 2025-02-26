@@ -99,6 +99,11 @@ namespace _Script.Items.Lootable
                 _spriteRenderer.color = Color.white;
         }
 
+        public void InteractEnd()
+        {
+            
+        }
+
         protected virtual void PickupItem(PlayerCharacter player)
         {
             if (player)

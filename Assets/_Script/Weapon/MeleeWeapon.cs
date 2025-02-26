@@ -236,4 +236,6 @@ namespace _Script.Weapon
             transform.rotation = Quaternion.Euler(0, 0, angle) * InitialRotation;
         }
     }
+    
+
 }

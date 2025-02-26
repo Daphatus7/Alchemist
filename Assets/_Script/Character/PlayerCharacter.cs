@@ -208,8 +208,10 @@ namespace _Script.Character
         {
             if (!CursorMovementTracker.HasCursorMoved) return;
 
+            //Interpret the interaction
             _interactionContext = _interactionBase.InteractableFromMouse(transform.position, CursorMovementTracker.CursorPosition);
 
+            //if there is an interactable object
             if (_interactionContext != null)
             {
                 _interactionContext.GetInteractableName();
@@ -222,6 +224,7 @@ namespace _Script.Character
             else
             {
                 if (_currentlyHighlightedObject == null) return;
+                _currentlyHighlightedObject.InteractEnd();
                 _currentlyHighlightedObject.OnHighlightEnd();
                 _currentlyHighlightedObject = null;
             }
@@ -314,8 +317,10 @@ namespace _Script.Character
         public void LeftMouseButtonUp(Vector2 direction)
         {
             _actionStrategy?.LeftMouseButtonUp(direction);
+    
+            // End the current interaction if one is in progress.
+            _interactionContext?.StopInteract(this);
         }
-
         public void RightMouseButtonDown(Vector2 direction) { }
         public void RightMouseButtonUp(Vector2 direction) { }
 

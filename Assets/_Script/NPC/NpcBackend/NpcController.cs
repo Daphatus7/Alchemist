@@ -33,6 +33,12 @@ namespace _Script.NPC.NpcBackend
             {
                 if (_npcModules == null)
                 {
+                    var npcModules = GetComponents<NpcModuleBase>();
+                    if(npcModules == null || npcModules.Length == 0)
+                    {
+                        Debug.LogWarning(this + "NpcController.NpcModules: No modules found.");
+                        return null;
+                    }
                     _npcModules = new List<NpcModuleBase>(GetComponents<NpcModuleBase>());
                 }
                 return _npcModules;
