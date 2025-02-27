@@ -697,7 +697,7 @@ namespace _Script.Inventory.InventoryBackend
             
                     // Initialize the new instance with the save data.
                     itemSave.InitializeItem(newInstance);
-            
+                    
                     // Assign the item to each inventory slot based on its saved positions.
                     foreach (var pos in newInstance.ItemPositions)
                     {

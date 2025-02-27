@@ -53,7 +53,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
             var itemsToAdd = new List<ItemInstance>();
             foreach(var item in itemsForSale)
             {
-                itemsToAdd.Add(ItemInstanceFactory.CreateItemInstance(item, false, 1));
+                itemsToAdd.Add(ItemInstanceFactory.CreateItemInstance(item, false, item.MaxStackSize));
             }
             _merchantInventory = new MerchantInventory(itemsToAdd, inventoryWidth, inventoryHeight);
         }
@@ -66,6 +66,10 @@ namespace _Script.NPC.NpcBackend.NpcModules
         public override void LoadNpcModule()
         {
             //Load merchant inventory UI
+            if(_merchantInventory == null)
+            {
+                Debug.LogError("Merchant Inventory is null, initializing merchant inventory");
+            }
             ServiceLocator.Instance.Get<IMerchantInventoryService>().LoadMerchantInventory(_merchantInventory);
             //Register merchant inventory UI handler so it can be closed when the conversation ends
             Npc.AddMoreUIHandler(ServiceLocator.Instance.Get<IMerchantInventoryService>() as IUIHandler);
@@ -95,8 +99,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
             {
                 if(data is MerchantSaveModule mData)
                 {
-                    _merchantInventory = new MerchantInventory();
-                    _merchantInventory.OnLoadData(mData.inventorySave.items);
+                    _merchantInventory = new MerchantInventory(mData.inventorySave);
                 }
                 else
                 {

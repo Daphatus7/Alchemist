@@ -164,9 +164,22 @@ namespace _Script.Inventory.ItemInstance
         /// Copy the ItemInstance with the same ItemData and quantity.
         /// </summary>
         /// <returns></returns>
+        public virtual ItemInstance FullClone()
+        {
+            return new ItemInstance(this);
+        }
+        
         public virtual ItemInstance Clone()
         {
             return new ItemInstance(ItemData, _rotated, Quantity);
+        }
+        
+        private ItemInstance(ItemInstance item)
+        {
+            ItemData = item.ItemData;
+            Quantity = item.Quantity;
+            _rotated = item._rotated;
+            _itemPositions = new List<Vector2Int>(item._itemPositions);
         }
 
         public virtual ItemSave OnSaveData()

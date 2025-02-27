@@ -71,9 +71,9 @@ namespace _Script.Inventory.MerchantInventoryFrontend
         public override ItemInstance.ItemInstance RemoveAllItemsFromSlot(int slotIndex)
         {
             //should copy - use this if want to replenish the item for every purchase
-            //return ItemStack.Copy(inventory.GetItemStackAt(slotIndex));
+            return inventory.GetItemInstanceAt(slotIndex).FullClone();
             //simply remove the item
-            return base.RemoveAllItemsFromSlot(slotIndex);
+            // return base.RemoveAllItemsFromSlot(slotIndex);
         }
         
         /// <summary>

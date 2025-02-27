@@ -69,7 +69,18 @@ namespace _Script.Managers
             //Pack the Npc data
             foreach (var npc in npcHandler)
             {
-                if(npc == null || string.IsNullOrEmpty(npc.SaveKey)) continue;
+
+                if (npc == null)
+                {
+                    Debug.LogError("Npc is null");
+                    continue;
+                }
+                if(string.IsNullOrEmpty(npc.SaveKey))
+                {
+                    Debug.LogError("SaveKey is empty");
+                    continue;
+                }
+                
                 var npcSave = npc.OnSaveData();
                 Debug.Log($"Saving data for {npc.SaveKey}");
                 if (!nData.TryAdd(npc.SaveKey, npcSave))
@@ -91,7 +102,9 @@ namespace _Script.Managers
         {
             if (data == null)
             {
+                Debug.Log("No data found, loading default data");
                 LoadDefaultData();
+                return;
             }
             
             var townData = (TownData) data;
@@ -101,7 +114,16 @@ namespace _Script.Managers
             }
             foreach (var npc in _npcs)
             {
-                if (npc == null || string.IsNullOrEmpty(npc.SaveKey)) continue;
+                if (npc == null)
+                {
+                    Debug.LogError("Npc is null");
+                    continue;
+                }
+                if(string.IsNullOrEmpty(npc.SaveKey))
+                {
+                    Debug.LogError("SaveKey is empty");
+                    continue;
+                }
                 if (townData.Npcs.TryGetValue(npc.SaveKey, out var npcSave))
                 {
                     npc.OnLoadData(npcSave);

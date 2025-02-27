@@ -19,10 +19,15 @@ namespace _Script.Inventory.MerchantInventoryBackend
             InitializeMerchantInventory();
         }
         
-        public MerchantInventory(int width = 5, int height = 4) : base(width, height)
+        public MerchantInventory(ItemSave [] itemSaves, int width = 5, int height = 4) : base(width, height)
         {
             _itemsForSale = new List<ItemInstance.ItemInstance>();
             InitializeMerchantInventory();
+        }
+        
+        public MerchantInventory(InventorySave save) : base(save)
+        {
+            
         }
         
         /// <summary>

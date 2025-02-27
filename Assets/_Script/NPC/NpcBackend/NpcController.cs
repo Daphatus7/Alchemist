@@ -23,7 +23,7 @@ namespace _Script.NPC.NpcBackend
         [BoxGroup("Basic Info")]
         [LabelText("NPC Name"), Tooltip("Name of the NPC")]
         [SerializeField] private NpcInfo npcInfo;
-        public string NpcId => npcInfo.NpcName;
+        public virtual string NpcId => npcInfo.NpcName;
         
         private List<NpcModuleBase> _npcModules;
 

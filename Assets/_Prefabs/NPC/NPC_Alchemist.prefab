@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 1792371931114994379}
   - component: {fileID: 4028936387289064247}
   - component: {fileID: 3277999756254533423}
+  - component: {fileID: 3846793486450077197}
   m_Layer: 9
   m_Name: NPC_Alchemist
   m_TagString: Enemy
@@ -222,7 +223,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7015418195302298680}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.05, y: 0.73, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -345,7 +346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueDistance: 5
   npcInfo:
-    npcName: Harold
+    npcName: Jessica
     npcDialogue: Hello Stranger
 --- !u!114 &4028936387289064247
 MonoBehaviour:
@@ -376,3 +377,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueLines: []
+--- !u!114 &3846793486450077197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7015418195302298680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1efbd77082748e78bad0b2299f2b0a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsForSale:
+  - {fileID: 11400000, guid: 1d79ea6a7e9444de2bdda57e097b49b1, type: 2}
+  - {fileID: 11400000, guid: f10c1a9dfbc8e4b2890a6ece48413d57, type: 2}
+  inventoryWidth: 5
+  inventoryHeight: 5
