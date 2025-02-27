@@ -197,37 +197,42 @@ namespace _Script.Character
         
         private InteractionBase _interactionBase;
         private InteractionContext _interactionContext;
-        private IInteractable _currentlyHighlightedObject = null;
-
+        
         private void PauseableUpdate()
         {
             _playerfoodRoutine ??= StartCoroutine(FoodRoutine());
         }
         
+        /// <summary>
+        /// Get the current interaction context and highlight it if it's not null.
+        /// </summary>
         private void HandleInteraction()
         {
             if (!CursorMovementTracker.HasCursorMoved) return;
-
-            //Interpret the interaction
-            _interactionContext = _interactionBase.InteractableFromMouse(transform.position, CursorMovementTracker.CursorPosition);
-
-            //if there is an interactable object
-            if (_interactionContext != null)
+            
+            //Create a new context but not interact with it just yet
+            var newInteractionContext = _interactionBase.InteractableFromMouse(transform.position, CursorMovementTracker.CursorPosition);
+            
+            //consider the new context is null, that mean currently we are not hitting any interactable object
+            if (newInteractionContext == null)
             {
-                _interactionContext.GetInteractableName();
-                _interactionContext.Highlight(out var interactable);
-
-                if (_currentlyHighlightedObject == interactable) return;
-                _currentlyHighlightedObject?.OnHighlightEnd();
-                _currentlyHighlightedObject = interactable;
+                //stop interaction with current object
+                _interactionContext?.StopInteract(this);
+                _interactionContext?.StopHighlight();
+                _interactionContext = null;
+                return;
             }
-            else
-            {
-                if (_currentlyHighlightedObject == null) return;
-                _currentlyHighlightedObject.InteractEnd();
-                _currentlyHighlightedObject.OnHighlightEnd();
-                _currentlyHighlightedObject = null;
-            }
+            
+            //if we are hitting a new object
+            //compare is the same
+            if (_interactionContext != null && _interactionContext.Equals(newInteractionContext)) return;
+            
+            //if not the same, then stop the current interaction
+            _interactionContext?.StopInteract(this);
+            _interactionContext?.StopHighlight();
+            
+            _interactionContext = newInteractionContext;
+            _interactionContext.Highlight();
         }
 
         #endregion
@@ -317,7 +322,6 @@ namespace _Script.Character
         public void LeftMouseButtonUp(Vector2 direction)
         {
             _actionStrategy?.LeftMouseButtonUp(direction);
-    
             // End the current interaction if one is in progress.
             _interactionContext?.StopInteract(this);
         }

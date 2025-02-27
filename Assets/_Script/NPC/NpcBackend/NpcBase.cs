@@ -21,6 +21,7 @@ namespace _Script.NPC.NpcBackend
     {
         protected ConversationInstance ConversationInstance;
         private Coroutine _distanceCheckCoroutine;
+        public string Name => gameObject.name;
         protected PlayerCharacter CurrentPlayer { get; set; }
         [SerializeField] private float dialogueDistance = 2f;
         /// <summary>

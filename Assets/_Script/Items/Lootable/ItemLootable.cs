@@ -82,6 +82,8 @@ namespace _Script.Items.Lootable
             transform.localScale = Vector3.one;
         }
 
+        public string Name => itemData.itemName;
+
         public virtual void Interact(PlayerCharacter player)
         {
             PickupItem(player);

@@ -12,6 +12,8 @@ namespace _Script.Interactable
 {
     public interface IInteractable
     {
+        
+        string Name { get; }
         /// <summary>
         /// When the player hit the mouse button
         /// </summary>
@@ -29,7 +31,7 @@ namespace _Script.Interactable
         void OnHighlightEnd();
         
         /// <summary>
-        /// The interaction is stopped
+        /// The interaction is stopped, such as when the mouse button is released
         /// </summary>
         void InteractEnd();
     }

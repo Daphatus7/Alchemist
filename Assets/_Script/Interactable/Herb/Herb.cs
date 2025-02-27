@@ -19,6 +19,11 @@ namespace _Script.Interactable.Herb
         private bool _isGathering;
         private Coroutine _gatherCoroutine;
         private PlayerCharacter _currentPlayer;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
+
+        public SpriteRenderer SpriteRenderer => _spriteRenderer;
+
+        public string Name => "Herb";
 
         /// <summary>
         /// Called when the player clicks on this herb to start gathering.
@@ -33,18 +38,16 @@ namespace _Script.Interactable.Herb
             _gatherCoroutine = StartCoroutine(GatherRoutine(player));
         }
         
-        /// <summary>
-        /// Simple highlight logic (e.g., change color, outline, etc.).
-        /// </summary>
         public void OnHighlight()
         {
+            if(SpriteRenderer)
+                SpriteRenderer.color = new Color(0.5f, 1f, 0.5f, 1f);
         }
 
-        /// <summary>
-        /// Called when highlight ends (mouse leaves).
-        /// </summary>
         public void OnHighlightEnd()
         {
+            if(SpriteRenderer)
+                SpriteRenderer.color = Color.white;
         }
 
     
@@ -56,7 +59,7 @@ namespace _Script.Interactable.Herb
                 _gatherCoroutine = null;
             }
             _isGathering = false;
-            Debug.Log("Herb gathering interrupted.");
+            OnHighlightEnd();
         }
 
         /// <summary>

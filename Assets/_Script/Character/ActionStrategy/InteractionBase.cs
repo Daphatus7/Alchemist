@@ -13,7 +13,6 @@ namespace _Script.Character.ActionStrategy
     {
         private readonly LayerMask _interactableLayer = LayerMask.GetMask("Interactable");
         private readonly LayerMask _obstacleLayer = LayerMask.GetMask("Obstacle");
-        
         private readonly float _maxInteractDistance;
         public InteractionBase(float maxInteractDistance)
         {
@@ -22,12 +21,13 @@ namespace _Script.Character.ActionStrategy
         
         public InteractionContext InteractableRaycast(Vector2 origin, Vector2 destination)
         {
-            var direction = (destination - origin).normalized;
-            var extent = Mathf.Min(Vector2.Distance(origin, destination), _maxInteractDistance);
-            var hit = Physics2D.Raycast(origin, direction, extent, _interactableLayer);
-            
-            Debug.DrawLine(origin, origin + direction * extent, Color.red, 1f);
-            return new InteractionContext(hit);
+            throw new NotImplementedException();
+            // var direction = (destination - origin).normalized;
+            // var extent = Mathf.Min(Vector2.Distance(origin, destination), _maxInteractDistance);
+            // var hit = Physics2D.Raycast(origin, direction, extent, _interactableLayer);
+            //
+            // Debug.DrawLine(origin, origin + direction * extent, Color.red, 1f);
+            // return new InteractionContext(hit);
         }
         
         /// <summary>
@@ -42,27 +42,32 @@ namespace _Script.Character.ActionStrategy
             // Prevent interaction with world objects if the pointer is over a UI element.
             if (EventSystem.current && EventSystem.current.IsPointerOverGameObject())
             {
-                return new InteractionContext(new RaycastHit2D());
+                return null;
             }
             
             if (Vector2.Distance(playerPosition, destination) > _maxInteractDistance)
             {
-                return new InteractionContext(new RaycastHit2D());
+                return null;
             }
             
             // Check for obstacles between the player and the destination.
             Vector2 direction = (destination - playerPosition).normalized;
             float distance = Vector2.Distance(playerPosition, destination);
             RaycastHit2D obstacleHit = Physics2D.Raycast(playerPosition, direction, distance, _obstacleLayer);
-            if (obstacleHit.collider != null)
+            if (obstacleHit.collider)
             {
                 // An obstacle is blocking the path.
-                return new InteractionContext(new RaycastHit2D());
+                return null;
             }
             
             // Finally, cast a ray at the destination to detect interactable objects.
             RaycastHit2D hit = Physics2D.Raycast(destination, Vector2.zero, 0f, _interactableLayer);
-            return new InteractionContext(hit);
+            if (!hit.collider)
+            {
+                return null;
+            }
+            IInteractable i = hit.collider?.GetComponent<IInteractable>();
+            return i == null ? null : new InteractionContext(i);
         }
     }
     
@@ -71,21 +76,23 @@ namespace _Script.Character.ActionStrategy
     /// </summary>
     public class InteractionContext
     {
-        private readonly RaycastHit2D _hit;
-        
-        public InteractionContext(RaycastHit2D hit)
+        private readonly IInteractable _hit;
+        public InteractionContext(IInteractable hit)
         {
             _hit = hit;
         }
+        
+        public bool Equals(InteractionContext other)
+        {
+            return _hit == other._hit;
+        }
 
-        public string GetInteractableName() => _hit.collider ? _hit.collider.name : "No Interactable";
+        public string GetInteractableName() => _hit?.Name;
 
         public bool Interact(PlayerCharacter player)
         {
-            if (!_hit.collider) return false;
-            var interactable = _hit.collider.GetComponent<IInteractable>();
-            if (interactable == null) return false;
-            interactable.Interact(player);
+            if (_hit == null) return false;
+            _hit.Interact(player);
             return true;
         }
         
@@ -94,28 +101,19 @@ namespace _Script.Character.ActionStrategy
         /// </summary>
         public void StopInteract(PlayerCharacter player)
         {
-            if (!_hit.collider) return;
-            var interactable = _hit.collider.GetComponent<IInteractable>();
-            if (interactable != null)
-            {
-                interactable.InteractEnd();
-            }
+            _hit?.InteractEnd();
         }
 
-        public bool Highlight(out IInteractable interactable)
+        public bool Highlight()
         {
-            interactable = null;
-            if (!_hit.collider) return false;
-            interactable = _hit.collider.GetComponent<IInteractable>();
-            interactable?.OnHighlight();
-            return interactable != null;
+            if (_hit == null) return false;
+            _hit.OnHighlight();
+            return true;
         }
-        
+
         public void StopHighlight()
         {
-            if (!_hit.collider) return;
-            var interactable = _hit.collider.GetComponent<IInteractable>();
-            interactable?.OnHighlightEnd();
+            _hit?.OnHighlightEnd();
         }
     }
 }
