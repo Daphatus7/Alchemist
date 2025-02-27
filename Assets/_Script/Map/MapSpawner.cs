@@ -37,6 +37,8 @@ namespace _Script.Map
         [SerializeField] 
         private float monsterSpawnDensity = 1f; 
         
+        
+        
         [Header("Boss Spawn Point")]
         [SerializeField] 
         private Transform _spawnPoint;

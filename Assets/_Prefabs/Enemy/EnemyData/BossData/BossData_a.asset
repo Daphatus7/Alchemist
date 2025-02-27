@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cca10eb761149419b541ac94941b578, type: 3}
-  m_Name: BossData_2
+  m_Name: BossData_a
   m_EditorClassIdentifier: 
-  enemyID: 4f051713c736b4b809e8d2027f40a2a2
+  enemyID: c03a04e196df54c82ae2ff732666dce0
   enemyName: 
-  health: 50
+  health: 100
   damage: 10
-  moveSpeed: 3
-  attackFrequency: 0.5
+  moveSpeed: 5
+  attackFrequency: 1
   attackRange: 1
   monsterType: 0
   dropTable: {fileID: 11400000, guid: 7486734bb941047a2a6640882114f7e2, type: 2}

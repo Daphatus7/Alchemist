@@ -84,6 +84,7 @@ namespace _Script.Inventory.PlayerInventory
                     break;
                 case "Weapon":
                     // Use weapon strategy for weapons
+                    Debug.Log("Setting Weapon Strategy");
                     inventoryOwner.SetWeaponStrategy();
                     inventoryOwner.WeaponStrategy.ChangeItem(_actionBarContext);
                     break;

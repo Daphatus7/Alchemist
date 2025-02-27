@@ -157,7 +157,7 @@ namespace _Script.Inventory.ItemInstance
             }
             
             Quantity -= quantity;
-            return new ItemInstance(ItemData, _rotated, quantity);
+            return ItemInstanceFactory.CreateItemInstance(ItemData, _rotated, quantity);
         }
         
         /// <summary>
@@ -166,12 +166,19 @@ namespace _Script.Inventory.ItemInstance
         /// <returns></returns>
         public virtual ItemInstance FullClone()
         {
-            return new ItemInstance(this);
+            var clone = ItemInstanceFactory.CreateItemInstance(ItemData, _rotated, Quantity);
+            clone.ItemPositions = new List<Vector2Int>(_itemPositions);
+            return clone;
         }
         
+        
+        /// <summary>
+        /// Not copying address
+        /// </summary>
+        /// <returns></returns>
         public virtual ItemInstance Clone()
         {
-            return new ItemInstance(ItemData, _rotated, Quantity);
+            return ItemInstanceFactory.CreateItemInstance(ItemData, _rotated, Quantity);
         }
         
         private ItemInstance(ItemInstance item)

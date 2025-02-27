@@ -1733,9 +1733,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceSpawnScript: {fileID: 11400000, guid: 457379d34972b4aa6ae6a5f738c34040,
     type: 2}
-  spawnDensity: 0.298
+  spawnDensity: 0.4
   monsterSpawnScript: {fileID: 11400000, guid: 66d0c724333bc462ca83d50c8d017e52, type: 2}
   monsterSpawnDensity: 0.2
+  _spawnPoint: {fileID: 0}
 --- !u!114 &1757705528
 MonoBehaviour:
   m_ObjectHideFlags: 0

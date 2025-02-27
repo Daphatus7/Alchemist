@@ -50,6 +50,7 @@ namespace _Script.Inventory.ItemInstance
         public static ItemInstance CreateItemInstance(ItemData itemData, bool rotated, int quantity)
         {
             var itemTypeString = itemData.ItemTypeString;
+            Debug.Log($"Creating item instance of type {itemTypeString}");
             return itemTypeString switch
             {
                 "Weapon" => new WeaponItemInstance(itemData, rotated, quantity),

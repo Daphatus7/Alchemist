@@ -12,7 +12,7 @@ namespace _Script.Enemy.EnemyData
     [CreateAssetMenu(fileName = "EnemyData", menuName = "Data/EnemyData")]
     public class EnemyData : ScriptableObject
     {
-        [ReadOnly, ShowInInspector]
+        [ShowInInspector]
         public string enemyID;
         private void OnValidate()
         {

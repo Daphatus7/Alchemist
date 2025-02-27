@@ -15,7 +15,19 @@ MonoBehaviour:
   resourceItems:
   - resourcePrefab: {fileID: 8987468867407766592, guid: f9eb83ce966468c4eab9cab7f71c60e5,
       type: 3}
-    weight: 10
+    weight: 100
   - resourcePrefab: {fileID: 8987468867407766592, guid: 276c9395978ceac4a9f895c3311af7c3,
       type: 3}
-    weight: 1
+    weight: 5
+  - resourcePrefab: {fileID: 4943201346427044252, guid: 8b46cec03b2b64a8fa06232c9faa28f8,
+      type: 3}
+    weight: 15
+  - resourcePrefab: {fileID: 4943201346427044252, guid: 54d0f5828aba44ed990ec068fd703713,
+      type: 3}
+    weight: 10
+  - resourcePrefab: {fileID: 4943201346427044252, guid: 92229d11713c84369908566163fa85e5,
+      type: 3}
+    weight: 5
+  - resourcePrefab: {fileID: 4943201346427044252, guid: fd0f7f9a46f794a31a77c619a1fe9e97,
+      type: 3}
+    weight: 5

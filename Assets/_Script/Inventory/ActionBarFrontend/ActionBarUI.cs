@@ -48,6 +48,7 @@ namespace _Script.Inventory.ActionBarFrontend
         /// <param name="slotIndex"></param>
         public void SelectSlot(int slotIndex)
         {
+            Debug.Log($"Selecting slot {slotIndex}");
             // 1) Validate index
             if (slotIndex < 0 || slotIndex >= _slotInteractions.Length)
             {
@@ -55,10 +56,12 @@ namespace _Script.Inventory.ActionBarFrontend
                 return;
             }
 
+            Debug.Log($"Selecting slot {slotIndex}");
             // 2) If there is a previously selected slot (i.e., if inventory.SelectedSlotIndex is valid), 
             //    check if the new slot is different from the previous one and if so, deselect the previous.
             if (inventory.SelectedSlotIndex != -1 && slotIndex != inventory.SelectedSlotIndex)
             {
+                Debug.Log("Deselecting previous slot.");
                 var previousItemInstance = inventory.GetItemInstanceAt(inventory.SelectedSlotIndex);
                 var newItemInstance = inventory.GetItemInstanceAt(slotIndex);
                 if(newItemInstance == null)
@@ -79,6 +82,7 @@ namespace _Script.Inventory.ActionBarFrontend
             var itemInstance = inventory.GetItemInstanceAt(slotIndex);
             if (itemInstance == null)
             {
+                Debug.Log("No item in that slot.");
                 return;
             }
 
@@ -86,6 +90,7 @@ namespace _Script.Inventory.ActionBarFrontend
             //    Usually you'd also want to set the inventory.SelectedSlotIndex = slotIndex here
             inventory.SelectedSlotIndex = slotIndex;
 
+            Debug.Log($"Selected slot {slotIndex} with item {itemInstance.ItemName}");
             if (itemInstance is EquipmentInstance)
             {
                 // If the item is equipment, we "equip" or "activate" it
@@ -94,6 +99,7 @@ namespace _Script.Inventory.ActionBarFrontend
             }
             else
             {
+                Debug.Log("Using consumable item.");
                 // If the item is consumable, we "use" it
                 // In some designs, using the item does *not* necessarily select it
                 inventory.UseItem(slotIndex);

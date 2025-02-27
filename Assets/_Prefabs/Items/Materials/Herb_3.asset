@@ -9,18 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60584df0076f4ea1b5a507d727d20947, type: 3}
-  m_Name: PotionOfSpeed
+  m_Script: {fileID: 11500000, guid: cf3ed24158d34aa18cf63e9504e660fc, type: 3}
+  m_Name: Herb_3
   m_EditorClassIdentifier: 
-  itemName: Potion Of Speed
-  itemID: 4c654d311350b4f74bcc5785d11acbb6
+  itemName: Herb_3
+  itemID: ce162ea86c2574ad293b552236d36bc4
   itemDescription: 
-  itemIcon: {fileID: 21300000, guid: 805736230f06ac449a72b0ecb951e522, type: 3}
+  itemIcon: {fileID: 2053517307, guid: d9184dbb777e8e8489eb1e645a17d80a, type: 3}
   maxStackSize: 1
   itemShapeType: 0
   rarity: 0
   _value: 1
-  potionEffect:
-    potionType: 5
-    effectValue: 2
-    duration: 30
