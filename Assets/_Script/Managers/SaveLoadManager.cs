@@ -8,7 +8,7 @@ namespace _Script.Managers
 {
     public class SaveLoadManager: PersistentSingleton<SaveLoadManager>
     {
-        [SerializeField] private string saveName = "save_1";
+        [SerializeField] private string saveName = "save_2";
         
         private SaveSystem SaveSystem => SaveSystem.Instance;
         
