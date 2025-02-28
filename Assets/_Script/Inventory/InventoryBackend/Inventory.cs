@@ -4,6 +4,7 @@ using _Script.Inventory.ItemInstance;
 using _Script.Inventory.SlotFrontend;
 using _Script.Items;
 using _Script.Items.AbstractItemTypes._Script.Items;
+using _Script.Items.Lootable;
 using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEngine;
@@ -321,6 +322,21 @@ namespace _Script.Inventory.InventoryBackend
             //Create split all instances into a different stack with no assigned addresses in the inventory
             ClearItemInstance(itemInstance);
             return itemInstance;
+        }
+        
+        public void DropAllItems(Vector3 dropPosition)
+        {
+            // 倒序遍历，避免索引错乱
+            for (int i = _itemInstances.Count - 1; i >= 0; i--)
+            {
+                var item = _itemInstances[i];
+
+                // 先丢弃
+                ItemLootable.DropItem(dropPosition, item);
+
+                // 再从库存彻底移除
+                ClearItemInstance(item);
+            }
         }
         
         /// <summary>

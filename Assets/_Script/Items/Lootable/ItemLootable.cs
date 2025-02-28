@@ -131,5 +131,14 @@ namespace _Script.Items.Lootable
             lootable.Initialize(obj.AddComponent<BoxCollider2D>(), obj.AddComponent<SpriteRenderer>(), itemData, quantity);
             return obj;
         }
+        
+        public static GameObject DropItem(Vector3 position, ItemInstance itemInstance)
+        {
+            var obj = new GameObject(itemInstance.ItemData.itemName);
+            obj.transform.position = position;
+            var lootable = obj.AddComponent<ItemLootable>();
+            lootable.Initialize(obj.AddComponent<BoxCollider2D>(), obj.AddComponent<SpriteRenderer>(), itemInstance.ItemData, itemInstance.Quantity);
+            return obj;
+        }
     }
 }

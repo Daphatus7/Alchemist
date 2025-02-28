@@ -17,7 +17,7 @@ namespace _Script.Inventory.ItemInstance
     public class ItemInstance
     {
         //可能不需要保存ItemData, 可以直接通过ItemData的ID来获取
-        protected ItemData ItemData { get; set; }
+        protected internal ItemData ItemData { get; set; }
         
         public string ItemID => ItemData.itemID;
         public string ItemDescription => ItemData.itemDescription;
@@ -137,6 +137,7 @@ namespace _Script.Inventory.ItemInstance
             Quantity += toAdd;
             return other.Quantity - toAdd;
         }
+        
         
         public bool Equals(ItemInstance other)
         {

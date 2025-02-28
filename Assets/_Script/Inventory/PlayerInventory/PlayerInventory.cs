@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using _Script.Character;
 using _Script.Inventory.InventoryBackend;
 using _Script.Inventory.ItemInstance;
 using _Script.Inventory.SlotFrontend;
 using _Script.Items.AbstractItemTypes._Script.Items;
+using _Script.Items.Lootable;
 using UnityEngine;
 
 namespace _Script.Inventory.PlayerInventory
@@ -205,6 +207,26 @@ namespace _Script.Inventory.PlayerInventory
                 }
             }
             return count;
+        }
+        
+        public void DropItem(int slotIndex)
+        {
+            //Check valid slot index
+            if(slotIndex < 0 || slotIndex >= SlotCount)
+            {
+                Debug.LogError("Invalid slot index to drop item: " + slotIndex);
+                return;
+            }
+            //check if there is an item in the slot
+            var itemInstance = GetItemInstanceAt(slotIndex);
+            if (itemInstance == null)
+            {
+                Debug.LogError("No item to drop in slot: " + slotIndex);
+                return;
+            }
+            var removedItem = RemoveAllItemsFromSlot(slotIndex);
+            //Drop the item
+            ItemLootable.DropItem(inventoryOwner.transform.position, removedItem);
         }
         
         #region Save and load 

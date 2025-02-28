@@ -609,6 +609,9 @@ namespace _Script.Character
         {
             //Game Over
             //Drop all items
+            _playerInventory.DropAllItems(gameObject.transform.position);
+            //later enter dead state showing dropped items.
+            
             GameManager.Instance.OnPlayerDeath();
         }
 
