@@ -608,7 +608,7 @@ namespace _Script.Character
         private void OnDeath()
         {
             //Game Over
-            
+            //Drop all items
             GameManager.Instance.OnPlayerDeath();
         }
 

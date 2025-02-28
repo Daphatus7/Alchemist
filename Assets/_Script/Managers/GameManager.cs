@@ -90,6 +90,22 @@ namespace _Script.Managers
             //Move player to the spawn point in the main scene
         }
 
+        [Button]
+        public void AddPlayerExperience500()
+        {
+            _playerCharacter.AddExperience(500);
+        }
+        [Button]
+        public void AddPlayerGold500()
+        {
+            _playerCharacter.AddGold(500);
+        }
+        [Button]
+        public void KillPlayer()
+        {
+            _playerCharacter.ApplyDamage(500f);
+        }
+        
         private void ResetPlayer()
         {
             _playerCharacter.ResetPlayer();
