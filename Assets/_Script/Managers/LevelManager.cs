@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using _Script.Character;
+using _Script.Map;
 using _Script.Map.WorldMap;
 using _Script.Map.WorldMap.MapNode;
 using UnityEngine;
@@ -143,7 +144,6 @@ namespace _Script.Managers
             }
 
             _currentMainScene = sceneName;
-            //Debug.Log($"Main scene '{sceneName}' loaded.");
         }
 
         private IEnumerator AddSceneAsync(NodeDataInstance nodeDataInstance)

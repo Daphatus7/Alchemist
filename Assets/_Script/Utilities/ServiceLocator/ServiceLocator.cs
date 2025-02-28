@@ -33,13 +33,8 @@ namespace _Script.Utilities.ServiceLocator
             //Debug.Log($"Registering service of type {typeof(T).Name}");
             string key = typeof(T).Name;
 
-            if (_services.ContainsKey(key))
-            {
-                Debug.LogError($"Service of type {key} is already registered.");
-                return;
-            }
-
-            _services[key] = service;
+            if (_services.TryAdd(key, service)) return;
+            Debug.LogError($"Service of type {key} is already registered.");
         }
 
         /// <summary>

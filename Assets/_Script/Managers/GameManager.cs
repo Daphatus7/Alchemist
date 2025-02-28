@@ -8,6 +8,7 @@ using _Script.Managers.GlobalUpdater;
 using _Script.Map;
 using _Script.Map.WorldMap;
 using _Script.Map.WorldMap.MapNode;
+using _Script.Places;
 using _Script.Quest;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
@@ -56,7 +57,7 @@ namespace _Script.Managers
             //set scene as persistent
 
             // Optionally load the "starting" scene
-            _levelManager.LoadMainScene(_startingScene);
+            LoadMainScene();
             
             // Spawn the player character
             SpawnPlayer();
@@ -70,13 +71,29 @@ namespace _Script.Managers
             //load save data
             statsDisplay.InitializeUI(_playerCharacter);
         }
-        
-        private IEnumerator DelayedUIUpdate()
-        {
-            yield return null; // Wait one frame
 
+        /// <summary>
+        /// Called when the player is dead.
+        /// 1. spawn the player in town
+        /// 2. instanced data are not saved
+        /// </summary>
+        public void OnPlayerDeath()
+        {
+            //Save player persistent data
+            //Do not save instanced data
+            //load town map
+            ResetPlayer();
+            TeleportPlayerToTown();
+            //spawn player
+            //move player to town
+            //Debug.Log($"Main scene '{sceneName}' loaded.");
+            //Move player to the spawn point in the main scene
         }
-        
+
+        private void ResetPlayer()
+        {
+            _playerCharacter.ResetPlayer();
+        }
         
         
         private void SpawnPlayer()
@@ -135,6 +152,15 @@ namespace _Script.Managers
             MapController.Instance.ResetGrid();
         }
 
+        
+        public void TeleportPlayerToTown()
+        {
+            Instance.LoadMainScene();
+            PlaceManager.Instance.TeleportPlayerToTown(GameManager.Instance.GetPlayer());
+            Instance.ResetHexMap();
+            //Mark the current dungeon as completed
+            Instance.UnloadCurrentAdditiveScene();
+        }
         #endregion
     }
 }

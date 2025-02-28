@@ -44,6 +44,11 @@ namespace _Script.Character.PlayerStat
             }
         }
 
+        public override void Reset()
+        {
+            CurrentValue = MaxValue;
+        }
+
         public bool IsDead => CurrentValue <= 0;
     }
 }

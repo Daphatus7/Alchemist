@@ -48,6 +48,10 @@ namespace _Script.Managers
                 Debug.LogWarning("No DungeonGenerator assigned to this SubGameManager!");
                 HideLoadingScreen();
                 var spawner = GetComponent<MapSpawner>();
+                if (spawner == null)
+                {
+                    throw new Exception("dont have a generator but still trying to access the spawner");
+                }
                 spawner.Spawn(nodeDataInstance);
                 return false;
             }

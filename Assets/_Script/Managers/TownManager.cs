@@ -82,7 +82,6 @@ namespace _Script.Managers
                 }
                 
                 var npcSave = npc.OnSaveData();
-                Debug.Log($"Saving data for {npc.SaveKey}");
                 if (!nData.TryAdd(npc.SaveKey, npcSave))
                 {
                     Debug.LogError($"Failed to save data for {npc.SaveKey}");

@@ -15,12 +15,7 @@ namespace _Script.NPC.Gates
         public override void TerminateConversation()
         {
             base.TerminateConversation();
-            
-            GameManager.Instance.LoadMainScene();
-            PlaceManager.Instance.TeleportPlayerToTown(GameManager.Instance.GetPlayer());
-            GameManager.Instance.ResetHexMap();
-            //Mark the current dungeon as completed
-            GameManager.Instance.UnloadCurrentAdditiveScene();
+            GameManager.Instance.TeleportPlayerToTown();
             //MapExplorerUI.Instance.MarkExploringNodeAsCompleted();
         }
         

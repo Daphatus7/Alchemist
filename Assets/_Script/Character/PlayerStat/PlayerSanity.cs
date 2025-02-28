@@ -52,5 +52,10 @@ namespace _Script.Character.PlayerStat
             TimeManager.Instance.OnNightStart -= OnNightStart;
             TimeManager.Instance.OnUpdateNight -= OnUpdateNight;
         }
+
+        public override void Reset()
+        {
+            CurrentValue = MaxValue;
+        }
     }
 }

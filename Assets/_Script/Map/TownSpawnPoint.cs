@@ -1,14 +1,12 @@
 // Author : Peiyu Wang @ Daphatus
-// 26 12 2024 12 21
+// 28 02 2025 02 22
 
-using _Script.Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Script.Map
 {
-    //Spawn point for player
-    public class SpawnerPoint : Singleton<SpawnerPoint>
+    public class TownSpawnPoint : Singleton<TownSpawnPoint>
     {
         [Button]
         public Transform GetSpawnPoint()

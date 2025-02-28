@@ -16,6 +16,7 @@ using _Script.Places;
 using _Script.Quest;
 using _Script.Utilities;
 using _Script.Utilities.ServiceLocator;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -596,10 +597,19 @@ namespace _Script.Character
             }
         }
 
+
+        [Button]
+        private void SelfDestroy()
+        {
+            //take damage
+            ApplyDamage(1000);
+        }
+        
         private void OnDeath()
         {
             //Game Over
-            Destroy(this);
+            
+            GameManager.Instance.OnPlayerDeath();
         }
 
         #endregion
@@ -641,7 +651,12 @@ namespace _Script.Character
         }
         #endregion
 
-    
+
+        public void ResetPlayer()
+        {
+            //Reset player stats
+            _playerstats.ResetStats();
+        }
     }
     
     public interface IPlayerSave : ISaveGame

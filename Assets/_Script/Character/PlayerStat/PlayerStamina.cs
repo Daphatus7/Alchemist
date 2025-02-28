@@ -20,5 +20,10 @@ namespace _Script.Character.PlayerStat
             CurrentValue += amount;
             return amount;
         }
+
+        public override void Reset()
+        {
+            CurrentValue = MaxValue;
+        }
     }
 }

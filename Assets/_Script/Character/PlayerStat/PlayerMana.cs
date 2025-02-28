@@ -21,6 +21,11 @@ namespace _Script.Character.PlayerStat
             return amount;
         }
 
+        public override void Reset()
+        {
+            CurrentValue = MaxValue;
+        }
+
         public bool CanConsume(float cost) => CurrentValue >= cost;
     }
 }

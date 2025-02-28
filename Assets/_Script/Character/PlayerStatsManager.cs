@@ -264,6 +264,14 @@ namespace _Script.Character
         }
         
         #endregion
+
+        public void ResetStats()
+        {
+            foreach (var stat in _playerStats)
+            {
+                stat.Value.Reset();
+            }
+        }
     }
 
     [Serializable]

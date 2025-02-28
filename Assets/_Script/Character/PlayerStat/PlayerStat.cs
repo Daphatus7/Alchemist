@@ -130,6 +130,8 @@ namespace _Script.Character.PlayerStat
             save.CurrentValue = CurrentValue;
             save.StatType = StatType;
         }
+
+        public abstract void Reset();
     }
     public interface IPlayerStatSave
     {
