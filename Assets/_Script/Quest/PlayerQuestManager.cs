@@ -57,7 +57,16 @@ namespace _Script.Quest
         
         public void AddGuildQuest(QuestInstance.QuestInstance quest)
         {
-            _activeQuests.Add(quest.QuestDefinition.questID, quest);
+            //check if there are any active guild quests
+
+            if (_activeQuests.TryAdd(quest.QuestDefinition.questID, quest))
+            {
+                Debug.Log("Added quest: " + quest.QuestDefinition.questName);
+            }
+            else
+            {
+                Debug.Log("Failed to add quest: " + quest.QuestDefinition.questName);
+            }
         }
         
         public void RemoveGuildQuest(QuestInstance.QuestInstance quest)
