@@ -1,0 +1,780 @@
+fileFormatVersion: 2
+guid: 3f7df042d20494c27b069a377768297b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6952097060230062462
+    second: elemental-attack1_vfx_8frames_0
+  - first:
+      213: 8558398206004799056
+    second: elemental-attack1_vfx_8frames_1
+  - first:
+      213: 1850312145000402114
+    second: elemental-attack1_vfx_8frames_2
+  - first:
+      213: -6861311956349814584
+    second: elemental-attack1_vfx_8frames_3
+  - first:
+      213: 69818976119811744
+    second: elemental-attack1_vfx_8frames_4
+  - first:
+      213: 3756894954913589334
+    second: elemental-attack1_vfx_8frames_5
+  - first:
+      213: -6620559662129044573
+    second: elemental-attack1_vfx_8frames_6
+  - first:
+      213: 5159470364049846587
+    second: elemental-attack1_vfx_8frames_7
+  - first:
+      213: 6099447153556060622
+    second: elemental-attack1_vfx_8frames_8
+  - first:
+      213: -4763066134285047926
+    second: elemental-attack1_vfx_8frames_9
+  - first:
+      213: -3932282537139625924
+    second: elemental-attack1_vfx_8frames_10
+  - first:
+      213: 4463148520409186110
+    second: elemental-attack1_vfx_8frames_11
+  - first:
+      213: 6597668606187228704
+    second: elemental-attack1_vfx_8frames_12
+  - first:
+      213: -2624693473538371806
+    second: elemental-attack1_vfx_8frames_13
+  - first:
+      213: 5217767221815302514
+    second: elemental-attack1_vfx_8frames_14
+  - first:
+      213: -620594105168623931
+    second: elemental-attack1_vfx_8frames_15
+  - first:
+      213: 2041398160781045186
+    second: elemental-attack1_vfx_8frames_16
+  - first:
+      213: -6620416583570825857
+    second: elemental-attack1_vfx_8frames_17
+  - first:
+      213: 8263789216471243724
+    second: elemental-attack1_vfx_8frames_18
+  - first:
+      213: 6283454786165301295
+    second: elemental-attack1_vfx_8frames_19
+  - first:
+      213: -2408964763345700325
+    second: elemental-attack1_vfx_8frames_20
+  - first:
+      213: 4418519928853677792
+    second: elemental-attack1_vfx_8frames_21
+  - first:
+      213: 3546353283734004527
+    second: elemental-attack1_vfx_8frames_22
+  - first:
+      213: 5520999350398070844
+    second: elemental-attack1_vfx_8frames_23
+  - first:
+      213: -4979273204678484508
+    second: elemental-attack1_vfx_8frames_24
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_0
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 80
+        width: 98
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e71ec07417fca7060800000000000000
+      internalID: 6952097060230062462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_1
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 81
+        width: 56
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 056a143f2d985c670800000000000000
+      internalID: 8558398206004799056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_2
+      rect:
+        serializedVersion: 2
+        x: 663
+        y: 129
+        width: 19
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cc075ea711ada910800000000000000
+      internalID: 1850312145000402114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_3
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 129
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c8f0a4e029b7c0a0800000000000000
+      internalID: -6861311956349814584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_4
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 99
+        width: 10
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0aee3362dfb08f000800000000000000
+      internalID: 69818976119811744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_5
+      rect:
+        serializedVersion: 2
+        x: 922
+        y: 124
+        width: 30
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 658e41e7e0c232430800000000000000
+      internalID: 3756894954913589334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_6
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 109
+        width: 26
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a3a484801c0f14a0800000000000000
+      internalID: -6620559662129044573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_7
+      rect:
+        serializedVersion: 2
+        x: 1172
+        y: 78
+        width: 817
+        height: 67
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b31b856c5fe1a9740800000000000000
+      internalID: 5159470364049846587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_8
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 95
+        width: 11
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec9f9f1bed695a450800000000000000
+      internalID: 6099447153556060622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_9
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 104
+        width: 15
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a872f30369036edb0800000000000000
+      internalID: -4763066134285047926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_10
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 96
+        width: 17
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c302259ddd9bd69c0800000000000000
+      internalID: -3932282537139625924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_11
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 109
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3fbccabee940fd30800000000000000
+      internalID: 4463148520409186110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_12
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 118
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02e498134a0af8b50800000000000000
+      internalID: 6597668606187228704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_13
+      rect:
+        serializedVersion: 2
+        x: 957
+        y: 97
+        width: 21
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22f85792137339bd0800000000000000
+      internalID: -2624693473538371806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_14
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 91
+        width: 28
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2795af0b4ab396840800000000000000
+      internalID: 5217767221815302514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_15
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 90
+        width: 25
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c609bb03f43367f0800000000000000
+      internalID: -620594105168623931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_16
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 99
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cd6d7abfc0845c10800000000000000
+      internalID: 2041398160781045186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_17
+      rect:
+        serializedVersion: 2
+        x: 913
+        y: 79
+        width: 23
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7dd727913e8f14a0800000000000000
+      internalID: -6620416583570825857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_18
+      rect:
+        serializedVersion: 2
+        x: 936
+        y: 95
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccbd87a4280eea270800000000000000
+      internalID: 8263789216471243724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_19
+      rect:
+        serializedVersion: 2
+        x: 1205
+        y: 96
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f206c9b36d0533750800000000000000
+      internalID: 6283454786165301295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_20
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 90
+        width: 13
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1ab85c9f43a19ed0800000000000000
+      internalID: -2408964763345700325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_21
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 81
+        width: 23
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e6ce48077cb15d30800000000000000
+      internalID: 4418519928853677792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_22
+      rect:
+        serializedVersion: 2
+        x: 958
+        y: 89
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f23610da58d273130800000000000000
+      internalID: 3546353283734004527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_23
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 81
+        width: 19
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c30b3ad58a78e9c40800000000000000
+      internalID: 5520999350398070844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elemental-attack1_vfx_8frames_24
+      rect:
+        serializedVersion: 2
+        x: 941
+        y: 80
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ed9483d66116eab0800000000000000
+      internalID: -4979273204678484508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: f68a3a2e16c3149e8838f96db9a8e8fd
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      elemental-attack1_vfx_8frames_0: 6952097060230062462
+      elemental-attack1_vfx_8frames_1: 8558398206004799056
+      elemental-attack1_vfx_8frames_10: -3932282537139625924
+      elemental-attack1_vfx_8frames_11: 4463148520409186110
+      elemental-attack1_vfx_8frames_12: 6597668606187228704
+      elemental-attack1_vfx_8frames_13: -2624693473538371806
+      elemental-attack1_vfx_8frames_14: 5217767221815302514
+      elemental-attack1_vfx_8frames_15: -620594105168623931
+      elemental-attack1_vfx_8frames_16: 2041398160781045186
+      elemental-attack1_vfx_8frames_17: -6620416583570825857
+      elemental-attack1_vfx_8frames_18: 8263789216471243724
+      elemental-attack1_vfx_8frames_19: 6283454786165301295
+      elemental-attack1_vfx_8frames_2: 1850312145000402114
+      elemental-attack1_vfx_8frames_20: -2408964763345700325
+      elemental-attack1_vfx_8frames_21: 4418519928853677792
+      elemental-attack1_vfx_8frames_22: 3546353283734004527
+      elemental-attack1_vfx_8frames_23: 5520999350398070844
+      elemental-attack1_vfx_8frames_24: -4979273204678484508
+      elemental-attack1_vfx_8frames_3: -6861311956349814584
+      elemental-attack1_vfx_8frames_4: 69818976119811744
+      elemental-attack1_vfx_8frames_5: 3756894954913589334
+      elemental-attack1_vfx_8frames_6: -6620559662129044573
+      elemental-attack1_vfx_8frames_7: 5159470364049846587
+      elemental-attack1_vfx_8frames_8: 6099447153556060622
+      elemental-attack1_vfx_8frames_9: -4763066134285047926
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

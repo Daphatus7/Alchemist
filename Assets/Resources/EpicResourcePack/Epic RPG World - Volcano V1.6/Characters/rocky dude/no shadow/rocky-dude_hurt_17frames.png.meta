@@ -1,0 +1,494 @@
+fileFormatVersion: 2
+guid: 7090b9c51aaca4b72af12d5f8a06d594
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4311928113670380252
+    second: rocky-dude_hurt_17frames_0
+  - first:
+      213: 7086608971392005382
+    second: rocky-dude_hurt_17frames_1
+  - first:
+      213: 4808595126346290783
+    second: rocky-dude_hurt_17frames_2
+  - first:
+      213: 8208485474849229158
+    second: rocky-dude_hurt_17frames_3
+  - first:
+      213: -6594260854859708155
+    second: rocky-dude_hurt_17frames_4
+  - first:
+      213: 2078526094483497323
+    second: rocky-dude_hurt_17frames_5
+  - first:
+      213: 373904365919500279
+    second: rocky-dude_hurt_17frames_6
+  - first:
+      213: 8412917551758402548
+    second: rocky-dude_hurt_17frames_7
+  - first:
+      213: 4251973899046782007
+    second: rocky-dude_hurt_17frames_8
+  - first:
+      213: -3523207486528055696
+    second: rocky-dude_hurt_17frames_9
+  - first:
+      213: -1904730831588388120
+    second: rocky-dude_hurt_17frames_10
+  - first:
+      213: -8481528017165986464
+    second: rocky-dude_hurt_17frames_11
+  - first:
+      213: 7374707500780037161
+    second: rocky-dude_hurt_17frames_12
+  - first:
+      213: -1177270744964669022
+    second: rocky-dude_hurt_17frames_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: rocky-dude_hurt_17frames_0
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 560
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdad75816cb07db30800000000000000
+      internalID: 4311928113670380252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_hurt_17frames_1
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 560
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 605bae12051b85260800000000000000
+      internalID: 7086608971392005382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_hurt_17frames_2
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 560
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f569b865acf8bb240800000000000000
+      internalID: 4808595126346290783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_hurt_17frames_3
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 560
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66987588c066ae170800000000000000
+      internalID: 8208485474849229158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_hurt_17frames_4
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 400
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 509c2ddb0ba7c74a0800000000000000
+      internalID: -6594260854859708155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_hurt_17frames_5
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 399
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b61a11e687868dc10800000000000000
+      internalID: 2078526094483497323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_hurt_17frames_6
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 400
+        width: 34
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f7799e2a00603500800000000000000
+      internalID: 373904365919500279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_hurt_17frames_7
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 399
+        width: 38
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f3653590ffa0c470800000000000000
+      internalID: 8412917551758402548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_hurt_17frames_8
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 239
+        width: 40
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7348ae6bbbb020b30800000000000000
+      internalID: 4251973899046782007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_hurt_17frames_9
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 239
+        width: 40
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0769f7f257d0b1fc0800000000000000
+      internalID: -3523207486528055696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_hurt_17frames_10
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 239
+        width: 40
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e2907e76690195e0800000000000000
+      internalID: -1904730831588388120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_hurt_17frames_11
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 239
+        width: 41
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0655c48943f8b4a80800000000000000
+      internalID: -8481528017165986464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_hurt_17frames_12
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 79
+        width: 42
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 924276a2669385660800000000000000
+      internalID: 7374707500780037161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_hurt_17frames_13
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 79
+        width: 42
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a1ebe1be7e79afe0800000000000000
+      internalID: -1177270744964669022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 3fd7b2862105a4036b473ab6d2f300b9
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      rocky-dude_hurt_17frames_0: 4311928113670380252
+      rocky-dude_hurt_17frames_1: 7086608971392005382
+      rocky-dude_hurt_17frames_10: -1904730831588388120
+      rocky-dude_hurt_17frames_11: -8481528017165986464
+      rocky-dude_hurt_17frames_12: 7374707500780037161
+      rocky-dude_hurt_17frames_13: -1177270744964669022
+      rocky-dude_hurt_17frames_2: 4808595126346290783
+      rocky-dude_hurt_17frames_3: 8208485474849229158
+      rocky-dude_hurt_17frames_4: -6594260854859708155
+      rocky-dude_hurt_17frames_5: 2078526094483497323
+      rocky-dude_hurt_17frames_6: 373904365919500279
+      rocky-dude_hurt_17frames_7: 8412917551758402548
+      rocky-dude_hurt_17frames_8: 4251973899046782007
+      rocky-dude_hurt_17frames_9: -3523207486528055696
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,676 @@
+fileFormatVersion: 2
+guid: 2e0270516f49e46ab9a75c71fd85e381
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -9188847568476305365
+    second: enemy 1-atk1_0
+  - first:
+      213: 3634160102204016525
+    second: enemy 1-atk1_1
+  - first:
+      213: 7286268081603106916
+    second: enemy 1-atk1_2
+  - first:
+      213: 2018860497235802839
+    second: enemy 1-atk1_3
+  - first:
+      213: 5581751877029233832
+    second: enemy 1-atk1_4
+  - first:
+      213: 8063895550214170735
+    second: enemy 1-atk1_5
+  - first:
+      213: -8606647825665078984
+    second: enemy 1-atk1_6
+  - first:
+      213: -6446104573661341582
+    second: enemy 1-atk1_7
+  - first:
+      213: -6911222550869085542
+    second: enemy 1-atk1_8
+  - first:
+      213: 318699445523814953
+    second: enemy 1-atk1_9
+  - first:
+      213: 5141262335939109014
+    second: enemy 1-atk1_10
+  - first:
+      213: -8100233924784924526
+    second: enemy 1-atk1_11
+  - first:
+      213: -6204651288733230454
+    second: enemy 1-atk1_12
+  - first:
+      213: 6071689329058427804
+    second: enemy 1-atk1_13
+  - first:
+      213: -3842872843129543119
+    second: enemy 1-atk1_14
+  - first:
+      213: 9077398411083984649
+    second: enemy 1-atk1_15
+  - first:
+      213: -2165978874721886889
+    second: enemy 1-atk1_16
+  - first:
+      213: -5961330190634021183
+    second: enemy 1-atk1_17
+  - first:
+      213: -8738014645163354911
+    second: enemy 1-atk1_18
+  - first:
+      213: 2219107583195659764
+    second: enemy 1-atk1_19
+  - first:
+      213: -1330601830350868210
+    second: enemy 1-atk1_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: enemy 1-atk1_0
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 96
+        width: 67
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2802c132d7aa7080800000000000000
+      internalID: -9188847568476305365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_1
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 96
+        width: 65
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8784ccbb512f6230800000000000000
+      internalID: 3634160102204016525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_2
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 96
+        width: 57
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 468583647360e1560800000000000000
+      internalID: 7286268081603106916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_3
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 96
+        width: 55
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dafec40dee640c10800000000000000
+      internalID: 2018860497235802839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_4
+      rect:
+        serializedVersion: 2
+        x: 1108
+        y: 96
+        width: 61
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a482be32cd567d40800000000000000
+      internalID: 5581751877029233832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_5
+      rect:
+        serializedVersion: 2
+        x: 1364
+        y: 96
+        width: 44
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f686e505746b8ef60800000000000000
+      internalID: 8063895550214170735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_6
+      rect:
+        serializedVersion: 2
+        x: 1620
+        y: 96
+        width: 44
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 839485c076b0f8880800000000000000
+      internalID: -8606647825665078984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_7
+      rect:
+        serializedVersion: 2
+        x: 1881
+        y: 96
+        width: 40
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27815ed0b06da86a0800000000000000
+      internalID: -6446104573661341582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_8
+      rect:
+        serializedVersion: 2
+        x: 2138
+        y: 91
+        width: 76
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9277cb05b76610a0800000000000000
+      internalID: -6911222550869085542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_9
+      rect:
+        serializedVersion: 2
+        x: 2183
+        y: 146
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92a9f88057f3c6400800000000000000
+      internalID: 318699445523814953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_10
+      rect:
+        serializedVersion: 2
+        x: 2395
+        y: 95
+        width: 49
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 690eebedade695740800000000000000
+      internalID: 5141262335939109014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_11
+      rect:
+        serializedVersion: 2
+        x: 2442
+        y: 101
+        width: 37
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29850ab8920369f80800000000000000
+      internalID: -8100233924784924526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_12
+      rect:
+        serializedVersion: 2
+        x: 2461
+        y: 139
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8ad2ebc686a4e9a0800000000000000
+      internalID: -6204651288733230454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_13
+      rect:
+        serializedVersion: 2
+        x: 2655
+        y: 96
+        width: 81
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c93be0d8649f24450800000000000000
+      internalID: 6071689329058427804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_14
+      rect:
+        serializedVersion: 2
+        x: 2910
+        y: 96
+        width: 72
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 136a444728f5baac0800000000000000
+      internalID: -3842872843129543119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_15
+      rect:
+        serializedVersion: 2
+        x: 3165
+        y: 96
+        width: 66
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90f2b51c2c569fd70800000000000000
+      internalID: 9077398411083984649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_16
+      rect:
+        serializedVersion: 2
+        x: 3420
+        y: 96
+        width: 65
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75d933570b5e0f1e0800000000000000
+      internalID: -2165978874721886889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_17
+      rect:
+        serializedVersion: 2
+        x: 3676
+        y: 96
+        width: 67
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ce827ea6c9154da0800000000000000
+      internalID: -5961330190634021183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_18
+      rect:
+        serializedVersion: 2
+        x: 3932
+        y: 96
+        width: 67
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e490e8e9f55cb680800000000000000
+      internalID: -8738014645163354911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_19
+      rect:
+        serializedVersion: 2
+        x: 2211
+        y: 116
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fdb0cee69adbce10800000000000000
+      internalID: 2219107583195659764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy 1-atk1_20
+      rect:
+        serializedVersion: 2
+        x: 2450
+        y: 97
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e01b3746fa0c88de0800000000000000
+      internalID: -1330601830350868210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 1d7d3ffd8ef924104b5bafea7d8779fb
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      enemy 1-atk1_0: -9188847568476305365
+      enemy 1-atk1_1: 3634160102204016525
+      enemy 1-atk1_10: 5141262335939109014
+      enemy 1-atk1_11: -8100233924784924526
+      enemy 1-atk1_12: -6204651288733230454
+      enemy 1-atk1_13: 6071689329058427804
+      enemy 1-atk1_14: -3842872843129543119
+      enemy 1-atk1_15: 9077398411083984649
+      enemy 1-atk1_16: -2165978874721886889
+      enemy 1-atk1_17: -5961330190634021183
+      enemy 1-atk1_18: -8738014645163354911
+      enemy 1-atk1_19: 2219107583195659764
+      enemy 1-atk1_2: 7286268081603106916
+      enemy 1-atk1_20: -1330601830350868210
+      enemy 1-atk1_3: 2018860497235802839
+      enemy 1-atk1_4: 5581751877029233832
+      enemy 1-atk1_5: 8063895550214170735
+      enemy 1-atk1_6: -8606647825665078984
+      enemy 1-atk1_7: -6446104573661341582
+      enemy 1-atk1_8: -6911222550869085542
+      enemy 1-atk1_9: 318699445523814953
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

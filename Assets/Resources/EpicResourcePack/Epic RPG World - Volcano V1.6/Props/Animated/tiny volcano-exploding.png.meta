@@ -1,0 +1,910 @@
+fileFormatVersion: 2
+guid: 30eec0d29362f46d18763c949d6af3af
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4599352879615259293
+    second: tiny volcano-exploding_0
+  - first:
+      213: 6532889887561226823
+    second: tiny volcano-exploding_1
+  - first:
+      213: -8235335729587229669
+    second: tiny volcano-exploding_2
+  - first:
+      213: -3496801291692907494
+    second: tiny volcano-exploding_3
+  - first:
+      213: -8950512566562601067
+    second: tiny volcano-exploding_4
+  - first:
+      213: -6514613334831026273
+    second: tiny volcano-exploding_5
+  - first:
+      213: -189638522261310068
+    second: tiny volcano-exploding_6
+  - first:
+      213: -7651734222407139861
+    second: tiny volcano-exploding_7
+  - first:
+      213: 8347153353685965321
+    second: tiny volcano-exploding_8
+  - first:
+      213: 3098323387069170564
+    second: tiny volcano-exploding_9
+  - first:
+      213: 2361417123096352025
+    second: tiny volcano-exploding_10
+  - first:
+      213: -8213772539836199135
+    second: tiny volcano-exploding_11
+  - first:
+      213: -892535067117709433
+    second: tiny volcano-exploding_12
+  - first:
+      213: 2157956023758527052
+    second: tiny volcano-exploding_13
+  - first:
+      213: 4603529645758167475
+    second: tiny volcano-exploding_14
+  - first:
+      213: -6773998779067653235
+    second: tiny volcano-exploding_15
+  - first:
+      213: -1891831641711219480
+    second: tiny volcano-exploding_16
+  - first:
+      213: 461344422894731144
+    second: tiny volcano-exploding_17
+  - first:
+      213: 3336279963013751141
+    second: tiny volcano-exploding_18
+  - first:
+      213: -1580438585893193165
+    second: tiny volcano-exploding_19
+  - first:
+      213: 1633622271074840566
+    second: tiny volcano-exploding_20
+  - first:
+      213: 80167435832981001
+    second: tiny volcano-exploding_21
+  - first:
+      213: 4845151088249238529
+    second: tiny volcano-exploding_22
+  - first:
+      213: 7782397504890188923
+    second: tiny volcano-exploding_23
+  - first:
+      213: -46267289844537198
+    second: tiny volcano-exploding_24
+  - first:
+      213: 8323021212882977737
+    second: tiny volcano-exploding_25
+  - first:
+      213: 8301791065859496465
+    second: tiny volcano-exploding_26
+  - first:
+      213: 4081271247970494598
+    second: tiny volcano-exploding_27
+  - first:
+      213: -8156296686833697598
+    second: tiny volcano-exploding_28
+  - first:
+      213: 6148917608358338724
+    second: tiny volcano-exploding_29
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: tiny volcano-exploding_0
+      rect:
+        serializedVersion: 2
+        x: 1150
+        y: 7
+        width: 51
+        height: 91
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36dccd5ace0db20c0800000000000000
+      internalID: -4599352879615259293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_1
+      rect:
+        serializedVersion: 2
+        x: 1262
+        y: 7
+        width: 51
+        height: 98
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74a14d07dbc79aa50800000000000000
+      internalID: 6532889887561226823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_2
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 82
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1ceedf59c536bd80800000000000000
+      internalID: -8235335729587229669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_3
+      rect:
+        serializedVersion: 2
+        x: 1399
+        y: 71
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a14648680cdd87fc0800000000000000
+      internalID: -3496801291692907494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_4
+      rect:
+        serializedVersion: 2
+        x: 1501
+        y: 89
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 597cd581e3469c380800000000000000
+      internalID: -8950512566562601067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_5
+      rect:
+        serializedVersion: 2
+        x: 1512
+        y: 83
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9faf5810b17795a0800000000000000
+      internalID: -6514613334831026273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_6
+      rect:
+        serializedVersion: 2
+        x: 1516
+        y: 77
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8572ecc4c44e5df0800000000000000
+      internalID: -189638522261310068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_7
+      rect:
+        serializedVersion: 2
+        x: 1520
+        y: 89
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bedf8bde3449fc590800000000000000
+      internalID: -7651734222407139861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_8
+      rect:
+        serializedVersion: 2
+        x: 1598
+        y: 7
+        width: 51
+        height: 91
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90a992400cb07d370800000000000000
+      internalID: 8347153353685965321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_9
+      rect:
+        serializedVersion: 2
+        x: 1710
+        y: 7
+        width: 51
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4830b8574b47ffa20800000000000000
+      internalID: 3098323387069170564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_10
+      rect:
+        serializedVersion: 2
+        x: 1374
+        y: 67
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 915dea4bc5075c020800000000000000
+      internalID: 2361417123096352025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_11
+      rect:
+        serializedVersion: 2
+        x: 1389
+        y: 55
+        width: 24
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12f8439b461d20e80800000000000000
+      internalID: -8213772539836199135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_12
+      rect:
+        serializedVersion: 2
+        x: 1486
+        y: 72
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7879ed6d5141d93f0800000000000000
+      internalID: -892535067117709433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_13
+      rect:
+        serializedVersion: 2
+        x: 1507
+        y: 64
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4a9a0df19992fd10800000000000000
+      internalID: 2157956023758527052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_14
+      rect:
+        serializedVersion: 2
+        x: 1414
+        y: 62
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b9356082d503ef30800000000000000
+      internalID: 4603529645758167475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_15
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 60
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d832eb8200cedf1a0800000000000000
+      internalID: -6773998779067653235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_16
+      rect:
+        serializedVersion: 2
+        x: 1519
+        y: 64
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ec65fc252ddeb5e0800000000000000
+      internalID: -1891831641711219480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_17
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 7
+        width: 51
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88f7fbdee46076600800000000000000
+      internalID: 461344422894731144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_18
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 7
+        width: 51
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56120b233f8dc4e20800000000000000
+      internalID: 3336279963013751141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_19
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 7
+        width: 52
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33af38aca77211ae0800000000000000
+      internalID: -1580438585893193165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_20
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 7
+        width: 53
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ff259cdccacba610800000000000000
+      internalID: 1633622271074840566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_21
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 7
+        width: 53
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 906f06fabdfcc1100800000000000000
+      internalID: 80167435832981001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_22
+      rect:
+        serializedVersion: 2
+        x: 589
+        y: 7
+        width: 53
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 104713a7e3f6d3340800000000000000
+      internalID: 4845151088249238529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_23
+      rect:
+        serializedVersion: 2
+        x: 701
+        y: 7
+        width: 53
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b74bddb3c41a00c60800000000000000
+      internalID: 7782397504890188923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_24
+      rect:
+        serializedVersion: 2
+        x: 812
+        y: 7
+        width: 55
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 298a8102520ab5ff0800000000000000
+      internalID: -46267289844537198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_25
+      rect:
+        serializedVersion: 2
+        x: 921
+        y: 7
+        width: 61
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c34ee322bf418370800000000000000
+      internalID: 8323021212882977737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_26
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 7
+        width: 53
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11a11185df2e53370800000000000000
+      internalID: 8301791065859496465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_27
+      rect:
+        serializedVersion: 2
+        x: 1374
+        y: 7
+        width: 51
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 688eb47939693a830800000000000000
+      internalID: 4081271247970494598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_28
+      rect:
+        serializedVersion: 2
+        x: 1486
+        y: 7
+        width: 51
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ccf49290630fce80800000000000000
+      internalID: -8156296686833697598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny volcano-exploding_29
+      rect:
+        serializedVersion: 2
+        x: 1822
+        y: 7
+        width: 51
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a0e7578cf7555550800000000000000
+      internalID: 6148917608358338724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: d375bd37531144fb5ab18c0115bc20ed
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      tiny volcano-exploding_0: -4599352879615259293
+      tiny volcano-exploding_1: 6532889887561226823
+      tiny volcano-exploding_10: 2361417123096352025
+      tiny volcano-exploding_11: -8213772539836199135
+      tiny volcano-exploding_12: -892535067117709433
+      tiny volcano-exploding_13: 2157956023758527052
+      tiny volcano-exploding_14: 4603529645758167475
+      tiny volcano-exploding_15: -6773998779067653235
+      tiny volcano-exploding_16: -1891831641711219480
+      tiny volcano-exploding_17: 461344422894731144
+      tiny volcano-exploding_18: 3336279963013751141
+      tiny volcano-exploding_19: -1580438585893193165
+      tiny volcano-exploding_2: -8235335729587229669
+      tiny volcano-exploding_20: 1633622271074840566
+      tiny volcano-exploding_21: 80167435832981001
+      tiny volcano-exploding_22: 4845151088249238529
+      tiny volcano-exploding_23: 7782397504890188923
+      tiny volcano-exploding_24: -46267289844537198
+      tiny volcano-exploding_25: 8323021212882977737
+      tiny volcano-exploding_26: 8301791065859496465
+      tiny volcano-exploding_27: 4081271247970494598
+      tiny volcano-exploding_28: -8156296686833697598
+      tiny volcano-exploding_29: 6148917608358338724
+      tiny volcano-exploding_3: -3496801291692907494
+      tiny volcano-exploding_4: -8950512566562601067
+      tiny volcano-exploding_5: -6514613334831026273
+      tiny volcano-exploding_6: -189638522261310068
+      tiny volcano-exploding_7: -7651734222407139861
+      tiny volcano-exploding_8: 8347153353685965321
+      tiny volcano-exploding_9: 3098323387069170564
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

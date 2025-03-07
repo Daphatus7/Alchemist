@@ -1,0 +1,598 @@
+fileFormatVersion: 2
+guid: 11e6aebf5277f44dea59f35df0c3b754
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1623446042461547048
+    second: boss atk 3 projectile-1-falling anim_0
+  - first:
+      213: 3350979091301783564
+    second: boss atk 3 projectile-1-falling anim_1
+  - first:
+      213: 1701551254766100907
+    second: boss atk 3 projectile-1-falling anim_2
+  - first:
+      213: 3656766766978767013
+    second: boss atk 3 projectile-1-falling anim_3
+  - first:
+      213: -7990612364641342583
+    second: boss atk 3 projectile-1-falling anim_4
+  - first:
+      213: 3294348831668121336
+    second: boss atk 3 projectile-1-falling anim_5
+  - first:
+      213: -2607867521796642911
+    second: boss atk 3 projectile-1-falling anim_6
+  - first:
+      213: 6943830949871990216
+    second: boss atk 3 projectile-1-falling anim_7
+  - first:
+      213: -3086803689430829468
+    second: boss atk 3 projectile-1-falling anim_8
+  - first:
+      213: 4591668718457067541
+    second: boss atk 3 projectile-1-falling anim_9
+  - first:
+      213: -2278461613590492320
+    second: boss atk 3 projectile-1-falling anim_10
+  - first:
+      213: -5914137956388574956
+    second: boss atk 3 projectile-1-falling anim_11
+  - first:
+      213: -3710820761922411858
+    second: boss atk 3 projectile-1-falling anim_12
+  - first:
+      213: 4205974196769143796
+    second: boss atk 3 projectile-1-falling anim_13
+  - first:
+      213: 8937232787830484633
+    second: boss atk 3 projectile-1-falling anim_14
+  - first:
+      213: -6658565627440089232
+    second: boss atk 3 projectile-1-falling anim_15
+  - first:
+      213: 5620842926671749204
+    second: boss atk 3 projectile-1-falling anim_16
+  - first:
+      213: 8214776848129202773
+    second: boss atk 3 projectile-1-falling anim_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: boss atk 3 projectile-1-falling anim_0
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 158
+        width: 24
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82a2fe00393a78610800000000000000
+      internalID: 1623446042461547048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss atk 3 projectile-1-falling anim_1
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 126
+        width: 24
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c08ddc2bab1118e20800000000000000
+      internalID: 3350979091301783564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss atk 3 projectile-1-falling anim_2
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 45
+        width: 24
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba1247bd9df1d9710800000000000000
+      internalID: 1701551254766100907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss atk 3 projectile-1-falling anim_3
+      rect:
+        serializedVersion: 2
+        x: 898
+        y: 17
+        width: 27
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a8193c00027fb230800000000000000
+      internalID: 3656766766978767013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss atk 3 projectile-1-falling anim_4
+      rect:
+        serializedVersion: 2
+        x: 1091
+        y: 19
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98b65b3f364ab1190800000000000000
+      internalID: -7990612364641342583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss atk 3 projectile-1-falling anim_5
+      rect:
+        serializedVersion: 2
+        x: 1187
+        y: 19
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fe2dc5eec0e7bd20800000000000000
+      internalID: 3294348831668121336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss atk 3 projectile-1-falling anim_6
+      rect:
+        serializedVersion: 2
+        x: 1283
+        y: 19
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a768065e4efecbd0800000000000000
+      internalID: -2607867521796642911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss atk 3 projectile-1-falling anim_7
+      rect:
+        serializedVersion: 2
+        x: 1379
+        y: 19
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c5bb7b75717d5060800000000000000
+      internalID: 6943830949871990216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss atk 3 projectile-1-falling anim_8
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 20
+        width: 104
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4663c1826687925d0800000000000000
+      internalID: -3086803689430829468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss atk 3 projectile-1-falling anim_9
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 20
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51818e92f52e8bf30800000000000000
+      internalID: 4591668718457067541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss atk 3 projectile-1-falling anim_10
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 20
+        width: 13
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06b4397fb374160e0800000000000000
+      internalID: -2278461613590492320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss atk 3 projectile-1-falling anim_11
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 19
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 419edc4fcd2cceda0800000000000000
+      internalID: -5914137956388574956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss atk 3 projectile-1-falling anim_12
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 18
+        width: 19
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea268748d24808cc0800000000000000
+      internalID: -3710820761922411858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss atk 3 projectile-1-falling anim_13
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 17
+        width: 21
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fb32ec6f3f9e5a30800000000000000
+      internalID: 4205974196769143796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss atk 3 projectile-1-falling anim_14
+      rect:
+        serializedVersion: 2
+        x: 708
+        y: 17
+        width: 23
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99e2c997edd670c70800000000000000
+      internalID: 8937232787830484633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss atk 3 projectile-1-falling anim_15
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 17
+        width: 27
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 077bec627d50893a0800000000000000
+      internalID: -6658565627440089232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss atk 3 projectile-1-falling anim_16
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 21
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 450698e7cde310e40800000000000000
+      internalID: 5620842926671749204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss atk 3 projectile-1-falling anim_17
+      rect:
+        serializedVersion: 2
+        x: 1476
+        y: 19
+        width: 24
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55a18d50500c00270800000000000000
+      internalID: 8214776848129202773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 8aa03740a196a452abb1d95c7ab8f782
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      boss atk 3 projectile-1-falling anim_0: 1623446042461547048
+      boss atk 3 projectile-1-falling anim_1: 3350979091301783564
+      boss atk 3 projectile-1-falling anim_10: -2278461613590492320
+      boss atk 3 projectile-1-falling anim_11: -5914137956388574956
+      boss atk 3 projectile-1-falling anim_12: -3710820761922411858
+      boss atk 3 projectile-1-falling anim_13: 4205974196769143796
+      boss atk 3 projectile-1-falling anim_14: 8937232787830484633
+      boss atk 3 projectile-1-falling anim_15: -6658565627440089232
+      boss atk 3 projectile-1-falling anim_16: 5620842926671749204
+      boss atk 3 projectile-1-falling anim_17: 8214776848129202773
+      boss atk 3 projectile-1-falling anim_2: 1701551254766100907
+      boss atk 3 projectile-1-falling anim_3: 3656766766978767013
+      boss atk 3 projectile-1-falling anim_4: -7990612364641342583
+      boss atk 3 projectile-1-falling anim_5: 3294348831668121336
+      boss atk 3 projectile-1-falling anim_6: -2607867521796642911
+      boss atk 3 projectile-1-falling anim_7: 6943830949871990216
+      boss atk 3 projectile-1-falling anim_8: -3086803689430829468
+      boss atk 3 projectile-1-falling anim_9: 4591668718457067541
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

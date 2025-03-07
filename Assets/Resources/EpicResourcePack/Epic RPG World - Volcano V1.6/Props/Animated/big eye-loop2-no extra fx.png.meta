@@ -1,0 +1,546 @@
+fileFormatVersion: 2
+guid: 015f8ac0b29ea4272a8cec70605a0d2a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1638887736132482160
+    second: big eye-loop2-no extra fx_0
+  - first:
+      213: -5450527334409847162
+    second: big eye-loop2-no extra fx_1
+  - first:
+      213: 343686214570951268
+    second: big eye-loop2-no extra fx_2
+  - first:
+      213: 5010701610695798788
+    second: big eye-loop2-no extra fx_3
+  - first:
+      213: 8014913898640518437
+    second: big eye-loop2-no extra fx_4
+  - first:
+      213: 1333628714288148066
+    second: big eye-loop2-no extra fx_5
+  - first:
+      213: -6822614793597289202
+    second: big eye-loop2-no extra fx_6
+  - first:
+      213: 320744114004997013
+    second: big eye-loop2-no extra fx_7
+  - first:
+      213: -3491450213119309524
+    second: big eye-loop2-no extra fx_8
+  - first:
+      213: -989718323160338682
+    second: big eye-loop2-no extra fx_9
+  - first:
+      213: -1063148959661160292
+    second: big eye-loop2-no extra fx_10
+  - first:
+      213: 1584416879705397323
+    second: big eye-loop2-no extra fx_11
+  - first:
+      213: -7688162449529238929
+    second: big eye-loop2-no extra fx_12
+  - first:
+      213: 6967429650337489272
+    second: big eye-loop2-no extra fx_13
+  - first:
+      213: 7142530245108937467
+    second: big eye-loop2-no extra fx_14
+  - first:
+      213: -7439779206313739570
+    second: big eye-loop2-no extra fx_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: big eye-loop2-no extra fx_0
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09b441589408149e0800000000000000
+      internalID: -1638887736132482160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-loop2-no extra fx_1
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68eb1f97446db54b0800000000000000
+      internalID: -5450527334409847162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-loop2-no extra fx_2
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46243bd8ac405c400800000000000000
+      internalID: 343686214570951268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-loop2-no extra fx_3
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 400300d2196998540800000000000000
+      internalID: 5010701610695798788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-loop2-no extra fx_4
+      rect:
+        serializedVersion: 2
+        x: 553
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52d2fc9d9b1ba3f60800000000000000
+      internalID: 8014913898640518437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-loop2-no extra fx_5
+      rect:
+        serializedVersion: 2
+        x: 681
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26ee761ff30028210800000000000000
+      internalID: 1333628714288148066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-loop2-no extra fx_6
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 3
+        width: 48
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0dfe443ef33151a0800000000000000
+      internalID: -6822614793597289202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-loop2-no extra fx_7
+      rect:
+        serializedVersion: 2
+        x: 937
+        y: 3
+        width: 48
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 593b0138213837400800000000000000
+      internalID: 320744114004997013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-loop2-no extra fx_8
+      rect:
+        serializedVersion: 2
+        x: 1065
+        y: 3
+        width: 48
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c29cf089780eb8fc0800000000000000
+      internalID: -3491450213119309524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-loop2-no extra fx_9
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 3
+        width: 48
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60f2558cd60d342f0800000000000000
+      internalID: -989718323160338682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-loop2-no extra fx_10
+      rect:
+        serializedVersion: 2
+        x: 1321
+        y: 3
+        width: 48
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c98021c67afee31f0800000000000000
+      internalID: -1063148959661160292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-loop2-no extra fx_11
+      rect:
+        serializedVersion: 2
+        x: 1449
+        y: 3
+        width: 48
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4819fae1cafcf510800000000000000
+      internalID: 1584416879705397323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-loop2-no extra fx_12
+      rect:
+        serializedVersion: 2
+        x: 1577
+        y: 3
+        width: 48
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6a005c5cf82e4590800000000000000
+      internalID: -7688162449529238929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-loop2-no extra fx_13
+      rect:
+        serializedVersion: 2
+        x: 1705
+        y: 3
+        width: 48
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 871e3e91a5841b060800000000000000
+      internalID: 6967429650337489272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-loop2-no extra fx_14
+      rect:
+        serializedVersion: 2
+        x: 1833
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf2b3394a6d5f1360800000000000000
+      internalID: 7142530245108937467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-loop2-no extra fx_15
+      rect:
+        serializedVersion: 2
+        x: 1961
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecaf450ca3890c890800000000000000
+      internalID: -7439779206313739570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 90271e081235c4fe085362785dffb021
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      big eye-loop2-no extra fx_0: -1638887736132482160
+      big eye-loop2-no extra fx_1: -5450527334409847162
+      big eye-loop2-no extra fx_10: -1063148959661160292
+      big eye-loop2-no extra fx_11: 1584416879705397323
+      big eye-loop2-no extra fx_12: -7688162449529238929
+      big eye-loop2-no extra fx_13: 6967429650337489272
+      big eye-loop2-no extra fx_14: 7142530245108937467
+      big eye-loop2-no extra fx_15: -7439779206313739570
+      big eye-loop2-no extra fx_2: 343686214570951268
+      big eye-loop2-no extra fx_3: 5010701610695798788
+      big eye-loop2-no extra fx_4: 8014913898640518437
+      big eye-loop2-no extra fx_5: 1333628714288148066
+      big eye-loop2-no extra fx_6: -6822614793597289202
+      big eye-loop2-no extra fx_7: 320744114004997013
+      big eye-loop2-no extra fx_8: -3491450213119309524
+      big eye-loop2-no extra fx_9: -989718323160338682
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

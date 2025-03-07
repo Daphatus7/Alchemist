@@ -1,0 +1,520 @@
+fileFormatVersion: 2
+guid: f749347ef680b46749f9e6e6a9546712
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8765269636061512896
+    second: tumor-destroy-tumor only_0
+  - first:
+      213: 9144237562638613531
+    second: tumor-destroy-tumor only_1
+  - first:
+      213: 6551797665424469572
+    second: tumor-destroy-tumor only_2
+  - first:
+      213: 5160792870439389463
+    second: tumor-destroy-tumor only_3
+  - first:
+      213: -9167672285658417168
+    second: tumor-destroy-tumor only_4
+  - first:
+      213: -2351146706872514664
+    second: tumor-destroy-tumor only_5
+  - first:
+      213: 6184971447346755805
+    second: tumor-destroy-tumor only_6
+  - first:
+      213: -945655062518625354
+    second: tumor-destroy-tumor only_7
+  - first:
+      213: -1225295536887332901
+    second: tumor-destroy-tumor only_8
+  - first:
+      213: -504395723120006442
+    second: tumor-destroy-tumor only_9
+  - first:
+      213: 2482632987316216332
+    second: tumor-destroy-tumor only_10
+  - first:
+      213: 7261248193288182220
+    second: tumor-destroy-tumor only_11
+  - first:
+      213: 8466976980528963581
+    second: tumor-destroy-tumor only_12
+  - first:
+      213: 1728592784501335248
+    second: tumor-destroy-tumor only_13
+  - first:
+      213: 7282528642007166270
+    second: tumor-destroy-tumor only_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: tumor-destroy-tumor only_0
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 459
+        width: 58
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c4c6f92b4e74a970800000000000000
+      internalID: 8765269636061512896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-tumor only_1
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 459
+        width: 59
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1cbbde6d9bd6ee70800000000000000
+      internalID: 9144237562638613531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-tumor only_2
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 459
+        width: 65
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44eebd78349acea50800000000000000
+      internalID: 6551797665424469572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-tumor only_3
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 487
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71988e9c5c1de9740800000000000000
+      internalID: 5160792870439389463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-tumor only_4
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 459
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f7f22ce0a2e5c080800000000000000
+      internalID: -9167672285658417168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-tumor only_5
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 321
+        width: 14
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 897c80ae68c0f5fd0800000000000000
+      internalID: -2351146706872514664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-tumor only_6
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 267
+        width: 62
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd8790113ce65d550800000000000000
+      internalID: 6184971447346755805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-tumor only_7
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 323
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bb078e1bbb50e2f0800000000000000
+      internalID: -945655062518625354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-tumor only_8
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 267
+        width: 70
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdf75fa7330eefee0800000000000000
+      internalID: -1225295536887332901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-tumor only_9
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 267
+        width: 70
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6daa43123c60009f0800000000000000
+      internalID: -504395723120006442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-tumor only_10
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 267
+        width: 70
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0266a46c85147220800000000000000
+      internalID: 2482632987316216332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-tumor only_11
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 301
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc993e292c225c460800000000000000
+      internalID: 7261248193288182220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-tumor only_12
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 75
+        width: 60
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dff96dd24beb08570800000000000000
+      internalID: 8466976980528963581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-tumor only_13
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 75
+        width: 60
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d46181aaf13df710800000000000000
+      internalID: 1728592784501335248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-tumor only_14
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 75
+        width: 60
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3de175273db01560800000000000000
+      internalID: 7282528642007166270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 31a7b912a2ab1400fb6a8b789251e288
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      tumor-destroy-tumor only_0: 8765269636061512896
+      tumor-destroy-tumor only_1: 9144237562638613531
+      tumor-destroy-tumor only_10: 2482632987316216332
+      tumor-destroy-tumor only_11: 7261248193288182220
+      tumor-destroy-tumor only_12: 8466976980528963581
+      tumor-destroy-tumor only_13: 1728592784501335248
+      tumor-destroy-tumor only_14: 7282528642007166270
+      tumor-destroy-tumor only_2: 6551797665424469572
+      tumor-destroy-tumor only_3: 5160792870439389463
+      tumor-destroy-tumor only_4: -9167672285658417168
+      tumor-destroy-tumor only_5: -2351146706872514664
+      tumor-destroy-tumor only_6: 6184971447346755805
+      tumor-destroy-tumor only_7: -945655062518625354
+      tumor-destroy-tumor only_8: -1225295536887332901
+      tumor-destroy-tumor only_9: -504395723120006442
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

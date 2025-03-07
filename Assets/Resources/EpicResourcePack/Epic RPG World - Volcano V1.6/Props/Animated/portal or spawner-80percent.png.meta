@@ -1,0 +1,520 @@
+fileFormatVersion: 2
+guid: d9b415481e4d04a318264c8e8b01f4a0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1273161658374654959
+    second: portal or spawner-80percent_0
+  - first:
+      213: 1262545346624164240
+    second: portal or spawner-80percent_1
+  - first:
+      213: -358291178244940784
+    second: portal or spawner-80percent_2
+  - first:
+      213: -898641152917970527
+    second: portal or spawner-80percent_3
+  - first:
+      213: -1047235148686854998
+    second: portal or spawner-80percent_4
+  - first:
+      213: -2842524824022850786
+    second: portal or spawner-80percent_5
+  - first:
+      213: -8025740694938992020
+    second: portal or spawner-80percent_6
+  - first:
+      213: 8797441942273912972
+    second: portal or spawner-80percent_7
+  - first:
+      213: 1355518745989362665
+    second: portal or spawner-80percent_8
+  - first:
+      213: 4939205956961267924
+    second: portal or spawner-80percent_9
+  - first:
+      213: 6675334162168935755
+    second: portal or spawner-80percent_10
+  - first:
+      213: 3443166470337391470
+    second: portal or spawner-80percent_11
+  - first:
+      213: -1554397131111278499
+    second: portal or spawner-80percent_12
+  - first:
+      213: 8858934690191169726
+    second: portal or spawner-80percent_13
+  - first:
+      213: 4470256588823805828
+    second: portal or spawner-80percent_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: portal or spawner-80percent_0
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 536
+        width: 43
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: feb811568cd2ba110800000000000000
+      internalID: 1273161658374654959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner-80percent_1
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 537
+        width: 41
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0911b52bd46758110800000000000000
+      internalID: 1262545346624164240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner-80percent_2
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 536
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01cdd8a5218170bf0800000000000000
+      internalID: -358291178244940784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner-80percent_3
+      rect:
+        serializedVersion: 2
+        x: 653
+        y: 537
+        width: 41
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a1e6c3f1a26783f0800000000000000
+      internalID: -898641152917970527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner-80percent_4
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 376
+        width: 43
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa477364e297771f0800000000000000
+      internalID: -1047235148686854998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner-80percent_5
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 376
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1363ee9bb25d88d0800000000000000
+      internalID: -2842524824022850786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner-80percent_6
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 375
+        width: 44
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c62c3c23c57de9090800000000000000
+      internalID: -8025740694938992020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner-80percent_7
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 376
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c80fb5de5dac61a70800000000000000
+      internalID: 8797441942273912972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner-80percent_8
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 216
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e3341d1e15cfc210800000000000000
+      internalID: 1355518745989362665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner-80percent_9
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 215
+        width: 44
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d07b2916a59b8440800000000000000
+      internalID: 4939205956961267924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner-80percent_10
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 216
+        width: 43
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b45fb159d0d83ac50800000000000000
+      internalID: 6675334162168935755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner-80percent_11
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 215
+        width: 44
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6beefe79a598cf20800000000000000
+      internalID: 3443166470337391470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner-80percent_12
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 55
+        width: 44
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d58d9387b0cad6ae0800000000000000
+      internalID: -1554397131111278499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner-80percent_13
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 55
+        width: 44
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb8da310a2241fa70800000000000000
+      internalID: 8858934690191169726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner-80percent_14
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 56
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48f31bfdeaa890e30800000000000000
+      internalID: 4470256588823805828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 3d3f49924cbdf482782f2b7f9211738f
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      portal or spawner-80percent_0: 1273161658374654959
+      portal or spawner-80percent_1: 1262545346624164240
+      portal or spawner-80percent_10: 6675334162168935755
+      portal or spawner-80percent_11: 3443166470337391470
+      portal or spawner-80percent_12: -1554397131111278499
+      portal or spawner-80percent_13: 8858934690191169726
+      portal or spawner-80percent_14: 4470256588823805828
+      portal or spawner-80percent_2: -358291178244940784
+      portal or spawner-80percent_3: -898641152917970527
+      portal or spawner-80percent_4: -1047235148686854998
+      portal or spawner-80percent_5: -2842524824022850786
+      portal or spawner-80percent_6: -8025740694938992020
+      portal or spawner-80percent_7: 8797441942273912972
+      portal or spawner-80percent_8: 1355518745989362665
+      portal or spawner-80percent_9: 4939205956961267924
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

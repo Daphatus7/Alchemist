@@ -1,0 +1,494 @@
+fileFormatVersion: 2
+guid: 5f32c7c849cf8423f990160d0ace5f21
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3623676184772514857
+    second: tumor-loop-transparency_0
+  - first:
+      213: 5932411754908794655
+    second: tumor-loop-transparency_1
+  - first:
+      213: 5674718323305499498
+    second: tumor-loop-transparency_2
+  - first:
+      213: -4659185243309451372
+    second: tumor-loop-transparency_3
+  - first:
+      213: -8849753513686137929
+    second: tumor-loop-transparency_4
+  - first:
+      213: 5189052060411904623
+    second: tumor-loop-transparency_5
+  - first:
+      213: -3583763343055732524
+    second: tumor-loop-transparency_6
+  - first:
+      213: 6921196984099387554
+    second: tumor-loop-transparency_7
+  - first:
+      213: -7180131981610463853
+    second: tumor-loop-transparency_8
+  - first:
+      213: -2518079067956932914
+    second: tumor-loop-transparency_9
+  - first:
+      213: -1367014285379177290
+    second: tumor-loop-transparency_10
+  - first:
+      213: -8202932882657920256
+    second: tumor-loop-transparency_11
+  - first:
+      213: 8730035652650594255
+    second: tumor-loop-transparency_12
+  - first:
+      213: -7044444611562914871
+    second: tumor-loop-transparency_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: tumor-loop-transparency_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 601
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 924986e7a42e94230800000000000000
+      internalID: 3623676184772514857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-loop-transparency_1
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 601
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1fb0b05f09245250800000000000000
+      internalID: 5932411754908794655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-loop-transparency_2
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 601
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6b4605cf36a0ce40800000000000000
+      internalID: 5674718323305499498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-loop-transparency_3
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 601
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4975cc5e4bf375fb0800000000000000
+      internalID: -4659185243309451372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-loop-transparency_4
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 409
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b309fa311c5f2580800000000000000
+      internalID: -8849753513686137929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-loop-transparency_5
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 409
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f624cdd2b57330840800000000000000
+      internalID: 5189052060411904623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-loop-transparency_6
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 409
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d0c8122a3ae34ec0800000000000000
+      internalID: -3583763343055732524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-loop-transparency_7
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 409
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a8bfb9acf70d0060800000000000000
+      internalID: 6921196984099387554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-loop-transparency_8
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 217
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39dcfa3310c0b5c90800000000000000
+      internalID: -7180131981610463853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-loop-transparency_9
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 217
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ece8416dd6cfd0dd0800000000000000
+      internalID: -2518079067956932914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-loop-transparency_10
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 217
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b4f61d00c3670de0800000000000000
+      internalID: -1367014285379177290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-loop-transparency_11
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 217
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00bbdc41104592e80800000000000000
+      internalID: -8202932882657920256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-loop-transparency_12
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 25
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcfebb02c21572970800000000000000
+      internalID: 8730035652650594255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-loop-transparency_13
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 25
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cbb0e7e2fa1d3e90800000000000000
+      internalID: -7044444611562914871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 75ce5478c91c84716a1892e3482aae0f
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      tumor-loop-transparency_0: 3623676184772514857
+      tumor-loop-transparency_1: 5932411754908794655
+      tumor-loop-transparency_10: -1367014285379177290
+      tumor-loop-transparency_11: -8202932882657920256
+      tumor-loop-transparency_12: 8730035652650594255
+      tumor-loop-transparency_13: -7044444611562914871
+      tumor-loop-transparency_2: 5674718323305499498
+      tumor-loop-transparency_3: -4659185243309451372
+      tumor-loop-transparency_4: -8849753513686137929
+      tumor-loop-transparency_5: 5189052060411904623
+      tumor-loop-transparency_6: -3583763343055732524
+      tumor-loop-transparency_7: 6921196984099387554
+      tumor-loop-transparency_8: -7180131981610463853
+      tumor-loop-transparency_9: -2518079067956932914
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

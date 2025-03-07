@@ -1,0 +1,858 @@
+fileFormatVersion: 2
+guid: 2ff3823c12ec24b00bcd8067ba0f6a22
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3761439506688790646
+    second: rocky-dude_idle3_14frames_0
+  - first:
+      213: -7570462862265631830
+    second: rocky-dude_idle3_14frames_1
+  - first:
+      213: 5125788883695440716
+    second: rocky-dude_idle3_14frames_2
+  - first:
+      213: -296557110515298348
+    second: rocky-dude_idle3_14frames_3
+  - first:
+      213: 6103897799559779643
+    second: rocky-dude_idle3_14frames_4
+  - first:
+      213: -8377135436099102380
+    second: rocky-dude_idle3_14frames_5
+  - first:
+      213: -7116294582246425664
+    second: rocky-dude_idle3_14frames_6
+  - first:
+      213: -1426951404684659589
+    second: rocky-dude_idle3_14frames_7
+  - first:
+      213: -1953505435736527248
+    second: rocky-dude_idle3_14frames_8
+  - first:
+      213: 6516461168982474888
+    second: rocky-dude_idle3_14frames_9
+  - first:
+      213: 4352021509453262504
+    second: rocky-dude_idle3_14frames_10
+  - first:
+      213: 474311035235711502
+    second: rocky-dude_idle3_14frames_11
+  - first:
+      213: 7803805347235438746
+    second: rocky-dude_idle3_14frames_12
+  - first:
+      213: 3176900448582837470
+    second: rocky-dude_idle3_14frames_13
+  - first:
+      213: 8006925271500743365
+    second: rocky-dude_idle3_14frames_14
+  - first:
+      213: 5152669131935411832
+    second: rocky-dude_idle3_14frames_15
+  - first:
+      213: 8099117230489158637
+    second: rocky-dude_idle3_14frames_16
+  - first:
+      213: 1431158674383135888
+    second: rocky-dude_idle3_14frames_17
+  - first:
+      213: 4258712219262064553
+    second: rocky-dude_idle3_14frames_18
+  - first:
+      213: -638991359026885091
+    second: rocky-dude_idle3_14frames_19
+  - first:
+      213: 1616824339806141206
+    second: rocky-dude_idle3_14frames_20
+  - first:
+      213: -1563330094038377050
+    second: rocky-dude_idle3_14frames_21
+  - first:
+      213: 3383995272184394096
+    second: rocky-dude_idle3_14frames_22
+  - first:
+      213: 851218822698284943
+    second: rocky-dude_idle3_14frames_23
+  - first:
+      213: -2792613984457836211
+    second: rocky-dude_idle3_14frames_24
+  - first:
+      213: 4984049572081721660
+    second: rocky-dude_idle3_14frames_25
+  - first:
+      213: 7977071176790540992
+    second: rocky-dude_idle3_14frames_26
+  - first:
+      213: -7878152346366088518
+    second: rocky-dude_idle3_14frames_27
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_0
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 559
+        width: 42
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6705e486d41533430800000000000000
+      internalID: 3761439506688790646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_1
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 558
+        width: 43
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aabbe55032050f690800000000000000
+      internalID: -7570462862265631830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_2
+      rect:
+        serializedVersion: 2
+        x: 381
+        y: 558
+        width: 44
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c43105605d5722740800000000000000
+      internalID: 5125788883695440716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_3
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 558
+        width: 52
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4df8e1411ea62ebf0800000000000000
+      internalID: -296557110515298348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_4
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 543
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b359c0875b665b450800000000000000
+      internalID: 6103897799559779643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_5
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 543
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 459d9ff64bf6ebb80800000000000000
+      internalID: -8377135436099102380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_6
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 543
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cb3a2cf7c7dd3d90800000000000000
+      internalID: -7116294582246425664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_7
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 543
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b74b60cf143723ce0800000000000000
+      internalID: -1426951404684659589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_8
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 398
+        width: 49
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07e21240821c3e4e0800000000000000
+      internalID: -1953505435736527248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_9
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 399
+        width: 45
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 880c3d158ee1f6a50800000000000000
+      internalID: 6516461168982474888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_10
+      rect:
+        serializedVersion: 2
+        x: 381
+        y: 399
+        width: 44
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ae22dd318c756c30800000000000000
+      internalID: 4352021509453262504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_11
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 399
+        width: 43
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0ab540af57159600800000000000000
+      internalID: 474311035235711502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_12
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 383
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a902342fd9fac4c60800000000000000
+      internalID: 7803805347235438746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_13
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 383
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed42f84402e961c20800000000000000
+      internalID: 3176900448582837470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_14
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 383
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c266e6ac105e1f60800000000000000
+      internalID: 8006925271500743365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_15
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 383
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87e61268645f18740800000000000000
+      internalID: 5152669131935411832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_16
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 239
+        width: 44
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de34d8dc538d56070800000000000000
+      internalID: 8099117230489158637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_17
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 238
+        width: 52
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09463d35b3f7cd310800000000000000
+      internalID: 1431158674383135888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_18
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 237
+        width: 50
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a71bb5233cf91b30800000000000000
+      internalID: 4258712219262064553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_19
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 238
+        width: 46
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1e88a69eb8d127f0800000000000000
+      internalID: -638991359026885091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_20
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 223
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61bb956bb2d107610800000000000000
+      internalID: 1616824339806141206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_21
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 223
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ad1a26ff8fed4ae0800000000000000
+      internalID: -1563330094038377050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_22
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 223
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 071f62855cd56fe20800000000000000
+      internalID: 3383995272184394096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_23
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 223
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f87be01620320db00800000000000000
+      internalID: 851218822698284943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_24
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 79
+        width: 44
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d493a958064ae39d0800000000000000
+      internalID: -2792613984457836211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_25
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 79
+        width: 43
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c316ededda6ea2540800000000000000
+      internalID: 4984049572081721660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_26
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 63
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c28b9098ff34be60800000000000000
+      internalID: 7977071176790540992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rocky-dude_idle3_14frames_27
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 63
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aba60746e2e2ba290800000000000000
+      internalID: -7878152346366088518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 2fe792d20edfe45ba87b54c256419940
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      rocky-dude_idle3_14frames_0: 3761439506688790646
+      rocky-dude_idle3_14frames_1: -7570462862265631830
+      rocky-dude_idle3_14frames_10: 4352021509453262504
+      rocky-dude_idle3_14frames_11: 474311035235711502
+      rocky-dude_idle3_14frames_12: 7803805347235438746
+      rocky-dude_idle3_14frames_13: 3176900448582837470
+      rocky-dude_idle3_14frames_14: 8006925271500743365
+      rocky-dude_idle3_14frames_15: 5152669131935411832
+      rocky-dude_idle3_14frames_16: 8099117230489158637
+      rocky-dude_idle3_14frames_17: 1431158674383135888
+      rocky-dude_idle3_14frames_18: 4258712219262064553
+      rocky-dude_idle3_14frames_19: -638991359026885091
+      rocky-dude_idle3_14frames_2: 5125788883695440716
+      rocky-dude_idle3_14frames_20: 1616824339806141206
+      rocky-dude_idle3_14frames_21: -1563330094038377050
+      rocky-dude_idle3_14frames_22: 3383995272184394096
+      rocky-dude_idle3_14frames_23: 851218822698284943
+      rocky-dude_idle3_14frames_24: -2792613984457836211
+      rocky-dude_idle3_14frames_25: 4984049572081721660
+      rocky-dude_idle3_14frames_26: 7977071176790540992
+      rocky-dude_idle3_14frames_27: -7878152346366088518
+      rocky-dude_idle3_14frames_3: -296557110515298348
+      rocky-dude_idle3_14frames_4: 6103897799559779643
+      rocky-dude_idle3_14frames_5: -8377135436099102380
+      rocky-dude_idle3_14frames_6: -7116294582246425664
+      rocky-dude_idle3_14frames_7: -1426951404684659589
+      rocky-dude_idle3_14frames_8: -1953505435736527248
+      rocky-dude_idle3_14frames_9: 6516461168982474888
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

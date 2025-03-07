@@ -1,0 +1,494 @@
+fileFormatVersion: 2
+guid: 02709a1244009491db6eee827469f8ee
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1681911139063025242
+    second: crusher-retreat_0
+  - first:
+      213: -9172734458099940223
+    second: crusher-retreat_1
+  - first:
+      213: -836293158345262060
+    second: crusher-retreat_2
+  - first:
+      213: 2143714684688876617
+    second: crusher-retreat_3
+  - first:
+      213: -1287720058301843826
+    second: crusher-retreat_4
+  - first:
+      213: 9206892917516806666
+    second: crusher-retreat_5
+  - first:
+      213: 2123896163068231780
+    second: crusher-retreat_6
+  - first:
+      213: 790210772172451587
+    second: crusher-retreat_7
+  - first:
+      213: 3085295763615796290
+    second: crusher-retreat_8
+  - first:
+      213: 7897526706513815723
+    second: crusher-retreat_9
+  - first:
+      213: 5545610574071448448
+    second: crusher-retreat_10
+  - first:
+      213: 5664412885088819403
+    second: crusher-retreat_11
+  - first:
+      213: -3955640135271867844
+    second: crusher-retreat_12
+  - first:
+      213: -5766655713370154522
+    second: crusher-retreat_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: crusher-retreat_0
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 1125
+        width: 110
+        height: 216
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5ecf931549575710800000000000000
+      internalID: 1681911139063025242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-retreat_1
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 1126
+        width: 110
+        height: 216
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 184c7fd0c96e3b080800000000000000
+      internalID: -9172734458099940223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-retreat_2
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 1128
+        width: 110
+        height: 216
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41cbdb8adc3e464f0800000000000000
+      internalID: -836293158345262060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-retreat_3
+      rect:
+        serializedVersion: 2
+        x: 621
+        y: 1132
+        width: 110
+        height: 216
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9444ba8d52100cd10800000000000000
+      internalID: 2143714684688876617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-retreat_4
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 788
+        width: 110
+        height: 216
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e86f5cafd69112ee0800000000000000
+      internalID: -1287720058301843826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-retreat_5
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 804
+        width: 110
+        height: 216
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0a26a9045475cf70800000000000000
+      internalID: 9206892917516806666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-retreat_6
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 822
+        width: 110
+        height: 214
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4604f73be48997d10800000000000000
+      internalID: 2123896163068231780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-retreat_7
+      rect:
+        serializedVersion: 2
+        x: 621
+        y: 844
+        width: 110
+        height: 208
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30fa605b28467fa00800000000000000
+      internalID: 790210772172451587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-retreat_8
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 513
+        width: 110
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24c4651862c21da20800000000000000
+      internalID: 3085295763615796290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-retreat_9
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 528
+        width: 110
+        height: 177
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba8aae952b6a99d60800000000000000
+      internalID: 7897526706513815723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-retreat_10
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 537
+        width: 110
+        height: 168
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 083cd2a6f67f5fc40800000000000000
+      internalID: 5545610574071448448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-retreat_11
+      rect:
+        serializedVersion: 2
+        x: 621
+        y: 538
+        width: 110
+        height: 167
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc85dd4f1890c9e40800000000000000
+      internalID: 5664412885088819403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-retreat_12
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 183
+        width: 110
+        height: 170
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3a97dd314eba19c0800000000000000
+      internalID: -3955640135271867844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-retreat_13
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 184
+        width: 110
+        height: 169
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e958968e29b8ffa0800000000000000
+      internalID: -5766655713370154522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: c6f320b511b474895be711d5c2d0346b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      crusher-retreat_0: 1681911139063025242
+      crusher-retreat_1: -9172734458099940223
+      crusher-retreat_10: 5545610574071448448
+      crusher-retreat_11: 5664412885088819403
+      crusher-retreat_12: -3955640135271867844
+      crusher-retreat_13: -5766655713370154522
+      crusher-retreat_2: -836293158345262060
+      crusher-retreat_3: 2143714684688876617
+      crusher-retreat_4: -1287720058301843826
+      crusher-retreat_5: 9206892917516806666
+      crusher-retreat_6: 2123896163068231780
+      crusher-retreat_7: 790210772172451587
+      crusher-retreat_8: 3085295763615796290
+      crusher-retreat_9: 7897526706513815723
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

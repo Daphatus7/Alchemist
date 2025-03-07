@@ -1,0 +1,546 @@
+fileFormatVersion: 2
+guid: 2f0847003b2df43d582bec8e54bb1f3a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6436818246452272322
+    second: big eye-turning right-no extra fx_0
+  - first:
+      213: 2725600238528741770
+    second: big eye-turning right-no extra fx_1
+  - first:
+      213: 6364168400894521309
+    second: big eye-turning right-no extra fx_2
+  - first:
+      213: 6230882576044177398
+    second: big eye-turning right-no extra fx_3
+  - first:
+      213: 3812805160042360823
+    second: big eye-turning right-no extra fx_4
+  - first:
+      213: 5781944333604409982
+    second: big eye-turning right-no extra fx_5
+  - first:
+      213: 1230653373090337027
+    second: big eye-turning right-no extra fx_6
+  - first:
+      213: 7660897598954619010
+    second: big eye-turning right-no extra fx_7
+  - first:
+      213: -8130674184389124068
+    second: big eye-turning right-no extra fx_8
+  - first:
+      213: -4372034500956262942
+    second: big eye-turning right-no extra fx_9
+  - first:
+      213: -3173389156601145104
+    second: big eye-turning right-no extra fx_10
+  - first:
+      213: -4915307750841956301
+    second: big eye-turning right-no extra fx_11
+  - first:
+      213: 4548105967731892482
+    second: big eye-turning right-no extra fx_12
+  - first:
+      213: -5943057305363852962
+    second: big eye-turning right-no extra fx_13
+  - first:
+      213: -783759677573176936
+    second: big eye-turning right-no extra fx_14
+  - first:
+      213: -2370897734614285495
+    second: big eye-turning right-no extra fx_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: big eye-turning right-no extra fx_0
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cc5a87671c245950800000000000000
+      internalID: 6436818246452272322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-turning right-no extra fx_1
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a81c931e9f643d520800000000000000
+      internalID: 2725600238528741770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-turning right-no extra fx_2
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddf651a1171125850800000000000000
+      internalID: 6364168400894521309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-turning right-no extra fx_3
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f7b846b0ba887650800000000000000
+      internalID: 6230882576044177398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-turning right-no extra fx_4
+      rect:
+        serializedVersion: 2
+        x: 553
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ffe91a871ec9e430800000000000000
+      internalID: 3812805160042360823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-turning right-no extra fx_5
+      rect:
+        serializedVersion: 2
+        x: 681
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e72d293ccb79d3050800000000000000
+      internalID: 5781944333604409982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-turning right-no extra fx_6
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3019fa8f8b8241110800000000000000
+      internalID: 1230653373090337027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-turning right-no extra fx_7
+      rect:
+        serializedVersion: 2
+        x: 937
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 280455ee6c9f05a60800000000000000
+      internalID: 7660897598954619010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-turning right-no extra fx_8
+      rect:
+        serializedVersion: 2
+        x: 1065
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c102c0f48ea0a2f80800000000000000
+      internalID: -8130674184389124068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-turning right-no extra fx_9
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2edefb019c96353c0800000000000000
+      internalID: -4372034500956262942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-turning right-no extra fx_10
+      rect:
+        serializedVersion: 2
+        x: 1321
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f856ba106bd5f3d0800000000000000
+      internalID: -3173389156601145104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-turning right-no extra fx_11
+      rect:
+        serializedVersion: 2
+        x: 1449
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 338475d94a159cbb0800000000000000
+      internalID: -4915307750841956301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-turning right-no extra fx_12
+      rect:
+        serializedVersion: 2
+        x: 1577
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2016e7fd74e1e1f30800000000000000
+      internalID: 4548105967731892482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-turning right-no extra fx_13
+      rect:
+        serializedVersion: 2
+        x: 1705
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e515ff15ed4068da0800000000000000
+      internalID: -5943057305363852962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-turning right-no extra fx_14
+      rect:
+        serializedVersion: 2
+        x: 1833
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 891e9fcc9b68f15f0800000000000000
+      internalID: -783759677573176936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big eye-turning right-no extra fx_15
+      rect:
+        serializedVersion: 2
+        x: 1961
+        y: 3
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94389896211e81fd0800000000000000
+      internalID: -2370897734614285495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: fdec66072b8f749d8ab9c71cc6cc2212
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      big eye-turning right-no extra fx_0: 6436818246452272322
+      big eye-turning right-no extra fx_1: 2725600238528741770
+      big eye-turning right-no extra fx_10: -3173389156601145104
+      big eye-turning right-no extra fx_11: -4915307750841956301
+      big eye-turning right-no extra fx_12: 4548105967731892482
+      big eye-turning right-no extra fx_13: -5943057305363852962
+      big eye-turning right-no extra fx_14: -783759677573176936
+      big eye-turning right-no extra fx_15: -2370897734614285495
+      big eye-turning right-no extra fx_2: 6364168400894521309
+      big eye-turning right-no extra fx_3: 6230882576044177398
+      big eye-turning right-no extra fx_4: 3812805160042360823
+      big eye-turning right-no extra fx_5: 5781944333604409982
+      big eye-turning right-no extra fx_6: 1230653373090337027
+      big eye-turning right-no extra fx_7: 7660897598954619010
+      big eye-turning right-no extra fx_8: -8130674184389124068
+      big eye-turning right-no extra fx_9: -4372034500956262942
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

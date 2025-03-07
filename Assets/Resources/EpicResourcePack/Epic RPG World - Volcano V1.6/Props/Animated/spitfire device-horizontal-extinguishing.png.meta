@@ -1,0 +1,416 @@
+fileFormatVersion: 2
+guid: 19998fce97d63488d9a114a1bd1787eb
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7515490560615358138
+    second: spitfire device-horizontal-extinguishing_0
+  - first:
+      213: 6277278916072617221
+    second: spitfire device-horizontal-extinguishing_1
+  - first:
+      213: 1290285083984389657
+    second: spitfire device-horizontal-extinguishing_2
+  - first:
+      213: -6994136485709015681
+    second: spitfire device-horizontal-extinguishing_3
+  - first:
+      213: -7611830286532926471
+    second: spitfire device-horizontal-extinguishing_4
+  - first:
+      213: 7762434565825466390
+    second: spitfire device-horizontal-extinguishing_5
+  - first:
+      213: 7394287790505840418
+    second: spitfire device-horizontal-extinguishing_6
+  - first:
+      213: 8655444082970057960
+    second: spitfire device-horizontal-extinguishing_7
+  - first:
+      213: -6054273115251735641
+    second: spitfire device-horizontal-extinguishing_8
+  - first:
+      213: 4582440734947073138
+    second: spitfire device-horizontal-extinguishing_9
+  - first:
+      213: 8347446282708126078
+    second: spitfire device-horizontal-extinguishing_10
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: spitfire device-horizontal-extinguishing_0
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 13
+        width: 35
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abe974a98d26c4860800000000000000
+      internalID: 7515490560615358138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-extinguishing_1
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 13
+        width: 35
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 505be8c6aef5d1750800000000000000
+      internalID: 6277278916072617221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-extinguishing_2
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 13
+        width: 35
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 916efd9927308e110800000000000000
+      internalID: 1290285083984389657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-extinguishing_3
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 13
+        width: 35
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7517ba3ce5dfee90800000000000000
+      internalID: -6994136485709015681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-extinguishing_4
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 13
+        width: 35
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f325a00fa85d5690800000000000000
+      internalID: -7611830286532926471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-extinguishing_5
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 13
+        width: 35
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6109d384c15b9bb60800000000000000
+      internalID: 7762434565825466390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-extinguishing_6
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 13
+        width: 35
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22fcb10a199cd9660800000000000000
+      internalID: 7394287790505840418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-extinguishing_7
+      rect:
+        serializedVersion: 2
+        x: 943
+        y: 13
+        width: 35
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ecdfa2f8805e1870800000000000000
+      internalID: 8655444082970057960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-extinguishing_8
+      rect:
+        serializedVersion: 2
+        x: 1071
+        y: 13
+        width: 35
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a30938bda6eafba0800000000000000
+      internalID: -6054273115251735641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-extinguishing_9
+      rect:
+        serializedVersion: 2
+        x: 1199
+        y: 13
+        width: 35
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27cdcc2d199189f30800000000000000
+      internalID: 4582440734947073138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-extinguishing_10
+      rect:
+        serializedVersion: 2
+        x: 1327
+        y: 13
+        width: 35
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e79097eda2618d370800000000000000
+      internalID: 8347446282708126078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 35d8aa0106b5841a28168c54e590afca
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      spitfire device-horizontal-extinguishing_0: 7515490560615358138
+      spitfire device-horizontal-extinguishing_1: 6277278916072617221
+      spitfire device-horizontal-extinguishing_10: 8347446282708126078
+      spitfire device-horizontal-extinguishing_2: 1290285083984389657
+      spitfire device-horizontal-extinguishing_3: -6994136485709015681
+      spitfire device-horizontal-extinguishing_4: -7611830286532926471
+      spitfire device-horizontal-extinguishing_5: 7762434565825466390
+      spitfire device-horizontal-extinguishing_6: 7394287790505840418
+      spitfire device-horizontal-extinguishing_7: 8655444082970057960
+      spitfire device-horizontal-extinguishing_8: -6054273115251735641
+      spitfire device-horizontal-extinguishing_9: 4582440734947073138
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

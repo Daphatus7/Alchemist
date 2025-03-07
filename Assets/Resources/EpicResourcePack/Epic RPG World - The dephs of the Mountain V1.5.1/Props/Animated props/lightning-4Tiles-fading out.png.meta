@@ -1,0 +1,988 @@
+fileFormatVersion: 2
+guid: e54beb1db74ce431d8eebc45830e048b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2948465851693897126
+    second: lightning-4Tiles-fading out_0
+  - first:
+      213: -6816088201949377589
+    second: lightning-4Tiles-fading out_1
+  - first:
+      213: -7112271742838910367
+    second: lightning-4Tiles-fading out_2
+  - first:
+      213: 2257889110240115844
+    second: lightning-4Tiles-fading out_3
+  - first:
+      213: 5797142565150480094
+    second: lightning-4Tiles-fading out_4
+  - first:
+      213: 1954022263761029763
+    second: lightning-4Tiles-fading out_5
+  - first:
+      213: -2331567174342111320
+    second: lightning-4Tiles-fading out_6
+  - first:
+      213: -8079452788853955841
+    second: lightning-4Tiles-fading out_7
+  - first:
+      213: -237120540031292102
+    second: lightning-4Tiles-fading out_8
+  - first:
+      213: 4212814701570805238
+    second: lightning-4Tiles-fading out_9
+  - first:
+      213: 9189622114814806956
+    second: lightning-4Tiles-fading out_10
+  - first:
+      213: -1013366183216073375
+    second: lightning-4Tiles-fading out_11
+  - first:
+      213: 3160371117579978247
+    second: lightning-4Tiles-fading out_12
+  - first:
+      213: 5569632652557883376
+    second: lightning-4Tiles-fading out_13
+  - first:
+      213: 8998454683219337711
+    second: lightning-4Tiles-fading out_14
+  - first:
+      213: -4212575671512119522
+    second: lightning-4Tiles-fading out_15
+  - first:
+      213: 5119971578623098433
+    second: lightning-4Tiles-fading out_16
+  - first:
+      213: 5678877970568679222
+    second: lightning-4Tiles-fading out_17
+  - first:
+      213: 941793132304781222
+    second: lightning-4Tiles-fading out_18
+  - first:
+      213: 8889025877256332688
+    second: lightning-4Tiles-fading out_19
+  - first:
+      213: 5975353090580960559
+    second: lightning-4Tiles-fading out_20
+  - first:
+      213: -7144410892755968027
+    second: lightning-4Tiles-fading out_21
+  - first:
+      213: 7315528537323879532
+    second: lightning-4Tiles-fading out_22
+  - first:
+      213: -4704372804963201323
+    second: lightning-4Tiles-fading out_23
+  - first:
+      213: -6752097422368678942
+    second: lightning-4Tiles-fading out_24
+  - first:
+      213: 4630640217097532964
+    second: lightning-4Tiles-fading out_25
+  - first:
+      213: -2375216961425369488
+    second: lightning-4Tiles-fading out_26
+  - first:
+      213: -303375576445347849
+    second: lightning-4Tiles-fading out_27
+  - first:
+      213: 3827882872513179450
+    second: lightning-4Tiles-fading out_28
+  - first:
+      213: -956399771049021116
+    second: lightning-4Tiles-fading out_29
+  - first:
+      213: 5619296756063714785
+    second: lightning-4Tiles-fading out_30
+  - first:
+      213: 1349220522446377207
+    second: lightning-4Tiles-fading out_31
+  - first:
+      213: 5578078226416781654
+    second: lightning-4Tiles-fading out_32
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_0
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 5
+        width: 28
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5a6a65fde1f417d0800000000000000
+      internalID: -2948465851693897126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_1
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 116
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcb831db4e36861a0800000000000000
+      internalID: -6816088201949377589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_2
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 5
+        width: 24
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 162d90648822c4d90800000000000000
+      internalID: -7112271742838910367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_3
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 104
+        width: 17
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48cb516de22a55f10800000000000000
+      internalID: 2257889110240115844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_4
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 111
+        width: 14
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed6571cc276937050800000000000000
+      internalID: 5797142565150480094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_5
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 123
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38a4ea265e41e1b10800000000000000
+      internalID: 1954022263761029763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_6
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 9
+        width: 297
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8af8063120c94afd0800000000000000
+      internalID: -2331567174342111320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_7
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 101
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff222dcce7400ef80800000000000000
+      internalID: -8079452788853955841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_8
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 81
+        width: 18
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3d6c7a002495bcf0800000000000000
+      internalID: -237120540031292102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_9
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 74
+        width: 19
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fdcbaf86ace67a30800000000000000
+      internalID: 4212814701570805238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_10
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 78
+        width: 11
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cab4c9def98188f70800000000000000
+      internalID: 9189622114814806956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_11
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 72
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 165330e43dccfe1f0800000000000000
+      internalID: -1013366183216073375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_12
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 66
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70642cd79c4ebdb20800000000000000
+      internalID: 3160371117579978247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_13
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 63
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f71129636f4b4d40800000000000000
+      internalID: 5569632652557883376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_14
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 54
+        width: 10
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe12db8cbdee0ec70800000000000000
+      internalID: 8998454683219337711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_15
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 66
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e174116febce985c0800000000000000
+      internalID: -4212575671512119522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_16
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 46
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14efce3260bcd0740800000000000000
+      internalID: 5119971578623098433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_17
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 54
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63f898e1d6d6fce40800000000000000
+      internalID: 5678877970568679222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_18
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 41
+        width: 17
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6afcdee2ddbe11d00800000000000000
+      internalID: 941793132304781222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_19
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 55
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0956e1570f92c5b70800000000000000
+      internalID: 8889025877256332688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_20
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 55
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f255c932af7bce250800000000000000
+      internalID: 5975353090580960559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_21
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 5
+        width: 24
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ef59df4524f9dc90800000000000000
+      internalID: -7144410892755968027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_22
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 43
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6c3c63027af58560800000000000000
+      internalID: 7315528537323879532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_23
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 26
+        width: 20
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5de0925dbd5b6beb0800000000000000
+      internalID: -4704372804963201323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_24
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 40
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2eb52e22b2bbb42a0800000000000000
+      internalID: -6752097422368678942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_25
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 44
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4267cb64eb6534040800000000000000
+      internalID: 4630640217097532964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_26
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 41
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07612cd02c8890fd0800000000000000
+      internalID: -2375216961425369488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_27
+      rect:
+        serializedVersion: 2
+        x: 536
+        y: 43
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f7127445813acbf0800000000000000
+      internalID: -303375576445347849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_28
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 15
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3f23f9013f5f1530800000000000000
+      internalID: 3827882872513179450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_29
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 26
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 441bb57b97f2ab2f0800000000000000
+      internalID: -956399771049021116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_30
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 5
+        width: 15
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1edbea890a0cbfd40800000000000000
+      internalID: 5619296756063714785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_31
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 16
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f0551caae469b210800000000000000
+      internalID: 1349220522446377207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-4Tiles-fading out_32
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 5
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 659c9eec790596d40800000000000000
+      internalID: 5578078226416781654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 60b64052e507b479b9d25755afe5597b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      lightning-4Tiles-fading out_0: -2948465851693897126
+      lightning-4Tiles-fading out_1: -6816088201949377589
+      lightning-4Tiles-fading out_10: 9189622114814806956
+      lightning-4Tiles-fading out_11: -1013366183216073375
+      lightning-4Tiles-fading out_12: 3160371117579978247
+      lightning-4Tiles-fading out_13: 5569632652557883376
+      lightning-4Tiles-fading out_14: 8998454683219337711
+      lightning-4Tiles-fading out_15: -4212575671512119522
+      lightning-4Tiles-fading out_16: 5119971578623098433
+      lightning-4Tiles-fading out_17: 5678877970568679222
+      lightning-4Tiles-fading out_18: 941793132304781222
+      lightning-4Tiles-fading out_19: 8889025877256332688
+      lightning-4Tiles-fading out_2: -7112271742838910367
+      lightning-4Tiles-fading out_20: 5975353090580960559
+      lightning-4Tiles-fading out_21: -7144410892755968027
+      lightning-4Tiles-fading out_22: 7315528537323879532
+      lightning-4Tiles-fading out_23: -4704372804963201323
+      lightning-4Tiles-fading out_24: -6752097422368678942
+      lightning-4Tiles-fading out_25: 4630640217097532964
+      lightning-4Tiles-fading out_26: -2375216961425369488
+      lightning-4Tiles-fading out_27: -303375576445347849
+      lightning-4Tiles-fading out_28: 3827882872513179450
+      lightning-4Tiles-fading out_29: -956399771049021116
+      lightning-4Tiles-fading out_3: 2257889110240115844
+      lightning-4Tiles-fading out_30: 5619296756063714785
+      lightning-4Tiles-fading out_31: 1349220522446377207
+      lightning-4Tiles-fading out_32: 5578078226416781654
+      lightning-4Tiles-fading out_4: 5797142565150480094
+      lightning-4Tiles-fading out_5: 1954022263761029763
+      lightning-4Tiles-fading out_6: -2331567174342111320
+      lightning-4Tiles-fading out_7: -8079452788853955841
+      lightning-4Tiles-fading out_8: -237120540031292102
+      lightning-4Tiles-fading out_9: 4212814701570805238
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

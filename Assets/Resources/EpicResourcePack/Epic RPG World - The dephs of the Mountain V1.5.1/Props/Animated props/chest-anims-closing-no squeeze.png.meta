@@ -1,0 +1,598 @@
+fileFormatVersion: 2
+guid: 1599e232d7cdc4caa8d22b882c865bee
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8817666347030143200
+    second: chest-anims-closing-no squeeze_0
+  - first:
+      213: 7796505408480465051
+    second: chest-anims-closing-no squeeze_1
+  - first:
+      213: -3435898842318256584
+    second: chest-anims-closing-no squeeze_2
+  - first:
+      213: 1728876161105367864
+    second: chest-anims-closing-no squeeze_3
+  - first:
+      213: -909678710613580709
+    second: chest-anims-closing-no squeeze_4
+  - first:
+      213: 7198475461597651856
+    second: chest-anims-closing-no squeeze_5
+  - first:
+      213: -370216817014538869
+    second: chest-anims-closing-no squeeze_6
+  - first:
+      213: 4546946742958513905
+    second: chest-anims-closing-no squeeze_7
+  - first:
+      213: -2749936695430775311
+    second: chest-anims-closing-no squeeze_8
+  - first:
+      213: 5454493628040990944
+    second: chest-anims-closing-no squeeze_9
+  - first:
+      213: -3358472692238774926
+    second: chest-anims-closing-no squeeze_10
+  - first:
+      213: 879448304121440925
+    second: chest-anims-closing-no squeeze_11
+  - first:
+      213: 3924108029754053206
+    second: chest-anims-closing-no squeeze_12
+  - first:
+      213: -6187815915869696757
+    second: chest-anims-closing-no squeeze_13
+  - first:
+      213: 1525269332214514057
+    second: chest-anims-closing-no squeeze_14
+  - first:
+      213: -6771590657264642314
+    second: chest-anims-closing-no squeeze_15
+  - first:
+      213: -4366670561790918669
+    second: chest-anims-closing-no squeeze_16
+  - first:
+      213: 9058697962672395403
+    second: chest-anims-closing-no squeeze_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: chest-anims-closing-no squeeze_0
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 69
+        width: 25
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e0e5aa13d4ae5a70800000000000000
+      internalID: 8817666347030143200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest-anims-closing-no squeeze_1
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 69
+        width: 25
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b90d3e18c50c23c60800000000000000
+      internalID: 7796505408480465051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest-anims-closing-no squeeze_2
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 68
+        width: 25
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 836c173053c3150d0800000000000000
+      internalID: -3435898842318256584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest-anims-closing-no squeeze_3
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 68
+        width: 25
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 833935365b33ef710800000000000000
+      internalID: 1728876161105367864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest-anims-closing-no squeeze_4
+      rect:
+        serializedVersion: 2
+        x: 369
+        y: 66
+        width: 25
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b54642a480c2063f0800000000000000
+      internalID: -909678710613580709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest-anims-closing-no squeeze_5
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 66
+        width: 25
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 093e4ec0b4f16e360800000000000000
+      internalID: 7198475461597651856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest-anims-closing-no squeeze_6
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 13
+        width: 55
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8df8f334c9bcdaf0800000000000000
+      internalID: -370216817014538869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest-anims-closing-no squeeze_7
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 13
+        width: 47
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fe59a2d8fff91f30800000000000000
+      internalID: 4546946742958513905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest-anims-closing-no squeeze_8
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 13
+        width: 47
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fd7902352346d9d0800000000000000
+      internalID: -2749936695430775311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest-anims-closing-no squeeze_9
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 13
+        width: 47
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e0d3093e0142bb40800000000000000
+      internalID: 5454493628040990944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest-anims-closing-no squeeze_10
+      rect:
+        serializedVersion: 2
+        x: 694
+        y: 13
+        width: 51
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27d024f51ee4461d0800000000000000
+      internalID: -3358472692238774926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest-anims-closing-no squeeze_11
+      rect:
+        serializedVersion: 2
+        x: 849
+        y: 13
+        width: 59
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9a6a75b29d643c00800000000000000
+      internalID: 879448304121440925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest-anims-closing-no squeeze_12
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 26
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6529fb5567b357630800000000000000
+      internalID: 3924108029754053206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest-anims-closing-no squeeze_13
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 29
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0d041f7536702aa0800000000000000
+      internalID: -6187815915869696757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest-anims-closing-no squeeze_14
+      rect:
+        serializedVersion: 2
+        x: 1006
+        y: 13
+        width: 69
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 981817d5068da2510800000000000000
+      internalID: 1525269332214514057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest-anims-closing-no squeeze_15
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 13
+        width: 71
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f61365bc2a7602a0800000000000000
+      internalID: -6771590657264642314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest-anims-closing-no squeeze_16
+      rect:
+        serializedVersion: 2
+        x: 1325
+        y: 13
+        width: 68
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fffb4972487663c0800000000000000
+      internalID: -4366670561790918669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest-anims-closing-no squeeze_17
+      rect:
+        serializedVersion: 2
+        x: 1496
+        y: 13
+        width: 47
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8494a05dc5f6bd70800000000000000
+      internalID: 9058697962672395403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e8d0ed38930c4fe7a029f8a34f7f3bf
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      chest-anims-closing-no squeeze_0: 8817666347030143200
+      chest-anims-closing-no squeeze_1: 7796505408480465051
+      chest-anims-closing-no squeeze_10: -3358472692238774926
+      chest-anims-closing-no squeeze_11: 879448304121440925
+      chest-anims-closing-no squeeze_12: 3924108029754053206
+      chest-anims-closing-no squeeze_13: -6187815915869696757
+      chest-anims-closing-no squeeze_14: 1525269332214514057
+      chest-anims-closing-no squeeze_15: -6771590657264642314
+      chest-anims-closing-no squeeze_16: -4366670561790918669
+      chest-anims-closing-no squeeze_17: 9058697962672395403
+      chest-anims-closing-no squeeze_2: -3435898842318256584
+      chest-anims-closing-no squeeze_3: 1728876161105367864
+      chest-anims-closing-no squeeze_4: -909678710613580709
+      chest-anims-closing-no squeeze_5: 7198475461597651856
+      chest-anims-closing-no squeeze_6: -370216817014538869
+      chest-anims-closing-no squeeze_7: 4546946742958513905
+      chest-anims-closing-no squeeze_8: -2749936695430775311
+      chest-anims-closing-no squeeze_9: 5454493628040990944
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

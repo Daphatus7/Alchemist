@@ -1,0 +1,572 @@
+fileFormatVersion: 2
+guid: 39559b119c1604d11ac05f9095078db1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7117669399584464977
+    second: spitfire device-horizontal-firing-loop-flame_0
+  - first:
+      213: 5090690629683398700
+    second: spitfire device-horizontal-firing-loop-flame_1
+  - first:
+      213: -5668100399956776245
+    second: spitfire device-horizontal-firing-loop-flame_2
+  - first:
+      213: 1504338963569505427
+    second: spitfire device-horizontal-firing-loop-flame_3
+  - first:
+      213: -4835271334536427417
+    second: spitfire device-horizontal-firing-loop-flame_4
+  - first:
+      213: -5516688280541232198
+    second: spitfire device-horizontal-firing-loop-flame_5
+  - first:
+      213: -5321445203759135196
+    second: spitfire device-horizontal-firing-loop-flame_6
+  - first:
+      213: -6996418637682835969
+    second: spitfire device-horizontal-firing-loop-flame_7
+  - first:
+      213: -6950886291025453516
+    second: spitfire device-horizontal-firing-loop-flame_8
+  - first:
+      213: 7564236243772907178
+    second: spitfire device-horizontal-firing-loop-flame_9
+  - first:
+      213: 920554095360621232
+    second: spitfire device-horizontal-firing-loop-flame_10
+  - first:
+      213: 8454832624166371480
+    second: spitfire device-horizontal-firing-loop-flame_11
+  - first:
+      213: 2358583850143972808
+    second: spitfire device-horizontal-firing-loop-flame_12
+  - first:
+      213: 6343816185306486766
+    second: spitfire device-horizontal-firing-loop-flame_13
+  - first:
+      213: -5828360457814884321
+    second: spitfire device-horizontal-firing-loop-flame_14
+  - first:
+      213: 424501873354091016
+    second: spitfire device-horizontal-firing-loop-flame_15
+  - first:
+      213: 1908529012145979421
+    second: spitfire device-horizontal-firing-loop-flame_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: spitfire device-horizontal-firing-loop-flame_0
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 281
+        width: 135
+        height: 57
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15066ee9b9a07c260800000000000000
+      internalID: 7117669399584464977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-firing-loop-flame_1
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 332
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2840b3f724c5a640800000000000000
+      internalID: 5090690629683398700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-firing-loop-flame_2
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 280
+        width: 137
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcaa35597bcd651b0800000000000000
+      internalID: -5668100399956776245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-firing-loop-flame_3
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 326
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 394f659215c70e410800000000000000
+      internalID: 1504338963569505427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-firing-loop-flame_4
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 288
+        width: 139
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 768c350f65aa5ecb0800000000000000
+      internalID: -4835271334536427417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-firing-loop-flame_5
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 327
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab387cdcc39c073b0800000000000000
+      internalID: -5516688280541232198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-firing-loop-flame_6
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 323
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4260b3a08cd6626b0800000000000000
+      internalID: -5321445203759135196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-firing-loop-flame_7
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 278
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffdfdf0515ab7ee90800000000000000
+      internalID: -6996418637682835969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-firing-loop-flame_8
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 156
+        width: 138
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43e9b45eebd798f90800000000000000
+      internalID: -6950886291025453516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-firing-loop-flame_9
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 154
+        width: 138
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aae183369c099f860800000000000000
+      internalID: 7564236243772907178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-firing-loop-flame_10
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 196
+        width: 25
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ba308a821776cc00800000000000000
+      internalID: 920554095360621232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-firing-loop-flame_11
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 153
+        width: 139
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89002ded979955570800000000000000
+      internalID: 8454832624166371480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-firing-loop-flame_12
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 150
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cdfdc0f38f5bb020800000000000000
+      internalID: 2358583850143972808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-firing-loop-flame_13
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 27
+        width: 137
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee71195a533c90850800000000000000
+      internalID: 6343816185306486766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-firing-loop-flame_14
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 26
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f10c2092b018d1fa0800000000000000
+      internalID: -5828360457814884321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-firing-loop-flame_15
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 26
+        width: 136
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80a22c7643224e500800000000000000
+      internalID: 424501873354091016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spitfire device-horizontal-firing-loop-flame_16
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 25
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d100d7456057c7a10800000000000000
+      internalID: 1908529012145979421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 932442de16d264c0797e164f10f9e891
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      spitfire device-horizontal-firing-loop-flame_0: 7117669399584464977
+      spitfire device-horizontal-firing-loop-flame_1: 5090690629683398700
+      spitfire device-horizontal-firing-loop-flame_10: 920554095360621232
+      spitfire device-horizontal-firing-loop-flame_11: 8454832624166371480
+      spitfire device-horizontal-firing-loop-flame_12: 2358583850143972808
+      spitfire device-horizontal-firing-loop-flame_13: 6343816185306486766
+      spitfire device-horizontal-firing-loop-flame_14: -5828360457814884321
+      spitfire device-horizontal-firing-loop-flame_15: 424501873354091016
+      spitfire device-horizontal-firing-loop-flame_16: 1908529012145979421
+      spitfire device-horizontal-firing-loop-flame_2: -5668100399956776245
+      spitfire device-horizontal-firing-loop-flame_3: 1504338963569505427
+      spitfire device-horizontal-firing-loop-flame_4: -4835271334536427417
+      spitfire device-horizontal-firing-loop-flame_5: -5516688280541232198
+      spitfire device-horizontal-firing-loop-flame_6: -5321445203759135196
+      spitfire device-horizontal-firing-loop-flame_7: -6996418637682835969
+      spitfire device-horizontal-firing-loop-flame_8: -6950886291025453516
+      spitfire device-horizontal-firing-loop-flame_9: 7564236243772907178
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

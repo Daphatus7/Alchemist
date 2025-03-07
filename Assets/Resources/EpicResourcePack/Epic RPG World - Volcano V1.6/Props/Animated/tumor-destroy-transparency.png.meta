@@ -1,0 +1,416 @@
+fileFormatVersion: 2
+guid: dd2b6abdc22a64f22b76a7de7940c7cd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5094010835244817338
+    second: tumor-destroy-transparency_0
+  - first:
+      213: 7083530085373332766
+    second: tumor-destroy-transparency_1
+  - first:
+      213: -6652105556344486600
+    second: tumor-destroy-transparency_2
+  - first:
+      213: -2420122240764292712
+    second: tumor-destroy-transparency_3
+  - first:
+      213: -7841009449894486740
+    second: tumor-destroy-transparency_4
+  - first:
+      213: 3607124119569008658
+    second: tumor-destroy-transparency_5
+  - first:
+      213: 357499078202792177
+    second: tumor-destroy-transparency_6
+  - first:
+      213: 7100780810586624896
+    second: tumor-destroy-transparency_7
+  - first:
+      213: -4102688231693559315
+    second: tumor-destroy-transparency_8
+  - first:
+      213: -3622408391334535012
+    second: tumor-destroy-transparency_9
+  - first:
+      213: -9192593589652347517
+    second: tumor-destroy-transparency_10
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: tumor-destroy-transparency_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 409
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abb12cc8ddf81b640800000000000000
+      internalID: 5094010835244817338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-transparency_1
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 409
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1d487e1511cd4260800000000000000
+      internalID: 7083530085373332766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-transparency_2
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 409
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8354fa9ad39fea3a0800000000000000
+      internalID: -6652105556344486600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-transparency_3
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 409
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 891d836f4aff96ed0800000000000000
+      internalID: -2420122240764292712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-transparency_4
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 217
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2dde82e2732f2390800000000000000
+      internalID: -7841009449894486740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-transparency_5
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 217
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21887af76441f0230800000000000000
+      internalID: 3607124119569008658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-transparency_6
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 217
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f89ecb748716f400800000000000000
+      internalID: 357499078202792177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-transparency_7
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 217
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0831de2968a0b8260800000000000000
+      internalID: 7100780810586624896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-transparency_8
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 25
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de9dabd4ac25017c0800000000000000
+      internalID: -4102688231693559315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-transparency_9
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 25
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c906c1ba2ce9abdc0800000000000000
+      internalID: -3622408391334535012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tumor-destroy-transparency_10
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 25
+        width: 200
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3852d3ca5d85d6080800000000000000
+      internalID: -9192593589652347517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: fcba239dda0274b4a86c32304fffa101
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      tumor-destroy-transparency_0: 5094010835244817338
+      tumor-destroy-transparency_1: 7083530085373332766
+      tumor-destroy-transparency_10: -9192593589652347517
+      tumor-destroy-transparency_2: -6652105556344486600
+      tumor-destroy-transparency_3: -2420122240764292712
+      tumor-destroy-transparency_4: -7841009449894486740
+      tumor-destroy-transparency_5: 3607124119569008658
+      tumor-destroy-transparency_6: 357499078202792177
+      tumor-destroy-transparency_7: 7100780810586624896
+      tumor-destroy-transparency_8: -4102688231693559315
+      tumor-destroy-transparency_9: -3622408391334535012
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

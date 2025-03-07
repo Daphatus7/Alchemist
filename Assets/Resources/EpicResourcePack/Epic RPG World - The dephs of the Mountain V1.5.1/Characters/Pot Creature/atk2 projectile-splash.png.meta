@@ -1,0 +1,624 @@
+fileFormatVersion: 2
+guid: 1137a32637db148a99fadf727dbf80ab
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2060420742906771452
+    second: atk2 projectile-splash_0
+  - first:
+      213: -779981794389830567
+    second: atk2 projectile-splash_1
+  - first:
+      213: 5581302893331274581
+    second: atk2 projectile-splash_2
+  - first:
+      213: -3156264216397382396
+    second: atk2 projectile-splash_3
+  - first:
+      213: 1900829949177421200
+    second: atk2 projectile-splash_4
+  - first:
+      213: 6608103903225400300
+    second: atk2 projectile-splash_5
+  - first:
+      213: -1766796168225307635
+    second: atk2 projectile-splash_6
+  - first:
+      213: 5773011876737741594
+    second: atk2 projectile-splash_7
+  - first:
+      213: 510158255335645184
+    second: atk2 projectile-splash_8
+  - first:
+      213: 6787017727939627921
+    second: atk2 projectile-splash_9
+  - first:
+      213: -1700988495138079565
+    second: atk2 projectile-splash_10
+  - first:
+      213: -3268124864634659993
+    second: atk2 projectile-splash_11
+  - first:
+      213: 8452771321403327838
+    second: atk2 projectile-splash_12
+  - first:
+      213: 8439084181389866478
+    second: atk2 projectile-splash_13
+  - first:
+      213: 837155403878177705
+    second: atk2 projectile-splash_14
+  - first:
+      213: 5042868186092386194
+    second: atk2 projectile-splash_15
+  - first:
+      213: -7575149066772927829
+    second: atk2 projectile-splash_16
+  - first:
+      213: 5093075680006691818
+    second: atk2 projectile-splash_17
+  - first:
+      213: 6278028784791482987
+    second: atk2 projectile-splash_18
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: atk2 projectile-splash_0
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 28
+        width: 100
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 408023b304ae763e0800000000000000
+      internalID: -2060420742906771452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk2 projectile-splash_1
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 68
+        width: 22
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9545f16c0b2fc25f0800000000000000
+      internalID: -779981794389830567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk2 projectile-splash_2
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 25
+        width: 115
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55bded41965c47d40800000000000000
+      internalID: 5581302893331274581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk2 projectile-splash_3
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 70
+        width: 28
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40d7b54fa62b234d0800000000000000
+      internalID: -3156264216397382396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk2 projectile-splash_4
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 74
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09dd42b84ca116a10800000000000000
+      internalID: 1900829949177421200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk2 projectile-splash_5
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 17
+        width: 107
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceb4f9e1d73b4bb50800000000000000
+      internalID: 6608103903225400300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk2 projectile-splash_6
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 27
+        width: 110
+        height: 57
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d04c862fe341b77e0800000000000000
+      internalID: -1766796168225307635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk2 projectile-splash_7
+      rect:
+        serializedVersion: 2
+        x: 883
+        y: 60
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a13701517bbdd1050800000000000000
+      internalID: 5773011876737741594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk2 projectile-splash_8
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 49
+        width: 57
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 000a384fa32741700800000000000000
+      internalID: 510158255335645184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk2 projectile-splash_9
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 33
+        width: 44
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19bce161aa4503e50800000000000000
+      internalID: 6787017727939627921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk2 projectile-splash_10
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 56
+        width: 20
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bcb444d9ffd468e0800000000000000
+      internalID: -1700988495138079565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk2 projectile-splash_11
+      rect:
+        serializedVersion: 2
+        x: 834
+        y: 44
+        width: 12
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76b54d930c945a2d0800000000000000
+      internalID: -3268124864634659993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk2 projectile-splash_12
+      rect:
+        serializedVersion: 2
+        x: 862
+        y: 36
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e55cadb6bb64e4570800000000000000
+      internalID: 8452771321403327838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk2 projectile-splash_13
+      rect:
+        serializedVersion: 2
+        x: 864
+        y: 63
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee57c5dc956ad1570800000000000000
+      internalID: 8439084181389866478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk2 projectile-splash_14
+      rect:
+        serializedVersion: 2
+        x: 892
+        y: 49
+        width: 19
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ab15f5876c2e9b00800000000000000
+      internalID: 837155403878177705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk2 projectile-splash_15
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 35
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 297b721a5eddbf540800000000000000
+      internalID: 5042868186092386194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk2 projectile-splash_16
+      rect:
+        serializedVersion: 2
+        x: 911
+        y: 57
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: baa2e520f0aafd690800000000000000
+      internalID: -7575149066772927829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk2 projectile-splash_17
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 34
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aebdaf0c85d3ea640800000000000000
+      internalID: 5093075680006691818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk2 projectile-splash_18
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 16
+        width: 6
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b627c27dae9002750800000000000000
+      internalID: 6278028784791482987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: e6316ffee93904860930bf4fc3b73d37
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      atk2 projectile-splash_0: -2060420742906771452
+      atk2 projectile-splash_1: -779981794389830567
+      atk2 projectile-splash_10: -1700988495138079565
+      atk2 projectile-splash_11: -3268124864634659993
+      atk2 projectile-splash_12: 8452771321403327838
+      atk2 projectile-splash_13: 8439084181389866478
+      atk2 projectile-splash_14: 837155403878177705
+      atk2 projectile-splash_15: 5042868186092386194
+      atk2 projectile-splash_16: -7575149066772927829
+      atk2 projectile-splash_17: 5093075680006691818
+      atk2 projectile-splash_18: 6278028784791482987
+      atk2 projectile-splash_2: 5581302893331274581
+      atk2 projectile-splash_3: -3156264216397382396
+      atk2 projectile-splash_4: 1900829949177421200
+      atk2 projectile-splash_5: 6608103903225400300
+      atk2 projectile-splash_6: -1766796168225307635
+      atk2 projectile-splash_7: 5773011876737741594
+      atk2 projectile-splash_8: 510158255335645184
+      atk2 projectile-splash_9: 6787017727939627921
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

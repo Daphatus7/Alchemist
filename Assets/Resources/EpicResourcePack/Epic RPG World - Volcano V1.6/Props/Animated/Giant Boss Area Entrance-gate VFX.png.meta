@@ -1,0 +1,546 @@
+fileFormatVersion: 2
+guid: 4723ca0fc61ba4d2eba66bee800b0315
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 639324764731567696
+    second: Giant Boss Area Entrance-gate VFX_0
+  - first:
+      213: -229218472204389662
+    second: Giant Boss Area Entrance-gate VFX_1
+  - first:
+      213: 7857546611937923911
+    second: Giant Boss Area Entrance-gate VFX_2
+  - first:
+      213: 5666442805584280565
+    second: Giant Boss Area Entrance-gate VFX_3
+  - first:
+      213: 8580066957482603974
+    second: Giant Boss Area Entrance-gate VFX_4
+  - first:
+      213: -3522198154050239234
+    second: Giant Boss Area Entrance-gate VFX_5
+  - first:
+      213: 1427215016322521694
+    second: Giant Boss Area Entrance-gate VFX_6
+  - first:
+      213: -4957200372602296059
+    second: Giant Boss Area Entrance-gate VFX_7
+  - first:
+      213: 2708457172625807987
+    second: Giant Boss Area Entrance-gate VFX_8
+  - first:
+      213: 7693745385934775187
+    second: Giant Boss Area Entrance-gate VFX_9
+  - first:
+      213: -3990045124056616046
+    second: Giant Boss Area Entrance-gate VFX_10
+  - first:
+      213: -1336821686128656751
+    second: Giant Boss Area Entrance-gate VFX_11
+  - first:
+      213: 5947599741140954807
+    second: Giant Boss Area Entrance-gate VFX_12
+  - first:
+      213: -4008951735687926356
+    second: Giant Boss Area Entrance-gate VFX_13
+  - first:
+      213: 8080348440620243017
+    second: Giant Boss Area Entrance-gate VFX_14
+  - first:
+      213: 5974037481677379521
+    second: Giant Boss Area Entrance-gate VFX_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Giant Boss Area Entrance-gate VFX_0
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 607
+        width: 78
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05e6fe97c765fd800800000000000000
+      internalID: 639324764731567696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Giant Boss Area Entrance-gate VFX_1
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 607
+        width: 78
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e2bc449307a1dcf0800000000000000
+      internalID: -229218472204389662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Giant Boss Area Entrance-gate VFX_2
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 607
+        width: 78
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74352a2330d9b0d60800000000000000
+      internalID: 7857546611937923911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Giant Boss Area Entrance-gate VFX_3
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 607
+        width: 78
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fb3be6a5bf33ae40800000000000000
+      internalID: 5666442805584280565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Giant Boss Area Entrance-gate VFX_4
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 415
+        width: 78
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c531dd4075821770800000000000000
+      internalID: 8580066957482603974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Giant Boss Area Entrance-gate VFX_5
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 415
+        width: 78
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef48c47b073ae1fc0800000000000000
+      internalID: -3522198154050239234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Giant Boss Area Entrance-gate VFX_6
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 415
+        width: 78
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5ad102ee7c7ec310800000000000000
+      internalID: 1427215016322521694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Giant Boss Area Entrance-gate VFX_7
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 415
+        width: 78
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5092b96868c743bb0800000000000000
+      internalID: -4957200372602296059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Giant Boss Area Entrance-gate VFX_8
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 223
+        width: 78
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37a58bfc27f569520800000000000000
+      internalID: 2708457172625807987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Giant Boss Area Entrance-gate VFX_9
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 223
+        width: 78
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39361f05aaca5ca60800000000000000
+      internalID: 7693745385934775187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Giant Boss Area Entrance-gate VFX_10
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 223
+        width: 78
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29373de891380a8c0800000000000000
+      internalID: -3990045124056616046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Giant Boss Area Entrance-gate VFX_11
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 223
+        width: 78
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19e334e52c7a27de0800000000000000
+      internalID: -1336821686128656751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Giant Boss Area Entrance-gate VFX_12
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 31
+        width: 78
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7be69ece37e1a8250800000000000000
+      internalID: 5947599741140954807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Giant Boss Area Entrance-gate VFX_13
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 31
+        width: 78
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cada2a003a75d58c0800000000000000
+      internalID: -4008951735687926356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Giant Boss Area Entrance-gate VFX_14
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 31
+        width: 78
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9481d80681a232070800000000000000
+      internalID: 8080348440620243017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Giant Boss Area Entrance-gate VFX_15
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 31
+        width: 78
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c7df32107b08e250800000000000000
+      internalID: 5974037481677379521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 245e2344559114f9ab622797f801c2e2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Giant Boss Area Entrance-gate VFX_0: 639324764731567696
+      Giant Boss Area Entrance-gate VFX_1: -229218472204389662
+      Giant Boss Area Entrance-gate VFX_10: -3990045124056616046
+      Giant Boss Area Entrance-gate VFX_11: -1336821686128656751
+      Giant Boss Area Entrance-gate VFX_12: 5947599741140954807
+      Giant Boss Area Entrance-gate VFX_13: -4008951735687926356
+      Giant Boss Area Entrance-gate VFX_14: 8080348440620243017
+      Giant Boss Area Entrance-gate VFX_15: 5974037481677379521
+      Giant Boss Area Entrance-gate VFX_2: 7857546611937923911
+      Giant Boss Area Entrance-gate VFX_3: 5666442805584280565
+      Giant Boss Area Entrance-gate VFX_4: 8580066957482603974
+      Giant Boss Area Entrance-gate VFX_5: -3522198154050239234
+      Giant Boss Area Entrance-gate VFX_6: 1427215016322521694
+      Giant Boss Area Entrance-gate VFX_7: -4957200372602296059
+      Giant Boss Area Entrance-gate VFX_8: 2708457172625807987
+      Giant Boss Area Entrance-gate VFX_9: 7693745385934775187
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

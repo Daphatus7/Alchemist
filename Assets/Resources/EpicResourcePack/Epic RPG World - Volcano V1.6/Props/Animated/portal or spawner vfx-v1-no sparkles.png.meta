@@ -1,0 +1,546 @@
+fileFormatVersion: 2
+guid: 037709086a83743d7b734fea0249111f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 829890879191391083
+    second: portal or spawner vfx-v1-no sparkles_0
+  - first:
+      213: 5309977245625262861
+    second: portal or spawner vfx-v1-no sparkles_1
+  - first:
+      213: 9218108120480166940
+    second: portal or spawner vfx-v1-no sparkles_2
+  - first:
+      213: 7899490954484933896
+    second: portal or spawner vfx-v1-no sparkles_3
+  - first:
+      213: 3813831864462763626
+    second: portal or spawner vfx-v1-no sparkles_4
+  - first:
+      213: -4857729441036993358
+    second: portal or spawner vfx-v1-no sparkles_5
+  - first:
+      213: 3955813814589048631
+    second: portal or spawner vfx-v1-no sparkles_6
+  - first:
+      213: -2759637341049184393
+    second: portal or spawner vfx-v1-no sparkles_7
+  - first:
+      213: -449752265316160564
+    second: portal or spawner vfx-v1-no sparkles_8
+  - first:
+      213: -7460045621811900690
+    second: portal or spawner vfx-v1-no sparkles_9
+  - first:
+      213: 8197139251042696360
+    second: portal or spawner vfx-v1-no sparkles_10
+  - first:
+      213: -6497342462678658371
+    second: portal or spawner vfx-v1-no sparkles_11
+  - first:
+      213: -6377922470758114242
+    second: portal or spawner vfx-v1-no sparkles_12
+  - first:
+      213: -7498813891174461252
+    second: portal or spawner vfx-v1-no sparkles_13
+  - first:
+      213: 8222636005200207204
+    second: portal or spawner vfx-v1-no sparkles_14
+  - first:
+      213: 6649328743598479879
+    second: portal or spawner vfx-v1-no sparkles_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: portal or spawner vfx-v1-no sparkles_0
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 512
+        width: 135
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6b1a809b5d548b00800000000000000
+      internalID: 829890879191391083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner vfx-v1-no sparkles_1
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 514
+        width: 132
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d03a6e2eb24d0b940800000000000000
+      internalID: 5309977245625262861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner vfx-v1-no sparkles_2
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 512
+        width: 132
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c143d56fe7c4def70800000000000000
+      internalID: 9218108120480166940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner vfx-v1-no sparkles_3
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 514
+        width: 135
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8056c787b21a0ad60800000000000000
+      internalID: 7899490954484933896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner vfx-v1-no sparkles_4
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 352
+        width: 135
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a666e5acfd37de430800000000000000
+      internalID: 3813831864462763626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner vfx-v1-no sparkles_5
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 352
+        width: 137
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bc780c8fc0e59cb0800000000000000
+      internalID: -4857729441036993358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner vfx-v1-no sparkles_6
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 350
+        width: 136
+        height: 129
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 737c920a4bfd5e630800000000000000
+      internalID: 3955813814589048631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner vfx-v1-no sparkles_7
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 352
+        width: 133
+        height: 127
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77f1cd1a57cc3b9d0800000000000000
+      internalID: -2759637341049184393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner vfx-v1-no sparkles_8
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 192
+        width: 133
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccb27e492b822c9f0800000000000000
+      internalID: -449752265316160564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner vfx-v1-no sparkles_9
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 190
+        width: 133
+        height: 127
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eee81bf2808987890800000000000000
+      internalID: -7460045621811900690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner vfx-v1-no sparkles_10
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 192
+        width: 135
+        height: 127
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8acbfc0f7b612c170800000000000000
+      internalID: 8197139251042696360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner vfx-v1-no sparkles_11
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 190
+        width: 135
+        height: 127
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db21aff547dc4d5a0800000000000000
+      internalID: -6497342462678658371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner vfx-v1-no sparkles_12
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 32
+        width: 135
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3c1b75fd411d77a0800000000000000
+      internalID: -6377922470758114242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner vfx-v1-no sparkles_13
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 30
+        width: 135
+        height: 127
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb018c31f7cdee790800000000000000
+      internalID: -7498813891174461252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner vfx-v1-no sparkles_14
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 30
+        width: 135
+        height: 129
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46d9b4f91ebac1270800000000000000
+      internalID: 8222636005200207204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: portal or spawner vfx-v1-no sparkles_15
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 32
+        width: 132
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70a5bfc3349274c50800000000000000
+      internalID: 6649328743598479879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: e99bd11d7c4fa44c797d8584d6e3d26f
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      portal or spawner vfx-v1-no sparkles_0: 829890879191391083
+      portal or spawner vfx-v1-no sparkles_1: 5309977245625262861
+      portal or spawner vfx-v1-no sparkles_10: 8197139251042696360
+      portal or spawner vfx-v1-no sparkles_11: -6497342462678658371
+      portal or spawner vfx-v1-no sparkles_12: -6377922470758114242
+      portal or spawner vfx-v1-no sparkles_13: -7498813891174461252
+      portal or spawner vfx-v1-no sparkles_14: 8222636005200207204
+      portal or spawner vfx-v1-no sparkles_15: 6649328743598479879
+      portal or spawner vfx-v1-no sparkles_2: 9218108120480166940
+      portal or spawner vfx-v1-no sparkles_3: 7899490954484933896
+      portal or spawner vfx-v1-no sparkles_4: 3813831864462763626
+      portal or spawner vfx-v1-no sparkles_5: -4857729441036993358
+      portal or spawner vfx-v1-no sparkles_6: 3955813814589048631
+      portal or spawner vfx-v1-no sparkles_7: -2759637341049184393
+      portal or spawner vfx-v1-no sparkles_8: -449752265316160564
+      portal or spawner vfx-v1-no sparkles_9: -7460045621811900690
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,598 @@
+fileFormatVersion: 2
+guid: d0801f320b2674c16b531227cb0bf455
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8637464633343942200
+    second: boss gate-going down-vertical_0
+  - first:
+      213: -242568412952162456
+    second: boss gate-going down-vertical_1
+  - first:
+      213: -7157710882772322625
+    second: boss gate-going down-vertical_2
+  - first:
+      213: -5804961660758646635
+    second: boss gate-going down-vertical_3
+  - first:
+      213: 2320796018093767518
+    second: boss gate-going down-vertical_4
+  - first:
+      213: 7888694236830804035
+    second: boss gate-going down-vertical_5
+  - first:
+      213: -3017798367314281346
+    second: boss gate-going down-vertical_6
+  - first:
+      213: 1935579977283443170
+    second: boss gate-going down-vertical_7
+  - first:
+      213: 7697995830117834242
+    second: boss gate-going down-vertical_8
+  - first:
+      213: 3238728114327024219
+    second: boss gate-going down-vertical_9
+  - first:
+      213: 6291627512412191788
+    second: boss gate-going down-vertical_10
+  - first:
+      213: 1510921299810775248
+    second: boss gate-going down-vertical_11
+  - first:
+      213: -5222606473730006318
+    second: boss gate-going down-vertical_12
+  - first:
+      213: 7644198713194814845
+    second: boss gate-going down-vertical_13
+  - first:
+      213: 5915583061420855994
+    second: boss gate-going down-vertical_14
+  - first:
+      213: 2887508262778719313
+    second: boss gate-going down-vertical_15
+  - first:
+      213: 5011164744754051782
+    second: boss gate-going down-vertical_16
+  - first:
+      213: 2333865554885746989
+    second: boss gate-going down-vertical_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: boss gate-going down-vertical_0
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 62
+        width: 14
+        height: 219
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c1e881edaf812880800000000000000
+      internalID: -8637464633343942200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss gate-going down-vertical_1
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 62
+        width: 14
+        height: 219
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86f8148405932acf0800000000000000
+      internalID: -242568412952162456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss gate-going down-vertical_2
+      rect:
+        serializedVersion: 2
+        x: 549
+        y: 62
+        width: 14
+        height: 219
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb6786310e3baac90800000000000000
+      internalID: -7157710882772322625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss gate-going down-vertical_3
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 62
+        width: 14
+        height: 219
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59028b32022a07fa0800000000000000
+      internalID: -5804961660758646635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss gate-going down-vertical_4
+      rect:
+        serializedVersion: 2
+        x: 997
+        y: 62
+        width: 14
+        height: 219
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5bbe9eaeaf153020800000000000000
+      internalID: 2320796018093767518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss gate-going down-vertical_5
+      rect:
+        serializedVersion: 2
+        x: 1221
+        y: 62
+        width: 14
+        height: 219
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 348a8ffbc954a7d60800000000000000
+      internalID: 7888694236830804035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss gate-going down-vertical_6
+      rect:
+        serializedVersion: 2
+        x: 1445
+        y: 62
+        width: 14
+        height: 213
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7c7a78bf50ae16d0800000000000000
+      internalID: -3017798367314281346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss gate-going down-vertical_7
+      rect:
+        serializedVersion: 2
+        x: 1669
+        y: 62
+        width: 14
+        height: 193
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e99654fbbf8cda10800000000000000
+      internalID: 1935579977283443170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss gate-going down-vertical_8
+      rect:
+        serializedVersion: 2
+        x: 1893
+        y: 62
+        width: 14
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20e9c98fb66c4da60800000000000000
+      internalID: 7697995830117834242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss gate-going down-vertical_9
+      rect:
+        serializedVersion: 2
+        x: 2117
+        y: 62
+        width: 14
+        height: 155
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b52788a7f0642fc20800000000000000
+      internalID: 3238728114327024219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss gate-going down-vertical_10
+      rect:
+        serializedVersion: 2
+        x: 2341
+        y: 62
+        width: 14
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2c376853e9505750800000000000000
+      internalID: 6291627512412191788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss gate-going down-vertical_11
+      rect:
+        serializedVersion: 2
+        x: 2565
+        y: 62
+        width: 14
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d0facebaeed7f410800000000000000
+      internalID: 1510921299810775248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss gate-going down-vertical_12
+      rect:
+        serializedVersion: 2
+        x: 2789
+        y: 62
+        width: 14
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d2eaab25139587b0800000000000000
+      internalID: -5222606473730006318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss gate-going down-vertical_13
+      rect:
+        serializedVersion: 2
+        x: 3013
+        y: 62
+        width: 14
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7d997c9a36a51a60800000000000000
+      internalID: 7644198713194814845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss gate-going down-vertical_14
+      rect:
+        serializedVersion: 2
+        x: 3237
+        y: 62
+        width: 14
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab2de47c37f581250800000000000000
+      internalID: 5915583061420855994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss gate-going down-vertical_15
+      rect:
+        serializedVersion: 2
+        x: 3461
+        y: 62
+        width: 14
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15c4ee0677d721820800000000000000
+      internalID: 2887508262778719313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss gate-going down-vertical_16
+      rect:
+        serializedVersion: 2
+        x: 3685
+        y: 62
+        width: 14
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cab60af8cb3b8540800000000000000
+      internalID: 5011164744754051782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss gate-going down-vertical_17
+      rect:
+        serializedVersion: 2
+        x: 3909
+        y: 62
+        width: 14
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d212c785b5e836020800000000000000
+      internalID: 2333865554885746989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 85d5a40cab7b140e7ad92235a762b184
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      boss gate-going down-vertical_0: -8637464633343942200
+      boss gate-going down-vertical_1: -242568412952162456
+      boss gate-going down-vertical_10: 6291627512412191788
+      boss gate-going down-vertical_11: 1510921299810775248
+      boss gate-going down-vertical_12: -5222606473730006318
+      boss gate-going down-vertical_13: 7644198713194814845
+      boss gate-going down-vertical_14: 5915583061420855994
+      boss gate-going down-vertical_15: 2887508262778719313
+      boss gate-going down-vertical_16: 5011164744754051782
+      boss gate-going down-vertical_17: 2333865554885746989
+      boss gate-going down-vertical_2: -7157710882772322625
+      boss gate-going down-vertical_3: -5804961660758646635
+      boss gate-going down-vertical_4: 2320796018093767518
+      boss gate-going down-vertical_5: 7888694236830804035
+      boss gate-going down-vertical_6: -3017798367314281346
+      boss gate-going down-vertical_7: 1935579977283443170
+      boss gate-going down-vertical_8: 7697995830117834242
+      boss gate-going down-vertical_9: 3238728114327024219
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

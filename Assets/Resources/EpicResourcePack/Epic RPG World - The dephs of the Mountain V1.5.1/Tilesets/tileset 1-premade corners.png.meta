@@ -1,0 +1,442 @@
+fileFormatVersion: 2
+guid: 9ddbd68ee60ab48f5b6d1ed25f5588e4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 276507878200375076
+    second: tileset 1-premade corners_0
+  - first:
+      213: 5541963336439399823
+    second: tileset 1-premade corners_1
+  - first:
+      213: -4287942733942830673
+    second: tileset 1-premade corners_2
+  - first:
+      213: 4306714209281652497
+    second: tileset 1-premade corners_3
+  - first:
+      213: -7049918815674803580
+    second: tileset 1-premade corners_4
+  - first:
+      213: 9018907863295931701
+    second: tileset 1-premade corners_5
+  - first:
+      213: -4502951608596922217
+    second: tileset 1-premade corners_6
+  - first:
+      213: -4411900621917158739
+    second: tileset 1-premade corners_7
+  - first:
+      213: 1021018228774864159
+    second: tileset 1-premade corners_8
+  - first:
+      213: 1417989462804258445
+    second: tileset 1-premade corners_9
+  - first:
+      213: 2421316886304617105
+    second: tileset 1-premade corners_10
+  - first:
+      213: 2747168057804306218
+    second: tileset 1-premade corners_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: tileset 1-premade corners_0
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 383
+        width: 56
+        height: 89
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 427fab1437a56d300800000000000000
+      internalID: 276507878200375076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset 1-premade corners_1
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 383
+        width: 57
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8585baba4209ec40800000000000000
+      internalID: 5541963336439399823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset 1-premade corners_2
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 383
+        width: 88
+        height: 89
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa9ce1e4dca2e74c0800000000000000
+      internalID: -4287942733942830673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset 1-premade corners_3
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 383
+        width: 89
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1173c5161c584cb30800000000000000
+      internalID: 4306714209281652497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset 1-premade corners_4
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 191
+        width: 66
+        height: 162
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48a5c507038a92e90800000000000000
+      internalID: -7049918815674803580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset 1-premade corners_5
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 191
+        width: 66
+        height: 162
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5353bbddae8992d70800000000000000
+      internalID: 9018907863295931701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset 1-premade corners_6
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 159
+        width: 66
+        height: 194
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7908ec0ae5d4281c0800000000000000
+      internalID: -4502951608596922217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset 1-premade corners_7
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 159
+        width: 66
+        height: 194
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da28d4672c7c5c2c0800000000000000
+      internalID: -4411900621917158739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset 1-premade corners_8
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 193
+        width: 93
+        height: 160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1503536ba26b2e00800000000000000
+      internalID: 1021018228774864159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset 1-premade corners_9
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 192
+        width: 95
+        height: 161
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8ed1b157e5bda310800000000000000
+      internalID: 1417989462804258445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset 1-premade corners_10
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 0
+        width: 93
+        height: 129
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19277d021ee3a9120800000000000000
+      internalID: 2421316886304617105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset 1-premade corners_11
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 0
+        width: 95
+        height: 129
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a27b9bf1bc6ef1620800000000000000
+      internalID: 2747168057804306218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 023c8097307894eb98b5d5784f9ba505
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      tileset 1-premade corners_0: 276507878200375076
+      tileset 1-premade corners_1: 5541963336439399823
+      tileset 1-premade corners_10: 2421316886304617105
+      tileset 1-premade corners_11: 2747168057804306218
+      tileset 1-premade corners_2: -4287942733942830673
+      tileset 1-premade corners_3: 4306714209281652497
+      tileset 1-premade corners_4: -7049918815674803580
+      tileset 1-premade corners_5: 9018907863295931701
+      tileset 1-premade corners_6: -4502951608596922217
+      tileset 1-premade corners_7: -4411900621917158739
+      tileset 1-premade corners_8: 1021018228774864159
+      tileset 1-premade corners_9: 1417989462804258445
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

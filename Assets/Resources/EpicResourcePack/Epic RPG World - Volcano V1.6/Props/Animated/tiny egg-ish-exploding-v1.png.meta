@@ -1,0 +1,520 @@
+fileFormatVersion: 2
+guid: de1d86d13aff441fda2ea40cf227f5fa
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5232409258588743584
+    second: tiny egg-ish-exploding-v1_0
+  - first:
+      213: 5975872056794836219
+    second: tiny egg-ish-exploding-v1_1
+  - first:
+      213: -2053620259146653419
+    second: tiny egg-ish-exploding-v1_2
+  - first:
+      213: -4815892795222563458
+    second: tiny egg-ish-exploding-v1_3
+  - first:
+      213: -2722654896058271111
+    second: tiny egg-ish-exploding-v1_4
+  - first:
+      213: 201828372548080721
+    second: tiny egg-ish-exploding-v1_5
+  - first:
+      213: 447363039665458544
+    second: tiny egg-ish-exploding-v1_6
+  - first:
+      213: -286202037079401517
+    second: tiny egg-ish-exploding-v1_7
+  - first:
+      213: 89870331938390307
+    second: tiny egg-ish-exploding-v1_8
+  - first:
+      213: 3645061351192755179
+    second: tiny egg-ish-exploding-v1_9
+  - first:
+      213: -373529332457150586
+    second: tiny egg-ish-exploding-v1_10
+  - first:
+      213: -97153374554648763
+    second: tiny egg-ish-exploding-v1_11
+  - first:
+      213: 8604868487572871123
+    second: tiny egg-ish-exploding-v1_12
+  - first:
+      213: 841832146101478122
+    second: tiny egg-ish-exploding-v1_13
+  - first:
+      213: -2944689824728100995
+    second: tiny egg-ish-exploding-v1_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: tiny egg-ish-exploding-v1_0
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 4
+        width: 31
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0685a56708fb267b0800000000000000
+      internalID: -5232409258588743584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny egg-ish-exploding-v1_1
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 4
+        width: 31
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfc607069ff8ee250800000000000000
+      internalID: 5975872056794836219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny egg-ish-exploding-v1_2
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 4
+        width: 31
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 511a40e31431083e0800000000000000
+      internalID: -2053620259146653419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny egg-ish-exploding-v1_3
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 4
+        width: 31
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e756568b4038a2db0800000000000000
+      internalID: -4815892795222563458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny egg-ish-exploding-v1_4
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 18
+        width: 26
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97af77a1ccf273ad0800000000000000
+      internalID: -2722654896058271111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny egg-ish-exploding-v1_5
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 25
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 154d253e5d90dc200800000000000000
+      internalID: 201828372548080721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny egg-ish-exploding-v1_6
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 23
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07d06e8705a553600800000000000000
+      internalID: 447363039665458544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny egg-ish-exploding-v1_7
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 0
+        width: 35
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3db93ed73c4370cf0800000000000000
+      internalID: -286202037079401517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny egg-ish-exploding-v1_8
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 0
+        width: 43
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 321c80b37984f3100800000000000000
+      internalID: 89870331938390307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny egg-ish-exploding-v1_9
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 4
+        width: 33
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: beb795e8cfbd59230800000000000000
+      internalID: 3645061351192755179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny egg-ish-exploding-v1_10
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 4
+        width: 31
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 687e3b91d05f0daf0800000000000000
+      internalID: -373529332457150586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny egg-ish-exploding-v1_11
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 16
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54f80f44587d6aef0800000000000000
+      internalID: -97153374554648763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny egg-ish-exploding-v1_12
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 1
+        width: 33
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d7dbb48c42aa6770800000000000000
+      internalID: 8604868487572871123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny egg-ish-exploding-v1_13
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 4
+        width: 32
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae222ec60e9ceab00800000000000000
+      internalID: 841832146101478122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiny egg-ish-exploding-v1_14
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 4
+        width: 31
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7fcf5fb43c5227d0800000000000000
+      internalID: -2944689824728100995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: b0a1876751e6f4d6c8f078d1ef635223
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      tiny egg-ish-exploding-v1_0: -5232409258588743584
+      tiny egg-ish-exploding-v1_1: 5975872056794836219
+      tiny egg-ish-exploding-v1_10: -373529332457150586
+      tiny egg-ish-exploding-v1_11: -97153374554648763
+      tiny egg-ish-exploding-v1_12: 8604868487572871123
+      tiny egg-ish-exploding-v1_13: 841832146101478122
+      tiny egg-ish-exploding-v1_14: -2944689824728100995
+      tiny egg-ish-exploding-v1_2: -2053620259146653419
+      tiny egg-ish-exploding-v1_3: -4815892795222563458
+      tiny egg-ish-exploding-v1_4: -2722654896058271111
+      tiny egg-ish-exploding-v1_5: 201828372548080721
+      tiny egg-ish-exploding-v1_6: 447363039665458544
+      tiny egg-ish-exploding-v1_7: -286202037079401517
+      tiny egg-ish-exploding-v1_8: 89870331938390307
+      tiny egg-ish-exploding-v1_9: 3645061351192755179
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,546 @@
+fileFormatVersion: 2
+guid: ec0be28f63e424d6391630474a8bf868
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8275747187879602472
+    second: crusher-stand-retreat_0
+  - first:
+      213: 502969134363167970
+    second: crusher-stand-retreat_1
+  - first:
+      213: -8371801176394901121
+    second: crusher-stand-retreat_2
+  - first:
+      213: -3742885863802203686
+    second: crusher-stand-retreat_3
+  - first:
+      213: -8666176558227310556
+    second: crusher-stand-retreat_4
+  - first:
+      213: 4137773828951738715
+    second: crusher-stand-retreat_5
+  - first:
+      213: -7440931494333452503
+    second: crusher-stand-retreat_6
+  - first:
+      213: -4210176942456840148
+    second: crusher-stand-retreat_7
+  - first:
+      213: -587975425518422114
+    second: crusher-stand-retreat_8
+  - first:
+      213: 878651889334233979
+    second: crusher-stand-retreat_9
+  - first:
+      213: 2855178037671082939
+    second: crusher-stand-retreat_10
+  - first:
+      213: 1651903023110082980
+    second: crusher-stand-retreat_11
+  - first:
+      213: -7157293873651244411
+    second: crusher-stand-retreat_12
+  - first:
+      213: -3712475470453201680
+    second: crusher-stand-retreat_13
+  - first:
+      213: -3067949778578904300
+    second: crusher-stand-retreat_14
+  - first:
+      213: 5339331435118460276
+    second: crusher-stand-retreat_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: crusher-stand-retreat_0
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 0
+        width: 44
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d69f7787c3a62d80800000000000000
+      internalID: -8275747187879602472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-stand-retreat_1
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 0
+        width: 44
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ecc3ba43c7eaf600800000000000000
+      internalID: 502969134363167970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-stand-retreat_2
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 0
+        width: 44
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f79d8ce8f2361db80800000000000000
+      internalID: -8371801176394901121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-stand-retreat_3
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 0
+        width: 44
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad11d3533299e0cc0800000000000000
+      internalID: -3742885863802203686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-stand-retreat_4
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 0
+        width: 44
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4283b0ee55e8bb780800000000000000
+      internalID: -8666176558227310556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-stand-retreat_5
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 0
+        width: 44
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b598393ef535c6930800000000000000
+      internalID: 4137773828951738715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-stand-retreat_6
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 0
+        width: 44
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92fec3aca308cb890800000000000000
+      internalID: -7440931494333452503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-stand-retreat_7
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 0
+        width: 44
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c20e15790627295c0800000000000000
+      internalID: -4210176942456840148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-stand-retreat_8
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 0
+        width: 44
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e97b059377717d7f0800000000000000
+      internalID: -587975425518422114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-stand-retreat_9
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 0
+        width: 44
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7b2ef0fc39913c00800000000000000
+      internalID: 878651889334233979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-stand-retreat_10
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 0
+        width: 44
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbbb1e14c41af9720800000000000000
+      internalID: 2855178037671082939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-stand-retreat_11
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 0
+        width: 44
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a1dedf1c0dbce610800000000000000
+      internalID: 1651903023110082980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-stand-retreat_12
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 0
+        width: 44
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58220f3942f2cac90800000000000000
+      internalID: -7157293873651244411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-stand-retreat_13
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 0
+        width: 44
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f4294aaa33aa7cc0800000000000000
+      internalID: -3712475470453201680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-stand-retreat_14
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 0
+        width: 44
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41be01b5ee37c65d0800000000000000
+      internalID: -3067949778578904300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crusher-stand-retreat_15
+      rect:
+        serializedVersion: 2
+        x: 974
+        y: 0
+        width: 44
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47dff48b6ad191a40800000000000000
+      internalID: 5339331435118460276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 6acf4ffc5962d4834b94aac1b262bce2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      crusher-stand-retreat_0: -8275747187879602472
+      crusher-stand-retreat_1: 502969134363167970
+      crusher-stand-retreat_10: 2855178037671082939
+      crusher-stand-retreat_11: 1651903023110082980
+      crusher-stand-retreat_12: -7157293873651244411
+      crusher-stand-retreat_13: -3712475470453201680
+      crusher-stand-retreat_14: -3067949778578904300
+      crusher-stand-retreat_15: 5339331435118460276
+      crusher-stand-retreat_2: -8371801176394901121
+      crusher-stand-retreat_3: -3742885863802203686
+      crusher-stand-retreat_4: -8666176558227310556
+      crusher-stand-retreat_5: 4137773828951738715
+      crusher-stand-retreat_6: -7440931494333452503
+      crusher-stand-retreat_7: -4210176942456840148
+      crusher-stand-retreat_8: -587975425518422114
+      crusher-stand-retreat_9: 878651889334233979
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

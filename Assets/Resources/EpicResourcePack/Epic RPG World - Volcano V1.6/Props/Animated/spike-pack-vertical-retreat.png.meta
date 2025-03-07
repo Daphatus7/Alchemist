@@ -1,0 +1,832 @@
+fileFormatVersion: 2
+guid: cd9c233a0c4a24364905ba1a282b8690
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8359066195182453473
+    second: spike-pack-vertical-retreat_0
+  - first:
+      213: -99429568812107409
+    second: spike-pack-vertical-retreat_1
+  - first:
+      213: 9177572200972815972
+    second: spike-pack-vertical-retreat_2
+  - first:
+      213: 6431675144650383560
+    second: spike-pack-vertical-retreat_3
+  - first:
+      213: 5875152237731899037
+    second: spike-pack-vertical-retreat_4
+  - first:
+      213: -2132621878842921764
+    second: spike-pack-vertical-retreat_5
+  - first:
+      213: 715948956308064065
+    second: spike-pack-vertical-retreat_6
+  - first:
+      213: -4203427041460351214
+    second: spike-pack-vertical-retreat_7
+  - first:
+      213: -3840422165378540345
+    second: spike-pack-vertical-retreat_8
+  - first:
+      213: 285039180284746324
+    second: spike-pack-vertical-retreat_9
+  - first:
+      213: 1219158728467601753
+    second: spike-pack-vertical-retreat_10
+  - first:
+      213: 3737110372078065910
+    second: spike-pack-vertical-retreat_11
+  - first:
+      213: 4080080273486871496
+    second: spike-pack-vertical-retreat_12
+  - first:
+      213: 6279160052873462187
+    second: spike-pack-vertical-retreat_13
+  - first:
+      213: 6049302601005214389
+    second: spike-pack-vertical-retreat_14
+  - first:
+      213: 7127958841830699511
+    second: spike-pack-vertical-retreat_15
+  - first:
+      213: -9038657759179657274
+    second: spike-pack-vertical-retreat_16
+  - first:
+      213: 6968802403242563274
+    second: spike-pack-vertical-retreat_17
+  - first:
+      213: -6712934369454190390
+    second: spike-pack-vertical-retreat_18
+  - first:
+      213: 6975433675114719656
+    second: spike-pack-vertical-retreat_19
+  - first:
+      213: -7355953905616469676
+    second: spike-pack-vertical-retreat_20
+  - first:
+      213: -5469595117773689363
+    second: spike-pack-vertical-retreat_21
+  - first:
+      213: -8663964554000821826
+    second: spike-pack-vertical-retreat_22
+  - first:
+      213: -4541088317461019687
+    second: spike-pack-vertical-retreat_23
+  - first:
+      213: -7642360390323529986
+    second: spike-pack-vertical-retreat_24
+  - first:
+      213: -1494022776753952312
+    second: spike-pack-vertical-retreat_25
+  - first:
+      213: -7115518785967415657
+    second: spike-pack-vertical-retreat_26
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_0
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 346
+        width: 47
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1d7c2e6591aefb80800000000000000
+      internalID: -8359066195182453473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_1
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 346
+        width: 47
+        height: 98
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f69b8ce7551ce9ef0800000000000000
+      internalID: -99429568812107409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_2
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 346
+        width: 47
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46e0c7bba494d5f70800000000000000
+      internalID: 9177572200972815972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_3
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 193
+        width: 44
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c06893b776e14950800000000000000
+      internalID: 6431675144650383560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_4
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 249
+        width: 19
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d96e95315dbb88150800000000000000
+      internalID: 5875152237731899037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_5
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 242
+        width: 17
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdc675743b76762e0800000000000000
+      internalID: -2132621878842921764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_6
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 252
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 147cd0258cf8fe900800000000000000
+      internalID: 715948956308064065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_7
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 242
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21f0c72606d6aa5c0800000000000000
+      internalID: -4203427041460351214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_8
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 206
+        width: 22
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cc5315536414bac0800000000000000
+      internalID: -3840422165378540345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_9
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 221
+        width: 17
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45ad0ffcf99a4f300800000000000000
+      internalID: 285039180284746324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_10
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 230
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 959d02777625be010800000000000000
+      internalID: 1219158728467601753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_11
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 221
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f814265512ecd330800000000000000
+      internalID: 3737110372078065910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_12
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 194
+        width: 19
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cb734c346b5f9830800000000000000
+      internalID: 4080080273486871496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_13
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 209
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba18857bcce042750800000000000000
+      internalID: 6279160052873462187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_14
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 197
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ba23cf3aa073f350800000000000000
+      internalID: 6049302601005214389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_15
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 98
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f17ce41dc89be260800000000000000
+      internalID: 7127958841830699511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_16
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 88
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cfa4c928ac309280800000000000000
+      internalID: -9038657759179657274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_17
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 98
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac6592b0dd826b060800000000000000
+      internalID: 6968802403242563274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_18
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 88
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac01c24f1cdd6d2a0800000000000000
+      internalID: -6712934369454190390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_19
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 76
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a9a28758f7bdc060800000000000000
+      internalID: 6975433675114719656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_20
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 67
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 451459775e66ae990800000000000000
+      internalID: -7355953905616469676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_21
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 76
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ded63e338381814b0800000000000000
+      internalID: -5469595117773689363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_22
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 67
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb1943c442a63c780800000000000000
+      internalID: -8663964554000821826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_23
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 55
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d34f082c30daf0c0800000000000000
+      internalID: -4541088317461019687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_24
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 55
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef6104947b1e0f590800000000000000
+      internalID: -7642360390323529986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_25
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 43
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c9ec31433a244be0800000000000000
+      internalID: -1494022776753952312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike-pack-vertical-retreat_26
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 43
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79e1bc12d59904d90800000000000000
+      internalID: -7115518785967415657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 026728b50f8a64f919ff1f351a6651c2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      spike-pack-vertical-retreat_0: -8359066195182453473
+      spike-pack-vertical-retreat_1: -99429568812107409
+      spike-pack-vertical-retreat_10: 1219158728467601753
+      spike-pack-vertical-retreat_11: 3737110372078065910
+      spike-pack-vertical-retreat_12: 4080080273486871496
+      spike-pack-vertical-retreat_13: 6279160052873462187
+      spike-pack-vertical-retreat_14: 6049302601005214389
+      spike-pack-vertical-retreat_15: 7127958841830699511
+      spike-pack-vertical-retreat_16: -9038657759179657274
+      spike-pack-vertical-retreat_17: 6968802403242563274
+      spike-pack-vertical-retreat_18: -6712934369454190390
+      spike-pack-vertical-retreat_19: 6975433675114719656
+      spike-pack-vertical-retreat_2: 9177572200972815972
+      spike-pack-vertical-retreat_20: -7355953905616469676
+      spike-pack-vertical-retreat_21: -5469595117773689363
+      spike-pack-vertical-retreat_22: -8663964554000821826
+      spike-pack-vertical-retreat_23: -4541088317461019687
+      spike-pack-vertical-retreat_24: -7642360390323529986
+      spike-pack-vertical-retreat_25: -1494022776753952312
+      spike-pack-vertical-retreat_26: -7115518785967415657
+      spike-pack-vertical-retreat_3: 6431675144650383560
+      spike-pack-vertical-retreat_4: 5875152237731899037
+      spike-pack-vertical-retreat_5: -2132621878842921764
+      spike-pack-vertical-retreat_6: 715948956308064065
+      spike-pack-vertical-retreat_7: -4203427041460351214
+      spike-pack-vertical-retreat_8: -3840422165378540345
+      spike-pack-vertical-retreat_9: 285039180284746324
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

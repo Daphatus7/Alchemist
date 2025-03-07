@@ -1,0 +1,728 @@
+fileFormatVersion: 2
+guid: 30f51e1c3f51b4924912741ebb81369c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7445792602726755794
+    second: Pot Creature-atk1_0
+  - first:
+      213: 7739179973881784896
+    second: Pot Creature-atk1_1
+  - first:
+      213: 9105753719456409488
+    second: Pot Creature-atk1_2
+  - first:
+      213: -2183416364884468583
+    second: Pot Creature-atk1_3
+  - first:
+      213: -1865608597234196042
+    second: Pot Creature-atk1_4
+  - first:
+      213: 5355398648020506757
+    second: Pot Creature-atk1_5
+  - first:
+      213: 3619785384384384015
+    second: Pot Creature-atk1_6
+  - first:
+      213: 8018437707259901652
+    second: Pot Creature-atk1_7
+  - first:
+      213: 3034435298383046922
+    second: Pot Creature-atk1_8
+  - first:
+      213: 4971683596085305515
+    second: Pot Creature-atk1_9
+  - first:
+      213: 3721472698594388278
+    second: Pot Creature-atk1_10
+  - first:
+      213: -8427959381509243998
+    second: Pot Creature-atk1_11
+  - first:
+      213: -8972271099418063864
+    second: Pot Creature-atk1_12
+  - first:
+      213: 6764832268016593093
+    second: Pot Creature-atk1_13
+  - first:
+      213: 4093409884068148733
+    second: Pot Creature-atk1_14
+  - first:
+      213: -3512597695679340715
+    second: Pot Creature-atk1_15
+  - first:
+      213: 8056941912502670860
+    second: Pot Creature-atk1_16
+  - first:
+      213: 4976511262446400061
+    second: Pot Creature-atk1_17
+  - first:
+      213: 6643841760394473239
+    second: Pot Creature-atk1_18
+  - first:
+      213: -2230530503217250338
+    second: Pot Creature-atk1_19
+  - first:
+      213: -6097013915426697835
+    second: Pot Creature-atk1_20
+  - first:
+      213: 8870854990281878425
+    second: Pot Creature-atk1_21
+  - first:
+      213: -5426830201885072808
+    second: Pot Creature-atk1_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Pot Creature-atk1_0
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 34
+        width: 45
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e229d3bc31b3ba890800000000000000
+      internalID: -7445792602726755794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_1
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 34
+        width: 45
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04a6a0cae27176b60800000000000000
+      internalID: 7739179973881784896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_2
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 34
+        width: 46
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 097246473c22e5e70800000000000000
+      internalID: 9105753719456409488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_3
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 34
+        width: 48
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99c59466262f2b1e0800000000000000
+      internalID: -2183416364884468583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_4
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 34
+        width: 52
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b1e0ff7dd60c16e0800000000000000
+      internalID: -1865608597234196042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_5
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 34
+        width: 56
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5889edd32b2325a40800000000000000
+      internalID: 5355398648020506757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_6
+      rect:
+        serializedVersion: 2
+        x: 1009
+        y: 34
+        width: 53
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0cc16fe0af0c3230800000000000000
+      internalID: 3619785384384384015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_7
+      rect:
+        serializedVersion: 2
+        x: 1167
+        y: 34
+        width: 55
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d6f2da7c96374f60800000000000000
+      internalID: 8018437707259901652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_8
+      rect:
+        serializedVersion: 2
+        x: 1328
+        y: 34
+        width: 54
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a092706a3da7c1a20800000000000000
+      internalID: 3034435298383046922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_9
+      rect:
+        serializedVersion: 2
+        x: 1487
+        y: 34
+        width: 55
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba02d48b3e7fef440800000000000000
+      internalID: 4971683596085305515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_10
+      rect:
+        serializedVersion: 2
+        x: 1648
+        y: 34
+        width: 51
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6396801c3b355a330800000000000000
+      internalID: 3721472698594388278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_11
+      rect:
+        serializedVersion: 2
+        x: 1820
+        y: 34
+        width: 40
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ab78b3889fd90b80800000000000000
+      internalID: -8427959381509243998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_12
+      rect:
+        serializedVersion: 2
+        x: 1989
+        y: 34
+        width: 50
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80ccea2e8f61c7380800000000000000
+      internalID: -8972271099418063864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_13
+      rect:
+        serializedVersion: 2
+        x: 2148
+        y: 34
+        width: 52
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c8aa3c2b1381ed50800000000000000
+      internalID: 6764832268016593093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_14
+      rect:
+        serializedVersion: 2
+        x: 2308
+        y: 34
+        width: 52
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df574fb0a96bec830800000000000000
+      internalID: 4093409884068148733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_15
+      rect:
+        serializedVersion: 2
+        x: 2468
+        y: 34
+        width: 52
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55f5d2e910fb04fc0800000000000000
+      internalID: -3512597695679340715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_16
+      rect:
+        serializedVersion: 2
+        x: 2628
+        y: 34
+        width: 52
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c069dae5bf100df60800000000000000
+      internalID: 8056941912502670860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_17
+      rect:
+        serializedVersion: 2
+        x: 2787
+        y: 34
+        width: 36
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3239d260ae101540800000000000000
+      internalID: 4976511262446400061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_18
+      rect:
+        serializedVersion: 2
+        x: 2945
+        y: 33
+        width: 35
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71fe73861eaa33c50800000000000000
+      internalID: 6643841760394473239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_19
+      rect:
+        serializedVersion: 2
+        x: 3104
+        y: 34
+        width: 37
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edfff0f33509b01e0800000000000000
+      internalID: -2230530503217250338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_20
+      rect:
+        serializedVersion: 2
+        x: 3258
+        y: 34
+        width: 44
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59dc064b52e036ba0800000000000000
+      internalID: -6097013915426697835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_21
+      rect:
+        serializedVersion: 2
+        x: 3417
+        y: 34
+        width: 45
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99ba0c52d9b9b1b70800000000000000
+      internalID: 8870854990281878425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pot Creature-atk1_22
+      rect:
+        serializedVersion: 2
+        x: 3577
+        y: 34
+        width: 45
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85267481fa600b4b0800000000000000
+      internalID: -5426830201885072808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: e64d94dd5b7cd4eb696d738d956e7d54
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Pot Creature-atk1_0: -7445792602726755794
+      Pot Creature-atk1_1: 7739179973881784896
+      Pot Creature-atk1_10: 3721472698594388278
+      Pot Creature-atk1_11: -8427959381509243998
+      Pot Creature-atk1_12: -8972271099418063864
+      Pot Creature-atk1_13: 6764832268016593093
+      Pot Creature-atk1_14: 4093409884068148733
+      Pot Creature-atk1_15: -3512597695679340715
+      Pot Creature-atk1_16: 8056941912502670860
+      Pot Creature-atk1_17: 4976511262446400061
+      Pot Creature-atk1_18: 6643841760394473239
+      Pot Creature-atk1_19: -2230530503217250338
+      Pot Creature-atk1_2: 9105753719456409488
+      Pot Creature-atk1_20: -6097013915426697835
+      Pot Creature-atk1_21: 8870854990281878425
+      Pot Creature-atk1_22: -5426830201885072808
+      Pot Creature-atk1_3: -2183416364884468583
+      Pot Creature-atk1_4: -1865608597234196042
+      Pot Creature-atk1_5: 5355398648020506757
+      Pot Creature-atk1_6: 3619785384384384015
+      Pot Creature-atk1_7: 8018437707259901652
+      Pot Creature-atk1_8: 3034435298383046922
+      Pot Creature-atk1_9: 4971683596085305515
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

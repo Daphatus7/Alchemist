@@ -1,0 +1,572 @@
+fileFormatVersion: 2
+guid: 43da6e8fe0d6343a1911cb76a4ef1b26
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5960988123818037637
+    second: boss anims-atk2-packed sheet_0
+  - first:
+      213: 4174078611557715229
+    second: boss anims-atk2-packed sheet_1
+  - first:
+      213: -5585522389322269390
+    second: boss anims-atk2-packed sheet_2
+  - first:
+      213: -5695854530947536433
+    second: boss anims-atk2-packed sheet_3
+  - first:
+      213: -4505230197797983435
+    second: boss anims-atk2-packed sheet_4
+  - first:
+      213: 6315485409541240671
+    second: boss anims-atk2-packed sheet_5
+  - first:
+      213: 8180174067600654119
+    second: boss anims-atk2-packed sheet_6
+  - first:
+      213: 6478294683844101203
+    second: boss anims-atk2-packed sheet_7
+  - first:
+      213: 3068276181852415449
+    second: boss anims-atk2-packed sheet_8
+  - first:
+      213: -2823814930725965731
+    second: boss anims-atk2-packed sheet_9
+  - first:
+      213: -4878990590229473718
+    second: boss anims-atk2-packed sheet_10
+  - first:
+      213: 2951497786453622103
+    second: boss anims-atk2-packed sheet_11
+  - first:
+      213: 4878137816344591353
+    second: boss anims-atk2-packed sheet_12
+  - first:
+      213: -8881043885950458723
+    second: boss anims-atk2-packed sheet_13
+  - first:
+      213: -5092059618813669485
+    second: boss anims-atk2-packed sheet_14
+  - first:
+      213: 3013800038048042411
+    second: boss anims-atk2-packed sheet_15
+  - first:
+      213: 5532777154310854713
+    second: boss anims-atk2-packed sheet_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: boss anims-atk2-packed sheet_0
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 672
+        width: 111
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5811f7ead1fa9b250800000000000000
+      internalID: 5960988123818037637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss anims-atk2-packed sheet_1
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 672
+        width: 110
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1d047ac16e4de930800000000000000
+      internalID: 4174078611557715229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss anims-atk2-packed sheet_2
+      rect:
+        serializedVersion: 2
+        x: 866
+        y: 672
+        width: 99
+        height: 69
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23d7473fafc3c72b0800000000000000
+      internalID: -5585522389322269390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss anims-atk2-packed sheet_3
+      rect:
+        serializedVersion: 2
+        x: 1204
+        y: 672
+        width: 67
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc9a2966b7244f0b0800000000000000
+      internalID: -5695854530947536433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss anims-atk2-packed sheet_4
+      rect:
+        serializedVersion: 2
+        x: 1532
+        y: 672
+        width: 83
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53b63ec31053a71c0800000000000000
+      internalID: -4505230197797983435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss anims-atk2-packed sheet_5
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 465
+        width: 112
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f573ed3e48c15a750800000000000000
+      internalID: 6315485409541240671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss anims-atk2-packed sheet_6
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 465
+        width: 113
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72ff23c59f0d58170800000000000000
+      internalID: 8180174067600654119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss anims-atk2-packed sheet_7
+      rect:
+        serializedVersion: 2
+        x: 766
+        y: 465
+        width: 113
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35444d401b687e950800000000000000
+      internalID: 6478294683844101203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss anims-atk2-packed sheet_8
+      rect:
+        serializedVersion: 2
+        x: 1117
+        y: 465
+        width: 113
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d5ea145ee4b49a20800000000000000
+      internalID: 3068276181852415449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss anims-atk2-packed sheet_9
+      rect:
+        serializedVersion: 2
+        x: 1470
+        y: 465
+        width: 111
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5072ae184bcfc8d0800000000000000
+      internalID: -2823814930725965731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss anims-atk2-packed sheet_10
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 258
+        width: 103
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4616ee78e75a4cb0800000000000000
+      internalID: -4878990590229473718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss anims-atk2-packed sheet_11
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 258
+        width: 64
+        height: 106
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75d7bec5993d5f820800000000000000
+      internalID: 2951497786453622103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss anims-atk2-packed sheet_12
+      rect:
+        serializedVersion: 2
+        x: 823
+        y: 258
+        width: 55
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fb7e9c9f70a2b340800000000000000
+      internalID: 4878137816344591353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss anims-atk2-packed sheet_13
+      rect:
+        serializedVersion: 2
+        x: 1174
+        y: 258
+        width: 59
+        height: 93
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d94a447b3a130c480800000000000000
+      internalID: -8881043885950458723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss anims-atk2-packed sheet_14
+      rect:
+        serializedVersion: 2
+        x: 1525
+        y: 258
+        width: 63
+        height: 85
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39f008d61ce5559b0800000000000000
+      internalID: -5092059618813669485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss anims-atk2-packed sheet_15
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 51
+        width: 59
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bad89e3ba2b23d920800000000000000
+      internalID: 3013800038048042411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss anims-atk2-packed sheet_16
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 51
+        width: 59
+        height: 91
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9385818028f58cc40800000000000000
+      internalID: 5532777154310854713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 27139204ef54c424e8268e061742a9dd
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      boss anims-atk2-packed sheet_0: 5960988123818037637
+      boss anims-atk2-packed sheet_1: 4174078611557715229
+      boss anims-atk2-packed sheet_10: -4878990590229473718
+      boss anims-atk2-packed sheet_11: 2951497786453622103
+      boss anims-atk2-packed sheet_12: 4878137816344591353
+      boss anims-atk2-packed sheet_13: -8881043885950458723
+      boss anims-atk2-packed sheet_14: -5092059618813669485
+      boss anims-atk2-packed sheet_15: 3013800038048042411
+      boss anims-atk2-packed sheet_16: 5532777154310854713
+      boss anims-atk2-packed sheet_2: -5585522389322269390
+      boss anims-atk2-packed sheet_3: -5695854530947536433
+      boss anims-atk2-packed sheet_4: -4505230197797983435
+      boss anims-atk2-packed sheet_5: 6315485409541240671
+      boss anims-atk2-packed sheet_6: 8180174067600654119
+      boss anims-atk2-packed sheet_7: 6478294683844101203
+      boss anims-atk2-packed sheet_8: 3068276181852415449
+      boss anims-atk2-packed sheet_9: -2823814930725965731
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
