@@ -398,7 +398,7 @@ namespace Edgar.Unity
             }
             else
             {
-                Object.DestroyImmediate(gameObject);
+                Object.DestroyImmediate(gameObject,true);
             }
         }
     }

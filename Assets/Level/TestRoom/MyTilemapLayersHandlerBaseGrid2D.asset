@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931c01eda55534572820485bee125e2f, type: 3}
+  m_Name: MyTilemapLayersHandlerBaseGrid2D
+  m_EditorClassIdentifier: 
+  layers:
+  - floor1-ground
+  - floor1-walls
+  - floor1-water
+  - floor1-ground2
+  - floor1-wall-details
+  - floor1-props
+  - floor2-ground
+  - walls
+  - floor2-props
+  - floor2-props2

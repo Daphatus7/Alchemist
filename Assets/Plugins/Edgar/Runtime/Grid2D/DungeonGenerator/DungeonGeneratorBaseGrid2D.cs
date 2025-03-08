@@ -156,6 +156,8 @@ namespace Edgar.Unity
                 ? GetComponents<DungeonGeneratorPostProcessingComponentGrid2D>().ToList()
                 : new List<DungeonGeneratorPostProcessingComponentGrid2D>();
 
+            
+            //inject the layer info into the post processing task
             return new PostProcessingTaskGrid2D(
                 PostProcessConfig,
                 GetTilemapLayersHandler(),
@@ -163,6 +165,7 @@ namespace Edgar.Unity
                 postProcessingComponents);
         }
 
+        //return the layers handler
         protected virtual Func<ITilemapLayersHandlerGrid2D> GetTilemapLayersHandler()
         {
             return () => new DungeonTilemapLayersHandlerGrid2D();

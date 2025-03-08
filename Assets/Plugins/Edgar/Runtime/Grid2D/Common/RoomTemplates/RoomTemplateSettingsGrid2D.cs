@@ -19,7 +19,6 @@ namespace Edgar.Unity
             try
             {
                 var polygon = RoomTemplateLoaderGrid2D.GetPolygonFromRoomTemplate(gameObject);
-
                 return polygon;
             }
             catch (InvalidOutlineException)
@@ -50,7 +49,7 @@ namespace Edgar.Unity
             {
                 return;
             }
-
+            
             var tilemapsRoot = RoomTemplateUtilsGrid2D.GetTilemapsRoot(gameObject);
             var outlineOverride = tilemapsRoot.transform.Find(GeneratorConstantsGrid2D.OutlineOverrideLayerName).gameObject;
             PostProcessUtilsGrid2D.Destroy(outlineOverride);
@@ -60,8 +59,12 @@ namespace Edgar.Unity
         {
             var tilemapsRoot = RoomTemplateUtilsGrid2D.GetTilemapsRoot(gameObject);
             var outlineOverride = tilemapsRoot.transform.Find(GeneratorConstantsGrid2D.OutlineOverrideLayerName);
-
             return outlineOverride != null;
+        }
+
+        public virtual void InitializeTilemaps(GameObject obj)
+        {
+            throw new NotImplementedException();
         }
     }
 }
