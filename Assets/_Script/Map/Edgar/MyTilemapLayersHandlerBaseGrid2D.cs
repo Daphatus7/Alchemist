@@ -15,19 +15,12 @@ namespace _Script.Map.Edgar
         [Header("Orchestrate the layers"), ReadOnly]
         public List<string> layers = new List<string>()
         {
-            "floor1-ground",
-            "floor1-walls",
-            "floor1-water",
-            "floor1-ground2",
-            "floor1-wall-details",
-            "floor1-props",
-            "floor1-wall-details2",
-            "floor1-props2",
-            "floor2-ground",
-            "floor2-walls",
-            "walls",
-            "floor2-props",
-            "floor2-props2"
+            "Floor",
+            "Walls",
+            "Collideable",
+            "Other 1",
+            "Other 2",
+            "Other 3"
         };
         
         public override void InitializeTilemaps(GameObject obj)

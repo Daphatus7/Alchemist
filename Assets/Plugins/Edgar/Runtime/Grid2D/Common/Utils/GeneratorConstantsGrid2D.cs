@@ -8,7 +8,10 @@ namespace Edgar.Unity
         /// <summary>
         /// Name of the game object that holds tilemaps layers. This name is used both in room templates and in generated levels.
         /// </summary>
-        public static string TilemapsRootName = "Tilemaps";
+        private static string tilemapsRootName = "Tilemaps"; public static string TilemapsRootName => tilemapsRootName;
+        
+        
+        public static string TilemapRootAlternativeName = "Grid";
 
         /// <summary>
         /// Name of the game object that holds instance of all the room templates that are used in a generated level.
