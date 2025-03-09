@@ -135,7 +135,6 @@ namespace _Script.Character.PlayerRank
         public override void Enter()
         {
             base.Enter();
-            Debug.Log("Promoted to Rank B!");
         }
     }
 

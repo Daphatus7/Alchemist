@@ -76,11 +76,15 @@ namespace _Script.Map
             float monsterFactor = reachableArea.AreaSize * monsterSpawnDensity / 100f;
             
             SpawnCategory(resourceSpawnScript, resourceFactor, getSpawnPos);
-            SpawnCategory(monsterSpawnScript, monsterFactor, getSpawnPos, (go) => {
-                var enemyCharacter = go.GetComponent<EnemyCharacter>();
-                enemyCharacter.Initialize(nodeDataInstance.MapRank);
-            });
-            SpawnQuestObject(nodeDataInstance, getSpawnPos);
+            if(nodeDataInstance != null)
+            {
+                SpawnCategory(monsterSpawnScript, monsterFactor, getSpawnPos, (go) =>
+                {
+                    var enemyCharacter = go.GetComponent<EnemyCharacter>();
+                    enemyCharacter.Initialize(nodeDataInstance.MapRank);
+                });
+                SpawnQuestObject(nodeDataInstance, getSpawnPos);
+            }
         }
 
         /// <summary>

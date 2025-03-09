@@ -18,7 +18,19 @@ namespace Edgar.Unity
         /// <returns></returns>
         public static GameObject GetTilemapsRoot(GameObject roomTemplate)
         {
-            return roomTemplate.transform.Find(GeneratorConstantsGrid2D.TilemapsRootName)?.gameObject ?? roomTemplate;
+            //find the default tilemap root
+            var tilemapsRoot = roomTemplate.transform.Find(GeneratorConstantsGrid2D.TilemapsRootName);
+            if (tilemapsRoot)
+            {
+                return tilemapsRoot.gameObject;
+            }
+            tilemapsRoot = roomTemplate.transform.GetChild(0);
+            if (tilemapsRoot)
+            {
+                var alternativeRoot=tilemapsRoot.transform.Find(GeneratorConstantsGrid2D.TilemapRootAlternativeName);
+                return alternativeRoot.gameObject;
+            }
+            return roomTemplate;
         }
 
         /// <summary>
@@ -36,11 +48,14 @@ namespace Edgar.Unity
         public static List<Tilemap> GetTilemaps(GameObject roomTemplate, bool includeInactive = true)
         {
             var tilemapsHolder = GetTilemapsRoot(roomTemplate);
+            //Debug.Log("Tilemaps holder: " + tilemapsHolder);
             var tilemaps = new List<Tilemap>();
+            //Debug.Log("Tilemaps: " + tilemaps);
 
             foreach (var childTransform in tilemapsHolder.transform.Cast<Transform>())
             {
                 var tilemap = childTransform.gameObject.GetComponent<Tilemap>();
+                //Debug.Log("Tilemap: " + tilemap);
 
                 if (tilemap != null && (includeInactive || childTransform.gameObject.activeSelf))
                 {

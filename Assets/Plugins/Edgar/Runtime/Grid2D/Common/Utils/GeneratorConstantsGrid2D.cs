@@ -11,16 +11,21 @@ namespace Edgar.Unity
         private static string tilemapsRootName = "Tilemaps"; public static string TilemapsRootName => tilemapsRootName;
         
         
-        public static string TilemapRootAlternativeName = "Grid";
+        private static string tilemapRootAlternativeName = "Grid"; public static string TilemapRootAlternativeName => tilemapRootAlternativeName;
 
+        
+   
+        private static string roomsRootName = "Rooms";
         /// <summary>
         /// Name of the game object that holds instance of all the room templates that are used in a generated level.
         /// </summary>
-        public static string RoomsRootName = "Rooms";
+        public static string RoomsRootName => roomsRootName;
+     
 
+        private static string outlineOverrideLayerName = "Outline Override";
         /// <summary>
         /// Name of the Outline Override tilemap layer.
         /// </summary>
-        public static string OutlineOverrideLayerName = "Outline Override";
+        public static string OutlineOverrideLayerName => outlineOverrideLayerName;
     }
 }

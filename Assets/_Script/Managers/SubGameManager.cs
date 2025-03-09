@@ -128,8 +128,7 @@ namespace _Script.Managers
 
             if (!tilemaps)
             {
-                Debug.LogError("No child named 'Tilemaps' found under this GameObject.");
-                return null;
+                throw new Exception("No 'Tilemaps' child found under SubGameManager!");
             }
 
             // 2. Get references to specific Tilemaps
@@ -137,18 +136,25 @@ namespace _Script.Managers
             var wallTile = tilemaps.transform.Find("Walls");
             
             wallTile.gameObject.layer = LayerMask.NameToLayer("Obstacle");
+            if (wallTile == null)
+            {
+                throw new Exception("No 'Walls' Tilemap found under SubGameManager!");
+            }
 
             var wallTileMap = wallTile.GetComponent<Tilemap>();
 
-            var colliderTile = tilemaps.transform.Find("Collideable");
+            var colliderTile = tilemaps.transform.Find("Collideable"); 
+            if (colliderTile == null)
+            {
+                throw new Exception("No 'Collideable' Tilemap found under SubGameManager!");
+            }
             
             colliderTile.gameObject.layer = LayerMask.NameToLayer("Obstacle");
 
             var colliderTileMap = colliderTile.GetComponent<Tilemap>();
-
-            if (!_baseTileMap || !wallTileMap || !colliderTileMap)
+            if (colliderTileMap == null)
             {
-                throw new Exception("One or more required Tilemaps are null in ReachableArea constructor!");
+                throw new Exception("No 'Collideable' Tilemap found under SubGameManager!");
             }
 
             // 3. Build a ReachableArea object to find the largest region

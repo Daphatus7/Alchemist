@@ -48,13 +48,44 @@ namespace Edgar.Unity
 
                 // Correct the position based on the grid
                 // This is important when there is some cell spacing or when the level is isometric
-                var tilemapsHolder = roomTemplateInstance.transform.Find(GeneratorConstantsGrid2D.TilemapsRootName).gameObject;
-                if (tilemapsHolder != null)
+                var root = roomTemplateInstance.transform.Find(GeneratorConstantsGrid2D.TilemapsRootName);
+                if (root == null)
                 {
-                    var grid = tilemapsHolder.GetComponent<Grid>();
-                    roomTemplateInstance.transform.position = grid.CellToLocal(position);
+                    //find alternative root
+                    root = roomTemplateInstance.transform.GetChild(0).Find(GeneratorConstantsGrid2D.TilemapRootAlternativeName);
+                    if (root == null)
+                    {
+                        Debug.LogWarning("No tilemaps root found in the room template. The room template might not be positioned correctly.");
+                    }
+                    else
+                    {
+                        var tilemapsHolder = root.gameObject;
+                        if (tilemapsHolder != null)
+                        {
+                            var grid = tilemapsHolder.GetComponent<Grid>();
+                            roomTemplateInstance.transform.position = grid.CellToLocal(position);
+                        }
+                        else
+                        {
+                            Debug.LogWarning("No tilemaps root found in the room template. The room template might not be positioned correctly.");
+                        }
+                    }
                 }
+                else
+                {
+                    var tilemapsHolder = root.gameObject;
+                    if (tilemapsHolder != null)
+                    {
+                        var grid = tilemapsHolder.GetComponent<Grid>();
+                        roomTemplateInstance.transform.position = grid.CellToLocal(position);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("No tilemaps root found in the room template. The room template might not be positioned correctly.");
+                    }
 
+                }
+                
                 // Compute outline polygon
                 var polygon = new Polygon2D(layoutRoom.Outline + layoutRoom.Position);
 

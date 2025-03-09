@@ -48,7 +48,6 @@ namespace _Script.Quest.QuestInstance
         /// <param name="save"></param>
         public QuestInstance(SimpleQuestDefinition def, QuestSave save)
         {
-            Debug.Log("Quest created from save" + def.questName);
             QuestDefinition = def;
             AddObjectives(QuestDefinition);
             OnLoad(save);

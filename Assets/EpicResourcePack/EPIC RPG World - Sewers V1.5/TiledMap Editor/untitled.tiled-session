@@ -1,4 +1,7 @@
 {
+    "activeFile": "VRC_Sewer.tmx",
+    "expandedProjectPaths": [
+    ],
     "fileStates": {
         "/Users/daphatus/Alchemist/Assets/Level/TestRoom/Map1.tmx": {
             "scale": 0.8658854166666666,
@@ -76,11 +79,11 @@
             }
         },
         "VRC_Sewer.tmx": {
-            "scale": 1.5835,
+            "scale": 2.2807,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 208.08335964635302,
-                "y": 264.603725923587
+                "x": 214.6270881746832,
+                "y": 138.9924146095497
             }
         },
         "rules/wall-1-2-rule0-erases all generated tiles and resets them to their initial state.tmx": {
@@ -93,15 +96,15 @@
         },
         "tilesets/Sewers - Terrain.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 1.6339
+            "scaleInDock": 0.7769
         },
         "tilesets/Sewers - Terrain2.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 2.3628
+            "scaleInDock": 3.1828
         },
         "tilesets/Sewers-Atlas-props.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 0.8954
+            "scaleInDock": 1
         },
         "tilesets/Sewers-Tileset-wall-1-2-water.tsx": {
             "scaleInDock": 1
@@ -136,7 +139,7 @@
         },
         "tilesets/atlas - props - sprites.tsx": {
             "dynamicWrapping": true,
-            "scaleInDock": 0.239
+            "scaleInDock": 1
         },
         "untitled.tmx": {
             "scale": 1.4408,
@@ -147,21 +150,21 @@
             }
         }
     },
+    "last.externalTilesetPath": "/Users/daphatus/Alchemist/Assets/Resources/EpicResourcePack/EPIC RPG World - Sewers V1.5/TiledMap Editor/tilesets",
     "openFiles": [
         "HRC_Sewer.tmx",
-        "VRC_Sewer.tmx",
-        "SampleScene.tmx",
-        "R_Sewer.tmx"
+        "VRC_Sewer.tmx"
     ],
+    "project": "untitled.tiled-project",
     "recentFiles": [
         "HRC_Sewer.tmx",
-        "R_Sewer.tmx",
-        "SampleScene.tmx",
         "VRC_Sewer.tmx",
         "untitled.tmx",
         "Map2.tmx",
         ":/automap-tiles.tsx",
+        "SampleScene.tmx",
         "/Users/daphatus/Alchemist/Assets/Level/TestRoom/Map1.tmx",
         "/Users/daphatus/Downloads/Epic RPG World - The dephs of the Mountain V1.5.1/TiledMap Editor/Rules/wall1-4-rule2-applies variations.tmx"
-    ]
+    ],
+    "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)"
 }

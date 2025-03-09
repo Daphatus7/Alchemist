@@ -132,17 +132,20 @@ namespace Edgar.Unity
         /// <returns></returns>
         public static PolygonGrid2D GetPolygonFromRoomTemplate(GameObject roomTemplate)
         {
+            //get the handler
             var outlineHandler = roomTemplate.GetComponent<IRoomTemplateOutlineHandlerGrid2D>();
             if (outlineHandler != null)
             {
                 var polygon2d = outlineHandler.GetRoomTemplateOutline();
                 return polygon2d?.GetGridPolygon();
             }
+            else
+            {
+                var tilemaps = RoomTemplateUtilsGrid2D.GetTilemaps(roomTemplate);
+                var outline = RoomTemplateUtilsGrid2D.GetTilemapsForOutline(tilemaps);
 
-            var tilemaps = RoomTemplateUtilsGrid2D.GetTilemaps(roomTemplate);
-            var outline = RoomTemplateUtilsGrid2D.GetTilemapsForOutline(tilemaps);
-
-            return GetPolygonFromTilemaps(outline);
+                return GetPolygonFromTilemaps(outline);
+            }
         }
 
         /// <summary>

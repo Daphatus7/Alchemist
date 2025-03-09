@@ -118,6 +118,9 @@ namespace Edgar.Unity.Editor
             DrawOutline();
         }
 
+        /// <summary>
+        /// UI to display if the room template is valid or not
+        /// </summary>
         private void ShowStatus()
         {
             var roomTemplate = (RoomTemplateSettingsGrid2D) target;
