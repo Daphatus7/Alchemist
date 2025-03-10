@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4824408171863005527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4838124596470810427}
+  - component: {fileID: 34031546782527163}
+  - component: {fileID: 1270245101258906848}
+  m_Layer: 0
+  m_Name: R_Sewer 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4838124596470810427
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4824408171863005527}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &34031546782527163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4824408171863005527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf48601b4d25ef499cc1b6841279c98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RepeatMode: 0
+--- !u!114 &1270245101258906848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4824408171863005527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c4bdbbf5a3651f498b2114a8a7bb97b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 2
+  DistanceFromCorners: 1
+  DoorLength: 1
+  DoorsList: []
+  Socket: {fileID: 0}
+  SelectedMode: 1
+  HybridDoorModeData:
+    DefaultLength: 1
+    DoorLines:
+    - From: {x: 2, y: -8, z: 0}
+      To: {x: 2, y: -9, z: 0}
+      Length: 1
+      Direction: 0
+      Socket: {fileID: 0}
+    - From: {x: 21, y: -8, z: 0}
+      To: {x: 21, y: -9, z: 0}
+      Length: 1
+      Direction: 0
+      Socket: {fileID: 0}
+    - From: {x: 11, y: 1, z: 0}
+      To: {x: 12, y: 1, z: 0}
+      Length: 1
+      Direction: 0
+      Socket: {fileID: 0}
+    - From: {x: 11, y: -18, z: 0}
+      To: {x: 12, y: -18, z: 0}
+      Length: 1
+      Direction: 0
+      Socket: {fileID: 0}
+  ManualDoorModeData:
+    DoorsList:
+    - From: {x: 7, y: -1, z: 0}
+      To: {x: 8, y: -1, z: 0}
+      Direction: 0
+      Socket: {fileID: 0}
+    - From: {x: 1, y: -8, z: 0}
+      To: {x: 1, y: -9, z: 0}
+      Direction: 0
+      Socket: {fileID: 0}
+    - From: {x: 14, y: -8, z: 0}
+      To: {x: 14, y: -9, z: 0}
+      Direction: 0
+      Socket: {fileID: 0}
+    - From: {x: 7, y: -14, z: 0}
+      To: {x: 8, y: -14, z: 0}
+      Direction: 0
+      Socket: {fileID: 0}
+  SimpleDoorModeData:
+    DistanceFromCorners: 1
+    DoorLength: 2
+    Socket: {fileID: 0}
+    Mode: 0
+    VerticalDoors:
+      Length: 1
+      Margin1: 1
+      Margin2: 1
+      Enabled: 1
+    HorizontalDoors:
+      Length: 1
+      Margin1: 1
+      Margin2: 1
+      Enabled: 1
+  DefaultSocket: {fileID: 0}
+  DefaultDirection: 0
