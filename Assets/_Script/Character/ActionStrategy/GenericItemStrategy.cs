@@ -1,6 +1,7 @@
 using _Script.Inventory.ItemInstance;
 using _Script.Items;
 using _Script.Map;
+using _Script.Map.TileMap;
 using UnityEngine;
 
 namespace _Script.Character.ActionStrategy

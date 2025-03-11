@@ -13,7 +13,7 @@ namespace _Script.Places
         
         public bool TeleportPlayerToTown(PlayerCharacter playerCharacter)
         {
-            if (TownSpawnPoint == null)
+            if (!TownSpawnPoint)
             {
                 playerCharacter.transform.position = Vector3.zero;
             }

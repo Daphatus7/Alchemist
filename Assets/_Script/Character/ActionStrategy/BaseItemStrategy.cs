@@ -3,6 +3,7 @@
 
 using _Script.Inventory.PlayerInventory;
 using _Script.Map;
+using _Script.Map.TileMap;
 using _Script.Utilities;
 using UnityEngine;
 

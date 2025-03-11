@@ -1,6 +1,7 @@
 using _Script.Character;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using _Script.Map;
+using _Script.Map.TileMap;
 using UnityEngine;
 
 namespace _Script.Items

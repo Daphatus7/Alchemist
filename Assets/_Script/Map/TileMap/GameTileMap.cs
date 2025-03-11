@@ -7,7 +7,7 @@ using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace _Script.Map
+namespace _Script.Map.TileMap
 {
 
     [DefaultExecutionOrder(10)]
