@@ -8,6 +8,7 @@ using _Script.Enemy.EnemyCharacter;
 using _Script.Items.Lootable;
 using _Script.Managers;
 using _Script.Map.MapLoadContext;
+using _Script.Map.MapLoadContext.ContextInstance;
 using _Script.Map.Volume;
 using UnityEngine;
 

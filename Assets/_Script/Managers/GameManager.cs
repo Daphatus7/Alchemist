@@ -4,6 +4,7 @@ using _Script.Character.PlayerRank;
 using _Script.Character.PlayerUI;
 using _Script.Managers.GlobalUpdater;
 using _Script.Map.MapLoadContext;
+using _Script.Map.MapLoadContext.ContextInstance;
 using _Script.Places;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;

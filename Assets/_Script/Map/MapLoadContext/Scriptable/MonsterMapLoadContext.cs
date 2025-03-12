@@ -4,11 +4,12 @@
 using _Script.Enemy.EnemyData;
 using UnityEngine;
 
-namespace _Script.Map.MapLoadContext
+namespace _Script.Map.MapLoadContext.Scriptable
 {
     [CreateAssetMenu(fileName = "MonsterMapLoadContext", menuName = "MapLoadContext/MonsterMapLoadContext")]
     public class MonsterMapLoadContext : MapLoadContext
     {
         public EnemyData [] enemyData;
+        public override MapType MapType => MapType.Monster;
     }
 }

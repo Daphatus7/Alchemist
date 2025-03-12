@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _Script.Character;
 using _Script.Map.MapLoadContext;
+using _Script.Map.MapLoadContext.ContextInstance;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

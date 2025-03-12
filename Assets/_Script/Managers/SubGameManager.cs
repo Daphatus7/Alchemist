@@ -8,6 +8,7 @@ using UnityEngine.Tilemaps;
 using Debug = UnityEngine.Debug; // Avoid collision with System.Diagnostics.Debug
 using _Script.Map;
 using _Script.Map.MapLoadContext;
+using _Script.Map.MapLoadContext.ContextInstance;
 using Edgar.Unity;
 using Edgar.Unity.Examples;
 using Sirenix.OdinInspector;
