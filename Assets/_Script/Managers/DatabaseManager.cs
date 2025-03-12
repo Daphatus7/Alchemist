@@ -126,6 +126,11 @@ namespace _Script.Managers
             var items = _itemDatabase.Items;
             foreach(var item in items)
             {
+                if(item == null || item.itemData == null)
+                {
+                    Debug.LogWarning("ItemDatabaseRuntime: Encountered an invalid item data pair.");
+                    continue;
+                }
                 if (!dict.TryAdd(item.itemData.itemID, item.itemData))
                 {
                     throw new System.Exception("Duplicate item ID detected: " + item.itemData.itemID + " for item: " + item.itemData.itemName);
