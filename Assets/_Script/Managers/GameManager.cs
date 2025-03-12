@@ -1,10 +1,9 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using _Script.Character;
 using _Script.Character.PlayerRank;
 using _Script.Character.PlayerUI;
 using _Script.Managers.GlobalUpdater;
+using _Script.Map.MapLoadContext;
 using _Script.Places;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
@@ -140,9 +139,9 @@ namespace _Script.Managers
         public PlayerCharacter GetPlayer() => _playerCharacter;
 
         /// <summary> Load a new additive scene based on NodeData. </summary>
-        public void LoadSelectedScene(NodeDataInstance nodeDataInstance)
+        public void LoadSelectedScene(MapLoadContextInstance instance)
         {
-            _levelManager.LoadSelectedScene(nodeDataInstance);
+            _levelManager.LoadSelectedScene(instance);
         }
 
         /// <summary> Unload the current additive scene. </summary>

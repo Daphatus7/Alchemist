@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using _Script.Character;
+using _Script.Map.MapLoadContext;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -59,15 +60,15 @@ namespace _Script.Managers
         /// we unload the current additive scene if it exists.
         /// After loading, we might unload the main scene to fully swap.
         /// </summary>
-        public void LoadSelectedScene(NodeDataInstance nodeDataInstance)
+        public void LoadSelectedScene(MapLoadContextInstance instance)
         {
             // Unload the existing additive scene if any
             if (!string.IsNullOrEmpty(_currentAdditiveScene))
             {
                 UnloadAdditiveScene(_currentAdditiveScene);
             }
-            _currentAdditiveScene = nodeDataInstance.MapName;
-            GameManager.Instance.StartCoroutine(AddSceneAsync(nodeDataInstance));
+            _currentAdditiveScene = instance.MapName;
+            GameManager.Instance.StartCoroutine(AddSceneAsync(instance));
         }
 
         /// <summary>
@@ -143,9 +144,9 @@ namespace _Script.Managers
             _currentMainScene = sceneName;
         }
 
-        private IEnumerator AddSceneAsync(NodeDataInstance nodeDataInstance)
+        private IEnumerator AddSceneAsync(MapLoadContextInstance instance)
         {
-            var mapName = nodeDataInstance.MapName;
+            var mapName = instance.MapName;
             // Load the additive scene
             var asyncLoad = SceneManager.LoadSceneAsync(mapName, LoadSceneMode.Additive);
             while (!asyncLoad.isDone)
@@ -165,7 +166,7 @@ namespace _Script.Managers
             }
             
             // Trigger generation in the SubGameManager
-            if (SubGameManager.Instance.LoadNextLevel(nodeDataInstance))
+            if (SubGameManager.Instance.LoadNextLevel(instance))
             {
                 SubGameManager.Instance.OnLevelGenerated += OnSubGameManagerLevelGenerated;
             }
