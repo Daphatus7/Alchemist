@@ -5,11 +5,7 @@ using _Script.Character;
 using _Script.Character.PlayerRank;
 using _Script.Character.PlayerUI;
 using _Script.Managers.GlobalUpdater;
-using _Script.Map;
-using _Script.Map.WorldMap;
-using _Script.Map.WorldMap.MapNode;
 using _Script.Places;
-using _Script.Quest;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -161,19 +157,11 @@ namespace _Script.Managers
             //problem is here, the scene is loaded again
             _levelManager.LoadMainScene(_startingScene);
         }
-
-        /// <summary> Example method to reset your hex map. </summary>
-        public void ResetHexMap()
-        {
-            MapController.Instance.ResetGrid();
-        }
-
         
         public void TeleportPlayerToTown()
         {
             Instance.LoadMainScene();
             PlaceManager.Instance.TeleportPlayerToTown(GameManager.Instance.GetPlayer());
-            Instance.ResetHexMap();
             //Mark the current dungeon as completed
             Instance.UnloadCurrentAdditiveScene();
         }

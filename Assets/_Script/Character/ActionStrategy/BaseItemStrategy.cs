@@ -2,8 +2,6 @@
 // 07 12 2024 12 42
 
 using _Script.Inventory.PlayerInventory;
-using _Script.Map;
-using _Script.Map.TileMap;
 using _Script.Utilities;
 using UnityEngine;
 
@@ -18,18 +16,6 @@ namespace _Script.Character.ActionStrategy
         protected ActionBarContext currentUseItem;
         protected GameObject currentItem;
         protected SpriteRenderer currentSpriteRenderer;
-
-        protected virtual void OnEnable()
-        {
-            if (GameTileMap.Instance != null)
-                GameTileMap.Instance.OnCursorMoved += OnCursorMoved;
-        }
-
-        protected virtual void OnDisable()
-        {
-            if (GameTileMap.Instance != null)
-                GameTileMap.Instance.OnCursorMoved -= OnCursorMoved;
-        }
 
         protected virtual void Update()
         {

@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using _Script.Character;
-using _Script.Map;
-using _Script.Map.WorldMap;
-using _Script.Map.WorldMap.MapNode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

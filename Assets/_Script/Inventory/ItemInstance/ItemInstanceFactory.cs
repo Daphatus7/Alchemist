@@ -54,7 +54,6 @@ namespace _Script.Inventory.ItemInstance
             {
                 "Weapon" => new WeaponItemInstance(itemData, rotated, quantity),
                 "Torch" => new TorchItemInstance(itemData, rotated, quantity),
-                "Seed" => new SeedItemInstance(itemData, rotated, quantity),
                 "Container" => new ContainerItemInstance(itemData, rotated, quantity),
                 _ => new ItemInstance(itemData, rotated, quantity)
             };

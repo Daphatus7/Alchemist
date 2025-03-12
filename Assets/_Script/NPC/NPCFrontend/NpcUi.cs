@@ -4,8 +4,6 @@
 using System;
 using System.Collections.Generic;
 using _Script.NPC.NpcBackend;
-using _Script.Quest;
-using _Script.UserInterface;
 using _Script.Utilities.ServiceLocator;
 using TMPro;
 using UnityEngine;
@@ -13,7 +11,7 @@ using UnityEngine.UI;
 
 namespace _Script.NPC.NPCFrontend
 {
-    public class NpcUi : NpcUiBase, INpcUiCallback, INpcUIService
+    public class NpcUi : NpcUiBase, INpcUIService
     {
         #region Main UI Elements - main dialogue box
         [Header("UI Elements")] [Tooltip("Panel for the dialogue box")] [SerializeField]
@@ -35,7 +33,6 @@ namespace _Script.NPC.NPCFrontend
         private Dictionary<NpcUiType, NpcUiBase> _npcUis;
         
         [SerializeField] private NpcChoiceUi npcChoiceUi;
-        [SerializeField] private QuestGiverUi questGiverUi;
         
         #endregion
 
@@ -55,7 +52,6 @@ namespace _Script.NPC.NPCFrontend
             _npcUis = new Dictionary<NpcUiType, NpcUiBase>
             {
                 { NpcUiType.Choice, npcChoiceUi },
-                { NpcUiType.QuestGiver, questGiverUi }
             };
         }
 
@@ -68,7 +64,6 @@ namespace _Script.NPC.NPCFrontend
         private void OnEnable()
         {
             ServiceLocator.Instance.Register<INpcUIService>(this);
-            ServiceLocator.Instance.Register<INpcUiCallback>(this);
         }
         
         private void OnDisable()
@@ -77,7 +72,6 @@ namespace _Script.NPC.NPCFrontend
             if (ServiceLocator.Instance == null) return;
             
             ServiceLocator.Instance.Unregister<INpcUIService>();
-            ServiceLocator.Instance.Unregister<INpcUiCallback>();
         }
 
 
@@ -100,15 +94,6 @@ namespace _Script.NPC.NPCFrontend
             LoadNpcChoice(mainNpc, moduleHandlers);
         }
         
-        /// <summary>
-        /// On Selecting the Quest UI
-        /// </summary>
-        /// <param name="quest"></param>
-        public void LoadQuestUi(INpcQuestModuleHandler quest)
-        {
-            DisplayUi(NpcUiType.QuestGiver);
-            questGiverUi.LoadQuestData(quest);
-        }
 
         public void TerminateDialogue()
         {

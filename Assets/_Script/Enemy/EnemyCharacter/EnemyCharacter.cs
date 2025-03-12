@@ -3,7 +3,6 @@ using _Script.Character.PlayerRank;
 using _Script.Damageable;
 using _Script.Drop;
 using _Script.Enemy.EnemyAbility;
-using _Script.Quest;
 using Pathfinding;
 using Unity.Behavior;
 using UnityEngine;
@@ -122,7 +121,6 @@ namespace _Script.Enemy.EnemyCharacter
 
         private void OnDeath()
         {
-            QuestManager.Instance.OnEnemyKilled(enemyID);
             GetComponent<DropItemComponent>()?.DropItems();
             Destroy(gameObject);
         }

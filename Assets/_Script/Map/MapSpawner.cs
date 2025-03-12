@@ -8,9 +8,6 @@ using _Script.Enemy.EnemyCharacter;
 using _Script.Items.Lootable;
 using _Script.Managers;
 using _Script.Map.Volume;
-using _Script.Map.WorldMap;
-using _Script.Quest;
-using _Script.Quest.QuestDefinition;
 using UnityEngine;
 
 namespace _Script.Map
@@ -83,7 +80,6 @@ namespace _Script.Map
                     var enemyCharacter = go.GetComponent<EnemyCharacter>();
                     enemyCharacter.Initialize(nodeDataInstance.MapRank);
                 });
-                SpawnQuestObject(nodeDataInstance, getSpawnPos);
             }
         }
 
@@ -105,7 +101,6 @@ namespace _Script.Map
                 var enemyCharacter = go.GetComponent<EnemyCharacter>();
                 enemyCharacter.Initialize(nodeDataInstance.MapRank);
             });
-            SpawnQuestObject(nodeDataInstance, getSpawnPos);
         }
         
         /// <summary>
@@ -129,55 +124,6 @@ namespace _Script.Map
                 var obj = Instantiate(item, pos, Quaternion.identity);
                 obj.transform.parent = transform;
                 postSpawnAction?.Invoke(obj);
-            }
-        }
-        
-        /// <summary>
-        /// Helper method to spawn quest objects based on the objective type.
-        /// </summary>
-        private void SpawnQuestObject(NodeDataInstance nodeDataInstance, Func<Vector3> getSpawnPos)
-        {
-            if (nodeDataInstance is QuestNodeInstance questNodeInstance)
-            {
-                Debug.Log("Spawning quest object.");
-                switch (questNodeInstance.ObjectiveType)
-                {
-                    case ObjectiveType.Collect:
-                        if (questNodeInstance is CollectNodeInstance collectNodeInstance)
-                        {
-                            if (collectNodeInstance.ItemData)
-                            {
-                                Vector3 pos = getSpawnPos();
-                                var lootObj = ItemLootable.DropItem(pos, collectNodeInstance.ItemData, 1);
-                                lootObj.transform.parent = transform;
-                            }
-                        }
-                        break;
-                    case ObjectiveType.Kill:
-                        if (questNodeInstance is BossNodeInstance bossNodeInstance)
-                        {
-                            Debug.Log("Spawning boss object.");
-                            var bossPrefab = DatabaseManager.Instance.GetEnemyPrefab(bossNodeInstance.BossName);
-                            if (bossPrefab)
-                            {
-                                Debug.Log($"Spawning boss {bossNodeInstance.BossName}.");
-                                Vector3 pos = getSpawnPos();
-                                var bossObj = Instantiate(bossPrefab, pos, Quaternion.identity);
-                                bossObj.transform.parent = transform;
-                                var enemyCharacter = bossObj.GetComponent<EnemyCharacter>();
-                                enemyCharacter.Initialize(nodeDataInstance.MapRank);
-                            }
-                            else
-                            {
-                                Debug.LogError($"Boss prefab {bossNodeInstance.BossName} not found in database.");
-                            }
-                        }
-                        break;
-                    case ObjectiveType.Explore:
-                        throw new NotImplementedException("Explore Node not implemented yet");
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
             }
         }
         

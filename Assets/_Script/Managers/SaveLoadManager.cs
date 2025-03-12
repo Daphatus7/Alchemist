@@ -1,5 +1,4 @@
 using _Script.Character;
-using _Script.Quest;
 using _Script.Utilities.SaveGame;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -21,7 +20,6 @@ namespace _Script.Managers
         public void SaveGame()
         {
             SaveTownData();
-            SaveQuestData();
             SavePlayerData();
         }
 
@@ -31,7 +29,6 @@ namespace _Script.Managers
         public void LoadGame()
         {
             LoadTownData();
-            LoadQuestData();
             LoadPlayerData();       
         }
         
@@ -41,10 +38,6 @@ namespace _Script.Managers
             SaveSystem.SaveData<ISaveTownDataHandler>(saveName);
         }
         
-        public void SaveQuestData()
-        {
-            SaveSystem.SaveData<IPlayerQuestSave>(saveName);
-        }
         
         public void SavePlayerData()
         {
@@ -54,11 +47,6 @@ namespace _Script.Managers
         public void LoadTownData()
         {
             SaveSystem.LoadData<ISaveTownDataHandler>(saveName);
-        }
-        
-        public void LoadQuestData()
-        {
-            SaveSystem.LoadData<IPlayerQuestSave>(saveName);
         }
         
         public void LoadPlayerData()

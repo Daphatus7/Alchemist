@@ -13,7 +13,6 @@ using _Script.Inventory.PlayerInventory;
 using _Script.Items;
 using _Script.Managers;
 using _Script.Places;
-using _Script.Quest;
 using _Script.Utilities;
 using _Script.Utilities.ServiceLocator;
 using Sirenix.OdinInspector;
@@ -119,8 +118,6 @@ namespace _Script.Character
         private void Start()
         {
             
-            _playerInventory.SubscribeToInventoryStatus(QuestManager.Instance.OnItemCollected);
-            
             _potionEffectManager = GetComponent<PlayerPotionEffectManager>();
             
             PauseableUpdate();
@@ -171,7 +168,6 @@ namespace _Script.Character
         {
             if(TimeManager.Instance == null) return;
             _playerstats.OnDeath -= OnDeath;
-            _playerInventory.UnsubscribeToInventoryStatus(QuestManager.Instance.OnItemCollected);
             _playerstats.UnsubscribeAll();
         }
 
@@ -445,7 +441,6 @@ namespace _Script.Character
         {
             //if not playing, then unsubscribe
             if (Application.isPlaying) return;
-            _playerInventory.UnsubscribeToInventoryStatus(QuestManager.Instance.OnItemCollected);
             _playerstats.OnDeath -= OnDeath;
         }
 

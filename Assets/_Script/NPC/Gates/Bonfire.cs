@@ -4,8 +4,6 @@
 using _Script.Character;
 using _Script.Managers;
 using _Script.NPC.NpcBackend;
-using _Script.Places;
-using _Script.Quest;
 using UnityEngine;
 
 namespace _Script.NPC.Gates

@@ -6,10 +6,8 @@ using _Script.Alchemy.AlchemyUI;
 using _Script.Character.PlayerUI;
 using _Script.Inventory.ActionBarFrontend;
 using _Script.Inventory.InventoryFrontend;
-using _Script.Inventory.MerchantInventoryBackend;
 using _Script.Inventory.MerchantInventoryFrontend;
 using _Script.NPC.NPCFrontend;
-using _Script.Quest.GuildQuestUI;
 using _Script.UserInterface;
 using UnityEngine;
 
@@ -29,7 +27,6 @@ namespace _Script.Managers
         [SerializeField] private Prototype_Active_Quest_Ui activeQuestUI; public Prototype_Active_Quest_Ui ActiveQuestUI => activeQuestUI;
         [SerializeField] private ActionBarUI actionBarUI; public ActionBarUI ActionBarUI => actionBarUI;
         [SerializeField] private StatsDisplay statsDisplay; public StatsDisplay StatsDisplay => statsDisplay;
-        [SerializeField] private GuildQuestUI guideQuestUI; public GuildQuestUI GuideQuestUI => guideQuestUI;
         [SerializeField] private NpcUi npcUI; public NpcUi NpcUI => npcUI;
         [SerializeField] private ItemDetail itemDetail; public ItemDetail ItemDetail => itemDetail;
         
