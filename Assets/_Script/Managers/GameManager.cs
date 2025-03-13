@@ -41,7 +41,7 @@ namespace _Script.Managers
 
         // Any "global updaters" you have
         private List<IGlobalUpdate> _globalUpdaters = new List<IGlobalUpdate>();
-
+        
         private void Start()
         {
             
@@ -146,7 +146,7 @@ namespace _Script.Managers
         }
 
         /// <summary> Unload the current additive scene. </summary>
-        public void UnloadCurrentAdditiveScene()
+        private void UnloadCurrentAdditiveScene()
         {
             _levelManager.UnloadCurrentAdditiveScene();
         }

@@ -11,7 +11,7 @@ namespace _Script.Map.MapManager
     {
         private const NiRank MapRank = NiRank.F;
 
-        public static MapLoadContextInstance CreateMapLoadContextInstance
+        public static MapLoadContextInstance Create
             (MapLoadContext.Scriptable.MapLoadContext mapLoadContext,
                 RewardContext rewardContext
                 )
