@@ -32,14 +32,12 @@ namespace _Script.Map.MapManager
         [SerializeField] private int miniMapCount = 3;
             
         [SerializeField] private RewardDataBase _rewardDataBase;
-
-
+        
         public void StartGame()
         {
             GenerateGameMaps();
             
         }
-        
         
         public void GenerateGameMaps()
         {

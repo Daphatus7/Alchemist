@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using Debug = UnityEngine.Debug; // Avoid collision with System.Diagnostics.Debug
 using _Script.Map;
-using _Script.Map.MapLoadContext;
 using _Script.Map.MapLoadContext.ContextInstance;
 using Edgar.Unity;
 using Edgar.Unity.Examples;
@@ -15,6 +14,12 @@ using Sirenix.OdinInspector;
 
 namespace _Script.Managers
 {
+
+    public interface IMapState
+    {
+        
+    }
+    
     public class SubGameManager : GameManagerBase<SubGameManager>
     {
         [Header("Optional: Dungeon Generation Example")]
