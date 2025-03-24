@@ -3,6 +3,7 @@
 
 using _Script.Character.PlayerRank;
 using _Script.Items.AbstractItemTypes._Script.Items;
+using _Script.Map.MapLoadContext.RewardContext;
 
 namespace _Script.Map.MapLoadContext.ContextInstance
 {
@@ -16,9 +17,15 @@ namespace _Script.Map.MapLoadContext.ContextInstance
         private string _mapName; public string MapName => _mapName;
 
         /// <summary>
+        /// whethere
+        /// </summary>
+        private bool _isCompleted; public bool IsCompleted => _isCompleted;
+
+        /// <summary>
         /// usually 2-3 items
         /// </summary>
         private ItemData[] _rewardItems; public ItemData[] RewardItems => _rewardItems;
+        public RewardType RewardType;
         
         protected MapLoadContextInstance(NiRank mapRank, string mapName, RewardContext.RewardContext reward)
         {

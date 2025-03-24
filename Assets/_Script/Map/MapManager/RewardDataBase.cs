@@ -10,5 +10,6 @@ namespace _Script.Map.MapManager
     {
         public ItemData [] EquipmentRewards;
         public ItemData [] SupplyRewards;
+        public ItemData [] BossRewards;
     }
 }

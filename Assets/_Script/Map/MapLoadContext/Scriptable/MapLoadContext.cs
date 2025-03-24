@@ -17,6 +17,6 @@ namespace _Script.Map.MapLoadContext.Scriptable
     {
         Monster,
         Boss,
-        Supply
+        Town
     }
 }

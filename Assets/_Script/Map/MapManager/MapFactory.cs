@@ -24,6 +24,8 @@ namespace _Script.Map.MapManager
                 case MapLoadContext.Scriptable.MapType.Boss:
                     return new BossLoadContextInstance(MapRank, mapLoadContext.mapName, rewardContext,
                         ((MapLoadContext.Scriptable.BossMapLoadContext) mapLoadContext).bossData);
+                case MapLoadContext.Scriptable.MapType.Town:
+                    return new TownLoadContextInstance(MapRank, mapLoadContext.mapName, rewardContext);
                 default:
                     return null;
             }

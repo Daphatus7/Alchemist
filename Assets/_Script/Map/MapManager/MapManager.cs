@@ -10,6 +10,7 @@ using _Script.Map.MapLoadContext.Scriptable;
 using _Script.Utilities;
 using UnityEngine;
 
+
 namespace _Script.Map.MapManager
 {
     
@@ -23,11 +24,18 @@ namespace _Script.Map.MapManager
         ///     - [Map b]           - [Map e]
         /// Multiple maps as options for each level
         /// </summary>
-        private Queue<MapLoadContextInstance []> _currentMaps;
+        private Queue<MapLoadContextInstance []> _allMaps = new();
+
+        /// <summary>
+        /// Maps for the next level
+        /// </summary>
+        public MapLoadContextInstance[] NextMap => _allMaps.Peek();
         
         [SerializeField] private BossMapLoadContext [] bossMaps;
         
         [SerializeField] private MonsterMapLoadContext [] monsterMaps;
+
+        [SerializeField] private TownMapLoadContext townMap;
         
         [SerializeField] private int miniMapCount = 3;
             
@@ -35,8 +43,14 @@ namespace _Script.Map.MapManager
         
         public void StartGame()
         {
+            //consider the town map
+            var town = 
+                MapFactory.Create(townMap, 
+                    new RewardContext(
+                        RandomUtils.GetRandomUniqueItems(_rewardDataBase.EquipmentRewards, 3).ToArray(),
+                        RewardType.Equipment));
+            _allMaps.Enqueue(new [] {town});
             GenerateGameMaps();
-            
         }
         
         public void GenerateGameMaps()
@@ -50,22 +64,23 @@ namespace _Script.Map.MapManager
                 {
                     throw new System.Exception("Maps are null");
                 }
-                _currentMaps.Enqueue(maps);
+                _allMaps.Enqueue(maps);
             }
             
-            if (_currentMaps.Count == 0)  throw new System.Exception("Maps are null");
+            if (_allMaps.Count == 0)  throw new System.Exception("Maps are null");
             var boss = GenerateBossMap();
             if (boss == null)
             {
                 throw new System.Exception("Boss is null");
             }
-            _currentMaps.Enqueue(boss);
+            _allMaps.Enqueue(boss);
         }
 
         private MapLoadContextInstance[] GenerateBossMap()
         {
             var boss = RandomUtils.GetRandomUniqueItems(bossMaps, 1);
-            return new [] {MapFactory.Create(boss[0], new RewardContext(GetRandomUniqueReward()))};
+            var reward = GetRandomUniqueReward(out RewardType rewardType);
+            return new [] {MapFactory.Create(boss[0], new RewardContext(reward ,rewardType))};
         }
         
         private  MapLoadContextInstance[] GenerateMapsForALevel()
@@ -76,31 +91,33 @@ namespace _Script.Map.MapManager
             //random bool
             if (Random.value > 0.5f)
             {
-                var map1 = MapFactory.Create(maps[0], new RewardContext(GetRandomEquipment()));
-                var map2 = MapFactory.Create(maps[1], new RewardContext(GetRandomSupply()));
+                var map1 = MapFactory.Create(maps[0], new RewardContext(GetRandomEquipment().ToArray(), RewardType.Equipment));
+                var map2 = MapFactory.Create(maps[1], new RewardContext(GetRandomSupply().ToArray(), RewardType.Supply));
                 return new [] {map1, map2};
             }
             else
             {
-                var map1 = MapFactory.Create(maps[0], new RewardContext(GetRandomSupply()));
-                var map2 = MapFactory.Create(maps[1], new RewardContext(GetRandomEquipment()));
+                var map1 = MapFactory.Create(maps[0], new RewardContext(GetRandomSupply().ToArray(), RewardType.Supply));
+                var map2 = MapFactory.Create(maps[1], new RewardContext(GetRandomEquipment().ToArray(), RewardType.Equipment));
                 return new[] { map1, map2 };
             }
         }
-        
-        public List<ItemData> GetRandomEquipment()
+
+        private List<ItemData> GetRandomEquipment()
         {
             return RandomUtils.GetRandomUniqueItems(_rewardDataBase.EquipmentRewards, 3);
         }
-        
-        public List<ItemData> GetRandomSupply()
+
+        private List<ItemData> GetRandomSupply()
         {
             return RandomUtils.GetRandomUniqueItems(_rewardDataBase.SupplyRewards, 3);
         }
-        
-        public List<ItemData> GetRandomUniqueReward()
+
+        private ItemData[] GetRandomUniqueReward(out RewardType rewardType)
         {
-            return RandomUtils.GetRandomUniqueItems(_rewardDataBase.EquipmentRewards, 3);
+            var reward = RandomUtils.GetRandomUniqueItems(_rewardDataBase.EquipmentRewards, 3);
+            rewardType = RewardType.Equipment;
+            return reward.ToArray();
         }
         
     }

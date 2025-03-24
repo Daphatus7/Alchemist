@@ -56,5 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Alchemist.sln"
+    "dotnet.defaultSolution": "Alchemist.sln",
+    "dotnet.preferCSharpExtension": true
 }
