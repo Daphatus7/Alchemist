@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace _Script.Map.MapLoadContext.Scriptable
 {
-    [CreateAssetMenu(fileName = "MapLoadContext", menuName = "MapLoadContext/MapLoadContext")]
     public abstract class MapLoadContext : ScriptableObject
     {
         public string mapName; 

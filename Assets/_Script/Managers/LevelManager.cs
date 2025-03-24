@@ -20,11 +20,11 @@ namespace _Script.Managers
         {
             get
             {
-                if(_playerCharacter == null)
+                if(!_playerCharacter)
                 {
                     _playerCharacter = GameManager.Instance.PlayerCharacter;
                     
-                    if(_playerCharacter == null)
+                    if(!_playerCharacter)
                     {
                         Debug.LogWarning("PlayerCharacter is null, event after trying get it from GameManager.");
                     }
@@ -36,15 +36,13 @@ namespace _Script.Managers
         private string _currentMainScene;
         private string _currentAdditiveScene;
         private readonly List<string> _loadedAdditiveScenes = new List<string>();
-        private AstarPath _astarPath;
         /// <summary>
         /// Initialize references such as the PlayerCharacter and starting scene.
         /// Called once from GameManager.
         /// </summary>
-        public void Initialize(PlayerCharacter playerCharacter, AstarPath astarPath)
+        public void Initialize(PlayerCharacter playerCharacter)
         {
             _playerCharacter = playerCharacter;
-            _astarPath = astarPath;
         }
 
         /// <summary>
@@ -61,7 +59,7 @@ namespace _Script.Managers
         /// we unload the current additive scene if it exists.
         /// After loading, we might unload the main scene to fully swap.
         /// </summary>
-        public void LoadSelectedScene(MapLoadContextInstance instance)
+        internal void LoadSelectedScene(MapLoadContextInstance instance)
         {
             // Unload the existing additive scene if any
             if (!string.IsNullOrEmpty(_currentAdditiveScene))
@@ -75,7 +73,7 @@ namespace _Script.Managers
         /// <summary>
         /// Unloads the current additive scene (if any).
         /// </summary>
-        public void UnloadCurrentAdditiveScene()
+        internal void UnloadCurrentAdditiveScene()
         {
             if (!string.IsNullOrEmpty(_currentAdditiveScene))
             {
@@ -91,7 +89,7 @@ namespace _Script.Managers
         /// Moves the player to a spawn position in a target scene (if that scene is loaded).
         /// Also unsubscribes from OnLevelGenerated if we were subscribed.
         /// </summary>
-        public void MovePlayerToScene(Vector3 spawnPosition, string targetScene)
+        private void MovePlayerToScene(Vector3 spawnPosition, string targetScene)
         {
             if (_loadedAdditiveScenes.Contains(targetScene))
             {
@@ -110,9 +108,6 @@ namespace _Script.Managers
             {
                 Debug.Log($"Scene '{targetScene}' not loaded or PlayerCharacter is null. Cannot move player.");
             }
-
-            // Correctly unsubscribe using the named method!
-            SubGameManager.Instance.OnLevelGenerated -= OnSubGameManagerLevelGenerated;
         }
 
         #region Async Scene Loading Coroutines
@@ -165,48 +160,10 @@ namespace _Script.Managers
                 yield return SceneManager.UnloadSceneAsync(_currentMainScene);
                 _currentMainScene = null;
             }
-            
-            // Trigger generation in the SubGameManager
-            if (SubGameManager.Instance.LoadNextLevel(instance))
-            {
-                SubGameManager.Instance.OnLevelGenerated += OnSubGameManagerLevelGenerated;
-            }
-            else
-            {
-                _astarPath.Scan();
-                MovePlayerToScene(SubGameManager.Instance.SpawnPoint.position, _currentAdditiveScene);
-            }
+
+            SubGameManager.Instance.LoadLevelContent(instance);
         }
-
-        /// <summary>
-        /// Named method for the OnLevelGenerated event.
-        /// Subscribing/unsubscribing with the same method ensures correct event handling.
-        /// </summary>
-        private void OnSubGameManagerLevelGenerated()
-        {
-            // Use SubGameManager's known spawn position or nodeData's mapName if needed.
-            // Suppose the SubGameManager has a public SpawnPoint property:
-            var spawnPoint = SubGameManager.Instance.SpawnPoint.position;
-            var targetScene = _currentAdditiveScene;
-            
-            var gridGraph = AstarPath.active.data.gridGraph;
-
-            if (gridGraph != null)
-            {
-                // Set the size of the graph
-                gridGraph.center = SubGameManager.Instance.MapCenter;
-                gridGraph.width = SubGameManager.Instance.MapBounds.x * 2;
-                gridGraph.depth = SubGameManager.Instance.MapBounds.y * 2;
-                gridGraph.nodeSize = 0.5f;        // Size of each node in world units
-
-                // Optionally adjust boundaries
-                gridGraph.UpdateSizeFromWidthDepth();
-            }
-            
-            _astarPath.Scan();
-            MovePlayerToScene(spawnPoint, targetScene);
-        }
-
+        
         private void UnloadAdditiveScene(string sceneName)
         {
             GameManager.Instance.StartCoroutine(UnloadAdditiveSceneAsync(sceneName));

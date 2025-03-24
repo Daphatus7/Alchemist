@@ -9,5 +9,6 @@ namespace _Script.Map.MapLoadContext.Scriptable
     public class TownMapLoadContext : MapLoadContext
     {
         public override MapType MapType => MapType.Town;
+        
     }
 }

@@ -3,8 +3,8 @@ using _Script.Character;
 using _Script.Character.PlayerRank;
 using _Script.Character.PlayerUI;
 using _Script.Managers.GlobalUpdater;
-using _Script.Map.MapLoadContext;
 using _Script.Map.MapLoadContext.ContextInstance;
+using _Script.Map.MapManager;
 using _Script.Places;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
@@ -23,7 +23,7 @@ namespace _Script.Managers
     public class GameManager : PersistentSingleton<GameManager>
     {
         
-        [SerializeField] private AstarPath _astarPath;
+        [SerializeField] private AstarPath _astarPath; public AstarPath AstarPath => _astarPath;
 
         private PlayerCharacter _playerCharacter; public PlayerCharacter PlayerCharacter => _playerCharacter;
         [SerializeField] GameObject _playerPrefab;
@@ -48,12 +48,16 @@ namespace _Script.Managers
             // Create and initialize the LevelManager
             _levelManager = new LevelManager();
             
-            _levelManager.Initialize(_playerCharacter, _astarPath);
+            _levelManager.Initialize(_playerCharacter);
             
             //set scene as persistent
 
-            // Optionally load the "starting" scene
+            //Map data
+            //Should be loaded first
+            // -------------- Load current scene instead
             LoadMainScene();
+            MapManager.Instance.InitializeMaps();
+
             
             // Spawn the player character
             SpawnPlayer();
@@ -66,6 +70,8 @@ namespace _Script.Managers
             
             //load save data
             statsDisplay.InitializeUI(_playerCharacter);
+            
+            //initialize MapManager
         }
 
         /// <summary>
@@ -152,7 +158,7 @@ namespace _Script.Managers
         }
 
         /// <summary> Load/replace the main scene (non-additive). </summary>
-        public void LoadMainScene()
+        private void LoadMainScene()
         {
             //problem is here, the scene is loaded again
             _levelManager.LoadMainScene(_startingScene);

@@ -1,4 +1,5 @@
 
+using _Script.Managers;
 using _Script.Map.MapLoadContext.ContextInstance;
 using _Script.Map.MapLoadContext.RewardContext;
 using UnityEngine;
@@ -29,9 +30,16 @@ namespace _Script.Map.MapExit
                 if (_mapLoadContextInstance.IsCompleted && Input.GetKeyDown(KeyCode.E))
                 {
                     //load the new map 
-                    Debug.Log("Loading new map");
+                    EnterSelectedMap();
                 }
             }
+        }
+        
+        private void EnterSelectedMap()
+        {
+            //load the new map
+            Debug.Log("Loading new map");
+            GameManager.Instance.LoadSelectedScene(_mapLoadContextInstance);
         }
     }
 }

@@ -19,8 +19,8 @@ namespace _Script.Map.MapManager
             switch (mapLoadContext.MapType)
             {
                 case MapLoadContext.Scriptable.MapType.Monster:
-                    return new EnemyLoadContextInstance(MapRank, mapLoadContext.mapName, rewardContext, 
-                        ((MapLoadContext.Scriptable.MonsterMapLoadContext) mapLoadContext).enemyData);
+                    return new EnemyLoadContextInstance(MapRank, mapLoadContext.mapName, rewardContext,
+                        ((MapLoadContext.Scriptable.MonsterMapLoadContext) mapLoadContext).monsterPrefabs);
                 case MapLoadContext.Scriptable.MapType.Boss:
                     return new BossLoadContextInstance(MapRank, mapLoadContext.mapName, rewardContext,
                         ((MapLoadContext.Scriptable.BossMapLoadContext) mapLoadContext).bossData);

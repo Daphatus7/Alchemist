@@ -9,7 +9,7 @@ namespace _Script.Map.MapLoadContext.Scriptable
     [CreateAssetMenu(fileName = "MonsterMapLoadContext", menuName = "MapLoadContext/MonsterMapLoadContext")]
     public class MonsterMapLoadContext : MapLoadContext
     {
-        public EnemyData [] enemyData;
+        public GameObject [] monsterPrefabs;
         public override MapType MapType => MapType.Monster;
     }
 }

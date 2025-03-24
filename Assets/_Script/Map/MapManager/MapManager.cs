@@ -2,6 +2,7 @@
 // 12 03 2025 03 10
 
 using System.Collections.Generic;
+using System.Linq;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using _Script.Map.MapLoadContext;
 using _Script.Map.MapLoadContext.ContextInstance;
@@ -24,8 +25,32 @@ namespace _Script.Map.MapManager
         ///     - [Map b]           - [Map e]
         /// Multiple maps as options for each level
         /// </summary>
-        private Queue<MapLoadContextInstance []> _allMaps = new();
+        private readonly Queue<MapLoadContextInstance []> _allMaps = new();
 
+
+        private MapLoadContextInstance _currentMap;
+        /// <summary>
+        /// the map in which the player is currently in
+        /// </summary>
+        public MapLoadContextInstance CurrentMap
+        {
+            get
+            {
+                return _currentMap;
+            }
+            set
+            {
+                _currentMap = value;
+            }
+        }
+        /// <summary>
+        /// Map for the next level
+        /// so it will be displayed as gates to allow player to choose
+        /// </summary>
+        private MapLoadContextInstance[] _nextPossibleMaps;
+        
+    
+        
         /// <summary>
         /// Maps for the next level
         /// </summary>
@@ -41,7 +66,10 @@ namespace _Script.Map.MapManager
             
         [SerializeField] private RewardDataBase _rewardDataBase;
         
-        public void StartGame()
+        /// <summary>
+        /// Generate the game maps
+        /// </summary>
+        public void InitializeMaps()
         {
             //consider the town map
             var town = 
@@ -50,10 +78,22 @@ namespace _Script.Map.MapManager
                         RandomUtils.GetRandomUniqueItems(_rewardDataBase.EquipmentRewards, 3).ToArray(),
                         RewardType.Equipment));
             _allMaps.Enqueue(new [] {town});
+            CurrentMap = town;
             GenerateGameMaps();
         }
         
-        public void GenerateGameMaps()
+        private void LoadCurrentLevelMaps(int playerSelectedLevel)
+        {
+            if (_allMaps.Peek().Length <= playerSelectedLevel)
+            {
+                throw new System.Exception("Maps are null");
+            }
+            CurrentMap = _allMaps.Peek()[playerSelectedLevel];
+            _nextPossibleMaps = _allMaps.Dequeue();
+        }
+        
+
+        private void GenerateGameMaps()
         {
             //First Round
             //Generate 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using _Script.Character;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -14,19 +15,12 @@ using Sirenix.OdinInspector;
 
 namespace _Script.Managers
 {
-
-    public interface IMapState
-    {
-        
-    }
     
     public class SubGameManager : GameManagerBase<SubGameManager>
     {
         [Header("Optional: Dungeon Generation Example")]
         [SerializeField] private DungeonGeneratorGrid2D _dungeonGenerator;
         
-        public event Action OnLevelGenerated;
-
         public Transform SpawnPoint
         {
             get
@@ -42,8 +36,15 @@ namespace _Script.Managers
             }
         }
 
+        
+        /// <summary>
+        /// Load randomly generated content for the level.
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns>if there is content to be generated procedurally</returns>
+        /// <exception cref="Exception"></exception>
         [Button]
-        public new bool LoadNextLevel(MapLoadContextInstance instance)
+        public bool LoadLevelContent(MapLoadContextInstance instance)
         {
             ShowLoadingScreen("SubGameManager", "Generating level...");
 
@@ -106,16 +107,46 @@ namespace _Script.Managers
             _reachableArea = GenerateReachableArea();
 
             var spawner = GetComponent<MapSpawner>();
+            GenerateNavMesh();
             spawner.Spawn(_reachableArea, instance);
-            OnLevelGenerated?.Invoke();
+            MovePlayerToScene(SpawnPoint.position, instance.MapName);
+        }
+        
+        private void GenerateNavMesh()
+        {
+            var gridGraph = AstarPath.active.data.gridGraph;
+
+            if (gridGraph != null)
+            {
+                // Set the size of the graph
+                gridGraph.center = Instance.MapCenter;
+                gridGraph.width = Instance.MapBounds.x * 2;
+                gridGraph.depth = Instance.MapBounds.y * 2;
+                gridGraph.nodeSize = 0.5f;        // Size of each node in world units
+                // Optionally adjust boundaries
+                gridGraph.UpdateSizeFromWidthDepth();
+            }
+            GameManager.Instance.AstarPath.Scan();
+        }
+        private void MovePlayerToScene(Vector3 spawnPosition, string targetScene)
+        {
+            if (GameManager.Instance.PlayerCharacter is { } playerCharacter)
+            {
+                playerCharacter.transform.position = spawnPosition;
+                Debug.Log($"Player moved to {spawnPosition} in scene {targetScene}.");
+            }
+            else
+            {
+                Debug.Log($"character is null");
+            }
         }
 
+        #region Reachable Area Generation
         private ReachableArea _reachableArea; public ReachableArea ReachableArea => _reachableArea;
         private Tilemap _baseTileMap;
         public Vector3 MapCenter => _reachableArea.Pivot;
         
         public Vector2Int MapBounds => new Vector2Int(_reachableArea.Width, _reachableArea.Height);
-
         private ReachableArea GenerateReachableArea()
         {
             // 1. Find the "Tilemaps" child under this GameObject
@@ -172,7 +203,6 @@ namespace _Script.Managers
                 $"Width: {largestArea.Width}, Height: {largestArea.Height}");
             return largestArea;
         }
-        
         private void VisualDebugReachableArea(Tilemap tilemap, List<Vector2Int> reachableArea, Color debugColor)
         {
             // Draw simple squares in the Scene view around each reachable tile
@@ -201,5 +231,6 @@ namespace _Script.Managers
                 Debug.DrawLine(topLeft, bottomLeft,     debugColor, 100f);
             }
         }
+        #endregion
     }
 }

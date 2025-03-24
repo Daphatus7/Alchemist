@@ -4,17 +4,22 @@
 using _Script.Character.PlayerRank;
 using _Script.Enemy.EnemyData;
 using _Script.Items.AbstractItemTypes._Script.Items;
+using UnityEngine;
 
 namespace _Script.Map.MapLoadContext.ContextInstance
 {
     public class EnemyLoadContextInstance : MapLoadContextInstance
     {
-        private EnemyData[] _enemyData; public EnemyData[] EnemyData => _enemyData;
-        
+        public GameObject[] MonsterPrefabs { get; }
+
         public EnemyLoadContextInstance(NiRank mapRank, string mapName, RewardContext.RewardContext reward, 
-            EnemyData[] enemyData) : base(mapRank, mapName, reward)
+            GameObject[] monsterPrefabs) : base(mapRank, mapName, reward)
         {
-            _enemyData = enemyData;
+            MonsterPrefabs = new GameObject[monsterPrefabs.Length];
+            for (int i = 0; i < monsterPrefabs.Length; i++)
+            {
+                MonsterPrefabs[i] = monsterPrefabs[i];
+            }
         }
     }
 }
