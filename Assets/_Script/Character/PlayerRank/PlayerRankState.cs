@@ -31,12 +31,10 @@ namespace _Script.Character.PlayerRank
 
         public virtual void Enter()
         {
-            Debug.Log("Entered rank: " + Rank);
         }
 
         public virtual void Exit()
         {
-            Debug.Log("Exiting rank: " + Rank);
         }
 
         public virtual void UpdateState()

@@ -3,13 +3,13 @@
 
 using System;
 using System.Collections.Generic;
-using _Script.Map.MapExit;
 using _Script.Map.MapLoadContext.RewardContext;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace _Script.Map
+namespace _Script.Map.MapExit
 {
-    public class GateGroup : MonoBehaviour
+    public class GateGroup : Singleton<GateGroup>
     {
         [SerializeField] private GameObject equipmentGate;
         [SerializeField] private GameObject bossGate;
@@ -18,25 +18,25 @@ namespace _Script.Map
         // spawn gate locations
         [SerializeField] private Transform[] spawnPoints; //start and end point
         private readonly Dictionary<RewardType, GameObject> _gates = new();
-        
-        public void Awake()
+
+        protected override void Awake()
         {
+            base.Awake();
             _gates.Add(RewardType.Equipment, equipmentGate);
             _gates.Add(RewardType.Boss, bossGate);
             _gates.Add(RewardType.Supply, supplyGate);
         }
-
-        // exit generate several different options for the player to choose
+        
         public void GenerateGates()
         {
-           var nextLevelMaps = MapManager.MapManager.Instance.NextMap;
-           var gateCount = nextLevelMaps.Length;
-           var locations = GetGateLocations(gateCount);
-           for (int i = 0; i < gateCount; i++)
-           {
-               var gate = SpawnGate(_gates[nextLevelMaps[i].RewardType], locations[i]);
-               gate.Initialize(nextLevelMaps[i].RewardType, nextLevelMaps[i]);
-           }
+            var nextLevelMaps = MapManager.MapManager.Instance.NextPossibleMaps;
+            var gateCount = nextLevelMaps.Length;
+            var locations = GetGateLocations(gateCount);
+            for (var i = 0; i < gateCount; i++)
+            {
+                var gate = SpawnGate(_gates[nextLevelMaps[i].RewardType], locations[i]);
+                gate.Initialize(nextLevelMaps[i].RewardType, nextLevelMaps[i]);
+            }
         }
         
         private Gate SpawnGate(GameObject gate, Vector3 location)
@@ -49,6 +49,7 @@ namespace _Script.Map
             }
             throw new Exception("Gate prefab does not have Gate component");
         }
+        
         private Vector3[] GetGateLocations(int gateCount)
         {
             var locations = new Vector3[gateCount];

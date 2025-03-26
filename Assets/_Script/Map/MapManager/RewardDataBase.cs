@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace _Script.Map.MapManager
 {
+    [CreateAssetMenu(fileName = "RewardDataBase", menuName = "Map/RewardDataBase")]
     public class RewardDataBase : ScriptableObject
     {
         public ItemData [] EquipmentRewards;

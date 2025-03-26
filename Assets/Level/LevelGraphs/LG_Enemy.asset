@@ -29,10 +29,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Position: {x: 880, y: 560}
-  Name: BossRoom
-  IndividualRoomTemplates:
-  - {fileID: 4824408171863005527, guid: d313d05fbb88949f28a8788b5165ca29, type: 3}
-  - {fileID: 4824408171863005527, guid: d92baacfa45ad4a52947ec59e806f0b9, type: 3}
+  Name: Room
+  IndividualRoomTemplates: []
   RoomTemplateSets: []
 --- !u!114 &-6462048926507752860
 MonoBehaviour:

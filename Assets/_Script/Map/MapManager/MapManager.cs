@@ -27,6 +27,13 @@ namespace _Script.Map.MapManager
         /// </summary>
         private readonly Queue<MapLoadContextInstance []> _allMaps = new();
 
+        public bool IsLevelCompleted
+        {
+            get
+            {
+                return _currentMap.IsCompleted;
+            }
+        }
 
         private MapLoadContextInstance _currentMap;
         /// <summary>
@@ -44,17 +51,23 @@ namespace _Script.Map.MapManager
             }
         }
         /// <summary>
-        /// Map for the next level
-        /// so it will be displayed as gates to allow player to choose
-        /// </summary>
-        private MapLoadContextInstance[] _nextPossibleMaps;
-        
-    
-        
-        /// <summary>
         /// Maps for the next level
         /// </summary>
-        public MapLoadContextInstance[] NextMap => _allMaps.Peek();
+        public MapLoadContextInstance[] NextPossibleMaps
+        {
+            get
+            {
+                // Ensure there's at least two items in the queue.
+                if (_allMaps.Count > 1)
+                {
+                    // Convert the queue to an array to access elements by index.
+                    var mapsArray = _allMaps.ToArray();
+                    return mapsArray[1]; // The item "next to" the first (head) element.
+                }
+                return null; // Or consider returning an empty array if that suits your design better.
+            }
+        }
+
         
         [SerializeField] private BossMapLoadContext [] bossMaps;
         
@@ -89,10 +102,8 @@ namespace _Script.Map.MapManager
                 throw new System.Exception("Maps are null");
             }
             CurrentMap = _allMaps.Peek()[playerSelectedLevel];
-            _nextPossibleMaps = _allMaps.Dequeue();
         }
         
-
         private void GenerateGameMaps()
         {
             //First Round
@@ -127,6 +138,7 @@ namespace _Script.Map.MapManager
         {
             //Each level has 2 options out of all the maps
             var maps = RandomUtils.GetRandomUniqueItems(monsterMaps, 2);
+            Debug.Log("Generating maps for a level" + maps[0].name + " " + maps[1].name);
             //decide get unique reward type
             //random bool
             if (Random.value > 0.5f)

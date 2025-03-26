@@ -4,6 +4,7 @@
 using _Script.Character.PlayerRank;
 using _Script.Items.AbstractItemTypes._Script.Items;
 using _Script.Map.MapLoadContext.RewardContext;
+using UnityEngine;
 
 namespace _Script.Map.MapLoadContext.ContextInstance
 {
@@ -19,7 +20,11 @@ namespace _Script.Map.MapLoadContext.ContextInstance
         /// <summary>
         /// whethere
         /// </summary>
-        private bool _isCompleted; public bool IsCompleted => _isCompleted;
+        private bool _isCompleted; public bool IsCompleted
+        {
+            get => _isCompleted;
+            set => _isCompleted = value;
+        }
 
         /// <summary>
         /// usually 2-3 items

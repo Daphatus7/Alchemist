@@ -3,6 +3,8 @@ using _Script.Character;
 using _Script.Character.PlayerRank;
 using _Script.Character.PlayerUI;
 using _Script.Managers.GlobalUpdater;
+using _Script.Map;
+using _Script.Map.MapExit;
 using _Script.Map.MapLoadContext.ContextInstance;
 using _Script.Map.MapManager;
 using _Script.Places;
@@ -44,24 +46,26 @@ namespace _Script.Managers
         
         private void Start()
         {
-            
             // Create and initialize the LevelManager
             _levelManager = new LevelManager();
             
             _levelManager.Initialize(_playerCharacter);
             
             //set scene as persistent
-
+            
+            SpawnPlayer();
             //Map data
             //Should be loaded first
             // -------------- Load current scene instead
+            
             LoadMainScene();
+            
+            //initialize MapManager
             MapManager.Instance.InitializeMaps();
-
             
             // Spawn the player character
-            SpawnPlayer();
-            
+            GateGroup.Instance.GenerateGates();
+
             //initialize data
             SaveLoadManager.Instance.LoadPlayerData();
             
@@ -70,8 +74,6 @@ namespace _Script.Managers
             
             //load save data
             statsDisplay.InitializeUI(_playerCharacter);
-            
-            //initialize MapManager
         }
 
         /// <summary>

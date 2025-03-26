@@ -80,7 +80,6 @@ namespace _Script.Inventory.ActionBarFrontend
             var itemInstance = inventory.GetItemInstanceAt(slotIndex);
             if (itemInstance == null)
             {
-                Debug.Log("No item in that slot.");
                 return;
             }
 

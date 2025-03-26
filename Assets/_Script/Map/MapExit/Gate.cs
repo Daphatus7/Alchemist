@@ -22,12 +22,12 @@ namespace _Script.Map.MapExit
         }
         
 
-        public void OnTriggerEnter(Collider other)
+        public void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.CompareTag("Player"))
             {
                 //let player enter the map if the gate is open and the player has pressed the button
-                if (_mapLoadContextInstance.IsCompleted && Input.GetKeyDown(KeyCode.E))
+                if (MapManager.MapManager.Instance.IsLevelCompleted)
                 {
                     //load the new map 
                     EnterSelectedMap();
