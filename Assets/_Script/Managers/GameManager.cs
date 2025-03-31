@@ -63,9 +63,6 @@ namespace _Script.Managers
             //initialize MapManager
             MapManager.Instance.InitializeMaps();
             
-            // Spawn the player character
-            GateGroup.Instance.GenerateGates();
-
             //initialize data
             SaveLoadManager.Instance.LoadPlayerData();
             

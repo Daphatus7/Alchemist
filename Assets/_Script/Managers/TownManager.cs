@@ -24,12 +24,16 @@ namespace _Script.Managers
         
         protected void OnDestroy()
         {
+            return;
             if(ServiceLocator.Instance != null)
                 ServiceLocator.Instance.Unregister<ISaveTownDataHandler>();
         }
 
         public void OnEnable()
         {
+            
+            
+            return;
             SaveLoadManager.Instance.LoadTownData();
             foreach (var npc in _npcs)
             {
