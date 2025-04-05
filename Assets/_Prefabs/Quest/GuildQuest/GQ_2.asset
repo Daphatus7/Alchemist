@@ -18,13 +18,12 @@ MonoBehaviour:
   - objectiveData:
       rid: 3211680580556816573
     isComplete: 0
-    _currentCount: 0
-    <CurrentCount>k__BackingField: 0
   reward:
     gold: 500
     experience: 300
     items:
-    - {item: {fileID: 11400000, guid: cbc5667b0e2a840088c322a9f35cef53, type: 2}, amount: 1}
+    - item: {fileID: 11400000, guid: cbc5667b0e2a840088c322a9f35cef53, type: 2}
+      amount: 1
   questRank: 6
   description: Go to Area 1
   distanceMax: 1

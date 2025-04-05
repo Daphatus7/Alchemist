@@ -18,13 +18,12 @@ MonoBehaviour:
   - objectiveData:
       rid: 3211680568641323090
     isComplete: 0
-    _currentCount: 0
-    <CurrentCount>k__BackingField: 0
   reward:
     gold: 2000
     experience: 5000
     items:
-    - {item: {fileID: 11400000, guid: 82ae9c7bb14494e49975db7b82705143, type: 2}, amount: 1}
+    - item: {fileID: 11400000, guid: 82ae9c7bb14494e49975db7b82705143, type: 2}
+      amount: 1
   questRank: 6
   description: Go to d1
   distanceMax: 1
@@ -37,5 +36,4 @@ MonoBehaviour:
       data:
         requiredCount: 1
         enemy: {fileID: 11400000, guid: 46011f3f7a1294d12b3c6ef0c4aad4fa, type: 2}
-        _enemyID: 
         mapName: E_BossMap_1
