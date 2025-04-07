@@ -65,6 +65,14 @@ namespace _Script.Managers
             
             //initialize data
             SaveLoadManager.Instance.LoadPlayerData();
+
+
+            GateGroup.Instance.GenerateGates();
+
+            //2 possibilities
+            // 1. the player is the town, we will initialize gates
+
+            // 2. the player is not in the town, we will load the gates for the current map 
             
             //initialize UI
             _playerCharacter.InitializeUI();

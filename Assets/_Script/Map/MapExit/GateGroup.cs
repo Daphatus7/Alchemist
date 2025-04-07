@@ -26,7 +26,7 @@ namespace _Script.Map.MapExit
             _gates.Add(RewardType.Boss, bossGate);
             _gates.Add(RewardType.Supply, supplyGate);
         }
-        
+
         public void GenerateGates()
         {
             var nextLevelMaps = MapManager.MapManager.Instance.NextPossibleMaps;
@@ -36,6 +36,11 @@ namespace _Script.Map.MapExit
             {
                 var gate = SpawnGate(_gates[nextLevelMaps[i].RewardType], locations[i]);
                 gate.Initialize(nextLevelMaps[i].RewardType, nextLevelMaps[i]);
+            }
+
+            if(gateCount == 0)
+            {
+                throw new Exception("No gates to generate");
             }
         }
         

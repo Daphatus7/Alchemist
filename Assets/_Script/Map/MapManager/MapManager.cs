@@ -27,6 +27,10 @@ namespace _Script.Map.MapManager
         /// </summary>
         private readonly Queue<MapLoadContextInstance []> _allMaps = new();
 
+
+        /// <summary>
+        /// The level is finished, all monsters are defeated etc.
+        /// </summary>
         public bool IsLevelCompleted
         {
             get

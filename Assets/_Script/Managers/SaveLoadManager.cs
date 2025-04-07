@@ -29,7 +29,7 @@ namespace _Script.Managers
         public void LoadGame()
         {
             LoadTownData();
-            LoadPlayerData();       
+            LoadPlayerData();
         }
         
         
