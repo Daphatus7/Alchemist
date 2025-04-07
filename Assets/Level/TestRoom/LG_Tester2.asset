@@ -133,8 +133,8 @@ MonoBehaviour:
   - {fileID: 9172734645119233139}
   - {fileID: -2445849109980671145}
   EditorData:
-    PanOffset: {x: 429.86133, y: -199.71483}
-    Zoom: 0.62261754
+    PanOffset: {x: -726.28217, y: -318.20447}
+    Zoom: 4.687179
   RoomType: Edgar.Unity.Room
   ConnectionType: Edgar.Unity.Connection
   IsDirected: 0
@@ -168,7 +168,7 @@ MonoBehaviour:
   Position: {x: 880, y: 352}
   Name: SpawnRoom
   IndividualRoomTemplates:
-  - {fileID: 4824408171863005527, guid: 65377dc2ac554441db8cf204e903689d, type: 3}
+  - {fileID: 4824408171863005527, guid: 20367de017b65483597eb349808e46ca, type: 3}
   RoomTemplateSets: []
 --- !u!114 &4764264577242527726
 MonoBehaviour:
