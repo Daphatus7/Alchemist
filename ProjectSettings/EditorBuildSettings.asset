@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Level/BossRoom/E_BossMap_1.unity
     guid: 66e7000b213a14eccb16ba11198715db
+  - enabled: 1
+    path: Assets/Level/TestRoom/MapTester.unity
+    guid: f371cd0caef4a46e3a4ed954c9adc3ac
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: c2bcfefd6ac65425c983f6d7ced5aa3d,
       type: 2}
