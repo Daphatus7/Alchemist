@@ -28,9 +28,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8074dc491ddc34f4e83332d9eae76980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Position: {x: 880, y: 560}
+  Position: {x: 880, y: 544}
   Name: Room
   IndividualRoomTemplates: []
+  RoomTemplateSets: []
+--- !u!114 &-7395704139199475410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8074dc491ddc34f4e83332d9eae76980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Position: {x: 880, y: 624}
+  Name: ExitRoom
+  IndividualRoomTemplates:
+  - {fileID: 4824408171863005527, guid: 75bceb0cf9fcf4778830938349d44b0d, type: 3}
   RoomTemplateSets: []
 --- !u!114 &-6462048926507752860
 MonoBehaviour:
@@ -62,6 +79,21 @@ MonoBehaviour:
   From: {fileID: -9200685146019807252}
   To: {fileID: -7712747912569560808}
   RoomTemplates: []
+--- !u!114 &-1013807756859340868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f692f83df7c1b5468af64edd22287dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  From: {fileID: -7712747912569560808}
+  To: {fileID: -7395704139199475410}
+  RoomTemplates: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +110,7 @@ MonoBehaviour:
   - {fileID: -6462048926507752860}
   - {fileID: 4764264577242527726}
   - {fileID: -3796382180745686183}
+  - {fileID: -1013807756859340868}
   CorridorIndividualRoomTemplates:
   - {fileID: 4824408171863005527, guid: aae9bdc35252e4bdeb4e863d8753255f, type: 3}
   CorridorRoomTemplateSets: []
@@ -89,9 +122,10 @@ MonoBehaviour:
   - {fileID: 1543291592732935148}
   - {fileID: 8374313632089172612}
   - {fileID: -7712747912569560808}
+  - {fileID: -7395704139199475410}
   EditorData:
-    PanOffset: {x: -395.9129, y: -327.8558}
-    Zoom: 1.665462
+    PanOffset: {x: -70.187515, y: -333.43655}
+    Zoom: 1.0294558
   RoomType: Edgar.Unity.Room
   ConnectionType: Edgar.Unity.Connection
   IsDirected: 0

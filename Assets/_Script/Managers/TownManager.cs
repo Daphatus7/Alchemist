@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using _Script.Map.MapExit;
 using _Script.NPC.NpcBackend;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
@@ -21,7 +22,15 @@ namespace _Script.Managers
             //Register with the save system
             ServiceLocator.Instance.Register<ISaveTownDataHandler>(this);
         }
-        
+
+        protected void Start()
+        {
+            if(GateGroup.Instance != null)
+            {
+                GateGroup.Instance.GenerateGates();
+                print("Generating gates");
+            }
+        }
         protected void OnDestroy()
         {
             return;

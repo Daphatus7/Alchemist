@@ -11,6 +11,8 @@ using _Script.Places;
 using _Script.Utilities.ServiceLocator;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
+
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -65,9 +67,7 @@ namespace _Script.Managers
             
             //initialize data
             SaveLoadManager.Instance.LoadPlayerData();
-
-
-            GateGroup.Instance.GenerateGates();
+            
 
             //2 possibilities
             // 1. the player is the town, we will initialize gates

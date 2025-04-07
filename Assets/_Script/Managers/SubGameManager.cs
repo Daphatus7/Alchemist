@@ -12,6 +12,7 @@ using _Script.Map.MapLoadContext.ContextInstance;
 using Edgar.Unity;
 using Edgar.Unity.Examples;
 using Sirenix.OdinInspector;
+using _Script.Map.MapExit;
 
 namespace _Script.Managers
 {
@@ -26,6 +27,7 @@ namespace _Script.Managers
             get
             {
                 var spawnerPoint = SpawnerPoint.Instance;
+                Debug.Log("SpawnerPoint found at: " + spawnerPoint);
                 if (spawnerPoint)
                 {
                     transform.SetParent(transform.root);
@@ -58,6 +60,7 @@ namespace _Script.Managers
                     throw new Exception("dont have a generator but still trying to access the spawner");
                 }
                 spawner.Spawn(instance);
+                GateGroup.Instance.GenerateGates();
                 return false;
             }
             
@@ -110,6 +113,7 @@ namespace _Script.Managers
             GenerateNavMesh();
             spawner.Spawn(_reachableArea, instance);
             MovePlayerToScene(SpawnPoint.position, instance.MapName);
+            GateGroup.Instance.GenerateGates();
         }
         
         private void GenerateNavMesh()
@@ -130,6 +134,7 @@ namespace _Script.Managers
         }
         private void MovePlayerToScene(Vector3 spawnPosition, string targetScene)
         {
+
             if (GameManager.Instance.PlayerCharacter is { } playerCharacter)
             {
                 playerCharacter.transform.position = spawnPosition;
