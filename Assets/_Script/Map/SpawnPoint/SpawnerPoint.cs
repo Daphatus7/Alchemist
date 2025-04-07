@@ -10,10 +10,14 @@ namespace _Script.Map
     //Spawn point for player
     public class SpawnerPoint : Singleton<SpawnerPoint>
     {
-        [Button]
         public Transform GetSpawnPoint()
         {              
             return gameObject.transform;
+        }
+        [Button]
+        public void PrintSpawnPoint()
+        {
+            Debug.Log("SpawnerPoint found at: " + gameObject.transform.position);
         }
     }
 }

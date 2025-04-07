@@ -30,6 +30,11 @@ namespace _Script.Map.MapExit
         public void GenerateGates()
         {
             var nextLevelMaps = MapManager.MapManager.Instance.NextPossibleMaps;
+            if(nextLevelMaps == null || nextLevelMaps.Length == 0)
+            {
+                Debug.Log("No maps to generate gates");
+                return;
+            }
             var gateCount = nextLevelMaps.Length;
             var locations = GetGateLocations(gateCount);
             for (var i = 0; i < gateCount; i++)

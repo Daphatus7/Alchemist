@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using _Script.Items.AbstractItemTypes._Script.Items;
+using _Script.Managers;
 using _Script.Map.MapLoadContext;
 using _Script.Map.MapLoadContext.ContextInstance;
 using _Script.Map.MapLoadContext.RewardContext;
@@ -98,7 +99,19 @@ namespace _Script.Map.MapManager
             CurrentMap = town;
             GenerateGameMaps();
         }
-        
+
+        /// <summary>
+        /// Called before current map is completed and the player is entering the next map
+        /// </summary>
+        public void EnterMap(MapLoadContextInstance map)
+        {
+            //load the new map
+            var curMap = _allMaps.Dequeue();
+            GameManager.Instance.LoadSelectedScene(map);
+            Debug.Log("Loading map " + map.MapName + " " + map.MapRank);
+            //load the new map
+        }
+
         private void LoadCurrentLevelMaps(int playerSelectedLevel)
         {
             if (_allMaps.Peek().Length <= playerSelectedLevel)

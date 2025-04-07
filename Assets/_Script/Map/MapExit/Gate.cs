@@ -38,8 +38,8 @@ namespace _Script.Map.MapExit
         private void EnterSelectedMap()
         {
             //load the new map
-            Debug.Log("Loading new map" + _mapLoadContextInstance.MapName);
-            GameManager.Instance.LoadSelectedScene(_mapLoadContextInstance);
+            MapManager.MapManager.Instance.EnterMap(_mapLoadContextInstance);
+
         }
     }
 }

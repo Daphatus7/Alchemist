@@ -60,6 +60,7 @@ namespace _Script.Managers
                     throw new Exception("dont have a generator but still trying to access the spawner");
                 }
                 spawner.Spawn(instance);
+                MovePlayerToScene(SpawnPoint.position, instance.MapName);
                 GateGroup.Instance.GenerateGates();
                 return false;
             }
