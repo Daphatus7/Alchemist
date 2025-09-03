@@ -69,6 +69,7 @@ namespace _Script.NPC.NpcBackend.NpcModules
             if(_merchantInventory == null)
             {
                 Debug.LogError("Merchant Inventory is null, initializing merchant inventory");
+                InitializeMerchantInventory();
             }
             ServiceLocator.Instance.Get<IMerchantInventoryService>().LoadMerchantInventory(_merchantInventory);
             //Register merchant inventory UI handler so it can be closed when the conversation ends
