@@ -31,7 +31,7 @@ namespace _Script.Character.PlayerRank
         // Expose current rank to other classes
         public NiRank CurrentRank => _currentRank.Rank;
         
-        public float Progress => (float)CurrentLevelExp / GetNextState().ExpRequired;
+        public float Progress => GetNextState() != null ? (float)CurrentLevelExp / GetNextState().ExpRequired : 1f;
         public event Action<float> onExperienceChanged;
         
         private void OnExperienceChanged()
