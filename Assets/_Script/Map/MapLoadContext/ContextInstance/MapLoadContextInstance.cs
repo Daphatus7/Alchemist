@@ -37,6 +37,7 @@ namespace _Script.Map.MapLoadContext.ContextInstance
             _mapRank = mapRank;
             _mapName = mapName;
             _rewardItems = reward.ItemRewards;
+            RewardType = reward.RewardType;
         }
     }
 }
