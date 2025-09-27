@@ -11,6 +11,7 @@ using _Script.Map.MapLoadContext.RewardContext;
 using _Script.Map.MapLoadContext.Scriptable;
 using _Script.Utilities;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace _Script.Map.MapManager
@@ -36,7 +37,7 @@ namespace _Script.Map.MapManager
         {
             get
             {
-                return _currentMap.IsCompleted;
+                return _currentMap != null && _currentMap.IsCompleted;
             }
         }
 
@@ -80,7 +81,10 @@ namespace _Script.Map.MapManager
 
         [SerializeField] private TownMapLoadContext townMap;
         
-        [SerializeField] private int miniMapCount = 3;
+        [SerializeField, Min(1)] private int minimumMiniMapCount = 2;
+        [SerializeField, Min(1)][FormerlySerializedAs("miniMapCount")] private int maximumMiniMapCount = 3;
+        [SerializeField, Min(1)] private int minimumGateCount = 2;
+        [SerializeField, Min(1)] private int maximumGateCount = 3;
             
         [SerializeField] private RewardDataBase _rewardDataBase;
         
@@ -89,12 +93,20 @@ namespace _Script.Map.MapManager
         /// </summary>
         public void InitializeMaps()
         {
+            _allMaps.Clear();
+
+            if (townMap == null)
+            {
+                throw new System.Exception("Town map is null");
+            }
+
+            if (_rewardDataBase == null)
+            {
+                throw new System.Exception("Reward database is null");
+            }
+
             //consider the town map
-            var town = 
-                MapFactory.Create(townMap, 
-                    new RewardContext(
-                        RandomUtils.GetRandomUniqueItems(_rewardDataBase.EquipmentRewards, 3).ToArray(),
-                        RewardType.Equipment));
+            var town = MapFactory.Create(townMap, CreateRewardContext(RewardType.Equipment));
             _allMaps.Enqueue(new [] {town});
             CurrentMap = town;
             GenerateGameMaps();
@@ -106,7 +118,18 @@ namespace _Script.Map.MapManager
         public void EnterMap(MapLoadContextInstance map)
         {
             //load the new map
-            var curMap = _allMaps.Dequeue();
+            if (_allMaps.Count == 0)
+            {
+                Debug.LogWarning("No maps queued. Did you reach the end of the run?");
+                return;
+            }
+
+            var currentTier = _allMaps.Dequeue();
+            if (currentTier != null && !currentTier.Contains(map))
+            {
+                Debug.LogWarning("Selected map was not part of the current tier.");
+            }
+            CurrentMap = map;
             GameManager.Instance.LoadSelectedScene(map);
             Debug.Log("Loading map " + map.MapName + " " + map.MapRank);
             //load the new map
@@ -123,9 +146,8 @@ namespace _Script.Map.MapManager
         
         private void GenerateGameMaps()
         {
-            //First Round
-            //Generate 
-            for(var i = miniMapCount - 1; i >= 0; i--)
+            var miniMapIterations = GetMiniMapCountForCycle();
+            for(var i = 0; i < miniMapIterations; i++)
             {
                 var maps = GenerateMapsForALevel();
                 if (maps == null)
@@ -146,40 +168,60 @@ namespace _Script.Map.MapManager
 
         private MapLoadContextInstance[] GenerateBossMap()
         {
+            if (bossMaps == null || bossMaps.Length == 0)
+            {
+                throw new System.Exception("Boss maps are null");
+            }
+
             var boss = RandomUtils.GetRandomUniqueItems(bossMaps, 1);
             var reward = GetRandomUniqueReward(out RewardType rewardType);
             return new [] {MapFactory.Create(boss[0], new RewardContext(reward ,rewardType))};
         }
-        
+
         private  MapLoadContextInstance[] GenerateMapsForALevel()
         {
-            //Each level has 2 options out of all the maps
-            var maps = RandomUtils.GetRandomUniqueItems(monsterMaps, 2);
-            Debug.Log("Generating maps for a level" + maps[0].name + " " + maps[1].name);
-            //decide get unique reward type
-            //random bool
-            if (Random.value > 0.5f)
+            var gateCount = GetGateCountForMiniMap();
+            var maps = RandomUtils.GetRandomUniqueItems(monsterMaps, gateCount);
+            if (maps == null || maps.Count == 0)
             {
-                var map1 = MapFactory.Create(maps[0], new RewardContext(GetRandomEquipment().ToArray(), RewardType.Equipment));
-                var map2 = MapFactory.Create(maps[1], new RewardContext(GetRandomSupply().ToArray(), RewardType.Supply));
-                return new [] {map1, map2};
+                throw new System.Exception("Maps are null");
             }
-            else
+
+            Debug.Log("Generating maps for a level with " + maps.Count + " gates.");
+
+            var rewardPattern = BuildRewardPattern(maps.Count);
+            var contexts = new MapLoadContextInstance[maps.Count];
+
+            for (var i = 0; i < maps.Count; i++)
             {
-                var map1 = MapFactory.Create(maps[0], new RewardContext(GetRandomSupply().ToArray(), RewardType.Supply));
-                var map2 = MapFactory.Create(maps[1], new RewardContext(GetRandomEquipment().ToArray(), RewardType.Equipment));
-                return new[] { map1, map2 };
+                var rewardType = rewardPattern[i];
+                var rewardContext = CreateRewardContext(rewardType);
+                contexts[i] = MapFactory.Create(maps[i], rewardContext);
             }
+
+            return contexts;
         }
 
         private List<ItemData> GetRandomEquipment()
         {
-            return RandomUtils.GetRandomUniqueItems(_rewardDataBase.EquipmentRewards, 3);
+            var rewards = RandomUtils.GetRandomUniqueItems(_rewardDataBase.EquipmentRewards, 3);
+            if (rewards == null || rewards.Count == 0)
+            {
+                throw new System.Exception("Equipment rewards are null");
+            }
+
+            return rewards;
         }
 
         private List<ItemData> GetRandomSupply()
         {
-            return RandomUtils.GetRandomUniqueItems(_rewardDataBase.SupplyRewards, 3);
+            var rewards = RandomUtils.GetRandomUniqueItems(_rewardDataBase.SupplyRewards, 3);
+            if (rewards == null || rewards.Count == 0)
+            {
+                throw new System.Exception("Supply rewards are null");
+            }
+
+            return rewards;
         }
 
         private ItemData[] GetRandomUniqueReward(out RewardType rewardType)
@@ -188,6 +230,78 @@ namespace _Script.Map.MapManager
             rewardType = RewardType.Equipment;
             return reward.ToArray();
         }
+
+        private RewardContext CreateRewardContext(RewardType rewardType)
+        {
+            switch (rewardType)
+            {
+                case RewardType.Equipment:
+                    return new RewardContext(GetRandomEquipment().ToArray(), RewardType.Equipment);
+                case RewardType.Supply:
+                    return new RewardContext(GetRandomSupply().ToArray(), RewardType.Supply);
+                default:
+                    throw new System.ArgumentOutOfRangeException(nameof(rewardType), rewardType, null);
+            }
+        }
+
+        private RewardType[] BuildRewardPattern(int gateCount)
+        {
+            if (gateCount <= 0)
+            {
+                return System.Array.Empty<RewardType>();
+            }
+
+            var rewardTypes = new List<RewardType>(gateCount);
+            if (gateCount == 1)
+            {
+                rewardTypes.Add(RewardType.Equipment);
+            }
+            else
+            {
+                rewardTypes.Add(RewardType.Equipment);
+                rewardTypes.Add(RewardType.Supply);
+                for (var i = rewardTypes.Count; i < gateCount; i++)
+                {
+                    rewardTypes.Add(Random.value > 0.5f ? RewardType.Equipment : RewardType.Supply);
+                }
+            }
+
+            return rewardTypes.OrderBy(_ => Random.value).ToArray();
+        }
+
+        private int GetMiniMapCountForCycle()
+        {
+            var minValue = Mathf.Max(1, Mathf.Min(minimumMiniMapCount, maximumMiniMapCount));
+            var maxValue = Mathf.Max(minValue, Mathf.Max(minimumMiniMapCount, maximumMiniMapCount));
+            return Random.Range(minValue, maxValue + 1);
+        }
+
+        private int GetGateCountForMiniMap()
+        {
+            if (monsterMaps == null || monsterMaps.Length == 0)
+            {
+                throw new System.Exception("Monster maps are null");
+            }
+
+            var minValue = Mathf.Max(1, Mathf.Min(minimumGateCount, maximumGateCount));
+            var maxValue = Mathf.Max(minValue, Mathf.Max(minimumGateCount, maximumGateCount));
+
+            var clampedMax = Mathf.Min(monsterMaps.Length, maxValue);
+            var clampedMin = Mathf.Min(clampedMax, minValue);
+
+            return Random.Range(clampedMin, clampedMax + 1);
+        }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            minimumMiniMapCount = Mathf.Max(1, minimumMiniMapCount);
+            maximumMiniMapCount = Mathf.Max(minimumMiniMapCount, maximumMiniMapCount);
+
+            minimumGateCount = Mathf.Max(1, minimumGateCount);
+            maximumGateCount = Mathf.Max(minimumGateCount, maximumGateCount);
+        }
+#endif
         
     }
 }
