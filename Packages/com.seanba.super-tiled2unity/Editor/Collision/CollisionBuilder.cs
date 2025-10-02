@@ -23,6 +23,7 @@ namespace SuperTiled2Unity.Editor
 
         public void PlaceTileColliders(SuperMap map, SuperTile tile, TileIdMath tileId, Vector3Int pos)
         {
+            /* Collision generation disabled.
             // Do we have any collider objects defined for this tile?
             if (!tile.m_CollisionObjects.IsEmpty())
             {
@@ -55,6 +56,7 @@ namespace SuperTiled2Unity.Editor
                     }
                 }
             }
+            */
         }
 
         public void Build(SuperImporter importer)
@@ -62,6 +64,7 @@ namespace SuperTiled2Unity.Editor
             // Excute our clippers and add game objects with their solution polygons
             foreach (var pair in m_CollisionClippers)
             {
+                /* Collision generation disabled.
                 var key = pair.Key;
                 var clipper = pair.Value;
 
@@ -80,6 +83,11 @@ namespace SuperTiled2Unity.Editor
                     {
                         // In this context, default means inherit from tilemap layer
                         layerId = m_TilemapGameObject.layer;
+                    }
+
+                    if (layerId == 0 && ST2USettings.instance.m_SkipDefaultLayerColliders)
+                    {
+                        continue;
                     }
 
                     var layerName = LayerMask.LayerToName(layerId);
@@ -127,6 +135,7 @@ namespace SuperTiled2Unity.Editor
                         edgeCollider.gameObject.AddComponent<SuperColliderComponent>();
                     }
                 }
+                */
             }
         }
 
