@@ -101,6 +101,7 @@ namespace _Script.Managers
             // Wait another frame to let newly spawned objects initialize
             yield return null;
 
+
             stopwatch.Stop();
             double seconds = stopwatch.ElapsedMilliseconds / 1000d;
 
@@ -109,6 +110,7 @@ namespace _Script.Managers
             
             // Once generation is done, calculate reachable area
             _reachableArea = GenerateReachableArea();
+            ApplyRuntimeTilemapCollisions();
 
             var spawner = GetComponent<MapSpawner>();
             GenerateNavMesh();
@@ -116,7 +118,131 @@ namespace _Script.Managers
             MovePlayerToScene(SpawnPoint.position, instance.MapName);
             GateGroup.Instance.GenerateGates();
         }
+
+        private void ApplyRuntimeTilemapCollisions()
+        {
+            Debug.Log("Applying runtime tilemap collisions...");
+            var tilemapsRoot = FindTilemapsRoot();
+            if (tilemapsRoot == null)
+            {
+                Debug.LogWarning("Tilemaps root not found after dungeon generation. Collisions skipped.");
+                return;
+            }
+            Debug.Log(tilemapsRoot + " is the tilemaps root");
+            var destinationTilemaps = tilemapsRoot.GetComponentsInChildren<Tilemap>(true);
+            if (destinationTilemaps.Length == 0)
+            {
+                Debug.LogWarning("No Tilemap components found under the Tilemaps root. Collisions skipped.");
+                return;
+            }
+            
+            Debug.Log($"Found {destinationTilemaps.Length} tilemaps under the Tilemaps root.");
+
+            foreach (var layerName in new[] {"Walls", "Collideable"})
+            {
+                var tilemap = FindTilemapByLayerName(destinationTilemaps, layerName);
+                if (tilemap == null)
+                {
+                    Debug.LogWarning($"Tilemap layer '{layerName}' not located after generation.");
+                    continue;
+                }
+
+                EnsureTilemapCollider(tilemap.gameObject);
+            }
+        }
         
+        [SerializeField] private Transform tilemapsRootOverride;
+        
+        private Transform FindTilemapsRoot()
+        {
+            // return self
+            // the tilemaps root is a child named "Tilemaps" so get that child
+            var child = transform.Find("Tilemaps");
+            if (child != null)
+            {
+                return child;
+            }            
+            return null;
+        }
+
+        private static Transform FindChildRecursive(Transform parent, string childName)
+        {
+            foreach (Transform child in parent)
+            {
+                if (string.Equals(child.name, childName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return child;
+                }
+
+                var descendant = FindChildRecursive(child, childName);
+                if (descendant != null)
+                {
+                    return descendant;
+                }
+            }
+
+            return null;
+        }
+
+        private static Tilemap FindTilemapByLayerName(IEnumerable<Tilemap> tilemaps, string targetName)
+        {
+            foreach (var tilemap in tilemaps)
+            {
+                var gameObjectName = tilemap.gameObject.name;
+                if (string.Equals(gameObjectName, targetName, StringComparison.OrdinalIgnoreCase) ||
+                    gameObjectName.IndexOf(targetName, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    return tilemap;
+                }
+            }
+
+            return null;
+        }
+
+        private void EnsureTilemapCollider(GameObject tilemapGameObject)
+        {
+            var tilemap = tilemapGameObject.GetComponent<Tilemap>();
+            if (tilemap == null)
+            {
+                Debug.LogWarning($"GameObject '{tilemapGameObject.name}' lacks a Tilemap component.");
+                return;
+            }
+
+            var tilemapCollider = tilemapGameObject.GetComponent<TilemapCollider2D>();
+            if (tilemapCollider == null)
+            {
+                tilemapCollider = tilemapGameObject.AddComponent<TilemapCollider2D>();
+            }
+
+            tilemapCollider.usedByComposite = true;
+            tilemapCollider.ProcessTilemapChanges();
+
+            var compositeCollider = tilemapGameObject.GetComponent<CompositeCollider2D>();
+            if (compositeCollider == null)
+            {
+                compositeCollider = tilemapGameObject.AddComponent<CompositeCollider2D>();
+            }
+
+            compositeCollider.geometryType = CompositeCollider2D.GeometryType.Polygons;
+            compositeCollider.generationType = CompositeCollider2D.GenerationType.Synchronous;
+            compositeCollider.isTrigger = false;
+
+            var rigidbody = tilemapGameObject.GetComponent<Rigidbody2D>();
+            if (rigidbody == null)
+            {
+                rigidbody = tilemapGameObject.AddComponent<Rigidbody2D>();
+            }
+
+            rigidbody.bodyType = RigidbodyType2D.Static;
+            rigidbody.simulated = true;
+
+            var obstacleLayer = LayerMask.NameToLayer("Obstacle");
+            if (obstacleLayer != -1)
+            {
+                tilemapGameObject.layer = obstacleLayer;
+            }
+        }
+
         private void GenerateNavMesh()
         {
             var gridGraph = AstarPath.active.data.gridGraph;
